@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lernpfad: Molares Volumen von Gasen – das Rätsel der Gefäße</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap');
+  :root {
+    --bg:#0a0e12; --surface:#121821; --surface2:#1a232f;
+    --teal:#1f9e8f; --teal-light:#3fd6c2; --teal-dim:#7fd4c8;
+    --amber:#d4870a; --amber-light:#f2a72b;
+    --cream:#e8f0ee; --cream-dim:#9fb8b2; --white:#f5faf8;
+    --co2:#7bb8e8;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--cream); font-family:'Source Serif 4',Georgia,serif; font-weight:300; line-height:1.7; overflow-x:hidden; }
+  sub { font-size:0.72em; vertical-align:sub; line-height:0; }
+  sup { font-size:0.72em; vertical-align:super; line-height:0; }
+
+  .progress-bar { position:fixed; top:0; left:0; height:3px; background:linear-gradient(to right,var(--teal),var(--teal-light)); width:0%; transition:width 0.2s; z-index:1000; }
+
+  .hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:60px 24px; position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 80% 60% at 50% 55%, rgba(31,158,143,0.18) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 70% 20%, rgba(123,184,232,0.10) 0%, transparent 60%); pointer-events:none; }
+  .hero-label { font-size:0.72rem; letter-spacing:0.35em; text-transform:uppercase; color:var(--teal-light); margin-bottom:20px; opacity:0; animation:fadeUp 0.8s ease 0.2s forwards; }
+  .hero h1 { font-family:'Playfair Display',serif; font-size:clamp(2.2rem,5.5vw,4rem); font-weight:900; color:var(--white); line-height:1.1; max-width:840px; opacity:0; animation:fadeUp 0.8s ease 0.5s forwards; }
+  .hero h1 span { color:var(--teal-light); }
+  .hero-sub { margin-top:24px; font-size:1.05rem; color:var(--cream-dim); max-width:620px; opacity:0; animation:fadeUp 0.8s ease 0.8s forwards; }
+  .hero-vessels { margin-top:40px; opacity:0; animation:fadeUp 0.8s ease 1.1s forwards; }
+  .scroll-hint { margin-top:48px; font-size:0.78rem; color:var(--teal-light); letter-spacing:0.2em; text-transform:uppercase; opacity:0; animation:fadeUp 0.8s ease 1.5s forwards; }
+  .scroll-arrow { display:block; margin:8px auto 0; width:20px; height:20px; border-right:2px solid var(--teal-light); border-bottom:2px solid var(--teal-light); transform:rotate(45deg); animation:bounce 1.5s ease infinite 2.2s; }
+
+  .section { max-width:880px; margin:0 auto; padding:80px 24px; opacity:0; transform:translateY(30px); transition:opacity 0.7s ease, transform 0.7s ease; }
+  .section.visible { opacity:1; transform:translateY(0); }
+  .section-tag { font-size:0.68rem; letter-spacing:0.35em; text-transform:uppercase; color:var(--teal-light); margin-bottom:12px; display:flex; align-items:center; gap:12px; }
+  .section-tag::after { content:''; flex:1; height:1px; background:linear-gradient(to right,rgba(31,158,143,0.4),transparent); }
+  .section h2 { font-family:'Playfair Display',serif; font-size:clamp(1.6rem,3.5vw,2.4rem); font-weight:700; color:var(--white); margin-bottom:20px; line-height:1.2; }
+  .section p { margin-bottom:1em; color:var(--cream); }
+  .section h3 { font-family:'Playfair Display',serif; color:var(--teal-light); margin:24px 0 10px; font-size:1.2rem; }
+
+  /* MCQ */
+  .quiz-card { background:var(--surface); border:1px solid rgba(31,158,143,0.18); border-radius:12px; padding:24px; margin:20px 0; transition:border-color 0.3s; }
+  .quiz-card.solved { border-color:var(--teal); }
+  .quiz-head { display:flex; align-items:center; gap:14px; margin-bottom:6px; }
+  .quiz-emoji { font-size:2rem; flex-shrink:0; }
+  .quiz-badge { font-size:0.62rem; letter-spacing:0.15em; text-transform:uppercase; padding:2px 9px; border-radius:4px; font-weight:600; }
+  .badge-easy { background:rgba(92,184,92,0.15); color:#7ed87e; border:1px solid rgba(92,184,92,0.4); }
+  .badge-med { background:rgba(242,167,43,0.15); color:var(--amber-light); border:1px solid rgba(242,167,43,0.4); }
+  .badge-hard { background:rgba(231,76,60,0.15); color:#ff7a6a; border:1px solid rgba(231,76,60,0.4); }
+  .quiz-q { font-size:1rem; color:var(--white); margin:8px 0 14px; font-weight:400; }
+  .quiz-q .mono { font-family:'Courier New',monospace; color:var(--teal-light); }
+  .quiz-opts { display:grid; gap:8px; }
+  .quiz-opt { background:var(--surface2); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:11px 16px; cursor:pointer; transition:all 0.2s; font-size:0.92rem; display:flex; align-items:center; gap:10px; }
+  .quiz-opt:hover { border-color:var(--teal); background:rgba(31,158,143,0.08); }
+  .quiz-opt .opt-letter { font-family:'Courier New',monospace; color:var(--teal-light); font-weight:700; flex-shrink:0; }
+  .quiz-opt.correct { background:rgba(92,184,92,0.18); border-color:#5cb85c; color:#bfeebf; }
+  .quiz-opt.wrong { background:rgba(231,76,60,0.15); border-color:#e74c3c; color:#ffb3aa; }
+  .quiz-opt.disabled { cursor:default; opacity:0.6; }
+  .quiz-feedback { margin-top:12px; font-size:0.86rem; font-style:italic; min-height:1.2em; }
+  .quiz-feedback.ok { color:#7ed87e; }
+  .quiz-feedback.no { color:#ff7a6a; }
+  .quiz-progress { text-align:center; font-size:0.85rem; color:var(--cream-dim); margin-top:8px; }
+
+  .illus-box { background:var(--surface); border:1px solid rgba(31,158,143,0.2); border-radius:12px; padding:24px; margin:24px 0; text-align:center; }
+  .illus-box svg { display:block; margin:0 auto; }
+
+  .mystery-box { background:var(--surface2); border:1px solid rgba(31,158,143,0.2); border-radius:12px; padding:32px; margin:32px 0; position:relative; overflow:hidden; }
+  .mystery-box::before { content:'?'; position:absolute; right:24px; top:12px; font-family:'Playfair Display',serif; font-size:6rem; color:rgba(31,158,143,0.08); line-height:1; pointer-events:none; }
+  .mystery-box h3 { font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--teal-light); margin-bottom:12px; margin-top:0; }
+
+  /* equations */
+  .eq-box { background:var(--surface2); border:1px solid rgba(31,158,143,0.25); border-radius:10px; padding:22px; margin:18px 0; overflow-x:auto; }
+  .eq-label { font-size:0.68rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--teal-light); margin-bottom:14px; }
+  .eq-line { font-size:1rem; color:var(--white); margin:10px 0; line-height:1.8; font-family:'Courier New',monospace; }
+  .eq-line .dim { color:var(--cream-dim); font-size:0.85rem; font-family:'Source Serif 4',serif; }
+
+  .reveal-blank { display:inline-block; background:var(--surface); padding:2px 10px; border:1px dashed rgba(31,158,143,0.45); border-radius:4px; cursor:pointer; color:rgba(63,214,194,0.5); font-style:italic; transition:all 0.25s; min-width:30px; text-align:center; user-select:none; margin:0 2px; }
+  .reveal-blank:hover { background:rgba(31,158,143,0.12); color:var(--teal-light); }
+  .reveal-blank.revealed { background:rgba(31,158,143,0.1); border-style:solid; border-color:var(--teal); color:var(--teal-light); font-style:normal; cursor:default; font-weight:700; }
+
+  .frac { display:inline-flex; flex-direction:column; align-items:center; font-family:'Courier New',monospace; line-height:1.2; vertical-align:middle; }
+  .frac .num { padding:0 8px; border-bottom:1.5px solid var(--teal-light); }
+  .frac .den { padding:0 8px; }
+  .strike { position:relative; display:inline-block; color:var(--cream-dim); }
+  .strike::after { content:''; position:absolute; left:-2px; right:-2px; top:50%; height:1.5px; background:#e74c3c; transform:rotate(-12deg); }
+
+  .steps-wrapper { margin:28px 0; }
+  .step-item { display:flex; gap:18px; margin-bottom:16px; }
+  .step-num { flex-shrink:0; width:40px; height:40px; background:var(--teal); color:#04201c; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-weight:900; font-size:1.05rem; }
+  .step-content { flex:1; background:var(--surface); border-radius:10px; padding:18px 20px; border:1px solid rgba(31,158,143,0.1); }
+  .step-content h4 { font-family:'Playfair Display',serif; color:var(--teal-light); margin-bottom:8px; font-size:1rem; }
+
+  .salt-toggle { display:flex; gap:10px; margin:16px 0; }
+  .salt-btn { flex:1; padding:12px; border-radius:8px; border:1px solid rgba(31,158,143,0.3); background:var(--surface2); color:var(--cream); cursor:pointer; font-family:'Source Serif 4',serif; font-size:0.9rem; transition:all 0.2s; text-align:center; }
+  .salt-btn:hover { border-color:var(--teal); }
+  .salt-btn.active { background:var(--teal); color:#04201c; font-weight:600; border-color:var(--teal); }
+
+  .check-input { margin-top:12px; background:var(--surface2); border:1px solid rgba(31,158,143,0.2); border-radius:8px; padding:14px; }
+  .check-input label { display:block; font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--teal-light); margin-bottom:6px; }
+  .check-input input { background:transparent; border:none; border-bottom:1px solid rgba(31,158,143,0.4); color:var(--white); font-family:'Courier New',monospace; font-size:1rem; width:100%; outline:none; padding:4px 0; }
+  .check-btn { margin-top:10px; background:transparent; border:1px solid var(--teal); color:var(--teal-light); padding:7px 18px; border-radius:5px; cursor:pointer; font-family:'Source Serif 4',serif; font-size:0.82rem; letter-spacing:0.08em; transition:all 0.2s; }
+  .check-btn:hover { background:var(--teal); color:#04201c; }
+  .feedback { margin-top:8px; font-size:0.82rem; min-height:1.2em; font-style:italic; }
+  .feedback.ok { color:#7ed87e; }
+  .feedback.err { color:#ff7a6a; }
+
+  /* PIN box */
+  .pin-box { background:linear-gradient(135deg,#1a232f 0%, rgba(31,158,143,0.08) 100%); border:1px solid var(--teal); border-radius:14px; padding:28px; margin:20px 0; }
+  .pin-box h3 { margin-top:0; color:var(--teal-light); }
+  .pin-lock { text-align:center; font-size:2.4rem; margin-bottom:8px; }
+  .pin-fields { display:flex; gap:10px; justify-content:center; margin:16px 0; }
+  .pin-fields input { width:54px; height:64px; text-align:center; font-size:1.8rem; font-family:'Courier New',monospace; background:var(--surface2); border:2px solid rgba(31,158,143,0.4); border-radius:8px; color:var(--white); outline:none; transition:border-color 0.2s; }
+  .pin-fields input:focus { border-color:var(--teal-light); }
+  .pin-solution { display:none; margin-top:16px; padding:18px; background:rgba(92,184,92,0.08); border:1px solid rgba(92,184,92,0.4); border-radius:8px; }
+  .pin-solution.open { display:block; animation:fadeUp 0.5s ease; }
+
+  .reveal-toggle { background:transparent; border:1px solid rgba(31,158,143,0.3); border-radius:8px; padding:12px 20px; width:100%; text-align:left; color:var(--teal-light); cursor:pointer; font-family:'Source Serif 4',serif; font-size:0.88rem; letter-spacing:0.06em; transition:background 0.2s; display:flex; justify-content:space-between; align-items:center; margin:8px 0; }
+  .reveal-toggle:hover { background:rgba(31,158,143,0.08); }
+  .reveal-toggle .arrow { transition:transform 0.3s; }
+  .reveal-toggle.open .arrow { transform:rotate(180deg); }
+  .reveal-body { display:none; background:var(--surface); border:1px solid rgba(31,158,143,0.15); border-top:none; border-radius:0 0 8px 8px; padding:20px; font-size:0.88rem; margin-bottom:8px; }
+  .reveal-body.open { display:block; }
+
+  .callout { border-left:3px solid var(--teal); padding:14px 18px; background:rgba(31,158,143,0.06); border-radius:0 8px 8px 0; margin:16px 0; font-size:0.88rem; }
+  .callout strong { color:var(--teal-light); }
+  .callout.amber { border-left-color:var(--amber); background:rgba(212,135,10,0.06); }
+  .callout.amber strong { color:var(--amber-light); }
+
+  .divider { height:1px; background:linear-gradient(to right,transparent,rgba(31,158,143,0.3),transparent); margin:20px 0; }
+  .formula-center { text-align:center; font-size:1.3rem; color:var(--teal-light); padding:20px; background:var(--surface2); border-radius:8px; margin:16px 0; }
+
+  /* Schnellläufer */
+  .vertiefung { background:linear-gradient(135deg,#0d1620 0%, #16202a 100%); border:1px solid rgba(123,184,232,0.3); border-radius:14px; padding:32px; margin:32px 0; }
+  .vertiefung h3 { font-family:'Playfair Display',serif; color:var(--co2); font-size:1.4rem; margin-bottom:14px; margin-top:0; }
+  .vertiefung .tag { display:inline-block; background:rgba(123,184,232,0.15); border:1px solid rgba(123,184,232,0.4); color:var(--co2); font-size:0.68rem; letter-spacing:0.2em; text-transform:uppercase; padding:3px 10px; border-radius:4px; margin-bottom:16px; }
+  .vertiefung .eq-box { background:#0a1018; border-color:rgba(123,184,232,0.25); }
+  .vertiefung .eq-label { color:var(--co2); }
+  .vertiefung .reveal-blank { border-color:rgba(123,184,232,0.45); color:rgba(123,184,232,0.5); }
+  .vertiefung .reveal-blank.revealed { border-color:var(--co2); color:var(--co2); background:rgba(123,184,232,0.1); }
+
+  @keyframes fadeUp { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+  @keyframes bounce { 0%,100%{transform:rotate(45deg) translateY(0);} 50%{transform:rotate(45deg) translateY(6px);} }
+  @media(max-width:600px) { .pin-fields input { width:44px; height:54px; font-size:1.4rem; } }
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">Lernpfad Chemie · Klasse 8 · Gase</div>
+  <h1>Zwei Gefäße, kein Etikett –<br><span>welches ist welches?</span></h1>
+  <p class="hero-sub">Vom Wiegen des entweichenden CO<sub>2</sub> zum molaren Volumen der Gase. Erst rechnen, dann experimentieren. 🧪💨</p>
+  <div class="hero-vessels"><svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" width="100%" style="max-width:400px">
+  <defs>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.15)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0.04)"/>
+    </linearGradient>
+  </defs>
+  <!-- Vessel A -->
+  <g>
+    <path d="M 70 60 L 70 170 Q 70 185 85 185 L 135 185 Q 150 185 150 170 L 150 60 Z" fill="url(#glass)" stroke="#d4870a" stroke-width="2"/>
+    <rect x="72" y="120" width="76" height="63" rx="3" fill="rgba(240,240,250,0.18)"/>
+    <text x="110" y="100" text-anchor="middle" font-size="40" fill="#f2a72b" font-family="serif" font-weight="900">?</text>
+    <text x="110" y="205" text-anchor="middle" font-size="13" fill="#f0e6cc" font-family="serif">Gefäß A</text>
+    <text x="110" y="50" text-anchor="middle" font-size="10" fill="#c9b98a" font-family="serif">weißes Pulver</text>
+  </g>
+  <!-- Vessel B -->
+  <g>
+    <path d="M 250 60 L 250 170 Q 250 185 265 185 L 315 185 Q 330 185 330 170 L 330 60 Z" fill="url(#glass)" stroke="#d4870a" stroke-width="2"/>
+    <rect x="252" y="120" width="76" height="63" rx="3" fill="rgba(240,240,250,0.18)"/>
+    <text x="290" y="100" text-anchor="middle" font-size="40" fill="#f2a72b" font-family="serif" font-weight="900">?</text>
+    <text x="290" y="205" text-anchor="middle" font-size="13" fill="#f0e6cc" font-family="serif">Gefäß B</text>
+    <text x="290" y="50" text-anchor="middle" font-size="10" fill="#c9b98a" font-family="serif">weißes Pulver</text>
+  </g>
+  <text x="200" y="120" text-anchor="middle" font-size="20" fill="#c9b98a" font-family="serif">vs.</text>
+</svg></div>
+  <div class="scroll-hint">Aufwärmen &amp; Entdecken <span class="scroll-arrow"></span></div>
+</div>
+
+<!-- STATION 1: EINGANGSTEST -->
+<div class="section" id="s1">
+  <div class="section-tag">Station 1 · Aufwärmen</div>
+  <h2>🎯 Eingangstest: m, n und M sitzen?</h2>
+  <p>Bevor wir Neues entdecken, prüfen wir kurz dein Wissen aus dem Massenberechnungs-Lernpfad. Klicke jeweils die richtige Antwort – 5 Aufgaben, vom Leichten zum Kniffligen.</p>
+
+  <!-- Q1 EASY -->
+  <div class="quiz-card" data-correct="1">
+    <div class="quiz-head"><span class="quiz-emoji">🧮</span><span class="quiz-badge badge-easy">Leicht</span></div>
+    <div class="quiz-q">Welche Formel verbindet Stoffmenge <em>n</em>, Masse <em>m</em> und molare Masse <em>M</em>?</div>
+    <div class="quiz-opts">
+      <div class="quiz-opt" onclick="answer(this,0)"><span class="opt-letter">A</span><span class="mono">n = m · M</span></div>
+      <div class="quiz-opt" onclick="answer(this,1)"><span class="opt-letter">B</span><span class="mono">n = m / M</span></div>
+      <div class="quiz-opt" onclick="answer(this,2)"><span class="opt-letter">C</span><span class="mono">n = M / m</span></div>
+      <div class="quiz-opt" onclick="answer(this,3)"><span class="opt-letter">D</span><span class="mono">n = m + M</span></div>
+    </div>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <!-- Q2 EASY -->
+  <div class="quiz-card" data-correct="1">
+    <div class="quiz-head"><span class="quiz-emoji">⚖️</span><span class="quiz-badge badge-easy">Leicht</span></div>
+    <div class="quiz-q">Wie groß ist die molare Masse von CO<sub>2</sub>? <span class="dim">(M(C) = 12,0 g/mol, M(O) = 16,0 g/mol)</span></div>
+    <div class="quiz-opts">
+      <div class="quiz-opt" onclick="answer(this,0)"><span class="opt-letter">A</span><span class="mono">28 g/mol</span></div>
+      <div class="quiz-opt" onclick="answer(this,1)"><span class="opt-letter">B</span><span class="mono">44 g/mol</span></div>
+      <div class="quiz-opt" onclick="answer(this,2)"><span class="opt-letter">C</span><span class="mono">56 g/mol</span></div>
+      <div class="quiz-opt" onclick="answer(this,3)"><span class="opt-letter">D</span><span class="mono">32 g/mol</span></div>
+    </div>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <!-- Q3 EASY -->
+  <div class="quiz-card" data-correct="1">
+    <div class="quiz-head"><span class="quiz-emoji">🔢</span><span class="quiz-badge badge-easy">Leicht</span></div>
+    <div class="quiz-q">Wie viele mol sind 88 g CO<sub>2</sub>? <span class="dim">(M = 44 g/mol)</span></div>
+    <div class="quiz-opts">
+      <div class="quiz-opt" onclick="answer(this,0)"><span class="opt-letter">A</span><span class="mono">1 mol</span></div>
+      <div class="quiz-opt" onclick="answer(this,1)"><span class="opt-letter">B</span><span class="mono">2 mol</span></div>
+      <div class="quiz-opt" onclick="answer(this,2)"><span class="opt-letter">C</span><span class="mono">0,5 mol</span></div>
+      <div class="quiz-opt" onclick="answer(this,3)"><span class="opt-letter">D</span><span class="mono">44 mol</span></div>
+    </div>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <!-- Q4 MEDIUM -->
+  <div class="quiz-card" data-correct="1">
+    <div class="quiz-head"><span class="quiz-emoji">🧪</span><span class="quiz-badge badge-med">Mittel</span></div>
+    <div class="quiz-q">In der Reaktion <span class="mono">Fe<sub>2</sub>O<sub>3</sub> + 2 Al → Al<sub>2</sub>O<sub>3</sub> + 2 Fe</span> – wie viel mol Fe entstehen aus 0,5 mol Fe<sub>2</sub>O<sub>3</sub>?</div>
+    <div class="quiz-opts">
+      <div class="quiz-opt" onclick="answer(this,0)"><span class="opt-letter">A</span><span class="mono">0,5 mol</span></div>
+      <div class="quiz-opt" onclick="answer(this,1)"><span class="opt-letter">B</span><span class="mono">1 mol</span></div>
+      <div class="quiz-opt" onclick="answer(this,2)"><span class="opt-letter">C</span><span class="mono">2 mol</span></div>
+      <div class="quiz-opt" onclick="answer(this,3)"><span class="opt-letter">D</span><span class="mono">0,25 mol</span></div>
+    </div>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <!-- Q5 HARD -->
+  <div class="quiz-card" data-correct="1">
+    <div class="quiz-head"><span class="quiz-emoji">🔥</span><span class="quiz-badge badge-hard">Schwer</span></div>
+    <div class="quiz-q">Wie viel Gramm Eisen entstehen aus 8 g Fe<sub>2</sub>O<sub>3</sub>? <span class="dim">(M(Fe<sub>2</sub>O<sub>3</sub>) = 160 g/mol, M(Fe) = 56 g/mol, Verhältnis Fe<sub>2</sub>O<sub>3</sub>:Fe = 1:2)</span></div>
+    <div class="quiz-opts">
+      <div class="quiz-opt" onclick="answer(this,0)"><span class="opt-letter">A</span><span class="mono">2,8 g</span></div>
+      <div class="quiz-opt" onclick="answer(this,1)"><span class="opt-letter">B</span><span class="mono">5,6 g</span></div>
+      <div class="quiz-opt" onclick="answer(this,2)"><span class="opt-letter">C</span><span class="mono">8 g</span></div>
+      <div class="quiz-opt" onclick="answer(this,3)"><span class="opt-letter">D</span><span class="mono">11,2 g</span></div>
+    </div>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="quiz-progress" id="quizProgress">Gelöst: 0 / 5</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- STATION 2: DAS RÄTSEL -->
+<div class="section" id="s2">
+  <div class="section-tag">Station 2 · Das Rätsel</div>
+  <h2>🔬 Zwei unbeschriftete Gefäße</h2>
+  <p>Auf dem Lehrertisch stehen zwei Gefäße mit weißem Pulver. Beide sind <strong>Basen</strong>, beide sehen gleich aus. Es sind:</p>
+  <ul style="margin:0 0 1em 20px; color:var(--cream)">
+    <li><strong>Natron</strong> – Natriumhydrogencarbonat (NaHCO<sub>3</sub>)</li>
+    <li><strong>Soda</strong> – Natriumcarbonat (Na<sub>2</sub>CO<sub>3</sub>)</li>
+  </ul>
+
+  <div class="illus-box"><svg viewBox="0 0 420 240" xmlns="http://www.w3.org/2000/svg" width="100%" style="max-width:420px">
+  <!-- CO2 bubbles escaping -->
+  <g opacity="0.85">
+    <circle cx="160" cy="40" r="7" fill="rgba(150,200,255,0.4)" stroke="#7bb8e8" stroke-width="1"/>
+    <text x="160" y="44" text-anchor="middle" font-size="8" fill="#aad4ff" font-family="serif">CO₂</text>
+    <circle cx="200" cy="25" r="9" fill="rgba(150,200,255,0.35)" stroke="#7bb8e8" stroke-width="1"/>
+    <text x="200" y="29" text-anchor="middle" font-size="8" fill="#aad4ff" font-family="serif">CO₂</text>
+    <circle cx="235" cy="50" r="6" fill="rgba(150,200,255,0.4)" stroke="#7bb8e8" stroke-width="1"/>
+    <circle cx="185" cy="62" r="5" fill="rgba(150,200,255,0.4)" stroke="#7bb8e8" stroke-width="1"/>
+  </g>
+  <!-- arrows up -->
+  <path d="M 170 75 L 170 60" stroke="#7bb8e8" stroke-width="1.5" marker-end="url(#up)"/>
+  <path d="M 215 75 L 215 55" stroke="#7bb8e8" stroke-width="1.5" marker-end="url(#up)"/>
+  <defs><marker id="up" markerWidth="8" markerHeight="8" refX="4" refY="2" orient="auto"><path d="M0 6 L4 0 L8 6 Z" fill="#7bb8e8"/></marker></defs>
+  <!-- beaker -->
+  <path d="M 160 90 L 165 150 Q 166 160 176 160 L 214 160 Q 224 160 225 150 L 230 90 Z" fill="rgba(255,255,255,0.08)" stroke="#d4870a" stroke-width="2"/>
+  <path d="M 168 135 L 222 135 L 219 150 Q 218 158 210 158 L 180 158 Q 172 158 171 150 Z" fill="rgba(212,135,10,0.25)"/>
+  <text x="195" y="150" text-anchor="middle" font-size="9" fill="#f0e6cc" font-family="serif">Salz + Säure</text>
+  <!-- balance base -->
+  <rect x="120" y="175" width="150" height="50" rx="6" fill="#231d15" stroke="#d4870a" stroke-width="1.5"/>
+  <rect x="150" y="190" width="90" height="22" rx="3" fill="#0f0c08"/>
+  <text x="195" y="206" text-anchor="middle" font-size="13" fill="#5cb85c" font-family="monospace" font-weight="bold">− CO₂ ↓</text>
+  <text x="195" y="234" text-anchor="middle" font-size="10" fill="#c9b98a" font-family="serif">Masse sinkt = Gewichtsverlust</text>
+  <!-- big question -->
+  <text x="340" y="120" text-anchor="middle" font-size="13" fill="#f2a72b" font-family="serif" font-style="italic">Welches Salz</text>
+  <text x="340" y="138" text-anchor="middle" font-size="13" fill="#f2a72b" font-family="serif" font-style="italic">verliert mehr?</text>
+</svg></div>
+
+  <div class="mystery-box">
+    <h3>🤔 Die Idee</h3>
+    <p>Gibt man <strong>Säure</strong> (z. B. Essigsäure) zu, sprudelt <strong>Kohlenstoffdioxid (CO<sub>2</sub>)</strong> heraus und entweicht in die Luft. Die Masse im Becher <em>sinkt</em> – das ist der <strong>Gewichtsverlust</strong>.</p>
+    <p style="margin-top:10px">Wenn beide Salze <em>unterschiedlich viel</em> CO<sub>2</sub> pro Gramm freisetzen, können wir sie durch <strong>Wiegen</strong> unterscheiden! Aber tun sie das? Das rechnen wir jetzt aus.</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- STATION 3: DIE REAKTIONEN -->
+<div class="section" id="s3">
+  <div class="section-tag">Station 3 · Die Reaktionsgleichungen</div>
+  <h2>📜 Was passiert mit der Säure?</h2>
+  <p>Säure-Base-Reaktionen lernst du erst später genau kennen – darum bekommst du die beiden Gleichungen hier <strong>vorgegeben</strong>. Wichtig für dich: Lies die <strong>stöchiometrischen Koeffizienten</strong> ab (genau wie beim Thermit-Algorithmus!).</p>
+
+  <div class="eq-box">
+    <div class="eq-label">Reaktion 1 · Natron (NaHCO<sub>3</sub>) mit Essigsäure</div>
+    <div class="eq-line">NaHCO<sub>3</sub> + CH<sub>3</sub>COOH → CH<sub>3</sub>COONa + H<sub>2</sub>O + CO<sub>2</sub> ↑</div>
+    <div class="eq-line dim">Verhältnis NaHCO<sub>3</sub> : CO<sub>2</sub> = <strong style="color:var(--teal-light)">1 : 1</strong> → aus 1 mol Natron entsteht 1 mol CO<sub>2</sub></div>
+  </div>
+
+  <div class="eq-box">
+    <div class="eq-label">Reaktion 2 · Soda (Na<sub>2</sub>CO<sub>3</sub>) mit Essigsäure</div>
+    <div class="eq-line">Na<sub>2</sub>CO<sub>3</sub> + 2 CH<sub>3</sub>COOH → 2 CH<sub>3</sub>COONa + H<sub>2</sub>O + CO<sub>2</sub> ↑</div>
+    <div class="eq-line dim">Verhältnis Na<sub>2</sub>CO<sub>3</sub> : CO<sub>2</sub> = <strong style="color:var(--teal-light)">1 : 1</strong> → aus 1 mol Soda entsteht 1 mol CO<sub>2</sub></div>
+  </div>
+
+  <div class="callout">
+    <strong>🧐 Überraschung:</strong> Beide setzen <em>pro mol Salz</em> gleich viel CO<sub>2</sub> frei (je 1 mol). Wie kann dann ein Unterschied entstehen? <em>Tipp: Achte auf die molaren Massen – wie viele mol stecken in z. B. 5 g jedes Salzes?</em>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- STATION 4: ALGORITHMUS -->
+<div class="section" id="s4">
+  <div class="section-tag">Station 4 · Algorithmus</div>
+  <h2>⚙️ Wie viel CO<sub>2</sub> entsteht aus 5,0 g Salz?</h2>
+  <p>Wir rechnen die freigesetzte CO<sub>2</sub>-Masse für <strong>5,0 g jedes Salzes</strong> aus. Wähle ein Salz und decke die Schritte selbst auf. Schreibe alles mit!</p>
+
+  <div class="salt-toggle">
+    <button class="salt-btn active" id="btnNatron" onclick="showSalt('natron')">🧂 Natron · NaHCO<sub>3</sub></button>
+    <button class="salt-btn" id="btnSoda" onclick="showSalt('soda')">🧊 Soda · Na<sub>2</sub>CO<sub>3</sub></button>
+  </div>
+
+  <!-- NATRON -->
+  <div id="saltNatron">
+    <div class="steps-wrapper">
+      <div class="step-item"><div class="step-num">1</div><div class="step-content">
+        <h4>Reaktionsgleichung & Verhältnis</h4>
+        <div class="eq-line">NaHCO<sub>3</sub> + CH<sub>3</sub>COOH → CH<sub>3</sub>COONa + H<sub>2</sub>O + CO<sub>2</sub></div>
+        <div class="eq-line dim">n(NaHCO<sub>3</sub>) : n(CO<sub>2</sub>) = <span class="reveal-blank" onclick="rb(this)" data-content="1 : 1">?</span></div>
+      </div></div>
+      <div class="step-item"><div class="step-num">2</div><div class="step-content">
+        <h4>Formel umstellen (gesucht: m(CO<sub>2</sub>))</h4>
+        <div class="eq-line">n(CO<sub>2</sub>) = n(NaHCO<sub>3</sub>) · 1/1</div>
+        <div class="eq-line">m(CO<sub>2</sub>) = <span class="frac"><span class="num">m(NaHCO<sub>3</sub>) · 1 · M(CO<sub>2</sub>)</span><span class="den">M(NaHCO<sub>3</sub>) · 1</span></span></div>
+      </div></div>
+      <div class="step-item"><div class="step-num">3</div><div class="step-content">
+        <h4>Molare Massen (PSE)</h4>
+        <div class="eq-line">M(NaHCO<sub>3</sub>) = 23,0 + 1,0 + 12,0 + 3·16,0 = <span class="reveal-blank" onclick="rb(this)" data-content="84,0 g/mol">?</span></div>
+        <div class="eq-line">M(CO<sub>2</sub>) = 12,0 + 2·16,0 = <span class="reveal-blank" onclick="rb(this)" data-content="44,0 g/mol">?</span></div>
+      </div></div>
+      <div class="step-item"><div class="step-num">4</div><div class="step-content">
+        <h4>Einsetzen & Einheiten kürzen</h4>
+        <div class="eq-line">m(CO<sub>2</sub>) = <span class="frac"><span class="num">5,0 g · 44,0 <span class="strike">g/mol</span></span><span class="den">84,0 <span class="strike">g/mol</span></span></span> = <span class="reveal-blank" onclick="rb(this)" data-content="≈ 2,62 g">?</span></div>
+        <div class="eq-line dim">g/mol kürzt sich weg → übrig bleibt <strong style="color:var(--teal-light)">g</strong></div>
+      </div></div>
+      <div class="step-item"><div class="step-num">5</div><div class="step-content">
+        <h4>Antwortsatz</h4>
+        <div class="eq-line dim">Aus 5,0 g Natron entstehen ca. <span class="reveal-blank" onclick="rb(this)" data-content="2,62 g">?</span> CO<sub>2</sub> → Gewichtsverlust ≈ 2,62 g (52 %).</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- SODA -->
+  <div id="saltSoda" style="display:none">
+    <div class="steps-wrapper">
+      <div class="step-item"><div class="step-num">1</div><div class="step-content">
+        <h4>Reaktionsgleichung & Verhältnis</h4>
+        <div class="eq-line">Na<sub>2</sub>CO<sub>3</sub> + 2 CH<sub>3</sub>COOH → 2 CH<sub>3</sub>COONa + H<sub>2</sub>O + CO<sub>2</sub></div>
+        <div class="eq-line dim">n(Na<sub>2</sub>CO<sub>3</sub>) : n(CO<sub>2</sub>) = <span class="reveal-blank" onclick="rb(this)" data-content="1 : 1">?</span></div>
+      </div></div>
+      <div class="step-item"><div class="step-num">2</div><div class="step-content">
+        <h4>Formel umstellen (gesucht: m(CO<sub>2</sub>))</h4>
+        <div class="eq-line">n(CO<sub>2</sub>) = n(Na<sub>2</sub>CO<sub>3</sub>) · 1/1</div>
+        <div class="eq-line">m(CO<sub>2</sub>) = <span class="frac"><span class="num">m(Na<sub>2</sub>CO<sub>3</sub>) · 1 · M(CO<sub>2</sub>)</span><span class="den">M(Na<sub>2</sub>CO<sub>3</sub>) · 1</span></span></div>
+      </div></div>
+      <div class="step-item"><div class="step-num">3</div><div class="step-content">
+        <h4>Molare Massen (PSE)</h4>
+        <div class="eq-line">M(Na<sub>2</sub>CO<sub>3</sub>) = 2·23,0 + 12,0 + 3·16,0 = <span class="reveal-blank" onclick="rb(this)" data-content="106,0 g/mol">?</span></div>
+        <div class="eq-line">M(CO<sub>2</sub>) = 12,0 + 2·16,0 = <span class="reveal-blank" onclick="rb(this)" data-content="44,0 g/mol">?</span></div>
+      </div></div>
+      <div class="step-item"><div class="step-num">4</div><div class="step-content">
+        <h4>Einsetzen & Einheiten kürzen</h4>
+        <div class="eq-line">m(CO<sub>2</sub>) = <span class="frac"><span class="num">5,0 g · 44,0 <span class="strike">g/mol</span></span><span class="den">106,0 <span class="strike">g/mol</span></span></span> = <span class="reveal-blank" onclick="rb(this)" data-content="≈ 2,08 g">?</span></div>
+        <div class="eq-line dim">g/mol kürzt sich weg → übrig bleibt <strong style="color:var(--teal-light)">g</strong></div>
+      </div></div>
+      <div class="step-item"><div class="step-num">5</div><div class="step-content">
+        <h4>Antwortsatz</h4>
+        <div class="eq-line dim">Aus 5,0 g Soda entstehen ca. <span class="reveal-blank" onclick="rb(this)" data-content="2,08 g">?</span> CO<sub>2</sub> → Gewichtsverlust ≈ 2,08 g (42 %).</div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="mystery-box">
+    <h3>💡 Das Rätsel ist gelöst!</h3>
+    <p>Bei gleicher Einwaage (5,0 g) verliert <strong>Natron mehr Gewicht</strong> (≈ 2,62 g) als <strong>Soda</strong> (≈ 2,08 g) – weil Natron die <em>kleinere molare Masse</em> hat und somit <em>mehr mol</em> in 5,0 g stecken. Mehr mol Salz → mehr mol CO<sub>2</sub> → größerer Gewichtsverlust.</p>
+    <p style="margin-top:10px"><strong>Das Gefäß mit dem größeren Gewichtsverlust ist also Natron!</strong> 🎯</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- STATION 5: PIN + EXPERIMENT -->
+<div class="section" id="s5">
+  <div class="section-tag">Station 5 · Selbstkontrolle &amp; Experiment</div>
+  <h2>🔐 Vergleiche am Pult – dann ins Labor!</h2>
+  <p>Habt ihr eure Gewichtsverluste berechnet? Hol dir am Lehrerpult den jeweiligen <strong>4-stelligen PIN</strong>, um die Musterlösung freizuschalten und deine Rechnung zu prüfen.</p>
+
+  <div class="pin-box">
+    <div class="pin-lock">🔒</div>
+    <h3 style="text-align:center">Gewichtsverlust Natron (NaHCO<sub>3</sub>)</h3>
+    <p style="text-align:center;font-size:0.85rem;color:var(--cream-dim)">PIN am Pult abholen und eingeben:</p>
+    <div class="pin-fields">
+      <input type="text" maxlength="1" inputmode="numeric" data-pin="natron">
+      <input type="text" maxlength="1" inputmode="numeric" data-pin="natron">
+      <input type="text" maxlength="1" inputmode="numeric" data-pin="natron">
+      <input type="text" maxlength="1" inputmode="numeric" data-pin="natron">
+    </div>
+    <div class="feedback" id="pinFeedbackNatron" style="text-align:center"></div>
+    <div class="pin-solution" id="solNatron">
+      <strong style="color:#7ed87e">✅ Musterlösung Natron:</strong><br>
+      n(NaHCO<sub>3</sub>) = 5,0 g / 84,0 g/mol ≈ 0,0595 mol<br>
+      m(CO<sub>2</sub>) = 0,0595 mol · 44,0 g/mol ≈ <strong>2,62 g Gewichtsverlust</strong> (≈ 52 % der Einwaage)
+    </div>
+  </div>
+
+  <div class="pin-box">
+    <div class="pin-lock">🔒</div>
+    <h3 style="text-align:center">Gewichtsverlust Soda (Na<sub>2</sub>CO<sub>3</sub>)</h3>
+    <p style="text-align:center;font-size:0.85rem;color:var(--cream-dim)">PIN am Pult abholen und eingeben:</p>
+    <div class="pin-fields">
+      <input type="text" maxlength="1" inputmode="numeric" data-pin="soda">
+      <input type="text" maxlength="1" inputmode="numeric" data-pin="soda">
+      <input type="text" maxlength="1" inputmode="numeric" data-pin="soda">
+      <input type="text" maxlength="1" inputmode="numeric" data-pin="soda">
+    </div>
+    <div class="feedback" id="pinFeedbackSoda" style="text-align:center"></div>
+    <div class="pin-solution" id="solSoda">
+      <strong style="color:#7ed87e">✅ Musterlösung Soda:</strong><br>
+      n(Na<sub>2</sub>CO<sub>3</sub>) = 5,0 g / 106,0 g/mol ≈ 0,0472 mol<br>
+      m(CO<sub>2</sub>) = 0,0472 mol · 44,0 g/mol ≈ <strong>2,08 g Gewichtsverlust</strong> (≈ 42 % der Einwaage)
+    </div>
+  </div>
+
+  <div class="callout amber">
+    <strong>🧪 Jetzt experimentieren!</strong> Wiegt beide Becher vor und nach der Säurezugabe. Das Pulver mit dem <em>größeren</em> Gewichtsverlust ist Natron. Vergleicht eure gemessenen Werte mit der Rechnung – passt es?
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- STATION 6: MOLARES VOLUMEN -->
+<div class="section" id="s6">
+  <div class="section-tag">Station 6 · Neues Konzept</div>
+  <h2>💨 Das molare Volumen V<sub>m</sub> – Gase zählen ohne Waage</h2>
+  <p>Das CO<sub>2</sub> ist entwichen – aber <em>wie viel Platz</em> hat es eingenommen? Bei Gasen gibt es eine verblüffende Regel:</p>
+
+  <div class="callout">
+    <strong>Satz von Avogadro:</strong> Gleiche Stoffmengen (mol) <em>beliebiger</em> Gase nehmen bei gleicher Temperatur und gleichem Druck das <strong>gleiche Volumen</strong> ein.
+  </div>
+
+  <p>Daraus folgt eine neue Größe – das <strong>molare Volumen V<sub>m</sub></strong>. Bei Normbedingungen (0 °C, 1013 hPa) gilt für jedes Gas:</p>
+
+  <div class="formula-center">V<sub>m</sub> = 22,4 L/mol</div>
+
+  <p>Die Formel funktioniert <strong>genauso</strong> wie <em>n = m/M</em> – nur mit Volumen statt Masse. Decke selbst auf:</p>
+
+  <div class="eq-box">
+    <div class="eq-label">Die neue Formel – analog zu n = m/M</div>
+    <div class="eq-line">n = <span class="frac"><span class="num">V</span><span class="den">V<sub>m</sub></span></span> &nbsp;&nbsp;↔&nbsp;&nbsp; V = <span class="reveal-blank" onclick="rb(this)" data-content="n · Vm">?</span></div>
+    <div class="eq-line dim">V = Gasvolumen (L) · V<sub>m</sub> = molares Volumen (L/mol) · n = Stoffmenge (mol)</div>
+  </div>
+
+  <h3>Anwendung: Welches Gasvolumen entweicht?</h3>
+  <p>Wir nehmen das CO<sub>2</sub> aus den 5,0 g Salz und berechnen sein Volumen bei Normbedingungen.</p>
+
+  <div class="salt-toggle">
+    <button class="salt-btn active" id="btnVolNatron" onclick="showVol('natron')">🧂 Natron</button>
+    <button class="salt-btn" id="btnVolSoda" onclick="showVol('soda')">🧊 Soda</button>
+  </div>
+
+  <div id="volNatron" class="eq-box">
+    <div class="eq-label">Natron · CO<sub>2</sub>-Volumen</div>
+    <div class="eq-line">n(CO<sub>2</sub>) = m/M = 2,62 g / 44,0 g/mol = <span class="reveal-blank" onclick="rb(this)" data-content="0,0595 mol">?</span></div>
+    <div class="eq-line">V(CO<sub>2</sub>) = n · V<sub>m</sub> = 0,0595 mol · 22,4 L/mol = <span class="reveal-blank" onclick="rb(this)" data-content="≈ 1,33 L">?</span></div>
+    <div class="eq-line dim">→ Aus 5,0 g Natron entweichen ca. 1,33 Liter CO<sub>2</sub>-Gas!</div>
+  </div>
+
+  <div id="volSoda" class="eq-box" style="display:none">
+    <div class="eq-label">Soda · CO<sub>2</sub>-Volumen</div>
+    <div class="eq-line">n(CO<sub>2</sub>) = m/M = 2,08 g / 44,0 g/mol = <span class="reveal-blank" onclick="rb(this)" data-content="0,0472 mol">?</span></div>
+    <div class="eq-line">V(CO<sub>2</sub>) = n · V<sub>m</sub> = 0,0472 mol · 22,4 L/mol = <span class="reveal-blank" onclick="rb(this)" data-content="≈ 1,06 L">?</span></div>
+    <div class="eq-line dim">→ Aus 5,0 g Soda entweichen ca. 1,06 Liter CO<sub>2</sub>-Gas.</div>
+  </div>
+
+  <div class="check-input">
+    <label>✏️ Selbsttest: Wie viel L CO<sub>2</sub> entstehen aus 0,2 mol eines Salzes bei Normbedingungen?</label>
+    <input type="number" step="0.01" placeholder="Volumen in L" id="volInput">
+    <button class="check-btn" onclick="checkVol()">Überprüfen</button>
+    <div class="feedback" id="volFeedback"></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- STATION 7: SCHNELLLÄUFER -->
+<div class="section" id="s7">
+  <div class="section-tag">Station 7 · Schnellläufer:innen</div>
+  <h2>🏔️ Die ideale Gasgleichung – CO<sub>2</sub> im Gebirge</h2>
+  <p>Die 22,4 L/mol gelten nur bei Normbedingungen. Was passiert auf der <strong>Zugspitze</strong> (weniger Druck) oder an einem <strong>heißen Tag</strong> (mehr Temperatur)? Dafür gibt es die ideale Gasgleichung.</p>
+
+  <div class="vertiefung">
+    <div class="tag">⚡ Vertiefung</div>
+    <h3>Die ideale Gasgleichung: p · V = n · R · T</h3>
+    <p style="color:var(--cream-dim);font-size:0.88rem">
+      <strong style="color:var(--co2)">p</strong> = Druck (Pa) · <strong style="color:var(--co2)">V</strong> = Volumen (m³) · <strong style="color:var(--co2)">n</strong> = Stoffmenge (mol) · <strong style="color:var(--co2)">R</strong> = 8,314 J/(mol·K) · <strong style="color:var(--co2)">T</strong> = Temperatur (Kelvin!)
+    </p>
+    <div class="callout" style="border-left-color:var(--co2);background:rgba(123,184,232,0.06)">
+      <strong style="color:var(--co2)">Umrechnung:</strong> T(K) = T(°C) + 273 · &nbsp; 1 hPa = 100 Pa · &nbsp; 1 m³ = 1000 L
+    </div>
+
+    <h3 style="margin-top:24px">Aufgabe: CO<sub>2</sub> aus 5,0 g Natron (0,0595 mol) auf der Zugspitze</h3>
+    <p style="color:var(--cream-dim);font-size:0.88rem">Bedingungen am Gipfel: p ≈ 700 hPa = 70 000 Pa, T ≈ 5 °C = 278 K. Stelle nach V um:</p>
+
+    <div class="eq-box">
+      <div class="eq-label">Schritt für Schritt aufdecken</div>
+      <div class="eq-line">V = <span class="frac"><span class="num">n · R · T</span><span class="den">p</span></span></div>
+      <div class="eq-line">V = <span class="frac"><span class="num">0,0595 mol · 8,314 · 278 K</span><span class="den">70 000 Pa</span></span> = <span class="reveal-blank" onclick="rb(this)" data-content="0,00197 m³">?</span></div>
+      <div class="eq-line">→ in Liter: <span class="reveal-blank" onclick="rb(this)" data-content="≈ 1,97 L">?</span></div>
+      <div class="eq-line dim">Vergleich: bei Normbedingungen waren es 1,33 L – auf dem Berg dehnt sich das Gas auf fast <strong style="color:var(--co2)">2 L</strong> aus!</div>
+    </div>
+
+    <div class="callout" style="border-left-color:var(--co2);background:rgba(123,184,232,0.06)">
+      <strong style="color:var(--co2)">💡 Erklärung:</strong> Weniger Druck → das Gas darf sich ausdehnen → größeres Volumen. Genauso macht <em>höhere Temperatur</em> das Volumen größer (Teilchen bewegen sich schneller).
+    </div>
+
+    <button class="reveal-toggle" onclick="toggleReveal(this)" style="border-color:rgba(123,184,232,0.4);color:var(--co2)">
+      🧮 Zusatzaufgabe: heißer Sommertag (35 °C, 1013 hPa) <span class="arrow">▼</span>
+    </button>
+    <div class="reveal-body" style="border-color:rgba(123,184,232,0.2)">
+      <div class="eq-line" style="font-family:'Courier New',monospace;font-size:0.92rem;color:var(--co2)">
+        T = 35 °C + 273 = 308 K, &nbsp; p = 101 300 Pa<br>
+        V = (0,0595 · 8,314 · 308) / 101 300 ≈ 0,00150 m³ ≈ <strong>1,50 L</strong>
+      </div>
+      <p style="margin-top:8px;font-size:0.85rem;color:var(--cream-dim)">Wärmer als Normbedingung (0 °C) → etwas mehr als 1,33 L. Die Temperatur „bläht" das Gas auf.</p>
+    </div>
+  </div>
+</div>
+
+<div style="height:80px"></div>
+
+<script>
+window.addEventListener('scroll', () => {
+  const d = document.documentElement;
+  document.getElementById('progressBar').style.width = (d.scrollTop/(d.scrollHeight-d.clientHeight)*100)+'%';
+});
+const obs = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), {threshold:0.1});
+document.querySelectorAll('.section').forEach(el => obs.observe(el));
+
+// MCQ
+let solved = new Set();
+function answer(el, idx) {
+  const card = el.closest('.quiz-card');
+  if (card.classList.contains('solved')) return;
+  const correct = parseInt(card.dataset.correct);
+  const fb = card.querySelector('.quiz-feedback');
+  const opts = card.querySelectorAll('.quiz-opt');
+  if (idx === correct) {
+    el.classList.add('correct');
+    fb.textContent = '✅ Richtig!';
+    fb.className = 'quiz-feedback ok';
+    card.classList.add('solved');
+    opts.forEach(o => o.classList.add('disabled'));
+    solved.add(card);
+    updateProgress();
+  } else {
+    el.classList.add('wrong');
+    fb.textContent = '❌ Nicht ganz – versuch es nochmal.';
+    fb.className = 'quiz-feedback no';
+    setTimeout(() => { el.classList.remove('wrong'); }, 1200);
+  }
+}
+function updateProgress() {
+  document.getElementById('quizProgress').textContent = 'Gelöst: ' + solved.size + ' / 5';
+  if (solved.size === 5) document.getElementById('quizProgress').textContent = '🎉 Alle 5 gelöst – super, weiter geht\'s!';
+}
+
+function rb(el) {
+  if (el.classList.contains('revealed')) return;
+  el.textContent = el.dataset.content;
+  el.classList.add('revealed');
+}
+function showSalt(s) {
+  document.getElementById('saltNatron').style.display = s==='natron'?'block':'none';
+  document.getElementById('saltSoda').style.display = s==='soda'?'block':'none';
+  document.getElementById('btnNatron').classList.toggle('active', s==='natron');
+  document.getElementById('btnSoda').classList.toggle('active', s==='soda');
+}
+function showVol(s) {
+  document.getElementById('volNatron').style.display = s==='natron'?'block':'none';
+  document.getElementById('volSoda').style.display = s==='soda'?'block':'none';
+  document.getElementById('btnVolNatron').classList.toggle('active', s==='natron');
+  document.getElementById('btnVolSoda').classList.toggle('active', s==='soda');
+}
+function checkVol() {
+  const v = parseFloat(document.getElementById('volInput').value);
+  const fb = document.getElementById('volFeedback');
+  if (isNaN(v)) { fb.textContent='Bitte eine Zahl eingeben.'; fb.className='feedback err'; return; }
+  if (Math.abs(v-4.48)<0.2) { fb.textContent='✅ Richtig! 0,2 mol · 22,4 L/mol = 4,48 L'; fb.className='feedback ok'; }
+  else { fb.textContent='❌ Tipp: V = n · V_m = 0,2 · 22,4'; fb.className='feedback err'; }
+}
+function toggleReveal(btn) { btn.nextElementSibling.classList.toggle('open'); btn.classList.toggle('open'); }
+
+// PIN logic (clientseitig – nur weicher Schutz)
+const PINS = { natron: '8444', soda: '1066' };
+function setupPin(group, solId, fbId) {
+  const inputs = document.querySelectorAll('input[data-pin="'+group+'"]');
+  inputs.forEach((inp, i) => {
+    inp.addEventListener('input', () => {
+      inp.value = inp.value.replace(/[^0-9]/g,'');
+      if (inp.value && i < inputs.length-1) inputs[i+1].focus();
+      const entered = Array.from(inputs).map(x=>x.value).join('');
+      const fb = document.getElementById(fbId);
+      if (entered.length === 4) {
+        if (entered === PINS[group]) {
+          document.getElementById(solId).classList.add('open');
+          fb.textContent = '🔓 Freigeschaltet!'; fb.className = 'feedback ok';
+        } else {
+          fb.textContent = '❌ Falscher PIN – frag am Pult nach.'; fb.className = 'feedback err';
+        }
+      } else { fb.textContent=''; }
+    });
+    inp.addEventListener('keydown', e => {
+      if (e.key==='Backspace' && !inp.value && i>0) inputs[i-1].focus();
+    });
+  });
+}
+setupPin('natron','solNatron','pinFeedbackNatron');
+setupPin('soda','solSoda','pinFeedbackSoda');
+</script>
+</body>
+</html>
