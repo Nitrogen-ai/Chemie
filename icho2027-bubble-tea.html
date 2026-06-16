@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IChO 2027 · Bubble Tea — Interaktive Aufgabenwerkstatt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#241a12;
+  --cream:#fbf4e9;
+  --cream-2:#f4e8d6;
+  --paper:#fffaf2;
+  --tea:#0e7d72;          /* matcha / tea */
+  --tea-deep:#0a5a52;
+  --taro:#8e6fcb;         /* taro purple */
+  --berry:#e85d9e;        /* strawberry */
+  --mango:#f4a724;        /* mango */
+  --boba:#2b1d14;         /* tapioca pearls */
+  --line:rgba(43,29,20,.16);
+  --shadow:0 18px 40px -22px rgba(43,29,20,.5);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--cream);color:var(--ink);
+  font-family:"Outfit",sans-serif;font-weight:400;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+body::before{ /* paper grain */
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.5;
+  background-image:radial-gradient(rgba(43,29,20,.05) 1px,transparent 1px);
+  background-size:4px 4px;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px;position:relative;z-index:2}
+h1,h2,h3,h4{font-family:"Fraunces",serif;font-weight:600;line-height:1.05;margin:0}
+em.it{font-style:italic}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;overflow:hidden;background:
+  radial-gradient(120% 90% at 80% -10%, #1aa093 0%, var(--tea) 38%, var(--tea-deep) 100%);
+  color:#fff8ee;padding:74px 0 96px;isolation:isolate}
+.hero .wrap{z-index:3}
+.cup{position:absolute;right:max(2vw,8px);bottom:-40px;width:min(38vw,330px);z-index:2;filter:drop-shadow(0 22px 30px rgba(0,0,0,.3))}
+.bubbles{position:absolute;inset:0;z-index:1;pointer-events:none}
+.bub{position:absolute;border-radius:50%;opacity:.9;animation:rise linear infinite}
+@keyframes rise{0%{transform:translateY(40px) scale(.9);opacity:0}
+  12%{opacity:.85}88%{opacity:.85}100%{transform:translateY(-120vh) scale(1.05);opacity:0}}
+.kicker{display:inline-flex;gap:10px;align-items:center;font-family:"Space Mono",monospace;
+  font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);
+  padding:7px 14px;border-radius:40px;backdrop-filter:blur(4px)}
+.hero h1{font-size:clamp(2.7rem,8vw,5.4rem);margin:.32em 0 .18em;letter-spacing:-.02em;max-width:14ch}
+.hero h1 .pop{font-style:italic;color:var(--mango)}
+.hero p.lead{max-width:46ch;font-size:1.12rem;color:rgba(255,248,238,.92)}
+.hero .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.pill{font-family:"Space Mono",monospace;font-size:.74rem;background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.26);padding:6px 13px;border-radius:30px}
+
+/* ---------- NAV ---------- */
+.nav{position:sticky;top:0;z-index:30;background:rgba(251,244,233,.86);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:14px;padding:11px 22px;overflow-x:auto}
+.nav b{font-family:"Fraunces",serif;font-weight:900;font-size:1rem;white-space:nowrap}
+.nav a{font-family:"Space Mono",monospace;font-size:.74rem;text-decoration:none;color:var(--ink);
+  opacity:.6;padding:5px 10px;border-radius:8px;white-space:nowrap;transition:.2s}
+.nav a:hover{opacity:1;background:var(--cream-2)}
+.nav a.active{opacity:1;background:var(--tea);color:#fff}
+
+/* ---------- CONTEXT INTRO ---------- */
+.intro{padding:60px 0 26px}
+.lede{font-family:"Fraunces",serif;font-size:clamp(1.4rem,3.4vw,2.1rem);font-weight:500;
+  font-style:italic;line-height:1.28;max-width:24ch;color:var(--tea-deep)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;margin-top:30px}
+.factcard{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px 18px 16px;
+  box-shadow:var(--shadow)}
+.factcard .ic{font-size:1.5rem}
+.factcard h4{font-size:1.05rem;margin:8px 0 4px}
+.factcard p{margin:0;font-size:.92rem;opacity:.82}
+.note{margin-top:26px;border-left:4px solid var(--mango);background:#fff6e3;
+  padding:14px 18px;border-radius:0 14px 14px 0;font-size:.92rem}
+.note b{font-family:"Fraunces",serif}
+
+/* ---------- SECTIONS ---------- */
+.section{padding:46px 0 14px;scroll-margin-top:62px}
+.taghead{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:900;font-size:clamp(2.6rem,7vw,4.2rem);
+  line-height:.8;color:var(--tea);opacity:.22;letter-spacing:-.03em}
+.taghead h2{font-size:clamp(1.5rem,3.6vw,2.2rem)}
+.pts{font-family:"Space Mono",monospace;font-size:.8rem;background:var(--boba);color:#fff;
+  padding:5px 11px;border-radius:30px;margin-bottom:6px}
+.ctxt{background:linear-gradient(180deg,var(--paper),var(--cream));border:1px solid var(--line);
+  border-radius:18px;padding:18px 20px;margin:16px 0 8px;font-size:.96rem;display:flex;gap:18px;
+  align-items:center;flex-wrap:wrap}
+.ctxt .viz{flex:0 0 auto}
+.ctxt .txt{flex:1 1 240px;min-width:220px}
+
+/* ---------- TASK BLOCKS ---------- */
+.task{background:var(--paper);border:1px solid var(--line);border-radius:18px;
+  margin:14px 0;overflow:hidden;box-shadow:var(--shadow)}
+.q{display:flex;gap:14px;padding:18px 20px;align-items:flex-start}
+.tag{flex:0 0 auto;font-family:"Fraunces",serif;font-weight:900;font-size:1.15rem;
+  width:38px;height:38px;display:grid;place-items:center;border-radius:11px;
+  background:var(--tea);color:#fff;margin-top:2px}
+.q .qtext{flex:1}
+.q .qtext .ask{font-size:1.02rem}
+.check{flex:0 0 auto;cursor:pointer;border:1.6px solid var(--line);background:none;
+  width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:1rem;
+  color:var(--tea);transition:.18s;margin-top:2px}
+.check.on{background:var(--tea);border-color:var(--tea);color:#fff}
+.reveals{padding:0 20px 18px;display:flex;flex-direction:column;gap:10px}
+.btn{appearance:none;border:none;cursor:pointer;font-family:"Outfit",sans-serif;font-weight:600;
+  font-size:.9rem;padding:11px 15px;border-radius:12px;text-align:left;display:flex;align-items:center;gap:9px;
+  transition:.18s;width:100%}
+.btn .chev{margin-left:auto;transition:.25s;opacity:.6}
+.btn.hint{background:#efe6fb;color:#5b3fa0;border:1px solid #d8c6f3}
+.btn.hint:hover{background:#e7d9fa}
+.btn.sol{background:#d9f1ee;color:var(--tea-deep);border:1px solid #aed9d3}
+.btn.sol:hover{background:#cbece8}
+.btn.open .chev{transform:rotate(180deg)}
+.panel{overflow:hidden;max-height:0;transition:max-height .45s ease;border-radius:12px}
+.panel .inner{padding:16px 17px;font-size:.93rem}
+.panel.hintp .inner{background:#f6f0ff;border:1px solid #e3d4f7}
+.panel.solp .inner{background:#e9f7f4;border:1px solid #c2e4dd}
+.panel h5{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;margin:0 0 6px}
+.panel .ex{font-style:italic;background:rgba(255,255,255,.6);border-left:3px solid var(--taro);
+  padding:9px 12px;border-radius:0 10px 10px 0;margin:10px 0;font-size:.9rem}
+.panel ul{margin:8px 0;padding-left:18px}.panel li{margin:4px 0}
+.panel .ans{background:#fff;border:1.5px dashed var(--tea);border-radius:11px;padding:11px 13px;margin-top:10px}
+.panel .ans b{color:var(--tea-deep)}
+.formula{font-family:"Space Mono",monospace;background:#fff;border:1px solid var(--line);
+  border-radius:8px;padding:2px 7px;font-size:.86em;white-space:nowrap}
+.sub{font-size:.72em;vertical-align:-.25em}.sup{font-size:.72em;vertical-align:.45em}
+svg{display:block;max-width:100%;height:auto}
+.cap{font-family:"Space Mono",monospace;font-size:.72rem;opacity:.6;text-align:center;margin-top:4px}
+
+/* progress */
+.prog{position:fixed;left:0;top:0;height:4px;background:linear-gradient(90deg,var(--berry),var(--mango),var(--tea));
+  width:0;z-index:50;transition:width .15s}
+footer{background:var(--boba);color:#f2e7da;padding:40px 0;margin-top:50px;text-align:center;position:relative;z-index:2}
+footer p{margin:6px 0;font-size:.86rem;opacity:.8}
+footer .dots{font-size:1.4rem;letter-spacing:6px;color:var(--mango)}
+@media(max-width:640px){.cup{opacity:.25;width:60vw}.hero{padding:54px 0 70px}}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="bubbles" id="bubbles"></div>
+  <svg class="cup" viewBox="0 0 220 320" aria-hidden="true">
+    <defs><linearGradient id="liq" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f7c8df"/><stop offset="1" stop-color="#e08bb6"/></linearGradient></defs>
+    <path d="M40 70 L180 70 L165 300 Q163 312 150 312 L70 312 Q57 312 55 300 Z" fill="#ffffff" opacity=".15"/>
+    <path d="M44 120 L176 120 L165 300 Q163 312 150 312 L70 312 Q57 312 55 300 Z" fill="url(#liq)" opacity=".95"/>
+    <rect x="34" y="58" width="152" height="20" rx="6" fill="#ffffff" opacity=".25"/>
+    <rect x="120" y="-6" width="13" height="120" rx="6" fill="#fff" opacity=".55" transform="rotate(11 126 50)"/>
+    <g fill="#2b1d14">
+      <circle cx="70" cy="292" r="9"/><circle cx="92" cy="298" r="9"/><circle cx="114" cy="292" r="9"/>
+      <circle cx="136" cy="298" r="9"/><circle cx="81" cy="278" r="9"/><circle cx="104" cy="282" r="9"/>
+      <circle cx="126" cy="278" r="9"/><circle cx="148" cy="288" r="8"/><circle cx="62" cy="280" r="8"/></g>
+  </svg>
+  <div class="wrap">
+    <span class="kicker">◖ 59. Internationale ChemieOlympiade · Taiwan 2027</span>
+    <h1>Bubble&nbsp;Tea — die <span class="pop">Aufgaben&shy;werkstatt</span></h1>
+    <p class="lead">Eine interaktive Lern- und Nachbereitungsumgebung zur 1. Auswahlrunde.
+      Erst selbst tüfteln, dann spoilerfreie Hilfen nutzen — und zuletzt die Musterlösung
+      zur Selbstkontrolle aufdecken.</p>
+    <div class="meta">
+      <span class="pill">6 Aufgaben</span><span class="pill">87 Punkte</span>
+      <span class="pill">Boba · Alginat · Stärke · Diffusion</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ NAV ============ -->
+<nav class="nav"><div class="wrap">
+  <b>🧋 IChO&nbsp;’27</b>
+  <a href="#kontext">Kontext</a>
+  <a href="#a1">1 · Rätsel</a>
+  <a href="#a2">2 · Biopolymere</a>
+  <a href="#a3">3 · Popping 1</a>
+  <a href="#a4">4 · Trad. Boba</a>
+  <a href="#a5">5 · Popping 2</a>
+  <a href="#a6">6 · Rätsel 2</a>
+</div></nav>
+
+<!-- ============ KONTEXT ============ -->
+<section class="intro wrap" id="kontext">
+  <p class="lede">Warum eignet sich ein Becher Bubble Tea als Bühne für fast die gesamte Oberstufenchemie?</p>
+  <p style="max-width:62ch;margin-top:14px">Weil in einem einzigen Getränk Biopolymere, Stereochemie, Redoxchemie,
+  Komplexbildung, Rheologie und Diffusion zusammenkommen. Die Aufgabenreihe nutzt drei Boba-Typen als roten Faden:</p>
+  <div class="cols">
+    <div class="factcard"><div class="ic">🟤</div><h4>Traditionelle Boba</h4>
+      <p>Aus <em>Tapiokastärke</em> (reines Glucose-Homoglycan) — Schauplatz für Rheologie, Quellung & Diffusion.</p></div>
+    <div class="factcard"><div class="ic">🔴</div><h4>Popping Boba</h4>
+      <p>Flüssigkeitsgefüllte Kügelchen aus <em>Alginat</em> — Stereochemie der Uronsäuren & Ca²⁺-Gelbildung.</p></div>
+    <div class="factcard"><div class="ic">🥤</div><h4>Der Becher selbst</h4>
+      <p>Oft aus <em>PET</em>; biobasierte Alternative <em>PEF</em> aus Fructose — Synthesechemie & Nachhaltigkeit.</p></div>
+  </div>
+  <div class="note">
+    <b>Zur Nutzung:</b> Die 1. Runde ist ein Einzelwettbewerb mit eigener Ausarbeitung (Abgabe bis 7.&nbsp;Sept.&nbsp;2026).
+    Dieses Werkzeug ist als <b>Lern- und Nachbereitungshilfe</b> gedacht — ideal für die Begleitung im Unterricht oder die
+    Besprechung nach der Abgabe. Jede Aufgabe bietet zuerst eine <span style="color:#5b3fa0;font-weight:600">spoilerfreie Hilfe
+    am Analogiebeispiel</span>, dann die <span style="color:var(--tea-deep);font-weight:600">Musterlösung zur Selbstkontrolle</span>.
+  </div>
+</section>
+
+<!-- ============ AUFGABE 1 ============ -->
+<section class="section wrap" id="a1">
+  <div class="taghead"><span class="num">01</span><h2>Bubble-Rätsel</h2><span class="pts">8 Punkte</span></div>
+  <div class="ctxt"><div class="viz">
+    <svg width="120" height="104" viewBox="0 0 120 104">
+      <g fill="#cfeae6" stroke="#0e7d72" stroke-width="1.5">
+        <polygon points="30,2 50,2 60,19 50,36 30,36 20,19"/>
+        <polygon points="60,2 80,2 90,19 80,36 60,36 50,19" fill="#0e7d72"/>
+        <polygon points="10,36 30,36 40,53 30,70 10,70 0,53"/>
+        <polygon points="40,36 60,36 70,53 60,70 40,70 30,53" fill="#f4a724"/>
+        <polygon points="70,36 90,36 100,53 90,70 70,70 60,53"/>
+        <polygon points="30,70 50,70 60,87 50,104 30,104 20,87" fill="#e85d9e"/>
+        <polygon points="60,70 80,70 90,87 80,104 60,104 50,87"/>
+      </g></svg></div>
+    <div class="txt"><strong>Wabenrätsel:</strong> Sechsbuchstabige Wörter stehen kreisförmig um die Hinweisfelder;
+    Startpunkt und Leserichtung sind selbst zu finden. Die Hinweise sind chemische Kurzrätsel —
+    von <em>„Chem. Chamäleon“</em> bis <em>„Δp = 0“</em>.</div>
+  </div>
+
+  <div class="task" data-id="1a">
+    <div class="q"><div class="tag">a</div>
+      <div class="qtext"><div class="ask">Löse das Wabenrätsel und gib das Lösungswort an. Welche chemischen Begriffe verbergen sich hinter den Hinweisfeldern?</div></div>
+      <button class="check" title="Als erledigt markieren">✓</button></div>
+    <div class="reveals">
+      <button class="btn hint">💡 Hilfe & Strategie (spoilerfrei) <span class="chev">▾</span></button>
+      <div class="panel hintp"><div class="inner">
+        <h5>Wie man Hinweis-Waben knackt</h5>
+        <p>Jedes Hinweisfeld kodiert <em>einen</em> chemischen Begriff über eine Eigenschaft, ein Synonym oder eine Formel. Geh systematisch vor:</p>
+        <ul>
+          <li><b>Formel → Name:</b> Eine Summenformel wie <span class="formula">C5H12</span> meint einen konkreten Stoff (hier: Pentan).</li>
+          <li><b>Eigenschaft → Element:</b> „Flüssiges Metall bei RT“ ⇒ Quecksilber.</li>
+          <li><b>Buchstabenzahl zählen:</b> Gesucht sind immer genau <b>6</b> Buchstaben — das schließt viele Synonyme aus (z.&nbsp;B. „Gold“ ✗, „Silber“ ✓).</li>
+          <li><b>Periodensystem:</b> „Nachbar von …“ heißt benachbarte Gruppe/Periode.</li>
+        </ul>
+        <div class="ex">Beispiel-Hinweis „Flüssigkeit, R&nbsp;=&nbsp;0&nbsp;Ω, sprudelt“ → 6 Buchstaben → <b>Helium</b>? Nein, 6 Buchstaben & supraleitend-kalt-flüssig passt zu <b>HELIUM</b> (Edelgas). So testet man Kandidaten gegen die Buchstabenzahl <em>und</em> die kreisförmig geteilten Buchstaben der Nachbarwörter.</div>
+        <p>Trick: Überlappende Buchstaben benachbarter Wörter sind die härteste Kontrolle — wenn ein Kandidat dort nicht passt, ist er falsch.</p>
+      </div></div>
+      <button class="btn sol">✓ Musterlösung zur Selbstkontrolle <span class="chev">▾</span></button>
+      <div class="panel solp"><div class="inner">
+        <h5>Wahrscheinliche Begriffe je Hinweis (6 Buchstaben)</h5>
+        <ul>
+          <li><b>Δp = 0</b> → <b>ISOBAR</b> (Zustandsänderung bei konstantem Druck)</li>
+          <li><b>Nachbar von Sr</b> → <b>BARIUM</b> (steht in Gruppe 2 unter Strontium)</li>
+          <li><b>C₇H₁₆</b> → <b>HEPTAN</b></li>
+          <li><b>Edelgas</b> → <b>HELIUM</b></li>
+          <li><b>Edelmetall</b> → <b>SILBER</b> (alt.: PLATIN)</li>
+          <li><b>Massenzahl von C</b> → <b>ZWOELF</b> (¹²C → 12)</li>
+          <li><b>Chem. Chamäleon</b> → <b>MANGAN</b> (Farbwechsel-Demo des Permanganats)</li>
+          <li><b>Anion des Schwefels</b> → <b>SULFID</b> (S²⁻)</li>
+          <li><b>Krimi-Anion</b> → <b>CYANID</b> (Giftmord-Klassiker, CN⁻)</li>
+          <li><b>Labor-Ball</b> → <b>KOLBEN</b> (Rundkolben)</li>
+          <li><b>Aromaten sind …</b> → <b>PLANAR</b> (eben, cyclisch, konjugiert)</li>
+          <li><b>Bei CdSe 1,74 eV</b> → Bandlücke; λ = 1240/1,74 ≈ 713 nm ⇒ <b>(rot)</b></li>
+        </ul>
+        <div class="ans"><b>Ehrlicher Hinweis:</b> Das zentrale <b>Lösungswort</b> ergibt sich aus der räumlichen Anordnung der Sechsecke
+        (Startfeld + Leserichtung). Diese Verzahnung ist aus der reinen Texterfassung der PDF <b>nicht zuverlässig rekonstruierbar</b> —
+        bitte am gedruckten Wabenbild gegenprüfen. Thematisch liegt ein Bezug zu „BOBA“ / „BUBBLE“ / „TAIWAN“ nahe.</div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AUFGABE 2 ============ -->
+<section class="section wrap" id="a2">
+  <div class="taghead"><span class="num">02</span><h2>Biopolymere</h2><span class="pts">15 Punkte</span></div>
+  <div class="ctxt"><div class="txt"><strong>Biopolymere</strong> kommen natürlich vor und sind potenziell zentral für nachhaltige
+  Werkstoffkreisläufe. „Biobasiert“ (aus nachwachsenden Rohstoffen) und „biologisch abbaubar“ sind dabei <em>nicht</em> dasselbe.</div></div>
+
+  <!-- 2a -->
+  <div class="task" data-id="2a">
+    <div class="q"><div class="tag">a</div><div class="qtext"><div class="ask">Welcher Kunststoff (A–E) ist biobasiert? Ergänze die fehlenden Namen bzw. Strukturen.<br>
+      <span style="opacity:.7">A: –[CH₂–CH(CH₃)]– · B: –[CH₂–CHCl]– · C: Polylactid · D: langkettiger Polyester · E: PET</span></div></div>
+      <button class="check">✓</button></div>
+    <div class="reveals">
+      <button class="btn hint">💡 Hilfe & Strategie <span class="chev">▾</span></button>
+      <div class="panel hintp"><div class="inner">
+        <h5>Monomer aus der Wiederholeinheit ablesen</h5>
+        <p>Klammere die Wiederholeinheit gedanklich auf: Ein Substituent an der Hauptkette verrät das Vinyl-Monomer.</p>
+        <div class="ex">Analog: –[CH₂–CHF]– ⇒ Monomer Vinylfluorid ⇒ Polymer „Polyvinylfluorid“. Biobasiert ist ein Kunststoff dann,
+        wenn seine Monomere aus <em>nachwachsenden</em> Rohstoffen (Zucker, Stärke, Pflanzenöl) gewonnen werden — nicht aus Erdöl.</div>
+        <p>Frage dich bei jedem: „Woher kommt das Monomer?“ Milchsäure z.&nbsp;B. entsteht durch Fermentation von Zucker.</p>
+      </div></div>
+      <button class="btn sol">✓ Musterlösung zur Selbstkontrolle <span class="chev">▾</span></button>
+      <div class="panel solp"><div class="inner">
+        <ul>
+          <li><b>A = Polypropylen (PP)</b> — erdölbasiert</li>
+          <li><b>B = Polyvinylchlorid (PVC)</b> — erdölbasiert</li>
+          <li><b>C = Polylactid (PLA)</b> — Wiederholeinheit <span class="formula">–[O–CH(CH₃)–C(=O)]–</span> aus Milchsäure (fermentierter Zucker)</li>
+          <li><b>D = Polycaprolacton (PCL)</b> — Wiederholeinheit <span class="formula">–[O–(CH₂)₅–C(=O)]–</span>; biologisch abbaubar, aber erdölbasiert</li>
+          <li><b>E = Polyethylenterephthalat (PET)</b> — erdölbasiert</li>
+        </ul>
+        <div class="ans"><b>Biobasiert:</b> <b>C — Polylactid (PLA)</b>. (Achtung Unterscheidung: PCL ist <em>abbaubar</em>, aber nicht biobasiert; PLA ist beides.)</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- 2b -->
+  <div class="task" data-id="2b">
+    <div class="q"><div class="tag">b</div><div class="qtext"><div class="ask">Aus welchen Monomeren besteht Gelatine? Begründe, ob sie sich zur Herstellung von Bobas eignet.</div></div>
+      <button class="check">✓</button></div>
+    <div class="reveals">
+      <button class="btn hint">💡 Hilfe & Strategie <span class="chev">▾</span></button>
+      <div class="panel hintp"><div class="inner">
+        <h5>Herkunft + Geliermechanismus betrachten</h5>
+        <p>Gelatine wird aus Kollagen (Bindegewebe) gewonnen. Welche Klasse von Makromolekülen ist Kollagen? Und: <em>wie</em> geliert das Material — physikalisch (reversibel) oder ionisch vernetzt?</p>
+        <div class="ex">Analog: Agar-Agar geliert thermoreversibel, ist aber bis ~85&nbsp;°C stabil. Gelatine dagegen schmilzt schon nahe Körpertemperatur — das ist entscheidend für „warm vs. kalt“-Anwendungen.</div>
+      </div></div>
+      <button class="btn sol">✓ Musterlösung zur Selbstkontrolle <span class="chev">▾</span></button>
+      <div class="panel solp"><div class="inner">
+        <p><b>Monomere:</b> Gelatine ist ein hydrolysiertes <b>Protein</b> (aus Kollagen) und besteht aus <b>Aminosäuren</b>,
+        überwiegend Glycin, Prolin und Hydroxyprolin.</p>
+        <div class="ans"><b>Eignung:</b> Für Popping Boba <b>ungeeignet</b>. Gelatine bildet ein <em>thermoreversibles, physikalisches</em> Gel
+        (Tripelhelix-Bildung), das schon bei ~30–35&nbsp;°C schmilzt. Im warmen Bubble Tea würde die Hülle zerfließen.
+        Außerdem fehlt der ionotrope Vernetzungsmechanismus; eine stabile, flüssigkeitsgefüllte Kapsel wie beim Ca²⁺-Alginat ist nicht erreichbar.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- 2c -->
+  <div class="task" data-id="2c">
+    <div class="q"><div class="tag">c</div><div class="qtext"><div class="ask">Definiere „Glycan“. Handelt es sich bei Stärke und Alginat jeweils um ein Heteroglycan?</div></div>
+      <button class="check">✓</button></div>
+    <div class="reveals">
+      <button class="btn hint">💡 Hilfe & Strategie <span class="chev">▾</span></button>
+      <div class="panel hintp"><div class="inner">
+        <h5>Homo- vs. Hetero-</h5>
+        <p>„Homo-“ = ein Baustein-Typ, „Hetero-“ = mehrere verschiedene. Zähle für jeden Stoff die <em>unterschiedlichen</em> Monosaccharid-Einheiten.</p>
+        <div class="ex">Analog: Cellulose besteht nur aus Glucose ⇒ Homoglycan. Hyaluronsäure aus zwei verschiedenen Zuckern ⇒ Heteroglycan.</div>
+      </div></div>
+      <button class="btn sol">✓ Musterlösung zur Selbstkontrolle <span class="chev">▾</span></button>
+      <div class="panel solp"><div class="inner">
+        <p><b>Glycan</b> = Polysaccharid; ein Polymer aus Monosaccharid-Einheiten, die über <em>glycosidische Bindungen</em> verknüpft sind.</p>
+        <ul>
+          <li><b>Stärke:</b> ausschließlich Glucose (Amylose + Amylopektin) ⇒ <b>Homoglycan</b> (kein Heteroglycan).</li>
+          <li><b>Alginat:</b> zwei verschiedene Uronsäuren — D-Mannuronsäure (M) und L-Guluronsäure (G) ⇒ <b>Heteroglycan</b>.</li>
+        </ul>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- 2d -->
+  <div class="task" data-id="2d">
+    <div class="q"><div class="tag">d</div><div class="qtext"><div class="ask">Vervollständige das Syntheseschema von Polyethylenfuranoat (PEF) ausgehend von Fructose (über C₆H₆O₃, dann O₂).</div></div>
+      <button class="check">✓</button></div>
+    <div class="reveals">
+      <button class="btn hint">💡 Hilfe & Strategie <span class="chev">▾</span></button>
+      <div class="panel hintp"><div class="inner">
+        <h5>Atombilanz als Kompass</h5>
+        <p>Fructose ist <span class="formula">C₆H₁₂O₆</span>. Das erste Produkt ist <span class="formula">C₆H₆O₃</span> — welche kleine Molekülmenge ging verloren?
+        Rechne die Differenz der Formeln aus; sie steckt im „–▢“-Kasten.</p>
+        <div class="ex">Analog: Aldol-Kondensationen geben oft Wasser ab. Differenz C₆H₁₂O₆ − C₆H₆O₃ = H₆O₃ = 3&nbsp;H₂O.
+        Ein Polyester entsteht zuletzt aus einer Disäure + einem Diol (Polykondensation).</div>
+      </div></div>
+      <button class="btn sol">✓ Musterlösung zur Selbstkontrolle <span class="chev">▾</span></button>
+      <div class="panel solp"><div class="inner">
+        <svg width="100%" viewBox="0 0 640 120" font-family="Space Mono" font-size="13">
+          <text x="6" y="55" font-weight="700">Fructose</text>
+          <line x1="78" y1="50" x2="150" y2="50" stroke="#0e7d72" stroke-width="2" marker-end="url(#ar)"/>
+          <text x="86" y="42" fill="#0e7d72">H⁺,ΔT</text><text x="92" y="66" fill="#e85d9e">−3 H₂O</text>
+          <text x="158" y="46">5-(Hydroxy-</text><text x="158" y="62">methyl)furfural</text><text x="158" y="78" opacity=".6">HMF · C₆H₆O₃</text>
+          <line x1="300" y1="50" x2="372" y2="50" stroke="#0e7d72" stroke-width="2" marker-end="url(#ar)"/>
+          <text x="320" y="42" fill="#0e7d72">O₂</text><text x="306" y="66" opacity=".6">Oxidation</text>
+          <text x="380" y="46">2,5-Furan-</text><text x="380" y="62">dicarbonsäure</text><text x="380" y="78" opacity=".6">FDCA</text>
+          <line x1="500" y1="50" x2="572" y2="50" stroke="#0e7d72" stroke-width="2" marker-end="url(#ar)"/>
+          <text x="500" y="42" fill="#e85d9e">+ Ethylenglycol</text><text x="506" y="66" opacity=".6">−H₂O (Polykond.)</text>
+          <text x="580" y="55" font-weight="700">PEF</text>
+          <defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6Z" fill="#0e7d72"/></marker></defs>
+        </svg>
+        <div class="ans">
+          <b>1.</b> Fructose <span class="formula">C₆H₁₂O₆</span> →(H⁺, ΔT, <b>−3 H₂O</b>) <b>5-Hydroxymethylfurfural (HMF), C₆H₆O₃</b><br>
+          <b>2.</b> HMF →(O₂, Oxidation von –CHO und –CH₂OH) <b>2,5-Furandicarbonsäure (FDCA)</b><br>
+          <b>3.</b> FDCA <b>+ Ethylenglycol</b> →(Polykondensation, −H₂O) <b>Polyethylenfuranoat (PEF)</b>
+        </div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AUFGABE 3 ============ -->
+<section class="section wrap" id="a3">
+  <div class="taghead"><span class="num">03</span><h2>Popping Boba 1</h2><span class="pts">15 Punkte</span></div>
+  <div class="ctxt"><div class="viz">
+    <svg width="150" height="90" viewBox="0 0 150 90" font-family="Space Mono" font-size="11">
+      <text x="0" y="20">CHO</text>
+      <line x1="20" y1="30" x2="20" y2="74" stroke="#241a12"/>
+      <line x1="20" y1="38" x2="40" y2="38" stroke="#241a12"/><text x="42" y="42">OH</text>
+      <line x1="20" y1="50" x2="2" y2="50" stroke="#241a12"/><text x="-18" y="54" opacity="0"></text>
+      <text x="2" y="54">HO</text>
+      <line x1="20" y1="62" x2="40" y2="62" stroke="#241a12"/><text x="42" y="66">OH</text>
+      <text x="6" y="86" fill="#0e7d72">…→ COOH</text>
+    </svg></div>
+    <div class="txt"><strong>Glucuronsäure</strong> (offenkettig) ist Glucose, deren C6 zur Carbonsäure oxidiert ist.
+    Die Monomere des Alginats sind <em>Isomere</em> der Glucuronsäure.</div>
+  </div>
+
+  <!-- 3a -->
+  <div class="task" data-id="3a">
+    <div class="q"><div class="tag">a</div><div class="qtext"><div class="ask">Gib die Summenformel der Glucuronsäure an und berechne die molare Masse (mit Lösungsweg).</div></div>
+      <button class="check">✓</button></div>
+    <div class="reveals">
+      <button class="btn hint">💡 Hilfe & Strategie <span class="chev">▾</span></button>
+      <div class="panel hintp"><div class="inner">
+        <h5>Vom bekannten Zucker ausgehen</h5>
+        <p>Glucose ist <span class="formula">C₆H₁₂O₆</span>. Beim Übergang –CH₂OH → –COOH ändert sich die Formel um „−2 H, +1 O“. Wende das an.</p>
+        <div class="ex">Analog: Glycerinaldehyd C₃H₆O₃ → Glycerinsäure: –CH₂OH-Ende bleibt, das –CHO wird zu –COOH (+O): C₃H₆O₄.</div>
+      </div></div>
+      <button class="btn sol">✓ Musterlösung zur Selbstkontrolle <span class="chev">▾</span></button>
+      <div class="panel solp"><div class="inner">
+        <p>Glucose C₆H₁₂O₆; –CH₂OH → –COOH bedeutet −2 H, +1 O ⇒ <b>C₆H₁₀O₇</b>.</p>
+        <p>M = 6·12,011 + 10·1,008 + 7·15,999<br>
+        = 72,07 + 10,08 + 112,0 = <b>194,14 g·mol⁻¹</b></p>
+        <div class="ans"><b>C₆H₁₀O₇, M ≈ 194,14 g·mol⁻¹</b></div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- 3b -->
+  <div class="task" data-id="3b">
+    <div class="q"><div class="tag">b</div><div class="qtext"><div class="ask">Markiere alle Stereozentren der Glucuronsäure und berechne die Anzahl möglicher Diastereomere.</div></div>
+      <button class="check">✓</button></div>
+    <div class="reveals">
+      <button class="btn hint">💡 Hilfe & Strategie <span class="chev">▾</span></button>
+      <div class="panel hintp"><div class="inner">
+        <h5>Stereozentren zählen, dann 2ⁿ</h5>
+        <p>Ein Stereozentrum trägt vier verschiedene Substituenten. C1 (CHO) und C6 (COOH) sind <em>keine</em> Stereozentren. Prüfe C2–C5.</p>
+        <div class="ex">Analog: Threose hat 2 Stereozentren ⇒ 2² = 4 Stereoisomere = 2 Enantiomerenpaare. Diastereomere zu <em>einem</em> Molekül = alle außer ihm selbst und seinem Enantiomer = 4 − 2 = 2.</div>
+      </div></div>
+      <button class="btn sol">✓ Musterlösung zur Selbstkontrolle <span class="chev">▾</span></button>
+      <div class="panel solp"><div class="inner">
+        <p><b>Stereozentren:</b> C2, C3, C4, C5 ⇒ <b>n = 4</b> (C1 = CHO, C6 = COOH zählen nicht).</p>
+        <p>Stereoisomere insgesamt: <b>2⁴ = 16</b> (keine Meso-Symmetrie, da beide Kettenenden verschieden sind) ⇒ 8 Enantiomerenpaare.</p>
+        <div class="ans">Bezogen auf <em>ein</em> bestimmtes Isomer gibt es <b>16 − 2 = 14 Diastereomere</b> (alle Stereoisomere außer dem Molekül selbst und seinem Enantiomer).</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- 3c -->
+  <div class="task" data-id="3c">
+    <div class="q"><div class="tag">c</div><div class="qtext"><div class="ask">Zeichne das zweite Alginat-Monomer (offenkettige Fischer-Projektion, neutraler pH) und benenne es.</div></div>
+      <button class="check">✓</button></div>
+    <div class="reveals">
+      <button class="btn hint">💡 Hilfe & Strategie <span class="chev">▾</span></button>
+      <div class="panel hintp"><div class="inner">
+        <h5>Epimer-Beziehung nutzen</h5>
+        <p>In Alginat stehen D-Mannuronat (M) und das zweite Monomer in einer einfachen Epimerie-Beziehung: Sie unterscheiden sich an <em>genau einem</em> Stereozentrum. „Neutraler pH“ heißt: die –COOH-Gruppe liegt als <span class="formula">–COO⁻</span> vor.</p>
+        <div class="ex">Erinnerung Fischer: C1 oben (hier CHO), C6 unten (hier COO⁻); „D/L“ entscheidet die OH-Stellung am untersten Stereozentrum (C5).</div>
+      </div></div>
+      <button class="btn sol">✓ Musterlösung zur Selbstkontrolle <span class="chev">▾</span></button>
+      <div class="panel solp"><div class="inner">
+        <p>Das zweite Monomer ist <b>L-Guluronsäure</b> (als Guluronat) — das <b>C5-Epimer</b> der D-Mannuronsäure.</p>
+        <svg width="170" height="200" viewBox="0 0 170 200" font-family="Space Mono" font-size="13">
+          <line x1="85" y1="18" x2="85" y2="180" stroke="#241a12" stroke-width="1.5"/>
+          <text x="60" y="14">CHO</text>
+          <line x1="55" y1="46" x2="115" y2="46" stroke="#241a12"/><text x="118" y="50">OH</text><text x="28" y="50">H</text>
+          <line x1="55" y1="78" x2="115" y2="78" stroke="#241a12"/><text x="118" y="82">OH</text><text x="28" y="82">H</text>
+          <line x1="55" y1="110" x2="115" y2="110" stroke="#241a12"/><text x="14" y="114">HO</text><text x="120" y="114">H</text>
+          <line x1="55" y1="142" x2="115" y2="142" stroke="#241a12"/><text x="118" y="146">OH</text><text x="28" y="146">H</text>
+          <text x="68" y="196" fill="#0e7d72">COO⁻</text>
+          <text x="2" y="46" font-size="10" fill="#8e6fcb">C2</text><text x="2" y="78" font-size="10" fill="#8e6fcb">C3</text>
+          <text x="2" y="110" font-size="10" fill="#8e6fcb">C4</text><text x="2" y="142" font-size="10" fill="#8e6fcb">C5</text>
+        </svg>
+        <p class="cap">L-Guluronat · OH: C2 links, C3 links, C4 rechts, C5 links</p>
+        <div class="ans"><b>L-Guluronsäure / L-Guluronat</b> (bei neutralem pH einfach deprotoniert, –COO⁻).</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- 3d -->
+  <div class="task" data-id="3d">
+    <div class="q"><div class="tag">d</div><div class="qtext"><div class="ask">Bestimme die Oxidationszahlen aller C-Atome in der Ringform der D-Mannuronsäure (mit Lösungsweg).</div></div>
+      <button class="check">✓</button></div>
+    <div class="reveals">
+      <button class="btn hint">💡 Hilfe & Strategie <span class="chev">▾</span></button>
+      <div class="panel hintp"><div class="inner">
+        <h5>Bindungsbilanz pro C-Atom</h5>
+        <p>Regel: Bindung C–O zählt <b>+1</b>, Bindung C–H zählt <b>−1</b>, Bindung C–C zählt <b>0</b>. Eine Doppelbindung C=O zählt <b>+2</b>. Geh Atom für Atom durch.</p>
+        <div class="ex">Analog (Ethanol): C der CH₃-Gruppe: 3×(C–H) + 1×(C–C) = −3. C der CH₂OH-Gruppe: 2×(C–H) + 1×(C–O) + 1×(C–C) = −1.</div>
+        <p>Wichtig: Im Pyranosering ist <b>C1</b> das Halbacetal (zwei C–O-Bindungen!) und <b>C5</b> trägt das <em>Ring-Sauerstoff</em>.</p>
+      </div></div>
+      <button class="btn sol">✓ Musterlösung zur Selbstkontrolle <span class="chev">▾</span></button>
+      <div class="panel solp"><div class="inner">
+        <ul>
+          <li><b>C1</b> (Halbacetal): 2×(C–O: Ring-O + OH) +2, 1×(C–H) −1, 1×(C–C) 0 ⇒ <b>+1</b></li>
+          <li><b>C2</b>: 1×(C–O) +1, 1×(C–H) −1, 2×(C–C) 0 ⇒ <b>0</b></li>
+          <li><b>C3</b>: 1×(C–O) +1, 1×(C–H) −1, 2×(C–C) 0 ⇒ <b>0</b></li>
+          <li><b>C4</b>: 1×(C–O) +1, 1×(C–H) −1, 2×(C–C) 0 ⇒ <b>0</b></li>
+          <li><b>C5</b> (trägt Ring-O): 1×(C–O) +1, 1×(C–H) −1, 2×(C–C) 0 ⇒ <b>0</b></li>
+          <li><b>C6</b> (–COO⁻/–COOH): C=O +2, C–O +1, C–C 0 ⇒ <b>+3</b></li>
+        </ul>
+        <div class="ans"><b>C1 = +1 · C2 = 0 · C3 = 0 · C4 = 0 · C5 = 0 · C6 = +3</b></div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AUFGABE 4 ============ -->
+<section class="section wrap" id="a4">
+  <div class="taghead"><span class="num">04</span><h2>Traditionelle Boba</h2><span class="pts">18 Punkte</span></div>
+  <div class="ctxt"><div class="txt"><strong>Rheologie & Diffusion:</strong> Tapiokastärke-Dispersionen zeigen <em>nicht­newtonsches</em> Verhalten.
+  Schubspannung τ = η · γ̇ gilt nur für newtonsche Flüssigkeiten; bei kolloidalen Systemen hängt η von der Schergeschwindigkeit ab.</div></div>
+
+  <!-- 4a -->
+  <div class="task" data-id="4a">
+    <div class="q"><div class="tag">a</div><div class="qtext"><div class="ask">Sortiere aufsteigend nach Viskosität: Hexan, Honig, Rapsöl, Wasser.</div></div><button class="check">✓</button></div>
+    <div class="reveals">
+      <button class="btn hint">💡 Hilfe & Strategie <span class="chev">▾</span></button>
+      <div class="panel hintp"><div class="inner"><h5>Molekülstruktur → Fließwiderstand</h5>
+        <p>Je stärker zwischenmolekulare Kräfte und je größer/verschlauft die Moleküle, desto höher η. Kurze unpolare Alkane fließen leicht; zuckerreiche Lösungen sind zäh.</p>
+        <div class="ex">Größenordnungen (mPa·s, RT): Hexan ~0,3 · Wasser ~1 · Olivenöl ~70 · Sirup ~10³–10⁴.</div></div></div>
+      <button class="btn sol">✓ Musterlösung <span class="chev">▾</span></button>
+      <div class="panel solp"><div class="inner"><div class="ans"><b>Hexan &lt; Wasser &lt; Rapsöl &lt; Honig</b><br>
+        (≈ 0,3 · 1 · 60–70 · mehrere 1000 mPa·s)</div></div></div>
+    </div>
+  </div>
+
+  <!-- 4b -->
+  <div class="task" data-id="4b">
+    <div class="q"><div class="tag">b</div><div class="qtext"><div class="ask">Ordne den drei τ-γ̇-Diagrammen zu: newtonsch, scherverfestigend, scherverflüssigend.</div></div><button class="check">✓</button></div>
+    <div class="reveals">
+      <button class="btn hint">💡 Hilfe & Strategie <span class="chev">▾</span></button>
+      <div class="panel hintp"><div class="inner"><h5>Krümmung lesen</h5>
+        <p>η ist die Steigung der τ(γ̇)-Kurve. Steigt die Steigung (Kurve nach oben gekrümmt) ⇒ Viskosität nimmt zu. Flacht sie ab ⇒ Viskosität nimmt ab. Gerade ⇒ konstant.</p>
+        <div class="ex">Merksatz: „verfestigend“ = bei mehr Scherung <em>dicker</em> (dilatant); „verflüssigend“ = bei mehr Scherung <em>dünner</em> (pseudoplastisch).</div></div></div>
+      <button class="btn sol">✓ Musterlösung <span class="chev">▾</span></button>
+      <div class="panel solp"><div class="inner">
+        <ul><li><b>Kurve nach oben gekrümmt (konvex):</b> scherverfestigend (dilatant)</li>
+        <li><b>Kurve abflachend (konkav):</b> scherverflüssigend (pseudoplastisch)</li>
+        <li><b>Gerade durch Ursprung:</b> newtonsch</li></ul>
+        <div class="ans">Im Aufgabenblatt: links = <b>scherverfestigend</b>, Mitte = <b>scherverflüssigend</b>, rechts = <b>newtonsch</b>.</div></div></div>
+    </div>
+  </div>
+
+  <!-- 4c -->
+  <div class="task" data-id="4c">
+    <div class="q"><div class="tag">c</div><div class="qtext"><div class="ask">Welches Fließverhalten zeigt die stark konzentrierte, geknetete Stärkedispersion?</div></div><button class="check">✓</button></div>
+    <div class="reveals">
+      <button class="btn hint">💡 Hilfe & Strategie <span class="chev">▾</span></button>
+      <div class="panel hintp"><div class="inner"><h5>Das „Oobleck“-Phänomen</h5>
+        <p>Denk an die berühmte Speisestärke-Wasser-Mischung: Schlägt man drauf, wird sie hart; langsam reingreifen geht. Was bedeutet „hart bei schneller Scherung“?</p></div></div>
+      <button class="btn sol">✓ Musterlösung <span class="chev">▾</span></button>
+      <div class="panel solp"><div class="inner"><div class="ans"><b>Scherverfestigend (dilatant):</b> Beim schnellen Kneten steigt die Viskosität, die Masse verfestigt sich.</div></div></div>
+    </div>
+  </div>
+
+  <!-- 4d -->
+  <div class="task" data-id="4d">
+    <div class="q"><div class="tag">d</div><div class="qtext"><div class="ask">Definiere Thixotropie und nenne ein lebensmittelchemisches Beispiel.</div></div><button class="check">✓</button></div>
+    <div class="reveals">
+      <button class="btn hint">💡 Hilfe & Strategie <span class="chev">▾</span></button>
+      <div class="panel hintp"><div class="inner"><h5>Zeit ist der Unterschied</h5>
+        <p>Thixotropie ist <em>zeitabhängiges</em> Scherverflüssigen: nicht nur „mehr Scherung → dünner“, sondern „länger geschert → dünner, danach baut sich die Struktur wieder auf“.</p></div></div>
+      <button class="btn sol">✓ Musterlösung <span class="chev">▾</span></button>
+      <div class="panel solp"><div class="inner">
+        <p><b>Thixotropie:</b> zeitabhängige Abnahme der Viskosität unter konstanter Scherung; im Ruhezustand baut sich die innere Struktur wieder auf (reversibel).</p>
+        <div class="ans"><b>Beispiel:</b> Tomatenketchup — erst zäh, nach Schütteln/Klopfen fließt es, und nach dem Ruhen wird es wieder dick. (Auch Joghurt, manche Honige.)</div></div></div>
+    </div>
+  </div>
+
+  <!-- 4e -->
+  <div class="task" data-id="4e">
+    <div class="q"><div class="tag">e</div><div class="qtext"><div class="ask">Skizziere τ gegen γ̇ für einen thixotropen Stoff (Hin- und Rückweg).</div></div><button class="check">✓</button></div>
+    <div class="reveals">
+      <button class="btn hint">💡 Hilfe & Strategie <span class="chev">▾</span></button>
+      <div class="panel hintp"><div class="inner"><h5>Hysterese erwarten</h5>
+        <p>Weil der Strukturabbau Zeit braucht, liegt der Rückweg (sinkende Scherrate) <em>nicht</em> auf dem Hinweg. Es entsteht eine geschlossene Schleife.</p></div></div>
+      <button class="btn sol">✓ Musterlösung <span class="chev">▾</span></button>
+      <div class="panel solp"><div class="inner">
+        <svg width="100%" viewBox="0 0 260 170" font-family="Space Mono" font-size="11">
+          <line x1="34" y1="150" x2="240" y2="150" stroke="#241a12"/><line x1="34" y1="150" x2="34" y2="14" stroke="#241a12"/>
+          <text x="6" y="22">τ</text><text x="224" y="166">γ̇</text>
+          <path d="M34,150 C90,120 150,55 230,30" fill="none" stroke="#e85d9e" stroke-width="2.5"/>
+          <path d="M230,30 C160,70 100,120 34,150" fill="none" stroke="#0e7d72" stroke-width="2.5" stroke-dasharray="5 4"/>
+          <text x="120" y="60" fill="#e85d9e">↑ Hinweg</text><text x="60" y="135" fill="#0e7d72">↓ Rückweg</text>
+        </svg>
+        <div class="ans">Beim Steigern der Scherrate verläuft τ höher (Struktur wird abgebaut), beim Reduzieren tiefer ⇒ <b>Hystereseschleife</b>. Die eingeschlossene Fläche ist ein Maß für die Thixotropie.</div></div></div>
+    </div>
+  </div>
+
+  <!-- 4f -->
+  <div class="task" data-id="4f">
+    <div class="q"><div class="tag">f</div><div class="qtext"><div class="ask">Berechne das Wasserabsorptionsvermögen (% m/m). Daten: 68,0 g Perlen (12 % Restfeuchte), nach dem Kochen 83,6 g (abgetropft); eingedampfter Rückstand der Kochflüssigkeit 2,94 g.</div></div><button class="check">✓</button></div>
+    <div class="reveals">
+      <button class="btn hint">💡 Hilfe & Strategie <span class="chev">▾</span></button>
+      <div class="panel hintp"><div class="inner"><h5>Massenbilanz Schritt für Schritt</h5>
+        <p>Trenne immer in <b>Stärke</b> und <b>Wasser</b>. (1) Wie viel reine Stärke steckt anfangs in den Perlen? (2) Wie viel Stärke ist beim Kochen ins Wasser ausgetreten (= der Rückstand)? (3) Wie viel Stärke bleibt in der gekochten Boba — und wie viel Wasser enthält sie dann?</p>
+        <div class="ex">Analog: 50 g Nudeln mit 10 % Feuchte = 45 g Trockenmasse; gehen 1 g ins Kochwasser, bleiben 44 g im Produkt.</div></div></div>
+      <button class="btn sol">✓ Musterlösung <span class="chev">▾</span></button>
+      <div class="panel solp"><div class="inner">
+        <ul>
+          <li>Reine Stärke anfangs: 0,88 · 68,0 g = <b>59,84 g</b>; Restwasser 0,12 · 68,0 = 8,16 g</li>
+          <li>Ins Kochwasser ausgetreten (Rückstand): 2,94 g Stärke</li>
+          <li>Stärke in der gekochten Boba: 59,84 − 2,94 = <b>56,90 g</b></li>
+          <li>Wasser in der gekochten Boba: 83,6 − 56,90 = <b>26,70 g</b></li>
+          <li>Beim Kochen <em>aufgenommenes</em> Wasser: 26,70 − 8,16 = <b>18,54 g</b></li>
+        </ul>
+        <p>Wasserabsorptionsvermögen = aufgenommenes Wasser / reine Stärke = 18,54 / 56,90 = 0,326</p>
+        <div class="ans"><b>≈ 32,6 % (m/m)</b><br>
+        <span style="font-size:.85em;opacity:.8">Hinweis zur Lesart: Bezieht man den <em>gesamten</em> Wassergehalt der gekochten Boba auf die Stärke (26,70/56,90), erhält man 46,9 %. Der Begriff „absorbiertes Wasser“ spricht für die Netto-Aufnahme (32,6 %). Mit dem offiziellen Lösungsschlüssel abgleichen.</span></div></div></div>
+    </div>
+  </div>
+
+  <!-- 4g -->
+  <div class="task" data-id="4g">
+    <div class="q"><div class="tag">g</div><div class="qtext"><div class="ask">Warum gibt man mit Zucker gesüßte traditionelle Bobas erst kurz vor dem Servieren in den Tee?</div></div><button class="check">✓</button></div>
+    <div class="reveals">
+      <button class="btn hint">💡 Hilfe & Strategie <span class="chev">▾</span></button>
+      <div class="panel hintp"><div class="inner"><h5>1. Ficksches Gesetz denken</h5>
+        <p>J = −D·(dc/dx): Ein Konzentrationsgefälle treibt einen Teilchenstrom. Wo ist die Zuckerkonzentration hoch, wo niedrig — und in welche Richtung fließt der Zucker mit der Zeit?</p></div></div>
+      <button class="btn sol">✓ Musterlösung <span class="chev">▾</span></button>
+      <div class="panel solp"><div class="inner"><div class="ans">In der Boba ist die Zuckerkonzentration hoch, im Tee niedrig ⇒ Zucker <b>diffundiert aus der Boba in den Tee</b> (entlang des Gradienten). Bei zu frühem Zugeben verlieren die Bobas ihre Süße, der charakteristische süße „Biss“ geht verloren und der Tee wird ungleichmäßig süß. Kurz vor dem Servieren bleibt der Zucker in den Bobas konzentriert.</div></div></div>
+    </div>
+  </div>
+
+  <!-- 4h -->
+  <div class="task" data-id="4h">
+    <div class="q"><div class="tag">h</div><div class="qtext"><div class="ask">Sortiere die Diffusionskoeffizienten von Saccharose (gleiche Temperatur) aufsteigend: Milch, schwarzer Tee, Boba.</div></div><button class="check">✓</button></div>
+    <div class="reveals">
+      <button class="btn hint">💡 Hilfe & Strategie <span class="chev">▾</span></button>
+      <div class="panel hintp"><div class="inner"><h5>Stokes-Einstein</h5>
+        <p>D ∝ 1/η: Je zäher/dichter das Medium, desto kleiner D. Ordne die Medien nach ihrer „Behinderung“ der Diffusion: freie Flüssigkeit → viskose Flüssigkeit → festes Gel.</p></div></div>
+      <button class="btn sol">✓ Musterlösung <span class="chev">▾</span></button>
+      <div class="panel solp"><div class="inner"><div class="ans"><b>Boba &lt; Milch &lt; schwarzer Tee</b><br>
+        Im festen Stärkegel der Boba ist D am kleinsten, in der proteinreicheren/zäheren Milch größer, im wässrigen Tee am größten.</div></div></div>
+    </div>
+  </div>
+
+  <!-- 4i -->
+  <div class="task" data-id="4i">
+    <div class="q"><div class="tag">i</div><div class="qtext"><div class="ask">Leite die SI-Einheit von J durch Einheitenanalyse von J = −D·(dc/dx) her.</div></div><button class="check">✓</button></div>
+    <div class="reveals">
+      <button class="btn hint">💡 Hilfe & Strategie <span class="chev">▾</span></button>
+      <div class="panel hintp"><div class="inner"><h5>Einheiten einsetzen</h5>
+        <p>[D] = m²·s⁻¹, [c] = mol·m⁻³, [x] = m. Setze ein und kürze.</p>
+        <div class="ex">Analog: Geschwindigkeit v = ds/dt ⇒ [v] = m/s. Genauso stur mit den Einheiten rechnen.</div></div></div>
+      <button class="btn sol">✓ Musterlösung <span class="chev">▾</span></button>
+      <div class="panel solp"><div class="inner">
+        <p>[J] = [D]·[c]/[x] = (m²·s⁻¹)·(mol·m⁻³)/m = mol·m²·m⁻³·m⁻¹·s⁻¹</p>
+        <div class="ans"><b>[J] = mol·m⁻²·s⁻¹</b> (Stoffmenge pro Fläche und Zeit).</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AUFGABE 5 ============ -->
+<section class="section wrap" id="a5">
+  <div class="taghead"><span class="num">05</span><h2>Popping Boba 2</h2><span class="pts">26 Punkte</span></div>
+  <div class="ctxt"><div class="viz">
+    <svg width="150" height="70" viewBox="0 0 150 70">
+      <g fill="none" stroke="#0e7d72" stroke-width="2">
+        <path d="M10,40 q12,-22 24,0 q12,22 24,0 q12,-22 24,0"/>
+        <path d="M10,52 q12,-22 24,0 q12,22 24,0 q12,-22 24,0"/></g>
+      <g fill="#f4a724"><circle cx="22" cy="40" r="6"/><circle cx="46" cy="40" r="6"/><circle cx="70" cy="40" r="6"/></g>
+      <text x="96" y="38" font-family="Space Mono" font-size="11" fill="#241a12">Ca²⁺ in den</text>
+      <text x="96" y="52" font-family="Space Mono" font-size="11" fill="#241a12">„Eierkartons“</text>
+    </svg></div>
+    <div class="txt"><strong>Vom Tang zum Gel:</strong> Alginat wird aus Braunalgen gewonnen; mit Ca²⁺ bildet es das Gel der Popping Boba.
+    Außerdem: Iodgewinnung aus Algen und das Auflösen mit EDTA.</div>
+  </div>
+
+  <!-- 5a -->
+  <div class="task" data-id="5a">
+    <div class="q"><div class="tag">a</div><div class="qtext"><div class="ask">Was fällt im letzten Schritt jeweils aus — bei Zugabe von Ethanol bzw. von Salzsäure?</div></div><button class="check">✓</button></div>
+    <div class="reveals">
+      <button class="btn hint">💡 Hilfe & Strategie <span class="chev">▾</span></button>
+      <div class="panel hintp"><div class="inner"><h5>Zwei verschiedene Effekte</h5>
+        <p>In Lösung liegt <em>Natriumalginat</em> vor. Ethanol verändert das Lösungsmittel (Polarität/Löslichkeit). Salzsäure verändert die <em>Ladung</em> der Carboxylat-Gruppen. Welches Produkt entsteht jeweils?</p>
+        <div class="ex">Analog: Seife (Na-Salz einer Fettsäure) fällt mit Säure als freie Fettsäure aus; mit viel Salz/Lösungsmittel als Na-Salz (Aussalzen).</div></div></div>
+      <button class="btn sol">✓ Musterlösung <span class="chev">▾</span></button>
+      <div class="panel solp"><div class="inner"><div class="ans">
+        <b>Ethanol:</b> Es fällt <b>Natriumalginat</b> aus (Herabsetzen der Löslichkeit / Ausfällen des Salzes).<br>
+        <b>Salzsäure:</b> Die Carboxylate werden protoniert ⇒ es fällt die wasserunlösliche <b>Alginsäure</b> aus.</div></div></div>
+    </div>
+  </div>
+
+  <!-- 5b -->
+  <div class="task" data-id="5b">
+    <div class="q"><div class="tag">b</div><div class="qtext"><div class="ask">Bringe die Iod-Extraktionsschritte (A–E) in die richtige Reihenfolge und stelle die Reaktionsgleichung für Schritt E auf.</div></div><button class="check">✓</button></div>
+    <div class="reveals">
+      <button class="btn hint">💡 Hilfe & Strategie <span class="chev">▾</span></button>
+      <div class="panel hintp"><div class="inner"><h5>Logik der Aufreinigung</h5>
+        <p>Iod liegt in der Alge als <em>Iodid</em> (I⁻) vor. Erst muss man es freisetzen/lösen, dann zu I₂ <b>oxidieren</b>, dann ins unpolare Lösungsmittel überführen, dann eindampfen. H₂O₂ in saurer Lösung ist das Oxidationsmittel.</p>
+        <div class="ex">Halbreaktionen: 2 I⁻ → I₂ + 2 e⁻ und H₂O₂ + 2 H⁺ + 2 e⁻ → 2 H₂O.</div></div></div>
+      <button class="btn sol">✓ Musterlösung <span class="chev">▾</span></button>
+      <div class="panel solp"><div class="inner">
+        <p><b>Reihenfolge:</b> B → A → E → D → C</p>
+        <ul><li><b>B</b> Trocknen & Verbrennen (Asche mit Iodid-Salzen)</li>
+        <li><b>A</b> Extraktion mit kochendem Wasser (Iodid in Lösung)</li>
+        <li><b>E</b> verd. H₂SO₄ + H₂O₂ (Oxidation I⁻ → I₂)</li>
+        <li><b>D</b> Extraktion mit Cyclohexan (I₂ in die organische Phase)</li>
+        <li><b>C</b> Evaporation des Lösungsmittels (festes Iod)</li></ul>
+        <div class="ans"><b>Schritt E:</b> 2 I⁻ + H₂O₂ + 2 H⁺ → I₂ + 2 H₂O</div></div></div>
+    </div>
+  </div>
+
+  <!-- 5c -->
+  <div class="task" data-id="5c">
+    <div class="q"><div class="tag">c</div><div class="qtext"><div class="ask">Erkläre die Gelbildung des Alginats anhand des „Eierkarton“-Modells.</div></div><button class="check">✓</button></div>
+    <div class="reveals">
+      <button class="btn hint">💡 Hilfe & Strategie <span class="chev">▾</span></button>
+      <div class="panel hintp"><div class="inner"><h5>Geometrie + Ionenbindung</h5>
+        <p>Welcher der beiden Bausteine (M oder G) bildet durch seine gewinkelte Konformation Mulden? Wie viele Ladungen trägt Ca²⁺, und wie viele Ketten verbindet ein Ion dadurch?</p></div></div>
+      <button class="btn sol">✓ Musterlösung <span class="chev">▾</span></button>
+      <div class="panel solp"><div class="inner"><div class="ans">
+        Die <b>G-Blöcke</b> (Poly-L-Guluronat) bilden durch ihre zickzackartige Konformation Hohlräume/Mulden.
+        Zweiwertige <b>Ca²⁺-Ionen</b> setzen sich zwischen zwei parallel ausgerichtete G-Block-Ketten und werden von den
+        Carboxylat- und Sauerstoff-Funktionen koordiniert — wie <b>Eier in einem Eierkarton</b>. Dadurch werden die Ketten
+        ionisch vernetzt; es entsteht ein dreidimensionales Netzwerk (Gel). Einwertige Ionen (Na⁺) können diese Brücken nicht bilden.</div></div></div>
+    </div>
+  </div>
+
+  <!-- 5d -->
+  <div class="task" data-id="5d">
+    <div class="q"><div class="tag">d</div><div class="qtext"><div class="ask">Berechne das Verhältnis von Calciumionen zu Uronsäure-Einheiten im Gel. Zusammensetzung: 53,1 % O, 39,8 % C, 4,3 % H, 2,8 % Ca.</div></div><button class="check">✓</button></div>
+    <div class="reveals">
+      <button class="btn hint">💡 Hilfe & Strategie <span class="chev">▾</span></button>
+      <div class="panel hintp"><div class="inner"><h5>Über den Kohlenstoff koppeln</h5>
+        <p>Rechne die Massenprozente in Stoffmengen (n = m/M) um. Eine Uronsäure-Einheit enthält <b>6 C-Atome</b> — darüber bekommst du die Stoffmenge der Einheiten. Dann Ca dagegen ins Verhältnis setzen.</p>
+        <div class="ex">Analog: Hat ein Polymerbaustein 4 C-Atome, gilt n(Baustein) = n(C)/4.</div></div></div>
+      <button class="btn sol">✓ Musterlösung <span class="chev">▾</span></button>
+      <div class="panel solp"><div class="inner">
+        <p>Pro 100 g:</p>
+        <ul><li>n(C) = 39,8/12,011 = 3,314 mol ⇒ n(Uronsäure-Einheit) = 3,314/6 = <b>0,5523 mol</b></li>
+        <li>n(Ca) = 2,8/40,08 = <b>0,0699 mol</b></li></ul>
+        <p>Verhältnis Ca : Uronsäure = 0,0699 : 0,5523 = 1 : 7,9</p>
+        <div class="ans"><b>≈ 1 Ca²⁺ je 8 Uronsäure-Einheiten</b> (also etwa jede vierte Carboxylatgruppe ist über Ca²⁺ verbrückt).</div></div></div>
+    </div>
+  </div>
+
+  <!-- 5e -->
+  <div class="task" data-id="5e">
+    <div class="q"><div class="tag">e</div><div class="qtext"><div class="ask">Warum dürfen die Tropfen weder zu schnell aus der CaCl₂-Lösung genommen werden noch zu lange darin bleiben?</div></div><button class="check">✓</button></div>
+    <div class="reveals">
+      <button class="btn hint">💡 Hilfe & Strategie <span class="chev">▾</span></button>
+      <div class="panel hintp"><div class="inner"><h5>Ca²⁺ diffundiert nach innen</h5>
+        <p>Die Gelhülle wächst von außen nach innen, weil Ca²⁺ in den Tropfen eindiffundiert. Was passiert mit der Hülle bei zu kurzer, was bei zu langer Zeit?</p></div></div>
+      <button class="btn sol">✓ Musterlösung <span class="chev">▾</span></button>
+      <div class="panel solp"><div class="inner"><div class="ans">
+        <b>Zu schnell entnommen:</b> Die Ca²⁺-Ionen sind noch nicht weit genug eingedrungen, die Gelhülle ist zu dünn/instabil und reißt — der flüssige Kern läuft aus.<br>
+        <b>Zu lange belassen:</b> Ca²⁺ diffundiert komplett bis ins Zentrum und geliert den <em>gesamten</em> Tropfen — der flüssige „Popping“-Kern geht verloren. Gesucht ist die mittlere Zeit: stabile Hülle, flüssiger Kern.</div></div></div>
+    </div>
+  </div>
+
+  <!-- 5f -->
+  <div class="task" data-id="5f">
+    <div class="q"><div class="tag">f</div><div class="qtext"><div class="ask">Erkläre mit einer Reaktionsgleichung, warum sich Popping Boba in Na₂H₂EDTA-Lösung auflöst, und zeichne den entstehenden Calciumkomplex.</div></div><button class="check">✓</button></div>
+    <div class="reveals">
+      <button class="btn hint">💡 Hilfe & Strategie <span class="chev">▾</span></button>
+      <div class="panel hintp"><div class="inner"><h5>Chelat-Effekt</h5>
+        <p>EDTA ist ein sehr starker, sechszähniger Komplexbildner für Ca²⁺. Wenn EDTA das Ca²⁺ „wegfängt“ — was passiert dann mit den Eierkarton-Vernetzungsstellen des Gels?</p>
+        <div class="ex">Analog: In hartem Wasser bindet EDTA Ca²⁺/Mg²⁺ und „enthärtet“ es. Dieselbe Logik löst hier die ionischen Quervernetzungen.</div></div></div>
+      <button class="btn sol">✓ Musterlösung <span class="chev">▾</span></button>
+      <div class="panel solp"><div class="inner">
+        <p>EDTA entzieht dem Gel die vernetzenden Ca²⁺-Ionen über den sehr stabilen Chelatkomplex. Ohne Ca²⁺-Brücken trennen sich die Alginatketten und gehen in Lösung — das Gel zerfällt.</p>
+        <p><b>Reaktionsgleichung:</b><br>
+        Ca²⁺<sub>(Alginat-Gel)</sub> + H₂EDTA²⁻ → [Ca(EDTA)]²⁻ + 2 H⁺ (+ gelöstes Alginat)</p>
+        <svg width="100%" viewBox="0 0 300 160" font-family="Space Mono" font-size="11">
+          <circle cx="150" cy="80" r="16" fill="#f4a724"/><text x="139" y="84" font-weight="700">Ca</text>
+          <g stroke="#0e7d72" stroke-width="1.6">
+            <line x1="150" y1="64" x2="110" y2="30"/><line x1="150" y1="64" x2="190" y2="30"/>
+            <line x1="134" y1="80" x2="60" y2="80"/><line x1="166" y1="80" x2="240" y2="80"/>
+            <line x1="150" y1="96" x2="110" y2="130"/><line x1="150" y1="96" x2="190" y2="130"/></g>
+          <g fill="#241a12">
+            <text x="86" y="26">⁻OOC</text><text x="178" y="26">COO⁻</text>
+            <text x="20" y="84">⁻OOC</text><text x="244" y="84">COO⁻</text>
+            <text x="84" y="146">N</text><text x="188" y="146">N</text></g>
+          <text x="110" y="118" fill="#8e6fcb">N</text><text x="180" y="118" fill="#8e6fcb">N</text>
+        </svg>
+        <p class="cap">[Ca(EDTA)]²⁻ : Ca²⁺ wird von 2 Amin-N und 4 Carboxylat-O sechszähnig (oktaedrisch) umschlossen</p>
+        <div class="ans">EDTA bildet mit Ca²⁺ den oktaedrischen <b>[Ca(EDTA)]²⁻</b>-Chelatkomplex (2 N- + 4 O-Donoren). Da Ca²⁺ aus den Junction-Zonen entfernt wird, löst sich das Gel auf.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AUFGABE 6 ============ -->
+<section class="section wrap" id="a6">
+  <div class="taghead"><span class="num">06</span><h2>Bubble-Rätsel 2</h2><span class="pts">5 Punkte</span></div>
+  <div class="ctxt"><div class="viz">
+    <svg width="84" height="120" viewBox="0 0 84 120">
+      <rect x="14" y="6" width="56" height="108" rx="5" fill="none" stroke="#241a12" stroke-width="1.5"/>
+      <rect x="15" y="78" width="54" height="35" fill="#cfeae6"/>
+      <g fill="#2b1d14"><circle cx="24" cy="104" r="4"/><circle cx="34" cy="108" r="4"/><circle cx="44" cy="104" r="4"/>
+      <circle cx="54" cy="108" r="4"/><circle cx="29" cy="94" r="4"/><circle cx="49" cy="94" r="4"/><circle cx="39" cy="98" r="4"/></g>
+      <text x="74" y="98" font-family="Space Mono" font-size="9">2,65</text>
+      <text x="28" y="120" font-family="Space Mono" font-size="9">7,00 cm</text>
+    </svg></div>
+    <div class="txt"><strong>Geometrie:</strong> Zylinderbecher (⌀ 7,00 cm), Boba-Schicht 2,65 cm hoch. Bobas = inkompressible Kugeln, ⌀ 1,0 cm.</div>
+  </div>
+
+  <div class="task" data-id="6a">
+    <div class="q"><div class="tag">a</div><div class="qtext"><div class="ask">Wie viele Bobas passen höchstens in das Getränk? Zeige Rechenweg/Skizze.</div></div><button class="check">✓</button></div>
+    <div class="reveals">
+      <button class="btn hint">💡 Hilfe & Strategie <span class="chev">▾</span></button>
+      <div class="panel hintp"><div class="inner"><h5>Volumen + Packungsdichte</h5>
+        <p>Berechne (1) das Volumen der Boba-Schicht (Zylinder), (2) das Volumen einer Kugel. Da Kugeln den Raum nicht lückenlos füllen, multipliziere mit der <b>dichtesten Kugelpackung</b> (φ = π/(3√2) ≈ 0,74) für die Obergrenze.</p>
+        <div class="ex">V_Zylinder = π·r²·h · · · V_Kugel = (4/3)·π·r³. „Höchstens“ ⇒ φ = 0,74 ansetzen.</div></div></div>
+      <button class="btn sol">✓ Musterlösung <span class="chev">▾</span></button>
+      <div class="panel solp"><div class="inner">
+        <ul>
+          <li>V_Schicht = π·(3,5 cm)²·2,65 cm = π·12,25·2,65 ≈ <b>102,0 cm³</b></li>
+          <li>V_Boba = (4/3)·π·(0,5 cm)³ ≈ <b>0,5236 cm³</b></li>
+          <li>Mit dichtester Packung: N = 0,74·102,0 / 0,5236 ≈ 75,5 / 0,5236</li>
+        </ul>
+        <div class="ans"><b>N ≈ 144 Bobas</b> (theoretische Obergrenze bei dichtester Kugelpackung).<br>
+        <span style="font-size:.85em;opacity:.8">Realistisch etwas weniger (~120–135), da die Becherwand Randlücken erzwingt. Ohne Packungskorrektur (φ = 1) ergäbe die reine Volumendivision ~195 — das ist physikalisch nicht erreichbar.</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="dots">● ● ●</div>
+  <p><b>IChO 2027 · Bubble Tea — Aufgabenwerkstatt</b></p>
+  <p>Lern- und Nachbereitungswerkzeug · Selbstkontrolle gespeichert lokal im Browser</p>
+  <p style="opacity:.5">Fachlich nach bestem Wissen erstellt — bitte mit dem offiziellen Lösungsschlüssel des IPN abgleichen.</p>
+</footer>
+
+<script>
+// floating bubbles
+const colors=['#f4a724','#e85d9e','#8e6fcb','#ffffff','#1aa093'];
+const bw=document.getElementById('bubbles');
+for(let i=0;i<22;i++){const b=document.createElement('div');b.className='bub';
+  const s=8+Math.random()*30;b.style.width=b.style.height=s+'px';
+  b.style.left=Math.random()*100+'%';b.style.background=colors[i%colors.length];
+  b.style.animationDuration=(7+Math.random()*9)+'s';b.style.animationDelay=(-Math.random()*12)+'s';
+  bw.appendChild(b);}
+
+// reveal toggles
+document.querySelectorAll('.btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const panel=btn.nextElementSibling;const open=btn.classList.toggle('open');
+    panel.style.maxHeight=open?panel.querySelector('.inner').scrollHeight+32+'px':0;
+  });
+});
+
+// self-check checkmarks + persistence
+const KEY='icho2027_checks';
+let state={};try{state=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){}
+document.querySelectorAll('.task').forEach(t=>{
+  const id=t.dataset.id,c=t.querySelector('.check');
+  if(state[id]){c.classList.add('on');}
+  c.addEventListener('click',()=>{
+    c.classList.toggle('on');state[id]=c.classList.contains('on');
+    localStorage.setItem(KEY,JSON.stringify(state));
+  });
+});
+
+// scroll progress + active nav
+const prog=document.getElementById('prog');
+const links=[...document.querySelectorAll('.nav a')];
+const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+  let cur=0;secs.forEach((s,i)=>{if(s&&s.getBoundingClientRect().top<120)cur=i;});
+  links.forEach(l=>l.classList.remove('active'));links[cur]&&links[cur].classList.add('active');
+});
+
+// reflow open panels on resize
+window.addEventListener('resize',()=>{
+  document.querySelectorAll('.btn.open').forEach(b=>{
+    b.nextElementSibling.style.maxHeight=b.nextElementSibling.querySelector('.inner').scrollHeight+32+'px';});
+});
+</script>
+</body>
+</html>
