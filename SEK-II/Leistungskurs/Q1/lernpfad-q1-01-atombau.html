@@ -3,396 +3,410 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Atombau · Lernpfad I · Chemie LK</title>
+<title>Atombau &amp; Licht · Lernpfad I · Chemie LK</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --ink: #0a1612;
-    --paper: #f5f1e8;
-    --paper-warm: #ede5d3;
-    --accent: #d94f1e;
-    --accent-deep: #a83610;
-    --gold: #c9a961;
-    --teal: #1e5d52;
-    --teal-deep: #0d3a32;
+  :root{
+    --ink:#0a1612; --paper:#f5f1e8; --paper-warm:#ede5d3;
+    --accent:#1e5d52; --accent-deep:#a83610; --gold:#c9a961;
+    --teal:#1e5d52; --teal-deep:#0d3a32; --dplus:#b3341a; --dminus:#1f5fb0;
   }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Inter Tight', sans-serif;
-    background: var(--paper);
-    color: var(--ink);
-    line-height: 1.55;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    overflow-x: hidden;
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter Tight',sans-serif; background:var(--paper); color:var(--ink);
+    line-height:1.6; min-height:100vh; display:flex; flex-direction:column; overflow-x:hidden;
     background-image:
-      radial-gradient(circle at 20% 30%, rgba(217, 79, 30, 0.04) 0%, transparent 40%),
-      radial-gradient(circle at 80% 70%, rgba(30, 93, 82, 0.05) 0%, transparent 45%);
+      radial-gradient(circle at 20% 30%, rgba(217,79,30,.04) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(30,93,82,.05) 0%, transparent 45%);
   }
+  ::selection{background:var(--accent); color:var(--paper);}
+  a{color:var(--accent);}
+  :focus-visible{outline:3px solid var(--accent-deep); outline-offset:2px; border-radius:2px;}
 
-  ::selection { background: var(--accent); color: var(--paper); }
-
-  /* Top breadcrumb */
-  .nav-bar {
-    padding: 1.5rem 6vw;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    border-bottom: 1px solid rgba(10, 22, 18, 0.08);
+  .nav-bar{
+    padding:1.3rem 6vw; display:flex; justify-content:space-between; align-items:center;
+    font-family:'JetBrains Mono',monospace; font-size:.72rem; letter-spacing:.15em; text-transform:uppercase;
+    border-bottom:1px solid rgba(10,22,18,.08); position:sticky; top:0; z-index:50;
+    background:rgba(245,241,232,.92); backdrop-filter:blur(8px);
   }
+  .nav-bar a{color:var(--ink); opacity:.6; text-decoration:none; transition:opacity .3s,color .3s;}
+  .nav-bar a:hover{opacity:1; color:var(--accent);}
+  .nav-bar .crumb-sep{margin:0 .6rem; opacity:.3;}
 
-  .nav-bar a {
-    color: var(--ink);
-    opacity: 0.6;
-    text-decoration: none;
-    transition: opacity 0.3s ease, color 0.3s ease;
-  }
-  .nav-bar a:hover { opacity: 1; color: var(--accent); }
+  .hero{padding:5rem 6vw 3.5rem; position:relative; text-align:center;}
+  .hero::before{content:''; position:absolute; inset:0;
+    background-image:linear-gradient(to right,rgba(10,22,18,.03) 1px,transparent 1px),linear-gradient(to bottom,rgba(10,22,18,.03) 1px,transparent 1px);
+    background-size:60px 60px; pointer-events:none;}
+  .hero-inner{max-width:940px; margin:0 auto; position:relative; z-index:2;}
+  .pfad-eyebrow{font-family:'JetBrains Mono',monospace; font-size:.75rem; letter-spacing:.3em; text-transform:uppercase; color:var(--teal-deep); display:flex; justify-content:center; align-items:center; gap:1rem; margin-bottom:1.1rem;}
+  .pfad-eyebrow::before,.pfad-eyebrow::after{content:''; width:40px; height:1px; background:var(--accent); opacity:.5;}
+  .pfad-roman{font-family:'Fraunces',serif; font-style:italic; font-weight:200; font-size:clamp(5rem,13vw,10rem); line-height:.85; color:var(--accent); letter-spacing:-.04em; margin-bottom:1rem;}
+  .pfad-title{font-family:'Fraunces',serif; font-weight:300; font-size:clamp(1.9rem,5vw,3.3rem); line-height:1.05; letter-spacing:-.025em; margin-bottom:.7rem;}
+  .pfad-title em{font-style:italic; color:var(--accent);}
+  .pfad-subtitle{font-family:'Fraunces',serif; font-style:italic; font-weight:300; font-size:clamp(1.05rem,1.6vw,1.3rem); opacity:.75; margin-bottom:2.4rem;}
+  .status-banner{display:inline-flex; align-items:center; gap:1rem; padding:1rem 1.8rem; background:var(--ink); color:var(--paper); font-family:'JetBrains Mono',monospace; font-size:.78rem; letter-spacing:.22em; text-transform:uppercase; position:relative; overflow:hidden;}
+  .status-banner .pulse{width:9px; height:9px; border-radius:50%; background:var(--accent); animation:pulse 1.4s ease-in-out infinite; flex-shrink:0;}
+  @keyframes pulse{0%,100%{opacity:1; transform:scale(1);} 50%{opacity:.4; transform:scale(1.4);}}
+  .status-banner span{position:relative; z-index:1;}
+  .meta-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.2rem; max-width:720px; margin:2.4rem auto 0;}
+  .meta-card{padding:1.2rem 1.3rem; background:var(--paper-warm); border-left:3px solid var(--accent); text-align:left;}
+  .meta-card-label{font-family:'JetBrains Mono',monospace; font-size:.64rem; letter-spacing:.2em; text-transform:uppercase; opacity:.55; margin-bottom:.4rem;}
+  .meta-card-value{font-family:'Fraunces',serif; font-style:italic; font-weight:400; font-size:1.1rem;}
 
-  .nav-bar .crumb-sep {
-    margin: 0 0.6rem;
-    opacity: 0.3;
-  }
+  .password-zone{margin-top:2.6rem; padding-top:2.4rem; border-top:1px dashed rgba(10,22,18,.2);}
+  .pw-label{font-family:'JetBrains Mono',monospace; font-size:.7rem; letter-spacing:.22em; text-transform:uppercase; color:var(--teal-deep); opacity:.75; margin-bottom:1rem;}
+  .pw-form{display:inline-flex; border:1px solid var(--ink); background:var(--paper);}
+  .pw-input{padding:.8rem 1.1rem; border:none; background:transparent; font-family:'JetBrains Mono',monospace; font-size:.85rem; color:var(--ink); width:240px; outline:none;}
+  .pw-input::placeholder{opacity:.35;}
+  .pw-submit{padding:.8rem 1.5rem; background:var(--ink); color:var(--paper); border:none; cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; transition:background .3s;}
+  .pw-submit:hover{background:var(--accent);}
+  .pw-feedback{margin-top:1rem; font-family:'Fraunces',serif; font-style:italic; font-size:.95rem; color:var(--accent-deep); min-height:1.3em;}
 
-  /* Main content */
-  main {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 6rem 6vw;
-    position: relative;
-  }
+  .lernpfad{display:none;}
+  .lernpfad.show{display:block; animation:fadeUp .5s ease;}
+  @keyframes fadeUp{from{opacity:0; transform:translateY(18px);} to{opacity:1; transform:none;}}
+  .lp-section{max-width:1000px; margin:0 auto; padding:3.2rem 6vw;}
+  .lp-section+.lp-section{border-top:1px solid rgba(10,22,18,.08);}
+  .lp-band{background:var(--paper-warm);}
+  .sec-num{font-family:'JetBrains Mono',monospace; font-size:.72rem; letter-spacing:.28em; text-transform:uppercase; color:var(--accent-deep); margin-bottom:.7rem;}
+  .lp-section h2{font-family:'Fraunces',serif; font-weight:400; font-size:clamp(1.7rem,3.4vw,2.4rem); line-height:1.1; letter-spacing:-.02em; margin-bottom:.5rem;}
+  .lp-section h2 em{font-style:italic; color:var(--accent);}
+  .lp-section h3{font-family:'Fraunces',serif; font-weight:500; font-size:1.25rem; margin:2rem 0 .7rem; color:var(--teal-deep);}
+  .lp-section h4{font-family:'Inter Tight',sans-serif; font-weight:600; font-size:1rem; margin:1.3rem 0 .4rem;}
+  .lp-section p{margin:.7rem 0;}
+  .lp-section p.lead{font-size:1.12rem; opacity:.9;}
+  .lp-section ul,.lp-section ol{margin:.6rem 0 .6rem 1.4rem;}
+  .lp-section li{margin:.35rem 0;}
+  .muted{opacity:.62;} .fw600{font-weight:600;}
+  .deltaplus{color:var(--dplus); font-weight:700;} .deltaminus{color:var(--dminus); font-weight:700;}
 
-  /* Decorative grid */
-  main::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(to right, rgba(10,22,18,0.03) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(10,22,18,0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events: none;
-  }
+  .goal-grid{display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; margin-top:1.4rem;}
+  @media(max-width:720px){.goal-grid{grid-template-columns:1fr;}}
+  .goal-card{background:var(--paper); border:1px solid rgba(10,22,18,.12); border-left:3px solid var(--accent); padding:1.2rem 1.3rem;}
+  .lp-band .goal-card{background:#fbf8f1;}
+  .goal-card .glab{font-family:'JetBrains Mono',monospace; font-size:.64rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent-deep); margin-bottom:.5rem;}
+  .goal-card ul{margin:.3rem 0 0 1.1rem;}
 
-  .content {
-    max-width: 920px;
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    text-align: center;
-  }
+  figure{margin:1.6rem 0; text-align:center;}
+  figure svg,.mol svg,.sugar-fig svg{max-width:100%; height:auto;}
+  .figbox{background:#fff; border:1px solid rgba(10,22,18,.12); border-radius:8px; padding:1rem; display:inline-block; max-width:100%;}
+  figcaption{font-family:'JetBrains Mono',monospace; font-size:.68rem; letter-spacing:.06em; color:#7a7368; margin-top:.7rem; text-transform:uppercase;}
 
-  .pfad-roman {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-weight: 200;
-    font-size: clamp(7rem, 18vw, 14rem);
-    line-height: 0.85;
-    color: var(--accent);
-    letter-spacing: -0.04em;
-    margin-bottom: 1.5rem;
-    opacity: 0.95;
-    animation: fadeUp 1s ease 0.1s both;
-  }
+  .duo{display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; margin-top:1.2rem;}
+  @media(max-width:760px){.duo{grid-template-columns:1fr;}}
+  .sugar-card{background:#fff; border:1px solid rgba(10,22,18,.12); border-radius:10px; padding:1.1rem; text-align:center;}
+  .sugar-card .sname{font-family:'Fraunces',serif; font-style:italic; font-size:1.2rem; color:var(--teal-deep);}
+  .sugar-card .sform{font-family:'JetBrains Mono',monospace; font-size:.8rem; color:#7a7368; margin-bottom:.4rem;}
+  .sugar-fig{min-height:240px;}
+  .toggle-row{display:flex; flex-wrap:wrap; gap:.45rem; justify-content:center; margin-top:.6rem;}
 
-  .pfad-eyebrow {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--teal-deep);
-    margin-bottom: 1.2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    animation: fadeUp 1s ease 0.25s both;
-  }
+  .btn{display:inline-flex; align-items:center; gap:.5rem; cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; padding:.6rem 1.1rem; border:1px solid var(--ink); background:var(--paper); color:var(--ink); transition:all .2s; border-radius:6px;}
+  .btn:hover{background:var(--ink); color:var(--paper);}
+  .btn.on{background:var(--accent); color:var(--paper); border-color:var(--accent);}
 
-  .pfad-eyebrow::before, .pfad-eyebrow::after {
-    content: '';
-    width: 40px;
-    height: 1px;
-    background: var(--accent);
-    opacity: 0.5;
-  }
+  .reveal{border:1px solid rgba(10,22,18,.15); border-radius:10px; margin:.9rem 0; overflow:hidden; background:#fff;}
+  .lp-band .reveal{background:#fbf8f1;}
+  .reveal-head{display:flex; align-items:center; gap:.8rem; padding:.95rem 1.2rem; cursor:pointer; background:transparent; border:none; width:100%; text-align:left; font-family:inherit; font-size:1rem; color:var(--ink); font-weight:600;}
+  .reveal-head .rv-icon{width:26px; height:26px; flex-shrink:0; border-radius:50%; background:var(--accent); color:#fff; display:grid; place-items:center; font-size:.9rem; transition:transform .3s;}
+  .reveal.open .rv-icon{transform:rotate(45deg);}
+  .reveal-head .rv-tag{margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:.6rem; letter-spacing:.16em; text-transform:uppercase; color:#9a9285; font-weight:400;}
+  .reveal-body{display:none; padding:0 1.2rem 1.2rem;}
+  .reveal.open .reveal-body{display:block; animation:fadeUp .35s ease;}
+  .reveal-body .answer{font-weight:600; color:var(--accent-deep);}
 
-  .pfad-title {
-    font-family: 'Fraunces', serif;
-    font-weight: 300;
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    line-height: 1.05;
-    letter-spacing: -0.025em;
-    margin-bottom: 0.8rem;
-    animation: fadeUp 1s ease 0.4s both;
-  }
+  .prop-grid{display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1rem;}
+  @media(max-width:600px){.prop-grid{grid-template-columns:1fr;}}
+  .prop{background:#fff; border:1px solid rgba(10,22,18,.12); border-radius:10px; padding:1rem 1.1rem;}
+  .lp-band .prop{background:#fbf8f1;}
+  .prop .ptitle{font-weight:700; display:flex; align-items:center; gap:.5rem;}
+  .prop .pemoji,.pemoji{font-size:1.2rem;}
+  .pill{display:inline-block; background:var(--paper-warm); border:1px solid rgba(10,22,18,.12); border-radius:999px; padding:.15rem .7rem; font-family:'JetBrains Mono',monospace; font-size:.66rem;}
 
-  .pfad-title em {
-    font-style: italic;
-    color: var(--accent);
-  }
+  .callout{border-left:4px solid var(--accent); background:rgba(30,93,82,.06); padding:1rem 1.2rem; border-radius:0 8px 8px 0; margin:1.2rem 0;}
+  .callout.warn{border-color:var(--accent-deep); background:rgba(168,54,16,.06);}
+  .callout.fast{border-color:var(--gold); background:rgba(201,169,97,.12);}
+  .callout .co-tag{font-family:'JetBrains Mono',monospace; font-size:.64rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent-deep); margin-bottom:.4rem;}
 
-  .pfad-subtitle {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-weight: 300;
-    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
-    opacity: 0.75;
-    margin-bottom: 3.5rem;
-    animation: fadeUp 1s ease 0.55s both;
-  }
+  .trainer-cta{margin:1.6rem 0; padding:1.6rem; border-radius:14px; color:var(--paper); background:linear-gradient(135deg,var(--teal-deep),#14463c); display:flex; flex-wrap:wrap; align-items:center; gap:1.2rem; justify-content:space-between;}
+  .trainer-cta .tc-txt{flex:1 1 280px;}
+  .trainer-cta h4{color:var(--paper); margin:0 0 .3rem; font-size:1.15rem;}
+  .trainer-cta p{color:rgba(245,241,232,.85); margin:.2rem 0; font-size:.95rem;}
+  .trainer-cta .btn-cta{background:var(--gold); color:#231a05; border:none; padding:.95rem 1.6rem; border-radius:8px; font-family:'JetBrains Mono',monospace; font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; text-decoration:none; font-weight:700; white-space:nowrap; transition:transform .2s;}
+  .trainer-cta .btn-cta:hover{transform:translateY(-2px);}
+  .chiprow{display:flex; flex-wrap:wrap; gap:.4rem; margin-top:.7rem;}
+  .chip{background:rgba(245,241,232,.14); border:1px solid rgba(245,241,232,.3); color:var(--paper); border-radius:999px; padding:.18rem .7rem; font-size:.74rem;}
 
-  /* The big "im Aufbau" banner */
-  .status-banner {
-    display: inline-flex;
-    align-items: center;
-    gap: 1.2rem;
-    padding: 1.4rem 2.2rem;
-    background: var(--ink);
-    color: var(--paper);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8rem;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    margin-bottom: 3rem;
-    animation: fadeUp 1s ease 0.7s both;
-    position: relative;
-    overflow: hidden;
-  }
+  .vorlage{border:2px solid var(--accent); border-radius:14px; overflow:hidden; margin:1.4rem 0; background:#fff;}
+  .vorlage-head{background:var(--accent); color:#fff; padding:.8rem 1.2rem; display:flex; align-items:center; gap:.7rem;}
+  .vorlage-head .vt{font-family:'Fraunces',serif; font-style:italic; font-size:1.2rem;}
+  .vorlage-head .vbadge{margin-left:auto; background:var(--gold); color:#231a05; font-family:'JetBrains Mono',monospace; font-size:.6rem; letter-spacing:.12em; padding:.2rem .6rem; border-radius:5px; text-transform:uppercase;}
+  .vorlage-body{padding:1.3rem; display:grid; grid-template-columns:.9fr 1.1fr; gap:1.3rem;}
+  @media(max-width:740px){.vorlage-body{grid-template-columns:1fr;}}
+  .vorlage .vfig{text-align:center;}
+  .vkeys{list-style:none; margin:0; padding:0;}
+  .vkeys li{padding:.5rem 0; border-bottom:1px dashed rgba(10,22,18,.13); display:flex; gap:.6rem; align-items:flex-start;}
+  .vkeys li:last-child{border-bottom:none;}
+  .vkeys .vk-ico{color:var(--accent-deep); font-weight:700;}
+  .vkeys .vk-label{font-weight:600;}
 
-  .status-banner::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(217, 79, 30, 0.25), transparent);
-    animation: shimmer 3s linear infinite;
-  }
+  details.fach{border:1px solid rgba(10,22,18,.14); border-radius:10px; margin:.7rem 0; background:#fff; overflow:hidden;}
+  details.fach>summary{list-style:none; cursor:pointer; padding:.9rem 1.2rem; font-weight:600; display:flex; align-items:center; gap:.7rem;}
+  details.fach>summary::-webkit-details-marker{display:none;}
+  details.fach>summary .fa-emoji{font-size:1.2rem;}
+  details.fach>summary .fa-chev{margin-left:auto; transition:transform .3s; color:var(--accent);}
+  details.fach[open]>summary .fa-chev{transform:rotate(90deg);}
+  details.fach .fa-body{padding:0 1.2rem 1.2rem; border-top:1px solid rgba(10,22,18,.08);}
+  details.fach .fa-body p:first-child{margin-top:.8rem;}
 
-  @keyframes shimmer {
-    to { left: 100%; }
-  }
+  .aufgabe{border:1px solid rgba(10,22,18,.14); border-radius:12px; padding:1.3rem; margin:1.1rem 0; background:#fff;}
+  .lp-band .aufgabe{background:#fbf8f1;}
+  .aufgabe .a-head{display:flex; align-items:center; gap:.7rem; margin-bottom:.6rem; flex-wrap:wrap;}
+  .a-badge{font-family:'JetBrains Mono',monospace; font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; padding:.22rem .65rem; border-radius:6px; font-weight:700;}
+  .a-badge.repro{background:#e4f1ec; color:var(--teal-deep);}
+  .a-badge.anwend{background:#fbecd6; color:#8a4a12;}
+  .a-badge.transfer{background:#f0e3f5; color:#6b3a80;}
+  .a-title{font-weight:600; font-size:1.05rem;}
+  .a-mols{display:flex; flex-wrap:wrap; gap:1rem; justify-content:center; margin:1rem 0;}
+  .a-mol{background:#fff; border:1px solid rgba(10,22,18,.12); border-radius:10px; padding:.6rem; width:170px;}
+  .a-mol .mol{min-height:150px; display:grid; place-items:center;}
+  .a-mol .ml{text-align:center; font-family:'JetBrains Mono',monospace; font-size:.62rem; letter-spacing:.05em; color:#7a7368; margin-top:.3rem;}
 
-  .status-banner .pulse {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--accent);
-    animation: pulse 1.4s ease-in-out infinite;
-    flex-shrink: 0;
-  }
+  .dl-grid{display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1.2rem;}
+  @media(max-width:600px){.dl-grid{grid-template-columns:1fr;}}
+  .dl-card{background:#fff; border:1px solid rgba(10,22,18,.13); border-radius:10px; padding:1.1rem;}
+  .dl-card .dl-k{font-family:'JetBrains Mono',monospace; font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-deep);}
+  .dl-card .dl-t{font-weight:600; margin:.3rem 0;}
+  .dl-card .dl-file{font-family:'JetBrains Mono',monospace; font-size:.78rem; color:#6c6358;}
 
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(1.4); }
-  }
+  table.sp{width:100%; border-collapse:collapse; margin-top:1rem; font-size:.92rem;}
+  table.sp th,table.sp td{text-align:left; padding:.6rem .7rem; border-bottom:1px solid rgba(10,22,18,.12); vertical-align:top;}
+  table.sp th{font-family:'JetBrains Mono',monospace; font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--accent-deep);}
 
-  .status-banner span {
-    position: relative;
-    z-index: 1;
-  }
+  footer{padding:2.4rem 6vw; background:var(--ink); color:var(--paper); font-family:'JetBrains Mono',monospace; font-size:.72rem; letter-spacing:.1em; text-align:center; opacity:.92;}
+  footer a{color:var(--gold); text-decoration:none;}
 
-  /* Meta info */
-  .meta-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.5rem;
-    max-width: 720px;
-    margin: 0 auto 3rem;
-    animation: fadeUp 1s ease 0.85s both;
-  }
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none !important; transition:none !important; scroll-behavior:auto !important;}}
 
-  .meta-card {
-    padding: 1.4rem 1.5rem;
-    background: var(--paper-warm);
-    border-left: 3px solid var(--accent);
-    text-align: left;
-  }
 
-  .meta-card-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.66rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    opacity: 0.55;
-    margin-bottom: 0.5rem;
-  }
+/* ===== Atombau-Lernpfad · Ergänzungen zum Designsystem der Organik-Vorlage ===== */
 
-  .meta-card-value {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-weight: 400;
-    font-size: 1.15rem;
-    color: var(--ink);
-  }
+/* Hero: gegenübergestellte Spektren (kontinuierlich vs. diskret) */
+.hero-spectra{display:grid; grid-template-columns:1fr 1fr; gap:1.1rem; max-width:760px; margin:2.6rem auto 0;}
+@media(max-width:640px){.hero-spectra{grid-template-columns:1fr;}}
+.hsp{background:#fff; border:1px solid rgba(10,22,18,.12); border-radius:10px; padding:.7rem .7rem .5rem; text-align:left;}
+.hsp.dark{background:#0b0e12; border-color:#222;}
+.hsp .hsp-lab{font-family:'JetBrains Mono',monospace; font-size:.6rem; letter-spacing:.16em; text-transform:uppercase; margin:.1rem 0 .5rem; color:var(--accent-deep);}
+.hsp.dark .hsp-lab{color:#d7cfa0;}
+.hsp svg{width:100%; height:auto; display:block;}
+.hsp .hsp-sub{font-family:'JetBrains Mono',monospace; font-size:.58rem; letter-spacing:.04em; color:#8a8275; margin-top:.35rem;}
+.hsp.dark .hsp-sub{color:#7d8794;}
 
-  /* Password gate */
-  .password-zone {
-    margin-top: 3rem;
-    padding-top: 3rem;
-    border-top: 1px dashed rgba(10, 22, 18, 0.2);
-    animation: fadeUp 1s ease 1s both;
-  }
+/* Spektrum-Container (in Abschnitten) */
+.spectrum{background:#fff; border:1px solid rgba(10,22,18,.12); border-radius:8px; padding:.6rem .6rem .3rem; margin:.5rem 0;}
+.spectrum svg{width:100%; height:auto; display:block;}
+.spectrum .sp-cap{font-family:'JetBrains Mono',monospace; font-size:.6rem; letter-spacing:.05em; color:#7a7368; margin-top:.3rem; text-transform:uppercase;}
 
-  .pw-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--teal-deep);
-    opacity: 0.75;
-    margin-bottom: 1rem;
-  }
+/* Quelle/Citation */
+.src-note{font-family:'JetBrains Mono',monospace; font-size:.62rem; letter-spacing:.04em; color:#8a8275; margin-top:.5rem;}
+.src-note a{color:var(--accent);}
 
-  .pw-form {
-    display: inline-flex;
-    gap: 0;
-    border: 1px solid var(--ink);
-    background: var(--paper);
-  }
+/* Lichtquellen-Zuordnungstabelle (anklickbar wie das Arbeitsblatt) */
+.assign{width:100%; border-collapse:collapse; margin-top:1rem; font-size:.92rem;}
+.assign th,.assign td{padding:.5rem .6rem; border-bottom:1px solid rgba(10,22,18,.12); vertical-align:middle;}
+.assign th{font-family:'JetBrains Mono',monospace; font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; color:var(--accent-deep); text-align:center;}
+.assign th:first-child{text-align:left;}
+.assign td.src{font-weight:600;}
+.assign td.mini{width:190px;}
+.assign td.mini svg{width:100%; height:auto; display:block; border-radius:4px;}
+.assign .ac{width:74px; text-align:center; cursor:pointer; user-select:none;}
+.assign .dot{display:inline-block; width:20px; height:20px; border-radius:50%; border:2px solid var(--accent); background:transparent; transition:all .15s;}
+.assign .ac:hover .dot{background:rgba(30,93,82,.18);}
+.assign .ac.on .dot{background:var(--accent); box-shadow:0 0 0 3px rgba(30,93,82,.18);}
+.assign-hint{font-size:.84rem; color:#6c6358; margin-top:.5rem;}
 
-  .pw-input {
-    padding: 0.85rem 1.2rem;
-    border: none;
-    background: transparent;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.85rem;
-    color: var(--ink);
-    width: 240px;
-    outline: none;
-    letter-spacing: 0.05em;
-  }
+/* Dye-Gitter (4 Farbstoffe) */
+.dye-grid{display:grid; grid-template-columns:1fr 1fr; gap:1.3rem; margin-top:1.2rem;}
+@media(max-width:760px){.dye-grid{grid-template-columns:1fr;}}
+.dye-card{background:#fff; border:1px solid rgba(10,22,18,.12); border-radius:12px; padding:1rem; }
+.lp-band .dye-card{background:#fbf8f1;}
+.dye-card .dye-name{font-family:'Fraunces',serif; font-weight:500; font-size:1.1rem; display:flex; align-items:baseline; gap:.5rem; flex-wrap:wrap;}
+.dye-card .dye-form{font-family:'JetBrains Mono',monospace; font-size:.66rem; color:#8a8275; letter-spacing:.04em;}
+.dye-card .dye-solv{margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; padding:.2rem .55rem; border-radius:5px; font-weight:700;}
+.dye-card .dye-solv.eth{background:#fbecd6; color:#8a4a12;}
+.dye-card .dye-solv.h2o{background:#dceef3; color:#15596b;}
+.dye-fig{background:#fff; border:1px solid rgba(10,22,18,.10); border-radius:8px; padding:.4rem; margin:.6rem 0; min-height:120px;}
+.dye-fig svg{width:100%; height:auto; display:block;}
+.dye-note{font-size:.86rem; color:#5a5249; margin-top:.4rem;}
+.dye-card .toggle-row{justify-content:flex-start;}
+.dye-card .btn{padding:.42rem .7rem; font-size:.6rem; letter-spacing:.08em;}
 
-  .pw-input::placeholder {
-    opacity: 0.35;
-    letter-spacing: 0.05em;
-  }
+/* Wipe-to-reveal (verdeckte Lösung, wegwischbar — Moderation) */
+.wipe{position:relative; border:1px solid rgba(10,22,18,.15); border-radius:10px; overflow:hidden; margin:1rem 0; background:#fff;}
+.lp-band .wipe{background:#fbf8f1;}
+.wipe-inner{padding:1.1rem 1.2rem;}
+.wipe-cv{position:absolute; inset:0; width:100%; height:100%; cursor:grab; touch-action:none; border-radius:10px;}
+.wipe-cv.gone{display:none;}
+.wipe-cv:active{cursor:grabbing;}
+.wipe-btn{position:absolute; top:.55rem; right:.55rem; z-index:3; background:var(--ink); color:var(--paper); border:none; cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; padding:.4rem .7rem; border-radius:6px; opacity:.92;}
+.wipe-btn:hover{opacity:1;}
+.wipe-tag{position:absolute; left:.7rem; top:.6rem; z-index:2; font-family:'JetBrains Mono',monospace; font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; color:#fff; pointer-events:none;}
 
-  .pw-submit {
-    padding: 0.85rem 1.6rem;
-    background: var(--ink);
-    color: var(--paper);
-    border: none;
-    cursor: pointer;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    transition: background 0.3s ease;
-  }
+/* Selbsteinschätzung „Ich kann …“ */
+.kann-list{list-style:none; margin:.6rem 0 0; padding:0;}
+.kann{display:flex; align-items:flex-start; gap:.7rem; padding:.6rem .2rem; border-bottom:1px solid rgba(10,22,18,.08); cursor:pointer;}
+.kann input{margin-top:.25rem; width:18px; height:18px; accent-color:var(--accent); flex-shrink:0; cursor:pointer;}
+.kann span{flex:1;}
+.kann.done span{color:var(--accent); }
 
-  .pw-submit:hover { background: var(--accent); }
+/* Phänomen-Karten (Schnellläufer) */
+.phen-grid{display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1rem;}
+@media(max-width:700px){.phen-grid{grid-template-columns:1fr;}}
+.phen{background:#fff; border:1px solid rgba(10,22,18,.12); border-radius:10px; padding:1rem; }
+.lp-band .phen{background:#fbf8f1;}
+.phen .ph-h{font-weight:700; display:flex; align-items:center; gap:.5rem; margin-bottom:.3rem;}
+.phen .ph-em{font-size:1.15rem;}
+.phen .ph-type{margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:.56rem; letter-spacing:.1em; text-transform:uppercase; padding:.15rem .5rem; border-radius:5px; background:#eee; color:#555;}
+.phen p{font-size:.9rem; margin:.3rem 0;}
+.phen .spectrum{margin-top:.5rem;}
 
-  .pw-feedback {
-    margin-top: 1rem;
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 0.95rem;
-    color: var(--accent-deep);
-    min-height: 1.3em;
-  }
+/* „Weiter zu Teil II“ */
+.next-card{margin:2rem 0 .5rem; padding:1.6rem 1.8rem; border-radius:14px; background:linear-gradient(135deg,var(--teal-deep),#14463c); color:var(--paper); display:flex; flex-wrap:wrap; align-items:center; gap:1.2rem; justify-content:space-between;}
+.next-card .nc-txt{flex:1 1 300px;}
+.next-card .nc-eyebrow{font-family:'JetBrains Mono',monospace; font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; opacity:.7; margin-bottom:.4rem;}
+.next-card h3{font-family:'Fraunces',serif; font-weight:400; color:var(--paper); margin:0 0 .4rem; font-size:1.4rem;}
+.next-card p{color:rgba(245,241,232,.85); margin:.2rem 0; font-size:.95rem;}
+.next-card .nc-btn{background:var(--gold); color:#231a05; border:none; padding:.9rem 1.5rem; border-radius:8px; font-family:'JetBrains Mono',monospace; font-size:.74rem; letter-spacing:.12em; text-transform:uppercase; font-weight:700; cursor:pointer; white-space:nowrap; opacity:.6; pointer-events:none;}
+.next-card .nc-lock{font-family:'JetBrains Mono',monospace; font-size:.6rem; letter-spacing:.12em; opacity:.7; margin-top:.5rem;}
 
-  /* Unlocked content (hidden until unlock) */
-  .unlocked-content {
-    display: none;
-    margin-top: 3rem;
-    padding: 3rem 2rem;
-    background: var(--paper-warm);
-    border: 1px solid rgba(10, 22, 18, 0.15);
-    text-align: left;
-    animation: slideIn 0.6s ease;
-  }
+/* kleine Helfer */
+.pill{display:inline-block; background:var(--paper-warm); border-radius:4px; padding:.05rem .4rem; font-family:'JetBrains Mono',monospace; font-size:.82em;}
+.deltaplus{color:var(--dplus); font-weight:700;}
+.deltaminus{color:var(--dminus); font-weight:700;}
+.duo2{display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; margin:1.2rem 0;}
+@media(max-width:740px){.duo2{grid-template-columns:1fr;}}
+.duo2 .figbox{display:block; text-align:center;}
+.flow{font-family:'JetBrains Mono',monospace; font-size:.84rem; letter-spacing:.02em; background:#fff; border:1px dashed rgba(10,22,18,.25); border-radius:8px; padding:.8rem 1rem; margin:1rem 0; line-height:1.9;}
+.lp-band .flow{background:#fbf8f1;}
+.flow b{color:var(--accent);}
 
-  .unlocked-content.show { display: block; }
+/* ===== Farbstoff-Karten mit echten Fotos + korrekten Strukturformeln (Teil I, überarbeitet) ===== */
+.dye-media{display:grid; grid-template-columns:1fr 1fr; gap:.7rem; margin:.7rem 0;}
+.dye-fig2{margin:0; text-align:center; display:flex; flex-direction:column;}
+.dye-fig2 img{width:100%; height:130px; border:1px solid rgba(10,22,18,.12); border-radius:8px; background:#fff;}
+.dye-fig2 img.photo{object-fit:cover;}
+.dye-fig2 img.struct{object-fit:contain; padding:.35rem;}
+.dye-fig2 figcaption{font-family:'JetBrains Mono',monospace; font-size:.58rem; letter-spacing:.04em; color:#7a7368; margin-top:.4rem; text-transform:uppercase; line-height:1.3;}
+@media(max-width:420px){.dye-fig2 img{height:108px;}}
 
-  .unlocked-content h2 {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-weight: 400;
-    font-size: 1.6rem;
-    margin-bottom: 1rem;
-    color: var(--teal-deep);
-  }
 
-  .unlocked-content p {
-    font-size: 1rem;
-    line-height: 1.65;
-    opacity: 0.85;
-  }
+  /* >>> Teil II CSS <<< */
+  /* ===================== Teil II ===================== */
+  .t2-divider{margin:3.4rem 0 1.6rem; padding-top:2.6rem; border-top:2px solid rgba(168,54,16,.25); text-align:center;}
+  .t2-roman{display:inline-block; font-family:'Fraunces',serif; font-style:italic; font-size:1.15rem; color:var(--accent-deep); border:2px solid var(--accent-deep); border-radius:50%; width:2.5rem; height:2.5rem; line-height:2.25rem; margin-bottom:.7rem;}
+  .t2-divider .t2-eyebrow{font-family:'JetBrains Mono',monospace; font-size:.66rem; letter-spacing:.22em; text-transform:uppercase; color:var(--accent-deep); font-weight:700; display:block; margin-bottom:.3rem;}
+  .t2-divider h2{font-family:'Fraunces',serif; font-size:clamp(1.6rem,3.4vw,2.35rem); margin:.2rem 0 .5rem; color:var(--ink);}
+  .t2-divider p{max-width:64ch; margin:.4rem auto 0; color:#4a5350;}
 
-  .unlocked-content .placeholder-text {
-    margin-top: 1.5rem;
-    padding: 1rem;
-    background: rgba(217, 79, 30, 0.08);
-    border-left: 3px solid var(--accent);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8rem;
-    letter-spacing: 0.05em;
-    color: var(--accent-deep);
-  }
+  /* Figur-Container (responsive, horizontal scrollbar bei schmalen Screens) */
+  .t2-fig{margin:1.2rem 0; background:#fff; border:1px solid rgba(10,22,18,.12); border-radius:12px; padding:1rem 1.1rem; overflow-x:auto;}
+  .lp-band .t2-fig{background:#fbf8f1;}
+  .t2-fig svg{display:block; width:100%; height:auto;}
+  .t2-tl-svg{min-width:760px;} .t2-ie-svg{min-width:620px;}
+  .t2-cap{font-size:.82rem; color:#6a726e; margin-top:.5rem; font-style:italic;}
+  .t2-hint{font-size:.82rem; color:#6a726e; margin:.4rem 0 0;}
+  .t2-hint b{color:var(--accent-deep);}
 
-  @keyframes slideIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  /* Zeitstrahl-Stationen interaktiv */
+  .t2-tl-node{cursor:pointer;}
+  .t2-tl-node .t2-tl-halo{transition:stroke .2s, stroke-width .2s;}
+  .t2-tl-node:hover .t2-tl-halo,.t2-tl-node:focus .t2-tl-halo{stroke:var(--accent-deep); stroke-width:3;}
+  .t2-tl-node:focus{outline:none;}
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(25px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  /* Modellkarten (erben .reveal) */
+  .t2-models{margin:1.3rem 0;}
+  .t2-mi{width:46px; height:46px; flex-shrink:0; display:grid; place-items:center;}
+  .t2-mi svg{width:46px; height:46px; display:block;}
+  .t2-mh{font-family:'Fraunces',serif; font-size:1.05rem; font-weight:600;}
+  .t2-my{font-family:'JetBrains Mono',monospace; font-size:.78rem; color:var(--accent-deep); font-weight:700;}
+  .t2-model .t2-idea{margin:.1rem 0 .6rem;}
+  .t2-model .t2-idea b,.t2-model .answer b{font-family:'JetBrains Mono',monospace; font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; color:#8a8276;}
+  .t2-model.flash{animation:t2flash 1.5s ease;}
+  @keyframes t2flash{0%{box-shadow:0 0 0 0 rgba(201,169,97,0);}18%{box-shadow:0 0 0 4px rgba(201,169,97,.6);}100%{box-shadow:0 0 0 0 rgba(201,169,97,0);}}
 
-  /* Floating molecule decoration */
-  .deco-mol {
-    position: absolute;
-    pointer-events: none;
-    opacity: 0.08;
-  }
-  .deco-mol.dm1 { top: 8%; right: 6%; width: 200px; animation: drift 24s ease-in-out infinite; }
-  .deco-mol.dm2 { bottom: 12%; left: 4%; width: 160px; animation: drift 30s ease-in-out infinite reverse; }
+  /* Ionisierungsenergie — Merkmale ein-/ausblenden */
+  .t2-ie-legend{display:flex; flex-wrap:wrap; gap:.5rem; margin:.5rem 0 1rem;}
+  .t2-ie-btn{font-family:'JetBrains Mono',monospace; font-size:.72rem; letter-spacing:.03em; padding:.42rem .82rem; border-radius:999px; border:1.5px solid rgba(10,22,18,.2); background:#fff; color:var(--ink); cursor:pointer; transition:all .15s;}
+  .t2-ie-btn:hover{border-color:var(--accent);}
+  .t2-ie-btn::before{content:"+ "; opacity:.55;}
+  .t2-ie-btn.on::before{content:"\2212 ";}
+  .t2-ie-btn.on{background:var(--accent); color:#fff; border-color:var(--accent);}
+  .t2-ie-btn[data-feat="alkali"].on{background:var(--accent-deep); border-color:var(--accent-deep);}
+  .t2-ie-btn[data-feat="bsenke"].on{background:#7b4fa0; border-color:#7b4fa0;}
+  .t2-ie-btn[data-feat="osenke"].on{background:#1f5fb0; border-color:#1f5fb0;}
+  .t2-ie-btn[data-feat="ezk"].on{background:#b08a2e; border-color:#b08a2e;}
+  .t2-ie-anno{display:none; border-left:4px solid var(--accent); background:rgba(30,93,82,.05); padding:.7rem 1rem; border-radius:0 8px 8px 0; margin:.5rem 0; font-size:.93rem;}
+  .t2-ie-anno.show{display:block; animation:fadeUp .3s ease;}
+  .t2-ie-anno b{color:var(--accent-deep);}
+  .t2-ie-anno[data-feat="alkali"]{border-left-color:var(--accent-deep); background:rgba(168,54,16,.05);}
+  .t2-ie-anno[data-feat="bsenke"]{border-left-color:#7b4fa0; background:rgba(123,79,160,.06);}
+  .t2-ie-anno[data-feat="osenke"]{border-left-color:#1f5fb0; background:rgba(31,95,176,.06);}
+  .t2-ie-anno[data-feat="ezk"]{border-left-color:#c9a961; background:rgba(201,169,97,.12);}
 
-  @keyframes drift {
-    0%, 100% { transform: translate(0,0) rotate(0deg); }
-    50% { transform: translate(15px, -25px) rotate(20deg); }
-  }
+  /* ===================== § II.3 Konfiguration ===================== */
+  .t2-cfg-tabs{display:flex; flex-wrap:wrap; gap:.5rem; margin:.5rem 0 1rem;}
+  .t2-cfg-tab{font-family:'JetBrains Mono',monospace; font-size:.85rem; font-weight:700; padding:.45rem .9rem; border-radius:8px; border:1.5px solid rgba(10,22,18,.2); background:#fff; color:var(--ink); cursor:pointer; transition:all .15s; display:flex; align-items:center; gap:.4rem;}
+  .t2-cfg-tab .t2-cfg-z{font-size:.62rem; font-weight:400; color:#9a9285;}
+  .t2-cfg-tab:hover{border-color:var(--accent);}
+  .t2-cfg-tab.on{background:var(--accent); color:#fff; border-color:var(--accent);}
+  .t2-cfg-tab.on .t2-cfg-z{color:rgba(255,255,255,.8);}
+  .t2-cfg-stage{border:1px solid rgba(10,22,18,.12); border-radius:12px; background:#fff; padding:1rem 1.1rem;}
+  .lp-band .t2-cfg-stage{background:#fbf8f1;}
+  .t2-cfg-diagram{overflow-x:auto;}
+  .t2-cfg-diagram svg,.t2-box-svg{display:block; width:100%; min-width:600px; height:auto;}
+  .t2-cfg-ctrl{display:flex; align-items:center; gap:.7rem; margin:.85rem 0 .2rem; flex-wrap:wrap;}
+  .t2-step-btn{font-family:'JetBrains Mono',monospace; font-size:1.1rem; line-height:1; width:2.1rem; height:2.1rem; border-radius:8px; border:1.5px solid rgba(10,22,18,.2); background:#fff; color:var(--ink); cursor:pointer; display:grid; place-items:center;}
+  .t2-step-btn:hover{border-color:var(--accent); background:rgba(30,93,82,.05);}
+  .t2-step-btn.ghost{width:auto; padding:0 .7rem; font-size:.76rem;}
+  .t2-step-range{flex:1; min-width:140px; accent-color:var(--accent);}
+  .t2-step-lbl{font-family:'JetBrains Mono',monospace; font-size:.8rem; color:var(--accent-deep); font-weight:700; min-width:84px;}
+  .t2-cfg-read{margin-top:.6rem; border-top:1px dashed rgba(10,22,18,.15); padding-top:.6rem;}
+  .t2-read-line{font-family:'JetBrains Mono',monospace; font-size:.92rem; margin:.2rem 0; color:var(--ink); word-break:break-word;}
+  .t2-read-k{display:inline-block; font-size:.58rem; letter-spacing:.1em; text-transform:uppercase; color:#fff; background:var(--accent); border-radius:4px; padding:.12rem .42rem; margin-right:.5rem; vertical-align:middle;}
+  .t2-read-line:nth-child(2) .t2-read-k{background:var(--accent-deep);}
 
-  footer {
-    padding: 2.5rem 6vw;
-    background: var(--ink);
-    color: var(--paper);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    text-align: center;
-    opacity: 0.85;
-  }
+  /* ===================== § II.4 Quantenzahltabelle ===================== */
+  .t2-qz-wrap{margin:1rem 0;}
+  .t2-qz-table{width:100%; border-collapse:collapse; font-size:.95rem; background:#fff; border-radius:10px; overflow:hidden;}
+  .lp-band .t2-qz-table{background:#fbf8f1;}
+  .t2-qz-table th{background:var(--teal-deep); color:#fff; font-family:'JetBrains Mono',monospace; font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; padding:.6rem .7rem; text-align:center; font-weight:700;}
+  .t2-qz-table th:first-child,.t2-qz-whyh{text-align:left;}
+  .t2-qz-row{cursor:pointer; border-top:1px solid rgba(10,22,18,.1); transition:background .15s;}
+  .t2-qz-row:hover{background:rgba(30,93,82,.05);}
+  .t2-qz-row.open{background:rgba(201,169,97,.14);}
+  .t2-qz-el{padding:.55rem .7rem; white-space:nowrap;}
+  .t2-qz-sym{font-family:'Fraunces',serif; font-weight:600; color:var(--accent-deep); margin-right:.2rem;}
+  .t2-qz-v{text-align:center; font-family:'JetBrains Mono',monospace; font-size:1rem; padding:.55rem .5rem;}
+  .t2-qz-v .t2-ph{color:#c4b69d;}
+  .t2-qz-why{padding:.55rem .7rem; font-size:.86rem; color:#4a5350;}
+  .t2-qz-why .t2-ph{color:#c4b69d; font-style:italic;}
+  .t2-val{display:none;} .t2-qz-row.open .t2-val{display:inline;} .t2-qz-row.open .t2-ph{display:none;}
+  .t2-qz-why b,.t2-qz-val b{color:var(--accent-deep);}
+  .t2-qz-hint{font-size:.82rem; color:#6a726e; margin:.6rem 0;}
+  .t2-qz-mini{overflow-x:auto;} .t2-qz-mini svg{display:block; width:100%; min-width:600px; height:auto; margin-top:.4rem;}
 
-  footer a {
-    color: var(--gold);
-    text-decoration: none;
-    transition: opacity 0.3s ease;
-  }
-  footer a:hover { opacity: 0.7; }
+  .t2-qz-two{display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1.2rem 0;}
+  @media (max-width:640px){.t2-qz-two{grid-template-columns:1fr;}}
+  .t2-qz-box{border:1px solid rgba(10,22,18,.14); border-radius:10px; padding:.9rem 1.1rem; background:#fff;}
+  .lp-band .t2-qz-box{background:#fbf8f1;}
+  .t2-qz-box h4{margin:.1rem 0 .6rem; font-family:'JetBrains Mono',monospace; font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--accent-deep);}
+  .t2-qz-box table{width:100%; font-size:.9rem; border-collapse:collapse;}
+  .t2-qz-box td{padding:.26rem .2rem; border-bottom:1px solid rgba(10,22,18,.07);}
+  .t2-qz-box tr:last-child td{border-bottom:none;}
+  .t2-qz-box td:first-child{font-weight:600;} .t2-qz-box td:last-child{font-family:'JetBrains Mono',monospace; text-align:right; color:var(--teal-deep);}
 
-  /* Mobile */
-  @media (max-width: 640px) {
-    .pw-form { flex-direction: column; width: 100%; max-width: 320px; margin: 0 auto; }
-    .pw-input { width: 100%; }
-    .nav-bar { font-size: 0.65rem; }
-  }
 </style>
 </head>
 <body>
@@ -400,58 +414,37 @@
 <nav class="nav-bar">
   <div>
     <a href="../chemie-lk-kursplan.html">← Kursplan</a>
-    <span class="crumb-sep">/</span>
-    <span style="opacity: 0.4">Q1</span>
-    <span class="crumb-sep">/</span>
-    <span style="opacity: 0.8">Lernpfad I</span>
+    <span class="crumb-sep">/</span><span style="opacity:.4">Q1</span>
+    <span class="crumb-sep">/</span><span style="opacity:.8">Lernpfad I</span>
   </div>
-  <div style="opacity: 0.5">Chemie · LK</div>
+  <div style="opacity:.5">Chemie · LK</div>
 </nav>
 
-<main>
-  <!-- Decorative molecules -->
-  <svg class="deco-mol dm1" viewBox="0 0 200 200">
-    <circle cx="100" cy="50" r="8" fill="currentColor"/>
-    <circle cx="50" cy="120" r="8" fill="currentColor"/>
-    <circle cx="150" cy="120" r="8" fill="currentColor"/>
-    <circle cx="100" cy="170" r="6" fill="currentColor"/>
-    <line x1="100" y1="50" x2="50" y2="120" stroke="currentColor" stroke-width="2"/>
-    <line x1="100" y1="50" x2="150" y2="120" stroke="currentColor" stroke-width="2"/>
-    <line x1="50" y1="120" x2="100" y2="170" stroke="currentColor" stroke-width="2"/>
-    <line x1="150" y1="120" x2="100" y2="170" stroke="currentColor" stroke-width="2"/>
-  </svg>
-  <svg class="deco-mol dm2" viewBox="0 0 200 200">
-    <circle cx="40" cy="100" r="9" fill="currentColor"/>
-    <circle cx="100" cy="100" r="9" fill="currentColor"/>
-    <circle cx="160" cy="100" r="9" fill="currentColor"/>
-    <line x1="40" y1="100" x2="100" y2="100" stroke="currentColor" stroke-width="2"/>
-    <line x1="100" y1="100" x2="160" y2="100" stroke="currentColor" stroke-width="2"/>
-  </svg>
-
-  <div class="content">
+<header class="hero">
+  <div class="hero-inner">
     <div class="pfad-eyebrow">Lernpfad · Q1</div>
-    <div class="pfad-roman">I</div>
-    <h1 class="pfad-title">Atombau</h1>
-    <p class="pfad-subtitle">Modelle, Quantenzahlen, Elektronenkonfiguration</p>
+    <div class="pfad-roman" style="color:var(--accent-deep)">I</div>
+    <h1 class="pfad-title">Atombau &amp; <em>Licht</em></h1>
+    <p class="pfad-subtitle">Wie Licht entsteht — von der Wärmestrahlung zum Linienspektrum</p>
+    <div class="status-banner"><div class="pulse"></div><span id="status-text">Wird berechnet …</span></div>
 
-    <div class="status-banner">
-      <div class="pulse"></div>
-      <span>Im Aufbau</span>
+    <div class="hero-spectra">
+      <div class="hsp">
+        <div class="hsp-lab">kontinuierlich · Wärmestrahlung</div>
+        <div data-spectrum="continuous" data-blackbody="1" data-peak="560" data-w="340" data-h="96" data-noaxis="1"></div>
+        <div class="hsp-sub">schwingende Ladungen (Dipol) → alle Wellenlängen</div>
+      </div>
+      <div class="hsp dark">
+        <div class="hsp-lab">diskret · Elektronenübergänge</div>
+        <div data-spectrum="emission" data-lines="410,434,486,656" data-w="340" data-h="96" data-noaxis="1"></div>
+        <div class="hsp-sub">Sprünge zwischen Energiestufen → einzelne Linien</div>
+      </div>
     </div>
 
     <div class="meta-grid">
-      <div class="meta-card">
-        <div class="meta-card-label">Zeitraum</div>
-        <div class="meta-card-value">SJW 1 – 3</div>
-      </div>
-      <div class="meta-card">
-        <div class="meta-card-label">Freischaltung</div>
-        <div class="meta-card-value" id="unlock-date">2026-09-12</div>
-      </div>
-      <div class="meta-card">
-        <div class="meta-card-label">Status</div>
-        <div class="meta-card-value" id="status-text">Wird berechnet …</div>
-      </div>
+      <div class="meta-card"><div class="meta-card-label">Zeitraum</div><div class="meta-card-value">SJW 1–3</div></div>
+      <div class="meta-card"><div class="meta-card-label">Freischaltung</div><div class="meta-card-value" id="unlock-date">2026-09-12</div></div>
+      <div class="meta-card"><div class="meta-card-label">Basiskonzept</div><div class="meta-card-value">Aufbau der Materie</div></div>
     </div>
 
     <div class="password-zone" id="pw-zone">
@@ -462,88 +455,1964 @@
       </form>
       <div class="pw-feedback" id="pw-feedback"></div>
     </div>
+  </div>
+</header>
 
-    <div class="unlocked-content" id="unlocked">
-      <h2>Materialien &amp; Musterlösungen</h2>
-      <p>Dieser Bereich ist nun freigeschaltet. Hier finden Sie zukünftig die Lernpfad-Inhalte zu <em>Atombau</em>: Aufgaben, Experimente, Musterlösungen, weiterführende Links, Google-Classroom-Verknüpfung.</p>
-      <div class="placeholder-text">
-        // Inhalte werden zu gegebener Zeit ergänzt //
+<div class="lernpfad" id="lernpfad">
+
+
+  <!-- ============================ § 0 ============================ -->
+  <section class="lp-section">
+    <div class="sec-num">§ 0 · Worum es geht</div>
+    <h2>Atome, <em>Energiestufen</em> und das Licht, das sie aussenden</h2>
+    <p class="lead">Licht ist der Bote, mit dem uns Atome verraten, wie sie gebaut sind. In diesem Lernpfad untersuchst du zuerst, <span class="fw600">wie Licht überhaupt entsteht</span> – einmal als <span class="fw600">kontinuierliches</span> Wärmestrahlungsspektrum, einmal als <span class="fw600">diskretes</span> Linienspektrum aus Elektronen­übergängen. Aus dieser Unterscheidung wächst später (Teil II) das Modell der Atomhülle mit Schalen, Orbitalen und Quantenzahlen.</p>
+    <div class="goal-grid">
+      <div class="goal-card"><div class="glab">Inhaltliche Ziele</div><ul>
+        <li>Entstehung elektromagnetischer Strahlung: Dipolstrahlung ↔ Energiestufen­übergänge</li>
+        <li>kontinuierliche vs. diskrete Spektren experimentell unterscheiden und deuten</li>
+        <li>Absorption &amp; Farbigkeit: warum gelöste Stoffe farbig erscheinen</li>
+      </ul></div>
+      <div class="goal-card"><div class="glab">Kompetenzen · „Ich kann …“ — zum Abhaken</div>
+        <ul class="kann-list">
+          <li class="kann"><input type="checkbox" data-kann="k1"><span>… kontinuierliche und diskrete Spektren beschreiben und ihre <span class="fw600">Entstehung</span> erklären.</span></li>
+          <li class="kann"><input type="checkbox" data-kann="k2"><span>… Lichtquellen anhand ihres Spektrums der <span class="fw600">Wärmestrahlung</span> oder den <span class="fw600">Elektronenübergängen</span> zuordnen und begründen.</span></li>
+          <li class="kann"><input type="checkbox" data-kann="k3"><span>… die <span class="fw600">Lösemittelwahl</span> einer Farbstoff­extraktion aus dem Molekülbau (polar/unpolar) herleiten.</span></li>
+          <li class="kann"><input type="checkbox" data-kann="k4"><span>… in <span class="fw600">Fachsprache</span> beschreiben, wie aus Absorption ein Farbreiz wird.</span></li>
+        </ul>
       </div>
     </div>
+    <div class="callout"><div class="co-tag">So arbeitest du</div>Erst der Einstieg „Wie entsteht Licht?“ (§ 1), dann das eigene Experimentieren an Lichtquellen und Flammenfärbungen (§ 2–§ 3). In § 4–§ 5 untersuchst du Naturfarbstoffe und ihre Absorption. § 6 ist für Schnelläufer:innen. Verdeckte Lösungsfelder deckst du durch <span class="fw600">Wischen</span> auf – sie lassen sich zur Besprechung wieder zudecken.</div>
+  </section>
+
+  <!-- ============================ § 1 ============================ -->
+  <section class="lp-section lp-band">
+    <div class="sec-num">§ 1 · Einstieg</div>
+    <h2>Wie entsteht <em>Licht</em>? Zwei grundverschiedene Wege</h2>
+    <p class="lead">Licht (elektromagnetische Strahlung) entsteht immer dann, wenn <span class="fw600">elektrische Ladungen Energie abgeben</span>. <span class="fw600">Photonen</span> sind dabei die „Austauschteilchen“: kleine Energiepakete mit <span class="pill">E = h·ν</span>. Es gibt zwei typische Mechanismen – und sie hinterlassen völlig unterschiedliche Spektren.</p>
+
+    <div class="duo2">
+      <div>
+        <div class="figbox" data-figure="dipole"></div>
+        <h4>a) Schwingende Ladung → kontinuierliches Spektrum</h4>
+        <p>In heißen, dichten Stoffen (glühender Draht, brennendes Magnesium, Sonnenoberfläche) schwingen unzählige Ladungen regellos wie winzige <span class="fw600">Hertz’sche Dipole</span>. Jede Schwingungs­frequenz strahlt Licht ab – in Summe entsteht ein <span class="fw600">lückenloses („kontinuierliches“) Spektrum</span> aller Wellenlängen. Es ist <span class="fw600">Wärme­strahlung</span>: Je heißer der Körper, desto mehr verschiebt sich das Maximum zu kurzen Wellenlängen (von rotglühend zu weißglühend).</p>
+      </div>
+      <div>
+        <div class="figbox" data-figure="bohr"></div>
+        <h4>b) Elektronensprung → diskretes Linienspektrum</h4>
+        <p>In einzelnen, freien Atomen (verdünntes Gas, Flammen, LED-Halbleiter) sitzen die Elektronen auf festen <span class="fw600">Energiestufen</span> (Bohr-Modell). Springt ein angeregtes Elektron auf eine tiefere Stufe, wird die Energiedifferenz <span class="pill">ΔE = h·ν</span> als <span class="fw600">ein einziges Photon</span> abgegeben – mit genau definierter Wellenlänge. Weil nur bestimmte Sprünge erlaubt sind, sieht man nur <span class="fw600">einzelne Linien</span>: ein <span class="fw600">diskretes Spektrum</span>, der „Fingerabdruck“ des Elements.</p>
+      </div>
+    </div>
+
+    <div class="reveal" data-reveal>
+      <button class="reveal-head"><span class="rv-icon">+</span> Der Kerngedanke in einem Satz <span class="rv-tag">aufdecken</span></button>
+      <div class="reveal-body">
+        <p><span class="answer">Kontinuierlich = viele Ladungen, alle Frequenzen (Wärme). Diskret = ein Elektronensprung, eine Wellenlänge (Energiestufen).</span> Die Lage und Zahl der Linien hängt vom Bau der Atomhülle ab – genau das untersuchen wir in Teil II quantitativ (Schalen, Orbitale, Quantenzahlen).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ § 2 ============================ -->
+  <section class="lp-section">
+    <div class="sec-num">§ 2 · Experiment &amp; Auswertung</div>
+    <h2>Lichtquellen einordnen: <em>Wärmestrahlung</em> oder <em>Elektronensprung</em>?</h2>
+    <p class="lead">Betrachte die Quellen unten (z. B. mit einem Handspektroskop oder einer Spektral-App) und ordne jede ihrem Entstehungs­typ zu: <span class="fw600">a) diskret</span> (Linien aus Elektronen­übergängen) oder <span class="fw600">b) kontinuierlich</span> (Wärme­strahlung). Manche Quellen zeigen <span class="fw600">beides</span>. Tippe in der Tabelle die zutreffende(n) Markierung(en) an.</p>
+
+    <table class="assign">
+      <thead><tr><th>Lichtquelle</th><th>beobachtetes Spektrum (simuliert)</th><th>a) diskret</th><th>b) kontinuierl.</th></tr></thead>
+      <tbody>
+        <tr><td class="src">Sonnenlicht</td><td class="mini"><div data-spectrum="continuous" data-peak="500" data-w="190" data-h="56" data-noaxis="1"></div></td><td class="ac" data-k="Sonne-a"><span class="dot"></span></td><td class="ac" data-k="Sonne-b"><span class="dot"></span></td></tr>
+        <tr><td class="src">Glühlampe (Wolframdraht)</td><td class="mini"><div data-spectrum="continuous" data-peak="650" data-w="190" data-h="56" data-noaxis="1"></div></td><td class="ac" data-k="Glueh-a"><span class="dot"></span></td><td class="ac" data-k="Glueh-b"><span class="dot"></span></td></tr>
+        <tr><td class="src">Grüner LASER</td><td class="mini"><div data-spectrum="emission" data-lines="532:2" data-w="190" data-h="56" data-noaxis="1"></div></td><td class="ac" data-k="Laser-a"><span class="dot"></span></td><td class="ac" data-k="Laser-b"><span class="dot"></span></td></tr>
+        <tr><td class="src">Blaue LED</td><td class="mini"><div data-spectrum="led" data-peak="465" data-w="190" data-h="56" data-noaxis="1"></div></td><td class="ac" data-k="LEDb-a"><span class="dot"></span></td><td class="ac" data-k="LEDb-b"><span class="dot"></span></td></tr>
+        <tr><td class="src">Rote LED</td><td class="mini"><div data-spectrum="led" data-peak="630" data-w="190" data-h="56" data-noaxis="1"></div></td><td class="ac" data-k="LEDr-a"><span class="dot"></span></td><td class="ac" data-k="LEDr-b"><span class="dot"></span></td></tr>
+        <tr><td class="src">Grüne LED</td><td class="mini"><div data-spectrum="led" data-peak="525" data-w="190" data-h="56" data-noaxis="1"></div></td><td class="ac" data-k="LEDg-a"><span class="dot"></span></td><td class="ac" data-k="LEDg-b"><span class="dot"></span></td></tr>
+        <tr><td class="src">Weiße LED</td><td class="mini"><div data-spectrum="whiteled" data-w="190" data-h="56" data-noaxis="1"></div></td><td class="ac" data-k="LEDw-a"><span class="dot"></span></td><td class="ac" data-k="LEDw-b"><span class="dot"></span></td></tr>
+        <tr><td class="src">Brennendes Magnesium</td><td class="mini"><div data-spectrum="continuous" data-peak="480" data-w="190" data-h="56" data-noaxis="1"></div></td><td class="ac" data-k="Mg-a"><span class="dot"></span></td><td class="ac" data-k="Mg-b"><span class="dot"></span></td></tr>
+        <tr><td class="src">Flamme · Kupferpulver</td><td class="mini"><div data-spectrum="emission" data-lines="510,515:2,521:2,578" data-w="190" data-h="56" data-noaxis="1"></div></td><td class="ac" data-k="Cu-a"><span class="dot"></span></td><td class="ac" data-k="Cu-b"><span class="dot"></span></td></tr>
+        <tr><td class="src">Flamme · Kupfersulfat (CuSO₄)</td><td class="mini"><div data-spectrum="emission" data-lines="510,515:2,521:2,578" data-w="190" data-h="56" data-noaxis="1"></div></td><td class="ac" data-k="CuS-a"><span class="dot"></span></td><td class="ac" data-k="CuS-b"><span class="dot"></span></td></tr>
+        <tr><td class="src">Flamme · Lithiumchlorid (LiCl)</td><td class="mini"><div data-spectrum="emission" data-lines="671:2,610:0.7" data-w="190" data-h="56" data-noaxis="1"></div></td><td class="ac" data-k="Li-a"><span class="dot"></span></td><td class="ac" data-k="Li-b"><span class="dot"></span></td></tr>
+        <tr><td class="src">Flamme · Natriumchlorid (NaCl)</td><td class="mini"><div data-spectrum="emission" data-lines="589:2" data-w="190" data-h="56" data-noaxis="1"></div></td><td class="ac" data-k="Na-a"><span class="dot"></span></td><td class="ac" data-k="Na-b"><span class="dot"></span></td></tr>
+      </tbody>
+    </table>
+    <p class="assign-hint">Tipp zum Erkennen: <span class="fw600">Glüht</span> die Quelle (heiß, fest/dicht) → eher kontinuierlich. Stammt das Licht aus <span class="fw600">einzelnen Atomen / Halbleiter-Übergängen</span> → eher diskret.</p>
+
+    <div class="wipe" data-wipe>
+      <div class="wipe-inner">
+        <table class="sp">
+          <thead><tr><th>Quelle</th><th>Typ</th><th>Begründung (Entstehung)</th></tr></thead>
+          <tbody>
+            <tr><td>Sonnenlicht</td><td><span class="fw600">kontinuierlich</span> (+ feine Absorptionslinien)</td><td>heiße, dichte Oberfläche → Wärmestrahlung; im Detail die dunklen <span class="fw600">Fraunhofer-Linien</span> (Absorption in der Sonnen­atmosphäre).</td></tr>
+            <tr><td>Glühlampe</td><td>kontinuierlich</td><td>glühender Wolframdraht → reine <span class="fw600">Wärmestrahlung</span> (Temperatur­strahler).</td></tr>
+            <tr><td>Grüner LASER</td><td>diskret</td><td>stimulierte Emission eines definierten Elektronen­übergangs → eine einzige Wellenlänge.</td></tr>
+            <tr><td>LEDs (blau/rot/grün)</td><td>diskret (schmale Bande)</td><td>Licht aus dem <span class="fw600">Elektronen­übergang über die Bandlücke</span> des Halbleiters → schmaler Bereich, kein Glühen.</td></tr>
+            <tr><td>Weiße LED</td><td>diskret + breite Bande</td><td>blaue LED (Übergang) + <span class="fw600">Leuchtstoff</span>, der breit nachleuchtet → blauer Peak plus breiter Phosphor-Anteil. <span class="muted">Schöner Grenzfall!</span></td></tr>
+            <tr><td>Brennendes Magnesium</td><td>kontinuierlich</td><td>sehr heiße, glühende MgO-Teilchen → <span class="fw600">Wärmestrahlung</span> (blendend weiß), kein reines Linienspektrum.</td></tr>
+            <tr><td>Flammen (Cu, CuSO₄, LiCl, NaCl)</td><td>diskret</td><td><span class="fw600">Flammenfärbung</span>: thermisch angeregte Metall­atome senden ihre charakteristischen <span class="fw600">Linien</span> aus (Cu grün, Li rot, Na gelb) – der „Fingerabdruck“ des Elements.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <canvas class="wipe-cv"></canvas>
+      <button class="wipe-btn" type="button">Aufdecken</button>
+    </div>
+  </section>
+
+  <!-- ============================ § 3 ============================ -->
+  <section class="lp-section">
+    <div class="sec-num">§ 3 · Spektraltafel</div>
+    <h2>Die <em>Spektraltafel</em> als Nachschlagewerk</h2>
+    <p class="lead">Halte deine Beobachtungen an dieser schematischen Spektraltafel fest. Oben das kontinuierliche Vergleichs­spektrum, darunter die Linienspektren einiger Elemente. Trage in deiner Mitschrift ein, welche Quelle aus § 2 zu welchem Tafel-Typ passt.</p>
+
+    <div class="spectrum">
+      <div data-spectrum="continuous" data-blackbody="0" data-w="760" data-h="120"></div>
+      <div class="sp-cap">Referenz · kontinuierliches Spektrum (Temperaturstrahler)</div>
+    </div>
+    <div class="spectrum" style="background:#0b0e12;border-color:#222">
+      <div data-spectrum="emission" data-lines="410,434,486,656" data-w="760" data-h="120"></div>
+      <div class="sp-cap" style="color:#aab">Wasserstoff (Balmer-Serie) · 410 · 434 · 486 · 656 nm</div>
+    </div>
+    <div class="spectrum" style="background:#0b0e12;border-color:#222">
+      <div data-spectrum="emission" data-lines="589:2" data-w="760" data-h="120"></div>
+      <div class="sp-cap" style="color:#aab">Natrium · gelbe D-Linie ≈ 589 nm</div>
+    </div>
+    <div class="spectrum" style="background:#0b0e12;border-color:#222">
+      <div data-spectrum="emission" data-lines="671:2,610:0.7" data-w="760" data-h="120"></div>
+      <div class="sp-cap" style="color:#aab">Lithium · tiefrot ≈ 671 nm</div>
+    </div>
+    <div class="spectrum" style="background:#0b0e12;border-color:#222">
+      <div data-spectrum="emission" data-lines="510,515:2,521:2,578" data-w="760" data-h="120"></div>
+      <div class="sp-cap" style="color:#aab">Kupfer · grüne Linien ≈ 510–521 nm</div>
+    </div>
+
+    <table class="sp" style="margin-top:1.4rem">
+      <thead><tr><th>Element / Quelle</th><th>Spektraltyp</th><th>Beobachtete Farbe(n)</th><th>Notiz (eigene Messung)</th></tr></thead>
+      <tbody>
+        <tr><td>Wasserstoff</td><td>diskret (Linien)</td><td>violett, blau, türkis, rot</td><td style="color:#b0a99c">… eintragen …</td></tr>
+        <tr><td>Natrium (NaCl)</td><td>diskret</td><td>gelb</td><td style="color:#b0a99c">… eintragen …</td></tr>
+        <tr><td>Lithium (LiCl)</td><td>diskret</td><td>tiefrot</td><td style="color:#b0a99c">… eintragen …</td></tr>
+        <tr><td>Kupfer (CuSO₄)</td><td>diskret</td><td>grün/blaugrün</td><td style="color:#b0a99c">… eintragen …</td></tr>
+        <tr><td>Glühlampe / Sonne</td><td>kontinuierlich</td><td>alle Farben</td><td style="color:#b0a99c">… eintragen …</td></tr>
+      </tbody>
+    </table>
+    <p class="src-note">Linienlagen nach NIST Atomic Spectra Database (physics.nist.gov/asd); Darstellung schematisch und farbsimuliert (eigene Grafik, Wellenlänge → sRGB).</p>
+  </section>
+
+  <!-- ============================ § 4 ============================ -->
+  <section class="lp-section lp-band">
+    <div class="sec-num">§ 4 · Experiment · Naturfarbstoffe</div>
+    <h2>Farbstoff­extraktion: das richtige <em>Lösemittel</em> wählen</h2>
+    <p class="lead">Vier Naturfarbstoffe sollen aus pflanzlichem Material herausgelöst werden. Die Lösemittelwahl folgt direkt aus dem Molekülbau – nach der Regel <span class="fw600">„Gleiches löst sich in Gleichem“</span>: viele polare Gruppen (–OH, –COOH, Ladungen) → <span class="fw600">hydrophil</span> → Wasser; große unpolare Bereiche bei nur wenigen polaren Gruppen → <span class="fw600">lipophil/amphiphil</span> → Ethanol.</p>
+
+    <div class="flow">
+      <b>Kurkumin</b> + <b>Chlorophyll</b> → <b>Ethanol</b> &nbsp;·&nbsp; <b>Betanin</b> + <b>Anthocyane</b> → <b>Wasser</b><br>
+      Untersuche jede Strukturformel: Wo sitzen <b>polare Gruppen</b> (–OH, –COOH, Ladungen), wo große <b>unpolare Bereiche</b>? Das Verhältnis entscheidet über das Lösemittel.
+    </div>
+
+    <div class="dye-grid">
+
+      <div class="dye-card">
+        <div class="dye-name">Kurkumin <span class="dye-form">C₂₁H₂₀O₆</span><span class="dye-solv eth">Ethanol</span></div>
+        <div class="dye-media">
+          <figure class="dye-fig2"><img class="photo" src="kurkumin-quelle.jpg" alt="Kurkuma-Wurzel" loading="lazy"><figcaption>Quelle · Kurkuma-Wurzel</figcaption></figure>
+          <figure class="dye-fig2"><img class="struct" src="kurkumin-struktur.png" alt="Strukturformel Kurkumin" loading="lazy"><figcaption>Kurkumin · C₂₁H₂₀O₆</figcaption></figure>
+        </div>
+        <p class="dye-note"><span class="fw600">amphiphil:</span> zwei phenolische –OH und zwei Carbonyl-Gruppen (polar) an einem großen, unpolaren Aromaten-/Ketten­gerüst. Der unpolare Anteil überwiegt → in <span class="fw600">Ethanol</span> deutlich besser löslich als in Wasser.</p>
+      </div>
+
+      <div class="dye-card">
+        <div class="dye-name">Chlorophyll a <span class="dye-form">C₅₅H₇₂MgN₄O₅</span><span class="dye-solv eth">Ethanol</span></div>
+        <div class="dye-media">
+          <figure class="dye-fig2"><img class="photo" src="chlorophyll-quelle.jpg" alt="Spinatblätter" loading="lazy"><figcaption>Quelle · Spinat</figcaption></figure>
+          <figure class="dye-fig2"><img class="struct" src="chlorophyll-struktur.png" alt="Strukturformel Chlorophyll a" loading="lazy"><figcaption>Chlorophyll a · C₅₅H₇₂MgN₄O₅</figcaption></figure>
+        </div>
+        <p class="dye-note"><span class="fw600">stark lipophil:</span> polares Mg-Porphyrin mit Ester-/Carbonylgruppen, aber ein sehr langer, unpolarer <span class="fw600">Phytylrest</span> (Kohlenwasserstoff­kette, links im Bild). Der hydrophobe Anteil dominiert klar → <span class="fw600">organisches</span> Lösemittel (Ethanol), nicht Wasser.</p>
+      </div>
+
+      <div class="dye-card">
+        <div class="dye-name">Betanin <span class="dye-form">Betalain-Glycosid</span><span class="dye-solv h2o">Wasser</span></div>
+        <div class="dye-media">
+          <figure class="dye-fig2"><img class="photo" src="betanin-quelle.jpg" alt="Rote Bete" loading="lazy"><figcaption>Quelle · Rote Bete</figcaption></figure>
+          <figure class="dye-fig2"><img class="struct" src="betanin-struktur.png" alt="Strukturformel Betanin" loading="lazy"><figcaption>Betanin · C₂₄H₂₇N₂O₁₃⁺</figcaption></figure>
+        </div>
+        <p class="dye-note"><span class="fw600">extrem hydrophil:</span> Ring-<span class="fw600">N⁺</span>, mehrere <span class="fw600">Carboxylgruppen</span> und ein ganzer <span class="fw600">Glucose-Rest</span> (unten, viele –OH) → sehr viele H-Brücken und Ion-Dipol-Kräfte zum Wasser → <span class="fw600">Wasser</span>.</p>
+      </div>
+
+      <div class="dye-card">
+        <div class="dye-name">Anthocyan (Cyanidin) <span class="dye-form">C₁₅H₁₁O₆⁺</span><span class="dye-solv h2o">Wasser</span></div>
+        <div class="dye-media">
+          <figure class="dye-fig2"><img class="photo" src="anthocyan-quelle.jpg" alt="Granatapfel" loading="lazy"><figcaption>Quelle · Granatapfel</figcaption></figure>
+          <figure class="dye-fig2"><img class="struct" src="anthocyan-struktur.png" alt="Strukturformel Cyanidin" loading="lazy"><figcaption>Cyanidin · C₁₅H₁₁O₆⁺</figcaption></figure>
+        </div>
+        <p class="dye-note"><span class="fw600">hydrophil:</span> ein <span class="fw600">Flavylium-Kation</span> (positiv geladenes Ring-O⁺) und fünf –OH-Gruppen → starke H-Brücken und Ion-Dipol-Kräfte zum Wasser → <span class="fw600">Wasser</span>; zudem pH-abhängig farbig.</p>
+      </div>
+
+    </div>
+
+    <h3>Aufgabe</h3>
+    <p>Begründe für jeden Farbstoff die Lösemittelwahl. Nutze die Fachbegriffe <span class="fw600">hydrophil / lipophil / amphiphil</span>, <span class="fw600">Dipol-Dipol-Wechselwirkung</span>, <span class="fw600">Wasserstoffbrücke</span> und <span class="fw600">Ion-Dipol-Wechselwirkung</span>.</p>
+    <div class="wipe" data-wipe>
+      <div class="wipe-inner">
+        <ul>
+          <li><span class="fw600">Kurkumin → Ethanol.</span> Polare –OH-/Carbonyl-Gruppen, aber zwei große Aromaten und eine ungesättigte Kette (unpolar). <span class="fw600">Amphiphil</span> mit überwiegend unpolarem Anteil → in Ethanol (selbst amphiphil) am besten löslich.</li>
+          <li><span class="fw600">Chlorophyll → Ethanol.</span> Polarer Porphyrin-Kopf mit Estergruppen, aber sehr langer hydrophober Phytylrest → <span class="fw600">lipophil</span>; löst sich in organischen Lösemitteln, praktisch nicht in Wasser.</li>
+          <li><span class="fw600">Betanin → Wasser.</span> Ring-N⁺, mehrere COOH/Carboxylat und Glucose (viele –OH) → sehr <span class="fw600">hydrophil</span>; zahlreiche H-Brücken und Ion-Dipol-Wechselwirkungen mit Wasser.</li>
+          <li><span class="fw600">Anthocyane → Wasser.</span> Flavylium-Kation (Ion-Dipol) + fünf –OH (H-Brücken) → <span class="fw600">hydrophil</span>; gut wasserlöslich, zudem pH-abhängig farbig.</li>
+        </ul>
+        <p class="muted">Merksatz: Zähle polare Gruppen/Ladungen gegen die Größe des unpolaren Gerüsts ab – das Verhältnis entscheidet über das Lösemittel.</p>
+      </div>
+      <canvas class="wipe-cv"></canvas>
+      <button class="wipe-btn" type="button">Aufdecken</button>
+    </div>
+  </section>
+
+  <!-- ============================ § 5 ============================ -->
+  <section class="lp-section">
+    <div class="sec-num">§ 5 · Auswertung · Absorption</div>
+    <h2>Warum wir <em>Farbe</em> sehen — Absorption fachsprachlich</h2>
+    <p class="lead">Die farbigen Extrakte werden im <span class="fw600">Photometer</span> (Küvette) durchleuchtet. Beschreibe in Fachsprache den Weg des Lichts von der Quelle bis zum Farbeindruck.</p>
+
+    <div class="flow">
+      <b>Strahlungsquelle</b> (weißes Licht, alle λ) &nbsp;→&nbsp; <b>Küvette</b> mit Farbstoff­lösung: bestimmte Wellenlängen werden <b>absorbiert</b> (π-Elektronen des Chromophors angeregt) &nbsp;→&nbsp; <b>transmittiertes Licht</b> (Restlicht) &nbsp;→&nbsp; <b>Auge / Detektor</b> &nbsp;→&nbsp; <b>Farbreiz</b> = <b>Komplementärfarbe</b> des absorbierten Bereichs
+    </div>
+
+    <p>Je <span class="fw600">länger das konjugierte π-System</span> (Chromophor), desto kleiner der Energieabstand ΔE für die Anregung und desto <span class="fw600">langwelliger</span> die Absorption – die Farbe verschiebt sich von gelb über orange nach rot/violett.</p>
+
+    <div class="reveal" data-reveal>
+      <button class="reveal-head"><span class="rv-icon">+</span> Fachsprachliche Musterformulierung <span class="rv-tag">aufdecken</span></button>
+      <div class="reveal-body">
+        <p>„Das weiße Licht der Strahlungsquelle durchstrahlt die Küvette. Die <span class="fw600">π-Elektronen des Chromophors</span> absorbieren Photonen eines bestimmten Wellenlängen­bereichs (Anregung in ein höheres Energieniveau). Das <span class="fw600">durchgelassene (transmittierte) Licht</span> ist um diesen Bereich „ärmer“. Das Auge empfängt das Restlicht und nimmt die <span class="fw600">Komplementärfarbe</span> des absorbierten Bereichs als Farbe der Lösung wahr.“ Beispiel: Ein Stoff, der <span class="fw600">blaues</span> Licht (≈ 430 nm) absorbiert, erscheint <span class="fw600">gelb-orange</span>.</p>
+      </div>
+    </div>
+
+    <div class="callout fast"><div class="co-tag">Schnell-Check · Konjugation &amp; Farbe</div>Ordne nach steigender Zahl konjugierter Doppelbindungen – und damit langwelligerer Absorption: Crocin (9), β-Carotin (10), Lycopin (11), Astaxanthin (12). Mehr Konjugation → Absorption wandert ins Langwellige → von gelb (Crocin) zu rot (Lycopin/Astaxanthin).</div>
+  </section>
+
+  <!-- ============================ § 6 ============================ -->
+  <section class="lp-section lp-band">
+    <div class="sec-num">§ 6 · Schnelläufer:innen</div>
+    <h2>Bonus: <em>Leuchterscheinungen</em> &amp; unsichtbares Licht</h2>
+    <p class="lead">Nicht alles Leuchten ist Wärmestrahlung. Ordne die folgenden Phänomene ihrer Entstehung zu – diskret (Elektronen­übergänge), kontinuierlich (thermisch) oder „kalt“ (chemisch/biologisch angeregt). Decke anschließend die Auflösung auf.</p>
+
+    <div class="phen-grid">
+      <div class="phen"><div class="ph-h"><span class="ph-em">🔥</span> Irrlichter <span class="ph-type">diskret/chem.</span></div><p>Selbstentzündung von Sumpfgasen (u. a. Phosphor­verbindungen): ein <span class="fw600">Chemolumineszenz</span>-Leuchten, angeregte Teilchen geben Licht ab – ohne große Hitze.</p></div>
+      <div class="phen"><div class="ph-h"><span class="ph-em">✨</span> Tribolumineszenz <span class="ph-type">diskret</span></div><p>Beim Zerbrechen von Kristallen (z. B. Zucker im Dunkeln) trennen sich Ladungen, kleine Entladungen regen Teilchen an → kurze Lichtblitze aus Elektronen­übergängen.</p></div>
+      <div class="phen"><div class="ph-h"><span class="ph-em">🌌</span> Polarlichter <span class="ph-type">diskret</span></div><p>Sonnenwind­teilchen regen O- und N-Atome der Hochatmosphäre an; beim Zurückspringen senden sie ihre <span class="fw600">charakteristischen Linien</span> aus (Sauerstoff grün/rot).</p><div class="spectrum" style="background:#0b0e12;border-color:#222"><div data-spectrum="emission" data-lines="558:2,630,428" data-w="320" data-h="64" data-noaxis="1"></div></div></div>
+      <div class="phen"><div class="ph-h"><span class="ph-em">🐟</span> Biolumineszenz <span class="ph-type">„kalt“/chem.</span></div><p>Glühwürmchen &amp; Tiefseelebewesen: Enzyme (Luciferase) erzeugen <span class="fw600">chemisch</span> angeregte Moleküle, die Licht abgeben – nahezu ohne Wärme.</p></div>
+      <div class="phen"><div class="ph-h"><span class="ph-em">📶</span> WLAN / Funk <span class="ph-type">unsichtbar</span></div><p>Schwingende Ladungen in der Antenne (Hertz’scher Dipol!) → <span class="fw600">Radiowellen</span>, sehr langwellig, weit außerhalb des Sichtbaren.</p></div>
+      <div class="phen"><div class="ph-h"><span class="ph-em">🩻</span> Röntgen &amp; Gamma <span class="ph-type">unsichtbar</span></div><p><span class="fw600">Röntgen:</span> sehr energiereiche Elektronen­übergänge/Abbremsung. <span class="fw600">Gamma:</span> Übergänge im Atom<span class="fw600">kern</span>. Beide extrem kurzwellig und energiereich.</p></div>
+      <div class="phen"><div class="ph-h"><span class="ph-em">🌡️</span> Infrarot <span class="ph-type">unsichtbar</span></div><p>Wärme­strahlung von Körpern (Heizung, Mensch, Treibhaus­effekt): kontinuierlich, langwelliger als Rot – wir fühlen es als Wärme.</p></div>
+      <div class="phen"><div class="ph-h"><span class="ph-em">☀️</span> UV-Schwarzlicht <span class="ph-type">diskret</span></div><p>Quecksilber-Übergänge + Leuchtstoff senden UV; Fluoreszenz­farbstoffe wandeln es in sichtbares Leuchten um.</p></div>
+    </div>
+
+    <div class="wipe" data-wipe>
+      <div class="wipe-inner">
+        <ul>
+          <li><span class="fw600">Diskret (Elektronen­übergänge):</span> Polarlichter, Tribolumineszenz, UV-Schwarzlicht, Röntgen (Übergänge/Abbremsung). <span class="fw600">Gamma</span> stammt sogar aus dem Atom<span class="fw600">kern</span>.</li>
+          <li><span class="fw600">Kontinuierlich (Wärme­strahlung):</span> Infrarot von warmen Körpern; auch der thermische Untergrund vieler Flammen.</li>
+          <li><span class="fw600">„Kaltes“ Licht (chemisch/biologisch angeregt):</span> Bio- und Chemolumineszenz (Glühwürmchen, Irrlichter) – angeregte Moleküle ohne nennenswerte Hitze.</li>
+          <li><span class="fw600">Schwingende Ladungen (Dipol):</span> WLAN/Funk – derselbe Mechanismus wie in § 1a, nur sehr langwellig.</li>
+          <li>Gemeinsame Ordnung nach Wellenlänge: Gamma · Röntgen · UV · <span class="fw600">sichtbar</span> · Infrarot · Mikrowellen · Radio – das <span class="fw600">elektromagnetische Spektrum</span>.</li>
+        </ul>
+      </div>
+      <canvas class="wipe-cv"></canvas>
+      <button class="wipe-btn" type="button">Aufdecken</button>
+    </div>
+  </section>
+
+  <!-- ============================ § 7 ============================ -->
+  <section class="lp-section">
+    <div class="sec-num">§ 7 · Ausblick</div>
+    <h2>Teil II — von Spektren zur <em>Atomhülle</em></h2>
+    <p class="lead">Du hast gesehen: Diskrete Linien entstehen, weil Elektronen nur auf festen <span class="fw600">Energiestufen</span> sitzen. Im zweiten Teil dieses Lernpfads quantifizieren wir das: Atommodelle (Dalton → Thomson → Rutherford → Bohr → Orbitalmodell), <span class="fw600">Quantenzahlen</span> und die <span class="fw600">Elektronen­konfiguration</span>.</p>
+    <div class="next-card">
+      <div class="nc-txt">
+        <div class="nc-eyebrow">Lernpfad I · Teil II</div>
+        <h3>Atommodelle, Quantenzahlen &amp; Elektronenkonfiguration</h3>
+        <p>Direkt unter diesem Abschnitt geht es weiter: Atommodelle &amp; Zeitstrahl, Ionisierungsenergie, Elektronenkonfiguration und Quantenzahlen.</p>
+        <div class="nc-lock" style="background:rgba(30,93,82,.08); color:var(--teal-deep)">&darr; Teil II beginnt direkt hier</div>
+      </div>
+      <button class="nc-btn" type="button" onclick="document.getElementById('teil2').scrollIntoView({behavior:'smooth'})">Weiter zu Teil II &darr;</button>
+    </div>
+  </section>
+
+  <!-- ==================== Teil II · Trenner ==================== -->
+  <div class="t2-divider" id="teil2">
+    <span class="t2-roman">II</span>
+    <span class="t2-eyebrow">Lernpfad I · Teil II</span>
+    <h2>Das Orbitalmodell der <em>Atomh&uuml;lle</em></h2>
+    <p>Die diskreten Spektrallinien aus Teil I waren der Anfang. Jetzt kl&auml;ren wir, <strong>warum</strong> Elektronen nur bestimmte Energien haben d&uuml;rfen &ndash; vom historischen Schalenbild bis zum Orbitalmodell, das jeden Elektronenzustand mit vier Quantenzahlen beschreibt.</p>
   </div>
-</main>
+
+  <!-- ==================== § II.1 · Atommodelle ==================== -->
+  <section class="lp-section">
+    <div class="sec-num">&sect; II.1 &middot; Atommodelle &amp; Zeitstrahl</div>
+    <h2>Von der Idee zum <em>Orbital</em> &ndash; wie Modelle wachsen</h2>
+    <p class="lead">Kein Atommodell ist einfach &bdquo;richtig&ldquo; oder &bdquo;falsch&ldquo; &ndash; jedes erkl&auml;rt mehr als das vorige und st&ouml;&szlig;t an neue Grenzen, sobald ein Experiment etwas Unerwartetes zeigt. Dieses Wechselspiel aus <span class="fw600">Modell</span> und <span class="fw600">experimenteller Erkenntnis</span> treibt die Entwicklung.</p>
+
+    <div class="t2-fig" data-fig2="timeline"></div>
+    <p class="t2-cap">Zwei Spuren: oben (terrakotta) die <strong>Atommodelle</strong>, unten (blau) die <strong>experimentellen Erkenntnisse</strong>, die sie erzwangen. Der Endpunkt &ndash; das Orbitalmodell (1927) &ndash; ist hervorgehoben.</p>
+    <p class="t2-hint">&rarr; <b>Tippe auf eine Station</b> im Zeitstrahl, um zur passenden Modellkarte zu springen.</p>
+
+    <div class="callout">
+      <strong>Auftrag (vgl. Aufgabenblatt&nbsp;4).</strong> Skizziere die Atommodelle und benenne jeweils die <em>Grenzen</em> des Modells &ndash; also was es <em>nicht</em> erkl&auml;ren konnte und welches Experiment es abl&ouml;ste. Decke dazu in jeder Karte &bdquo;Kernidee &amp; Grenzen&ldquo; auf.
+    </div>
+
+    <div class="t2-models" data-fig2="models"></div>
+
+    <div class="callout">
+      <strong>Der rote Faden.</strong> Dalton braucht keine Struktur (nur Massengesetze) &rarr; Thomson verteilt die Ladung &rarr; der Streuversuch erzwingt Rutherfords <span class="fw600">Kern</span> &rarr; das Linienspektrum erzwingt Bohrs <span class="fw600">feste Energiestufen</span> &rarr; Welle-Teilchen-Dualismus und Unsch&auml;rferelation erzwingen schlie&szlig;lich das <span class="fw600">Orbitalmodell</span>: Elektronen sind keine K&uuml;gelchen auf Bahnen, sondern stehende Wellen mit einem <em>Aufenthaltsraum</em> (Orbital). Wie man darin jeden Zustand benennt, kl&auml;ren die n&auml;chsten Abschnitte.
+    </div>
+  </section>
+
+  <!-- ==================== § II.2 · Ionisierungsenergie ==================== -->
+  <section class="lp-section lp-band">
+    <div class="sec-num">&sect; II.2 &middot; Ionisierungsenergie</div>
+    <h2>Die <em>Ionisierungsenergie</em> verr&auml;t den Schalenbau</h2>
+    <p class="lead">Tr&auml;gt man die Energie, die zum Abl&ouml;sen des &auml;u&szlig;ersten Elektrons n&ouml;tig ist, gegen die Ordnungszahl auf, entsteht ein charakteristisches Zickzack. Seine Maxima, Minima und kleinen &bdquo;Knicke&ldquo; sind ein direkter experimenteller Beleg f&uuml;r Schalen <em>und</em> Unterschalen.</p>
+
+    <div class="callout">
+      <span class="a-badge repro" style="margin-right:.55rem">Definition</span>
+      <strong>Ionisierungsenergie</strong> ist die Energie, die ben&ouml;tigt wird, um ein Atom (oder Molek&uuml;l) zu ionisieren, d.&nbsp;h. um ein Elektron vom Atom (oder Molek&uuml;l) zu trennen.
+    </div>
+
+    <div class="t2-fig" data-fig2="ie"></div>
+    <p class="t2-cap">1.&nbsp;Ionisierungsenergie in Abh&auml;ngigkeit von der Ordnungszahl&nbsp;Z (Literaturwerte in eV).</p>
+
+    <p class="t2-hint">&rarr; <b>Merkmal antippen</b> &ndash; die zugeh&ouml;rigen Stellen werden in der Kurve markiert und erkl&auml;rt:</p>
+    <div class="t2-ie-legend" data-fig2="ie-legend"></div>
+    <div class="t2-ie-annos" data-fig2="ie-annos"></div>
+
+    <div class="callout">
+      <span class="a-badge anwend" style="margin-right:.55rem">Hund&rsquo;sche Regel</span>
+      Innerhalb einer Unterschale besetzen Elektronen die Orbitale zun&auml;chst einzeln und mit <strong>m&ouml;glichst parallelem Spin</strong>. Eine halb gef&uuml;llte Unterschale (z.&nbsp;B. N: 2p&sup3;) ist deshalb besonders stabil &ndash; das erkl&auml;rt die Senke bei Sauerstoff.
+    </div>
+
+    <div class="aufgabe">
+      <div style="margin-bottom:.6rem"><span class="a-badge transfer">Transfer</span></div>
+      <p style="margin-top:0"><strong>Aufgabe&nbsp;5 &mdash; Auswertung.</strong> Erkl&auml;re den Verlauf mit geeigneten Atommodellen: Warum liegen die Maxima bei den Edelgasen, die Minima bei den Alkalimetallen? Warum sinkt die IE trotz steigender Ordnungszahl von Be&rarr;B und von N&rarr;O? Formuliere zuerst selbst &ndash; dann decke auf.</p>
+      <div class="wipe" data-wipe>
+        <div class="wipe-inner">
+          <p style="margin:.25rem 0"><b>Periodentrend (Schalen):</b> Innerhalb einer Periode w&auml;chst die effektive Kernladung Z<sub>eff</sub> &rarr; dieselbe Schale wird st&auml;rker angezogen &rarr; IE steigt nach rechts. <b>Edelgase</b> haben volle Schalen (sehr fest &rarr; Maximum); das folgende <b>Alkalimetall</b> beginnt eine neue, weit au&szlig;en liegende Schale mit einem einzelnen, gut abgeschirmten Elektron (sehr locker &rarr; Minimum).</p>
+          <p style="margin:.25rem 0"><b>Be&rarr;B (Unterschalen):</b> Das reine Schalenbild reicht nicht. B startet die 2p-Unterschale; 2p liegt energetisch h&ouml;her als 2s und ist leichter abzul&ouml;sen &rarr; kleine Senke.</p>
+          <p style="margin:.25rem 0"><b>N&rarr;O (Hund/Pauli):</b> N hat 2p&sup3; (jedes Orbital einfach besetzt, halbgef&uuml;llt, stabil). In O wird erstmals ein 2p-Orbital doppelt besetzt &ndash; die Elektronenabsto&szlig;ung im selben Orbital erleichtert das Abl&ouml;sen &rarr; Senke. Beide &bdquo;Knicke&ldquo; zwingen zum Unterschalen-/Orbitalmodell.</p>
+        </div>
+        <canvas class="wipe-cv"></canvas>
+        <button class="wipe-btn" type="button">Aufdecken</button>
+      </div>
+    </div>
+
+    <div class="next-card">
+      <div class="nc-txt">
+        <div class="nc-eyebrow">weiter im Lernpfad</div>
+        <h3>Warum liegt 2p h&ouml;her als 2s?</h3>
+        <p>Die Senken bei B und O zeigen: Es gibt <span class="fw600">Unterschalen</span>. Im n&auml;chsten Abschnitt besetzen wir Elektronen K&auml;stchen f&uuml;r K&auml;stchen (Energieprinzip, Pauli, Hund) und lesen daraus die vier Quantenzahlen ab.</p>
+        <div class="nc-lock" style="background:rgba(30,93,82,.08); color:var(--teal-deep)">&darr; &sect;&nbsp;II.3 &middot; Elektronenkonfiguration (folgt im n&auml;chsten Bauabschnitt)</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==================== § II.3 · Elektronenkonfiguration ==================== -->
+  <section class="lp-section">
+    <div class="sec-num">&sect; II.3 &middot; Elektronenkonfiguration</div>
+    <h2>Elektronen <em>K&auml;stchen f&uuml;r K&auml;stchen</em> besetzen</h2>
+    <p class="lead">Die Senken bei B und O haben gezeigt: Schalen zerfallen in <span class="fw600">Unterschalen</span> (s, p, d, f) mit eigener Energie. Jetzt besetzen wir die Orbitale von energiearm nach energiereich &ndash; nach drei Regeln, die zusammen die Konfiguration jedes Atoms festlegen.</p>
+
+    <div class="callout">
+      <strong>Drei Besetzungsregeln.</strong>
+      <span class="fw600">&#9312; Energieprinzip:</span> erst die energie&auml;rmsten Orbitale (in der Energie-Treppe von unten nach oben) &ndash; mit den &Uuml;berkreuzungen 4s vor 3d, 5s vor 4d, 6s vor 5d/4f.
+      <span class="fw600">&#9313; Pauli-Prinzip:</span> ein Orbital fasst h&ouml;chstens zwei Elektronen, und die m&uuml;ssen sich im Spin unterscheiden (&uarr;&darr;).
+      <span class="fw600">&#9314; Hund&rsquo;sche Regel:</span> innerhalb einer Unterschale erst alle Orbitale einfach besetzen (parallele Spins &uarr;), dann paaren.
+    </div>
+
+    <div class="callout">
+      <strong>Auftrag (vgl. Aufgabenblatt&nbsp;6).</strong> Besetze die vier Elemente Be, F, Zr, Cs im Grundzustand von energiearm nach energiereich. W&auml;hle ein Element und schiebe Elektron f&uuml;r Elektron &ndash; beobachte, wann gepaart wird und wo die Energie-Treppe &bdquo;&uuml;berkreuzt&ldquo;.
+    </div>
+
+    <div class="t2-cfg" data-fig2b="config"></div>
+
+    <p class="t2-cap">Box-Farbe = Hauptquantenzahl n der Unterschale. Die H&ouml;he zeigt die tats&auml;chliche Energie: 3d (blau) sitzt &uuml;ber 4s (gold), 4d &uuml;ber 5s &ndash; genau diese &Uuml;berkreuzungen erkl&auml;ren die Reihenfolge. <span class="muted">Didaktische Vereinfachung: der Rahmen reicht bis zur h&ouml;chsten besetzten Energiezeile.</span></p>
+
+    <div class="next-card">
+      <div class="nc-txt">
+        <div class="nc-eyebrow">weiter im Lernpfad</div>
+        <h3>Aus der Besetzung folgen die Quantenzahlen</h3>
+        <p>Jedes Elektron sitzt in einem bestimmten K&auml;stchen mit bestimmtem Spin. Genau das l&auml;sst sich mit vier Zahlen eindeutig benennen &ndash; im n&auml;chsten Abschnitt.</p>
+        <div class="nc-lock" style="background:rgba(30,93,82,.08); color:var(--teal-deep)">&darr; &sect;&nbsp;II.4 &middot; Quantenzahlen</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== § II.4 · Quantenzahlen ==================== -->
+  <section class="lp-section lp-band">
+    <div class="sec-num">&sect; II.4 &middot; Quantenzahlen</div>
+    <h2>Vier Zahlen benennen <em>jedes</em> Elektron</h2>
+    <p class="lead">Jeder Elektronenzustand ist durch vier Quantenzahlen eindeutig festgelegt. Aus der K&auml;stchen-Besetzung von eben kannst du sie f&uuml;r das zuletzt besetzte Elektron direkt ablesen.</p>
+
+    <div class="t2-qz-two">
+      <div class="t2-qz-box">
+        <h4>Wertebereiche der Quantenzahlen</h4>
+        <table>
+          <tr><td>Hauptquantenzahl&nbsp;n</td><td>1; 2; 3; &hellip;</td></tr>
+          <tr><td>Nebenquantenzahl&nbsp;l</td><td>0 &le; l &le; n&minus;1</td></tr>
+          <tr><td>Magnetquantenzahl&nbsp;m</td><td>&minus;l &le; m &le; +l</td></tr>
+          <tr><td>Spinquantenzahl&nbsp;s</td><td>+&frac12;; &minus;&frac12;</td></tr>
+        </table>
+        <p style="margin:.55rem 0 0; font-size:.8rem; color:#6a726e">l&nbsp;=&nbsp;0&nbsp;&rarr;&nbsp;s &middot; 1&nbsp;&rarr;&nbsp;p &middot; 2&nbsp;&rarr;&nbsp;d &middot; 3&nbsp;&rarr;&nbsp;f</p>
+      </div>
+      <div class="t2-qz-box">
+        <h4>Pauli-Prinzip</h4>
+        <p style="margin:0 0 .5rem">Zwei Elektronen in einem Atom k&ouml;nnen <b>nicht in allen vier Quantenzahlen &uuml;bereinstimmen</b>.</p>
+        <p style="margin:0; font-size:.9rem; color:#4a5350">Deshalb fasst jedes Orbital (festes n, l, m) genau zwei Elektronen &ndash; und die unterscheiden sich notwendig im Spin (+&frac12; / &minus;&frac12;).</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Auftrag (vgl. Aufgabenblatt&nbsp;7).</strong> Gib f&uuml;r die vier Elemente jeweils alle vier Quantenzahlen des zuletzt besetzten Elektrons an. Sage die Werte zuerst selbst voraus &ndash; dann decke die Zeile auf und pr&uuml;fe am K&auml;stchen.
+    </div>
+
+    <div class="t2-qz" data-fig2b="quantum"></div>
+
+    <div class="next-card">
+      <div class="nc-txt">
+        <div class="nc-eyebrow">weiter im Lernpfad</div>
+        <h3>Aber was <em>ist</em> ein Orbital?</h3>
+        <p>n, l, m, s beschreiben den Zustand &ndash; doch das Bild dahinter sind <span class="fw600">stehende Wellen</span>. Im n&auml;chsten Abschnitt verbinden wir Saite, Membran und Seifenblase mit den s- und p-Orbitalen.</p>
+        <div class="nc-lock" style="background:rgba(30,93,82,.08); color:var(--teal-deep)">&darr; &sect;&nbsp;II.5 &middot; Orbitale &amp; stehende Wellen (folgt im n&auml;chsten Bauabschnitt)</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================ § 8 ============================ -->
+  <section class="lp-section lp-band">
+    <div class="sec-num">Anhang · Material</div>
+    <h2>Aufgabenblatt &amp; Musterlösung</h2>
+    <p class="lead">Zum Lernpfad gehört ein deckungsgleich gelayoutetes Aufgabenblatt und die zugehörige Musterlösung (Typst → PDF). Die Strukturformeln darin entstehen mit demselben Renderer wie hier.</p>
+    <div class="dl-grid">
+      <div class="dl-card"><div class="dl-k">Aufgabenblatt</div><div class="dl-t">📝 Photonen &amp; Elektronen – Teil I</div><div class="dl-file">aufgabenblatt-atombau.pdf · .typ</div></div>
+      <div class="dl-card"><div class="dl-k">Musterlösung (deckungsgleich)</div><div class="dl-t">✅ Photonen &amp; Elektronen – Lösung</div><div class="dl-file">musterloesung-atombau.pdf · .typ</div></div>
+    </div>
+    <p class="muted">Beide Dateien liegen im Repository neben dieser Seite. Das deckungsgleiche Aufgabenblatt zu Teil II (Atommodelle, Ionisierungsenergie, Konfiguration, Quantenzahlen) folgt im Typst-Schritt.</p>
+  </section>
+
+</div><!-- /.lernpfad -->
 
 <footer>
-  Chemie · Leistungs­kurs · <a href="../chemie-lk-kursplan.html">Zurück zum Kursplan</a>
+  Chemie · Leistungs­kurs · <a href="../chemie-lk-kursplan.html">Zurück zum Kursplan</a> · Aufbau der Materie · Lernpfad I
 </footer>
 
 <script>
-  // Konfiguration
-  const UNLOCK_ISO = "2026-09-12T07:00:00+02:00"; // Samstag früh, MESZ
-  const PASSWORD = "Chemieistüberall.";
+/* ===== render-core.js ===== */
+/* =====================================================================
+   render-core.js  —  Strukturformel-Renderer (Atombau-Lernpfad)
+   Portiert aus dem Chemical Communication Trainer (nitrogen-ai/training),
+   erweitert um eine offengelegte Layout-Transformation (toX/toY/scale),
+   damit Farbstoff-Skelette dieselbe Bildsprache nutzen und zusaetzliche
+   Marker (Chromophor, polare Zentren, H-Bruecken) lagegenau ueberlagert
+   werden koennen. Reine Funktionen (kein DOM) -> Node UND Browser.
+   ===================================================================== */
+"use strict";
 
+const SIN60 = Math.sin(Math.PI / 3); // 0.866
+const COS60 = Math.cos(Math.PI / 3); // 0.5
+
+function sub(n) { const m = "₀₁₂₃₄₅₆₇₈₉"; return String(n).split('').map(d => m[+d]).join(''); }
+
+/* =====================================================================
+   LAYOUT  — Bounding-Box -> Skalierung -> Transform (wie im Trainer)
+   ===================================================================== */
+const VB = 1000, MARGIN = 90, BOND_MIN = 60, BOND_MAX = 180;
+
+function layout(struct, opts) {
+  const { atoms } = struct;
+  const isSkel = (opts.mode === "skeletal");
+  const showH = !!opts.showH;
+  const visible = atoms.map(a => {
+    if (a.hidden) return false;
+    if (a.e === "H" && !showH && !isSkel) return false;
+    return true;
+  });
+  let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+  for (let i = 0; i < atoms.length; i++) {
+    if (!visible[i] && atoms[i].e === "H" && !isSkel) continue;
+    const a = atoms[i];
+    if (a.x < minX) minX = a.x; if (a.x > maxX) maxX = a.x;
+    if (a.y < minY) minY = a.y; if (a.y > maxY) maxY = a.y;
+  }
+  const w = maxX - minX, h = maxY - minY, inner = VB - 2 * MARGIN;
+  let scale;
+  if (w < 0.01 && h < 0.01) scale = BOND_MAX;
+  else scale = Math.min(inner / Math.max(w, 0.01), inner / Math.max(h, 0.01));
+  scale = Math.max(BOND_MIN, Math.min(BOND_MAX, scale));
+  const cx = (minX + maxX) / 2, cy = (minY + maxY) / 2;
+  const toX = x => VB / 2 + (x - cx) * scale;
+  const toY = y => VB / 2 + (y - cy) * scale;
+  return { toX, toY, scale, bondLen: scale, visible };
+}
+
+/* =====================================================================
+   RENDERER
+   ===================================================================== */
+function render(struct, opts) {
+  if (!struct) return null;
+  let { atoms, bonds } = struct;
+  const showLP = !!opts.showLP, showH = !!opts.showH;
+  const lpLine = (opts.lpStyle === "lines");
+  const isSkel = (opts.mode === "skeletal");
+  const L = layout(struct, opts);
+  const { toX, toY, bondLen, visible } = L;
+  const stroke = Math.max(3.5, bondLen * 0.055);
+  const fontSize = Math.max(24, bondLen * 0.40);
+  const lpDot = Math.max(3, bondLen * 0.05);
+  const lpSep = bondLen * 0.18, lpDist = bondLen * 0.34, labelPad = bondLen * 0.22;
+  const dbOff = bondLen * 0.13, tbOff = bondLen * 0.16;
+
+  const bondParts = [];
+  const line = (x1, y1, x2, y2) =>
+    `<line x1="${x1.toFixed(2)}" y1="${y1.toFixed(2)}" x2="${x2.toFixed(2)}" y2="${y2.toFixed(2)}" stroke="#1c1712" stroke-width="${stroke.toFixed(2)}" stroke-linecap="round"/>`;
+  for (const b of bonds) {
+    const A = atoms[b.a], B = atoms[b.b];
+    if (A.e === "H" && !visible[b.a]) continue;
+    if (B.e === "H" && !visible[b.b]) continue;
+    const x1 = toX(A.x), y1 = toY(A.y), x2 = toX(B.x), y2 = toY(B.y);
+    const dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy);
+    if (len < 1e-6) continue;
+    const ux = dx / len, uy = dy / len;
+    const padA = visible[b.a] ? labelPad : 0, padB = visible[b.b] ? labelPad : 0;
+    const a0x = x1 + ux * padA, a0y = y1 + uy * padA, b0x = x2 - ux * padB, b0y = y2 - uy * padB;
+    const px = -uy, py = ux;
+    if (b.o === 1) { bondParts.push(line(a0x, a0y, b0x, b0y)); }
+    else if (b.o === 2) {
+      const off = dbOff;
+      bondParts.push(line(a0x - px * off, a0y - py * off, b0x - px * off, b0y - py * off));
+      bondParts.push(line(a0x + px * off, a0y + py * off, b0x + px * off, b0y + py * off));
+    } else if (b.o === 3) {
+      const off = tbOff;
+      bondParts.push(line(a0x, a0y, b0x, b0y));
+      bondParts.push(line(a0x - px * off, a0y - py * off, b0x - px * off, b0y - py * off));
+      bondParts.push(line(a0x + px * off, a0y + py * off, b0x + px * off, b0y + py * off));
+    }
+  }
+
+  const atomParts = [];
+  for (let i = 0; i < atoms.length; i++) {
+    const a = atoms[i]; if (!visible[i]) continue;
+    const x = toX(a.x), y = toY(a.y);
+    const lab = a.lab || a.e;
+    const r = Math.max(fontSize * 0.55, fontSize * 0.30 * lab.length);
+    atomParts.push(`<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${r.toFixed(2)}" fill="#ffffff"/>`);
+    atomParts.push(
+      `<text x="${x.toFixed(2)}" y="${y.toFixed(2)}" font-size="${fontSize.toFixed(2)}" ` +
+      `font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="500" ` +
+      `text-anchor="middle" dominant-baseline="central" fill="#1c1712">${lab}</text>`);
+  }
+
+  const lpParts = [], chargeParts = [];
+  for (let i = 0; i < atoms.length; i++) {
+    const a = atoms[i]; if (!visible[i]) continue;
+    const hasLP = !!(a.lp && a.lp > 0), hasUnpaired = !!a.unpaired, hasCharge = !!a.charge;
+    if (!hasLP && !hasUnpaired && !hasCharge) continue;
+    const bondAng = [];
+    for (const b of bonds) {
+      if (b.a === i) bondAng.push(Math.atan2(atoms[b.b].y - a.y, atoms[b.b].x - a.x));
+      else if (b.b === i) bondAng.push(Math.atan2(atoms[b.a].y - a.y, atoms[b.a].x - a.x));
+    }
+    let maxO = 1;
+    for (const b of bonds) { if ((b.a === i || b.b === i) && b.o > maxO) maxO = b.o; }
+    let nOrb; if (maxO === 3) nOrb = 2; else if (maxO === 2) nOrb = 3; else nOrb = 4;
+    const nLp = a.lp || 0;
+    const lpAngles = (showLP && nLp > 0) ? computeLPAngles(bondAng, nOrb, nLp) : [];
+    const ax = toX(a.x), ay = toY(a.y);
+    if (showLP) for (const ang of lpAngles) drawLP(lpParts, ax, ay, ang, lpDist, lpSep, lpDot, stroke, lpLine);
+    const unpairedAngs = [];
+    if (hasCharge) {
+      const occupied = bondAng.concat(lpAngles, unpairedAngs);
+      const ang = findFreeAngle(occupied);
+      const chDist = (showLP && nLp > 0) ? lpDist + lpSep * 1.4 + bondLen * 0.10 : bondLen * 0.42;
+      const supSize = fontSize * 0.50;
+      const cxC = ax + Math.cos(ang) * chDist, cyC = ay + Math.sin(ang) * chDist;
+      chargeParts.push(
+        `<text x="${cxC.toFixed(2)}" y="${cyC.toFixed(2)}" font-size="${supSize.toFixed(2)}" ` +
+        `font-family="'Helvetica Neue',sans-serif" font-weight="600" text-anchor="middle" ` +
+        `dominant-baseline="central" fill="#1c1712">${a.charge}</text>`);
+    }
+  }
+
+  const inner = `${bondParts.join("\n  ")}\n  ${atomParts.join("\n  ")}\n  ${lpParts.join("\n  ")}\n  ${chargeParts.join("\n  ")}`;
+  return { svg:
+`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${VB} ${VB}" width="${VB}" height="${VB}" preserveAspectRatio="xMidYMid meet">
+  <rect width="${VB}" height="${VB}" fill="#ffffff"/>
+  ${inner}
+</svg>`,
+    bondLen, atomCount: atoms.length, layout: L, inner };
+}
+
+function findFreeAngle(occupied) {
+  if (occupied.length === 0) return -Math.PI / 2;
+  const sorted = occupied.slice().sort((u, v) => u - v);
+  let bestAng = 0, bestGap = -1;
+  for (let k = 0; k < sorted.length; k++) {
+    const a1 = sorted[k];
+    const a2 = sorted[(k + 1) % sorted.length] + ((k + 1) >= sorted.length ? 2 * Math.PI : 0);
+    const gap = a2 - a1;
+    if (gap > bestGap) { bestGap = gap; bestAng = (a1 + a2) / 2; }
+  }
+  return bestAng;
+}
+function drawLP(out, ax, ay, ang, dist, sep, dotR, stroke, asLine) {
+  const cxL = ax + Math.cos(ang) * dist, cyL = ay + Math.sin(ang) * dist;
+  const px = -Math.sin(ang), py = Math.cos(ang);
+  if (asLine) {
+    const half = (sep + 2 * dotR) / 2;
+    out.push(`<line x1="${(cxL + px * half).toFixed(2)}" y1="${(cyL + py * half).toFixed(2)}" x2="${(cxL - px * half).toFixed(2)}" y2="${(cyL - py * half).toFixed(2)}" stroke="#1c1712" stroke-width="${stroke.toFixed(2)}" stroke-linecap="round"/>`);
+  } else {
+    out.push(`<circle cx="${(cxL + px * sep / 2).toFixed(2)}" cy="${(cyL + py * sep / 2).toFixed(2)}" r="${dotR.toFixed(2)}" fill="#1c1712"/>`);
+    out.push(`<circle cx="${(cxL - px * sep / 2).toFixed(2)}" cy="${(cyL - py * sep / 2).toFixed(2)}" r="${dotR.toFixed(2)}" fill="#1c1712"/>`);
+  }
+}
+function computeLPAngles(bondAng, nOrb, nLp) {
+  if (nLp <= 0) return [];
+  const k = bondAng.length;
+  if (k === 0) { const out = []; for (let i = 0; i < nLp; i++) out.push(2 * Math.PI * i / nLp - Math.PI / 2); return out; }
+  const sorted = bondAng.slice().sort((u, v) => u - v);
+  const gaps = [];
+  for (let i = 0; i < sorted.length; i++) {
+    const a1 = sorted[i];
+    const a2 = sorted[(i + 1) % sorted.length] + ((i + 1) >= sorted.length ? 2 * Math.PI : 0);
+    gaps.push({ mid: (a1 + a2) / 2, size: a2 - a1, a1, a2, count: 0 });
+  }
+  for (let n = 0; n < nLp; n++) {
+    let best = gaps[0];
+    for (const g of gaps) if (g.size / (g.count + 1) > best.size / (best.count + 1)) best = g;
+    best.count++;
+  }
+  const lps = [];
+  for (const g of gaps) for (let j = 1; j <= g.count; j++) { const t = j / (g.count + 1); lps.push(g.a1 + t * g.size); }
+  while (lps.length < nLp) lps.push(gaps[0].mid);
+  return lps.map(a => { while (a > Math.PI) a -= 2 * Math.PI; while (a <= -Math.PI) a += 2 * Math.PI; return a; });
+}
+
+/* small molecules reused for the intro figures (kept minimal) */
+function benzeneSkeletal() {
+  const atoms = [], bonds = []; const r = 1;
+  for (let i = 0; i < 6; i++) { const ang = -Math.PI / 2 + i * Math.PI / 3; atoms.push({ e: "C", x: r * Math.cos(ang), y: r * Math.sin(ang), lp: 0, hidden: true }); }
+  for (let i = 0; i < 6; i++) bonds.push({ a: i, b: (i + 1) % 6, o: (i % 2 === 0 ? 2 : 1) });
+  return { atoms, bonds, name: "Benzol", formula: "C₆H₆" };
+}
+
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = { SIN60, COS60, sub, layout, render, benzeneSkeletal };
+}
+
+/* ===== dyes.js ===== */
+/* =====================================================================
+   dyes.js — Skelettformeln der vier Farbstoffe des Extraktionsexperiments
+   Jede Struktur traegt:
+     atoms[], bonds[] (bonds koennen conj:true tragen = Teil des Chromophors)
+     sites = { hydrophil:[atomIdx...] }  (polare / H-Brücken-faehige Zentren)
+     solvent = "Ethanol" | "Wasser"
+   Chlorophyll ist didaktisch VEREINFACHT (Chromophor-Kern + polare Gruppen
+   + hydrophober Phytylrest) — ausreichend fuer die Loesemittel-Begruendung.
+   ===================================================================== */
+"use strict";
+
+function MB() {
+  const atoms = [], bonds = [];
+  return {
+    atoms, bonds,
+    add(e, x, y, o) { atoms.push(Object.assign({ e, x, y, lp: 0 }, o || {})); return atoms.length - 1; },
+    bond(a, b, o, conj) { bonds.push({ a, b, o: o || 1, conj: !!conj }); return bonds.length - 1; },
+    get() { return { atoms, bonds }; }
+  };
+}
+// pointy-top hexagon vertex (k=0 top, clockwise)
+function hexV(cx, cy, r, k) { const a = (-90 + 60 * k) * Math.PI / 180; return [cx + r * Math.cos(a), cy + r * Math.sin(a)]; }
+
+/* ------------------------------------------------------------------ */
+/* 1) KURKUMIN  (Diketo-Form, symmetrisch; 4-OH-3-OCH3-Aromaten)       */
+/* ------------------------------------------------------------------ */
+function curcumin() {
+  const m = MB(); const r = 1;
+  // central chain
+  const Ca = m.add("C", 4.00, 0.0, { hidden: true });
+  const Cb = m.add("C", 4.87, 0.5, { hidden: true });
+  const Cc = m.add("C", 5.73, 0.0, { hidden: true });
+  const Cd = m.add("C", 6.60, 0.5, { hidden: true });
+  const Ce = m.add("C", 7.46, 0.0, { hidden: true });
+  const Cf = m.add("C", 8.33, 0.5, { hidden: true });
+  const Cg = m.add("C", 9.19, 0.0, { hidden: true });
+  m.bond(Ca, Cb, 2, true); m.bond(Cb, Cc, 1, true);
+  m.bond(Cc, Cd, 1, true); m.bond(Cd, Ce, 1, true);
+  m.bond(Ce, Cf, 1, true); m.bond(Cf, Cg, 2, true);
+  const Oc = m.add("O", 5.73, -1.0, { lp: 2 }); m.bond(Cc, Oc, 2, true);
+  const Oe = m.add("O", 7.46, -1.0, { lp: 2 }); m.bond(Ce, Oe, 2, true);
+  // left ring, center (2.27,0.5); k1 attaches to Ca
+  const CL = [2.27, 0.5];
+  const Lv = [0, 1, 2, 3, 4, 5].map(k => hexV(CL[0], CL[1], r, k));
+  const L = Lv.map(v => m.add("C", v[0], v[1], { hidden: true }));
+  m.bond(L[0], L[1], 2, true); m.bond(L[1], L[2], 1, true); m.bond(L[2], L[3], 2, true);
+  m.bond(L[3], L[4], 1, true); m.bond(L[4], L[5], 2, true); m.bond(L[5], L[0], 1, true);
+  m.bond(L[1], Ca, 1, true);
+  // 4-OH at L4, 3-OCH3 at L5
+  let v = Lv[4]; let dx = (v[0] - CL[0]), dy = (v[1] - CL[1]); let n = Math.hypot(dx, dy); dx /= n; dy /= n;
+  const OL = m.add("O", v[0] + dx, v[1] + dy, { lp: 2 }); m.bond(L[4], OL, 1);
+  const HL = m.add("H", v[0] + 2 * dx, v[1] + 2 * dy); m.bond(OL, HL, 1);
+  v = Lv[5]; dx = (v[0] - CL[0]); dy = (v[1] - CL[1]); n = Math.hypot(dx, dy); dx /= n; dy /= n;
+  const OML = m.add("O", v[0] + dx, v[1] + dy, { lp: 2 }); m.bond(L[5], OML, 1);
+  const CML = m.add("C", v[0] + 2 * dx, v[1] + 2 * dy, { hidden: true }); m.bond(OML, CML, 1);
+  // right ring, center (10.93,0.5); k5 attaches to Cg
+  const CR = [10.93, 0.5];
+  const Rv = [0, 1, 2, 3, 4, 5].map(k => hexV(CR[0], CR[1], r, k));
+  const R = Rv.map(vv => m.add("C", vv[0], vv[1], { hidden: true }));
+  m.bond(R[0], R[1], 2, true); m.bond(R[1], R[2], 1, true); m.bond(R[2], R[3], 2, true);
+  m.bond(R[3], R[4], 1, true); m.bond(R[4], R[5], 2, true); m.bond(R[5], R[0], 1, true);
+  m.bond(R[5], Cg, 1, true);
+  // 4-OH at R2, 3-OCH3 at R1
+  v = Rv[2]; dx = (v[0] - CR[0]); dy = (v[1] - CR[1]); n = Math.hypot(dx, dy); dx /= n; dy /= n;
+  const OR = m.add("O", v[0] + dx, v[1] + dy, { lp: 2 }); m.bond(R[2], OR, 1);
+  const HR = m.add("H", v[0] + 2 * dx, v[1] + 2 * dy); m.bond(OR, HR, 1);
+  v = Rv[1]; dx = (v[0] - CR[0]); dy = (v[1] - CR[1]); n = Math.hypot(dx, dy); dx /= n; dy /= n;
+  const OMR = m.add("O", v[0] + dx, v[1] + dy, { lp: 2 }); m.bond(R[1], OMR, 1);
+  const CMR = m.add("C", v[0] + 2 * dx, v[1] + 2 * dy, { hidden: true }); m.bond(OMR, CMR, 1);
+
+  return {
+    atoms: m.atoms, bonds: m.bonds,
+    sites: { hydrophil: [OL, OR, Oc, Oe], donor: [OL, OR] },
+    solvent: "Ethanol", name: "Kurkumin", formula: "C₂₁H₂₀O₆",
+    note: "amphiphil: polare OH-/Carbonyl-Gruppen + große unpolare Aromaten/Kette"
+  };
+}
+
+/* ------------------------------------------------------------------ */
+/* 2) CYANIDIN  (Anthocyanidin / Flavylium-Kation; 3,5,7,3',4'-OH)     */
+/* ------------------------------------------------------------------ */
+function cyanidin() {
+  const m = MB(); const r = 1;
+  // ring A (benzene) center (0,0)
+  const A = [0, 1, 2, 3, 4, 5].map(k => hexV(0, 0, r, k));
+  const a = A.map(v => m.add("C", v[0], v[1], { hidden: true }));
+  // ring C (pyrylium) center (1.732,0); shares edge a1-a2
+  const Cc = [1.732, 0];
+  const c0 = m.add("O", ...hexV(Cc[0], Cc[1], r, 0), { lp: 2, charge: "+" }); // O1+
+  const c1 = m.add("C", ...hexV(Cc[0], Cc[1], r, 1), { hidden: true });        // C2 (bears ring B)
+  const c2 = m.add("C", ...hexV(Cc[0], Cc[1], r, 2), { hidden: true });        // C3 (3-OH)
+  const c3 = m.add("C", ...hexV(Cc[0], Cc[1], r, 3), { hidden: true });        // C4
+  // c_k4 = a[2], c_k5 = a[1]
+  // ring A bonds
+  m.bond(a[0], a[1], 2, true); m.bond(a[1], a[2], 1, true); m.bond(a[2], a[3], 2, true);
+  m.bond(a[3], a[4], 1, true); m.bond(a[4], a[5], 2, true); m.bond(a[5], a[0], 1, true);
+  // ring C bonds (flavylium)
+  m.bond(c0, c1, 1, true); m.bond(c1, c2, 2, true); m.bond(c2, c3, 1, true);
+  m.bond(c3, a[2], 2, true); m.bond(a[1], c0, 1, true);
+  // substituent OHs on A: 5-OH at a3, 7-OH at a5
+  function OH(ci, vx, vy, cx, cy) {
+    let dx = vx - cx, dy = vy - cy, n = Math.hypot(dx, dy); dx /= n; dy /= n;
+    const O = m.add("O", vx + dx, vy + dy, { lp: 2 }); m.bond(ci, O, 1);
+    const H = m.add("H", vx + 2 * dx, vy + 2 * dy); m.bond(O, H, 1); return O;
+  }
+  const o5 = OH(a[3], A[3][0], A[3][1], 0, 0);
+  const o7 = OH(a[5], A[5][0], A[5][1], 0, 0);
+  // 3-OH at c2
+  const c2v = hexV(Cc[0], Cc[1], r, 2);
+  const o3 = OH(c2, c2v[0], c2v[1], Cc[0], Cc[1]);
+  // ring B (catechol) attached at C2 (c1)
+  const c1v = hexV(Cc[0], Cc[1], r, 1);
+  const Bc = [c1v[0] + 1.30, c1v[1] - 0.75]; // shift up-right
+  const B = [0, 1, 2, 3, 4, 5].map(k => hexV(Bc[0], Bc[1], r, k));
+  const b = B.map(v => m.add("C", v[0], v[1], { hidden: true }));
+  m.bond(b[0], b[1], 2, true); m.bond(b[1], b[2], 1, true); m.bond(b[2], b[3], 2, true);
+  m.bond(b[3], b[4], 1, true); m.bond(b[4], b[5], 2, true); m.bond(b[5], b[0], 1, true);
+  m.bond(c1, b[4], 1, true); // C2 - C1'(=b4)
+  // 3',4'-diOH at b5 and b0
+  const o3p = OH(b[5], B[5][0], B[5][1], Bc[0], Bc[1]);
+  const o4p = OH(b[0], B[0][0], B[0][1], Bc[0], Bc[1]);
+
+  return {
+    atoms: m.atoms, bonds: m.bonds,
+    sites: { hydrophil: [c0, o5, o7, o3, o3p, o4p], donor: [o5, o7, o3, o3p, o4p], charge: [c0] },
+    solvent: "Wasser", name: "Cyanidin (Anthocyanidin)", formula: "C₁₅H₁₁O₆⁺",
+    note: "sehr hydrophil: Kation + fünf OH-Gruppen → ausgeprägte H-Brücken zum Wasser"
+  };
+}
+
+/* ------------------------------------------------------------------ */
+/* 3) BETANIN  (Betalain-Chromophor + Glucose; stark vereinfacht)      */
+/* ------------------------------------------------------------------ */
+function betanin() {
+  const m = MB(); const r = 1.05;
+  // generic COOH builder: attaches at vertex (vx,vy), points in (dx,dy) unit dir
+  function COOH(ci, vx, vy, dx, dy) {
+    const n = Math.hypot(dx, dy); dx /= n; dy /= n;
+    const px = -dy, py = dx;
+    const C = m.add("C", vx + dx, vy + dy, { hidden: true }); m.bond(ci, C, 1);
+    const Od = m.add("O", vx + 2 * dx + px * 0.55, vy + 2 * dy + py * 0.55, { lp: 2 }); m.bond(C, Od, 2);
+    const Oh = m.add("O", vx + 2 * dx - px * 0.55, vy + 2 * dy - py * 0.55, { lp: 2 }); m.bond(C, Oh, 1);
+    const H = m.add("H", vx + 2.9 * dx - px * 0.9, vy + 2.9 * dy - py * 0.9); m.bond(Oh, H, 1);
+    return [Od, Oh];
+  }
+  // OH builder
+  function OHat(ci, vx, vy, cx, cy) {
+    let dx = vx - cx, dy = vy - cy, n = Math.hypot(dx, dy); dx /= n; dy /= n;
+    const O = m.add("O", vx + dx, vy + dy, { lp: 2 }); m.bond(ci, O, 1);
+    const H = m.add("H", vx + 2 * dx, vy + 2 * dy); m.bond(O, H, 1); return O;
+  }
+  // ---- LEFT ring system (dihydropyridine, N+) center far left ----
+  const Lc = [-4.6, 0];
+  const Lv = [0, 1, 2, 3, 4, 5].map(k => hexV(Lc[0], Lc[1], r, k));
+  const Lr = Lv.map(v => m.add("C", v[0], v[1], { hidden: true }));
+  m.atoms[Lr[1]].e = "N"; m.atoms[Lr[1]].charge = "+"; m.atoms[Lr[1]].lp = 0; // N+ at upper-right (to chain)
+  m.bond(Lr[0], Lr[1], 1, true); m.bond(Lr[1], Lr[2], 1, true); m.bond(Lr[2], Lr[3], 2, true);
+  m.bond(Lr[3], Lr[4], 1, true); m.bond(Lr[4], Lr[5], 2, true); m.bond(Lr[5], Lr[0], 1, true);
+  const coohL1 = COOH(Lr[3], Lv[3][0], Lv[3][1], 0, 1);          // bottom
+  const coohL2 = COOH(Lr[4], Lv[4][0], Lv[4][1], -0.7, 0.7);     // lower-left
+  // ---- conjugated bridge: N+ -> chain -> right ring ----
+  let cx0 = Lv[1][0], cy0 = Lv[1][1];
+  const chainXY = []; let prev = Lr[1]; let up = true;
+  for (let i = 0; i < 5; i++) {
+    cx0 += SIN60; cy0 = (up ? Lv[1][1] - COS60 : Lv[1][1]); up = !up;
+    const a = m.add("C", cx0, cy0, { hidden: true });
+    m.bond(prev, a, (i % 2 === 0) ? 2 : 1, true);
+    chainXY.push([cx0, cy0]); prev = a;
+  }
+  // ---- RIGHT ring system (cyclo-DOPA, benzene) ----
+  const Rc = [chainXY[4][0] + 1.55, 0];
+  const Rv = [0, 1, 2, 3, 4, 5].map(k => hexV(Rc[0], Rc[1], r, k));
+  const Rr = Rv.map(v => m.add("C", v[0], v[1], { hidden: true }));
+  m.atoms[Rr[5]].e = "N"; m.atoms[Rr[5]].lp = 1; // N at upper-left (to chain)
+  m.bond(Rr[0], Rr[1], 2, true); m.bond(Rr[1], Rr[2], 1, true); m.bond(Rr[2], Rr[3], 2, true);
+  m.bond(Rr[3], Rr[4], 1, true); m.bond(Rr[4], Rr[5], 1, true); m.bond(Rr[5], Rr[0], 1, true);
+  m.bond(prev, Rr[5], 1, true);
+  const coohR = COOH(Rr[4], Rv[4][0], Rv[4][1], -0.3, 1);        // bottom of right ring
+  const oOHr = OHat(Rr[2], Rv[2][0], Rv[2][1], Rc[0], Rc[1]);    // a phenolic OH
+  // O-glucoside at Rr1 (upper-right), glucose ring further right
+  let gv = Rv[1]; let dx = gv[0] - Rc[0], dy = gv[1] - Rc[1], n = Math.hypot(dx, dy); dx /= n; dy /= n;
+  const Oglyc = m.add("O", gv[0] + dx, gv[1] + dy, { lp: 2 }); m.bond(Rr[1], Oglyc, 1);
+  const Gc = [gv[0] + dx + 1.55, gv[1] + dy - 0.55];
+  const Gv = [0, 1, 2, 3, 4, 5].map(k => hexV(Gc[0], Gc[1], r * 0.95, k));
+  const Gr = Gv.map(v => m.add("C", v[0], v[1], { hidden: true }));
+  m.atoms[Gr[0]].e = "O"; m.atoms[Gr[0]].lp = 2; // pyranose ring O
+  for (let i = 0; i < 6; i++) m.bond(Gr[i], Gr[(i + 1) % 6], 1);
+  m.bond(Oglyc, Gr[4], 1);
+  const gOH = [];
+  gOH.push(OHat(Gr[1], Gv[1][0], Gv[1][1], Gc[0], Gc[1]));
+  gOH.push(OHat(Gr[2], Gv[2][0], Gv[2][1], Gc[0], Gc[1]));
+  gOH.push(OHat(Gr[3], Gv[3][0], Gv[3][1], Gc[0], Gc[1]));
+  // CH2OH on Gr5
+  let v5 = Gv[5]; let d5x = v5[0] - Gc[0], d5y = v5[1] - Gc[1], n5 = Math.hypot(d5x, d5y); d5x /= n5; d5y /= n5;
+  const Cm = m.add("C", v5[0] + d5x, v5[1] + d5y, { hidden: true }); m.bond(Gr[5], Cm, 1);
+  const Om = m.add("O", v5[0] + d5x * 1.9, v5[1] + d5y * 1.9, { lp: 2 }); m.bond(Cm, Om, 1);
+  const Hm = m.add("H", v5[0] + d5x * 2.7, v5[1] + d5y * 2.7); m.bond(Om, Hm, 1); gOH.push(Om);
+
+  const hydrophil = [Lr[1], Rr[5], Oglyc, oOHr].concat(coohL1, coohL2, coohR, gOH);
+  return {
+    atoms: m.atoms, bonds: m.bonds,
+    sites: { hydrophil, donor: gOH.concat([coohL1[1], coohL2[1], coohR[1], oOHr]), charge: [Lr[1]] },
+    solvent: "Wasser", name: "Betanin (Betalain, schematisch)", formula: "C₂₄H₂₇N₂O₁₃⁺",
+    note: "extrem hydrophil: Ring-N⁺, drei Carboxylgruppen und ein ganzer Glucose-Rest (mehrere OH)"
+  };
+}
+
+/* ------------------------------------------------------------------ */
+/* 4) CHLOROPHYLL a  (Mg-Porphyrin-Kern + Phytylrest; vereinfacht)     */
+/* ------------------------------------------------------------------ */
+function chlorophyll() {
+  const m = MB();
+  const Mg = m.add("Mg", 0, 0, { lab: "Mg" });
+  const Rp = 2.05, rp = 0.80;
+  const dirs = [-90, 0, 90, 180]; // N, E, S, W (y-down)
+  const py = [];
+  for (const θdeg of dirs) {
+    const θ = θdeg * Math.PI / 180;
+    const Cp = [Rp * Math.cos(θ), Rp * Math.sin(θ)];
+    const vert = off => { const φ = θ + Math.PI + off * 72 * Math.PI / 180; return [Cp[0] + rp * Math.cos(φ), Cp[1] + rp * Math.sin(φ)]; };
+    const N = m.add("N", ...vert(0), {});
+    const a1 = m.add("C", ...vert(1), { hidden: true });
+    const b1 = m.add("C", ...vert(2), { hidden: true });
+    const b2 = m.add("C", ...vert(3), { hidden: true });
+    const a2 = m.add("C", ...vert(4), { hidden: true });
+    m.bond(N, a1, 1, true); m.bond(a1, b1, 2, true); m.bond(b1, b2, 1, true); m.bond(b2, a2, 2, true); m.bond(a2, N, 1, true);
+    m.bond(Mg, N, 1, false);
+    py.push({ N, a1, a2, b1, b2, Cp });
+  }
+  // meso carbons at the 4 diagonal directions; bond each to its 2 nearest alpha-carbons
+  const alphas = []; py.forEach(p => { alphas.push(p.a1); alphas.push(p.a2); });
+  for (const θdeg of [-45, 45, 135, 225]) {
+    const θ = θdeg * Math.PI / 180;
+    const mx = (Rp + 0.15) * Math.cos(θ), my = (Rp + 0.15) * Math.sin(θ);
+    const mc = m.add("C", mx, my, { hidden: true });
+    const dists = alphas.map(idx => ({ idx, d: Math.hypot(m.atoms[idx].x - mx, m.atoms[idx].y - my) }))
+      .sort((u, v) => u.d - v.d);
+    m.bond(mc, dists[0].idx, 2, true);
+    m.bond(mc, dists[1].idx, 1, true);
+  }
+  // methyl ester (-C(=O)-O-CH3) off the EAST pyrrole beta carbon, pointing right
+  const eAttach = py[1].b1, ea = m.atoms[eAttach];
+  const e1 = m.add("C", ea.x + 1.0, ea.y - 0.3, { hidden: true }); m.bond(eAttach, e1, 1, false);
+  const eOd = m.add("O", ea.x + 1.1, ea.y - 1.3, { lp: 2 }); m.bond(e1, eOd, 2);
+  const eOe = m.add("O", ea.x + 2.0, ea.y + 0.1, { lp: 2 }); m.bond(e1, eOe, 1);
+  const eMe = m.add("C", ea.x + 3.0, ea.y - 0.2, { hidden: true }); m.bond(eOe, eMe, 1);
+  // propionate->phytyl ester off the SOUTH pyrrole, leading to a long hydrophobic tail
+  const sAttach = py[2].b1, sa = m.atoms[sAttach];
+  const s1 = m.add("C", sa.x - 0.3, sa.y + 1.0, { hidden: true }); m.bond(sAttach, s1, 1, false);
+  const s2 = m.add("C", sa.x + 0.55, sa.y + 1.5, { hidden: true }); m.bond(s1, s2, 1, false);
+  const estC = m.add("C", sa.x + 1.4, sa.y + 1.0, { hidden: true }); m.bond(s2, estC, 1, false);
+  const estOd = m.add("O", sa.x + 1.4, sa.y + 0.0, { lp: 2 }); m.bond(estC, estOd, 2);
+  const estOe = m.add("O", sa.x + 2.3, sa.y + 1.5, { lp: 2 }); m.bond(estC, estOe, 1);
+  let tx = sa.x + 2.3, ty = sa.y + 1.5; let prev = estOe; let up = true;
+  for (let i = 0; i < 12; i++) {
+    tx += SIN60; ty += (up ? COS60 : -COS60); up = !up;
+    const c = m.add("C", tx, ty, { hidden: true });
+    m.bond(prev, c, 1, false); prev = c;
+    if (i === 2 || i === 6 || i === 9) { const br = m.add("C", tx, ty + 1.0, { hidden: true }); m.bond(c, br, 1, false); }
+  }
+  const tailLast = prev;
+  const Ns = py.map(p => p.N);
+  return {
+    atoms: m.atoms, bonds: m.bonds,
+    sites: { hydrophil: [eOd, eOe, estOd, estOe].concat(Ns), donor: [], charge: [Mg], lipoLabelAt: tailLast },
+    solvent: "Ethanol", name: "Chlorophyll a (vereinfacht)", formula: "C₅₅H₇₂MgN₄O₅",
+    note: "Mg-Porphyrin-Chromophor + polare Estergruppen, aber großer hydrophober Phytylrest → unpolares/organisches Lösemittel"
+  };
+}
+
+const DYES = { curcumin, cyanidin, betanin, chlorophyll };
+if (typeof module !== "undefined" && module.exports) module.exports = { DYES, MB, hexV };
+
+/* ===== dye-render.js ===== */
+/* =====================================================================
+   dye-render.js — Stufenweises Aufdecken zwischenmolekularer Bezüge
+   Stufen:
+     1  Skelettformel
+     2  + Chromophor (konjugiertes π-System, goldener Schimmer)
+     3  + polare Zentren (teal-Ringe an H-Brücken-fähigen Atomen)
+     4  + Wechselwirkung mit dem Lösemittel (gestrichelte H-Brücken + Tag)
+   Nutzt die offengelegte Layout-Transformation aus render-core.js, damit
+   die Marker lagegenau auf der Trainer-Skelettformel sitzen.
+   ===================================================================== */
+"use strict";
+
+const DYE_TEAL = "#1e5d52", DYE_GOLD = "#c9a961", DYE_INK = "#1c1712";
+
+function renderDye(d, stage) {
+  const struct = { atoms: d.atoms, bonds: d.bonds };
+  const base = render(struct, { mode: "skeletal", showH: false, showLP: false, lpStyle: "lines" });
+  const L = base.layout, toX = L.toX, toY = L.toY, s = L.scale;
+  const atoms = d.atoms, bonds = d.bonds;
+
+  // centroid of visible atoms (for outward directions)
+  let cxs = 0, cys = 0, nn = 0;
+  for (let i = 0; i < atoms.length; i++) { if (L.visible[i] || atoms[i].e !== "H") { cxs += atoms[i].x; cys += atoms[i].y; nn++; } }
+  const cgx = cxs / nn, cgy = cys / nn;
+
+  /* layer 1: chromophore glow (under skeleton) */
+  let glow = "";
+  if (stage >= 2) {
+    for (const b of bonds) {
+      if (!b.conj) continue;
+      const A = atoms[b.a], B = atoms[b.b];
+      glow += `<line x1="${toX(A.x).toFixed(1)}" y1="${toY(A.y).toFixed(1)}" x2="${toX(B.x).toFixed(1)}" y2="${toY(B.y).toFixed(1)}" stroke="${DYE_GOLD}" stroke-width="${(s * 0.34).toFixed(1)}" stroke-opacity="0.35" stroke-linecap="round"/>`;
+    }
+  }
+
+  /* layer 3: polar centres (teal rings on top of skeleton) */
+  let polar = "";
+  if (stage >= 3) {
+    const set = new Set(d.sites.hydrophil || []);
+    for (const idx of set) {
+      const a = atoms[idx]; if (!a) continue;
+      const x = toX(a.x), y = toY(a.y), rr = s * 0.30;
+      polar += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rr.toFixed(1)}" fill="none" stroke="${DYE_TEAL}" stroke-width="${(s * 0.05).toFixed(1)}"/>`;
+    }
+  }
+
+  /* layer 4: solvent interaction (dashed H-bonds + solvent tags) */
+  let solv = "";
+  if (stage >= 4) {
+    const donors = (d.sites.donor && d.sites.donor.length ? d.sites.donor : d.sites.hydrophil) || [];
+    // cap tags to keep it legible, spread across the list
+    const maxTags = 6, step = Math.max(1, Math.ceil(donors.length / maxTags));
+    let k = 0;
+    for (let di = 0; di < donors.length; di += step) {
+      const idx = donors[di]; const a = atoms[idx]; if (!a) continue;
+      let dx = a.x - cgx, dy = a.y - cgy, n = Math.hypot(dx, dy) || 1; dx /= n; dy /= n;
+      const x0 = toX(a.x) + dx * s * 0.30, y0 = toY(a.y) + dy * s * 0.30;
+      const x1 = toX(a.x) + dx * s * 0.78, y1 = toY(a.y) + dy * s * 0.78;
+      solv += `<line x1="${x0.toFixed(1)}" y1="${y0.toFixed(1)}" x2="${x1.toFixed(1)}" y2="${y1.toFixed(1)}" stroke="${DYE_TEAL}" stroke-width="${(s * 0.055).toFixed(1)}" stroke-linecap="round" stroke-dasharray="${(s * 0.04).toFixed(1)} ${(s * 0.11).toFixed(1)}"/>`;
+      const tag = d.solvent === "Wasser" ? "H₂O" : "EtOH";
+      const fs = s * 0.30, tw = fs * (tag.length * 0.34 + 0.5);
+      solv += `<rect x="${(x1 - tw).toFixed(1)}" y="${(y1 - fs * 0.72).toFixed(1)}" width="${(tw * 2).toFixed(1)}" height="${(fs * 1.44).toFixed(1)}" rx="${(fs * 0.4).toFixed(1)}" fill="#fff" stroke="${DYE_TEAL}" stroke-width="${(s * 0.02).toFixed(1)}"/>`;
+      solv += `<text x="${x1.toFixed(1)}" y="${y1.toFixed(1)}" font-size="${fs.toFixed(1)}" font-family="'Helvetica Neue',Arial,sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central" fill="${DYE_TEAL}">${tag}</text>`;
+      k++;
+    }
+  }
+
+  const VB = 1000;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${VB} ${VB}" width="${VB}" height="${VB}" preserveAspectRatio="xMidYMid meet"><rect width="${VB}" height="${VB}" fill="#ffffff"/>${glow}\n${base.inner}\n${polar}\n${solv}</svg>`;
+}
+
+if (typeof module !== "undefined" && module.exports) module.exports = { renderDye };
+
+/* ===== spectra.js ===== */
+/* =====================================================================
+   spectra.js — Spektren & Einstiegsfiguren (Atombau-Lernpfad)
+   Reine SVG-Funktionen (Node + Browser). Liefert:
+     wlToRGB(nm)                  Wellenlänge -> sRGB
+     continuousSpectrumSVG(opts)  kontinuierliches Spektrum (Regenbogen)
+     emissionSpectrumSVG(lines)   diskretes Linienspektrum (auf Schwarz)
+     dipoleFigureSVG()            Hertz'scher Dipol -> Wellen (kontinuierlich)
+     bohrFigureSVG()              Bohr-Modell, Elektronensprung -> Linie
+   ===================================================================== */
+"use strict";
+
+const WL_MIN = 380, WL_MAX = 740;
+
+function wlToRGB(wl) {
+  let r = 0, g = 0, b = 0;
+  if (wl >= 380 && wl < 440) { r = -(wl - 440) / 60; b = 1; }
+  else if (wl < 490) { g = (wl - 440) / 50; b = 1; }
+  else if (wl < 510) { g = 1; b = -(wl - 510) / 20; }
+  else if (wl < 580) { r = (wl - 510) / 70; g = 1; }
+  else if (wl < 645) { r = 1; g = -(wl - 645) / 65; }
+  else if (wl <= 780) { r = 1; }
+  let f = 1;
+  if (wl < 420) f = 0.3 + 0.7 * (wl - 380) / 40;
+  else if (wl > 700) f = 0.3 + 0.7 * (780 - wl) / 80;
+  const gamma = 0.8;
+  const ch = v => Math.round(255 * Math.pow(Math.max(0, Math.min(1, v)) * f, gamma));
+  return `rgb(${ch(r)},${ch(g)},${ch(b)})`;
+}
+function xFor(wl, W, pad) { return pad + (wl - WL_MIN) / (WL_MAX - WL_MIN) * (W - 2 * pad); }
+
+/* axis ticks at round wavelengths */
+function axisTicks(W, H, pad, y, color) {
+  let s = "";
+  for (let wl = 400; wl <= 700; wl += 50) {
+    const x = xFor(wl, W, pad);
+    s += `<line x1="${x.toFixed(1)}" y1="${y}" x2="${x.toFixed(1)}" y2="${y + 6}" stroke="${color}" stroke-width="1.4"/>`;
+    s += `<text x="${x.toFixed(1)}" y="${y + 20}" font-size="12" font-family="'JetBrains Mono',monospace" text-anchor="middle" fill="${color}">${wl}</text>`;
+  }
+  s += `<text x="${(W - pad).toFixed(1)}" y="${y + 38}" font-size="11" font-family="'JetBrains Mono',monospace" text-anchor="end" fill="${color}" opacity="0.7">λ / nm</text>`;
+  return s;
+}
+
+function continuousSpectrumSVG(opts) {
+  opts = opts || {};
+  const W = opts.w || 760, H = opts.h || 132, pad = 26, barH = opts.barH || 72;
+  const id = "grad" + Math.random().toString(36).slice(2, 8);
+  let stops = "";
+  for (let wl = WL_MIN; wl <= WL_MAX; wl += 8) {
+    const t = ((wl - WL_MIN) / (WL_MAX - WL_MIN) * 100).toFixed(1);
+    stops += `<stop offset="${t}%" stop-color="${wlToRGB(wl)}"/>`;
+  }
+  let env = "";
+  if (opts.blackbody) {
+    // simple warm envelope curve over the bar (illustrative, not to scale)
+    const peak = opts.peak || 560; const px = xFor(peak, W, pad);
+    let d = `M ${pad} ${20 + barH}`;
+    for (let x = pad; x <= W - pad; x += 6) {
+      const wl = WL_MIN + (x - pad) / (W - 2 * pad) * (WL_MAX - WL_MIN);
+      const yv = 20 + barH - barH * 0.9 * Math.exp(-Math.pow((wl - peak) / 90, 2));
+      d += ` L ${x.toFixed(1)} ${yv.toFixed(1)}`;
+    }
+    env = `<path d="${d}" fill="none" stroke="#1c1712" stroke-width="2" stroke-opacity="0.55"/>`;
+  }
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">
+<defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="0">${stops}</linearGradient></defs>
+<rect x="${pad}" y="20" width="${W - 2 * pad}" height="${barH}" fill="url(#${id})" rx="3"/>
+${env}
+${opts.noAxis ? "" : axisTicks(W, H, pad, 20 + barH + 4, "#5a5249")}
+</svg>`;
+}
+
+function emissionSpectrumSVG(lines, opts) {
+  opts = opts || {};
+  const W = opts.w || 760, H = opts.h || 132, pad = 26, barH = opts.barH || 72, y0 = 20;
+  let bars = "";
+  for (const ln of lines) {
+    const wl = typeof ln === "number" ? ln : ln.wl;
+    const inten = typeof ln === "number" ? 1 : (ln.i || 1);
+    const x = xFor(wl, W, pad);
+    const col = wlToRGB(wl);
+    const w = 2 + 2 * inten;
+    bars += `<rect x="${(x - w / 2).toFixed(1)}" y="${y0}" width="${w.toFixed(1)}" height="${barH}" fill="${col}"/>`;
+    bars += `<rect x="${(x - w).toFixed(1)}" y="${y0}" width="${(2 * w).toFixed(1)}" height="${barH}" fill="${col}" opacity="0.25"/>`;
+  }
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">
+<rect x="${pad}" y="${y0}" width="${W - 2 * pad}" height="${barH}" fill="#07090c" rx="3"/>
+${bars}
+${opts.noAxis ? "" : axisTicks(W, H, pad, y0 + barH + 4, "#5a5249")}
+</svg>`;
+}
+
+/* ---- Hertz'scher Dipol: oszillierende Ladung -> abgestrahlte Wellen ---- */
+function dipoleFigureSVG() {
+  const W = 360, H = 300, cx = 120, cy = 150;
+  let waves = "";
+  for (let r = 26; r < 150; r += 22) {
+    const op = (1 - r / 150) * 0.8;
+    waves += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#a83610" stroke-width="2.2" stroke-opacity="${op.toFixed(2)}"/>`;
+  }
+  // continuous rainbow strip on the right (result)
+  const strip = continuousSpectrumSVG({ w: 150, h: 56, barH: 40, noAxis: true });
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">
+<rect width="${W}" height="${H}" fill="#fff"/>
+${waves}
+<line x1="${cx}" y1="${cy - 40}" x2="${cx}" y2="${cy + 40}" stroke="#0a1612" stroke-width="6" stroke-linecap="round"/>
+<circle cx="${cx}" cy="${cy - 40}" r="11" fill="#b3341a"/><text x="${cx}" y="${cy - 40}" font-size="15" text-anchor="middle" dominant-baseline="central" fill="#fff" font-weight="700">+</text>
+<circle cx="${cx}" cy="${cy + 40}" r="11" fill="#1f5fb0"/><text x="${cx}" y="${cy + 40}" font-size="17" text-anchor="middle" dominant-baseline="central" fill="#fff" font-weight="700">−</text>
+<text x="${cx}" y="${cy + 78}" font-size="12" font-family="'JetBrains Mono',monospace" text-anchor="middle" fill="#5a5249">schwingende Ladung</text>
+<g transform="translate(196,118)">${strip.replace(/^<svg[^>]*>/, '').replace(/<\/svg>$/, '')}</g>
+<text x="271" y="112" font-size="11" font-family="'JetBrains Mono',monospace" text-anchor="middle" fill="#5a5249">kontinuierlich</text>
+</svg>`;
+}
+
+/* ---- Bohr-Modell: Elektronensprung -> ein Photon (eine Linie) ---- */
+function bohrFigureSVG() {
+  const W = 360, H = 300, cx = 130, cy = 150;
+  const radii = [28, 56, 88];
+  let orbits = "";
+  radii.forEach((r, i) => {
+    orbits += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#0a1612" stroke-width="1.4" stroke-opacity="0.45"/>`;
+    orbits += `<text x="${cx + r + 4}" y="${cy - 4}" font-size="11" font-family="'JetBrains Mono',monospace" fill="#5a5249">n=${i + 1}</text>`;
+  });
+  // electron jump n=3 -> n=2 with emitted photon (squiggle)
+  const e3x = cx, e3y = cy - radii[2], e2x = cx, e2y = cy - radii[1];
+  let squig = "M 196 96 ";
+  for (let k = 0; k < 7; k++) { const x = 196 + k * 14; const yy = 96 + (k % 2 === 0 ? -7 : 7); squig += `L ${x} ${yy} `; }
+  const oneLine = emissionSpectrumSVG([656], { w: 150, h: 56, barH: 40, noAxis: true });
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">
+<rect width="${W}" height="${H}" fill="#fff"/>
+${orbits}
+<circle cx="${cx}" cy="${cy}" r="13" fill="#a83610"/><text x="${cx}" y="${cy}" font-size="12" text-anchor="middle" dominant-baseline="central" fill="#fff" font-weight="700">K</text>
+<circle cx="${e3x}" cy="${e3y}" r="7" fill="#1f5fb0"/>
+<circle cx="${e2x}" cy="${e2y}" r="7" fill="#1f5fb0" opacity="0.35"/>
+<path d="M ${e3x + 10} ${e3y + 4} Q ${e3x + 26} ${(e3y + e2y) / 2} ${e2x + 10} ${e2y - 4}" fill="none" stroke="#1f5fb0" stroke-width="2" stroke-dasharray="3 3"/>
+<text x="${cx + 30}" y="${(e3y + e2y) / 2}" font-size="11" font-family="'JetBrains Mono',monospace" fill="#1f5fb0">ΔE</text>
+<path d="${squig}" fill="none" stroke="#c9a961" stroke-width="2.4"/>
+<text x="222" y="84" font-size="12" font-family="'JetBrains Mono',monospace" fill="#8a6d1f">Photon hν</text>
+<g transform="translate(196,128)">${oneLine.replace(/^<svg[^>]*>/, '').replace(/<\/svg>$/, '')}</g>
+<text x="271" y="122" font-size="11" font-family="'JetBrains Mono',monospace" text-anchor="middle" fill="#5a5249">diskret</text>
+</svg>`;
+}
+
+if (typeof module !== "undefined" && module.exports)
+  module.exports = { wlToRGB, continuousSpectrumSVG, emissionSpectrumSVG, dipoleFigureSVG, bohrFigureSVG };
+
+/* ===== app.js ===== */
+/* =====================================================================
+   app.js — Steuerung des Atombau-Lernpfads
+   • Freischaltung / Passwort  (wie Organik-Vorlage)
+   • Einstiegsfiguren (Dipol / Bohr) + Spektren injizieren
+   • Farbstoff-Stepper (Stufe 1–4)
+   • Wisch-Aufdeckung verdeckter Lösungen (Moderation, rücksetzbar)
+   • anklickbare Lichtquellen-Zuordnung
+   • Selbsteinschätzung „Ich kann …“ (localStorage)
+   ===================================================================== */
+"use strict";
+
+/* ----------------------- Freischaltung / Passwort ----------------------- */
+(function () {
+  const UNLOCK_ISO = "2026-09-12T07:00:00+02:00";
+  const PASSWORD = "Chemieist\u00fcberall.";
   const unlockDate = new Date(UNLOCK_ISO);
   const now = new Date();
   const isUnlocked = now >= unlockDate;
-
   const statusEl = document.getElementById('status-text');
   const pwZone = document.getElementById('pw-zone');
-  const unlockedEl = document.getElementById('unlocked');
-
-  // Format unlock date nicely
-  const fmtUnlock = unlockDate.toLocaleDateString('de-DE', {
-    weekday: 'short', day: '2-digit', month: '2-digit', year: 'numeric'
-  });
-  document.getElementById('unlock-date').textContent = fmtUnlock;
-
-  // Check if past local-storage flag (already unlocked via PW earlier)
+  const lernpfadEl = document.getElementById('lernpfad');
+  const ud = document.getElementById('unlock-date');
+  if (ud) ud.textContent = unlockDate.toLocaleDateString('de-DE', { weekday: 'short', day: '2-digit', month: '2-digit', year: 'numeric' });
   const storageKey = 'lp_unlock_' + window.location.pathname;
-  const pwUnlocked = sessionStorage.getItem(storageKey) === '1';
+  const ssGet = k => { try { return sessionStorage.getItem(k); } catch (e) { return null; } };
+  const ssSet = (k, v) => { try { sessionStorage.setItem(k, v); } catch (e) {} };
+  const pwUnlocked = ssGet(storageKey) === '1';
 
-  function reveal() {
-    unlockedEl.classList.add('show');
-    pwZone.style.display = 'none';
-    statusEl.textContent = 'Verfügbar';
-    statusEl.style.color = 'var(--teal-deep)';
+  function reveal(prefix) {
+    lernpfadEl.classList.add('show');
+    if (pwZone) pwZone.style.display = 'none';
+    if (statusEl) statusEl.textContent = prefix || 'Verf\u00fcgbar';
+    initLernpfad();
   }
-
-  if (isUnlocked) {
-    reveal();
-  } else if (pwUnlocked) {
-    reveal();
-    statusEl.textContent = 'Vorab freigeschaltet';
-  } else {
-    // Show countdown-style status
-    const days = Math.ceil((unlockDate - now) / (1000 * 60 * 60 * 24));
+  if (isUnlocked) reveal('Verf\u00fcgbar');
+  else if (pwUnlocked) reveal('Vorab freigeschaltet');
+  else if (statusEl) {
+    const days = Math.ceil((unlockDate - now) / 86400000);
     statusEl.textContent = days > 0 ? 'Noch ' + days + ' Tag' + (days === 1 ? '' : 'e') : 'Heute';
   }
-
-  // Password form
   const form = document.getElementById('pw-form');
-  const input = document.getElementById('pw-input');
-  const feedback = document.getElementById('pw-feedback');
+  if (form) {
+    const input = document.getElementById('pw-input');
+    const feedback = document.getElementById('pw-feedback');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      if (input.value === PASSWORD) {
+        feedback.textContent = 'Korrekt \u2014 Inhalte werden geladen \u2026';
+        ssSet(storageKey, '1');
+        setTimeout(() => reveal('Vorab freigeschaltet'), 450);
+      } else {
+        feedback.textContent = 'Passwort nicht korrekt.';
+        input.value = ''; input.focus();
+        form.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(-6px)' }, { transform: 'translateX(6px)' }, { transform: 'translateX(0)' }], { duration: 280 });
+      }
+    });
+  }
+})();
 
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    if (input.value === PASSWORD) {
-      feedback.textContent = 'Korrekt — Inhalte werden geladen …';
-      sessionStorage.setItem(storageKey, '1');
-      setTimeout(reveal, 600);
-    } else {
-      feedback.textContent = 'Passwort nicht korrekt.';
-      input.value = '';
-      input.focus();
-      // gentle shake
-      form.animate(
-        [{ transform: 'translateX(0)' },
-         { transform: 'translateX(-6px)' },
-         { transform: 'translateX(6px)' },
-         { transform: 'translateX(0)' }],
-        { duration: 280, iterations: 1 }
-      );
+/* ----------------------------- INIT ----------------------------- */
+function initLernpfad() {
+  if (window.__lpInit) return; window.__lpInit = true;
+  wireReveals();
+  drawFigures();
+  drawSpectra();
+  drawDyes();
+  wireDyeSteppers();
+  wireWipes();
+  wireAssign();
+  wireSelfAssess();
+  drawTeil2();
+  wireTeil2();
+  drawTeil2b();
+  wireTeil2b();
+}
+
+function wireReveals() {
+  document.querySelectorAll('[data-reveal]').forEach(card => {
+    const head = card.querySelector('.reveal-head');
+    if (head) head.addEventListener('click', () => card.classList.toggle('open'));
+  });
+}
+
+/* --------------------- Einstiegsfiguren + Spektren --------------------- */
+function drawFigures() {
+  document.querySelectorAll('[data-figure]').forEach(el => {
+    const k = el.dataset.figure;
+    if (k === 'dipole') el.innerHTML = dipoleFigureSVG();
+    else if (k === 'bohr') el.innerHTML = bohrFigureSVG();
+  });
+}
+function drawSpectra() {
+  document.querySelectorAll('[data-spectrum]').forEach(el => {
+    const kind = el.dataset.spectrum;
+    if (kind === 'continuous') {
+      el.innerHTML = continuousSpectrumSVG({
+        blackbody: el.dataset.blackbody === '1',
+        peak: el.dataset.peak ? +el.dataset.peak : 560,
+        w: el.dataset.w ? +el.dataset.w : 760,
+        h: el.dataset.h ? +el.dataset.h : 132,
+        noAxis: el.dataset.noaxis === '1'
+      });
+    } else if (kind === 'emission') {
+      const lines = (el.dataset.lines || '').split(',').map(s => s.trim()).filter(Boolean).map(tok => {
+        const m = tok.split(':'); return m.length > 1 ? { wl: +m[0], i: +m[1] } : +m[0];
+      });
+      el.innerHTML = emissionSpectrumSVG(lines, {
+        w: el.dataset.w ? +el.dataset.w : 760,
+        h: el.dataset.h ? +el.dataset.h : 132,
+        noAxis: el.dataset.noaxis === '1'
+      });
+    } else if (kind === 'led') {
+      // schmale Bande: kombiniere Linie + leichte Streuung um die Peakwellenlänge
+      const wl = +el.dataset.peak;
+      const lines = [];
+      for (let d = -14; d <= 14; d += 4) lines.push({ wl: wl + d, i: 1 - Math.abs(d) / 22 });
+      el.innerHTML = emissionSpectrumSVG(lines, { w: el.dataset.w ? +el.dataset.w : 760, h: el.dataset.h ? +el.dataset.h : 132, noAxis: el.dataset.noaxis === '1' });
+    } else if (kind === 'whiteled') {
+      // blauer Peak + breite Phosphorbande
+      const lines = [{ wl: 455, i: 1.4 }];
+      for (let wl = 500; wl <= 680; wl += 6) lines.push({ wl, i: 0.5 * Math.exp(-Math.pow((wl - 575) / 70, 2)) + 0.12 });
+      el.innerHTML = emissionSpectrumSVG(lines, { w: el.dataset.w ? +el.dataset.w : 760, h: el.dataset.h ? +el.dataset.h : 132, noAxis: el.dataset.noaxis === '1' });
     }
   });
-</script>
+}
 
+/* ----------------------------- Farbstoffe ----------------------------- */
+function drawDyes() {
+  document.querySelectorAll('.dye-fig[data-dye]').forEach(el => {
+    const stage = parseInt(el.dataset.stage || '1', 10);
+    const d = DYES[el.dataset.dye]; if (!d) return;
+    el.innerHTML = renderDye(d(), stage);
+  });
+}
+function wireDyeSteppers() {
+  document.querySelectorAll('[data-dye-stepper]').forEach(row => {
+    const key = row.dataset.dyeStepper;
+    const fig = row.parentElement.querySelector('.dye-fig[data-dye="' + key + '"]') || row.parentElement.querySelector('.dye-fig');
+    const btns = Array.from(row.querySelectorAll('[data-step]'));
+    btns.forEach(btn => btn.addEventListener('click', () => {
+      const step = parseInt(btn.dataset.step, 10);
+      fig.dataset.stage = String(step);
+      fig.innerHTML = renderDye(DYES[fig.dataset.dye](), step);
+      btns.forEach(b => b.classList.toggle('on', parseInt(b.dataset.step, 10) === step));
+    }));
+  });
+}
+
+/* --------------------- Wisch-Aufdeckung (Moderation) --------------------- */
+function wireWipes() {
+  document.querySelectorAll('.wipe[data-wipe]').forEach(wrap => {
+    const inner = wrap.querySelector('.wipe-inner');
+    const cv = wrap.querySelector('.wipe-cv');
+    const btn = wrap.querySelector('.wipe-btn');
+    if (!inner || !cv) return;
+    const ctx = cv.getContext('2d');
+    if (!ctx) return; // Umgebung ohne Canvas-Unterstützung
+    let covered = true, painting = false, last = null;
+
+    function cover() {
+      const dpr = window.devicePixelRatio || 1;
+      const w = wrap.clientWidth, h = inner.offsetHeight;
+      cv.width = Math.max(1, Math.round(w * dpr));
+      cv.height = Math.max(1, Math.round(h * dpr));
+      cv.style.width = w + 'px'; cv.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      // ink fill
+      ctx.globalCompositeOperation = 'source-over';
+      const grd = ctx.createLinearGradient(0, 0, w, h);
+      grd.addColorStop(0, '#2a6d61'); grd.addColorStop(1, '#1e5d52');
+      ctx.fillStyle = grd; ctx.fillRect(0, 0, w, h);
+      // hatch texture
+      ctx.strokeStyle = 'rgba(255,255,255,0.06)'; ctx.lineWidth = 6;
+      for (let x = -h; x < w; x += 16) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x + h, h); ctx.stroke(); }
+      // label
+      ctx.fillStyle = 'rgba(255,255,255,0.92)';
+      ctx.font = "600 13px 'JetBrains Mono', monospace";
+      ctx.textBaseline = 'middle';
+      ctx.fillText('L\u00d6SUNG \u00b7 tippen oder wischen zum Aufdecken', 16, Math.min(26, h / 2));
+      cv.classList.remove('gone');
+      covered = true; if (btn) btn.textContent = 'Aufdecken';
+    }
+    function revealAll() { ctx.clearRect(0, 0, cv.width, cv.height); cv.classList.add('gone'); covered = false; if (btn) btn.textContent = 'Zudecken'; }
+    function erodeAt(x, y) {
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.lineWidth = 46;
+      if (last) { ctx.beginPath(); ctx.moveTo(last.x, last.y); ctx.lineTo(x, y); ctx.stroke(); }
+      ctx.beginPath(); ctx.arc(x, y, 23, 0, Math.PI * 2); ctx.fill();
+      last = { x, y };
+    }
+    function pos(e) {
+      const r = cv.getBoundingClientRect();
+      const t = (e.touches && e.touches[0]) || e;
+      return { x: t.clientX - r.left, y: t.clientY - r.top };
+    }
+    // Tippen = sofort aufdecken (Klick) · Ziehen = wegradieren (Wischen)
+    let startPt = null, moved = false;
+    const MOVE_THRESH = 7;
+    cv.addEventListener('pointerdown', e => {
+      if (!covered) return;
+      painting = true; moved = false; startPt = pos(e); last = null;
+      try { cv.setPointerCapture(e.pointerId); } catch (err) {}
+    });
+    cv.addEventListener('pointermove', e => {
+      if (!painting) return;
+      const p = pos(e);
+      if (!moved) {
+        if (Math.hypot(p.x - startPt.x, p.y - startPt.y) < MOVE_THRESH) return;
+        moved = true; last = startPt; erodeAt(startPt.x, startPt.y); // ab hier: Wischen
+      }
+      erodeAt(p.x, p.y);
+    });
+    cv.addEventListener('pointerup', () => {
+      if (!painting) return;
+      painting = false;
+      if (!moved && covered) revealAll(); // reiner Tipp -> komplett aufdecken
+      last = null;
+    });
+    cv.addEventListener('pointercancel', () => { painting = false; last = null; });
+    if (btn) btn.addEventListener('click', () => { covered ? revealAll() : cover(); });
+
+    cover();
+    // bei Größenänderung neu zudecken (nur wenn aktuell verdeckt)
+    let ro;
+    if (window.ResizeObserver) {
+      ro = new ResizeObserver(() => { if (covered) cover(); });
+      ro.observe(inner);
+    }
+    window.addEventListener('resize', () => { if (covered) cover(); });
+  });
+}
+
+/* --------------------- Lichtquellen-Zuordnung (anklickbar) --------------------- */
+function wireAssign() {
+  document.querySelectorAll('.assign .ac').forEach(cell => {
+    cell.addEventListener('click', () => cell.classList.toggle('on'));
+  });
+}
+
+/* --------------------- Selbsteinschätzung „Ich kann …“ --------------------- */
+function wireSelfAssess() {
+  const base = 'lp_kann_' + window.location.pathname + '_';
+  document.querySelectorAll('.kann input[data-kann]').forEach(box => {
+    const key = base + box.dataset.kann;
+    try { box.checked = localStorage.getItem(key) === '1'; } catch (e) {}
+    box.closest('.kann').classList.toggle('done', box.checked);
+    box.addEventListener('change', () => {
+      try { localStorage.setItem(key, box.checked ? '1' : '0'); } catch (e) {}
+      box.closest('.kann').classList.toggle('done', box.checked);
+    });
+  });
+}
+
+/* Hero-Visualisierung sofort rendern (nicht hinter der Freischaltung) */
+document.addEventListener('DOMContentLoaded', function () {
+  try { drawFigures(); drawSpectra(); } catch (e) { console.error(e); }
+});
+
+
+/* >>> teil2.js <<< */
+/* ===== teil2.js — Lernpfad I · Teil II (Atommodelle, Ionisierungsenergie) ===== */
+/* =====================================================================
+   Reine SVG-Generatoren + Verdrahtung für Teil II. Single source of truth:
+   dieselben Daten/Renderer speisen HTML-Lernpfad und (später) Typst.
+     T2_NPAL              Farbe je Hauptquantenzahl n
+     iconShapes(key)      schematisches Atommodell-Icon (48x48-Koordinaten)
+     modelIconSVG(key)    eigenständiges <svg> desselben Icons (Karten)
+     MODELS               Stationen des Zeitstrahls (Modelle)
+     DISCOVERIES          experimentelle Erkenntnisse (untere Spur)
+     timelineSVG()        Zeitstrahl (zwei Spuren, anklickbare Stationen)
+     IE_DATA              1. Ionisierungsenergien Z=1..90 (eV)
+     IE_FEATURES          hervorhebbare Merkmale der IE-Kurve
+     ieCurveSVG()         IE-über-Z-Diagramm (Achsen, Datenpunkte, Marker)
+     drawTeil2()          [data-fig2]-Elemente rendern
+     wireTeil2()          Zeitstrahl-Stationen + IE-Merkmale interaktiv
+   ===================================================================== */
+"use strict";
+
+/* Farbe je Hauptquantenzahl — Prinzip der Quelle, abgestimmt auf das
+   Designsystem (teal/terracotta/gold/blau + zwei harmonische Ergänzungen). */
+var T2_NPAL = { 1: "#8a8f8b", 2: "#a83610", 3: "#1f5fb0", 4: "#c9a961", 5: "#7b4fa0", 6: "#1e5d52" };
+
+/* ---------- Schematische Atommodell-Icons (Koordinatenraum 48x48) -------- */
+function iconShapes(key) {
+  var c = 24; // Zentrum
+  switch (key) {
+    case "demokrit": // unteilbarer, kantiger "Klotz"
+      return '<polygon points="24,6 39,15 39,33 24,42 9,33 9,15" fill="#c9a961" stroke="#0a1612" stroke-width="1.6"/>' +
+             '<polygon points="24,6 39,15 24,24 9,15" fill="#dcc488" stroke="#0a1612" stroke-width="1.2"/>';
+    case "dalton": // massive Kugel
+      return '<circle cx="24" cy="24" r="15" fill="#3b3f3d" stroke="#0a1612" stroke-width="1.4"/>' +
+             '<circle cx="19" cy="19" r="4" fill="#5a5e5c" opacity=".7"/>';
+    case "thomson": // Rosinenkuchen: + und - in geladener Kugel
+      return '<circle cx="24" cy="24" r="16" fill="#e7a06b" stroke="#a83610" stroke-width="1.4"/>' +
+             '<circle cx="16" cy="18" r="2.6" fill="#1f5fb0"/><circle cx="31" cy="16" r="2.6" fill="#1f5fb0"/>' +
+             '<circle cx="30" cy="31" r="2.6" fill="#1f5fb0"/><circle cx="16" cy="31" r="2.6" fill="#1f5fb0"/>' +
+             '<text x="22.5" y="26" font-size="9" fill="#7a2207" font-family="serif">+</text>' +
+             '<text x="11" y="26" font-size="8" fill="#7a2207" font-family="serif">+</text>' +
+             '<text x="33" y="26" font-size="8" fill="#7a2207" font-family="serif">+</text>';
+    case "rutherford": // winziger Kern, viel Leere, eine weite Bahn
+      return '<circle cx="24" cy="24" r="17" fill="none" stroke="#9aa0a6" stroke-width="1" stroke-dasharray="2 3"/>' +
+             '<circle cx="24" cy="24" r="4" fill="#c0381c" stroke="#7a2207" stroke-width="1"/>' +
+             '<circle cx="41" cy="24" r="2.4" fill="#1f5fb0"/>';
+    case "bohr": // Kern + zwei Schalen mit Elektronen
+      return '<circle cx="24" cy="24" r="9" fill="none" stroke="#9aa0a6" stroke-width="1.1"/>' +
+             '<circle cx="24" cy="24" r="17" fill="none" stroke="#9aa0a6" stroke-width="1.1"/>' +
+             '<circle cx="24" cy="24" r="4" fill="#c0381c" stroke="#7a2207" stroke-width="1"/>' +
+             '<circle cx="33" cy="24" r="2.2" fill="#1f5fb0"/><circle cx="15" cy="24" r="2.2" fill="#1f5fb0"/>' +
+             '<circle cx="24" cy="7" r="2.2" fill="#1f5fb0"/><circle cx="24" cy="41" r="2.2" fill="#1f5fb0"/>';
+    case "orbital": // Aufenthaltswahrscheinlichkeit: s-Kugel + p-Hantel
+      return '<circle cx="24" cy="24" r="15.5" fill="#1e5d52" opacity=".10"/>' +
+             '<ellipse cx="24" cy="13.5" rx="7" ry="10.5" fill="#1e5d52" opacity=".55"/>' +
+             '<ellipse cx="24" cy="34.5" rx="7" ry="10.5" fill="#a83610" opacity=".55"/>' +
+             '<circle cx="24" cy="24" r="2.2" fill="#0a1612"/>';
+    case "particles": // Elementarteilchen-Zoo
+      return '<circle cx="15" cy="17" r="4.5" fill="#c9a961"/><circle cx="27" cy="14" r="4.5" fill="#c9a961"/>' +
+             '<circle cx="15" cy="30" r="4.5" fill="#a83610"/><circle cx="27" cy="31" r="4.5" fill="#a83610"/>' +
+             '<circle cx="37" cy="22" r="4.5" fill="#1e5d52"/><circle cx="36" cy="34" r="3.5" fill="#1f5fb0"/>';
+    default:
+      return '<circle cx="24" cy="24" r="14" fill="#ccc"/>';
+  }
+}
+function modelIconSVG(key, size) {
+  size = size || 56;
+  return '<svg viewBox="0 0 48 48" width="' + size + '" height="' + size + '" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' + iconShapes(key) + '</svg>';
+}
+
+/* ---------------------------- Zeitstrahl-Daten -------------------------- */
+/* Datierungen 1:1 aus der Quelle (Aufgabenblatt S. 4). */
+var MODELS = [
+  { key: "demokrit",   year: "400 v. Chr.", name: "Demokrit / Leukipp", idea: "Materie besteht aus unteilbaren Teilchen (\u00e1tomos). Eine rein philosophische Idee ohne Experiment.", limit: "Kein experimenteller Beleg; keine Aussage \u00fcber Aufbau oder Eigenschaften der Teilchen." },
+  { key: "dalton",     year: "1808",        name: "Dalton",             idea: "Atome sind kleinste, unteilbare, massive Kugeln; jedes Element hat eine eigene Atomsorte. Erkl\u00e4rt Massengesetze.", limit: "Keine innere Struktur \u2192 kann elektrische Ladung, Spektren und chemische Bindung nicht erkl\u00e4ren." },
+  { key: "thomson",    year: "1903",        name: "Thomson",            idea: "\u201eRosinenkuchen\u201c: negative Elektronen sitzen in einer gleichm\u00e4\u00dfig positiv geladenen Kugel.", limit: "Streuversuch widerlegt die verteilte Ladung; keine Energiestufen, keine Linienspektren." },
+  { key: "rutherford", year: "1911",        name: "Rutherford",         idea: "Aus dem Streuversuch: winziger, massereicher, positiver Kern; H\u00fclle fast leerer Raum mit Elektronen.", limit: "Kreisende Elektronen m\u00fcssten Energie abstrahlen und in den Kern st\u00fcrzen; erkl\u00e4rt keine diskreten Linien." },
+  { key: "bohr",       year: "1913",        name: "Bohr / Sommerfeld",  idea: "Elektronen auf festen Schalen (Energiestufen); Spr\u00fcnge erzeugen genau die beobachteten Spektrallinien.", limit: "Funktioniert quantitativ nur f\u00fcr H; Schalenbild erkl\u00e4rt Feinstruktur und Mehrelektronen-Atome nur unzureichend." },
+  { key: "orbital",    year: "1927",        name: "Orbitalmodell",      idea: "Wellenmechanik: Elektronen als stehende Wellen \u2192 Orbitale (Aufenthaltsr\u00e4ume). Quantenzahlen n, l, m, s beschreiben jeden Zustand.", limit: "Anschauung st\u00f6\u00dft an Grenzen (kein \u201eBahn\u201c-Bild); exakt nur f\u00fcr einfache Systeme l\u00f6sbar \u2013 daf\u00fcr das umfassendste Modell.", hot: true },
+  { key: "particles",  year: "ab 1970",     name: "Elementarteilchen",  idea: "Standardmodell: Quarks, Leptonen, Kraftteilchen, Higgs-Boson \u2013 der Aufbau \u201eunter\u201c den Atomen.", limit: "Jenseits der Schulchemie; f\u00fcr Bindung und Reaktivit\u00e4t bleibt das Orbitalmodell ma\u00dfgeblich." }
+];
+/* Untere Spur: experimentelle Erkenntnisse (Auswahl, 1:1 aus der Quelle). */
+var DISCOVERIES = [
+  { year: "1787\u201394", txt: "Massengesetze" },
+  { year: "1874", txt: "Elektron" },
+  { year: "1884", txt: "H-Linienspektrum" },
+  { year: "1897", txt: "Kathodenstrahlung" },
+  { year: "um 1900", txt: "Radioaktivit\u00e4t" },
+  { year: "1909", txt: "Streuversuch" },
+  { year: "1924", txt: "Welle-Teilchen-Dualismus" },
+  { year: "1925", txt: "Elektronenspin" },
+  { year: "1927", txt: "Unsch\u00e4rferelation" }
+];
+
+function timelineSVG() {
+  var W = 1040, H = 366, n = MODELS.length;
+  var x0 = 64, x1 = W - 92, axisY = 196;
+  var step = (x1 - x0) / (n - 1);
+  var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg" class="t2-tl-svg" role="img" aria-label="Zeitstrahl der Atommodelle">';
+  s += '<defs><marker id="t2arr" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#7a2207"/></marker>' +
+       '<marker id="t2arrb" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#1f5fb0"/></marker></defs>';
+  // Spur-Beschriftungen
+  s += '<text x="' + x0 + '" y="26" font-family="\'JetBrains Mono\',monospace" font-size="12" letter-spacing="1.5" fill="#7a2207">ENTWICKLUNG DER ATOMMODELLE \u2197</text>';
+  s += '<text x="' + x0 + '" y="' + (H - 10) + '" font-family="\'JetBrains Mono\',monospace" font-size="12" letter-spacing="1.5" fill="#1f5fb0">EXPERIMENTELLE ERKENNTNISSE</text>';
+  // Zeitachse
+  s += '<line x1="' + (x0 - 18) + '" y1="' + axisY + '" x2="' + (x1 + 14) + '" y2="' + axisY + '" stroke="#cdbfa6" stroke-width="2" marker-end="url(#t2arr)"/>';
+  // untere Spur (Erkenntnisse) als kompakte Ticks
+  var dn = DISCOVERIES.length, dx0 = x0, dx1 = x1;
+  for (var d = 0; d < dn; d++) {
+    var dx = dx0 + (dx1 - dx0) * (d / (dn - 1));
+    var ty = axisY + 16 + (d % 2) * 26;
+    s += '<line x1="' + dx + '" y1="' + axisY + '" x2="' + dx + '" y2="' + (ty - 9) + '" stroke="#9bb6dd" stroke-width="1"/>';
+    s += '<circle cx="' + dx + '" cy="' + axisY + '" r="2.4" fill="#1f5fb0"/>';
+    s += '<text x="' + dx + '" y="' + ty + '" text-anchor="middle" font-family="\'JetBrains Mono\',monospace" font-size="8.5" fill="#1f5fb0">' + DISCOVERIES[d].year + '</text>';
+    s += '<text x="' + dx + '" y="' + (ty + 10) + '" text-anchor="middle" font-family="\'Inter Tight\',sans-serif" font-size="8.5" fill="#33506f">' + DISCOVERIES[d].txt + '</text>';
+  }
+  // obere Spur (Modelle) als anklickbare Stationen
+  for (var i = 0; i < n; i++) {
+    var m = MODELS[i], x = x0 + i * step, iconY = 92, r = m.hot ? 33 : 28;
+    s += '<g class="t2-tl-node' + (m.hot ? ' hot' : '') + '" data-station="' + m.key + '" tabindex="0" role="button">';
+    s += '<line x1="' + x + '" y1="' + (iconY + r) + '" x2="' + x + '" y2="' + axisY + '" stroke="#cdbfa6" stroke-width="1"/>';
+    s += '<circle cx="' + x + '" cy="' + axisY + '" r="3" fill="#a83610"/>';
+    s += '<circle class="t2-tl-halo" cx="' + x + '" cy="' + iconY + '" r="' + (r + 4) + '" fill="#fff" stroke="' + (m.hot ? '#c9a961' : '#e4d8c0') + '" stroke-width="' + (m.hot ? 3 : 1.5) + '"/>';
+    s += '<g transform="translate(' + (x - 21) + ',' + (iconY - 21) + ') scale(' + (42 / 48) + ')">' + iconShapes(m.key) + '</g>';
+    s += '<text x="' + x + '" y="' + (iconY + r + 15) + '" text-anchor="middle" font-family="\'JetBrains Mono\',monospace" font-size="9.5" fill="#7a2207">' + m.year + '</text>';
+    s += '<text x="' + x + '" y="' + (iconY + r + 27) + '" text-anchor="middle" font-family="\'Fraunces\',serif" font-size="11" fill="#0a1612">' + m.name + '</text>';
+    s += '</g>';
+  }
+  s += '</svg>';
+  return s;
+}
+
+/* ------------------------- Ionisierungsenergie ------------------------- */
+/* 1. Ionisierungsenergie in eV (Literaturwerte). Form deckt sich mit der Quelle. */
+var IE_DATA = [
+ [1,"H",13.60],[2,"He",24.59],[3,"Li",5.39],[4,"Be",9.32],[5,"B",8.30],[6,"C",11.26],[7,"N",14.53],[8,"O",13.62],[9,"F",17.42],[10,"Ne",21.56],
+ [11,"Na",5.14],[12,"Mg",7.65],[13,"Al",5.99],[14,"Si",8.15],[15,"P",10.49],[16,"S",10.36],[17,"Cl",12.97],[18,"Ar",15.76],[19,"K",4.34],[20,"Ca",6.11],
+ [21,"Sc",6.56],[22,"Ti",6.83],[23,"V",6.75],[24,"Cr",6.77],[25,"Mn",7.43],[26,"Fe",7.90],[27,"Co",7.88],[28,"Ni",7.64],[29,"Cu",7.73],[30,"Zn",9.39],
+ [31,"Ga",6.00],[32,"Ge",7.90],[33,"As",9.79],[34,"Se",9.75],[35,"Br",11.81],[36,"Kr",14.00],[37,"Rb",4.18],[38,"Sr",5.69],[39,"Y",6.22],[40,"Zr",6.63],
+ [41,"Nb",6.76],[42,"Mo",7.09],[43,"Tc",7.28],[44,"Ru",7.36],[45,"Rh",7.46],[46,"Pd",8.34],[47,"Ag",7.58],[48,"Cd",8.99],[49,"In",5.79],[50,"Sn",7.34],
+ [51,"Sb",8.61],[52,"Te",9.01],[53,"I",10.45],[54,"Xe",12.13],[55,"Cs",3.89],[56,"Ba",5.21],[57,"La",5.58],[58,"Ce",5.54],[59,"Pr",5.47],[60,"Nd",5.53],
+ [61,"Pm",5.58],[62,"Sm",5.64],[63,"Eu",5.67],[64,"Gd",6.15],[65,"Tb",5.86],[66,"Dy",5.94],[67,"Ho",6.02],[68,"Er",6.11],[69,"Tm",6.18],[70,"Yb",6.25],
+ [71,"Lu",5.43],[72,"Hf",6.83],[73,"Ta",7.55],[74,"W",7.86],[75,"Re",7.83],[76,"Os",8.44],[77,"Ir",8.97],[78,"Pt",8.96],[79,"Au",9.23],[80,"Hg",10.44],
+ [81,"Tl",6.11],[82,"Pb",7.42],[83,"Bi",7.29],[84,"Po",8.41],[85,"At",9.32],[86,"Rn",10.75],[87,"Fr",4.07],[88,"Ra",5.28],[89,"Ac",5.17],[90,"Th",6.31]
+];
+/* Beschriftete Punkte (wie in der Quelle). */
+var IE_LABELS = ["H","He","Li","B","N","O","Ne","Na","Mg","Al","P","S","Ar","K","Zn","Ga","As","Se","Kr","Rb","Cd","In","Sb","Te","Xe","Cs","Ce","Gd","Lu","Hf","Hg","Tl","Bi","Rn","Fr"];
+/* Hervorhebbare Merkmale. */
+var IE_FEATURES = {
+  edelgas: { label: "Edelgas-Maxima", color: "#1e5d52", syms: ["He","Ne","Ar","Kr","Xe","Rn"],
+    note: "Edelgase haben voll besetzte \u00c4u\u00dfere Schalen (Edelgasregel). Das letzte Elektron sitzt besonders fest \u2192 IE im Periodenvergleich maximal. Bis hierher gen\u00fcgt das Bohr\u2019sche Schalenmodell." },
+  alkali: { label: "Alkali-Minima", color: "#a83610", syms: ["Li","Na","K","Rb","Cs","Fr"],
+    note: "Alkalimetalle beginnen eine neue Schale mit einem einzelnen, weit au\u00dfen sitzenden Elektron. Es ist gut abgeschirmt und leicht abzul\u00f6sen \u2192 IE minimal." },
+  bsenke: { label: "Senke bei Bor", color: "#7b4fa0", syms: ["B"],
+    note: "Von Be (2s\u00b2) zu B sinkt die IE, obwohl Z steigt: Das neue Elektron startet die 2p-Unterschale. 2p liegt energetisch h\u00f6her als 2s und ist leichter abzul\u00f6sen \u2013 das Bohr-Schalenbild reicht nicht, man braucht Unterschalen." },
+  osenke: { label: "Senke bei Sauerstoff", color: "#1f5fb0", syms: ["O"],
+    note: "Von N (2p\u00b3) zu O sinkt die IE: In N ist jedes 2p-Orbital einfach besetzt (halbgef\u00fcllt, stabil, Hund\u2019sche Regel). In O wird erstmals ein 2p-Orbital doppelt besetzt \u2013 die Elektronenabsto\u00dfung erleichtert das Abl\u00f6sen." },
+  ezk: { label: "Anstieg je Periode", color: "#c9a961", syms: [],
+    note: "Innerhalb einer Periode w\u00e4chst die effektive Kernladung Z_eff (mehr Protonen bei gleicher Schale, unvollst\u00e4ndige Abschirmung). Die H\u00fclle wird st\u00e4rker angezogen \u2192 IE steigt von links nach rechts an." }
+};
+
+function ieCurveSVG() {
+  var W = 920, H = 470, L = 56, R = 18, T = 22, B = 46;
+  var pw = W - L - R, ph = H - T - B;
+  var zMax = 90, eMax = 26;
+  var X = function (z) { return L + pw * (z - 1) / (zMax - 1); };
+  var Y = function (e) { return T + ph * (1 - e / eMax); };
+  var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg" class="t2-ie-svg" role="img" aria-label="Ionisierungsenergie \u00fcber Ordnungszahl">';
+  // Gitter + Achsen
+  s += '<g stroke="#e7ddca" stroke-width="1">';
+  for (var e = 0; e <= eMax; e += 5) s += '<line x1="' + L + '" y1="' + Y(e) + '" x2="' + (W - R) + '" y2="' + Y(e) + '"/>';
+  for (var z = 10; z <= zMax; z += 10) s += '<line x1="' + X(z) + '" y1="' + T + '" x2="' + X(z) + '" y2="' + (H - B) + '"/>';
+  s += '</g>';
+  s += '<line x1="' + L + '" y1="' + T + '" x2="' + L + '" y2="' + (H - B) + '" stroke="#0a1612" stroke-width="1.4" marker-end="url(#t2up)"/>';
+  s += '<line x1="' + L + '" y1="' + (H - B) + '" x2="' + (W - R) + '" y2="' + (H - B) + '" stroke="#0a1612" stroke-width="1.4" marker-end="url(#t2rt)"/>';
+  s += '<defs><marker id="t2up" markerWidth="9" markerHeight="9" refX="4.5" refY="7" orient="auto"><path d="M0,9 L4.5,0 L9,9 Z" fill="#0a1612"/></marker>' +
+       '<marker id="t2rt" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#0a1612"/></marker></defs>';
+  for (var e2 = 0; e2 <= eMax; e2 += 5) s += '<text x="' + (L - 8) + '" y="' + (Y(e2) + 3.5) + '" text-anchor="end" font-family="\'JetBrains Mono\',monospace" font-size="10" fill="#4a5350">' + e2 + '</text>';
+  for (var z2 = 10; z2 <= zMax; z2 += 10) s += '<text x="' + X(z2) + '" y="' + (H - B + 16) + '" text-anchor="middle" font-family="\'JetBrains Mono\',monospace" font-size="10" fill="#4a5350">' + z2 + '</text>';
+  s += '<text x="' + L + '" y="' + (T - 8) + '" font-family="\'Inter Tight\',sans-serif" font-size="11" fill="#0a1612">Ionisierungsenergie in eV</text>';
+  s += '<text x="' + (W - R) + '" y="' + (H - B + 30) + '" text-anchor="end" font-family="\'Inter Tight\',sans-serif" font-size="11" fill="#0a1612">Ordnungszahl Z</text>';
+  // Periodenrahmen (eZK) — initial versteckt
+  var periodSpan = [[3,10],[11,18],[19,36],[37,54],[55,86]];
+  var pr = '<g class="t2-ie-ezk" opacity="0">';
+  for (var p = 0; p < periodSpan.length; p++) {
+    var a = periodSpan[p][0], b = periodSpan[p][1];
+    pr += '<rect x="' + (X(a) - 3) + '" y="' + T + '" width="' + (X(b) - X(a) + 6) + '" height="' + ph + '" fill="#c9a961" opacity=".12" stroke="#c9a961" stroke-width="1" stroke-dasharray="3 3"/>';
+  }
+  s += pr + '</g>';
+  // Kurve
+  var dpath = "";
+  for (var k = 0; k < IE_DATA.length; k++) dpath += (k ? "L" : "M") + X(IE_DATA[k][0]).toFixed(1) + " " + Y(IE_DATA[k][2]).toFixed(1) + " ";
+  s += '<path d="' + dpath + '" fill="none" stroke="#1f8fc4" stroke-width="2" stroke-linejoin="round"/>';
+  // Datenpunkte + Marker-Gruppen je Merkmal
+  var bySym = {}; for (var q = 0; q < IE_DATA.length; q++) bySym[IE_DATA[q][1]] = IE_DATA[q];
+  for (var k2 = 0; k2 < IE_DATA.length; k2++) {
+    var row = IE_DATA[k2];
+    s += '<circle cx="' + X(row[0]).toFixed(1) + '" cy="' + Y(row[2]).toFixed(1) + '" r="2.3" fill="#5b6b66"/>';
+  }
+  // Beschriftungen (wie Quelle)
+  var liftHi = { As: -7, Se: -19, Sb: -7, Te: -19 };
+  for (var li = 0; li < IE_LABELS.length; li++) {
+    var sym = IE_LABELS[li], row2 = bySym[sym]; if (!row2) continue;
+    var below = ["Li","Na","K","Rb","Cs","Ga","In","Lu","Tl","B","Al","Fr"].indexOf(sym) >= 0;
+    var ly = Y(row2[2]) + (below ? 14 : (liftHi[sym] || -7));
+    s += '<text x="' + X(row2[0]).toFixed(1) + '" y="' + ly.toFixed(1) + '" text-anchor="middle" font-family="\'Inter Tight\',sans-serif" font-size="9.5" fill="#3a423f">' + sym + '</text>';
+  }
+  // Hervorhebungs-Marker je Merkmal (initial versteckt)
+  Object.keys(IE_FEATURES).forEach(function (fk) {
+    var f = IE_FEATURES[fk];
+    if (!f.syms.length) return;
+    var g = '<g class="t2-ie-mark" data-feat="' + fk + '" opacity="0">';
+    for (var mi = 0; mi < f.syms.length; mi++) {
+      var rr = bySym[f.syms[mi]]; if (!rr) continue;
+      g += '<circle cx="' + X(rr[0]).toFixed(1) + '" cy="' + Y(rr[2]).toFixed(1) + '" r="6.5" fill="none" stroke="' + f.color + '" stroke-width="2.5"/>';
+    }
+    g += '</g>'; s += g;
+  });
+  s += '</svg>';
+  return s;
+}
+
+/* ------------------------------ Rendering ------------------------------ */
+function modelCardsHTML() {
+  return MODELS.map(function (m) {
+    return '<div class="reveal t2-model" data-reveal data-model="' + m.key + '">' +
+      '<button class="reveal-head" type="button">' +
+        '<span class="t2-mi">' + modelIconSVG(m.key, 46) + '</span>' +
+        '<span class="t2-mh"><span class="t2-my">' + m.year + '</span> &middot; ' + m.name + '</span>' +
+        '<span class="rv-icon" style="margin-left:auto">+</span>' +
+        '<span class="rv-tag">Kernidee &amp; Grenzen</span>' +
+      '</button>' +
+      '<div class="reveal-body">' +
+        '<p class="t2-idea"><b>Kernidee</b><br>' + m.idea + '</p>' +
+        '<p class="answer"><b>Grenzen des Modells</b><br>' + m.limit + '</p>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function ieLegendHTML() {
+  return Object.keys(IE_FEATURES).map(function (fk) {
+    return '<button class="t2-ie-btn" type="button" data-feat="' + fk + '">' + IE_FEATURES[fk].label + '</button>';
+  }).join('');
+}
+function ieAnnosHTML() {
+  return Object.keys(IE_FEATURES).map(function (fk) {
+    return '<div class="t2-ie-anno" data-feat="' + fk + '"><p><b>' + IE_FEATURES[fk].label + '.</b> ' + IE_FEATURES[fk].note + '</p></div>';
+  }).join('');
+}
+
+function drawTeil2() {
+  document.querySelectorAll('[data-fig2]').forEach(function (el) {
+    var k = el.dataset.fig2;
+    if (k === 'timeline') el.innerHTML = timelineSVG();
+    else if (k === 'ie') el.innerHTML = ieCurveSVG();
+    else if (k === 'ie-legend') el.innerHTML = ieLegendHTML();
+    else if (k === 'ie-annos') el.innerHTML = ieAnnosHTML();
+    else if (k === 'models') el.innerHTML = modelCardsHTML();
+    else if (k.indexOf('model:') === 0) el.innerHTML = modelIconSVG(k.slice(6), 52);
+  });
+}
+
+/* ----------------------------- Verdrahtung ----------------------------- */
+function wireTeil2() {
+  // Dynamisch erzeugte Modellkarten als Akkordeon verdrahten
+  document.querySelectorAll('.t2-model').forEach(function (card) {
+    var head = card.querySelector('.reveal-head');
+    if (head && !head.dataset.wired) {
+      head.dataset.wired = '1';
+      head.addEventListener('click', function () { card.classList.toggle('open'); });
+    }
+  });
+  // Zeitstrahl-Stationen -> passende Modellkarte hervorheben & anspringen
+  document.querySelectorAll('.t2-tl-node').forEach(function (node) {
+    var act = function () {
+      var key = node.getAttribute('data-station');
+      var card = document.querySelector('.t2-model[data-model="' + key + '"]');
+      if (!card) return;
+      document.querySelectorAll('.t2-model.flash').forEach(function (c) { c.classList.remove('flash'); });
+      card.classList.add('open', 'flash');
+      if (typeof card.scrollIntoView === 'function') card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+    node.addEventListener('click', act);
+    node.addEventListener('keydown', function (ev) { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); act(); } });
+  });
+  // IE-Merkmale: Buttons -> Marker/Rahmen einblenden + Erklärung anzeigen
+  var feSvgWrap = document.querySelector('[data-fig2="ie"]');
+  document.querySelectorAll('.t2-ie-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var fk = btn.getAttribute('data-feat');
+      var on = btn.classList.toggle('on');
+      // Marker
+      if (feSvgWrap) {
+        if (fk === 'ezk') {
+          var ez = feSvgWrap.querySelector('.t2-ie-ezk'); if (ez) ez.setAttribute('opacity', on ? '1' : '0');
+        } else {
+          var mk = feSvgWrap.querySelector('.t2-ie-mark[data-feat="' + fk + '"]'); if (mk) mk.setAttribute('opacity', on ? '1' : '0');
+        }
+      }
+      // Erklärung
+      var anno = document.querySelector('.t2-ie-anno[data-feat="' + fk + '"]');
+      if (anno) anno.classList.toggle('show', on);
+    });
+  });
+}
+
+/* Node-Export für Tests/Typst-Pipeline */
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { T2_NPAL: T2_NPAL, MODELS: MODELS, DISCOVERIES: DISCOVERIES, IE_DATA: IE_DATA, IE_FEATURES: IE_FEATURES, iconShapes: iconShapes, modelIconSVG: modelIconSVG, modelCardsHTML: modelCardsHTML, ieLegendHTML: ieLegendHTML, ieAnnosHTML: ieAnnosHTML, timelineSVG: timelineSVG, ieCurveSVG: ieCurveSVG };
+}
+
+/* >>> teil2b.js <<< */
+/* ===== teil2b.js — Lernpfad I · Teil II (§ II.3 Konfiguration, § II.4 Quantenzahlen) ===== */
+/* =====================================================================
+   Eine Ableitungslogik speist BEIDE Abschnitte: das Kästchen-Diagramm
+   und die Quantenzahltabelle stammen aus derselben Besetzung -> garantiert
+   konsistent und deckungsgleich mit der verifizierten Musterlösung.
+     FILL_ORDER         (n,l)-Paare in Madelung-Reihenfolge
+     occupancy(Z)       besetzte Unterschalen + zuletzt besetztes Elektron
+     configString(Z)    "1s² 2s² ..." (nach n,l sortiert)
+     boxDiagramSVG()    Energie-Treppe mit Madelung-Überkreuzungen, n-farbig
+     configWidgetHTML() interaktives Element-/Stepper-Widget (§ II.3)
+     quantumTableHTML() Quantenzahltabelle (§ II.4), Werte abgeleitet
+     drawTeil2b()/wireTeil2b()
+   ===================================================================== */
+"use strict";
+
+/* Palette: im Browser aus teil2.js in scope; standalone (Node-QA) Fallback. */
+var T2PAL = (typeof T2_NPAL !== "undefined") ? T2_NPAL
+  : { 1: "#8a8f8b", 2: "#a83610", 3: "#1f5fb0", 4: "#c9a961", 5: "#7b4fa0", 6: "#1e5d52" };
+
+var SUP = { 0: "\u2070", 1: "\u00b9", 2: "\u00b2", 3: "\u00b3", 4: "\u2074", 5: "\u2075", 6: "\u2076", 7: "\u2077", 8: "\u2078", 9: "\u2079" };
+function sup(n) { return String(n).split("").map(function (d) { return SUP[d]; }).join(""); }
+var LNAME = ["s", "p", "d", "f"];
+
+/* (n,l) in Aufbau-/Madelung-Reihenfolge (reicht bis 7s, deckt Z<=88). */
+var FILL_ORDER = [[1,0],[2,0],[2,1],[3,0],[3,1],[4,0],[3,2],[4,1],[5,0],[4,2],[5,1],[6,0],[4,3],[5,2],[6,1],[7,0],[5,3],[6,2]];
+
+var ELEMENTS_T2 = [
+  { sym: "Be", Z: 4,  name: "Beryllium", noble: "[He]", shortcfg: "2s\u00b2" },
+  { sym: "F",  Z: 9,  name: "Fluor",     noble: "[He]", shortcfg: "2s\u00b2 2p\u2075" },
+  { sym: "Zr", Z: 40, name: "Zirconium", noble: "[Kr]", shortcfg: "4d\u00b2 5s\u00b2" },
+  { sym: "Cs", Z: 55, name: "C\u00e4sium",   noble: "[Xe]", shortcfg: "6s\u00b9" }
+];
+
+/* Besetzung: füllt Unterschalen in Madelung-Reihenfolge bis Z erschöpft.
+   Liefert {shells:[{n,l,e}], last:{n,l,m,s,label,orbital}} */
+function occupancy(Z) {
+  var left = Z, shells = [], last = null;
+  for (var i = 0; i < FILL_ORDER.length && left > 0; i++) {
+    var n = FILL_ORDER[i][0], l = FILL_ORDER[i][1];
+    var orb = 2 * l + 1, cap = 2 * orb;
+    var e = Math.min(left, cap);
+    shells.push({ n: n, l: l, e: e });
+    left -= e;
+    if (left <= 0) {
+      // zuletzt besetztes Orbital + Spin (Hund: erst einfach, dann ab -l paaren)
+      var orbital, spin;
+      if (e <= orb) { orbital = e - 1; spin = +0.5; }         // einfache Besetzung, Spin up
+      else { orbital = e - orb - 1; spin = -0.5; }            // Paarung, Spin down
+      last = { n: n, l: l, m: -l + orbital, s: spin, label: n + LNAME[l], orbital: orbital };
+    }
+  }
+  return { shells: shells, last: last };
+}
+
+/* Volle Konfiguration, nach (n,l) sortiert: "1s² 2s² 2p⁶ ..." */
+function configString(Z) {
+  var sh = occupancy(Z).shells.slice().sort(function (a, b) { return (a.n - b.n) || (a.l - b.l); });
+  return sh.map(function (s) { return s.n + LNAME[s.l] + sup(s.e); }).join(" ");
+}
+
+/* -------------------- Kästchen-Diagramm (Energie-Treppe) -------------------- */
+/* Spalte = l (s/p/d/f). Zeile = n + (l==2?1:(l==3?2:0)) -> zeigt 4s<3d, 5s<4d, 6s<5d<4f.
+   Box-Farbe = echte Hauptquantenzahl n der Unterschale. */
+function boxDiagramSVG(Z, opts) {
+  opts = opts || {};
+  var upto = (opts.upto == null) ? Z : opts.upto;
+  var hiLast = !!opts.highlightLast;
+  var occAll = occupancy(Z);
+  var occNow = occupancy(upto);
+  // Belegung je (n,l) beim aktuellen Schritt
+  var eMap = {}; occNow.shells.forEach(function (s) { eMap[s.n + "_" + s.l] = s.e; });
+  var rowOf = function (n, l) { return n + (l === 2 ? 1 : (l === 3 ? 2 : 0)); };
+  // höchste Energiezeile aus dem Vollatom -> stabiler Rahmen beim Steppen
+  var maxRow = 1; occAll.shells.forEach(function (s) { maxRow = Math.max(maxRow, rowOf(s.n, s.l)); });
+  // alle physikalischen Unterschalen (l<=n-1), deren Zeile <= maxRow -> Rahmen inkl. leerer Nachbarn
+  var subs = [];
+  for (var nn = 1; nn <= maxRow; nn++) {
+    for (var ll = 0; ll <= Math.min(3, nn - 1); ll++) {
+      if (rowOf(nn, ll) <= maxRow) subs.push({ n: nn, l: ll });
+    }
+  }
+  // Geometrie
+  var colX = { 0: 132, 1: 196, 2: 372, 3: 612 };       // x-Start je Spalte s/p/d/f
+  var colW = { 0: 1, 1: 3, 2: 5, 3: 7 };               // Orbitalanzahl je Spalte
+  var bw = 30, bh = 28, gap = 4;                       // Boxbreite/-höhe/Lücke
+  var rowH = 52, top = 56, left = 96;
+  var H = top + maxRow * rowH + 30, W = 900;
+  var yOf = function (row) { return top + (maxRow - row) * rowH; };
+  var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg" class="t2-box-svg" role="img" aria-label="Kästchenschreibweise ' + Z + ' Elektronen">';
+  // Energie-Achse
+  s += '<defs><marker id="t2eup" markerWidth="9" markerHeight="9" refX="4.5" refY="7" orient="auto"><path d="M0,9 L4.5,0 L9,9 Z" fill="#0a1612"/></marker></defs>';
+  s += '<line x1="' + left + '" y1="' + (H - 22) + '" x2="' + left + '" y2="' + (top - 14) + '" stroke="#0a1612" stroke-width="1.4" marker-end="url(#t2eup)"/>';
+  s += '<text x="' + left + '" y="' + (top - 22) + '" text-anchor="middle" font-family="\'Inter Tight\',sans-serif" font-size="11" fill="#0a1612">Energie</text>';
+  // Spaltenköpfe s p d f
+  [0,1,2,3].forEach(function (l) {
+    var x = colX[l], wpx = colW[l] * (bw + gap) - gap;
+    s += '<rect x="' + (x - 4) + '" y="' + (top - 44) + '" width="' + (wpx + 8) + '" height="22" rx="4" fill="#e7ddca"/>';
+    s += '<text x="' + (x + wpx / 2) + '" y="' + (top - 28) + '" text-anchor="middle" font-family="\'JetBrains Mono\',monospace" font-size="13" fill="#4a5350">' + LNAME[l] + '</text>';
+  });
+  // n-Zeilenlabels
+  for (var r = 1; r <= maxRow; r++) {
+    s += '<text x="' + (left + 14) + '" y="' + (yOf(r) + bh / 2 + 4) + '" font-family="\'JetBrains Mono\',monospace" font-size="12" fill="' + (T2PAL[r] || "#888") + '">n = ' + r + '</text>';
+  }
+  // Boxen je Unterschale
+  subs.forEach(function (sub) {
+    var n = sub.n, l = sub.l, orb = 2 * l + 1, col = T2PAL[n] || "#888";
+    var x0 = colX[l], y = yOf(rowOf(n, l));
+    var e = eMap[n + "_" + l] || 0;
+    for (var i = 0; i < orb; i++) {
+      var bx = x0 + i * (bw + gap);
+      var filledLast = hiLast && occAll.last && occAll.last.n === n && occAll.last.l === l && occAll.last.orbital === i;
+      s += '<rect x="' + bx + '" y="' + y + '" width="' + bw + '" height="' + bh + '" rx="2.5" fill="#fff" stroke="' + col + '" stroke-width="' + (filledLast ? 3 : 1.6) + '"/>';
+      // Pfeile
+      var occ = (e > orb + i) ? 2 : (e > i ? 1 : 0);
+      var cx = bx + bw / 2;
+      if (occ >= 1) s += arrow(cx - (occ === 2 ? 5 : 0), y, bh, "up");
+      if (occ === 2) s += arrow(cx + 5, y, bh, "down");
+      if (filledLast) s += '<rect x="' + (bx - 3) + '" y="' + (y - 3) + '" width="' + (bw + 6) + '" height="' + (bh + 6) + '" rx="4" fill="none" stroke="#a83610" stroke-width="2" stroke-dasharray="3 2"/>';
+    }
+  });
+  s += '</svg>';
+  return s;
+}
+function arrow(cx, yTop, bh, dir) {
+  var pad = 4, top = yTop + pad, bot = yTop + bh - pad;
+  if (dir === "up") return '<path d="M' + cx + ' ' + bot + ' L' + cx + ' ' + top + ' M' + (cx - 3) + ' ' + (top + 4) + ' L' + cx + ' ' + top + ' L' + (cx + 3) + ' ' + (top + 4) + '" stroke="#1a1a1a" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>';
+  return '<path d="M' + cx + ' ' + top + ' L' + cx + ' ' + bot + ' M' + (cx - 3) + ' ' + (bot - 4) + ' L' + cx + ' ' + bot + ' L' + (cx + 3) + ' ' + (bot - 4) + '" stroke="#1a1a1a" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>';
+}
+
+/* ---------------------- § II.3 Konfigurations-Widget ---------------------- */
+function configWidgetHTML() {
+  var tabs = ELEMENTS_T2.map(function (el, i) {
+    return '<button class="t2-cfg-tab' + (i === 0 ? ' on' : '') + '" type="button" data-z="' + el.Z + '" data-sym="' + el.sym + '">' + el.sym + ' <span class="t2-cfg-z">Z=' + el.Z + '</span></button>';
+  }).join("");
+  var first = ELEMENTS_T2[0];
+  return '<div class="t2-cfg-tabs">' + tabs + '</div>' +
+    '<div class="t2-cfg-stage" data-z="' + first.Z + '" data-step="' + first.Z + '">' +
+      '<div class="t2-cfg-diagram">' + boxDiagramSVG(first.Z) + '</div>' +
+      '<div class="t2-cfg-ctrl">' +
+        '<button class="t2-step-btn" data-d="-1" type="button" aria-label="ein Elektron zurück">\u2212</button>' +
+        '<input class="t2-step-range" type="range" min="0" max="' + first.Z + '" value="' + first.Z + '" aria-label="Anzahl Elektronen">' +
+        '<button class="t2-step-btn" data-d="1" type="button" aria-label="ein Elektron vor">+</button>' +
+        '<span class="t2-step-lbl"></span>' +
+        '<button class="t2-step-btn ghost" data-d="full" type="button">alle</button>' +
+      '</div>' +
+      '<div class="t2-cfg-read"></div>' +
+    '</div>';
+}
+
+/* ---------------------- § II.4 Quantenzahltabelle ---------------------- */
+function quantumTableHTML() {
+  var rows = ELEMENTS_T2.map(function (el) {
+    var L = occupancy(el.Z).last;
+    var sStr = (L.s > 0 ? "+" : "\u2212") + "\u00bd";
+    var mStr = (L.m < 0 ? "\u2212" + Math.abs(L.m) : "" + L.m);
+    var why = "letztes e\u207b in <b>" + L.label + "</b>: n=" + L.n + " (Schale), l=" + L.l + " &rarr; " + LNAME[L.l] + "-Unterschale, m=" + mStr + " (welches Orbital), s=" + sStr + " (Spinrichtung)";
+    function cell(q, v) { return '<td class="t2-qz-v" data-q="' + q + '"><span class="t2-ph">?</span><span class="t2-val">' + v + '</span></td>'; }
+    return '<tr class="t2-qz-row" data-z="' + el.Z + '">' +
+      '<td class="t2-qz-el"><span class="t2-qz-sym">' + el.sym + '</span> ' + el.name + '</td>' +
+      cell("n", L.n) + cell("l", L.l) + cell("m", mStr) + cell("s", sStr) +
+      '<td class="t2-qz-why"><span class="t2-ph">&rarr; tippen</span><span class="t2-val">' + why + '</span></td>' +
+    '</tr>';
+  }).join("");
+  return '<div class="t2-qz-wrap"><table class="t2-qz-table">' +
+    '<thead><tr><th>Element</th><th>n</th><th>l</th><th>m</th><th>s</th><th class="t2-qz-whyh">zuletzt besetztes Elektron</th></tr></thead>' +
+    '<tbody>' + rows + '</tbody></table>' +
+    '<p class="t2-qz-hint">&rarr; <b>Zeile antippen</b>: erst selbst vorhersagen, dann Werte, Begr&uuml;ndung und das zugeh&ouml;rige K&auml;stchen aufdecken.</p>' +
+    '<div class="t2-qz-mini"></div></div>';
+}
+
+/* ------------------------------ Rendering ------------------------------ */
+function drawTeil2b() {
+  document.querySelectorAll('[data-fig2b]').forEach(function (el) {
+    var k = el.dataset.fig2b;
+    if (k === 'config') { el.innerHTML = configWidgetHTML(); refreshCfg(el.querySelector('.t2-cfg-stage')); }
+    else if (k === 'quantum') el.innerHTML = quantumTableHTML();
+  });
+}
+function refreshCfg(stage) {
+  if (!stage) return;
+  var Z = +stage.dataset.z, step = +stage.dataset.step;
+  stage.querySelector('.t2-cfg-diagram').innerHTML = boxDiagramSVG(Z, { upto: step });
+  var occ = occupancy(step);
+  var cfg = step > 0 ? configString(step) : "\u2013";
+  var lbl = stage.querySelector('.t2-step-lbl');
+  if (lbl) lbl.innerHTML = step + ' / ' + Z + ' e\u207b';
+  var read = stage.querySelector('.t2-cfg-read');
+  var elMeta = ELEMENTS_T2.filter(function (e) { return e.Z === Z; })[0];
+  if (read) {
+    var full = (step === Z && elMeta)
+      ? '<div class="t2-read-line"><span class="t2-read-k">Kurz</span> ' + elMeta.sym + ': ' + elMeta.noble + ' ' + elMeta.shortcfg + '</div>' : '';
+    read.innerHTML = '<div class="t2-read-line"><span class="t2-read-k">Konfiguration</span> ' + cfg + '</div>' + full;
+  }
+  var range = stage.querySelector('.t2-step-range');
+  if (range && +range.value !== step) range.value = step;
+}
+
+/* ----------------------------- Verdrahtung ----------------------------- */
+function wireTeil2b() {
+  // § II.3 — Element-Tabs
+  document.querySelectorAll('.t2-cfg-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      var wrap = tab.closest('[data-fig2b="config"]'); if (!wrap) return;
+      wrap.querySelectorAll('.t2-cfg-tab').forEach(function (t) { t.classList.remove('on'); });
+      tab.classList.add('on');
+      var stage = wrap.querySelector('.t2-cfg-stage');
+      var Z = +tab.dataset.z;
+      stage.dataset.z = Z; stage.dataset.step = Z;
+      var range = stage.querySelector('.t2-step-range');
+      if (range) { range.max = Z; range.value = Z; }
+      refreshCfg(stage);
+    });
+  });
+  // § II.3 — Stepper (+/-/alle) und Slider
+  document.querySelectorAll('.t2-cfg-stage').forEach(function (stage) {
+    stage.querySelectorAll('.t2-step-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var Z = +stage.dataset.z, step = +stage.dataset.step, d = b.dataset.d;
+        if (d === 'full') step = Z;
+        else step = Math.max(0, Math.min(Z, step + (+d)));
+        stage.dataset.step = step; refreshCfg(stage);
+      });
+    });
+    var range = stage.querySelector('.t2-step-range');
+    if (range) range.addEventListener('input', function () {
+      stage.dataset.step = range.value; refreshCfg(stage);
+    });
+  });
+  // § II.4 — Tabellenzeilen aufdecken + Mini-Kästchen
+  document.querySelectorAll('.t2-qz-row').forEach(function (row) {
+    row.addEventListener('click', function () {
+      var wrap = row.closest('[data-fig2b="quantum"]'); if (!wrap) return;
+      var open = row.classList.toggle('open');
+      wrap.querySelectorAll('.t2-qz-row').forEach(function (r) { if (r !== row) r.classList.remove('open'); });
+      var mini = wrap.querySelector('.t2-qz-mini');
+      if (mini) mini.innerHTML = open ? boxDiagramSVG(+row.dataset.z, { highlightLast: true }) : '';
+    });
+  });
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { FILL_ORDER: FILL_ORDER, ELEMENTS_T2: ELEMENTS_T2, occupancy: occupancy, configString: configString, boxDiagramSVG: boxDiagramSVG, configWidgetHTML: configWidgetHTML, quantumTableHTML: quantumTableHTML, sup: sup };
+}
+
+</script>
 </body>
 </html>
