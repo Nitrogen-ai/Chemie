@@ -1,2890 +1,452 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="de">
 <head>
-
 <meta charset="utf-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<title>Chemie-Jeopardy · Klasse 8</title>
-<meta name="description" content="Chemie-Jeopardy Klasse 8 – Gase, Wasser, Salze, Metalle, quantitative Chemie" />
-<meta name="ROBOTS" content="NOODP" />
-<meta name="google-site-verification" content="UYS7arlGlbDobqQSsucWwkbZyiC-6_cCWlUn9Eb5b2M" />
-<link rel="shortcut icon" href="/static/1749959089/favicon.ico" type="image/x-icon" />
-<link rel="icon" href="/static/1749959089/favicon.ico" type="image/x-icon" />
-
-
-
-
-
-
-
-    
-
-
-    
-
-    
-        <base href="https://jeopardylabs.com" />
-        
-            <style type="text/css">
-            /*!
- * Bootstrap Reboot v4.0.0-beta.2 (https://getbootstrap.com)
- * Copyright 2011-2017 The Bootstrap Authors
- * Copyright 2011-2017 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * Forked from Normalize.css, licensed MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md)
- */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html {
-  font-family: sans-serif;
-  line-height: 1.15;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
-  -ms-overflow-style: scrollbar;
-  -webkit-tap-highlight-color: transparent;
-}
-
-@-ms-viewport {
-  width: device-width;
-}
-
-article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, section {
-  display: block;
-}
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #212529;
-  text-align: left;
-  background-color: #fff;
-}
-
-[tabindex="-1"]:focus {
-  outline: 0 !important;
-}
-
-hr {
-  box-sizing: content-box;
-  height: 0;
-  overflow: visible;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-}
-
-p {
-  margin-top: 0;
-  margin-bottom: 1rem;
-}
-
-abbr[title],
-abbr[data-original-title] {
-  text-decoration: underline;
-  -webkit-text-decoration: underline dotted;
-  text-decoration: underline dotted;
-  cursor: help;
-  border-bottom: 0;
-}
-
-address {
-  margin-bottom: 1rem;
-  font-style: normal;
-  line-height: inherit;
-}
-
-ol,
-ul,
-dl {
-  margin-top: 0;
-  margin-bottom: 1rem;
-}
-
-ol ol,
-ul ul,
-ol ul,
-ul ol {
-  margin-bottom: 0;
-}
-
-dt {
-  font-weight: 700;
-}
-
-dd {
-  margin-bottom: .5rem;
-  margin-left: 0;
-}
-
-blockquote {
-  margin: 0 0 1rem;
-}
-
-dfn {
-  font-style: italic;
-}
-
-b,
-strong {
-  font-weight: bolder;
-}
-
-small {
-  font-size: 80%;
-}
-
-sub,
-sup {
-  position: relative;
-  font-size: 75%;
-  line-height: 0;
-  vertical-align: baseline;
-}
-
-sub {
-  bottom: -.25em;
-}
-
-sup {
-  top: -.5em;
-}
-
-a {
-  color: #007bff;
-  text-decoration: none;
-  background-color: transparent;
-  -webkit-text-decoration-skip: objects;
-}
-
-a:hover {
-  color: #0056b3;
-  text-decoration: underline;
-}
-
-a:not([href]):not([tabindex]) {
-  color: inherit;
-  text-decoration: none;
-}
-
-a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
-  color: inherit;
-  text-decoration: none;
-}
-
-a:not([href]):not([tabindex]):focus {
-  outline: 0;
-}
-
-pre,
-code,
-kbd,
-samp {
-  font-family: monospace, monospace;
-  font-size: 1em;
-}
-
-pre {
-  margin-top: 0;
-  margin-bottom: 1rem;
-  overflow: auto;
-  -ms-overflow-style: scrollbar;
-}
-
-figure {
-  margin: 0 0 1rem;
-}
-
-img {
-  vertical-align: middle;
-  border-style: none;
-}
-
-svg:not(:root) {
-  overflow: hidden;
-}
-
-a,
-area,
-button,
-[role="button"],
-input:not([type="range"]),
-label,
-select,
-summary,
-textarea {
-  -ms-touch-action: manipulation;
-  touch-action: manipulation;
-}
-
-table {
-  border-collapse: collapse;
-}
-
-caption {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-  color: #868e96;
-  text-align: left;
-  caption-side: bottom;
-}
-
-th {
-  text-align: inherit;
-}
-
-label {
-  display: inline-block;
-  margin-bottom: .5rem;
-}
-
-button {
-  border-radius: 0;
-}
-
-button:focus {
-  outline: 1px dotted;
-  outline: 5px auto -webkit-focus-ring-color;
-}
-
-input,
-button,
-select,
-optgroup,
-textarea {
-  margin: 0;
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-}
-
-button,
-input {
-  overflow: visible;
-}
-
-button,
-select {
-  text-transform: none;
-}
-
-button,
-html [type="button"],
-[type="reset"],
-[type="submit"] {
-  -webkit-appearance: button;
-}
-
-button::-moz-focus-inner,
-[type="button"]::-moz-focus-inner,
-[type="reset"]::-moz-focus-inner,
-[type="submit"]::-moz-focus-inner {
-  padding: 0;
-  border-style: none;
-}
-
-input[type="radio"],
-input[type="checkbox"] {
-  box-sizing: border-box;
-  padding: 0;
-}
-
-input[type="date"],
-input[type="time"],
-input[type="datetime-local"],
-input[type="month"] {
-  -webkit-appearance: listbox;
-}
-
-textarea {
-  overflow: auto;
-  resize: vertical;
-}
-
-fieldset {
-  min-width: 0;
-  padding: 0;
-  margin: 0;
-  border: 0;
-}
-
-legend {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  padding: 0;
-  margin-bottom: .5rem;
-  font-size: 1.5rem;
-  line-height: inherit;
-  color: inherit;
-  white-space: normal;
-}
-
-progress {
-  vertical-align: baseline;
-}
-
-[type="number"]::-webkit-inner-spin-button,
-[type="number"]::-webkit-outer-spin-button {
-  height: auto;
-}
-
-[type="search"] {
-  outline-offset: -2px;
-  -webkit-appearance: none;
-}
-
-[type="search"]::-webkit-search-cancel-button,
-[type="search"]::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
-
-::-webkit-file-upload-button {
-  font: inherit;
-  -webkit-appearance: button;
-}
-
-output {
-  display: inline-block;
-}
-
-summary {
-  display: list-item;
-}
-
-template {
-  display: none;
-}
-
-[hidden] {
-  display: none !important;
-}
-/*# sourceMappingURL=bootstrap-reboot.css.map */
-
-            </style>
-        
-            <style type="text/css">
-            html, body {
-    overflow:hidden;
-}
-
-body {
-	background-color:#2a3698;	
-	height:100%;
-	font-family:Verdana, Arial, Helvetica, sans-serif;
-    overflow-y:hidden;
-}
-
-* {
-    box-sizing:border-box;
-}
-
-input, textarea, select {
-	display:block;
-	font-family:Verdana, Arial, Helvetica, sans-serif;
-	margin:auto;
-}
-
-.hide {
-    display:none;
-}
-
-h3 {
-	font-size:20px;
-}
-
-h3, .point-cell {
-	color:#ffff5f;
-	color:#fff;
-	text-align:center;
-	font-weight:bold;
-}
-
-.modal-wrapper {
-    background-color:rgba(0,0,0,.5);
-    display:none;
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    z-index:2;
-    height:100%; /* stupid safari */
-}
-
-.modal {
-    position:relative;
-    top:50%;
-    /*left:50%;*/
-    /*right:5%;*/
-    transform:translate(0%, -50%);
-    background-color:#ffffff;
-    z-index:2;
-    border-radius:5px;
-    background-color:#efefef;
-    overflow:auto;
-    max-height:calc(100% - 50px);
-    max-width:1000px;
-    margin-left:auto;
-    margin-right:auto;
-}
-
-#teams {
-    position:absolute;
-    bottom:0;
-    text-align:center;
-    left:0;
-    right:0;
-    z-index:11;
-    display:flex;
-    /*display:none;*/
-    /*
-    align-items:baseline;
-    justify-content:space-around;*/
-}
-
-#teams .team {
-    display:inline-block;
-    margin-left:10px;
-    margin-right:10px;
-    border:1px solid white;
-    padding:5px;
-    background-color:white;
-    border-top-left-radius:2px;
-    border-top-right-radius:2px;
-    transition:background-color .25s ease;
-}
-
-#teams .team:first-of-type {
-    margin-left:50px;
-}
-
-#teams .team:last-of-type {
-    margin-right:50px;
-}
-
-#teams div.name {
-    border-bottom:2px solid black;
-    text-align:center;
-    color:black;
-    display:inline-block;
-    white-space:nowrap;
-    min-width:100px;
-    font-weight:bold;
-    font-size:20px;
-    margin-bottom:8px;
-}
-
-#teams div.points {
-    background-color: #2a3698;
-    color: #fff;
-    font-weight:bold;
-    font-size:20px;
-}
-
-#teams .team.active-team {
-    background-color:yellow;
-}
-
-#question-modal a {
-    color:white;
-}
-
-/*
-#question-modal img {
-    width: auto;
-    height: auto;
-    max-height: 100%;
-    max-width: 100%;
-}*/
-
-.points-instructions {
-    background-color:yellow;
-    z-index:1000;
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    font-size:16px;
-    padding:5px;
-    text-align:center;
-}
-
-.pointer span {
-    display:inline-block;
-    width:45%;
-    color:white;
-    font-size:30px;
-    line-height:30px;
-    cursor:pointer;
-    background-color:transparent;
-    font-family:monospace;
-    font-weight:bold;
-}
-
-.pointer .plus {
-    color:#2da94e;
-}
-
-.pointer .minus {
-    color:#ff0000;
-}
-
-#gameplay {
-    filter:blur(5px);
-    width:100%;
-    position:absolute;
-    top:0;
-    left:0;
-    bottom:0;
-    right:0;
-}
-
-#menu-links {
-    font-size:20px;
-    margin-top:20px;
-}
-
-#fullscreen {
-    margin-top:20px;
-}
-
-#options select {
-    font-size:22px;
-    display:inline-block;
-    height:40px;
-    -webkit-appearance:menulist-button;
-}
-
-#options input[type='button'] {
-    font-size:22px;
-    display:inline;
-    height:40px;
-}
-
-#options a {
-    color:white; 
-    text-decoration:underline;
-}
-
-#options a:hover {
-    text-decoration:none;
-}
-
-#reset-all {
-    /*font-size:20px;*/
-}
-
-#re-init {
-    background:transparent;
-    color:white;
-    margin-left:10px;
-    font-size:14px !important;
-    /*padding:5px;*/
-    height:auto !important;
-    border:none;
-}
-
-.click-to-zoom {
-    display:none;
-}
-
-.grid {
-    opacity:0;
-}
-
-#question-modal {
-    transform-origin:top left;
-}
-
-#question-modal > div {
-    flex-direction:row;
-}
-
-#modal-header {
-    display:flex;
-    padding: 5px;
-    text-align: center;
-    color: #fff;
-    background-color: #151b4b;
-    z-index: 3;
-    /*align-items:center;*/
-}
-
-#modal-header > div {
-    padding:5px;
-    text-align:center;
-    flex:1;
-    align-items:center;
-    justify-content:center;
-    display:flex;
-    max-width:100%;
-}
-
-#modal-header > div > div {
-    max-width:100%;
-}
-
-#question-modal {
-    background-color:#2a3698;
-    border:3px solid #ffff00;;
-    z-index:10;
-}
-
-.expanded {
-    transition:.5s all ease; /*, .35s border-width step-end, 1s transform ease;*/
-    border-width:0;
-}
-
-.modal, .modal-body {
-    background-color:transparent;
-    color:#fff;
-    text-align:center;
-}
-
-.modal-body .modal-inner {
-    overflow:auto;
-    padding-left:20px;
-    padding-right:20px;
-    flex:1;
-}
-
-.modal-body {
-    width:100%;
-    display:flex;
-    align-items:center;
-    padding-top:20px;
-    justify-content:center;
-}
-
-#question-title {
-    font-weight:bold;
-    padding-left:10%;
-    padding-right:10%;
-}
-
-.question, .answer {
-    margin:auto;
-}
-
-#question-modal .question {
-    display:none;
-    opacity:0;
-}
-
-#answer-button, #continue-button {
-    cursor:pointer;
-}
-
-/*
-#modal-header #continue-button {
-    justify-content:left;
-}*/
-
-#question-modal .question {
-    border-top: 3px dotted white;
-    margin-top: 10px;
-    padding-top: 10px;
-}
-
-#question-modal .reveal {
-    transition: max-height 2s ease, opacity 2s ease;
-    opacity:1;
-
-}
-
-.mathy {
-    background-color:transparent;
-}
-
-kbd
-{
-    -moz-border-radius:3px;
-    -moz-box-shadow:0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-    -webkit-border-radius:3px;
-    -webkit-box-shadow:0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-    background-color:#f7f7f7;
-    border:1px solid #ccc;
-    border-radius:3px;
-    box-shadow:0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-    color:#333;
-    display:inline-block;
-    font-family:Arial,Helvetica,sans-serif;
-    line-height:1.4;
-    margin:0 .1em;
-    padding:.1em .6em;
-    text-shadow:0 1px 0 #fff;
-}
-
-#options {
-    display:block;
-}
-
-.grid {
-    opacity:0;
-}
-
-#first-load {
-    max-width: 500px;
-    margin: auto;
-    /* padding-left: 20px; */
-    /* padding-right: 20px; */
-    background-color: #ffff5f;
-    border-radius: 3px;
-    color: #000;
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-#first-load a {
-    color:#000;
-}
-
-.cell.points .cell-inner {
-    font-weight:bold;
-}
-
-.menu-picker {
-    background-color: #131844;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    line-height: 1.25;
-    text-transform: uppercase;
-    align-self: flex-end;
-    padding: 10px 10px;
-    border-right: 2px solid #999;
-    border-top: 2px solid #999;
-    /*border-top-right-radius: 10px;*/
-    margin-right:10px;
-    position:absolute;
-    color: #999;
-    text-decoration: none;
-    bottom:0;
-}
-
-.menu-picker:hover {
-    color: white;
-    text-decoration: none;
-    border-color:white;
-}
-
-.yoembed {
-    display:inline-block;
-}
-
-
-#advanced input[type="checkbox"] {
-    display:inline;
-}
-
-@media print {
-    body {
-        background-color:white;
-        overflow:visible;
-    }
-    #options, #teams {
-        display:none !important;
-    }
-
-    #gameplay {
-        filter:none;
-        position:static;
-    }
-
-    .cell, .cell-inner {
-        font-size:16px !important;
-        transform:none !important;
-        padding-top:0px !important;
-    }
-
-    .grid-row {
-        height:auto !important;
-    }
-
-    .cell.points {
-        margin-top:20px;
-    }
-
-    .cell-inner:after {
-        content:attr(data-category);
-        padding-left:10px;
-    }
-
-    .grid-row-cats {
-        display:none;
-
-    }
-
-}
-
-            </style>
-        
-            <style type="text/css">
-            #test-height {
-    font-family:verdana; /* TODO */
-    padding:0;
-    margin:0;
-    color:black;
-}
-
-* {
-    box-sizing:border-box;
-}
-
-.cell-inner p:last-child {
-    margin-bottom:0;
-}
-
-#grid {
-    transition:opacity 1s;
-}
-
-.grid {
-    /*
-    border:3px solid black;
-    border-top-width:6px;*/
-    /*box-shadow: #ccc 0 0 2px 0*/;
-    padding:10px;
-    background: linear-gradient(to top, #1d2675 0%,#2a3698 100%);
-    position:relative;
-	transition: .1s;
-    z-index:1;
-    transform-origin:center left;
-    font-size:12px;
-    display:flex;
-    height:100vh;
-    flex-direction:column;
-    align-items:stretch;
-
-}
-
-.grid-zoomed {
-    /*transform:scale(2);*/
-    z-index:10;
-}
-
-.click-to-zoom  {
-    opacity:0;
-	transition: .3s;
-    position:absolute;
-    top:0;
-    right:0;
-}
-
-.grid:hover .click-to-zoom {
-    opacity:1;
-}
-
-.grid.grid-zoomed .click-to-zoom {
-    opacity:0;
-}
-
-
-
-.click-to-zoom span {
-    background-color:#ccc;
-    font-size:14px;
-    display:inline-block;
-    padding:3px;
-}
-
-.grid-row {
-    display:flex;
-    flex:1;
-}
-
-/*
-.grid-col {
-    flex-direction:column;
-    display:flex;
-}
-
-.grid-col > div {
-    border:3px solid black;
-}*/
-
-/*
-img, iframe {
-    display:none;
-}*/
-
-.grid-cell {
-    border:3px solid black;
-    overflow:hidden;
-    position:relative;
-    background-color:#2a3698;
-	transition: .3s;
-    flex:1;
-}
-
-.grid-cell-zoomed {
-    transform:scale(2);
-    z-index:10;
-}
-
-.grid-preview .grid-row .grid-cell:first-child {
-    transform-origin:left center;
-}
-
-.grid-preview .grid-row .grid-cell:last-child {
-    transform-origin:right center;
-}
-
-.grid-preview .grid-last-row .grid-cell {
-    transform-origin:bottom center;
-}
-
-.grid-preview .grid-last-row .grid-cell:first-child {
-    transform-origin:bottom left;
-}
-
-.grid-preview .grid-last-row .grid-cell:last-child {
-    transform-origin:bottom right;
-}
-
-.grid-last-row {
-    border-bottom:3px solid black;
-}
-
-.grid-first-row {
-    border-top:3px solid black;
-}
-
-.grid-row-questions {
-    border-left:3px solid black;
-    border-right:3px solid black;
-    background-color:black;
-}
-
-.grid-row-cats .grid-cell {
-    border-color:transparent;
-}
-
-.grid-row-cats .cell {
-    /*align-items:flex-end;*/
-}
-
-.grid-row-cats-resize-done {
-    flex:none;
-}
-
-.cell-group {
-    backface-visibility:hidden;
-	transform-style: preserve-3d;
-}
-
-.cell {
-    position:absolute;
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color:#fff;
-    backface-visibility:hidden;
-	perspective: 1000px;
-	transform-style: preserve-3d;
-    -webkit-perspective: 0;
-    -webkit-backface-visibility: hidden;
-    width:100%;
-    height:100%;
-}
-
-.cell a:link, .cell a:visited, .cell a:hover {
-    color:white;
-}
-
-.cell.back {
-	transform: rotateY(180deg);
-}
-
-.cell.front {
-	z-index:2;
-}
-
-.cell.back, .cell.front {
-    cursor:pointer;
-    overflow:hidden;
-}
-
-.cell.back, .cell.front, .cell-group, .category {
-	transition: .3s;
-    will-change: transform;
-}
-
-.cell-group:hover, .cell-group:focus {
-    border-color:yellow;
-    outline:none;
-}
-
-.cell-group.inert:hover, .cell-group.inert:focus {
-    border-color:gray;
-    outline:none;
-}
-
-.cell-group:hover .front  {
-	transform: rotateY(180deg);
-}
-
-.cell-group:hover .back  {
-	transform: rotateY(0deg);
-}
-
-.cell-group:hover .back,
-.cell-group:hover .front {
-    border-color:yellow;
-}
-
-.cell-group:hover .back,
-.cell-group:hover .front {
-	transition: .6s;
-}
-
-.cell-group.empty {
-    pointer-events:none;
-}
-
-.cell-group.empty:hover, .cell-group.empty:focus {
-    /*
-    border-color:black;
-    transform:none;*/
-}
-
-
-/* play mode */
-
-#gameplay .answer:focus, #gameplay .question:focus {
-    outline:none;
-}
-
-.points .front, .points .back {
-    display:none;
-}
-
-.grid-play .cell-group {
-    cursor:pointer;
-}
-
-.grid-play .cell-group:hover, .grid-play .cell-group:focus {
-    /*background-color:rgba(255,255,255, .05);*/
-    background-color:#35409d;
-}
-
-.grid-play .cell-group.inert:hover, .grid-play .cell-group.inert:focus {
-    background-color: #2a3698;
-}
-
-.inert .cell-inner {
-    opacity:.05;
-}
-
-.grid.grid-play {
-    background: none;
-}
-
-.resizing {
-    transition:none !important;
-}
-
-            </style>
-        
-        
-            <script type="text/javascript">
-                function removeClass(selector, cls){
-    var doms = document.querySelectorAll(selector);
-    for(var i = 0; i < doms.length; i++){
-        doms[i].classList.remove(cls);
-    }
-}
-
-
-function debounce(func, wait, immediate) {
-	var timeout;
-	return function() {
-		var context = this, args = arguments;
-		var later = function() {
-			timeout = null;
-			if (!immediate) func.apply(context, args);
-		};
-		var callNow = immediate && !timeout;
-		clearTimeout(timeout);
-		timeout = setTimeout(later, wait);
-		if (callNow) func.apply(context, args);
-	};
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chemie-Vorbereitungslabor · Klasse 8</title>
+<style>
+  :root{
+    --cream:#faf6ee; --card:#fffdf8; --ink:#1a2420; --muted:#5c6b64;
+    --teal:#1e5d52; --teal-d:#12463d; --terra:#a83610; --gold:#c9a961;
+    --good:#2f8f4e; --good-bg:#e6f4ea; --retry:#b4471f; --retry-bg:#fbeae1;
+    --line:#e7dfce;
+    --serif:Georgia,'Iowan Old Style','Palatino Linotype',serif;
+    --sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --mono:ui-monospace,'SF Mono','JetBrains Mono',Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:var(--sans); color:var(--ink); background:var(--cream);
+    line-height:1.5; -webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(circle at 12% 8%, #f3ecdb 0, transparent 42%),
+                     radial-gradient(circle at 88% 92%, #eef3ee 0, transparent 45%);
+    min-height:100vh;
+  }
+  .wrap{max-width:720px; margin:0 auto; padding:24px 18px 60px;}
+  sub{font-size:.72em} sup{font-size:.72em}
+  .mono{font-family:var(--mono)}
+
+  /* top bar: beaker + progress + score */
+  .hud{display:flex; align-items:center; gap:16px; margin-bottom:18px;}
+  .beaker{width:54px; height:64px; flex:0 0 auto}
+  .hud-meta{flex:1; min-width:0}
+  .bar{height:12px; background:#ece3d1; border-radius:20px; overflow:hidden; box-shadow:inset 0 1px 2px rgba(0,0,0,.08)}
+  .bar > i{display:block; height:100%; width:0;
+    background:linear-gradient(90deg,var(--teal),var(--gold)); border-radius:20px;
+    transition:width .5s cubic-bezier(.22,1,.36,1)}
+  .hud-line{display:flex; justify-content:space-between; font-size:13px; color:var(--muted); margin-top:6px}
+  .streak{font-weight:700; color:var(--terra)}
+  .streak.dim{color:var(--muted); font-weight:600}
+
+  h1{font-family:var(--serif); font-weight:700; font-size:30px; line-height:1.15; margin:0 0 6px; letter-spacing:-.01em}
+  .eyebrow{font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--teal); font-weight:700}
+
+  /* cards */
+  .card{background:var(--card); border:1px solid var(--line); border-radius:18px;
+    padding:22px 22px 24px; box-shadow:0 10px 30px -18px rgba(30,60,45,.4);}
+  .qtags{display:flex; gap:8px; align-items:center; margin-bottom:12px; flex-wrap:wrap}
+  .tag{font-size:11px; letter-spacing:.08em; text-transform:uppercase; font-weight:700;
+    padding:4px 10px; border-radius:999px}
+  .tag.cat{background:var(--teal); color:#fff}
+  .tag.lvl-Einfach{background:var(--good-bg); color:var(--good)}
+  .tag.lvl-Mittel{background:#fdf2d8; color:#8a6d1f}
+  .tag.lvl-Schwer{background:var(--retry-bg); color:var(--retry)}
+  .prompt{font-family:var(--serif); font-size:21px; line-height:1.35; margin:0 0 6px}
+  .fig{margin:14px 0 4px; text-align:center}
+  .fig svg{max-width:100%; height:auto}
+
+  /* options */
+  .opts{display:flex; flex-direction:column; gap:10px; margin-top:16px}
+  .opt{display:flex; align-items:center; gap:12px; width:100%; text-align:left;
+    font:inherit; font-size:16px; padding:14px 16px; border-radius:13px; cursor:pointer;
+    background:#fff; border:1.5px solid var(--line); color:var(--ink);
+    transition:border-color .15s, background .15s, transform .06s}
+  .opt:hover:not(:disabled){border-color:var(--teal); background:#f6faf8}
+  .opt:focus-visible{outline:3px solid var(--gold); outline-offset:2px}
+  .opt:active:not(:disabled){transform:translateY(1px)}
+  .opt .key{flex:0 0 auto; width:26px; height:26px; border-radius:7px; display:grid; place-items:center;
+    background:#efe8d8; color:var(--teal-d); font-weight:700; font-size:14px}
+  .opt.correct{border-color:var(--good); background:var(--good-bg)}
+  .opt.correct .key{background:var(--good); color:#fff}
+  .opt.wrong{border-color:var(--retry); background:var(--retry-bg); opacity:.9}
+  .opt.wrong .key{background:var(--retry); color:#fff}
+  .opt:disabled{cursor:default}
+  .opt.faded{opacity:.5}
+  .shake{animation:shake .38s}
+  @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+
+  /* numeric input */
+  .numrow{display:flex; gap:10px; margin-top:16px; flex-wrap:wrap}
+  .numrow input{flex:1; min-width:160px; font:inherit; font-size:18px; padding:13px 15px;
+    border:1.5px solid var(--line); border-radius:13px; background:#fff; font-family:var(--mono)}
+  .numrow input:focus{outline:3px solid var(--gold); outline-offset:1px; border-color:var(--teal)}
+
+  /* buttons */
+  .btn{font:inherit; font-weight:700; font-size:16px; padding:13px 22px; border-radius:13px;
+    border:none; cursor:pointer; background:var(--teal); color:#fff; transition:transform .06s, background .15s}
+  .btn:hover{background:var(--teal-d)} .btn:active{transform:translateY(1px)}
+  .btn:focus-visible{outline:3px solid var(--gold); outline-offset:2px}
+  .btn.ghost{background:transparent; color:var(--teal); border:1.5px solid var(--teal)}
+  .btn.ghost:hover{background:#eef5f2}
+  .btn.big{font-size:18px; padding:15px 30px}
+
+  /* feedback panel */
+  .fb{margin-top:16px; border-radius:14px; padding:15px 17px; display:none; animation:pop .3s ease}
+  .fb.show{display:block}
+  .fb.ok{background:var(--good-bg); border:1.5px solid #bfe3ca}
+  .fb.hint{background:#fdf6e3; border:1.5px solid #eddcae}
+  @keyframes pop{from{transform:scale(.97); opacity:0}to{transform:scale(1); opacity:1}}
+  .fb .head{display:flex; align-items:center; gap:9px; font-weight:700; font-size:16px; margin-bottom:5px}
+  .fb.ok .head{color:var(--good)} .fb.hint .head{color:#8a6d1f}
+  .fb .expl{font-size:15px; color:var(--ink)}
+  .fb .expl .mono, .fb .expl b{color:var(--teal-d)}
+  .spark{width:20px;height:20px;flex:0 0 auto}
+  .foot{display:flex; justify-content:flex-end; gap:10px; margin-top:18px}
+
+  /* start & end screens */
+  .hero{text-align:center; padding:8px 4px 4px}
+  .hero .big-beaker{width:120px; height:140px; margin:6px auto 10px; display:block}
+  .lead{font-size:17px; color:var(--muted); max-width:52ch; margin:10px auto 22px}
+  .chips{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:0 auto 26px; max-width:540px}
+  .chip{font-size:13px; font-weight:600; padding:7px 13px; border-radius:999px; background:#fff; border:1px solid var(--line); color:var(--teal-d)}
+  .center{text-align:center}
+  .score-ring{font-family:var(--serif); font-size:52px; font-weight:700; color:var(--teal); line-height:1}
+  .hidden{display:none}
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important}
+  }
+  @media (max-width:520px){ h1{font-size:25px} .prompt{font-size:19px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HUD -->
+  <div class="hud" id="hud" hidden>
+    <svg class="beaker" viewBox="0 0 60 72" aria-hidden="true">
+      <defs><clipPath id="bkclip"><path d="M16 8 h28 v20 l12 34 a6 6 0 0 1 -5.5 8.5 h-41 a6 6 0 0 1 -5.5 -8.5 l12 -34 z"/></clipPath></defs>
+      <rect id="bkfill" x="0" y="72" width="60" height="0" fill="#2fae9a" clip-path="url(#bkclip)"/>
+      <path d="M16 8 h28 v20 l12 34 a6 6 0 0 1 -5.5 8.5 h-41 a6 6 0 0 1 -5.5 -8.5 l12 -34 z"
+            fill="none" stroke="#1e5d52" stroke-width="3" stroke-linejoin="round"/>
+      <line x1="13" y1="8" x2="47" y2="8" stroke="#1e5d52" stroke-width="4" stroke-linecap="round"/>
+    </svg>
+    <div class="hud-meta">
+      <div class="bar"><i id="barfill"></i></div>
+      <div class="hud-line">
+        <span id="progtxt">Frage 1 von 15</span>
+        <span class="streak dim" id="streaktxt">Serie: 0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- START -->
+  <section id="start" class="card hero">
+    <div class="eyebrow">Chemie · Klasse 8</div>
+    <svg class="big-beaker" viewBox="0 0 60 72" aria-hidden="true">
+      <path d="M16 8 h28 v20 l12 34 a6 6 0 0 1 -5.5 8.5 h-41 a6 6 0 0 1 -5.5 -8.5 l12 -34 z" fill="#e5f0ec"/>
+      <path d="M13 46 l3.5 -10 h27 l3.5 10 a6 6 0 0 1 5 18.5 a6 6 0 0 1 -5.5 3.5 h-41 a6 6 0 0 1 -5.5 -3.5 a6 6 0 0 1 5 -18.5 z" fill="#2fae9a"/>
+      <circle cx="24" cy="55" r="2.4" fill="#eafbe6"/><circle cx="34" cy="60" r="1.8" fill="#eafbe6"/><circle cx="30" cy="50" r="1.5" fill="#eafbe6"/>
+      <path d="M16 8 h28 v20 l12 34 a6 6 0 0 1 -5.5 8.5 h-41 a6 6 0 0 1 -5.5 -8.5 l12 -34 z" fill="none" stroke="#1e5d52" stroke-width="3" stroke-linejoin="round"/>
+      <line x1="13" y1="8" x2="47" y2="8" stroke="#1e5d52" stroke-width="4" stroke-linecap="round"/>
+    </svg>
+    <h1>Vorbereitungslabor</h1>
+    <p class="lead">Wärm dich mit 15 kurzen Aufgaben auf, bevor es im Team ins große <b>Chemie-Jeopardy</b> geht.
+      Jede Antwort bringt dich weiter – und selbst wenn du danebenliegst, bekommst du einen Tipp und eine Erklärung. Du schaffst das.</p>
+    <div class="chips">
+      <span class="chip">Gase</span><span class="chip">Wasser</span><span class="chip">Salze</span>
+      <span class="chip">Metalle</span><span class="chip">Quantitative Chemie</span>
+    </div>
+    <button class="btn big" id="startBtn">Los geht’s</button>
+  </section>
+
+  <!-- QUESTION -->
+  <section id="quiz" class="card hidden" aria-live="polite"></section>
+
+  <!-- END -->
+  <section id="end" class="card hero hidden"></section>
+
+</div>
+
+<script>
+/* ---------- small inline SVGs ---------- */
+const SVG = {
+  spark:'<svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1l2.2 6.6L21 10l-6.8 2.4L12 19l-2.2-6.6L3 10l6.8-2.4z" fill="#c9a961"/></svg>',
+  bulb:'<svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z" fill="#e7b93a"/><rect x="9" y="18" width="6" height="2.4" rx="1.2" fill="#8a6d1f"/><rect x="9.6" y="21" width="4.8" height="2" rx="1" fill="#8a6d1f"/></svg>',
+  phase:'<svg viewBox="0 0 320 140" xmlns="http://www.w3.org/2000/svg"><rect width="320" height="140" rx="14" fill="#fffdf8" stroke="#e7dfce"/><g fill="#1e5d52"><circle cx="34" cy="46" r="7"/><circle cx="66" cy="70" r="7"/><circle cx="46" cy="96" r="7"/><circle cx="86" cy="52" r="7"/><circle cx="70" cy="112" r="7"/><circle cx="34" cy="112" r="7"/></g><text x="60" y="132" text-anchor="middle" font-family="system-ui" font-size="12" font-weight="700" fill="#1e5d52">fest</text><g stroke="#a83610" stroke-width="4" fill="none"><line x1="120" y1="70" x2="190" y2="70"/><path d="M180 60 L192 70 L180 80"/></g><text x="156" y="52" text-anchor="middle" font-family="system-ui" font-size="13" font-weight="700" fill="#a83610">Sublimieren</text><g fill="#a83610"><circle cx="230" cy="40" r="7"/><circle cx="280" cy="34" r="7"/><circle cx="256" cy="74" r="7"/><circle cx="298" cy="66" r="7"/><circle cx="232" cy="100" r="7"/><circle cx="284" cy="104" r="7"/></g><text x="264" y="132" text-anchor="middle" font-family="system-ui" font-size="12" font-weight="700" fill="#a83610">gasförmig</text></svg>',
+  dipole:'<svg viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg"><rect width="300" height="130" rx="14" fill="#fffdf8" stroke="#e7dfce"/><circle cx="150" cy="66" r="26" fill="#a83610"/><text x="150" y="72" text-anchor="middle" font-family="system-ui" font-size="16" font-weight="700" fill="#fff">O</text><text x="182" y="54" font-family="system-ui" font-size="15" fill="#a83610">δ−</text><circle cx="116" cy="32" r="15" fill="#1e5d52"/><text x="116" y="37" text-anchor="middle" font-size="12" fill="#fff">H</text><circle cx="116" cy="100" r="15" fill="#1e5d52"/><text x="116" y="105" text-anchor="middle" font-size="12" fill="#fff">H</text><text x="86" y="26" font-family="system-ui" font-size="15" fill="#1e5d52">δ+</text><text x="86" y="118" font-family="system-ui" font-size="15" fill="#1e5d52">δ+</text></svg>',
+  flameRed:'<svg viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg"><rect width="220" height="150" rx="14" fill="#1b1b1b"/><rect x="100" y="104" width="20" height="34" fill="#666"/><rect x="88" y="134" width="44" height="9" rx="3" fill="#888"/><path d="M110 104 C86 78 92 40 110 16 C128 40 134 78 110 104 Z" fill="#d33a26"/><path d="M110 104 C98 80 100 52 110 34 C120 52 122 80 110 104 Z" fill="#ff7a4d"/><path d="M110 104 C104 82 105 64 110 54 C115 64 116 82 110 104 Z" fill="#ffd9a8"/><text x="110" y="30" text-anchor="middle" font-family="system-ui" font-size="14" font-weight="700" fill="#ff9d7a">rot</text></svg>',
+  affinity:'<svg viewBox="0 0 320 130" xmlns="http://www.w3.org/2000/svg"><rect width="320" height="130" rx="14" fill="#fffdf8" stroke="#e7dfce"/><defs><linearGradient id="af2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c9a961"/><stop offset="1" stop-color="#a83610"/></linearGradient></defs><rect x="26" y="58" width="268" height="16" rx="8" fill="url(#af2)"/><path d="M286 50 L306 66 L286 82" fill="none" stroke="#a83610" stroke-width="3"/><g font-family="system-ui" text-anchor="middle"><circle cx="60" cy="66" r="16" fill="#1e5d52"/><text x="60" y="71" font-size="12" fill="#fff">Ag</text><circle cx="160" cy="66" r="16" fill="#1e5d52"/><text x="160" y="71" font-size="12" fill="#fff">Cu</text><circle cx="260" cy="66" r="16" fill="#1e5d52"/><text x="260" y="71" font-size="12" fill="#fff">Fe</text><text x="60" y="104" font-size="11" fill="#1a2420">edler</text><text x="260" y="104" font-size="11" fill="#1a2420">unedler</text><text x="160" y="30" font-size="13" font-weight="700" fill="#1a2420">Sauerstoffaffinität →</text></g></svg>'
 };
 
-function ready(fn) {
-  if (document.readyState != 'loading' && document.body){
-    fn();
+/* ---------- question bank (varied cases vs. the Jeopardy) ---------- */
+const Q = [
+ {cat:"Gase", lvl:"Einfach", type:"mc",
+  prompt:"Rund 21&nbsp;% der Luft bestehen aus einem Gas, das wir zum Atmen brauchen und das Verbrennungen ermöglicht. Welches ist es?",
+  opts:["Stickstoff","Sauerstoff","Kohlenstoffdioxid","Argon"], correct:1,
+  hint:"Ohne dieses Gas erlischt jede Flamme.",
+  expl:"<b>Sauerstoff (O<sub>2</sub>)</b> macht etwa 21&nbsp;% der Luft aus. Stickstoff ist mit rund 78&nbsp;% das häufigste Gas."},
+
+ {cat:"Gase", lvl:"Mittel", type:"mc",
+  prompt:"Mit welcher Nachweisprobe weist du <b>Kohlenstoffdioxid</b> nach?",
+  opts:["Glimmspanprobe","Knallgasprobe","Kalkwasserprobe"], correct:2,
+  hint:"Eine klare Lösung wird dabei milchig-trüb.",
+  expl:"Die <b>Kalkwasserprobe</b>: Kalkwasser trübt sich bei CO<sub>2</sub> milchig-weiß. Die Glimmspanprobe weist Sauerstoff nach, die Knallgasprobe Wasserstoff."},
+
+ {cat:"Gase", lvl:"Schwer", type:"mc", fig:SVG.phase,
+  prompt:"Trockeneis geht bei Zimmertemperatur direkt von fest zu gasförmig über. Wie heißt dieser Phasenübergang?",
+  opts:["Verdampfen","Sublimieren","Resublimieren","Schmelzen"], correct:1,
+  hint:"Fest&nbsp;→&nbsp;gasförmig, ganz ohne flüssige Zwischenstufe.",
+  expl:"<b>Sublimieren</b> = fest&nbsp;→&nbsp;gasförmig (direkt). Der umgekehrte Weg gasförmig&nbsp;→&nbsp;fest heißt Resublimieren."},
+
+ {cat:"Wasser", lvl:"Einfach", type:"mc",
+  prompt:"Welches Element ist am <b>elektronegativsten</b> – zieht Bindungselektronen also am stärksten an?",
+  opts:["Sauerstoff","Kohlenstoff","Fluor","Wasserstoff"], correct:2,
+  hint:"Es steht oben rechts im Periodensystem (von den Edelgasen abgesehen).",
+  expl:"<b>Fluor (F)</b> hat die höchste Elektronegativität aller Elemente."},
+
+ {cat:"Wasser", lvl:"Mittel", type:"mc", fig:SVG.dipole,
+  prompt:"Warum ist ein Wassermolekül ein <b>Dipol</b>?",
+  opts:["Es hat eine gleichmäßige Ladungsverteilung","Es besitzt Partialladungen δ+ und δ−","Es ist elektrisch neutral, also kein Dipol","Es enthält Metallatome"], correct:1,
+  hint:"Am Sauerstoff ist es leicht negativ, an den H-Atomen leicht positiv.",
+  expl:"Durch die ungleiche Ladungsverteilung entstehen <b>Partialladungen</b> (δ+ an den H-Atomen, δ− am O). Deshalb ist Wasser ein Dipol."},
+
+ {cat:"Wasser", lvl:"Mittel", type:"mc",
+  prompt:"Du prüfst eine Flüssigkeit mit <b>Watesmo-Papier</b> auf Wasser. Bei positivem Nachweis beobachtest du eine …",
+  opts:["Gelbfärbung","Blaufärbung","Rotfärbung","keine Veränderung"], correct:1,
+  hint:"Denk an die Farbe, die das Nachweispapier annimmt, wenn es feucht wird.",
+  expl:"Watesmo-Papier zeigt Wasser durch eine <b>Blaufärbung</b> an."},
+
+ {cat:"Salze", lvl:"Mittel", type:"mc",
+  prompt:"Vervollständige die Dissoziationsgleichung:<br><span class='mono'>KBr(s) ⇌ ?</span>",
+  opts:["K<sup>+</sup>(aq) + Br<sup>−</sup>(aq)","K<sup>2+</sup>(aq) + Br<sup>2−</sup>(aq)","K<sup>−</sup>(aq) + Br<sup>+</sup>(aq)","KBr(aq)"], correct:0,
+  hint:"Kalium gibt 1 Elektron ab, Brom nimmt 1 Elektron auf.",
+  expl:"K wird zu K<sup>+</sup>, Br zu Br<sup>−</sup> – beide einfach geladen und von Wasser umhüllt (aq). Genau wie bei NaCl."},
+
+ {cat:"Salze", lvl:"Schwer", type:"mc",
+  prompt:"Kalium reagiert mit Chlor zu Kaliumchlorid. Welche Gleichung ist <b>richtig ausgeglichen</b>?",
+  opts:["K(s) + Cl<sub>2</sub>(g) → KCl<sub>2</sub>(s)","2 K(s) + Cl<sub>2</sub>(g) → 2 KCl(s)","2 K(s) + Cl(g) → K<sub>2</sub>Cl(s)","K(s) + Cl<sub>2</sub>(g) → 2 KCl(s)"], correct:1,
+  hint:"Zähle die Chlor-Atome links und rechts – sie müssen gleich sein.",
+  expl:"Cl<sub>2</sub> liefert 2 Cl-Atome → 2&nbsp;KCl, dafür braucht es 2&nbsp;K:  <span class='mono'>2 K + Cl<sub>2</sub> → 2 KCl</span>. Analog zu 2&nbsp;Na&nbsp;+&nbsp;Cl<sub>2</sub>&nbsp;→&nbsp;2&nbsp;NaCl."},
+
+ {cat:"Salze", lvl:"Schwer", type:"mc", fig:SVG.flameRed,
+  prompt:"Welches Salz färbt die Brennerflamme <b>rot</b>?",
+  opts:["Bariumnitrat","Natriumchlorid","Lithiumchlorid","Kupferchlorid"], correct:2,
+  hint:"Lithium liefert eine kräftig rote Flamme.",
+  expl:"<b>Lithiumchlorid</b> färbt die Flamme rot. Barium → grün, Natrium → gelb-orange, Kupfer → blaugrün."},
+
+ {cat:"Metalle", lvl:"Mittel", type:"mc",
+  prompt:"Wie lautet die richtige Reaktionsgleichung für die <b>Verbrennung von Calcium</b>? (analog zu Magnesium)",
+  opts:["Ca(s) + O<sub>2</sub>(g) → CaO<sub>2</sub>(s)","2 Ca(s) + O<sub>2</sub>(g) → 2 CaO(s)","Ca(s) + O(g) → CaO(s)","2 Ca(s) + 2 O<sub>2</sub>(g) → 2 CaO(s)"], correct:1,
+  hint:"Calcium bildet CaO – dieselbe Ausgleich-Logik wie 2&nbsp;Mg&nbsp;+&nbsp;O<sub>2</sub>&nbsp;→&nbsp;2&nbsp;MgO.",
+  expl:"<span class='mono'>2 Ca + O<sub>2</sub> → 2 CaO</span>: O<sub>2</sub> liefert 2 O-Atome, also entstehen 2&nbsp;CaO – dafür braucht es 2&nbsp;Ca."},
+
+ {cat:"Metalle", lvl:"Schwer", type:"mc", fig:SVG.affinity,
+  prompt:"Ordne <b>Silber, Kupfer und Eisen</b> nach <b>aufsteigender</b> Sauerstoffaffinität.",
+  opts:["Silber &lt; Kupfer &lt; Eisen","Eisen &lt; Kupfer &lt; Silber","Kupfer &lt; Silber &lt; Eisen","Silber &lt; Eisen &lt; Kupfer"], correct:0,
+  hint:"Edle Metalle wie Silber reagieren kaum mit Sauerstoff.",
+  expl:"Je unedler das Metall, desto höher die Sauerstoffaffinität: <b>Silber &lt; Kupfer &lt; Eisen</b>."},
+
+ {cat:"Metalle", lvl:"Schwer", type:"mc",
+  prompt:"Aluminium reduziert Chrom(III)-oxid. Ergänze:<br><span class='mono'>Cr<sub>2</sub>O<sub>3</sub> + 2 Al → ?</span>",
+  opts:["2 Cr + Al<sub>2</sub>O<sub>3</sub>","Cr + AlO","2 Cr + 2 AlO","Cr<sub>2</sub> + Al<sub>2</sub>O<sub>3</sub>"], correct:0,
+  hint:"Aluminium schnappt sich den Sauerstoff → Al<sub>2</sub>O<sub>3</sub>; das Metall Chrom wird frei.",
+  expl:"<span class='mono'>Cr<sub>2</sub>O<sub>3</sub> + 2 Al → 2 Cr + Al<sub>2</sub>O<sub>3</sub></span> – dasselbe Prinzip wie das aluminothermische Verfahren mit Eisen."},
+
+ {cat:"Quantitative Chemie", lvl:"Mittel", type:"num", answer:64, unit:"g/mol",
+  prompt:"Berechne die molare Masse von <b>SO<sub>2</sub></b> in g/mol.<br><span style='font-size:.85em'>M(S)=32&nbsp;g/mol · M(O)=16&nbsp;g/mol</span>",
+  placeholder:"z. B. 64",
+  hint:"M(SO<sub>2</sub>) = M(S) + 2 · M(O).",
+  expl:"M(SO<sub>2</sub>) = 32 + 2·16 = <b>64&nbsp;g/mol</b>."},
+
+ {cat:"Quantitative Chemie", lvl:"Mittel", type:"num", answer:5, unit:"mol",
+  prompt:"Wie viel <b>mol</b> sind 90&nbsp;g Wasser?<br><span style='font-size:.85em'>M(H<sub>2</sub>O)=18&nbsp;g/mol</span>",
+  placeholder:"z. B. 5",
+  hint:"Nutze  n = m ÷ M.",
+  expl:"n = 90&nbsp;g ÷ 18&nbsp;g/mol = <b>5&nbsp;mol</b>."},
+
+ {cat:"Quantitative Chemie", lvl:"Schwer", type:"mc",
+  prompt:"Ein Stück Eisen rostet an der Luft in einem <b>offenen</b> Gefäß. Wie ändert sich die Masse des Feststoffs?",
+  opts:["Sie nimmt zu","Sie bleibt gleich","Sie nimmt ab"], correct:0,
+  hint:"Beim Rosten wird Sauerstoff aus der Luft in den Feststoff eingebaut.",
+  expl:"Sauerstoff aus der Luft wird gebunden → der <b>Feststoff wird schwerer</b>. In einem abgeschlossenen Gefäß bliebe die Gesamtmasse dagegen gleich (Massenerhaltung)."}
+];
+
+const PRAISE = ["Stark!","Klasse gelöst!","Chemie-Ass!","Sauber!","Perfekt!","Genau richtig!","Das sitzt!","Volltreffer!","Glasklar!"];
+const NUDGE  = ["Fast! Schau nochmal genau hin.","Kein Problem – noch ein Versuch.","Nicht ganz, aber du bist nah dran.","Guter Versuch! Der Tipp hilft dir weiter.","Knapp daneben – bleib dran."];
+
+/* ---------- state & elements ---------- */
+let i = 0, firstTry = 0, solved = 0, streak = 0, triedWrong = false;
+const $ = s => document.querySelector(s);
+const hud=$("#hud"), quiz=$("#quiz"), startS=$("#start"), endS=$("#end");
+const barfill=$("#barfill"), bkfill=$("#bkfill"), progtxt=$("#progtxt"), streaktxt=$("#streaktxt");
+const rnd = a => a[Math.floor(Math.random()*a.length)];
+const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+
+function setProgress(){
+  const frac = i/Q.length;
+  barfill.style.width = (frac*100)+"%";
+  const H=72, fillH=Math.round(frac* (72-6));   // beaker inner height
+  bkfill.setAttribute("y", (H-fillH)); bkfill.setAttribute("height", fillH);
+  progtxt.textContent = `Frage ${Math.min(i+1,Q.length)} von ${Q.length}`;
+  streaktxt.textContent = `Serie: ${streak}`;
+  streaktxt.className = "streak" + (streak>0 ? "" : " dim");
+}
+
+function render(){
+  const q = Q[i]; triedWrong=false;
+  setProgress();
+  let body = `
+    <div class="qtags">
+      <span class="tag cat">${q.cat}</span>
+      <span class="tag lvl-${q.lvl}">${q.lvl}</span>
+    </div>
+    <p class="prompt">${q.prompt}</p>
+    ${q.fig ? `<div class="fig">${q.fig}</div>` : ""}`;
+
+  if(q.type==="mc"){
+    body += `<div class="opts" id="opts">` + q.opts.map((o,idx)=>
+      `<button class="opt" data-idx="${idx}"><span class="key">${String.fromCharCode(65+idx)}</span><span>${o}</span></button>`
+    ).join("") + `</div>`;
   } else {
-    document.addEventListener('DOMContentLoaded', fn);
+    body += `<div class="numrow">
+        <input id="numin" inputmode="decimal" autocomplete="off" placeholder="${q.placeholder||""}" aria-label="Antwort">
+        <button class="btn" id="checkBtn">Prüfen</button>
+      </div>`;
+  }
+  body += `<div class="fb" id="fb"></div><div class="foot" id="foot"></div>`;
+  quiz.innerHTML = body;
+
+  if(q.type==="mc"){
+    quiz.querySelectorAll(".opt").forEach(b=> b.addEventListener("click", onPick));
+  } else {
+    const input=$("#numin"), btn=$("#checkBtn");
+    btn.addEventListener("click", onNum);
+    input.addEventListener("keydown", e=>{ if(e.key==="Enter") onNum(); });
+    input.focus();
   }
 }
 
-if (!Math.log2) Math.log2 = function(x) {
-      return Math.log(x) * Math.LOG2E;
-};
-
-function capSizes(el, max_width, max_height){
-    return
-    var treeWalker = document.createTreeWalker(el, NodeFilter.SHOW_ELEMENT, null, false);
-    var did_work = false;
-    while(treeWalker.nextNode()){
-        node = treeWalker.currentNode;
-        if(node.tagName == "IMG" || node.tagName == "VIDEO" || node.tagName == "IFRAME"){
-            try {
-                var real_width = parseInt(node.width) || max_width;
-                var real_height = parseInt(node.height) || max_height;
-                var a = Math.min(1.0*max_width / real_width, 1.0*max_height / real_height)
-                node.style.maxWidth = real_width*a + "px";
-                node.style.maxHeight = real_height*a + "px";
-                did_work = true;
-            } catch (e) {
-            }
-
-        }
-    }
-
-    return did_work;
+function onPick(e){
+  const q=Q[i]; const btn=e.currentTarget; const idx=+btn.dataset.idx;
+  if(idx===q.correct){
+    btn.classList.add("correct");
+    quiz.querySelectorAll(".opt").forEach(b=>{ b.disabled=true; if(!b.classList.contains("correct")) b.classList.add("faded"); });
+    win();
+  } else {
+    btn.classList.add("wrong","shake"); btn.disabled=true;
+    setTimeout(()=>btn.classList.remove("shake"),400);
+    miss();
+  }
 }
 
-var shrink_cell_cache = {};
-var enable_caching = false;
-function shrink_cell($cell, $scaler, max_width, max_height, max_font_size, transforms, capsizes){
-    if(enable_caching){
-        var cache_key = [max_width, max_height, $cell.innerHTML].join(".");
-        var cached = shrink_cell_cache[cache_key];
-    } else {
-        return _shrink_cell($cell, $scaler, max_width, max_height, max_font_size, transforms, capsizes);
-    }
-
-    if(cached){
-        $scaler.style.fontSize = cached.font_size + "px";
-        $scaler.style.transform = (transforms || "") + " scale(" + cached.scale + ") ";
-        capSizes($cell, max_width, max_height);
-    } else {
-        shrink_cell_cache[cache_key] = _shrink_cell($cell, $scaler, max_width, max_height, max_font_size, transforms, capsizes);
-    }
+function onNum(){
+  const q=Q[i]; const input=$("#numin");
+  const raw=(input.value||"").trim().replace(",",".");
+  const m=raw.match(/-?\d+(\.\d+)?/);
+  const val=m?parseFloat(m[0]):NaN;
+  if(!isNaN(val) && Math.abs(val-q.answer)<1e-6){
+    input.disabled=true; $("#checkBtn").disabled=true;
+    input.style.borderColor="var(--good)"; input.style.background="var(--good-bg)";
+    win();
+  } else {
+    input.classList.add("shake"); setTimeout(()=>input.classList.remove("shake"),400);
+    input.style.borderColor="var(--retry)";
+    miss(); input.focus(); input.select();
+  }
 }
 
-test_divs = [];
-function initDivs(max_font_size){
-    if(test_divs.length-1 == max_font_size){
-        return;
-    }
-    for(var i = 0; i <= max_font_size; i++){
-        var dummy_element = test_divs[i];
-        if(!dummy_element){
-            var dummy_element = document.createElement("div");
-            //dummy_element.style.opacity = 0;
-            dummy_element.style.display = "block";
-            //dummy_element.style.overflowX = "auto";
-            dummy_element.style.position = "absolute";
-            //dummy_element.style.visibility = "hidden";
-            dummy_element.style.left = "-100000px";
-            dummy_element.style.top = -(i*120) + "px";
-            dummy_element.style.fontFamily = "Verdana, Arial, Helvetica, sans-serif";
-            dummy_element.style.color = "#000";
-            dummy_element.style.border = "3px solid black";
-            dummy_element.style.fontSize = i + "px";
-            //dummy_element.setAttribute("id", "test-height")
-            test_divs[i] = dummy_element;
-            var body = document.querySelectorAll('body')[0];
-            body.appendChild(dummy_element);
-        }
-    }
+function win(){
+  const q=Q[i];
+  solved++;
+  if(!triedWrong){ firstTry++; streak++; } else { streak=0; }
+  streaktxt.textContent=`Serie: ${streak}`;
+  streaktxt.className="streak"+(streak>0?"":" dim");
+  const fb=$("#fb");
+  const bonus = (!triedWrong && streak>=3) ? ` <b>Serie ×${streak}!</b>` : "";
+  fb.className="fb ok show";
+  fb.innerHTML=`<div class="head">${SVG.spark}<span>${triedWrong?"Geschafft!":rnd(PRAISE)}${bonus}</span></div>
+                <div class="expl">${q.expl}</div>`;
+  $("#foot").innerHTML=`<button class="btn" id="nextBtn">${i+1<Q.length?"Weiter":"Auswerten"}</button>`;
+  const nb=$("#nextBtn"); nb.addEventListener("click", next); nb.focus();
 }
 
-function shrink_in_place($cell, max_font_size, min_font_size){
-    var div = $cell;
-    var font_size = max_font_size;
+function miss(){
+  const q=Q[i]; triedWrong=true; streak=0;
+  streaktxt.textContent=`Serie: 0`; streaktxt.className="streak dim";
+  const fb=$("#fb");
+  fb.className="fb hint show";
+  fb.innerHTML=`<div class="head">${SVG.bulb}<span>${rnd(NUDGE)}</span></div>
+                <div class="expl"><b>Tipp:</b> ${q.hint}</div>`;
+  // offer to reveal the solution & move on
+  if(!$("#revealBtn")){
+    $("#foot").innerHTML=`<button class="btn ghost" id="revealBtn">Lösung zeigen</button>`;
+    $("#revealBtn").addEventListener("click", reveal);
+  }
+}
 
-    var a = {length: max_font_size+1}
-    var font_size = binarySearch(a, function(el, array, font_size){
-        div.style.fontSize = font_size + "px";
-        var isHorizontalScrollbar= div.scrollWidth>div.clientWidth;
-        var isVerticalScrollbar = div.scrollHeight>div.clientHeight;
-        var overflows = isHorizontalScrollbar || isVerticalScrollbar;
-        return overflows
+function reveal(){
+  const q=Q[i];
+  if(q.type==="mc"){
+    quiz.querySelectorAll(".opt").forEach(b=>{
+      b.disabled=true;
+      if(+b.dataset.idx===q.correct) b.classList.add("correct"); else b.classList.add("faded");
     });
-    font_size = font_size - 1
-
-    font_size = Math.max(min_font_size, Math.min(font_size, max_font_size));
-
-    div.style.fontSize = font_size + "px";
-    return font_size;
-
+  } else {
+    const input=$("#numin"); input.disabled=true; $("#checkBtn").disabled=true;
+    input.value=`${q.answer} ${q.unit||""}`.trim();
+    input.style.borderColor="var(--good)"; input.style.background="var(--good-bg)";
+  }
+  const fb=$("#fb"); fb.className="fb ok show";
+  fb.innerHTML=`<div class="head">${SVG.spark}<span>So geht’s – schau es dir gut an!</span></div><div class="expl">${q.expl}</div>`;
+  $("#foot").innerHTML=`<button class="btn" id="nextBtn">${i+1<Q.length?"Weiter":"Auswerten"}</button>`;
+  const nb=$("#nextBtn"); nb.addEventListener("click", next); nb.focus();
 }
 
-/**
- *  * Return 0 <= i <= array.length such that !pred(array[i - 1]) && pred(array[i]).
- **/
-function binarySearch(array, pred) {
-    var lo = -1, hi = array.length;
-    while (1 + lo < hi) {
-        var mi = lo + ((hi - lo) >> 1);
-        if (pred(array[mi], array, mi)) {
-            hi = mi;
-        } else {
-            lo = mi;
-        }
-    }
-    return hi;
+function next(){
+  i++;
+  if(i<Q.length){ render(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else finish();
 }
 
-function escapeHtml(unsafe) {
-    return unsafe
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+function finish(){
+  setProgress();
+  quiz.classList.add("hidden"); hud.hidden=true; endS.classList.remove("hidden");
+  const pct=Math.round(firstTry/Q.length*100);
+  let title, msg;
+  if(firstTry===Q.length){ title="Makellos!"; msg="Alle 15 Aufgaben im ersten Versuch – du bist bereit, dein Team im Jeopardy zur Bestform zu führen."; }
+  else if(firstTry>=11){ title="Klasse Lauf!"; msg="Starke Vorstellung. Wirf noch einen Blick auf die Aufgaben, die gehakt haben – dann seid ihr im Team kaum zu schlagen."; }
+  else if(firstTry>=7){ title="Solide Basis!"; msg="Guter Stand! Wiederhole die kniffligen Themen einmal, dann sammelst du im Jeopardy fleißig Punkte."; }
+  else { title="Guter Anfang!"; msg="Jede Runde macht dich sicherer. Geh das Quiz noch einmal durch – die Erklärungen bleiben hängen."; }
+
+  endS.innerHTML=`
+    <div class="eyebrow">Auswertung</div>
+    <svg class="big-beaker" viewBox="0 0 60 72" aria-hidden="true">
+      <path d="M16 8 h28 v20 l12 34 a6 6 0 0 1 -5.5 8.5 h-41 a6 6 0 0 1 -5.5 -8.5 l12 -34 z" fill="#e5f0ec"/>
+      <path d="M13 30 l3 -4 h28 l3 4 a6 6 0 0 1 4 34.5 a6 6 0 0 1 -5.5 3.5 h-41 a6 6 0 0 1 -5.5 -3.5 a6 6 0 0 1 4 -34.5 z" fill="#2fae9a"/>
+      <circle cx="24" cy="46" r="2.4" fill="#eafbe6"/><circle cx="34" cy="54" r="1.8" fill="#eafbe6"/><circle cx="30" cy="38" r="1.6" fill="#eafbe6"/>
+      <path d="M16 8 h28 v20 l12 34 a6 6 0 0 1 -5.5 8.5 h-41 a6 6 0 0 1 -5.5 -8.5 l12 -34 z" fill="none" stroke="#1e5d52" stroke-width="3" stroke-linejoin="round"/>
+      <line x1="13" y1="8" x2="47" y2="8" stroke="#1e5d52" stroke-width="4" stroke-linecap="round"/>
+    </svg>
+    <h1>${title}</h1>
+    <div class="score-ring">${firstTry}<span style="font-size:26px;color:var(--muted)">/${Q.length}</span></div>
+    <p class="lead">im ersten Versuch richtig · alle ${solved}/${Q.length} am Ende gelöst</p>
+    <p class="lead" style="margin-top:-6px">${msg}</p>
+    <div class="foot" style="justify-content:center">
+      <button class="btn big" id="againBtn">Noch einmal üben</button>
+    </div>`;
+  $("#againBtn").addEventListener("click", ()=>{
+    i=0; firstTry=0; solved=0; streak=0;
+    endS.classList.add("hidden"); quiz.classList.remove("hidden"); hud.hidden=false;
+    render(); window.scrollTo({top:0,behavior:"smooth"});
+  });
+  window.scrollTo({top:0,behavior:"smooth"});
 }
 
-function getText(el){
-    var treeWalker = document.createTreeWalker(el, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT, null, false);
-    var text = []
-    while(treeWalker.nextNode()){
-        var node = treeWalker.currentNode;
-        if(node.nodeType == 3){
-            text.push(escapeHtml(node.textContent));
-        } else if(node.tagName == "BR"){
-            text.push("<BR>");
-        } else if(node.tagName == "P"){
-            if(text.length != 0){
-                text.push("<BR>");
-            }
-        }
-    }
-    var t = text.join("");
-    return t;
-}
-
-function _shrink_cell($cell, $scaler, max_width, max_height, max_font_size, transforms, capsizes, min_font_size){
-    var imgs = $cell.querySelectorAll("img");
-    for(var i = 0; i < imgs.length; i++){
-        var node = imgs[i];
-        if(!node.complete && !node.width){
-            // the image hasn't loaded yet, so wait until that is done so the width/height is known
-            node.addEventListener("load", function foo(){
-                //console.log("doing callback");
-                _shrink_cell($cell, $scaler, max_width, max_height, max_font_size, transforms, capsizes, min_font_size)
-                node.removeEventListener("load", foo);
-            });
-            return
-        }
-    }
-
-    if(capsizes === undefined){
-        capsizes = true;
-    }
-
-    if(min_font_size === undefined){
-        min_font_size = 1;
-
-    }
-
-    var text = getText($scaler || $cell)
-
-    initDivs(max_font_size);
-    for(var i = 0; i <= max_font_size; i++){
-        dummy_element = test_divs[i];
-        dummy_element.innerHTML = text
-        dummy_element.style.width = max_width + "px";
-        dummy_element.style.height = max_height + "px";
-    }
-
-    var font_size = binarySearch(test_divs, function(div){
-        var isHorizontalScrollbar= div.scrollWidth>div.clientWidth;
-        var isVerticalScrollbar = div.scrollHeight>div.clientHeight;
-        var overflows = isHorizontalScrollbar || isVerticalScrollbar;
-        return overflows
-    });
-    font_size = font_size - 1
-
-    font_size = Math.max(min_font_size, Math.min(font_size, max_font_size));
-
-    if(!$scaler){
-        return {font_size: font_size}
-    }
-
-    $cell.style.fontSize = "";
-    $scaler.style.fontSize = font_size + "px";
-    $scaler.style.transform = "";
-
-    //text_length_font_size_cache[text.length] = Math.max(font_size, text_length_font_size_cache[text.length] || 0)
-
-
-    var extra_width = 0 // parseInt(styles.getPropertyValue("padding-left")) + parseInt(styles.getPropertyValue("padding-right"));
-    var extra_height = 0 //parseInt(styles.getPropertyValue("padding-top")) + parseInt(styles.getPropertyValue("padding-bottom"));
-    if(capsizes){
-        var did_work = capSizes($cell, max_width, max_height);
-    }
-
-    var bbox = getBoundingClientRect($scaler);
-    var w = bbox.width;
-    var h = bbox.height;
-    var scale = Math.min(1, Math.min(1.0*(max_width-extra_width)/w, 1.0*(max_height-extra_height)/h));
-    if(scale != 1){
-        //debugger;
-    }
-    $scaler.style.transform = (transforms || "") + " scale(" + scale + ") ";
-
-    return {font_size: font_size, scale: scale};
-}
-
-
-
-function getBoundingClientRect(el){
-    var bbox = el.getBoundingClientRect();
-    /*
-    bbox.left += window.scrollX;
-    bbox.top += window.scrollY;*/
-    return {
-        top: bbox.top + (window.scrollY || document.documentElement.scrollTop || 0),
-        left: bbox.left + (window.scrollX || document.documentElement.scrollLeft || 0),
-        width: bbox.width,
-        height: bbox.height,
-        x: bbox.x,
-        y: bbox.y
-    }
-}
-
-/*
-function getContainer(grid){
-    if(grid.getAttribute("id") == "grid"){
-        return window;
-    } else {
-        return grid;
-    }
-
-}*/
-
-var render_queue = [];
-var render_queue_index = 0;
-var render_interval = null;
-var max_renderers = 1
-var work_scheduled = false;
-
-function resetRenderQueue(){
-    render_queue = [];
-    render_queue_index = 0;
-}
-
-function renderQueue(){
-    var steps = 1;
-    var i = 0;
-    var start = +new Date();
-    while(((+new Date())-start) < 10 && render_queue_index < render_queue.length && render_queue.length){
-        i++
-        var item = render_queue[render_queue_index];
-        item[0].apply(item[1], item.slice(2));
-        render_queue_index++;
-    }
-    //console.log(i);
-
-    if(render_queue_index >= render_queue.length){
-        //clearInterval(render_interval);
-        //render_interval = null;
-        work_scheduled = false;
-    } else {
-        work_scheduled = setTimeout(renderQueue)
-    }
-}
-
-function enqueueRender(){
-    var item = Array.prototype.slice.call(arguments)
-    item[0].apply(item[1], item.slice(2));
-    return
-    render_queue.push(Array.prototype.slice.call(arguments))
-    if(!work_scheduled){
-        //console.log("starting queue");
-        work_scheduled = setTimeout(renderQueue)
-        //render_interval = setInterval(renderQueue, 16);
-    }
-
-    //setTimeout(renderQueue, 10);
-}
-
-/*
-function renderNext(grids, i){
-    var d = new Date();
-    _resizeCells(grids[i], true);
-    console.log(new Date() - d);
-    if(i < grids.length - 1){
-        setTimeout(renderNext, 0, grids, i+1);
-    }
-}*/
-
-/*
-function setOpacity(el, opacity){
-    el.style.opacity = opacity;
-}*/
-
-
-function matches(el, selector) {
-      return (el.matches || el.matchesSelector || el.msMatchesSelector || el.mozMatchesSelector || el.webkitMatchesSelector || el.oMatchesSelector).call(el, selector);
-}
-
-function indexInParent(child) {
-	var i = 0;
-	while( (child = child.previousElementSibling) != null ) {
-	  i++;
-	}
-	return i;
-}
-
-
-function on(eventName, elementSelector, handler, extra){
-    var names = eventName.split(" ");
-    for(var i = 0; i < names.length; i++){
-        var eventName = names[i];
-        document.addEventListener(eventName, function(e) {
-            // loop parent nodes from the target to the delegation node
-            for (var target = e.target; target && target != this; target = target.parentNode) {
-                if (matches(target, elementSelector)) {
-                    handler.call(target, e);
-                    break;
-                }
-            }
-        }, extra || false);
-    }
-}
-
-
-function closest(element, selector){
-    do {
-        if(matches(element, selector)){
-            return element;
-        }
-    } while(element = element.parentElement);
-    return null;
-}
-
-function coordsFromEvent(e){
-    if(e.touches && e.touches.length > 0){
-        return e.touches[0];
-    }
-    return e;
-}
-
-
-
-function retypeset(scope, then){
-    if(!window.MathJax){
-        return false;
-    }
-
-    /*
-    MathJax.Hub.Config({
-      asciimath2jax: {
-        delimiters: [['`', '`']],
-        skipTags: ["script","noscript","style","textarea","pre","code", "body"]
-      }
-    });*/
-
-    scope = scope || document
-    var math = scope.querySelectorAll('.mathy');
-    var nodes = [];
-    for(var i = 0; i < math.length; i++){
-        var node = math[i]
-        node.innerText = node.getAttribute("data-original") || ('`' + node.innerText + '`');
-        node.setAttribute("data-original", node.innerText)
-        //MathJax.Hub.Queue(["Typeset",MathJax.Hub,node]);
-        nodes.push(node)
-    }
-
-    MathJax.Hub.Queue(["Typeset",MathJax.Hub, nodes]);
-
-    if(math.length > 0){
-        MathJax.Hub.Queue([then,window]);
-        return true;
-    }
-    return false;
-}
-
-
-function prepwork(cell, scale_factor){
-    if(scale_factor === undefined){
-        scale_factor = 1;
-    }
-    var width = cell.parentElement.clientWidth;
-    var height = cell.parentElement.clientHeight;
-    var inner = cell.querySelectorAll(".cell-inner")[0];
-    var capsizes = mode == "play" ? false : true;
-    //console.log(height);
-    shrink_cell(cell, inner, width*scale_factor, height*scale_factor, 32, "", capsizes);
-    return inner
-}
-
-function minirender(grid, on_done, question_scale_factor){
-    if(question_scale_factor === undefined){
-        question_scale_factor = 1;
-    }
-
-    window.nextthing = function(){
-        setTimeout(function(){
-            grid.classList.add("resizing");
-            var t = grid.offsetTop
-            miniresize(grid, grid.querySelectorAll(".grid-row-cats .cell"), true, 1);
-            miniresize(grid, grid.querySelectorAll(".grid-row-questions .cell"), false, question_scale_factor);
-            grid.classList.remove("resizing");
-            if(on_done){
-                on_done(grid);
-            }
-        });
-    }
-
-    if(!retypeset(grid, "nextthing")){
-        window.nextthing();
-    }
-}
-
-function miniresize(grid, cells, is_cats, scale_factor){
-    if(is_cats){
-        var cat = grid.querySelectorAll(".grid-row-cats")[0]
-        cat.classList.remove("grid-row-cats-resize-done")
-        cat.style.height = "auto";
-        var max_height = 0;
-        for(var i = 0; i < cells.length; i++){
-            var cell = cells[i];
-            cell.style.paddingTop = 0;
-            var inner = prepwork(cell);
-            cell.client_height = inner.clientHeight;
-            max_height = Math.max(max_height, inner.clientHeight);
-        }
-        for(var i = 0; i < cells.length; i++){
-            var cell = cells[i];
-            cell.style.paddingTop = (max_height - cell.client_height) + "px"
-        }
-
-        cat.classList.add("grid-row-cats-resize-done");
-        cat.style.height = max_height + "px";
-    } else {
-        for(var i = 0; i < cells.length; i++){
-            var cell = cells[i];
-            enqueueRender(prepwork, null, cell, scale_factor);
-        }
-
-    }
-}
-
-/*
-function mini(){
-    function allresize(){
-        resetRenderQueue();
-
-        //var cells = document.querySelectorAll('.cell');
-        //miniresize(cells);
-        var grids = document.querySelectorAll('.grid');
-        for(var i = 0; i < grids.length; i++){
-            var cells = grids[i].querySelectorAll(".cell");
-            enqueueRender(function(grid){
-                grid.style.display = "block";
-                grid.style.opacity = "0";
-            }, null, grids[i]);
-            miniresize(cells);
-            enqueueRender(function(grid){
-                grid.style.opacity = "1";
-            }, null, grids[i]);
-        }
-    }
-
-    window.allresize = allresize;
-
-    function unzoom(){
-        var zoomed = document.querySelectorAll(".grid-zoomed");
-        for(var i = 0; i < zoomed.length; i++){
-            zoomed[i].classList.remove("grid-zoomed");
-            zoomed[i].style.transform = "";
-        }
-    }
-
-    var did_all_resize = retypeset(document, "allresize");
-    if(!did_all_resize){
-        allresize();
-    }
-    window.addEventListener("resize", debounce(allresize, 100, false));
-
-    document.addEventListener("keyup", function(e){
-        if(e.keyCode == 27){
-            unzoom();
-        }
-    }, false);
-
-    document.addEventListener("click", function(e){
-        unzoom();
-    }, false);
-
-    on("click", ".grid", function(e){
-        //console.log(e);
-        var bbox = getBoundingClientRect(this);
-        var x = e.pageX - bbox.left;
-        var y = e.pageY - bbox.top;
-        //console.log(x, y);
-        this.classList.add("grid-zoomed");
-        //this.style.t
-        //this.style.transformOrigin = x + "px " + y + "px";
-        //this.style.transform = "translate(" + (x) + "px, " + (y) + "px) scale(3) translate(" + (-x) + "px, " + (-y) + "px)";
-        this.style.transform = "scale(2)";
-    });
-
-}*/
-
-
-            </script>
-        
-    
-
-    <link rel="canonical" href="/play/chemie-klasse-8-quiz" />
-    <script>
-        var modal = function(){}
-
-        var game = {}
-        var mode = "play"
-        var grid = null;
-        var current_cell = null;
-        try {
-            var do_autoplay = parseInt(window.localStorage.getItem("autoplay"))
-        } catch (e) {
-        }
-        do_autoplay = isNaN(do_autoplay) ? true : do_autoplay;
-
-        function getCurrentState(){
-            var teams = [];
-            var teams_dom = document.querySelectorAll(".team");
-            for(var i = 0; i < teams_dom.length; i++){
-                var t = teams_dom[i];
-                var name = t.querySelectorAll(".name")[0].textContent;
-                var points = t.querySelectorAll(".points")[0].textContent;
-                teams[i] = {name: name, points: points}
-            }
-
-            var inerts = {};
-            var inert_dom = document.querySelectorAll(".grid-row-questions .inert");
-            for(var i = 0; i < inert_dom.length; i++){
-                var id = inert_dom[i].getAttribute("id");
-                inerts[id] = true;
-            }
-
-            return {
-                "teams": teams,
-                "inerts": inerts,
-            }
-        }
-
-        function getOldState(){
-            try {
-                var old_state = localStorage.getItem("game-183863414")
-            } catch (e) {
-                return null;
-
-            }
-            if(old_state){
-                return JSON.parse(old_state);
-            }
-            return null;
-        }
-
-        function clearState(){
-            try {
-                localStorage.removeItem("game-183863414");
-            } catch (e) {
-
-            }
-        }
-
-        function resize(){
-            var bbox_teams = getBoundingClientRect(document.getElementById("teams"))
-            var rows = document.querySelectorAll(".grid-row").length;
-            if(bbox_teams.height == 0){
-                var h = window.innerHeight;
-            } else {
-                var h = bbox_teams.top + ((window.innerHeight - bbox_teams.height) / (rows))/4
-            }
-
-            grid.style.height = h + "px";
-            minirender(grid, function(g){
-                g.style.opacity = 1;
-            }, .6);
-        }
-
-        ready(function(){
-            grid = document.querySelectorAll(".grid")[0];
-            window.addEventListener("resize", debounce(resize, 100, false));
-            resize();
-            renderState(initial_state);
-            document.getElementById("team-chooser").focus();
-
-            var active_team_number = 0;
-            var active_team = null;
-            /*
-            on("keyup", "body", function(e){
-            })*/
-
-            function deactiveTeamOnNextClick(e){
-                var t = closest(e.target, ".team");
-                if(t == null || t != active_team){
-                    deactiveTeam();
-                }
-            }
-
-            function deactiveTeam(){
-                var els = document.querySelectorAll(".active-team");
-                for(var i = 0; i < els.length; i++){
-                    els[i].classList.remove("active-team");
-                    els[i].querySelector(".minus").innerText = "-";
-                    els[i].querySelector(".plus").innerText = "+";
-                }
-                window.removeEventListener("click", deactiveTeamOnNextClick)
-                active_team_number = 0;
-                active_team = null;
-            }
-
-            function activateTeam(team){
-                active_team = team;
-                active_team.classList.add("active-team");
-                active_team.querySelector(".minus").innerHTML = "&#8595;";
-                active_team.querySelector(".plus").innerHTML = "&#8593;";
-                window.addEventListener("click", deactiveTeamOnNextClick);
-            }
-
-
-            window.addEventListener("keydown", function(e){
-                var ESC = 27
-                var SPACE = 32
-                var ENTER = 13;
-                var LEFT = 37;
-                var UP = 38;
-                var RIGHT = 39;
-                var DOWN = 40;
-                var on_cell = false;
-                var on_input = false;
-                if(document.activeElement){
-                    on_cell = matches(document.activeElement, ".grid-row-questions .grid-cell");
-                    on_input = matches(document.activeElement, "*[role='textbox']");
-                }
-                var clickable = on_cell && !document.activeElement.classList.contains('empty');
-
-                if(e.altKey && e.keyCode == 65){
-                    do_autoplay = !do_autoplay;
-                    alert("Autoplay is " + (do_autoplay ? "on" : "off"))
-                    try {
-                        window.localStorage.setItem("autoplay", do_autoplay ? "1" : "0")
-                    } catch (e) {
-
-                    }
-                }
-
-                if(!on_input && ((e.keyCode >= 96 && e.keyCode <= 105) || (e.keyCode >=48 && e.keyCode <= 57))){
-                    var n = e.keyCode >= 96 ? e.keyCode - 96 : e.keyCode - 48;
-                    //console.log(n);
-                    active_team_number *= 10;
-                    active_team_number += n;
-                    var tmp = active_team_number;
-                    console.log(active_team_number);
-                    var $teams = document.querySelectorAll("#teams .team");
-                    var $team = $teams[active_team_number - 1];
-                    if(active_team && active_team != $team){
-                        deactiveTeam();
-                        // this got reset by deactiveTeam, which we don't want
-                        active_team_number = tmp;
-                    }
-
-                    if($team){
-                        activateTeam($team)
-                    } else {
-                        active_team_number = 0;
-                    }
-                    //} else {
-                    //    deactiveTeam();
-                    //    active_team_number = 0;
-                    //    active_team = null;
-                    //}
-                }
-
-                if(active_team_number != 0){
-                    if(e.keyCode == ESC){
-                        //active_team_number = 0;
-                        deactiveTeam();
-                        //active_team = null;
-                        e.preventDefault();
-                    } else if(e.keyCode == 38){
-                        // add score
-                        handlePoints.call(active_team.querySelector(".plus"), e);
-                    } else if(e.keyCode == 40){
-                        // subtract score
-                        handlePoints.call(active_team.querySelector(".minus"), e);
-                    }
-                } else if(modal.is_open){
-                    if(e.keyCode == ESC){
-                        e.preventDefault();
-                        modal.hide();
-                    } else if(e.keyCode == SPACE){
-                        e.preventDefault();
-                        modal.reveal();
-                    }
-                } else if(on_cell){
-                    if((e.keyCode == ENTER || e.keyCode == SPACE) && clickable){
-                        e.preventDefault();
-                        var event = document.createEvent('HTMLEvents');
-                        event.initEvent('click', true, false);
-                        document.activeElement.dispatchEvent(event);
-                    } else if(e.keyCode == LEFT){
-                        e.preventDefault();
-                        // find the cell to the left and focus on it
-                        if(document.activeElement.previousElementSibling){
-                            document.activeElement.previousElementSibling.focus();
-                        }
-                    } else if(e.keyCode == RIGHT){
-                        e.preventDefault();
-                        if(document.activeElement.nextElementSibling){
-                            document.activeElement.nextElementSibling.focus();
-                        }
-                    } else if(e.keyCode == UP){
-                        e.preventDefault();
-                        var my_col = indexInParent(document.activeElement);
-                        var previous_row = document.activeElement.parentElement.previousElementSibling;
-                        if(previous_row && previous_row.children[my_col] && matches(previous_row.children[my_col], ".grid-row-questions .grid-cell")){
-                            previous_row.children[my_col].focus();
-                        }
-                    } else if(e.keyCode == DOWN){
-                        e.preventDefault();
-                        var my_col = indexInParent(document.activeElement);
-                        var next_row = document.activeElement.parentElement.nextElementSibling;
-                        if(next_row && next_row.children[my_col] && matches(next_row.children[my_col], ".grid-row-questions .grid-cell")){
-                            next_row.children[my_col].focus();
-                        }
-                    }
-                }
-            }, false);
-
-            var debouncedSaveState = debounce(function(){
-                try {
-                    localStorage.setItem("game-183863414", JSON.stringify(getCurrentState()))
-                } catch (e) {
-
-                }
-            }, 100, false)
-
-            on("keyup change input blur focus", "#teams .name, #teams .points", debouncedSaveState);
-
-            on("click", "#re-init", function(e){
-                e.preventDefault();
-                if(confirm("Dies löscht alle Punkte und Teamnamen und startet ein neues Spiel. Auf OK klicken, um fortzufahren.")){
-                    clearState();
-                    game.init(true);
-                }
-            })
-
-            on("keyup", "#answer-button", function(e){
-                if(e.keyCode == 13){
-                    e.preventDefault();
-                    e.stopImmediatePropagation();
-                    modal.reveal();
-                }
-            });
-            on("click", "#answer-button", function(e){
-                modal.reveal();
-            })
-
-            on("keyup", "#continue-button", function(e){
-                if(e.keyCode == 13){
-                    e.preventDefault();
-                    e.stopImmediatePropagation();
-                    modal.hide();
-                }
-            });
-            on("click", "#continue-button", function(e){
-                modal.hide();
-            })
-
-            on("click", ".grid-row-questions .grid-cell", function(e){
-                current_cell = this;
-                modal.show(this);
-            });
-
-            // prevent the buttons from being highlighted
-            on("mousedown", ".minus, .plus", function(e){
-                e.preventDefault();
-            });
-
-            on("keydown", ".minus, .plus", function(e){
-                if(e.keyCode == 13){
-                    handlePoints.call(this, e);
-                }
-            })
-
-            function handlePoints(e){
-                var $team = closest(this, ".team");
-                var $points = $team.querySelectorAll(".points")[0];
-                var points = parseInt($points.innerText, 10);
-                if(isNaN(points)){
-                    alert("Error! The score for this team is not a number. You need to edit the score and change it to a number.");
-                    return
-                }
-                var active_question = document.querySelectorAll(".active-question .cell-inner")[0];
-                var fallback = document.querySelectorAll(".grid-row-questions .cell-inner")[0];
-                var val = parseInt(active_question ? active_question.innerText : fallback.innerText, 10);
-                if(this.classList.contains("minus")){
-                    val = -val;
-                }
-                $points.innerText = points + val;
-                if(active_question){
-                    document.querySelectorAll(".active-question")[0].classList.add("inert");
-                }
-                debouncedSaveState();
-
-            }
-
-            // handle points clicks
-            on("click", ".minus, .plus", handlePoints);
-        });
-
-    </script>
-
-
-    <style type="text/css">
-    
-
-    </style>
-
-    <script>
-
-    function clearLocalStorage(){
-        for(var i = localStorage.length-1; i >= 0 ; i--){
-            var key = localStorage.key(i);
-            //(key.indexOf("jeopardy-0-") == 0 && localStorage.getItem("jeopardy-0") == "183863414")){
-            if(key.indexOf("jeopardy-183863414") == 0){
-                localStorage.removeItem(key);
-            }
-        }
-    }
-
-    
-        initial_state = {"page": "menu"}
-    
-    try {
-        history.replaceState(initial_state, "JeopardyLabs")
-    } catch (e) {}
-
-    game.first_render = true;
-
-    game.initTeam = function(number_of_teams){
-        document.getElementById("teams").style.display = "flex";
-        var teams = document.querySelectorAll("#teams .team");
-        for(var i = 0; i < number_of_teams; i++){
-            var t = teams[i];
-        }
-    }
-
-    game.init = function(clear){
-        var val = document.querySelectorAll("#options select")[0].value;
-
-        if(isNaN(val)){
-            val = 0
-            do {
-                var n = prompt("Anzahl der Teams eingeben");
-                val = parseInt(n, 10) || 0;
-            } while(val <= 0);
-        }
-
-        renderState({"page": "game"})
-        // add all the teams
-        document.getElementById("teams").style.display = "flex";
-        var teams = document.querySelectorAll("#teams .team");
-        for(var i = 0; i < teams.length; i++){
-            teams[i].style.display = "none";
-        }
-
-        for(var i = 0; i < val; i++){
-            var t = teams[i];
-            if(!t){
-                var t = teams[0].cloneNode(true)
-                teams[0].parentElement.appendChild(t);
-                t.querySelectorAll(".name")[0].textContent = "Team " + (i+1)
-                t.querySelectorAll(".points")[0].textContent = "0"
-            } else {
-                t = teams[i]
-            }
-            t.style.display = "block";
-        }
-
-        var teams = document.querySelectorAll("#teams .team");
-
-        if(game.first_render){
-            var old_state = getOldState();
-            if(old_state){
-                for(var i = 0; i < val; i++){
-                    var t = teams[i];
-                    if(old_state.teams[i]){
-                        var name = old_state.teams[i].name;
-                        var points = old_state.teams[i].points;
-                        t.querySelectorAll(".name")[0].textContent = name
-                        t.querySelectorAll(".points")[0].textContent = points
-                    }
-                }
-
-                // restore the inert questions
-                var inerts = old_state.inerts;
-                for(var id in inerts){
-                    try {
-                        document.getElementById(id).classList.add("inert");
-                        document.getElementById(id).setAttribute("aria-label", "Answered");
-                    } catch (e) {
-                        continue;
-                    }
-                }
-            }
-        } else if(clear){
-            for(var i = 0; i < val; i++){
-                var t = teams[i];
-                t.querySelectorAll(".name")[0].textContent = "Team " + (i+1)
-                t.querySelectorAll(".points")[0].textContent = "0"
-            }
-            removeClass(".inert", "inert");
-        } else { // coming just restore
-
-        }
-
-        resize()
-
-        try {
-            history.pushState({"page": "game"}, "JeopardyLabs");
-        } catch (e) {}
-
-        game.first_render = false;
-        try {
-            document.querySelectorAll(".grid-first-row .grid-cell")[0].focus();
-        } catch(e) {
-
-        }
-    }
-
-    function hideModal(){
-        modal.is_open = false;
-        var div = document.getElementById("question-modal");
-        div.style.display = "none";
-        div.classList.remove("expanded");
-        div.style.borderWidth = "3px";
-        div.querySelectorAll(".modal-inner")[0].innerHTML = "";
-    }
-
-    function renderMenu(){
-        var old_state = getOldState() || !game.first_render
-        if(!game.first_render){
-            document.querySelectorAll("#submit")[0].value = "Continue"
-            document.querySelectorAll("#reset-all")[0].style.display = ""
-        } else if(old_state){
-            document.querySelectorAll("#submit")[0].value = "Continue"
-            document.querySelectorAll("#reset-all")[0].style.display = ""
-            var teams = old_state.teams.length;
-            var chooser = document.getElementById("team-chooser")
-            if(teams > 10){
-                var opt = document.createElement("option");
-                opt.setAttribute("value", teams);
-                opt.textContent = teams + " teams"
-                chooser.insertBefore(opt, document.getElementById("last-option"));
-                //chooser.appendChild(opt);
-            }
-            document.getElementById("team-chooser").value = teams;
-        } else {
-            document.querySelectorAll("#submit")[0].value = "Start"
-            document.querySelectorAll("#reset-all")[0].style.display = "none"
-        }
-    }
-
-
-    function renderState(state){
-        document.querySelectorAll("#options")[0].style.display = "none";
-        document.querySelectorAll("#teams")[0].style.display = "none";
-        document.querySelectorAll("#gameplay")[0].style.filter = "";
-        hideModal();
-
-
-        if(state.page == "menu"){
-            document.querySelectorAll("#options")[0].style.display = "block";
-            renderMenu();
-        } else if(state.page == "game"){
-            document.getElementById("teams").style.display = "";
-            document.querySelectorAll("#gameplay")[0].style.filter = "blur(0px)";
-        } else if(state.page == "slide"){
-            document.getElementById("teams").style.display = "";
-            document.querySelectorAll("#gameplay")[0].style.filter = "blur(0px)";
-            modal.show(document.getElementById(state.cell), true);
-        }
-    }
-
-    window.onpopstate = function(event){
-        renderState(window.history.state);
-    }
-
-    function trimHTML(el){
-        var treeWalker = document.createTreeWalker(el, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT, null, false);
-        while(treeWalker.nextNode()){
-            var node = treeWalker.currentNode;
-        }
-        var nodes_to_delete = [];
-        do {
-            var node = treeWalker.currentNode;
-            if(node.nodeType == 3 && (node.data || "").trim() == ""){
-                nodes_to_delete.push(node);
-            } else if(node.tagName == "SCRIPT"){
-
-            } else if (node.tagName == "BR"){
-                nodes_to_delete.push(node);
-            } else if(node.tagName == "P" && (node.innerText || "").trim() == ""){
-                nodes_to_delete.push(node);
-            } else {
-                break;
-            }
-        } while(treeWalker.previousNode())
-        for(var i = 0; i < nodes_to_delete.length; i++){
-            try {
-                nodes_to_delete[i].parentElement.removeChild(nodes_to_delete[i]);
-            } catch (e) {
-                console.log("passing");
-            }
-        }
-    }
-
-    modal.reveal = function(){
-        var q = document.querySelectorAll("#question-modal .question")[0];
-        if(q.style.display == "block"){
-            return;
-        }
-        q.style.display = "block";
-        function scrollTo(element, to, duration) {
-            var start = element.scrollTop,
-                change = to - start,
-                currentTime = 0,
-                increment = 20;
-
-            var animateScroll = function(){
-                currentTime += increment;
-                var val = easeInOutQuad(currentTime, start, change, duration);
-                element.scrollTop = val;
-                if(currentTime < duration) {
-                    setTimeout(animateScroll, increment);
-                } else {
-                    q.focus()
-                }
-            };
-            animateScroll();
-        }
-
-        //t = current time
-        //b = start value
-        //c = change in value
-        //d = duration
-        function easeInOutQuad(t, b, c, d){
-          t /= d/2;
-            if (t < 1) return c/2*t*t + b;
-            t--;
-            return -c/2 * (t*(t-2) - 1) + b;
-        };
-
-        var modal_inner = document.querySelectorAll('#question-modal .modal-inner')[0]
-        var original_val = modal_inner.scrollTop;
-        var start_of_modal = getBoundingClientRect(modal_inner).top;
-        var start_of_question = getBoundingClientRect(q).top;
-        var val = start_of_question - start_of_modal;
-        scrollTo(modal_inner, val, 250)
-
-        setTimeout(function(){
-            q.classList.add("reveal");
-        }, 0)
-
-        document.querySelectorAll(".active-question")[0].classList.add("inert");
-        //document.querySelectorAll('#question-modal .question')[0].focus();
-
-        if(current_cell){
-            current_cell.setAttribute("aria-label", "Answered");
-        }
-
-        autoplay('#question-modal .question')
-    }
-
-    function autoplay(selector, then){
-        setTimeout(function(){
-            if(do_autoplay){
-                var q = document.querySelectorAll(selector)[0];
-                try {
-                    q.querySelectorAll("video, audio")[0].play();
-                } catch (e) {
-
-                }
-
-                try {
-                    var iframe = q.querySelectorAll("iframe")[0]
-                    var src = iframe.getAttribute("src") || "";
-                    var a = document.createElement("a");
-                    a.href = src
-                    if(a.hostname == "www.youtube.com"){
-                        a.search = (a.search || "?") + '&autoplay=1'
-                        var iframe_clone = iframe.cloneNode(true);
-                        //iframe.contentWindow.location.replace(a.toString());
-                        //debugger;
-                        var allow = iframe.getAttribute("allow") || ""
-                        iframe_clone.setAttribute("allow", allow + ";autoplay;fullscreen")
-                        iframe_clone.setAttribute('src', a.toString());
-                        iframe.parentElement.replaceChild(iframe_clone, iframe);
-                    }
-                } catch (e) {
-                    // ?
-                }
-            }
-            if(then){
-                then();
-            }
-        }, 500);
-    }
-
-    modal.show = function(cell, no_push_state){
-        removeClass(".active-question", "active-question");
-        cell.classList.add("active-question");
-
-        var row = cell.getAttribute("data-row");
-        var col = cell.getAttribute("data-col");
-        var category = document.querySelectorAll(".grid-row-cats .cat-cell")[col].innerText;
-        var points = cell.querySelectorAll(".cell-inner")[0].innerText;
-        document.querySelectorAll("#question-title")[0].innerText = category + " – " + points
-
-        var bbox = cell.getBoundingClientRect();
-        var div_modal = document.getElementById('question-modal')
-        div_modal.style.display = "block";
-        div_modal.style.opacity = 0;
-
-        var inner = document.querySelectorAll("#question-modal .modal-inner")[0];
-        inner.innerHTML = cell.querySelectorAll(".answer")[0].outerHTML + "\n" + cell.querySelectorAll(".question")[0].outerHTML;
-        var images = inner.querySelectorAll("img");
-        for(var i = 0; i < images.length; i++){
-            var img = images[i];
-            if(img.style.width == "" && img.style.height == ""){
-                img.style.width = "auto";
-                img.style.height = "auto";
-                img.style.maxWidth = "100%";
-                img.style.maxHeight = "100%";
-            }
-        }
-
-        if(!no_push_state){
-            try {
-                console.log("pre length", window.history.length);
-                history.pushState({"page": "slide", "cell": cell.getAttribute("id")}, "JeopardyLabs");
-                console.log("post length", window.history.length);
-            } catch (e) {
-
-            }
-        }
-
-        autoplay('#question-modal .answer', function(){
-            try {
-                document.querySelectorAll('#question-modal .answer')[0].focus();
-            } catch (e) {
-
-            }
-        })
-
-        document.querySelectorAll('#question-modal .modal-body .modal-inner')[0].scrollTop = 0;
-
-        trimHTML(document.querySelectorAll('#question-modal .answer')[0]);
-        trimHTML(document.querySelectorAll('#question-modal .question')[0]);
-
-        // the height of the contents of the modal should be...
-        /* [MODAL HEADER]
-         *     ^
-         *     |
-         *     |    <--- this tall
-         *     v
-         * [TEAMS BAR]
-         */
-        var content_bbox = getBoundingClientRect(document.querySelectorAll('#question-modal .modal-body')[0])
-        var position_of_top = content_bbox.top;
-        var teams = document.querySelectorAll("#teams")[0]
-        var position_of_bottom = getBoundingClientRect(teams).top || window.innerHeight;
-        var h = position_of_bottom - position_of_top - 20 // 20 pixels for some extra room
-
-        document.querySelectorAll('#question-modal .modal-inner')[0].style.maxHeight = h + "px";
-        document.querySelectorAll('#question-modal .modal-body')[0].style.height = h + "px";
-
-
-        var q = document.querySelectorAll("#question-modal .question")[0];
-        q.style.display = "block";
-        var content = document.querySelectorAll('#question-modal .modal-inner')[0];
-        var result = shrink_in_place(content, 100, 24);
-        q.style.display = "none";
-
-
-        div_modal.style.transform = "translate(" + bbox.left + "px, " + bbox.top  + "px) scale(" + (bbox.width/window.innerWidth) + ", " + (bbox.height / window.innerHeight) + ")"
-        div_modal.style.opacity = 1;
-
-        removeClass(".expanded", "expanded");
-
-        setTimeout(function(){
-            div_modal.classList.add("expanded");
-            div_modal.style.top = 0;
-            div_modal.style.left = 0;
-            div_modal.style.bottom = 0;
-            div_modal.style.right = 0;
-            div_modal.style.width = "100%";
-            div_modal.style.height = "100%";
-            div_modal.style.borderWidth = 0;
-            div_modal.style.transform = "translate(0px, 0px) scale(1)"
-        }, 50);
-        modal.is_open = true; // flag for the keyboard event
-        document.querySelectorAll(".grid")[0].setAttribute("aria-hidden", "true");
-
-    }
-
-    modal.hide = function(){
-        document.querySelectorAll(".grid")[0].setAttribute("aria-hidden", "false");
-        backToGame()
-        renderState({"page": "game"});
-        if(current_cell){
-            current_cell.focus()
-        }
-    }
-
-    function backToGame(){
-        var state = window.history.state;
-        if(state.page == "slide"){
-            window.history.go(-1);
-        }
-    }
-
-    function backToMenu(){
-        renderState({"page": "menu"});
-        var state = window.history.state;
-        if(state.page == "slide"){
-            window.history.go(-2);
-        } else if(state.page == "game"){
-            window.history.go(-1);
-        }
-        document.getElementById("team-chooser").focus();
-    }
-    </script>
-
-
-
-
-
-</head>
-
-<body>
-
-    <div id="gameplay">
-        <div class="grid grid-play " style="height:100vh; " role="table" aria-label="Game Board">
-    <div class="grid-row grid-row-cats" style="" role="row">
-        
-            <div class="grid-cell " data-row="0" data-col="0">
-                <div class="cell">
-                    <div class="cell-inner cat-cell" role="columnheader">Gase - zwischen lebensnotwendig und gefährlich</div>
-                </div>
-            </div>
-        
-            <div class="grid-cell " data-row="0" data-col="1">
-                <div class="cell">
-                    <div class="cell-inner cat-cell" role="columnheader">Wasser - eine Verbindung</div>
-                </div>
-            </div>
-        
-            <div class="grid-cell " data-row="0" data-col="2">
-                <div class="cell">
-                    <div class="cell-inner cat-cell" role="columnheader">Salze - Gegensätze ziehen sich an</div>
-                </div>
-            </div>
-        
-            <div class="grid-cell " data-row="0" data-col="3">
-                <div class="cell">
-                    <div class="cell-inner cat-cell" role="columnheader">Metalle - Schätze der Erde</div>
-                </div>
-            </div>
-        
-            <div class="grid-cell " data-row="0" data-col="4">
-                <div class="cell">
-                    <div class="cell-inner cat-cell" role="columnheader">Klare Verhältnisse - Quantitative Betrachtungen</div>
-                </div>
-            </div>
-        
-    </div>
-
-    
-                <div class="grid-row grid-row-questions  grid-first-row" role="row">
-            <div class="cell-group grid-cell" role="cell" id="cell-jp-10" tabindex="0" aria-label="100" data-row="1" data-col="0">
-                <div class="cell points">
-                    <div class="cell-inner" data-category="Gase - zwischen lebensnotwendig und gefährlich">100</div>
-                    <div class="front answer" tabindex="0"><div style="font-size:0.62em;letter-spacing:.08em;text-transform:uppercase;color:#ffd54a;font-weight:700;margin-bottom:.4em">Einfach</div><div style="line-height:1.3">Nenne das häufigste Gas in der Luft.</div></div>
-                    <div class="back question" tabindex="0"><div style="font-size:0.6em;letter-spacing:.08em;text-transform:uppercase;color:#8ee08f;font-weight:700;margin-bottom:.5em">Lösung</div><div style="line-height:1.35"><div style="text-align:center">
-<svg viewBox="0 0 360 210" style="max-width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-  <rect width="360" height="210" rx="16" fill="#faf6ee"/>
-  <g transform="translate(105,105)">
-    <circle r="80" fill="#1e5d52"/>
-    <!-- O2 ~21% wedge (75.6 deg from top, clockwise) -->
-    <path d="M0 0 L0 -80 A80 80 0 0 1 77.5 -19.9 Z" fill="#a83610"/>
-    <!-- Ar/CO2 ~1% sliver (next 3.6 deg) -->
-    <path d="M0 0 L77.5 -19.9 A80 80 0 0 1 78.6 -15.0 Z" fill="#c9a961"/>
-    <circle r="34" fill="#faf6ee"/>
-  </g>
-  <g font-family="system-ui,sans-serif" fill="#1a1a1a">
-    <text x="105" y="110" text-anchor="middle" font-size="15" font-weight="700">Luft</text>
-    <rect x="215" y="46" width="16" height="16" rx="3" fill="#1e5d52"/>
-    <text x="238" y="59" font-size="15">N&#8322; &#8776; 78 %</text>
-    <rect x="215" y="90" width="16" height="16" rx="3" fill="#a83610"/>
-    <text x="238" y="103" font-size="15">O&#8322; &#8776; 21 %</text>
-    <rect x="215" y="134" width="16" height="16" rx="3" fill="#c9a961"/>
-    <text x="238" y="147" font-size="15">Ar, CO&#8322; &#8776; 1 %</text>
-  </g>
-</svg><div style="margin-top:.5em;font-size:0.8em;color:#eafbe6">Stickstoff (N&#8322;), rund 78 % der Luft</div></div></div></div>
-                </div>
-            </div>
-            <div class="cell-group grid-cell" role="cell" id="cell-jp-11" tabindex="0" aria-label="100" data-row="1" data-col="1">
-                <div class="cell points">
-                    <div class="cell-inner" data-category="Wasser - eine Verbindung">100</div>
-                    <div class="front answer" tabindex="0"><div style="font-size:0.62em;letter-spacing:.08em;text-transform:uppercase;color:#ffd54a;font-weight:700;margin-bottom:.4em">Einfach</div><div style="line-height:1.3">Nenne eine Eigenschaft von Wasser, die es für das Leben besonders wichtig macht.</div></div>
-                    <div class="back question" tabindex="0"><div style="font-size:0.6em;letter-spacing:.08em;text-transform:uppercase;color:#8ee08f;font-weight:700;margin-bottom:.5em">Lösung</div><div style="line-height:1.35">Wasser ist ein <b>hervorragendes Lösemittel</b> &#8211; es kann viele Stoffe (z.&#8202;B. Salze, Zucker) lösen und transportieren.</div></div>
-                </div>
-            </div>
-            <div class="cell-group grid-cell" role="cell" id="cell-jp-12" tabindex="0" aria-label="100" data-row="1" data-col="2">
-                <div class="cell points">
-                    <div class="cell-inner" data-category="Salze - Gegensätze ziehen sich an">100</div>
-                    <div class="front answer" tabindex="0"><div style="font-size:0.62em;letter-spacing:.08em;text-transform:uppercase;color:#ffd54a;font-weight:700;margin-bottom:.4em">Einfach</div><div style="line-height:1.3">Ab einer Differenz der Elektronegativitäten von ca. 1,7&#8211;1,9 liegt welche Bindungsart vor?</div></div>
-                    <div class="back question" tabindex="0"><div style="font-size:0.6em;letter-spacing:.08em;text-transform:uppercase;color:#8ee08f;font-weight:700;margin-bottom:.5em">Lösung</div><div style="line-height:1.35"><b>Ionenbindung.</b><br>Große EN-Differenz &#8594; Elektronen werden vollständig übertragen &#8594; Kationen und Anionen.</div></div>
-                </div>
-            </div>
-            <div class="cell-group grid-cell" role="cell" id="cell-jp-13" tabindex="0" aria-label="100" data-row="1" data-col="3">
-                <div class="cell points">
-                    <div class="cell-inner" data-category="Metalle - Schätze der Erde">100</div>
-                    <div class="front answer" tabindex="0"><div style="font-size:0.62em;letter-spacing:.08em;text-transform:uppercase;color:#ffd54a;font-weight:700;margin-bottom:.4em">Einfach</div><div style="line-height:1.3">Nenne eine für den Eintritt ins Metallzeitalter wichtige Legierung.</div></div>
-                    <div class="back question" tabindex="0"><div style="font-size:0.6em;letter-spacing:.08em;text-transform:uppercase;color:#8ee08f;font-weight:700;margin-bottom:.5em">Lösung</div><div style="line-height:1.35"><b>Bronze</b> &#8211; eine Legierung aus Kupfer und Zinn.</div></div>
-                </div>
-            </div>
-            <div class="cell-group grid-cell" role="cell" id="cell-jp-14" tabindex="0" aria-label="100" data-row="1" data-col="4">
-                <div class="cell points">
-                    <div class="cell-inner" data-category="Klare Verhältnisse - Quantitative Betrachtungen">100</div>
-                    <div class="front answer" tabindex="0"><div style="font-size:0.62em;letter-spacing:.08em;text-transform:uppercase;color:#ffd54a;font-weight:700;margin-bottom:.4em">Einfach</div><div style="line-height:1.3">Wofür steht das Formelzeichen <i>n</i>, und in welcher Einheit wird es angegeben?</div></div>
-                    <div class="back question" tabindex="0"><div style="font-size:0.6em;letter-spacing:.08em;text-transform:uppercase;color:#8ee08f;font-weight:700;margin-bottom:.5em">Lösung</div><div style="line-height:1.35"><i>n</i> = <b>Stoffmenge</b>, Einheit <b>mol</b>.<br><span style="font-size:0.85em;color:#eafbe6">Das „Dutzend“ der Chemie: 1 mol &#8776; 6,02&#183;10<sup>23</sup> Teilchen.</span></div></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="grid-row grid-row-questions" role="row">
-            <div class="cell-group grid-cell" role="cell" id="cell-jp-20" tabindex="0" aria-label="200" data-row="2" data-col="0">
-                <div class="cell points">
-                    <div class="cell-inner" data-category="Gase - zwischen lebensnotwendig und gefährlich">200</div>
-                    <div class="front answer" tabindex="0"><div style="font-size:0.62em;letter-spacing:.08em;text-transform:uppercase;color:#ffd54a;font-weight:700;margin-bottom:.4em">Mittel</div><div style="line-height:1.3">Nenne die Nachweisprobe für Sauerstoff und die erwartete positive Beobachtung.</div></div>
-                    <div class="back question" tabindex="0"><div style="font-size:0.6em;letter-spacing:.08em;text-transform:uppercase;color:#8ee08f;font-weight:700;margin-bottom:.5em">Lösung</div><div style="line-height:1.35"><b>Glimmspanprobe.</b><br>Ein glimmender Holzspan flammt in reinem Sauerstoff wieder hell auf.</div></div>
-                </div>
-            </div>
-            <div class="cell-group grid-cell" role="cell" id="cell-jp-21" tabindex="0" aria-label="200" data-row="2" data-col="1">
-                <div class="cell points">
-                    <div class="cell-inner" data-category="Wasser - eine Verbindung">200</div>
-                    <div class="front answer" tabindex="0"><div style="font-size:0.62em;letter-spacing:.08em;text-transform:uppercase;color:#ffd54a;font-weight:700;margin-bottom:.4em">Mittel</div><div style="line-height:1.3">Nenne das elektronegativste Element.</div></div>
-                    <div class="back question" tabindex="0"><div style="font-size:0.6em;letter-spacing:.08em;text-transform:uppercase;color:#8ee08f;font-weight:700;margin-bottom:.5em">Lösung</div><div style="line-height:1.35"><b>Fluor (F).</b><br>Es zieht Bindungselektronen am stärksten an &#8211; höchste Elektronegativität aller Elemente.</div></div>
-                </div>
-            </div>
-            <div class="cell-group grid-cell" role="cell" id="cell-jp-22" tabindex="0" aria-label="200" data-row="2" data-col="2">
-                <div class="cell points">
-                    <div class="cell-inner" data-category="Salze - Gegensätze ziehen sich an">200</div>
-                    <div class="front answer" tabindex="0"><div style="font-size:0.62em;letter-spacing:.08em;text-transform:uppercase;color:#ffd54a;font-weight:700;margin-bottom:.4em">Mittel</div><div style="line-height:1.3">Stelle die Dissoziationsgleichung (Lösungsvorgang) für festes Natriumchlorid in Wasser auf.</div></div>
-                    <div class="back question" tabindex="0"><div style="font-size:0.6em;letter-spacing:.08em;text-transform:uppercase;color:#8ee08f;font-weight:700;margin-bottom:.5em">Lösung</div><div style="line-height:1.35"><div style="display:inline-block;background:#faf6ee;color:#1a1a1a;border-radius:12px;padding:.45em .8em;font-weight:700;font-family:'JetBrains Mono',ui-monospace,monospace">NaCl(s) &#8652; Na<sup>+</sup>(aq) + Cl<sup>&#8722;</sup>(aq)</div></div></div>
-                </div>
-            </div>
-            <div class="cell-group grid-cell" role="cell" id="cell-jp-23" tabindex="0" aria-label="200" data-row="2" data-col="3">
-                <div class="cell points">
-                    <div class="cell-inner" data-category="Metalle - Schätze der Erde">200</div>
-                    <div class="front answer" tabindex="0"><div style="font-size:0.62em;letter-spacing:.08em;text-transform:uppercase;color:#ffd54a;font-weight:700;margin-bottom:.4em">Mittel</div><div style="line-height:1.3">Stelle die Reaktionsgleichung für die Verbrennung von Magnesium auf.</div></div>
-                    <div class="back question" tabindex="0"><div style="font-size:0.6em;letter-spacing:.08em;text-transform:uppercase;color:#8ee08f;font-weight:700;margin-bottom:.5em">Lösung</div><div style="line-height:1.35"><div style="display:inline-block;background:#faf6ee;color:#1a1a1a;border-radius:12px;padding:.45em .8em;font-weight:700;font-family:'JetBrains Mono',ui-monospace,monospace">2 Mg(s) + O<sub>2</sub>(g) &#8594; 2 MgO(s)</div></div></div>
-                </div>
-            </div>
-            <div class="cell-group grid-cell" role="cell" id="cell-jp-24" tabindex="0" aria-label="200" data-row="2" data-col="4">
-                <div class="cell points">
-                    <div class="cell-inner" data-category="Klare Verhältnisse - Quantitative Betrachtungen">200</div>
-                    <div class="front answer" tabindex="0"><div style="font-size:0.62em;letter-spacing:.08em;text-transform:uppercase;color:#ffd54a;font-weight:700;margin-bottom:.4em">Mittel</div><div style="line-height:1.3">Berechne die molare Masse von CO&#8322;.<br><span style="font-size:0.8em">M(C)=12 g/mol, M(O)=16 g/mol</span></div></div>
-                    <div class="back question" tabindex="0"><div style="font-size:0.6em;letter-spacing:.08em;text-transform:uppercase;color:#8ee08f;font-weight:700;margin-bottom:.5em">Lösung</div><div style="line-height:1.35"><div style="display:inline-block;background:#faf6ee;color:#1a1a1a;border-radius:12px;padding:.45em .8em;font-weight:700;font-family:'JetBrains Mono',ui-monospace,monospace">M(CO<sub>2</sub>) = 12 + 2&#183;16 = 44 g/mol</div></div></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="grid-row grid-row-questions" role="row">
-            <div class="cell-group grid-cell" role="cell" id="cell-jp-30" tabindex="0" aria-label="300" data-row="3" data-col="0">
-                <div class="cell points">
-                    <div class="cell-inner" data-category="Gase - zwischen lebensnotwendig und gefährlich">300</div>
-                    <div class="front answer" tabindex="0"><div style="font-size:0.62em;letter-spacing:.08em;text-transform:uppercase;color:#ffd54a;font-weight:700;margin-bottom:.4em">Mittel</div><div style="line-height:1.3">Großindustriell ließe sich Wasserstoff umweltfreundlich (erneuerbare Energien) gewinnen &#8211; durch welches Verfahren, und an welchem Pol entsteht er?</div></div>
-                    <div class="back question" tabindex="0"><div style="font-size:0.6em;letter-spacing:.08em;text-transform:uppercase;color:#8ee08f;font-weight:700;margin-bottom:.5em">Lösung</div><div style="line-height:1.35"><div style="text-align:center">
-<svg viewBox="0 0 360 220" style="max-width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-  <rect width="360" height="220" rx="16" fill="#faf6ee"/>
-  <!-- two gas tubes -->
-  <rect x="70" y="30" width="46" height="120" rx="8" fill="#dfeeea" stroke="#1e5d52" stroke-width="2"/>
-  <rect x="244" y="30" width="46" height="120" rx="8" fill="#f6e2d8" stroke="#a83610" stroke-width="2"/>
-  <!-- collected gas (taller H2 left) -->
-  <rect x="72" y="42" width="42" height="80" fill="#8ec7ba" opacity="0.7"/>
-  <rect x="246" y="82" width="42" height="40" fill="#e2a488" opacity="0.7"/>
-  <!-- U-tube bottom / liquid -->
-  <path d="M93 150 L93 175 Q93 190 108 190 L252 190 Q267 190 267 175 L267 150"
-        fill="none" stroke="#1e5d52" stroke-width="3"/>
-  <rect x="93" y="150" width="174" height="35" fill="#cfe6df" opacity="0.5"/>
-  <!-- battery -->
-  <line x1="150" y1="205" x2="150" y2="190" stroke="#333" stroke-width="2"/>
-  <line x1="210" y1="205" x2="210" y2="190" stroke="#333" stroke-width="2"/>
-  <line x1="140" y1="205" x2="160" y2="205" stroke="#333" stroke-width="4"/>
-  <line x1="204" y1="205" x2="216" y2="205" stroke="#333" stroke-width="8"/>
-  <g font-family="system-ui,sans-serif" fill="#1a1a1a" font-size="15" font-weight="700">
-    <text x="93" y="24" text-anchor="middle" fill="#1e5d52">&#8722; Pol</text>
-    <text x="267" y="24" text-anchor="middle" fill="#a83610">+ Pol</text>
-    <text x="93" y="90" text-anchor="middle" fill="#12463d">H&#8322;</text>
-    <text x="267" y="106" text-anchor="middle" fill="#7a2708">O&#8322;</text>
-    <text x="180" y="215" text-anchor="middle" font-size="13" fill="#555">Gleichspannung</text>
-  </g>
-</svg><div style="margin-top:.5em;font-size:0.8em;color:#eafbe6">Elektrolyse des Wassers &#8211; H&#8322; am Minuspol (Kathode)</div></div></div></div>
-                </div>
-            </div>
-            <div class="cell-group grid-cell" role="cell" id="cell-jp-31" tabindex="0" aria-label="300" data-row="3" data-col="1">
-                <div class="cell points">
-                    <div class="cell-inner" data-category="Wasser - eine Verbindung">300</div>
-                    <div class="front answer" tabindex="0"><div style="font-size:0.62em;letter-spacing:.08em;text-transform:uppercase;color:#ffd54a;font-weight:700;margin-bottom:.4em">Mittel</div><div style="line-height:1.3">Ordne die Wasserlöslichkeit von Kochsalz (A), Zucker (B) und Sauerstoff (C) von niedrig nach hoch.</div></div>
-                    <div class="back question" tabindex="0"><div style="font-size:0.6em;letter-spacing:.08em;text-transform:uppercase;color:#8ee08f;font-weight:700;margin-bottom:.5em">Lösung</div><div style="line-height:1.35"><div style="text-align:center">
-<svg viewBox="0 0 360 200" style="max-width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-  <rect width="360" height="200" rx="16" fill="#faf6ee"/>
-  <line x1="45" y1="160" x2="330" y2="160" stroke="#333" stroke-width="2"/>
-  <!-- Sauerstoff (C) low -->
-  <rect x="70" y="130" width="55" height="30" fill="#c9a961"/>
-  <text x="97" y="178" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#1a1a1a">O&#8322; (C)</text>
-  <!-- Kochsalz (A) mid -->
-  <rect x="150" y="80" width="55" height="80" fill="#1e5d52"/>
-  <text x="177" y="178" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#1a1a1a">NaCl (A)</text>
-  <!-- Zucker (B) high -->
-  <rect x="230" y="35" width="55" height="125" fill="#a83610"/>
-  <text x="257" y="178" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#1a1a1a">Zucker (B)</text>
-  <g stroke="#333" stroke-width="3" fill="none">
-    <line x1="128" y1="120" x2="146" y2="120"/><path d="M140 114 L148 120 L140 126"/>
-    <line x1="208" y1="70" x2="226" y2="70"/><path d="M220 64 L228 70 L220 76"/>
-  </g>
-  <text x="187" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1a1a1a">niedrig &#8594; hoch:  C &lt; A &lt; B</text>
-</svg><div style="margin-top:.5em;font-size:0.8em;color:#eafbe6">C &lt; A &lt; B: Sauerstoff &lt; Kochsalz &lt; Zucker</div></div></div></div>
-                </div>
-            </div>
-            <div class="cell-group grid-cell" role="cell" id="cell-jp-32" tabindex="0" aria-label="300" data-row="3" data-col="2">
-                <div class="cell points">
-                    <div class="cell-inner" data-category="Salze - Gegensätze ziehen sich an">300</div>
-                    <div class="front answer" tabindex="0"><div style="font-size:0.62em;letter-spacing:.08em;text-transform:uppercase;color:#ffd54a;font-weight:700;margin-bottom:.4em">Mittel</div><div style="line-height:1.3">Wässrige Salzlösungen leiten elektrischen Strom. Begründe dies auf Teilchenebene.</div></div>
-                    <div class="back question" tabindex="0"><div style="font-size:0.6em;letter-spacing:.08em;text-transform:uppercase;color:#8ee08f;font-weight:700;margin-bottom:.5em">Lösung</div><div style="line-height:1.35"><div style="text-align:center">
-<svg viewBox="0 0 360 200" style="max-width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-  <rect width="360" height="200" rx="16" fill="#faf6ee"/>
-  <rect x="16" y="16" width="328" height="168" rx="12" fill="#e5f0ec"/>
-  <!-- Na+ hydrated -->
-  <g transform="translate(105,100)">
-    <circle r="24" fill="#a83610"/><text y="6" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#fff">Na&#8314;</text>
-    <g fill="#1e5d52"><circle cx="0" cy="-40" r="8"/><circle cx="38" cy="-14" r="8"/><circle cx="24" cy="34" r="8"/><circle cx="-24" cy="34" r="8"/><circle cx="-38" cy="-14" r="8"/></g>
-  </g>
-  <!-- Cl- hydrated -->
-  <g transform="translate(255,100)">
-    <circle r="26" fill="#1e5d52"/><text y="6" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#fff">Cl&#8315;</text>
-    <g fill="#a83610"><circle cx="0" cy="-42" r="8"/><circle cx="40" cy="-16" r="8"/><circle cx="26" cy="36" r="8"/><circle cx="-26" cy="36" r="8"/><circle cx="-40" cy="-16" r="8"/></g>
-  </g>
-  <text x="180" y="176" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#12463d">frei bewegliche, hydratisierte Ionen</text>
-</svg><div style="margin-top:.5em;font-size:0.8em;color:#eafbe6">Sie enthalten <b>frei bewegliche, hydratisierte Ionen</b> als elektrische Ladungsträger.</div></div></div></div>
-                </div>
-            </div>
-            <div class="cell-group grid-cell" role="cell" id="cell-jp-33" tabindex="0" aria-label="300" data-row="3" data-col="3">
-                <div class="cell points">
-                    <div class="cell-inner" data-category="Metalle - Schätze der Erde">300</div>
-                    <div class="front answer" tabindex="0"><div style="font-size:0.62em;letter-spacing:.08em;text-transform:uppercase;color:#ffd54a;font-weight:700;margin-bottom:.4em">Mittel</div><div style="line-height:1.3">Ordne die drei untersuchten Metalle Kupfer, Eisen und Zink nach <b>aufsteigender</b> Sauerstoffaffinität.</div></div>
-                    <div class="back question" tabindex="0"><div style="font-size:0.6em;letter-spacing:.08em;text-transform:uppercase;color:#8ee08f;font-weight:700;margin-bottom:.5em">Lösung</div><div style="line-height:1.35"><div style="text-align:center">
-<svg viewBox="0 0 360 170" style="max-width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-  <rect width="360" height="170" rx="16" fill="#faf6ee"/>
-  <defs>
-    <linearGradient id="aff" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#c9a961"/><stop offset="1" stop-color="#a83610"/>
-    </linearGradient>
-  </defs>
-  <rect x="30" y="70" width="300" height="20" rx="10" fill="url(#aff)"/>
-  <path d="M320 60 L344 80 L320 100" fill="none" stroke="#a83610" stroke-width="3"/>
-  <g font-family="system-ui,sans-serif" text-anchor="middle">
-    <circle cx="70" cy="80" r="16" fill="#1e5d52"/><text x="70" y="85" font-size="13" fill="#fff">Cu</text>
-    <circle cx="180" cy="80" r="16" fill="#1e5d52"/><text x="180" y="85" font-size="13" fill="#fff">Fe</text>
-    <circle cx="290" cy="80" r="16" fill="#1e5d52"/><text x="290" y="85" font-size="13" fill="#fff">Zn</text>
-    <text x="70" y="120" font-size="12" fill="#1a1a1a">edler</text>
-    <text x="290" y="120" font-size="12" fill="#1a1a1a">unedler</text>
-    <text x="180" y="40" font-size="15" font-weight="700" fill="#1a1a1a">Sauerstoffaffinit&#228;t &#8593;</text>
-    <text x="180" y="150" font-size="14" font-weight="700" fill="#1a1a1a">Cu &lt; Fe &lt; Zn</text>
-  </g>
-</svg><div style="margin-top:.5em;font-size:0.8em;color:#eafbe6">Cu &lt; Fe &lt; Zn</div></div></div></div>
-                </div>
-            </div>
-            <div class="cell-group grid-cell" role="cell" id="cell-jp-34" tabindex="0" aria-label="300" data-row="3" data-col="4">
-                <div class="cell points">
-                    <div class="cell-inner" data-category="Klare Verhältnisse - Quantitative Betrachtungen">300</div>
-                    <div class="front answer" tabindex="0"><div style="font-size:0.62em;letter-spacing:.08em;text-transform:uppercase;color:#ffd54a;font-weight:700;margin-bottom:.4em">Mittel</div><div style="line-height:1.3">Berechne die Stoffmenge von 88 g CO&#8322;.<br><span style="font-size:0.8em">M(CO&#8322;) = 44 g/mol</span></div></div>
-                    <div class="back question" tabindex="0"><div style="font-size:0.6em;letter-spacing:.08em;text-transform:uppercase;color:#8ee08f;font-weight:700;margin-bottom:.5em">Lösung</div><div style="line-height:1.35"><div style="display:inline-block;background:#faf6ee;color:#1a1a1a;border-radius:12px;padding:.45em .8em;font-weight:700;font-family:'JetBrains Mono',ui-monospace,monospace">n = m / M = 88 g &#247; 44 g/mol = 2 mol</div></div></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="grid-row grid-row-questions" role="row">
-            <div class="cell-group grid-cell" role="cell" id="cell-jp-40" tabindex="0" aria-label="400" data-row="4" data-col="0">
-                <div class="cell points">
-                    <div class="cell-inner" data-category="Gase - zwischen lebensnotwendig und gefährlich">400</div>
-                    <div class="front answer" tabindex="0"><div style="font-size:0.62em;letter-spacing:.08em;text-transform:uppercase;color:#ffd54a;font-weight:700;margin-bottom:.4em">Schwer</div><div style="line-height:1.3">Benenne den Phasenübergang, bei dem ein Gas <b>direkt</b> in den festen Zustand übergeht (ohne flüssige Phase).</div></div>
-                    <div class="back question" tabindex="0"><div style="font-size:0.6em;letter-spacing:.08em;text-transform:uppercase;color:#8ee08f;font-weight:700;margin-bottom:.5em">Lösung</div><div style="line-height:1.35"><div style="text-align:center">
-<svg viewBox="0 0 360 190" style="max-width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-  <rect width="360" height="190" rx="16" fill="#faf6ee"/>
-  <!-- gas: scattered -->
-  <g fill="#a83610">
-    <circle cx="40" cy="50" r="9"/><circle cx="95" cy="30" r="9"/><circle cx="70" cy="95" r="9"/>
-    <circle cx="120" cy="110" r="9"/><circle cx="45" cy="130" r="9"/><circle cx="110" cy="65" r="9"/>
-  </g>
-  <text x="82" y="175" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#a83610">gasf&#246;rmig</text>
-  <!-- arrow -->
-  <g stroke="#1e5d52" stroke-width="4" fill="none">
-    <line x1="155" y1="90" x2="215" y2="90"/>
-    <path d="M205 80 L217 90 L205 100"/>
-  </g>
-  <text x="185" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1e5d52">Resublimieren</text>
-  <!-- solid: ordered lattice -->
-  <g fill="#1e5d52">
-    <circle cx="255" cy="45" r="9"/><circle cx="290" cy="45" r="9"/><circle cx="325" cy="45" r="9"/>
-    <circle cx="255" cy="85" r="9"/><circle cx="290" cy="85" r="9"/><circle cx="325" cy="85" r="9"/>
-    <circle cx="255" cy="125" r="9"/><circle cx="290" cy="125" r="9"/><circle cx="325" cy="125" r="9"/>
-  </g>
-  <text x="290" y="175" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1e5d52">fest</text>
-</svg><div style="margin-top:.5em;font-size:0.8em;color:#eafbe6">Resublimieren (gasförmig &#8594; fest)</div></div></div></div>
-                </div>
-            </div>
-            <div class="cell-group grid-cell" role="cell" id="cell-jp-41" tabindex="0" aria-label="400" data-row="4" data-col="1">
-                <div class="cell points">
-                    <div class="cell-inner" data-category="Wasser - eine Verbindung">400</div>
-                    <div class="front answer" tabindex="0"><div style="font-size:0.62em;letter-spacing:.08em;text-transform:uppercase;color:#ffd54a;font-weight:700;margin-bottom:.4em">Schwer</div><div style="line-height:1.3">Nenne den Grund <b>auf Teilchenebene</b> für die hohe Oberflächenspannung des Wassers.</div></div>
-                    <div class="back question" tabindex="0"><div style="font-size:0.6em;letter-spacing:.08em;text-transform:uppercase;color:#8ee08f;font-weight:700;margin-bottom:.5em">Lösung</div><div style="line-height:1.35"><div style="text-align:center">
-<svg viewBox="0 0 360 200" style="max-width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-  <rect width="360" height="200" rx="16" fill="#faf6ee"/>
-  <!-- H-bond dashed -->
-  <line x1="150" y1="95" x2="210" y2="95" stroke="#1e5d52" stroke-width="3" stroke-dasharray="5 5"/>
-  <text x="180" y="82" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#1e5d52">Dipol&#8211;Dipol</text>
-  <g>
-    <!-- molecule 1 -->
-    <circle cx="120" cy="95" r="26" fill="#a83610"/>
-    <text x="120" y="101" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#fff">O</text>
-    <text x="146" y="80" font-family="system-ui,sans-serif" font-size="14" fill="#a83610">&#948;&#8722;</text>
-    <circle cx="92" cy="60" r="15" fill="#1e5d52"/><text x="92" y="65" text-anchor="middle" font-size="12" fill="#fff">H</text>
-    <circle cx="92" cy="130" r="15" fill="#1e5d52"/><text x="92" y="135" text-anchor="middle" font-size="12" fill="#fff">H</text>
-    <text x="70" y="55" font-family="system-ui,sans-serif" font-size="14" fill="#1e5d52">&#948;+</text>
-    <!-- molecule 2 -->
-    <circle cx="240" cy="95" r="26" fill="#a83610"/>
-    <text x="240" y="101" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#fff">O</text>
-    <text x="214" y="80" text-anchor="end" font-family="system-ui,sans-serif" font-size="14" fill="#a83610">&#948;&#8722;</text>
-    <circle cx="268" cy="60" r="15" fill="#1e5d52"/><text x="268" y="65" text-anchor="middle" font-size="12" fill="#fff">H</text>
-    <circle cx="268" cy="130" r="15" fill="#1e5d52"/><text x="268" y="135" text-anchor="middle" font-size="12" fill="#fff">H</text>
-    <text x="286" y="55" font-family="system-ui,sans-serif" font-size="14" fill="#1e5d52">&#948;+</text>
-  </g>
-  <text x="180" y="180" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1a1a1a">&#8594; hohe Oberfl&#228;chenspannung</text>
-</svg><div style="margin-top:.5em;font-size:0.8em;color:#eafbe6">Polare O&#8211;H-Bindungen &#8594; starke Dipol-Dipol-Wechselwirkungen zwischen den Wassermolekülen.</div></div></div></div>
-                </div>
-            </div>
-            <div class="cell-group grid-cell" role="cell" id="cell-jp-42" tabindex="0" aria-label="400" data-row="4" data-col="2">
-                <div class="cell points">
-                    <div class="cell-inner" data-category="Salze - Gegensätze ziehen sich an">400</div>
-                    <div class="front answer" tabindex="0"><div style="font-size:0.62em;letter-spacing:.08em;text-transform:uppercase;color:#ffd54a;font-weight:700;margin-bottom:.4em">Schwer</div><div style="line-height:1.3">Stelle die Reaktionsgleichung für die stark exotherme Bildung von Natriumchlorid aus Natrium und Chlor (Cl&#8322;) auf.</div></div>
-                    <div class="back question" tabindex="0"><div style="font-size:0.6em;letter-spacing:.08em;text-transform:uppercase;color:#8ee08f;font-weight:700;margin-bottom:.5em">Lösung</div><div style="line-height:1.35"><div style="display:inline-block;background:#faf6ee;color:#1a1a1a;border-radius:12px;padding:.45em .8em;font-weight:700;font-family:'JetBrains Mono',ui-monospace,monospace">2 Na(s) + Cl<sub>2</sub>(g) &#8594; 2 NaCl(s)</div></div></div>
-                </div>
-            </div>
-            <div class="cell-group grid-cell" role="cell" id="cell-jp-43" tabindex="0" aria-label="400" data-row="4" data-col="3">
-                <div class="cell points">
-                    <div class="cell-inner" data-category="Metalle - Schätze der Erde">400</div>
-                    <div class="front answer" tabindex="0"><div style="font-size:0.62em;letter-spacing:.08em;text-transform:uppercase;color:#ffd54a;font-weight:700;margin-bottom:.4em">Schwer</div><div style="line-height:1.3">Stelle die Reaktionsgleichung für die Kupferherstellung aus Kupferoxid und Zink auf (Redoxreaktion).</div></div>
-                    <div class="back question" tabindex="0"><div style="font-size:0.6em;letter-spacing:.08em;text-transform:uppercase;color:#8ee08f;font-weight:700;margin-bottom:.5em">Lösung</div><div style="line-height:1.35"><div style="display:inline-block;background:#faf6ee;color:#1a1a1a;border-radius:12px;padding:.45em .8em;font-weight:700;font-family:'JetBrains Mono',ui-monospace,monospace">CuO(s) + Zn(s) &#8594; Cu(s) + ZnO(s)</div><div style="margin-top:.5em;font-size:0.8em;color:#eafbe6">Zn wird oxidiert (Reduktionsmittel), CuO wird reduziert (Oxidationsmittel).</div></div></div>
-                </div>
-            </div>
-            <div class="cell-group grid-cell" role="cell" id="cell-jp-44" tabindex="0" aria-label="400" data-row="4" data-col="4">
-                <div class="cell points">
-                    <div class="cell-inner" data-category="Klare Verhältnisse - Quantitative Betrachtungen">400</div>
-                    <div class="front answer" tabindex="0"><div style="font-size:0.62em;letter-spacing:.08em;text-transform:uppercase;color:#ffd54a;font-weight:700;margin-bottom:.4em">Schwer</div><div style="line-height:1.3">Streichhölzer verbrennen in einem <b>abgeschlossenen</b> Reagenzglas. Wie ändert sich die gewogene Masse? Begründe mit dem Massenerhaltungssatz.</div></div>
-                    <div class="back question" tabindex="0"><div style="font-size:0.6em;letter-spacing:.08em;text-transform:uppercase;color:#8ee08f;font-weight:700;margin-bottom:.5em">Lösung</div><div style="line-height:1.35"><b>Keine Veränderung.</b><br>Im abgeschlossenen System kann kein Stoff entweichen oder hinzukommen &#8211; die Gesamtmasse bleibt erhalten (Massenerhaltungssatz).</div></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="grid-row grid-row-questions grid-last-row" role="row">
-            <div class="cell-group grid-cell" role="cell" id="cell-jp-50" tabindex="0" aria-label="500" data-row="5" data-col="0">
-                <div class="cell points">
-                    <div class="cell-inner" data-category="Gase - zwischen lebensnotwendig und gefährlich">500</div>
-                    <div class="front answer" tabindex="0"><div style="font-size:0.62em;letter-spacing:.08em;text-transform:uppercase;color:#ffd54a;font-weight:700;margin-bottom:.4em">Schwer</div><div style="line-height:1.3">Natron und Speiseessig reagieren u.&#8202;a. zu CO&#8322;. Zwei unterschiedlich hohe Kerzen stehen im Becherglas &#8211; welche erlischt zuerst und warum?</div></div>
-                    <div class="back question" tabindex="0"><div style="font-size:0.6em;letter-spacing:.08em;text-transform:uppercase;color:#8ee08f;font-weight:700;margin-bottom:.5em">Lösung</div><div style="line-height:1.35"><div style="text-align:center">
-<svg viewBox="0 0 360 210" style="max-width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-  <rect width="360" height="210" rx="16" fill="#faf6ee"/>
-  <!-- CO2 layer sinking -->
-  <rect x="40" y="150" width="220" height="40" rx="6" fill="#c9a961" opacity="0.45"/>
-  <text x="150" y="176" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#8a6d1f">dichtes CO&#8322; sammelt sich unten</text>
-  <!-- lower candle (short) - being extinguished -->
-  <rect x="80" y="120" width="18" height="70" fill="#e9dcc2" stroke="#c9a961"/>
-  <line x1="89" y1="120" x2="89" y2="108" stroke="#333" stroke-width="2"/>
-  <path d="M89 108 q-8 -8 0 -18 q8 10 0 18" fill="#bbb"/>
-  <text x="89" y="205" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#a83610">1 erlischt zuerst</text>
-  <!-- higher candle (tall) - still burning -->
-  <rect x="200" y="70" width="18" height="120" fill="#e9dcc2" stroke="#c9a961"/>
-  <line x1="209" y1="70" x2="209" y2="56" stroke="#333" stroke-width="2"/>
-  <path d="M209 56 q-9 -12 0 -26 q9 14 0 26" fill="#f0a020"/>
-  <text x="209" y="205" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#1e5d52">2 brennt l&#228;nger</text>
-</svg><div style="margin-top:.5em;font-size:0.8em;color:#eafbe6">Die untere Kerze (1) erlischt zuerst: das dichtere CO&#8322; sammelt sich unten und verdrängt dort den Sauerstoff.</div></div></div></div>
-                </div>
-            </div>
-            <div class="cell-group grid-cell" role="cell" id="cell-jp-51" tabindex="0" aria-label="500" data-row="5" data-col="1">
-                <div class="cell points">
-                    <div class="cell-inner" data-category="Wasser - eine Verbindung">500</div>
-                    <div class="front answer" tabindex="0"><div style="font-size:0.62em;letter-spacing:.08em;text-transform:uppercase;color:#ffd54a;font-weight:700;margin-bottom:.4em">Schwer</div><div style="line-height:1.3">Führe die Nachweisprobe für Wasser durch (Watesmo-Papier). Nenne die erwartete Beobachtung bei positivem Verlauf.</div></div>
-                    <div class="back question" tabindex="0"><div style="font-size:0.6em;letter-spacing:.08em;text-transform:uppercase;color:#8ee08f;font-weight:700;margin-bottom:.5em">Lösung</div><div style="line-height:1.35"><div style="text-align:center"><svg viewBox="0 0 300 120" style="max-width:100%;height:auto" xmlns="http://www.w3.org/2000/svg"><rect width="300" height="120" rx="14" fill="#faf6ee"/><rect x="30" y="35" width="90" height="50" rx="6" fill="#ffffff" stroke="#ccc"/><text x="75" y="65" text-anchor="middle" font-family="system-ui" font-size="13" fill="#999">wei&#223;</text><path d="M140 60 l30 0 m-10 -7 l10 7 l-10 7" stroke="#333" stroke-width="3" fill="none"/><rect x="185" y="35" width="90" height="50" rx="6" fill="#2f6fd0"/><text x="230" y="65" text-anchor="middle" font-family="system-ui" font-size="13" font-weight="700" fill="#fff">blau</text><text x="150" y="108" text-anchor="middle" font-family="system-ui" font-size="12" fill="#1a1a1a">+ Wasser</text></svg><div style="margin-top:.5em"><b>Blaufärbung</b> des Nachweispapiers.</div></div></div></div>
-                </div>
-            </div>
-            <div class="cell-group grid-cell" role="cell" id="cell-jp-52" tabindex="0" aria-label="500" data-row="5" data-col="2">
-                <div class="cell points">
-                    <div class="cell-inner" data-category="Salze - Gegensätze ziehen sich an">500</div>
-                    <div class="front answer" tabindex="0"><div style="font-size:0.62em;letter-spacing:.08em;text-transform:uppercase;color:#ffd54a;font-weight:700;margin-bottom:.4em">Schwer</div><div style="line-height:1.3">Flammenfärbung: Welches Salz färbt die Flamme grün? Stelle außerdem die Formel für Bariumnitrat auf (Nitrat = NO&#8323;<sup>&#8722;</sup>).</div></div>
-                    <div class="back question" tabindex="0"><div style="font-size:0.6em;letter-spacing:.08em;text-transform:uppercase;color:#8ee08f;font-weight:700;margin-bottom:.5em">Lösung</div><div style="line-height:1.35"><div style="text-align:center">
-<svg viewBox="0 0 360 210" style="max-width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-  <rect width="360" height="210" rx="16" fill="#1b1b1b"/>
-  <!-- burner -->
-  <rect x="165" y="150" width="30" height="45" fill="#666"/>
-  <rect x="150" y="192" width="60" height="10" rx="3" fill="#888"/>
-  <!-- green flame -->
-  <path d="M180 150 C150 120 158 70 180 40 C202 70 210 120 180 150 Z" fill="#3fae54"/>
-  <path d="M180 150 C165 120 168 82 180 60 C192 82 195 120 180 150 Z" fill="#8ee08f"/>
-  <path d="M180 150 C173 122 174 96 180 84 C186 96 187 122 180 150 Z" fill="#eafbe6"/>
-  <text x="180" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#8ee08f">gr&#252;n</text>
-  <text x="180" y="182" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#fff">Ba(NO&#8323;)&#8322;</text>
-</svg><div style="margin-top:.5em;font-size:0.8em;color:#eafbe6">Bariumnitrat, Ba(NO&#8323;)&#8322; &#8211; grüne Flammenfärbung.</div></div></div></div>
-                </div>
-            </div>
-            <div class="cell-group grid-cell" role="cell" id="cell-jp-53" tabindex="0" aria-label="500" data-row="5" data-col="3">
-                <div class="cell points">
-                    <div class="cell-inner" data-category="Metalle - Schätze der Erde">500</div>
-                    <div class="front answer" tabindex="0"><div style="font-size:0.62em;letter-spacing:.08em;text-transform:uppercase;color:#ffd54a;font-weight:700;margin-bottom:.4em">Schwer</div><div style="line-height:1.3">Stelle die Reaktionsgleichung für die Gewinnung von Eisen aus Eisenoxid und Aluminium auf (aluminothermisches Verfahren).</div></div>
-                    <div class="back question" tabindex="0"><div style="font-size:0.6em;letter-spacing:.08em;text-transform:uppercase;color:#8ee08f;font-weight:700;margin-bottom:.5em">Lösung</div><div style="line-height:1.35"><div style="text-align:center">
-<svg viewBox="0 0 360 190" style="max-width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
-  <rect width="360" height="190" rx="16" fill="#1b1b1b"/>
-  <!-- crucible -->
-  <path d="M120 90 L240 90 L225 150 L135 150 Z" fill="#4a3a30"/>
-  <ellipse cx="180" cy="90" rx="60" ry="12" fill="#a83610"/>
-  <ellipse cx="180" cy="88" rx="46" ry="9" fill="#ffb02e"/>
-  <!-- sparks -->
-  <g stroke="#ffd54a" stroke-width="2">
-    <line x1="180" y1="80" x2="180" y2="30"/><line x1="150" y1="82" x2="120" y2="40"/>
-    <line x1="210" y1="82" x2="240" y2="40"/><line x1="165" y1="80" x2="150" y2="45"/>
-    <line x1="195" y1="80" x2="210" y2="45"/>
-  </g>
-  <g fill="#ffd54a"><circle cx="120" cy="40" r="3"/><circle cx="240" cy="40" r="3"/><circle cx="180" cy="30" r="3"/><circle cx="150" cy="45" r="2.5"/><circle cx="210" cy="45" r="2.5"/></g>
-  <text x="180" y="178" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#ffd54a">Thermit&#8211;Reaktion (stark exotherm)</text>
-</svg></div><div style="margin-top:.6em"><div style="display:inline-block;background:#faf6ee;color:#1a1a1a;border-radius:12px;padding:.45em .8em;font-weight:700;font-family:'JetBrains Mono',ui-monospace,monospace">Fe<sub>2</sub>O<sub>3</sub>(s) + 2 Al(s) &#8594; 2 Fe(s) + Al<sub>2</sub>O<sub>3</sub>(s)</div></div></div></div>
-                </div>
-            </div>
-            <div class="cell-group grid-cell" role="cell" id="cell-jp-54" tabindex="0" aria-label="500" data-row="5" data-col="4">
-                <div class="cell points">
-                    <div class="cell-inner" data-category="Klare Verhältnisse - Quantitative Betrachtungen">500</div>
-                    <div class="front answer" tabindex="0"><div style="font-size:0.62em;letter-spacing:.08em;text-transform:uppercase;color:#ffd54a;font-weight:700;margin-bottom:.4em">Schwer</div><div style="line-height:1.3">Berechne die Masse des entstehenden Eisens aus 8 g Eisenoxid (Fe&#8322;O&#8323;).<br><span style="font-size:0.8em">Fe&#8322;O&#8323; + 2 Al &#8594; Al&#8322;O&#8323; + 2 Fe · M(Fe&#8322;O&#8323;)=160 g/mol · M(Fe)=56 g/mol</span></div></div>
-                    <div class="back question" tabindex="0"><div style="font-size:0.6em;letter-spacing:.08em;text-transform:uppercase;color:#8ee08f;font-weight:700;margin-bottom:.5em">Lösung</div><div style="line-height:1.35"><div style="text-align:left;display:inline-block"><div style="display:inline-block;background:#faf6ee;color:#1a1a1a;border-radius:12px;padding:.45em .8em;font-weight:700;font-family:'JetBrains Mono',ui-monospace,monospace">n(Fe<sub>2</sub>O<sub>3</sub>) = 8 g &#247; 160 g/mol = 0,05 mol</div><br><br><div style="display:inline-block;background:#faf6ee;color:#1a1a1a;border-radius:12px;padding:.45em .8em;font-weight:700;font-family:'JetBrains Mono',ui-monospace,monospace">n(Fe) = 2 &#183; 0,05 mol = 0,1 mol</div><br><br><div style="display:inline-block;background:#faf6ee;color:#1a1a1a;border-radius:12px;padding:.45em .8em;font-weight:700;font-family:'JetBrains Mono',ui-monospace,monospace">m(Fe) = 0,1 mol &#183; 56 g/mol = 5,6 g</div></div></div></div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-
-        <div id="question-modal" class="modal-wrapper" role="dialog" aria-label="Prompt" aria-modal="true">
-            <div id="modal-header">
-                <div tabindex="0" role="button" aria-label="Close prompt (escape)" id="continue-button"><div>Weiter <kbd>ESC</kbd></div></div>
-                <div id="question-title"></div>
-                <div tabindex="0" role="button" aria-label="Reveal answer (spacebar)" id="answer-button" tabindex="0"><div>Antwort aufdecken <kbd>Leertaste</kbd></div></div>
-            </div>
-            <div class="modal-body">
-                <div class="modal-inner"></div>
-            </div>
-        </div>
-
-        <div id="teams">
-            <a role="button" class="menu-picker" href="javascript:backToMenu('menu')" aria-label="Menü">
-                M<br>e<br>n<br>ü
-            </a>
-            <div style="display:flex; margin-left:auto; margin-right:auto; overflow:auto;">
-                
-                    <div class="team" style="display:none">
-                        <div class="name" role="textbox" contenteditable="true">Team 1</div>
-                        <div class="points" role="textbox" contenteditable="true">0</div>
-                        <div class="pointer">
-                            <span tabindex="0" aria-label="Add points" role="button" class="plus">+</span>
-                            <span tabindex="0" aria-label="Subtract points" role="button" class="minus">-</span>
-                        </div>
-                    </div>
-                
-            </div>
-        </div>
-
-    </div>
-
-    <div id="options" class="modal-wrapper" role="dialog" aria-label="Menu" aria-modal="true">
-        <div class="modal">
-            
-            <h1>Chemie-Jeopardy · Klasse 8</h1>
-
-            <div id="team-chooser-wrapper">
-                <select id="team-chooser">
-                    <option value="0">Keine Teams</option>
-                    <option value="1">1 Team</option>
-                    <option value="2">2 Teams</option>
-                    <option value="3" selected="true">3 teams</option>
-                    <option value="4" selected="true">4 Teams</option>
-                    <option value="5">5 Teams</option>
-                    <option value="6">6 Teams</option>
-                    <option value="7">7 Teams</option>
-                    <option value="8">8 Teams</option>
-                    <option value="9">9 Teams</option>
-                    <option value="10">10 Teams</option>
-                    <option id="last-option" value="more">Benutzerdefiniert</option>
-                </select>
-                <input class="submit" type="button" id="submit" value="Start" onclick="game.init()" />
-                <span id="reset-all">
-                    <input type="button" id="re-init" value="Reset" />
-                </span>
-            </div>
-
-            <p id="fullscreen" style="display:none" align="center"><span id="windows" style="display:none">Press <kbd >F11</kbd></span> <span id="mac" style="display:none">Menü <kbd >View &gt; Enter Fullscreen</kbd></span> für den Vollbildmodus</p>
-            <script>
-                if(window.navigator.platform.indexOf("Mac") == 0){
-                    document.getElementById("fullscreen").style.display = "block";
-                    document.getElementById("mac").style.display = "inline";
-                } else if(window.navigator.platform.indexOf("Win") == 0){
-                    document.getElementById("fullscreen").style.display = "block";
-                    document.getElementById("windows").style.display = "inline";
-                }
-            </script>
-
-            <div align="center" id="menu-links">
-                
-                    <span style="color:#bbb;font-size:0.85em">Chemie-Jeopardy · RLP Berlin/Brandenburg · Klasse 8</span> 
-                
-            </div>
-        </div>
-    </div>
-    
-    <!--
-    <div class="points-instructions">
-        Use the up/down arrow to add or remove points from the highlighted team. Then press <kbd>ESC</kbd>
-    </div>-->
-
-
-
-
-    
-
-
-
+$("#startBtn").addEventListener("click", ()=>{
+  startS.classList.add("hidden"); hud.hidden=false; quiz.classList.remove("hidden");
+  render();
+});
+</script>
 </body>
 </html>
