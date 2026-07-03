@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chemie-Vorbereitungslabor · Klasse 8</title>
+<style>
+  :root{
+    --cream:#faf6ee; --card:#fffdf8; --ink:#1a2420; --muted:#5c6b64;
+    --teal:#1e5d52; --teal-d:#12463d; --terra:#a83610; --gold:#c9a961;
+    --good:#2f8f4e; --good-bg:#e6f4ea; --retry:#b4471f; --retry-bg:#fbeae1;
+    --line:#e7dfce;
+    --serif:Georgia,'Iowan Old Style','Palatino Linotype',serif;
+    --sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --mono:ui-monospace,'SF Mono','JetBrains Mono',Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:var(--sans); color:var(--ink); background:var(--cream);
+    line-height:1.5; -webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(circle at 12% 8%, #f3ecdb 0, transparent 42%),
+                     radial-gradient(circle at 88% 92%, #eef3ee 0, transparent 45%);
+    min-height:100vh;
+  }
+  .wrap{max-width:720px; margin:0 auto; padding:24px 18px 60px;}
+  sub{font-size:.72em} sup{font-size:.72em}
+  .mono{font-family:var(--mono)}
+
+  /* top bar: beaker + progress + score */
+  .hud{display:flex; align-items:center; gap:16px; margin-bottom:18px;}
+  .beaker{width:54px; height:64px; flex:0 0 auto}
+  .hud-meta{flex:1; min-width:0}
+  .bar{height:12px; background:#ece3d1; border-radius:20px; overflow:hidden; box-shadow:inset 0 1px 2px rgba(0,0,0,.08)}
+  .bar > i{display:block; height:100%; width:0;
+    background:linear-gradient(90deg,var(--teal),var(--gold)); border-radius:20px;
+    transition:width .5s cubic-bezier(.22,1,.36,1)}
+  .hud-line{display:flex; justify-content:space-between; font-size:13px; color:var(--muted); margin-top:6px}
+  .streak{font-weight:700; color:var(--terra)}
+  .streak.dim{color:var(--muted); font-weight:600}
+
+  h1{font-family:var(--serif); font-weight:700; font-size:30px; line-height:1.15; margin:0 0 6px; letter-spacing:-.01em}
+  .eyebrow{font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--teal); font-weight:700}
+
+  /* cards */
+  .card{background:var(--card); border:1px solid var(--line); border-radius:18px;
+    padding:22px 22px 24px; box-shadow:0 10px 30px -18px rgba(30,60,45,.4);}
+  .qtags{display:flex; gap:8px; align-items:center; margin-bottom:12px; flex-wrap:wrap}
+  .tag{font-size:11px; letter-spacing:.08em; text-transform:uppercase; font-weight:700;
+    padding:4px 10px; border-radius:999px}
+  .tag.cat{background:var(--teal); color:#fff}
+  .tag.lvl-Einfach{background:var(--good-bg); color:var(--good)}
+  .tag.lvl-Mittel{background:#fdf2d8; color:#8a6d1f}
+  .tag.lvl-Schwer{background:var(--retry-bg); color:var(--retry)}
+  .prompt{font-family:var(--serif); font-size:21px; line-height:1.35; margin:0 0 6px}
+  .fig{margin:14px 0 4px; text-align:center}
+  .fig svg{max-width:100%; height:auto}
+
+  /* options */
+  .opts{display:flex; flex-direction:column; gap:10px; margin-top:16px}
+  .opt{display:flex; align-items:center; gap:12px; width:100%; text-align:left;
+    font:inherit; font-size:16px; padding:14px 16px; border-radius:13px; cursor:pointer;
+    background:#fff; border:1.5px solid var(--line); color:var(--ink);
+    transition:border-color .15s, background .15s, transform .06s}
+  .opt:hover:not(:disabled){border-color:var(--teal); background:#f6faf8}
+  .opt:focus-visible{outline:3px solid var(--gold); outline-offset:2px}
+  .opt:active:not(:disabled){transform:translateY(1px)}
+  .opt .key{flex:0 0 auto; width:26px; height:26px; border-radius:7px; display:grid; place-items:center;
+    background:#efe8d8; color:var(--teal-d); font-weight:700; font-size:14px}
+  .opt.correct{border-color:var(--good); background:var(--good-bg)}
+  .opt.correct .key{background:var(--good); color:#fff}
+  .opt.wrong{border-color:var(--retry); background:var(--retry-bg); opacity:.9}
+  .opt.wrong .key{background:var(--retry); color:#fff}
+  .opt:disabled{cursor:default}
+  .opt.faded{opacity:.5}
+  .shake{animation:shake .38s}
+  @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+
+  /* numeric input */
+  .numrow{display:flex; gap:10px; margin-top:16px; flex-wrap:wrap}
+  .numrow input{flex:1; min-width:160px; font:inherit; font-size:18px; padding:13px 15px;
+    border:1.5px solid var(--line); border-radius:13px; background:#fff; font-family:var(--mono)}
+  .numrow input:focus{outline:3px solid var(--gold); outline-offset:1px; border-color:var(--teal)}
+
+  /* buttons */
+  .btn{font:inherit; font-weight:700; font-size:16px; padding:13px 22px; border-radius:13px;
+    border:none; cursor:pointer; background:var(--teal); color:#fff; transition:transform .06s, background .15s}
+  .btn:hover{background:var(--teal-d)} .btn:active{transform:translateY(1px)}
+  .btn:focus-visible{outline:3px solid var(--gold); outline-offset:2px}
+  .btn.ghost{background:transparent; color:var(--teal); border:1.5px solid var(--teal)}
+  .btn.ghost:hover{background:#eef5f2}
+  .btn.big{font-size:18px; padding:15px 30px}
+
+  /* feedback panel */
+  .fb{margin-top:16px; border-radius:14px; padding:15px 17px; display:none; animation:pop .3s ease}
+  .fb.show{display:block}
+  .fb.ok{background:var(--good-bg); border:1.5px solid #bfe3ca}
+  .fb.hint{background:#fdf6e3; border:1.5px solid #eddcae}
+  @keyframes pop{from{transform:scale(.97); opacity:0}to{transform:scale(1); opacity:1}}
+  .fb .head{display:flex; align-items:center; gap:9px; font-weight:700; font-size:16px; margin-bottom:5px}
+  .fb.ok .head{color:var(--good)} .fb.hint .head{color:#8a6d1f}
+  .fb .expl{font-size:15px; color:var(--ink)}
+  .fb .expl .mono, .fb .expl b{color:var(--teal-d)}
+  .spark{width:20px;height:20px;flex:0 0 auto}
+  .foot{display:flex; justify-content:flex-end; gap:10px; margin-top:18px}
+
+  /* start & end screens */
+  .hero{text-align:center; padding:8px 4px 4px}
+  .hero .big-beaker{width:120px; height:140px; margin:6px auto 10px; display:block}
+  .lead{font-size:17px; color:var(--muted); max-width:52ch; margin:10px auto 22px}
+  .chips{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:0 auto 26px; max-width:540px}
+  .chip{font-size:13px; font-weight:600; padding:7px 13px; border-radius:999px; background:#fff; border:1px solid var(--line); color:var(--teal-d)}
+  .center{text-align:center}
+  .score-ring{font-family:var(--serif); font-size:52px; font-weight:700; color:var(--teal); line-height:1}
+  .hidden{display:none}
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important}
+  }
+  @media (max-width:520px){ h1{font-size:25px} .prompt{font-size:19px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HUD -->
+  <div class="hud" id="hud" hidden>
+    <svg class="beaker" viewBox="0 0 60 72" aria-hidden="true">
+      <defs><clipPath id="bkclip"><path d="M16 8 h28 v20 l12 34 a6 6 0 0 1 -5.5 8.5 h-41 a6 6 0 0 1 -5.5 -8.5 l12 -34 z"/></clipPath></defs>
+      <rect id="bkfill" x="0" y="72" width="60" height="0" fill="#2fae9a" clip-path="url(#bkclip)"/>
+      <path d="M16 8 h28 v20 l12 34 a6 6 0 0 1 -5.5 8.5 h-41 a6 6 0 0 1 -5.5 -8.5 l12 -34 z"
+            fill="none" stroke="#1e5d52" stroke-width="3" stroke-linejoin="round"/>
+      <line x1="13" y1="8" x2="47" y2="8" stroke="#1e5d52" stroke-width="4" stroke-linecap="round"/>
+    </svg>
+    <div class="hud-meta">
+      <div class="bar"><i id="barfill"></i></div>
+      <div class="hud-line">
+        <span id="progtxt">Frage 1 von 15</span>
+        <span class="streak dim" id="streaktxt">Serie: 0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- START -->
+  <section id="start" class="card hero">
+    <div class="eyebrow">Chemie · Klasse 8</div>
+    <svg class="big-beaker" viewBox="0 0 60 72" aria-hidden="true">
+      <path d="M16 8 h28 v20 l12 34 a6 6 0 0 1 -5.5 8.5 h-41 a6 6 0 0 1 -5.5 -8.5 l12 -34 z" fill="#e5f0ec"/>
+      <path d="M13 46 l3.5 -10 h27 l3.5 10 a6 6 0 0 1 5 18.5 a6 6 0 0 1 -5.5 3.5 h-41 a6 6 0 0 1 -5.5 -3.5 a6 6 0 0 1 5 -18.5 z" fill="#2fae9a"/>
+      <circle cx="24" cy="55" r="2.4" fill="#eafbe6"/><circle cx="34" cy="60" r="1.8" fill="#eafbe6"/><circle cx="30" cy="50" r="1.5" fill="#eafbe6"/>
+      <path d="M16 8 h28 v20 l12 34 a6 6 0 0 1 -5.5 8.5 h-41 a6 6 0 0 1 -5.5 -8.5 l12 -34 z" fill="none" stroke="#1e5d52" stroke-width="3" stroke-linejoin="round"/>
+      <line x1="13" y1="8" x2="47" y2="8" stroke="#1e5d52" stroke-width="4" stroke-linecap="round"/>
+    </svg>
+    <h1>Vorbereitungslabor</h1>
+    <p class="lead">Wärm dich mit 15 kurzen Aufgaben auf, bevor es im Team ins große <b>Chemie-Jeopardy</b> geht.
+      Jede Antwort bringt dich weiter – und selbst wenn du danebenliegst, bekommst du einen Tipp und eine Erklärung. Du schaffst das.</p>
+    <div class="chips">
+      <span class="chip">Gase</span><span class="chip">Wasser</span><span class="chip">Salze</span>
+      <span class="chip">Metalle</span><span class="chip">Quantitative Chemie</span>
+    </div>
+    <button class="btn big" id="startBtn">Los geht’s</button>
+  </section>
+
+  <!-- QUESTION -->
+  <section id="quiz" class="card hidden" aria-live="polite"></section>
+
+  <!-- END -->
+  <section id="end" class="card hero hidden"></section>
+
+</div>
+
+<script>
+/* ---------- small inline SVGs ---------- */
+const SVG = {
+  spark:'<svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1l2.2 6.6L21 10l-6.8 2.4L12 19l-2.2-6.6L3 10l6.8-2.4z" fill="#c9a961"/></svg>',
+  bulb:'<svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z" fill="#e7b93a"/><rect x="9" y="18" width="6" height="2.4" rx="1.2" fill="#8a6d1f"/><rect x="9.6" y="21" width="4.8" height="2" rx="1" fill="#8a6d1f"/></svg>',
+  phase:'<svg viewBox="0 0 320 140" xmlns="http://www.w3.org/2000/svg"><rect width="320" height="140" rx="14" fill="#fffdf8" stroke="#e7dfce"/><g fill="#1e5d52"><circle cx="34" cy="46" r="7"/><circle cx="66" cy="70" r="7"/><circle cx="46" cy="96" r="7"/><circle cx="86" cy="52" r="7"/><circle cx="70" cy="112" r="7"/><circle cx="34" cy="112" r="7"/></g><text x="60" y="132" text-anchor="middle" font-family="system-ui" font-size="12" font-weight="700" fill="#1e5d52">fest</text><g stroke="#a83610" stroke-width="4" fill="none"><line x1="120" y1="70" x2="190" y2="70"/><path d="M180 60 L192 70 L180 80"/></g><text x="156" y="52" text-anchor="middle" font-family="system-ui" font-size="13" font-weight="700" fill="#a83610">Sublimieren</text><g fill="#a83610"><circle cx="230" cy="40" r="7"/><circle cx="280" cy="34" r="7"/><circle cx="256" cy="74" r="7"/><circle cx="298" cy="66" r="7"/><circle cx="232" cy="100" r="7"/><circle cx="284" cy="104" r="7"/></g><text x="264" y="132" text-anchor="middle" font-family="system-ui" font-size="12" font-weight="700" fill="#a83610">gasförmig</text></svg>',
+  dipole:'<svg viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg"><rect width="300" height="130" rx="14" fill="#fffdf8" stroke="#e7dfce"/><circle cx="150" cy="66" r="26" fill="#a83610"/><text x="150" y="72" text-anchor="middle" font-family="system-ui" font-size="16" font-weight="700" fill="#fff">O</text><text x="182" y="54" font-family="system-ui" font-size="15" fill="#a83610">δ−</text><circle cx="116" cy="32" r="15" fill="#1e5d52"/><text x="116" y="37" text-anchor="middle" font-size="12" fill="#fff">H</text><circle cx="116" cy="100" r="15" fill="#1e5d52"/><text x="116" y="105" text-anchor="middle" font-size="12" fill="#fff">H</text><text x="86" y="26" font-family="system-ui" font-size="15" fill="#1e5d52">δ+</text><text x="86" y="118" font-family="system-ui" font-size="15" fill="#1e5d52">δ+</text></svg>',
+  flameRed:'<svg viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg"><rect width="220" height="150" rx="14" fill="#1b1b1b"/><rect x="100" y="104" width="20" height="34" fill="#666"/><rect x="88" y="134" width="44" height="9" rx="3" fill="#888"/><path d="M110 104 C86 78 92 40 110 16 C128 40 134 78 110 104 Z" fill="#d33a26"/><path d="M110 104 C98 80 100 52 110 34 C120 52 122 80 110 104 Z" fill="#ff7a4d"/><path d="M110 104 C104 82 105 64 110 54 C115 64 116 82 110 104 Z" fill="#ffd9a8"/><text x="110" y="30" text-anchor="middle" font-family="system-ui" font-size="14" font-weight="700" fill="#ff9d7a">rot</text></svg>',
+  affinity:'<svg viewBox="0 0 320 130" xmlns="http://www.w3.org/2000/svg"><rect width="320" height="130" rx="14" fill="#fffdf8" stroke="#e7dfce"/><defs><linearGradient id="af2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c9a961"/><stop offset="1" stop-color="#a83610"/></linearGradient></defs><rect x="26" y="58" width="268" height="16" rx="8" fill="url(#af2)"/><path d="M286 50 L306 66 L286 82" fill="none" stroke="#a83610" stroke-width="3"/><g font-family="system-ui" text-anchor="middle"><circle cx="60" cy="66" r="16" fill="#1e5d52"/><text x="60" y="71" font-size="12" fill="#fff">Ag</text><circle cx="160" cy="66" r="16" fill="#1e5d52"/><text x="160" y="71" font-size="12" fill="#fff">Cu</text><circle cx="260" cy="66" r="16" fill="#1e5d52"/><text x="260" y="71" font-size="12" fill="#fff">Fe</text><text x="60" y="104" font-size="11" fill="#1a2420">edler</text><text x="260" y="104" font-size="11" fill="#1a2420">unedler</text><text x="160" y="30" font-size="13" font-weight="700" fill="#1a2420">Sauerstoffaffinität →</text></g></svg>'
+};
+
+/* ---------- question bank (varied cases vs. the Jeopardy) ---------- */
+const Q = [
+ {cat:"Gase", lvl:"Einfach", type:"mc",
+  prompt:"Rund 21&nbsp;% der Luft bestehen aus einem Gas, das wir zum Atmen brauchen und das Verbrennungen ermöglicht. Welches ist es?",
+  opts:["Stickstoff","Sauerstoff","Kohlenstoffdioxid","Argon"], correct:1,
+  hint:"Ohne dieses Gas erlischt jede Flamme.",
+  expl:"<b>Sauerstoff (O<sub>2</sub>)</b> macht etwa 21&nbsp;% der Luft aus. Stickstoff ist mit rund 78&nbsp;% das häufigste Gas."},
+
+ {cat:"Gase", lvl:"Mittel", type:"mc",
+  prompt:"Mit welcher Nachweisprobe weist du <b>Kohlenstoffdioxid</b> nach?",
+  opts:["Glimmspanprobe","Knallgasprobe","Kalkwasserprobe"], correct:2,
+  hint:"Eine klare Lösung wird dabei milchig-trüb.",
+  expl:"Die <b>Kalkwasserprobe</b>: Kalkwasser trübt sich bei CO<sub>2</sub> milchig-weiß. Die Glimmspanprobe weist Sauerstoff nach, die Knallgasprobe Wasserstoff."},
+
+ {cat:"Gase", lvl:"Schwer", type:"mc", fig:SVG.phase,
+  prompt:"Trockeneis geht bei Zimmertemperatur direkt von fest zu gasförmig über. Wie heißt dieser Phasenübergang?",
+  opts:["Verdampfen","Sublimieren","Resublimieren","Schmelzen"], correct:1,
+  hint:"Fest&nbsp;→&nbsp;gasförmig, ganz ohne flüssige Zwischenstufe.",
+  expl:"<b>Sublimieren</b> = fest&nbsp;→&nbsp;gasförmig (direkt). Der umgekehrte Weg gasförmig&nbsp;→&nbsp;fest heißt Resublimieren."},
+
+ {cat:"Wasser", lvl:"Einfach", type:"mc",
+  prompt:"Welches Element ist am <b>elektronegativsten</b> – zieht Bindungselektronen also am stärksten an?",
+  opts:["Sauerstoff","Kohlenstoff","Fluor","Wasserstoff"], correct:2,
+  hint:"Es steht oben rechts im Periodensystem (von den Edelgasen abgesehen).",
+  expl:"<b>Fluor (F)</b> hat die höchste Elektronegativität aller Elemente."},
+
+ {cat:"Wasser", lvl:"Mittel", type:"mc", fig:SVG.dipole,
+  prompt:"Warum ist ein Wassermolekül ein <b>Dipol</b>?",
+  opts:["Es hat eine gleichmäßige Ladungsverteilung","Es besitzt Partialladungen δ+ und δ−","Es ist elektrisch neutral, also kein Dipol","Es enthält Metallatome"], correct:1,
+  hint:"Am Sauerstoff ist es leicht negativ, an den H-Atomen leicht positiv.",
+  expl:"Durch die ungleiche Ladungsverteilung entstehen <b>Partialladungen</b> (δ+ an den H-Atomen, δ− am O). Deshalb ist Wasser ein Dipol."},
+
+ {cat:"Wasser", lvl:"Mittel", type:"mc",
+  prompt:"Du prüfst eine Flüssigkeit mit <b>Watesmo-Papier</b> auf Wasser. Bei positivem Nachweis beobachtest du eine …",
+  opts:["Gelbfärbung","Blaufärbung","Rotfärbung","keine Veränderung"], correct:1,
+  hint:"Denk an die Farbe, die das Nachweispapier annimmt, wenn es feucht wird.",
+  expl:"Watesmo-Papier zeigt Wasser durch eine <b>Blaufärbung</b> an."},
+
+ {cat:"Salze", lvl:"Mittel", type:"mc",
+  prompt:"Vervollständige die Dissoziationsgleichung:<br><span class='mono'>KBr(s) ⇌ ?</span>",
+  opts:["K<sup>+</sup>(aq) + Br<sup>−</sup>(aq)","K<sup>2+</sup>(aq) + Br<sup>2−</sup>(aq)","K<sup>−</sup>(aq) + Br<sup>+</sup>(aq)","KBr(aq)"], correct:0,
+  hint:"Kalium gibt 1 Elektron ab, Brom nimmt 1 Elektron auf.",
+  expl:"K wird zu K<sup>+</sup>, Br zu Br<sup>−</sup> – beide einfach geladen und von Wasser umhüllt (aq). Genau wie bei NaCl."},
+
+ {cat:"Salze", lvl:"Schwer", type:"mc",
+  prompt:"Kalium reagiert mit Chlor zu Kaliumchlorid. Welche Gleichung ist <b>richtig ausgeglichen</b>?",
+  opts:["K(s) + Cl<sub>2</sub>(g) → KCl<sub>2</sub>(s)","2 K(s) + Cl<sub>2</sub>(g) → 2 KCl(s)","2 K(s) + Cl(g) → K<sub>2</sub>Cl(s)","K(s) + Cl<sub>2</sub>(g) → 2 KCl(s)"], correct:1,
+  hint:"Zähle die Chlor-Atome links und rechts – sie müssen gleich sein.",
+  expl:"Cl<sub>2</sub> liefert 2 Cl-Atome → 2&nbsp;KCl, dafür braucht es 2&nbsp;K:  <span class='mono'>2 K + Cl<sub>2</sub> → 2 KCl</span>. Analog zu 2&nbsp;Na&nbsp;+&nbsp;Cl<sub>2</sub>&nbsp;→&nbsp;2&nbsp;NaCl."},
+
+ {cat:"Salze", lvl:"Schwer", type:"mc", fig:SVG.flameRed,
+  prompt:"Welches Salz färbt die Brennerflamme <b>rot</b>?",
+  opts:["Bariumnitrat","Natriumchlorid","Lithiumchlorid","Kupferchlorid"], correct:2,
+  hint:"Lithium liefert eine kräftig rote Flamme.",
+  expl:"<b>Lithiumchlorid</b> färbt die Flamme rot. Barium → grün, Natrium → gelb-orange, Kupfer → blaugrün."},
+
+ {cat:"Metalle", lvl:"Mittel", type:"mc",
+  prompt:"Wie lautet die richtige Reaktionsgleichung für die <b>Verbrennung von Calcium</b>? (analog zu Magnesium)",
+  opts:["Ca(s) + O<sub>2</sub>(g) → CaO<sub>2</sub>(s)","2 Ca(s) + O<sub>2</sub>(g) → 2 CaO(s)","Ca(s) + O(g) → CaO(s)","2 Ca(s) + 2 O<sub>2</sub>(g) → 2 CaO(s)"], correct:1,
+  hint:"Calcium bildet CaO – dieselbe Ausgleich-Logik wie 2&nbsp;Mg&nbsp;+&nbsp;O<sub>2</sub>&nbsp;→&nbsp;2&nbsp;MgO.",
+  expl:"<span class='mono'>2 Ca + O<sub>2</sub> → 2 CaO</span>: O<sub>2</sub> liefert 2 O-Atome, also entstehen 2&nbsp;CaO – dafür braucht es 2&nbsp;Ca."},
+
+ {cat:"Metalle", lvl:"Schwer", type:"mc", fig:SVG.affinity,
+  prompt:"Ordne <b>Silber, Kupfer und Eisen</b> nach <b>aufsteigender</b> Sauerstoffaffinität.",
+  opts:["Silber &lt; Kupfer &lt; Eisen","Eisen &lt; Kupfer &lt; Silber","Kupfer &lt; Silber &lt; Eisen","Silber &lt; Eisen &lt; Kupfer"], correct:0,
+  hint:"Edle Metalle wie Silber reagieren kaum mit Sauerstoff.",
+  expl:"Je unedler das Metall, desto höher die Sauerstoffaffinität: <b>Silber &lt; Kupfer &lt; Eisen</b>."},
+
+ {cat:"Metalle", lvl:"Schwer", type:"mc",
+  prompt:"Aluminium reduziert Chrom(III)-oxid. Ergänze:<br><span class='mono'>Cr<sub>2</sub>O<sub>3</sub> + 2 Al → ?</span>",
+  opts:["2 Cr + Al<sub>2</sub>O<sub>3</sub>","Cr + AlO","2 Cr + 2 AlO","Cr<sub>2</sub> + Al<sub>2</sub>O<sub>3</sub>"], correct:0,
+  hint:"Aluminium schnappt sich den Sauerstoff → Al<sub>2</sub>O<sub>3</sub>; das Metall Chrom wird frei.",
+  expl:"<span class='mono'>Cr<sub>2</sub>O<sub>3</sub> + 2 Al → 2 Cr + Al<sub>2</sub>O<sub>3</sub></span> – dasselbe Prinzip wie das aluminothermische Verfahren mit Eisen."},
+
+ {cat:"Quantitative Chemie", lvl:"Mittel", type:"num", answer:64, unit:"g/mol",
+  prompt:"Berechne die molare Masse von <b>SO<sub>2</sub></b> in g/mol.<br><span style='font-size:.85em'>M(S)=32&nbsp;g/mol · M(O)=16&nbsp;g/mol</span>",
+  placeholder:"z. B. 64",
+  hint:"M(SO<sub>2</sub>) = M(S) + 2 · M(O).",
+  expl:"M(SO<sub>2</sub>) = 32 + 2·16 = <b>64&nbsp;g/mol</b>."},
+
+ {cat:"Quantitative Chemie", lvl:"Mittel", type:"num", answer:5, unit:"mol",
+  prompt:"Wie viel <b>mol</b> sind 90&nbsp;g Wasser?<br><span style='font-size:.85em'>M(H<sub>2</sub>O)=18&nbsp;g/mol</span>",
+  placeholder:"z. B. 5",
+  hint:"Nutze  n = m ÷ M.",
+  expl:"n = 90&nbsp;g ÷ 18&nbsp;g/mol = <b>5&nbsp;mol</b>."},
+
+ {cat:"Quantitative Chemie", lvl:"Schwer", type:"mc",
+  prompt:"Ein Stück Eisen rostet an der Luft in einem <b>offenen</b> Gefäß. Wie ändert sich die Masse des Feststoffs?",
+  opts:["Sie nimmt zu","Sie bleibt gleich","Sie nimmt ab"], correct:0,
+  hint:"Beim Rosten wird Sauerstoff aus der Luft in den Feststoff eingebaut.",
+  expl:"Sauerstoff aus der Luft wird gebunden → der <b>Feststoff wird schwerer</b>. In einem abgeschlossenen Gefäß bliebe die Gesamtmasse dagegen gleich (Massenerhaltung)."}
+];
+
+const PRAISE = ["Stark!","Klasse gelöst!","Chemie-Ass!","Sauber!","Perfekt!","Genau richtig!","Das sitzt!","Volltreffer!","Glasklar!"];
+const NUDGE  = ["Fast! Schau nochmal genau hin.","Kein Problem – noch ein Versuch.","Nicht ganz, aber du bist nah dran.","Guter Versuch! Der Tipp hilft dir weiter.","Knapp daneben – bleib dran."];
+
+/* ---------- state & elements ---------- */
+let i = 0, firstTry = 0, solved = 0, streak = 0, triedWrong = false;
+const $ = s => document.querySelector(s);
+const hud=$("#hud"), quiz=$("#quiz"), startS=$("#start"), endS=$("#end");
+const barfill=$("#barfill"), bkfill=$("#bkfill"), progtxt=$("#progtxt"), streaktxt=$("#streaktxt");
+const rnd = a => a[Math.floor(Math.random()*a.length)];
+const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+
+function setProgress(){
+  const frac = i/Q.length;
+  barfill.style.width = (frac*100)+"%";
+  const H=72, fillH=Math.round(frac* (72-6));   // beaker inner height
+  bkfill.setAttribute("y", (H-fillH)); bkfill.setAttribute("height", fillH);
+  progtxt.textContent = `Frage ${Math.min(i+1,Q.length)} von ${Q.length}`;
+  streaktxt.textContent = `Serie: ${streak}`;
+  streaktxt.className = "streak" + (streak>0 ? "" : " dim");
+}
+
+function render(){
+  const q = Q[i]; triedWrong=false;
+  setProgress();
+  let body = `
+    <div class="qtags">
+      <span class="tag cat">${q.cat}</span>
+      <span class="tag lvl-${q.lvl}">${q.lvl}</span>
+    </div>
+    <p class="prompt">${q.prompt}</p>
+    ${q.fig ? `<div class="fig">${q.fig}</div>` : ""}`;
+
+  if(q.type==="mc"){
+    body += `<div class="opts" id="opts">` + q.opts.map((o,idx)=>
+      `<button class="opt" data-idx="${idx}"><span class="key">${String.fromCharCode(65+idx)}</span><span>${o}</span></button>`
+    ).join("") + `</div>`;
+  } else {
+    body += `<div class="numrow">
+        <input id="numin" inputmode="decimal" autocomplete="off" placeholder="${q.placeholder||""}" aria-label="Antwort">
+        <button class="btn" id="checkBtn">Prüfen</button>
+      </div>`;
+  }
+  body += `<div class="fb" id="fb"></div><div class="foot" id="foot"></div>`;
+  quiz.innerHTML = body;
+
+  if(q.type==="mc"){
+    quiz.querySelectorAll(".opt").forEach(b=> b.addEventListener("click", onPick));
+  } else {
+    const input=$("#numin"), btn=$("#checkBtn");
+    btn.addEventListener("click", onNum);
+    input.addEventListener("keydown", e=>{ if(e.key==="Enter") onNum(); });
+    input.focus();
+  }
+}
+
+function onPick(e){
+  const q=Q[i]; const btn=e.currentTarget; const idx=+btn.dataset.idx;
+  if(idx===q.correct){
+    btn.classList.add("correct");
+    quiz.querySelectorAll(".opt").forEach(b=>{ b.disabled=true; if(!b.classList.contains("correct")) b.classList.add("faded"); });
+    win();
+  } else {
+    btn.classList.add("wrong","shake"); btn.disabled=true;
+    setTimeout(()=>btn.classList.remove("shake"),400);
+    miss();
+  }
+}
+
+function onNum(){
+  const q=Q[i]; const input=$("#numin");
+  const raw=(input.value||"").trim().replace(",",".");
+  const m=raw.match(/-?\d+(\.\d+)?/);
+  const val=m?parseFloat(m[0]):NaN;
+  if(!isNaN(val) && Math.abs(val-q.answer)<1e-6){
+    input.disabled=true; $("#checkBtn").disabled=true;
+    input.style.borderColor="var(--good)"; input.style.background="var(--good-bg)";
+    win();
+  } else {
+    input.classList.add("shake"); setTimeout(()=>input.classList.remove("shake"),400);
+    input.style.borderColor="var(--retry)";
+    miss(); input.focus(); input.select();
+  }
+}
+
+function win(){
+  const q=Q[i];
+  solved++;
+  if(!triedWrong){ firstTry++; streak++; } else { streak=0; }
+  streaktxt.textContent=`Serie: ${streak}`;
+  streaktxt.className="streak"+(streak>0?"":" dim");
+  const fb=$("#fb");
+  const bonus = (!triedWrong && streak>=3) ? ` <b>Serie ×${streak}!</b>` : "";
+  fb.className="fb ok show";
+  fb.innerHTML=`<div class="head">${SVG.spark}<span>${triedWrong?"Geschafft!":rnd(PRAISE)}${bonus}</span></div>
+                <div class="expl">${q.expl}</div>`;
+  $("#foot").innerHTML=`<button class="btn" id="nextBtn">${i+1<Q.length?"Weiter":"Auswerten"}</button>`;
+  const nb=$("#nextBtn"); nb.addEventListener("click", next); nb.focus();
+}
+
+function miss(){
+  const q=Q[i]; triedWrong=true; streak=0;
+  streaktxt.textContent=`Serie: 0`; streaktxt.className="streak dim";
+  const fb=$("#fb");
+  fb.className="fb hint show";
+  fb.innerHTML=`<div class="head">${SVG.bulb}<span>${rnd(NUDGE)}</span></div>
+                <div class="expl"><b>Tipp:</b> ${q.hint}</div>`;
+  // offer to reveal the solution & move on
+  if(!$("#revealBtn")){
+    $("#foot").innerHTML=`<button class="btn ghost" id="revealBtn">Lösung zeigen</button>`;
+    $("#revealBtn").addEventListener("click", reveal);
+  }
+}
+
+function reveal(){
+  const q=Q[i];
+  if(q.type==="mc"){
+    quiz.querySelectorAll(".opt").forEach(b=>{
+      b.disabled=true;
+      if(+b.dataset.idx===q.correct) b.classList.add("correct"); else b.classList.add("faded");
+    });
+  } else {
+    const input=$("#numin"); input.disabled=true; $("#checkBtn").disabled=true;
+    input.value=`${q.answer} ${q.unit||""}`.trim();
+    input.style.borderColor="var(--good)"; input.style.background="var(--good-bg)";
+  }
+  const fb=$("#fb"); fb.className="fb ok show";
+  fb.innerHTML=`<div class="head">${SVG.spark}<span>So geht’s – schau es dir gut an!</span></div><div class="expl">${q.expl}</div>`;
+  $("#foot").innerHTML=`<button class="btn" id="nextBtn">${i+1<Q.length?"Weiter":"Auswerten"}</button>`;
+  const nb=$("#nextBtn"); nb.addEventListener("click", next); nb.focus();
+}
+
+function next(){
+  i++;
+  if(i<Q.length){ render(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else finish();
+}
+
+function finish(){
+  setProgress();
+  quiz.classList.add("hidden"); hud.hidden=true; endS.classList.remove("hidden");
+  const pct=Math.round(firstTry/Q.length*100);
+  let title, msg;
+  if(firstTry===Q.length){ title="Makellos!"; msg="Alle 15 Aufgaben im ersten Versuch – du bist bereit, dein Team im Jeopardy zur Bestform zu führen."; }
+  else if(firstTry>=11){ title="Klasse Lauf!"; msg="Starke Vorstellung. Wirf noch einen Blick auf die Aufgaben, die gehakt haben – dann seid ihr im Team kaum zu schlagen."; }
+  else if(firstTry>=7){ title="Solide Basis!"; msg="Guter Stand! Wiederhole die kniffligen Themen einmal, dann sammelst du im Jeopardy fleißig Punkte."; }
+  else { title="Guter Anfang!"; msg="Jede Runde macht dich sicherer. Geh das Quiz noch einmal durch – die Erklärungen bleiben hängen."; }
+
+  endS.innerHTML=`
+    <div class="eyebrow">Auswertung</div>
+    <svg class="big-beaker" viewBox="0 0 60 72" aria-hidden="true">
+      <path d="M16 8 h28 v20 l12 34 a6 6 0 0 1 -5.5 8.5 h-41 a6 6 0 0 1 -5.5 -8.5 l12 -34 z" fill="#e5f0ec"/>
+      <path d="M13 30 l3 -4 h28 l3 4 a6 6 0 0 1 4 34.5 a6 6 0 0 1 -5.5 3.5 h-41 a6 6 0 0 1 -5.5 -3.5 a6 6 0 0 1 4 -34.5 z" fill="#2fae9a"/>
+      <circle cx="24" cy="46" r="2.4" fill="#eafbe6"/><circle cx="34" cy="54" r="1.8" fill="#eafbe6"/><circle cx="30" cy="38" r="1.6" fill="#eafbe6"/>
+      <path d="M16 8 h28 v20 l12 34 a6 6 0 0 1 -5.5 8.5 h-41 a6 6 0 0 1 -5.5 -8.5 l12 -34 z" fill="none" stroke="#1e5d52" stroke-width="3" stroke-linejoin="round"/>
+      <line x1="13" y1="8" x2="47" y2="8" stroke="#1e5d52" stroke-width="4" stroke-linecap="round"/>
+    </svg>
+    <h1>${title}</h1>
+    <div class="score-ring">${firstTry}<span style="font-size:26px;color:var(--muted)">/${Q.length}</span></div>
+    <p class="lead">im ersten Versuch richtig · alle ${solved}/${Q.length} am Ende gelöst</p>
+    <p class="lead" style="margin-top:-6px">${msg}</p>
+    <div class="foot" style="justify-content:center">
+      <button class="btn big" id="againBtn">Noch einmal üben</button>
+    </div>`;
+  $("#againBtn").addEventListener("click", ()=>{
+    i=0; firstTry=0; solved=0; streak=0;
+    endS.classList.add("hidden"); quiz.classList.remove("hidden"); hud.hidden=false;
+    render(); window.scrollTo({top:0,behavior:"smooth"});
+  });
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+$("#startBtn").addEventListener("click", ()=>{
+  startS.classList.add("hidden"); hud.hidden=false; quiz.classList.remove("hidden");
+  render();
+});
+</script>
+</body>
+</html>
