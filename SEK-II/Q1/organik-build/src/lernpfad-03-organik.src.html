@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Organische Chemie · Lernpfad III · Chemie LK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0a1612; --paper:#f5f1e8; --paper-warm:#ede5d3;
+    --accent:#1e5d52; --accent-deep:#a83610; --gold:#c9a961;
+    --teal:#1e5d52; --teal-deep:#0d3a32; --dplus:#b3341a; --dminus:#1f5fb0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter Tight',sans-serif; background:var(--paper); color:var(--ink);
+    line-height:1.6; min-height:100vh; display:flex; flex-direction:column; overflow-x:hidden;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(217,79,30,.04) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(30,93,82,.05) 0%, transparent 45%);
+  }
+  ::selection{background:var(--accent); color:var(--paper);}
+  a{color:var(--accent);}
+  :focus-visible{outline:3px solid var(--accent-deep); outline-offset:2px; border-radius:2px;}
+
+  .nav-bar{
+    padding:1.3rem 6vw; display:flex; justify-content:space-between; align-items:center;
+    font-family:'JetBrains Mono',monospace; font-size:.72rem; letter-spacing:.15em; text-transform:uppercase;
+    border-bottom:1px solid rgba(10,22,18,.08); position:sticky; top:0; z-index:50;
+    background:rgba(245,241,232,.92); backdrop-filter:blur(8px);
+  }
+  .nav-bar a{color:var(--ink); opacity:.6; text-decoration:none; transition:opacity .3s,color .3s;}
+  .nav-bar a:hover{opacity:1; color:var(--accent);}
+  .nav-bar .crumb-sep{margin:0 .6rem; opacity:.3;}
+
+  .hero{padding:5rem 6vw 3.5rem; position:relative; text-align:center;}
+  .hero::before{content:''; position:absolute; inset:0;
+    background-image:linear-gradient(to right,rgba(10,22,18,.03) 1px,transparent 1px),linear-gradient(to bottom,rgba(10,22,18,.03) 1px,transparent 1px);
+    background-size:60px 60px; pointer-events:none;}
+  .hero-inner{max-width:940px; margin:0 auto; position:relative; z-index:2;}
+  .pfad-eyebrow{font-family:'JetBrains Mono',monospace; font-size:.75rem; letter-spacing:.3em; text-transform:uppercase; color:var(--teal-deep); display:flex; justify-content:center; align-items:center; gap:1rem; margin-bottom:1.1rem;}
+  .pfad-eyebrow::before,.pfad-eyebrow::after{content:''; width:40px; height:1px; background:var(--accent); opacity:.5;}
+  .pfad-roman{font-family:'Fraunces',serif; font-style:italic; font-weight:200; font-size:clamp(5rem,13vw,10rem); line-height:.85; color:var(--accent); letter-spacing:-.04em; margin-bottom:1rem;}
+  .pfad-title{font-family:'Fraunces',serif; font-weight:300; font-size:clamp(1.9rem,5vw,3.3rem); line-height:1.05; letter-spacing:-.025em; margin-bottom:.7rem;}
+  .pfad-title em{font-style:italic; color:var(--accent);}
+  .pfad-subtitle{font-family:'Fraunces',serif; font-style:italic; font-weight:300; font-size:clamp(1.05rem,1.6vw,1.3rem); opacity:.75; margin-bottom:2.4rem;}
+  .status-banner{display:inline-flex; align-items:center; gap:1rem; padding:1rem 1.8rem; background:var(--ink); color:var(--paper); font-family:'JetBrains Mono',monospace; font-size:.78rem; letter-spacing:.22em; text-transform:uppercase; position:relative; overflow:hidden;}
+  .status-banner .pulse{width:9px; height:9px; border-radius:50%; background:var(--accent); animation:pulse 1.4s ease-in-out infinite; flex-shrink:0;}
+  @keyframes pulse{0%,100%{opacity:1; transform:scale(1);} 50%{opacity:.4; transform:scale(1.4);}}
+  .status-banner span{position:relative; z-index:1;}
+  .meta-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.2rem; max-width:720px; margin:2.4rem auto 0;}
+  .meta-card{padding:1.2rem 1.3rem; background:var(--paper-warm); border-left:3px solid var(--accent); text-align:left;}
+  .meta-card-label{font-family:'JetBrains Mono',monospace; font-size:.64rem; letter-spacing:.2em; text-transform:uppercase; opacity:.55; margin-bottom:.4rem;}
+  .meta-card-value{font-family:'Fraunces',serif; font-style:italic; font-weight:400; font-size:1.1rem;}
+
+  .password-zone{margin-top:2.6rem; padding-top:2.4rem; border-top:1px dashed rgba(10,22,18,.2);}
+  .pw-label{font-family:'JetBrains Mono',monospace; font-size:.7rem; letter-spacing:.22em; text-transform:uppercase; color:var(--teal-deep); opacity:.75; margin-bottom:1rem;}
+  .pw-form{display:inline-flex; border:1px solid var(--ink); background:var(--paper);}
+  .pw-input{padding:.8rem 1.1rem; border:none; background:transparent; font-family:'JetBrains Mono',monospace; font-size:.85rem; color:var(--ink); width:240px; outline:none;}
+  .pw-input::placeholder{opacity:.35;}
+  .pw-submit{padding:.8rem 1.5rem; background:var(--ink); color:var(--paper); border:none; cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; transition:background .3s;}
+  .pw-submit:hover{background:var(--accent);}
+  .pw-feedback{margin-top:1rem; font-family:'Fraunces',serif; font-style:italic; font-size:.95rem; color:var(--accent-deep); min-height:1.3em;}
+
+  .lernpfad{display:none;}
+  .lernpfad.show{display:block; animation:fadeUp .5s ease;}
+  @keyframes fadeUp{from{opacity:0; transform:translateY(18px);} to{opacity:1; transform:none;}}
+  .lp-section{max-width:1000px; margin:0 auto; padding:3.2rem 6vw;}
+  .lp-section+.lp-section{border-top:1px solid rgba(10,22,18,.08);}
+  .lp-band{background:var(--paper-warm);}
+  .sec-num{font-family:'JetBrains Mono',monospace; font-size:.72rem; letter-spacing:.28em; text-transform:uppercase; color:var(--accent-deep); margin-bottom:.7rem;}
+  .lp-section h2{font-family:'Fraunces',serif; font-weight:400; font-size:clamp(1.7rem,3.4vw,2.4rem); line-height:1.1; letter-spacing:-.02em; margin-bottom:.5rem;}
+  .lp-section h2 em{font-style:italic; color:var(--accent);}
+  .lp-section h3{font-family:'Fraunces',serif; font-weight:500; font-size:1.25rem; margin:2rem 0 .7rem; color:var(--teal-deep);}
+  .lp-section h4{font-family:'Inter Tight',sans-serif; font-weight:600; font-size:1rem; margin:1.3rem 0 .4rem;}
+  .lp-section p{margin:.7rem 0;}
+  .lp-section p.lead{font-size:1.12rem; opacity:.9;}
+  .lp-section ul,.lp-section ol{margin:.6rem 0 .6rem 1.4rem;}
+  .lp-section li{margin:.35rem 0;}
+  .muted{opacity:.62;} .fw600{font-weight:600;}
+  .deltaplus{color:var(--dplus); font-weight:700;} .deltaminus{color:var(--dminus); font-weight:700;}
+
+  .goal-grid{display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; margin-top:1.4rem;}
+  @media(max-width:720px){.goal-grid{grid-template-columns:1fr;}}
+  .goal-card{background:var(--paper); border:1px solid rgba(10,22,18,.12); border-left:3px solid var(--accent); padding:1.2rem 1.3rem;}
+  .lp-band .goal-card{background:#fbf8f1;}
+  .goal-card .glab{font-family:'JetBrains Mono',monospace; font-size:.64rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent-deep); margin-bottom:.5rem;}
+  .goal-card ul{margin:.3rem 0 0 1.1rem;}
+
+  figure{margin:1.6rem 0; text-align:center;}
+  figure svg,.mol svg,.sugar-fig svg{max-width:100%; height:auto;}
+  .figbox{background:#fff; border:1px solid rgba(10,22,18,.12); border-radius:8px; padding:1rem; display:inline-block; max-width:100%;}
+  figcaption{font-family:'JetBrains Mono',monospace; font-size:.68rem; letter-spacing:.06em; color:#7a7368; margin-top:.7rem; text-transform:uppercase;}
+
+  .duo{display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; margin-top:1.2rem;}
+  @media(max-width:760px){.duo{grid-template-columns:1fr;}}
+  .sugar-card{background:#fff; border:1px solid rgba(10,22,18,.12); border-radius:10px; padding:1.1rem; text-align:center;}
+  .sugar-card .sname{font-family:'Fraunces',serif; font-style:italic; font-size:1.2rem; color:var(--teal-deep);}
+  .sugar-card .sform{font-family:'JetBrains Mono',monospace; font-size:.8rem; color:#7a7368; margin-bottom:.4rem;}
+  .sugar-fig{min-height:240px;}
+  .toggle-row{display:flex; flex-wrap:wrap; gap:.45rem; justify-content:center; margin-top:.6rem;}
+
+  .btn{display:inline-flex; align-items:center; gap:.5rem; cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; padding:.6rem 1.1rem; border:1px solid var(--ink); background:var(--paper); color:var(--ink); transition:all .2s; border-radius:6px;}
+  .btn:hover{background:var(--ink); color:var(--paper);}
+  .btn.on{background:var(--accent); color:var(--paper); border-color:var(--accent);}
+
+  .reveal{border:1px solid rgba(10,22,18,.15); border-radius:10px; margin:.9rem 0; overflow:hidden; background:#fff;}
+  .lp-band .reveal{background:#fbf8f1;}
+  .reveal-head{display:flex; align-items:center; gap:.8rem; padding:.95rem 1.2rem; cursor:pointer; background:transparent; border:none; width:100%; text-align:left; font-family:inherit; font-size:1rem; color:var(--ink); font-weight:600;}
+  .reveal-head .rv-icon{width:26px; height:26px; flex-shrink:0; border-radius:50%; background:var(--accent); color:#fff; display:grid; place-items:center; font-size:.9rem; transition:transform .3s;}
+  .reveal.open .rv-icon{transform:rotate(45deg);}
+  .reveal-head .rv-tag{margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:.6rem; letter-spacing:.16em; text-transform:uppercase; color:#9a9285; font-weight:400;}
+  .reveal-body{display:none; padding:0 1.2rem 1.2rem;}
+  .reveal.open .reveal-body{display:block; animation:fadeUp .35s ease;}
+  .reveal-body .answer{font-weight:600; color:var(--accent-deep);}
+
+  .prop-grid{display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1rem;}
+  @media(max-width:600px){.prop-grid{grid-template-columns:1fr;}}
+  .prop{background:#fff; border:1px solid rgba(10,22,18,.12); border-radius:10px; padding:1rem 1.1rem;}
+  .lp-band .prop{background:#fbf8f1;}
+  .prop .ptitle{font-weight:700; display:flex; align-items:center; gap:.5rem;}
+  .prop .pemoji,.pemoji{font-size:1.2rem;}
+  .pill{display:inline-block; background:var(--paper-warm); border:1px solid rgba(10,22,18,.12); border-radius:999px; padding:.15rem .7rem; font-family:'JetBrains Mono',monospace; font-size:.66rem;}
+
+  .callout{border-left:4px solid var(--accent); background:rgba(30,93,82,.06); padding:1rem 1.2rem; border-radius:0 8px 8px 0; margin:1.2rem 0;}
+  .callout.warn{border-color:var(--accent-deep); background:rgba(168,54,16,.06);}
+  .callout.fast{border-color:var(--gold); background:rgba(201,169,97,.12);}
+  .callout .co-tag{font-family:'JetBrains Mono',monospace; font-size:.64rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent-deep); margin-bottom:.4rem;}
+
+  .trainer-cta{margin:1.6rem 0; padding:1.6rem; border-radius:14px; color:var(--paper); background:linear-gradient(135deg,var(--teal-deep),#14463c); display:flex; flex-wrap:wrap; align-items:center; gap:1.2rem; justify-content:space-between;}
+  .trainer-cta .tc-txt{flex:1 1 280px;}
+  .trainer-cta h4{color:var(--paper); margin:0 0 .3rem; font-size:1.15rem;}
+  .trainer-cta p{color:rgba(245,241,232,.85); margin:.2rem 0; font-size:.95rem;}
+  .trainer-cta .btn-cta{background:var(--gold); color:#231a05; border:none; padding:.95rem 1.6rem; border-radius:8px; font-family:'JetBrains Mono',monospace; font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; text-decoration:none; font-weight:700; white-space:nowrap; transition:transform .2s;}
+  .trainer-cta .btn-cta:hover{transform:translateY(-2px);}
+  .chiprow{display:flex; flex-wrap:wrap; gap:.4rem; margin-top:.7rem;}
+  .chip{background:rgba(245,241,232,.14); border:1px solid rgba(245,241,232,.3); color:var(--paper); border-radius:999px; padding:.18rem .7rem; font-size:.74rem;}
+
+  .vorlage{border:2px solid var(--accent); border-radius:14px; overflow:hidden; margin:1.4rem 0; background:#fff;}
+  .vorlage-head{background:var(--accent); color:#fff; padding:.8rem 1.2rem; display:flex; align-items:center; gap:.7rem;}
+  .vorlage-head .vt{font-family:'Fraunces',serif; font-style:italic; font-size:1.2rem;}
+  .vorlage-head .vbadge{margin-left:auto; background:var(--gold); color:#231a05; font-family:'JetBrains Mono',monospace; font-size:.6rem; letter-spacing:.12em; padding:.2rem .6rem; border-radius:5px; text-transform:uppercase;}
+  .vorlage-body{padding:1.3rem; display:grid; grid-template-columns:.9fr 1.1fr; gap:1.3rem;}
+  @media(max-width:740px){.vorlage-body{grid-template-columns:1fr;}}
+  .vorlage .vfig{text-align:center;}
+  .vkeys{list-style:none; margin:0; padding:0;}
+  .vkeys li{padding:.5rem 0; border-bottom:1px dashed rgba(10,22,18,.13); display:flex; gap:.6rem; align-items:flex-start;}
+  .vkeys li:last-child{border-bottom:none;}
+  .vkeys .vk-ico{color:var(--accent-deep); font-weight:700;}
+  .vkeys .vk-label{font-weight:600;}
+
+  details.fach{border:1px solid rgba(10,22,18,.14); border-radius:10px; margin:.7rem 0; background:#fff; overflow:hidden;}
+  details.fach>summary{list-style:none; cursor:pointer; padding:.9rem 1.2rem; font-weight:600; display:flex; align-items:center; gap:.7rem;}
+  details.fach>summary::-webkit-details-marker{display:none;}
+  details.fach>summary .fa-emoji{font-size:1.2rem;}
+  details.fach>summary .fa-chev{margin-left:auto; transition:transform .3s; color:var(--accent);}
+  details.fach[open]>summary .fa-chev{transform:rotate(90deg);}
+  details.fach .fa-body{padding:0 1.2rem 1.2rem; border-top:1px solid rgba(10,22,18,.08);}
+  details.fach .fa-body p:first-child{margin-top:.8rem;}
+
+  .aufgabe{border:1px solid rgba(10,22,18,.14); border-radius:12px; padding:1.3rem; margin:1.1rem 0; background:#fff;}
+  .lp-band .aufgabe{background:#fbf8f1;}
+  .aufgabe .a-head{display:flex; align-items:center; gap:.7rem; margin-bottom:.6rem; flex-wrap:wrap;}
+  .a-badge{font-family:'JetBrains Mono',monospace; font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; padding:.22rem .65rem; border-radius:6px; font-weight:700;}
+  .a-badge.repro{background:#e4f1ec; color:var(--teal-deep);}
+  .a-badge.anwend{background:#fbecd6; color:#8a4a12;}
+  .a-badge.transfer{background:#f0e3f5; color:#6b3a80;}
+  .a-title{font-weight:600; font-size:1.05rem;}
+  .a-mols{display:flex; flex-wrap:wrap; gap:1rem; justify-content:center; margin:1rem 0;}
+  .a-mol{background:#fff; border:1px solid rgba(10,22,18,.12); border-radius:10px; padding:.6rem; width:170px;}
+  .a-mol .mol{min-height:150px; display:grid; place-items:center;}
+  .a-mol .ml{text-align:center; font-family:'JetBrains Mono',monospace; font-size:.62rem; letter-spacing:.05em; color:#7a7368; margin-top:.3rem;}
+
+  .dl-grid{display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1.2rem;}
+  @media(max-width:600px){.dl-grid{grid-template-columns:1fr;}}
+  .dl-card{background:#fff; border:1px solid rgba(10,22,18,.13); border-radius:10px; padding:1.1rem;}
+  .dl-card .dl-k{font-family:'JetBrains Mono',monospace; font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-deep);}
+  .dl-card .dl-t{font-weight:600; margin:.3rem 0;}
+  .dl-card .dl-file{font-family:'JetBrains Mono',monospace; font-size:.78rem; color:#6c6358;}
+
+  table.sp{width:100%; border-collapse:collapse; margin-top:1rem; font-size:.92rem;}
+  table.sp th,table.sp td{text-align:left; padding:.6rem .7rem; border-bottom:1px solid rgba(10,22,18,.12); vertical-align:top;}
+  table.sp th{font-family:'JetBrains Mono',monospace; font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--accent-deep);}
+
+  footer{padding:2.4rem 6vw; background:var(--ink); color:var(--paper); font-family:'JetBrains Mono',monospace; font-size:.72rem; letter-spacing:.1em; text-align:center; opacity:.92;}
+  footer a{color:var(--gold); text-decoration:none;}
+
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none !important; transition:none !important; scroll-behavior:auto !important;}}
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <div>
+    <a href="../chemie-lk-kursplan.html">← Kursplan</a>
+    <span class="crumb-sep">/</span><span style="opacity:.4">Q1</span>
+    <span class="crumb-sep">/</span><span style="opacity:.8">Lernpfad III</span>
+  </div>
+  <div style="opacity:.5">Chemie · LK</div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="pfad-eyebrow">Lernpfad · Q1</div>
+    <div class="pfad-roman">III</div>
+    <h1 class="pfad-title">Organische Chemie</h1>
+    <p class="pfad-subtitle">Stoffklassen, funktionelle Gruppen &amp; zwischenmolekulare Kräfte</p>
+    <div class="status-banner"><div class="pulse"></div><span id="status-text">Wird berechnet …</span></div>
+    <div class="meta-grid">
+      <div class="meta-card"><div class="meta-card-label">Zeitraum</div><div class="meta-card-value">SJW 5</div></div>
+      <div class="meta-card"><div class="meta-card-label">Freischaltung</div><div class="meta-card-value" id="unlock-date">2026-09-26</div></div>
+      <div class="meta-card"><div class="meta-card-label">Basiskonzept</div><div class="meta-card-value">Struktur &amp; Eigenschaft</div></div>
+    </div>
+    <div class="password-zone" id="pw-zone">
+      <div class="pw-label">Frühzeitiger Zugang · Passwort eingeben</div>
+      <form class="pw-form" id="pw-form" autocomplete="off">
+        <input type="password" class="pw-input" id="pw-input" placeholder="Passwort" autocomplete="off">
+        <button type="submit" class="pw-submit">Entsperren</button>
+      </form>
+      <div class="pw-feedback" id="pw-feedback"></div>
+    </div>
+  </div>
+</header>
+
+<div class="lernpfad" id="lernpfad">
+
+  <section class="lp-section">
+    <div class="sec-num">§ 0 · Worum es geht</div>
+    <h2>Eine <em>Struktur</em> – viele <em>Eigenschaften</em></h2>
+    <p class="lead">In diesem Lernpfad ordnest du die organische Chemie nach <span class="fw600">Stoffklassen</span> und ihren <span class="fw600">funktionellen Gruppen</span>. Der rote Faden ist das Basiskonzept <span class="fw600">Struktur &amp; Eigenschaft</span>: Aus dem Bau eines Moleküls und seinen zwischenmolekularen Kräften lassen sich Stoffeigenschaften wie Löslichkeit, Siede­temperatur, Geschmack oder Reaktivität herleiten – und umgekehrt.</p>
+    <div class="goal-grid">
+      <div class="goal-card"><div class="glab">Inhaltliche Ziele</div><ul><li>Organische Chemie, funktionelle Gruppen und zwischenmolekulare Kräfte</li><li>Strukturmerkmale &amp; typische Eigenschaften der Stoffklassen</li></ul></div>
+      <div class="goal-card"><div class="glab">Kompetenzen · „Ich kann …“</div><ul><li>… eine Übersicht der Stoffklassen mit Strukturmerkmalen und Eigenschaften erstellen.</li><li>… den Zusammenhang zwischen Struktur und Eigenschaften erklären und erläutern.</li></ul></div>
+    </div>
+    <div class="callout"><div class="co-tag">So arbeitest du</div>Erst der Einstieg an Zuckern (§ 1–§ 3), dann das Werkzeug zur Strukturschreibweise (§ 5, Kommunikations­trainer), schließlich deine eigene Stoffklassen-Übersichtskarte. Fachtexte (§ 6), Musterlösung (§ 7) und Übungen (§ 8) begleiten dich; die Aromaten (§ 9) sind für Schnellläufer:innen.</div>
+  </section>
+
+  <section class="lp-section lp-band">
+    <div class="sec-num">§ 1 · Einstieg (induktiv)</div>
+    <h2>Was macht Zucker <em>süß</em> und <em>wasserlöslich</em>?</h2>
+    <p class="lead">Du kennst die beiden Einfachzucker längst. Schau dir ihren Bau an – jede <span class="fw600" style="color:var(--accent-deep)">orange umrandete Gruppe</span> ist eine <span class="fw600">Hydroxylgruppe (–OH)</span>, das Strukturmerkmal der Stoffklasse der <span class="fw600">Alkohole</span>.</p>
+    <div class="duo">
+      <div class="sugar-card"><div class="sname">Glucose (Traubenzucker)</div><div class="sform">C₆H₁₂O₆ · 5 × –OH</div><div class="sugar-fig" data-sugar="glucose" data-stage="2"></div></div>
+      <div class="sugar-card"><div class="sname">Fructose (Fruchtzucker)</div><div class="sform">C₆H₁₂O₆ · 5 × –OH</div><div class="sugar-fig" data-sugar="fructose" data-stage="2"></div></div>
+    </div>
+    <p class="muted" style="text-align:center;font-size:.88rem">Vereinfachte Ringschreibweise; Ring-Sauerstoff in der Mitte, alle Hydroxylgruppen nach außen gezeichnet.</p>
+    <h3>Welche Eigenschaften folgen daraus?</h3>
+    <p>Überlege erst selbst, decke dann auf.</p>
+    <div class="prop-grid">
+      <div class="reveal" data-reveal>
+        <button class="reveal-head"><span class="rv-icon">+</span> <span class="pemoji">💧</span> Wasserlöslichkeit <span class="rv-tag">aufdecken</span></button>
+        <div class="reveal-body">
+          <p class="answer">Sehr gut wasserlöslich.</p>
+          <p>Glucose: ca. <span class="pill">910 g/L</span>, Fructose sogar ca. <span class="pill">4000 g/L</span> (25 °C) – Fructose ist der am besten wasserlösliche Zucker überhaupt.</p>
+          <p><span class="fw600">Grund (Teilchenebene):</span> Jede –OH-Gruppe ist stark polar (O zieht die Bindungs­elektronen an: <span class="deltaminus">δ−</span> am O, <span class="deltaplus">δ+</span> am H). Zu den ebenfalls polaren Wasser­molekülen bilden sich starke <span class="fw600">Dipol-Dipol-Wechselwirkungen</span>, im Fall O–H···O sogar <span class="fw600">Wasserstoffbrücken</span>. Je mehr –OH, desto mehr Brücken zum Lösungsmittel – desto besser löslich.</p>
+        </div>
+      </div>
+      <div class="reveal" data-reveal>
+        <button class="reveal-head"><span class="rv-icon">+</span> <span class="pemoji">👅</span> Geschmack <span class="rv-tag">aufdecken</span></button>
+        <div class="reveal-body">
+          <p class="answer">Süß.</p>
+          <p><span class="fw600">Grund (Teilchenebene):</span> Die Anordnung der –OH-Gruppen passt räumlich und über zwischen­molekulare Wechselwirkungen genau zu einer Bindungs­tasche des <span class="fw600">Süßrezeptors</span> auf der Zunge – <span class="fw600">Schlüssel-Schloss-Prinzip</span>. Bindet das Molekül, löst der Rezeptor das Nerven­signal „süß“ aus.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-section">
+    <div class="sec-num">§ 2 · Werkzeugkasten</div>
+    <h2>Zwischenmolekulare Kräfte &amp; die Symbolik der <em>Partialladungen</em></h2>
+    <p class="lead">Damit du Eigenschaften sauber begründen kannst, hier die Bildsprache: Partialladungen <span class="deltaplus">δ+</span> / <span class="deltaminus">δ−</span>, der Dipolpfeil und die gestrichelte Wasserstoffbrücke.</p>
+    <figure><div class="figbox"><!--FIG_PARTIAL--></div><figcaption>Polare Bindung mit δ-Ladungen &amp; Dipolmoment · Wasserstoffbrücke O–H···O</figcaption></figure>
+    <div class="duo">
+      <figure style="margin:0"><div class="figbox"><!--FIG_DIPOL--></div><figcaption>Dipol-Dipol-Wechselwirkung</figcaption></figure>
+      <figure style="margin:0"><div class="figbox"><!--FIG_OHSOLV--></div><figcaption>–OH-Gruppe wird von Wasser umlagert (Solvatation)</figcaption></figure>
+    </div>
+    <div class="callout"><div class="co-tag">Merksatz</div><span class="fw600">Gleiches löst sich in Gleichem.</span> Polare/H-Brücken-fähige Gruppen (–OH, –COOH, C=O) machen ein Molekül <span class="fw600">hydrophil</span>; lange unpolare C–H-Ketten machen es <span class="fw600">hydrophob</span>. Das Verhältnis beider Teile entscheidet über die Wasser­löslichkeit.</div>
+  </section>
+
+  <section class="lp-section lp-band">
+    <div class="sec-num">§ 2b · Süßer Geschmack als Wechselwirkung</div>
+    <h2>Schlüssel &amp; Schloss am <em>Süßrezeptor</em></h2>
+    <p>Geschmack ist kein „Stoff in der Zunge“, sondern <span class="fw600">Erkennung durch Wechselwirkung</span>: Passt das Molekül mit seinen –OH-Gruppen in die komplementäre Rezeptortasche, entsteht das Signal „süß“.</p>
+    <figure><div class="figbox"><!--FIG_LOCKKEY--></div><figcaption>Schlüssel-Schloss-Prinzip: passende Molekülgestalt + Wechselwirkungen → Signal „süß“</figcaption></figure>
+  </section>
+
+  <section class="lp-section">
+    <div class="sec-num">§ 3 · Umkehrung (deduktiv)</div>
+    <h2>Von der Eigenschaft <em>zurück</em> zur Struktur</h2>
+    <p class="lead">Jetzt andersherum. Von den beiden Zweifachzuckern sind nur die <span class="fw600">Eigenschaften</span> bekannt. Leite den strukturellen Grund ab – decke dann Schritt für Schritt auf.</p>
+    <div class="duo">
+      <div class="sugar-card">
+        <div class="sname">Maltose (Malzzucker)</div><div class="sform">C₁₂H₂₂O₁₁</div>
+        <div class="prop-grid" style="margin-top:.6rem">
+          <div class="prop"><div class="ptitle"><span class="pemoji">💧</span> löslich</div><div class="muted" style="font-size:.85rem">ca. 1080 g/L</div></div>
+          <div class="prop"><div class="ptitle"><span class="pemoji">👅</span> süß</div><div class="muted" style="font-size:.85rem">mild süß</div></div>
+        </div>
+        <div class="sugar-fig" data-sugar="maltose" data-stage="0" style="margin-top:.8rem"></div>
+        <div class="toggle-row" data-stepper="maltose">
+          <button class="btn" data-step="1">① Struktur</button>
+          <button class="btn" data-step="2">② –OH markieren</button>
+          <button class="btn" data-step="3">③ H-Brücken</button>
+        </div>
+      </div>
+      <div class="sugar-card">
+        <div class="sname">Saccharose (Haushaltszucker)</div><div class="sform">C₁₂H₂₂O₁₁</div>
+        <div class="prop-grid" style="margin-top:.6rem">
+          <div class="prop"><div class="ptitle"><span class="pemoji">💧</span> löslich</div><div class="muted" style="font-size:.85rem">ca. 2000 g/L</div></div>
+          <div class="prop"><div class="ptitle"><span class="pemoji">👅</span> süß</div><div class="muted" style="font-size:.85rem">deutlich süß</div></div>
+        </div>
+        <div class="sugar-fig" data-sugar="saccharose" data-stage="0" style="margin-top:.8rem"></div>
+        <div class="toggle-row" data-stepper="saccharose">
+          <button class="btn" data-step="1">① Struktur</button>
+          <button class="btn" data-step="2">② –OH markieren</button>
+          <button class="btn" data-step="3">③ H-Brücken</button>
+        </div>
+      </div>
+    </div>
+    <p class="muted" style="text-align:center;font-size:.88rem">Disaccharide: zwei Ringe, über eine glykosidische Bindung (Brücken-O) verknüpft. Je <span class="fw600">8</span> freie –OH-Gruppen.</p>
+    <div class="callout"><div class="co-tag">Ableitung</div>Beide Stoffe tragen viele –OH-Gruppen → viele Wasserstoffbrücken zum Wasser → sehr gut löslich. Ihre –OH-Anordnung passt an den Süßrezeptor → süß. <span class="fw600">Geht die –OH-Gruppe verloren</span> (z. B. beim Verbrennen/Karamellisieren), verschwinden Löslichkeit und süßer Geschmack.</div>
+  </section>
+
+  <section class="lp-section lp-band">
+    <div class="sec-num">§ 4 · Fazit</div>
+    <h2>Die Struktur-Eigenschafts-Beziehung der Zucker</h2>
+    <p>Fasse die drei Beobachtungen zu einem Satz zusammen – dann aufdecken und vergleichen.</p>
+    <div class="reveal" data-reveal>
+      <button class="reveal-head"><span class="rv-icon">+</span> Fazit aufdecken <span class="rv-tag">Struktur ⇄ Eigenschaft</span></button>
+      <div class="reveal-body">
+        <p class="answer">Die Eigenschaften der Zucker hängen unmittelbar von der Anzahl ihrer Hydroxylgruppen (–OH) ab.</p>
+        <ul>
+          <li><span class="fw600">Wasserlöslichkeit</span> ⟸ jede –OH-Gruppe bildet starke <span class="fw600">Dipol-Dipol-Wechselwirkungen / Wasserstoffbrücken</span> zu den Wasser­molekülen. Mehr –OH ⇒ mehr Brücken ⇒ besser löslich (Fructose &gt; Saccharose &gt; Maltose &gt; Glucose, alle sehr gut löslich).</li>
+          <li><span class="fw600">Süßer Geschmack</span> ⟸ die räumliche –OH-Anordnung passt nach dem <span class="fw600">Schlüssel-Schloss-Prinzip</span> an den Süßrezeptor; passende Wechselwirkungen lösen das Signal aus.</li>
+          <li><span class="fw600">Verallgemeinerung:</span> Nicht die Summenformel, sondern die <span class="fw600">funktionelle Gruppe</span> und die daraus folgenden zwischenmolekularen Kräfte bestimmen die Eigenschaften. Genau das überträgst du jetzt auf alle Stoffklassen.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-section">
+    <div class="sec-num">§ 5 · Auftrag</div>
+    <h2>Deine <em>Stoffklassen-Übersichtskarte</em></h2>
+    <p class="lead">Erstelle eine handschriftliche Übersichtskarte aller unten genannten Stoffklassen – jeweils mit <span class="fw600">Strukturmerkmal (funktionelle Gruppe)</span> und den <span class="fw600">typischen Struktur-Eigenschafts-Beziehungen</span>. Nutze <span class="fw600">stichpunktartige Fachsprache</span>, keine ganzen Sätze, und ordne selbst sinnvoll (z. B. nach steigender Polarität).</p>
+    <div class="trainer-cta">
+      <div class="tc-txt">
+        <h4>🧪 Chemical Communication Trainer</h4>
+        <p>Hol dir Skelett-, Struktur- und Summenformel jeder Stoffklasse als Vorlage. Öffne den <span class="fw600">Übungsmodus</span> und wähle genau diese Stoffklassen:</p>
+        <div class="chiprow">
+          <span class="chip">Alkane</span><span class="chip">verzw. Alkane</span><span class="chip">Alkene</span><span class="chip">verzw. Alkene</span>
+          <span class="chip">Alkine</span><span class="chip">verzw. Alkine</span><span class="chip">Alkanole</span><span class="chip">Alkanale</span>
+          <span class="chip">Alkanone</span><span class="chip">Alkansäuren</span><span class="chip">Ester</span>
+        </div>
+      </div>
+      <a class="btn-cta" href="https://nitrogen-ai.github.io/training/chemical_communication_trainer.html" target="_blank" rel="noopener">Trainer öffnen →</a>
+    </div>
+    <p>So gehst du vor: pro Stoffklasse ein „Feld“ auf deiner Karte → funktionelle Gruppe skizzieren → 2–3 Eigenschaften + jeweils der zwischenmolekulare Grund (Stichworte!). Die Karte erklärst du anschließend im Plenum.</p>
+    <h3>Vorlage: so sieht ein fertiges Feld aus</h3>
+    <p>Das Feld der <span class="fw600">Alkanole</span> aus dem Einstieg dient dir als Strukturvorlage für alle anderen Klassen:</p>
+    <div class="vorlage">
+      <div class="vorlage-head"><span style="font-size:1.3rem">🍷</span> <span class="vt">Alkanole</span> <span class="vbadge">Vorlage</span></div>
+      <div class="vorlage-body">
+        <div class="vfig">
+          <div class="mol" data-mol="ethanol_full" style="min-height:200px"></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.66rem;color:#7a7368;margin-top:.3rem">Ethanol · C₂H₆O</div>
+          <div class="mol" data-mol="butan1ol_skeletal" style="min-height:120px;margin-top:.6rem"></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.66rem;color:#7a7368">Butan-1-ol · Skelettformel</div>
+        </div>
+        <div>
+          <ul class="vkeys">
+            <li><span class="vk-ico">⌬</span><span><span class="vk-label">Funktionelle Gruppe:</span> Hydroxylgruppe –OH; allgemein R–OH.</span></li>
+            <li><span class="vk-ico">💧</span><span><span class="vk-label">Löslichkeit:</span> kurze Alkanole wasserlöslich (H-Brücken via –OH); mit längerer C-Kette ↓ (unpolarer Teil dominiert).</span></li>
+            <li><span class="vk-ico">🌡️</span><span><span class="vk-label">Siedetemperatur:</span> hoch ggü. Alkanen gleicher Größe → H-Brücken zwischen den Molekülen.</span></li>
+            <li><span class="vk-ico">⚗️</span><span><span class="vk-label">Reaktivität:</span> oxidierbar (→ Aldehyd/Keton → Säure); bildet mit Säuren Ester.</span></li>
+            <li><span class="vk-ico">δ</span><span><span class="vk-label">Polarität:</span> <span class="deltaminus">δ−</span> am O, <span class="deltaplus">δ+</span> am H → hydrophiler „Kopf“, hydrophober C-„Schwanz“.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <p class="muted">Format pro Feld: funktionelle Gruppe · Löslichkeit · Siedetemperatur · Reaktivität · Polarität – jeweils mit dem zwischenmolekularen Grund.</p>
+  </section>
+
+  <section class="lp-section lp-band">
+    <div class="sec-num">§ 6 · Fachtexte</div>
+    <h2>Hintergrund zu den <em>Stoffklassen</em></h2>
+    <p class="lead">Knappe Fachtexte – besonders für Struktur-Eigenschafts-Beziehungen, die nicht direkt aus dem Alltag folgen (z. B. die C=C-Doppelbindung der Alkene).</p>
+    <details class="fach"><summary><span class="fa-emoji">🔗</span> Alkane &amp; verzweigte Alkane <span class="fa-chev">›</span></summary>
+      <div class="fa-body"><p>Nur C–C- und C–H-Einfachbindungen, keine funktionelle Gruppe → <span class="fw600">unpolar</span>. Es wirken nur schwache <span class="fw600">Van-der-Waals-Kräfte</span>; diese wachsen mit der Kettenlänge (Kontaktfläche) → Siede­temperatur steigt mit der C-Zahl. <span class="fw600">Verzweigung</span> verkleinert die Kontaktfläche → niedrigere Siede­temperatur als das unverzweigte Isomer (gleiche Summenformel, andere Eigenschaften!). Alle Alkane sind praktisch wasserunlöslich, aber gute Fett-/Öllöser.</p></div>
+    </details>
+    <details class="fach"><summary><span class="fa-emoji">〰️</span> Alkene &amp; verzweigte Alkene — die C=C-Doppelbindung <span class="fa-chev">›</span></summary>
+      <div class="fa-body">
+        <p>Strukturmerkmal ist die <span class="fw600">C=C-Doppelbindung</span>: eine σ- und eine leichter zugängliche π-Bindung. Daraus folgen Eigenschaften, die man dem bloßen Kohlenwasserstoff nicht ansieht:</p>
+        <p><span class="fw600">Reaktivität (Additionen).</span> Die elektronenreiche π-Bindung wird von elektrophilen Teilchen angegriffen → typische <span class="fw600">Additionsreaktionen</span> (z. B. Brom­wasser entfärbt sich – Nachweis!). Deshalb sind Alkene Bausteine für Kunststoffe: die Doppelbindung „öffnet“ sich zur <span class="fw600">Polymerisation</span> (Polyethen, Polypropen).</p>
+        <p><span class="fw600">Antioxidative Wirkung / Autoxidation.</span> Allyl­positionen neben C=C sind anfällig für Radikale. In Fetten führt das zum Ranzigwerden; umgekehrt fangen ungesättigte Naturstoffe und „Antioxidantien“ Radikale an ihren Doppelbindungen ab und unterbrechen so Radikalketten.</p>
+        <p><span class="fw600">UV/Vis-Absorption &amp; Farbigkeit.</span> Eine isolierte Doppelbindung absorbiert nur im UV. Sind viele Doppelbindungen <span class="fw600">konjugiert</span> (abwechselnd Doppel-/Einfach­bindung), rückt die Absorption in den sichtbaren Bereich → die Stoffe werden <span class="fw600">farbig</span> (z. B. β-Carotin, orange; Lycopin, rot). Je länger das konjugierte System, desto langwelliger die Absorption. Molekulare Grundlage vieler Naturfarbstoffe und des Sehvorgangs.</p>
+        <p>Verzweigung wirkt wie bei den Alkanen auf Siedepunkt/Packung; die Lage der Doppelbindung bestimmt die Stabilität (höher substituierte C=C sind stabiler).</p>
+      </div>
+    </details>
+    <details class="fach"><summary><span class="fa-emoji">⚡</span> Alkine &amp; verzweigte Alkine <span class="fa-chev">›</span></summary>
+      <div class="fa-body"><p>Strukturmerkmal: <span class="fw600">C≡C-Dreifachbindung</span> (sehr energiereich → Ethin liefert die heiße Schweißflamme). Endständige Alkine besitzen ein schwach <span class="fw600">acides ≡C–H</span> (das sp-Hybrid hält die Bindungselektronen dicht am C): Mit starken Basen lassen sich „Acetylide“ bilden, mit denen man Kohlenstoffketten gezielt verlängert – eine Eigenschaft, die man dem Molekül nicht ansieht. Wie Alkene additions- und polymerisations­freudig.</p></div>
+    </details>
+    <details class="fach"><summary><span class="fa-emoji">🍷</span> Alkanole <span class="fa-chev">›</span></summary>
+      <div class="fa-body"><p>Funktionelle Gruppe –OH. <span class="fw600">Wasserstoffbrücken</span> zwischen den Molekülen → hohe Siedetemperatur; H-Brücken zum Wasser → kurze Alkohole gut wasserlöslich, mit wachsender C-Kette nimmt die Löslichkeit ab. Oxidierbar zu Aldehyden/Ketonen und weiter zu Carbonsäuren; mit Säuren entstehen Ester. Primär/sekundär/tertiär unterscheiden sich in der Oxidierbarkeit.</p></div>
+    </details>
+    <details class="fach"><summary><span class="fa-emoji">🌿</span> Alkanale &amp; <span style="font-size:.95em">🔥</span> Alkanone (Carbonylgruppe) <span class="fa-chev">›</span></summary>
+      <div class="fa-body"><p>Beide tragen die <span class="fw600">Carbonylgruppe C=O</span> – stark polar (<span class="deltaminus">δ−</span> am O, <span class="deltaplus">δ+</span> am C), aber ohne eigenes O–H. Folge: untereinander nur Dipol-Dipol (keine H-Brücken) → niedrigere Siedetemperatur als Alkohole, aber höher als Alkane; gegenüber Wasser sind kurze Vertreter dank Akzeptor-O gut löslich. <span class="fw600">Aldehyde</span> (C=O am Kettenende) sind leicht oxidierbar (→ Carbonsäure; Fehling/Tollens positiv) – <span class="fw600">Ketone</span> (C=O in der Kette) nicht. Klassisches Struktur-Reaktivitäts-Unterscheidungsmerkmal.</p></div>
+    </details>
+    <details class="fach"><summary><span class="fa-emoji">🍋</span> Alkansäuren (Carboxylgruppe) <span class="fa-chev">›</span></summary>
+      <div class="fa-body"><p>Funktionelle Gruppe <span class="fw600">–COOH</span> (Carboxyl = Carbonyl + Hydroxyl). Das O–H ist <span class="fw600">sauer</span>: in Wasser wird H⁺ abgegeben (das entstehende Carboxylat-Anion ist mesomerie­stabilisiert). Sehr starke H-Brücken (sogar Dimere) → hohe Siedetemperaturen; kurze Säuren mit Wasser mischbar, mit wachsender Kette „fettiger“ und schwerer löslich. Mit Alkoholen → Ester (+ Wasser).</p></div>
+    </details>
+    <details class="fach"><summary><span class="fa-emoji">🌸</span> Ester <span class="fa-chev">›</span></summary>
+      <div class="fa-body"><p>Aus Säure + Alkohol unter Wasser­abspaltung; Gruppe <span class="fw600">–CO–O–</span>. Es fehlt ein freies O–H → <span class="fw600">keine H-Brücken-Donoren</span> → deutlich flüchtiger und schlechter wasserlöslich als die zugrunde­liegenden Säuren/Alkohole, dafür oft angenehm <span class="fw600">fruchtig riechend</span> (Aromastoffe). Schöne Demonstration, wie das Entfernen der O–H-Gruppen Löslichkeit und Geruch verändert.</p></div>
+    </details>
+  </section>
+
+  <section class="lp-section">
+    <div class="sec-num">§ 7 · Musterlösung</div>
+    <h2>Struktur-Eigenschafts-Beziehungen <em>aller</em> Stoffklassen</h2>
+    <p class="lead">Vergleiche deine Karte mit dieser Übersicht. <span class="fw600">Erst selbst erstellen, dann aufdecken.</span></p>
+    <div class="reveal" data-reveal>
+      <button class="reveal-head"><span class="rv-icon">+</span> Musterlösung aufdecken <span class="rv-tag">Stichpunkte</span></button>
+      <div class="reveal-body">
+        <table class="sp">
+          <thead><tr><th>Stoffklasse</th><th>Funkt. Gruppe</th><th>Typische Eigenschaften ⟸ Struktur / zwischenmol. Kräfte</th></tr></thead>
+          <tbody>
+            <tr><td>Alkane</td><td>keine (nur C–H, C–C)</td><td>unpolar; nur Van-der-Waals; Sdp. ↑ mit Kettenlänge; wasserunlöslich, fettlöslich</td></tr>
+            <tr><td>verzw. Alkane</td><td>keine</td><td>Isomere der Alkane; Verzweigung → kleinere Kontaktfläche → niedrigerer Sdp. als unverzweigt</td></tr>
+            <tr><td>Alkene</td><td>C=C</td><td>π-Bindung reaktiv (Addition, Polymerisation, Bromwasser-Entfärbung); konjugiert → UV/Vis → Farbe; antioxidativ</td></tr>
+            <tr><td>verzw. Alkene</td><td>C=C</td><td>wie Alkene; höher substituierte C=C stabiler; Verzweigung ↓ Sdp.</td></tr>
+            <tr><td>Alkine</td><td>C≡C</td><td>sehr energiereich; endständig acides ≡C–H (Kettenverlängerung); additions-/polymerisationsfreudig</td></tr>
+            <tr><td>verzw. Alkine</td><td>C≡C</td><td>wie Alkine; Lage der Dreifachbindung &amp; Verzweigung bestimmen Reaktivität/Sdp.</td></tr>
+            <tr><td>Alkanole</td><td>–OH</td><td>H-Brücken → hoher Sdp.; kurz = wasserlöslich, lang = unlöslich; oxidierbar; bilden Ester</td></tr>
+            <tr><td>Alkanale</td><td>–CHO (C=O endständig)</td><td>polare C=O, keine eigenen H-Brücken → Sdp. zw. Alkan &amp; Alkohol; leicht oxidierbar (Fehling/Tollens +)</td></tr>
+            <tr><td>Alkanone</td><td>C=O (in der Kette)</td><td>polar, Dipol-Dipol; kurze gut wasserlöslich; nicht (leicht) oxidierbar → Unterschied zu Aldehyden</td></tr>
+            <tr><td>Alkansäuren</td><td>–COOH</td><td>sauer (H⁺-Abgabe, stabilisiertes Anion); sehr starke H-Brücken/Dimere → hoher Sdp.; kurz wassermischbar</td></tr>
+            <tr><td>Ester</td><td>–CO–O–</td><td>kein O–H → keine H-Brücken-Donoren → flüchtig, schlechter wasserlöslich, fruchtiger Geruch</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-section lp-band">
+    <div class="sec-num">§ 8 · Übungen · Leistungsbewertung</div>
+    <h2>Übungsaufgaben: <em>Reproduktion · Anwendung · Transfer</em></h2>
+    <p class="lead">Die Strukturgrafiken stammen direkt aus dem Kommunikationstrainer (skalierbare Vektorgrafik).</p>
+    <div class="aufgabe">
+      <div class="a-head"><span class="a-badge repro">Reproduktion</span><span class="a-title">A1 · Stoffklasse erkennen</span></div>
+      <p>Bestimme zu jeder Darstellung (a)–(d): <span class="fw600">Stoffklasse</span>, <span class="fw600">funktionelle Gruppe</span> und – wo angegeben – Skelett- vs. Strukturformel. Notiere außerdem die <span class="fw600">Summenformel</span>.</p>
+      <div class="a-mols">
+        <div class="a-mol"><div class="mol" data-mol="pentan1ol_skeletal"></div><div class="ml">(a) Skelettformel</div></div>
+        <div class="a-mol"><div class="mol" data-mol="propanal_full"></div><div class="ml">(b) Strukturformel</div></div>
+        <div class="a-mol"><div class="mol" data-mol="but1en_skeletal"></div><div class="ml">(c) Skelettformel</div></div>
+        <div class="a-mol"><div class="mol" data-mol="essigsaeure_full"></div><div class="ml">(d) Strukturformel</div></div>
+      </div>
+      <div class="reveal" data-reveal>
+        <button class="reveal-head"><span class="rv-icon">+</span> Lösung <span class="rv-tag">A1</span></button>
+        <div class="reveal-body"><ul>
+          <li>(a) <span class="answer">Alkanol</span>, –OH; Pentan-1-ol, C₅H₁₂O.</li>
+          <li>(b) <span class="answer">Alkanal</span>, –CHO (C=O endständig); Propanal, C₃H₆O.</li>
+          <li>(c) <span class="answer">Alken</span>, C=C; But-1-en, C₄H₈.</li>
+          <li>(d) <span class="answer">Alkansäure</span>, –COOH; Ethansäure (Essigsäure), C₂H₄O₂.</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="aufgabe">
+      <div class="a-head"><span class="a-badge anwend">Anwendung</span><span class="a-title">A2 · Siedetemperatur begründen</span></div>
+      <p>Ethanol (C₂H₆O) ist bei Raumtemperatur flüssig, Butan (C₄H₁₀) gasförmig – obwohl die molaren Massen ähnlich sind. <span class="fw600">Erkläre auf Teilchenebene.</span></p>
+      <div class="a-mols">
+        <div class="a-mol"><div class="mol" data-mol="ethanol_full"></div><div class="ml">Ethanol</div></div>
+        <div class="a-mol"><div class="mol" data-mol="butan_full"></div><div class="ml">Butan</div></div>
+      </div>
+      <div class="reveal" data-reveal>
+        <button class="reveal-head"><span class="rv-icon">+</span> Lösung <span class="rv-tag">A2</span></button>
+        <div class="reveal-body"><p>Ethanol besitzt eine <span class="fw600">–OH-Gruppe</span> und bildet zwischen den Molekülen <span class="fw600">Wasserstoffbrücken</span>; diese müssen beim Sieden überwunden werden → höhere Siedetemperatur, flüssig. Butan ist unpolar, es wirken nur schwache <span class="fw600">Van-der-Waals-Kräfte</span> → niedrige Siedetemperatur, gasförmig. <span class="muted">(Struktur → zwischenmolekulare Kräfte → Eigenschaft.)</span></p></div>
+      </div>
+    </div>
+    <div class="aufgabe">
+      <div class="a-head"><span class="a-badge anwend">Anwendung</span><span class="a-title">A3 · Wasserlöslichkeit ordnen</span></div>
+      <p>Ordne Hexan und Hexan-1-ol nach steigender Wasserlöslichkeit und begründe. Was erwartest du für Ethanol im Vergleich zu Hexan-1-ol?</p>
+      <div class="a-mols">
+        <div class="a-mol"><div class="mol" data-mol="hexan_skeletal"></div><div class="ml">Hexan</div></div>
+        <div class="a-mol"><div class="mol" data-mol="hexan1ol_skeletal"></div><div class="ml">Hexan-1-ol</div></div>
+      </div>
+      <div class="reveal" data-reveal>
+        <button class="reveal-head"><span class="rv-icon">+</span> Lösung <span class="rv-tag">A3</span></button>
+        <div class="reveal-body"><p>Hexan &lt; Hexan-1-ol. Hexan ist völlig unpolar (unlöslich). Hexan-1-ol hat einen polaren –OH-„Kopf“ (H-Brücken zum Wasser), aber eine lange unpolare Kette → nur mäßig löslich. <span class="fw600">Ethanol</span> hat denselben –OH-Kopf, aber eine viel kürzere Kette → der hydrophile Anteil überwiegt → deutlich besser wasserlöslich (mit Wasser mischbar).</p></div>
+      </div>
+    </div>
+    <div class="aufgabe">
+      <div class="a-head"><span class="a-badge transfer">Transfer</span><span class="a-title">A4 · Ester vs. Säure</span></div>
+      <p>Essigsäure und Essigsäureethylester (Ethylacetat) haben ähnliche molare Masse. Der Ester riecht stark fruchtig und ist flüchtiger. <span class="fw600">Erkläre den Unterschied über die zwischenmolekularen Kräfte.</span></p>
+      <div class="a-mols">
+        <div class="a-mol"><div class="mol" data-mol="essigsaeure_skeletal"></div><div class="ml">Essigsäure</div></div>
+        <div class="a-mol"><div class="mol" data-mol="ethylacetat_skeletal"></div><div class="ml">Ethylacetat</div></div>
+      </div>
+      <div class="reveal" data-reveal>
+        <button class="reveal-head"><span class="rv-icon">+</span> Lösung <span class="rv-tag">A4</span></button>
+        <div class="reveal-body"><p>Die Säure besitzt eine <span class="fw600">O–H-Gruppe</span> und bildet starke Wasserstoffbrücken (sogar Dimere) → schwer flüchtig. Im Ester ist dieses O–H durch die Veresterung verschwunden (–CO–O–), es gibt <span class="fw600">keine H-Brücken-Donoren</span> mehr → nur Dipol-Dipol → flüchtiger, daher intensiver Geruch und schlechter wasserlöslich.</p></div>
+      </div>
+    </div>
+    <div class="aufgabe">
+      <div class="a-head"><span class="a-badge transfer">Transfer</span><span class="a-title">A5 · Konjugation &amp; Farbe (β-Carotin)</span></div>
+      <p>β-Carotin (Möhre) ist orange, ein einzelnes Alken farblos. Erkläre mithilfe der UV/Vis-Absorption, warum ein <span class="fw600">konjugiertes</span> Doppelbindungssystem farbig erscheint.</p>
+      <figure><div class="figbox" id="polyene-fig"></div><figcaption>Ausschnitt eines konjugierten Polyensystems (abwechselnd C=C / C–C)</figcaption></figure>
+      <div class="reveal" data-reveal>
+        <button class="reveal-head"><span class="rv-icon">+</span> Lösung <span class="rv-tag">A5</span></button>
+        <div class="reveal-body"><p>In einem konjugierten System sind die π-Elektronen über viele Atome <span class="fw600">delokalisiert</span>. Dadurch sinkt der Energieabstand für die Lichtanregung; die Absorption verschiebt sich vom UV in den <span class="fw600">sichtbaren Bereich</span>. β-Carotin absorbiert blaues Licht – wir sehen die Komplementärfarbe <span class="fw600">orange</span>. Je länger das konjugierte System, desto langwelliger die Absorption. <span class="muted">Struktur (Konjugationslänge) → Eigenschaft (Farbe).</span></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-section">
+    <div class="sec-num">§ 9 · Schnellläufer:innen</div>
+    <h2>Bonus: die <em>Aromaten</em></h2>
+    <div class="callout fast"><div class="co-tag">Zusatzaufgabe</div>Erweitere deine Übersichtskarte um die Stoffklasse der <span class="fw600">Aromaten</span> – mit den drei Stichworten chemische Stabilität, Cancerogenität und Namensherkunft.</div>
+    <figure><div class="figbox" id="aromaten-fig"></div><figcaption>Benzol · Naphthalin · Anthracen — kondensierte Aromaten</figcaption></figure>
+    <h4>Worum es geht</h4>
+    <ul>
+      <li><span class="fw600">Chemische Stabilität.</span> Im Benzolring sind 6 π-Elektronen ringförmig <span class="fw600">delokalisiert</span> („Aromatizität“). Das senkt die Energie deutlich → der Ring ist ungewöhnlich stabil und reagiert <span class="fw600">nicht</span> wie ein gewöhnliches Alken (keine Addition, sondern Substitution unter Erhalt des Rings).</li>
+      <li><span class="fw600">Cancerogenität durch Interkalation.</span> Größere, flache, kondensierte Aromaten (PAK, z. B. in Rauch/Teer) sind so geformt, dass sie sich zwischen die Basenpaare der <span class="fw600">DNA schieben (Interkalation)</span>. Das stört das Ablesen/Kopieren der DNA und kann Mutationen und Krebs auslösen.</li>
+      <li><span class="fw600">Namensherkunft „Aromaten“.</span> Historisch, weil viele erste Vertreter (aus Harzen/Balsamen) angenehm <span class="fw600">aromatisch rochen</span>. Der Name beschreibt den Geruch der Entdeckungsstoffe – nicht eine gemeinsame Reaktivität. Heute meint „aromatisch“ chemisch das delokalisierte Ringsystem.</li>
+    </ul>
+    <div class="reveal" data-reveal>
+      <button class="reveal-head"><span class="rv-icon">+</span> Stichpunkte fürs Kartenfeld <span class="rv-tag">Aromaten</span></button>
+      <div class="reveal-body"><ul>
+        <li><span class="fw600">Funkt. Merkmal:</span> delokalisiertes π-System im Ring (mesomere Schreibweise: Kreis).</li>
+        <li><span class="fw600">Stabilität:</span> sehr stabil → Substitution statt Addition.</li>
+        <li><span class="fw600">Risiko:</span> manche PAK krebserregend (DNA-Interkalation).</li>
+        <li><span class="fw600">Name:</span> vom angenehmen Geruch der ersten Vertreter.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section class="lp-section lp-band">
+    <div class="sec-num">§ 10 · Material</div>
+    <h2>Mitschrift &amp; Musterlösung</h2>
+    <p class="lead">Zum Lernpfad gibt es ein deckungsgleich gelayoutetes Mitschrift-Dokument und die zugehörige Musterlösung (Typst → PDF).</p>
+    <div class="dl-grid">
+      <div class="dl-card"><div class="dl-k">Mitschrift (Lückenfassung)</div><div class="dl-t">📝 Lernpfad III – Mitschrift</div><div class="dl-file">mitschrift-organik.pdf · .typ</div></div>
+      <div class="dl-card"><div class="dl-k">Musterlösung (deckungsgleich)</div><div class="dl-t">✅ Lernpfad III – Musterlösung</div><div class="dl-file">musterloesung-organik.pdf · .typ</div></div>
+    </div>
+    <p class="muted">Beide Dateien liegen im Repository neben dieser Seite. Die Strukturformeln darin werden mit demselben Renderer wie der Kommunikationstrainer erzeugt.</p>
+  </section>
+
+</div><!-- /.lernpfad -->
+
+<footer>
+  Chemie · Leistungs­kurs · <a href="../chemie-lk-kursplan.html">Zurück zum Kursplan</a> · Struktur &amp; Eigenschaft
+</footer>
+
+<script>
+/*__RENDER_CORE__*/
+/*__APP_JS__*/
+</script>
+</body>
+</html>

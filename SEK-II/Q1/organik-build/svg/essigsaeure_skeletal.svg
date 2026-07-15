@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000" preserveAspectRatio="xMidYMid meet">
+  <rect width="1000" height="1000" fill="#ffffff"/>
+  <line x1="344.12" y1="275.00" x2="500.00" y2="365.00" stroke="#1c1712" stroke-width="9.90" stroke-linecap="round"/>
+  <line x1="488.30" y1="344.74" x2="609.89" y2="274.54" stroke="#1c1712" stroke-width="9.90" stroke-linecap="round"/>
+  <line x1="511.70" y1="385.26" x2="633.29" y2="315.06" stroke="#1c1712" stroke-width="9.90" stroke-linecap="round"/>
+  <line x1="500.00" y1="365.00" x2="500.00" y2="505.40" stroke="#1c1712" stroke-width="9.90" stroke-linecap="round"/>
+  <line x1="500.00" y1="584.60" x2="500.00" y2="685.40" stroke="#1c1712" stroke-width="9.90" stroke-linecap="round"/>
+  <circle cx="655.88" cy="275.00" r="39.60" fill="#ffffff"/>
+  <text x="655.88" y="275.00" font-size="72.00" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="500" text-anchor="middle" dominant-baseline="central" fill="#1c1712">O</text>
+  <circle cx="500.00" cy="545.00" r="39.60" fill="#ffffff"/>
+  <text x="500.00" y="545.00" font-size="72.00" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="500" text-anchor="middle" dominant-baseline="central" fill="#1c1712">O</text>
+  <circle cx="500.00" cy="725.00" r="39.60" fill="#ffffff"/>
+  <text x="500.00" y="725.00" font-size="72.00" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="500" text-anchor="middle" dominant-baseline="central" fill="#1c1712">H</text>
+  
+  
+</svg>
