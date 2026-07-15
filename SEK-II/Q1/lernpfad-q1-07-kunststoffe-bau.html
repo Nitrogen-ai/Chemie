@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kunststoffe — Bau &amp; Klassen · Lernpfad VII · Chemie LK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a1612;
+    --paper: #f5f1e8;
+    --paper-warm: #ede5d3;
+    --accent: #a83610;
+    --accent-deep: #a83610;
+    --gold: #c9a961;
+    --teal: #1e5d52;
+    --teal-deep: #0d3a32;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter Tight', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.55;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(217, 79, 30, 0.04) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(30, 93, 82, 0.05) 0%, transparent 45%);
+  }
+
+  ::selection { background: var(--accent); color: var(--paper); }
+
+  /* Top breadcrumb */
+  .nav-bar {
+    padding: 1.5rem 6vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(10, 22, 18, 0.08);
+  }
+
+  .nav-bar a {
+    color: var(--ink);
+    opacity: 0.6;
+    text-decoration: none;
+    transition: opacity 0.3s ease, color 0.3s ease;
+  }
+  .nav-bar a:hover { opacity: 1; color: var(--accent); }
+
+  .nav-bar .crumb-sep {
+    margin: 0 0.6rem;
+    opacity: 0.3;
+  }
+
+  /* Main content */
+  main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 6vw;
+    position: relative;
+  }
+
+  /* Decorative grid */
+  main::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(10,22,18,0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(10,22,18,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .content {
+    max-width: 920px;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    text-align: center;
+  }
+
+  .pfad-roman {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 200;
+    font-size: clamp(7rem, 18vw, 14rem);
+    line-height: 0.85;
+    color: var(--accent);
+    letter-spacing: -0.04em;
+    margin-bottom: 1.5rem;
+    opacity: 0.95;
+    animation: fadeUp 1s ease 0.1s both;
+  }
+
+  .pfad-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    margin-bottom: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    animation: fadeUp 1s ease 0.25s both;
+  }
+
+  .pfad-eyebrow::before, .pfad-eyebrow::after {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.5;
+  }
+
+  .pfad-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin-bottom: 0.8rem;
+    animation: fadeUp 1s ease 0.4s both;
+  }
+
+  .pfad-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .pfad-subtitle {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    opacity: 0.75;
+    margin-bottom: 3.5rem;
+    animation: fadeUp 1s ease 0.55s both;
+  }
+
+  /* The big "im Aufbau" banner */
+  .status-banner {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 1.4rem 2.2rem;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+    animation: fadeUp 1s ease 0.7s both;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .status-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(217, 79, 30, 0.25), transparent);
+    animation: shimmer 3s linear infinite;
+  }
+
+  @keyframes shimmer {
+    to { left: 100%; }
+  }
+
+  .status-banner .pulse {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 1.4s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.4); }
+  }
+
+  .status-banner span {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Meta info */
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    max-width: 720px;
+    margin: 0 auto 3rem;
+    animation: fadeUp 1s ease 0.85s both;
+  }
+
+  .meta-card {
+    padding: 1.4rem 1.5rem;
+    background: var(--paper-warm);
+    border-left: 3px solid var(--accent);
+    text-align: left;
+  }
+
+  .meta-card-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    margin-bottom: 0.5rem;
+  }
+
+  .meta-card-value {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.15rem;
+    color: var(--ink);
+  }
+
+  /* Password gate */
+  .password-zone {
+    margin-top: 3rem;
+    padding-top: 3rem;
+    border-top: 1px dashed rgba(10, 22, 18, 0.2);
+    animation: fadeUp 1s ease 1s both;
+  }
+
+  .pw-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    opacity: 0.75;
+    margin-bottom: 1rem;
+  }
+
+  .pw-form {
+    display: inline-flex;
+    gap: 0;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+  }
+
+  .pw-input {
+    padding: 0.85rem 1.2rem;
+    border: none;
+    background: transparent;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--ink);
+    width: 240px;
+    outline: none;
+    letter-spacing: 0.05em;
+  }
+
+  .pw-input::placeholder {
+    opacity: 0.35;
+    letter-spacing: 0.05em;
+  }
+
+  .pw-submit {
+    padding: 0.85rem 1.6rem;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: background 0.3s ease;
+  }
+
+  .pw-submit:hover { background: var(--accent); }
+
+  .pw-feedback {
+    margin-top: 1rem;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--accent-deep);
+    min-height: 1.3em;
+  }
+
+  /* Unlocked content (hidden until unlock) */
+  .unlocked-content {
+    display: none;
+    margin-top: 3rem;
+    padding: 3rem 2rem;
+    background: var(--paper-warm);
+    border: 1px solid rgba(10, 22, 18, 0.15);
+    text-align: left;
+    animation: slideIn 0.6s ease;
+  }
+
+  .unlocked-content.show { display: block; }
+
+  .unlocked-content h2 {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    color: var(--teal-deep);
+  }
+
+  .unlocked-content p {
+    font-size: 1rem;
+    line-height: 1.65;
+    opacity: 0.85;
+  }
+
+  .unlocked-content .placeholder-text {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(217, 79, 30, 0.08);
+    border-left: 3px solid var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    color: var(--accent-deep);
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Floating molecule decoration */
+  .deco-mol {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.08;
+  }
+  .deco-mol.dm1 { top: 8%; right: 6%; width: 200px; animation: drift 24s ease-in-out infinite; }
+  .deco-mol.dm2 { bottom: 12%; left: 4%; width: 160px; animation: drift 30s ease-in-out infinite reverse; }
+
+  @keyframes drift {
+    0%, 100% { transform: translate(0,0) rotate(0deg); }
+    50% { transform: translate(15px, -25px) rotate(20deg); }
+  }
+
+  footer {
+    padding: 2.5rem 6vw;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-align: center;
+    opacity: 0.85;
+  }
+
+  footer a {
+    color: var(--gold);
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+  footer a:hover { opacity: 0.7; }
+
+  /* Mobile */
+  @media (max-width: 640px) {
+    .pw-form { flex-direction: column; width: 100%; max-width: 320px; margin: 0 auto; }
+    .pw-input { width: 100%; }
+    .nav-bar { font-size: 0.65rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <div>
+    <a href="../chemie-lk-kursplan.html">← Kursplan</a>
+    <span class="crumb-sep">/</span>
+    <span style="opacity: 0.4">Q1</span>
+    <span class="crumb-sep">/</span>
+    <span style="opacity: 0.8">Lernpfad VII</span>
+  </div>
+  <div style="opacity: 0.5">Chemie · LK</div>
+</nav>
+
+<main>
+  <!-- Decorative molecules -->
+  <svg class="deco-mol dm1" viewBox="0 0 200 200">
+    <circle cx="100" cy="50" r="8" fill="currentColor"/>
+    <circle cx="50" cy="120" r="8" fill="currentColor"/>
+    <circle cx="150" cy="120" r="8" fill="currentColor"/>
+    <circle cx="100" cy="170" r="6" fill="currentColor"/>
+    <line x1="100" y1="50" x2="50" y2="120" stroke="currentColor" stroke-width="2"/>
+    <line x1="100" y1="50" x2="150" y2="120" stroke="currentColor" stroke-width="2"/>
+    <line x1="50" y1="120" x2="100" y2="170" stroke="currentColor" stroke-width="2"/>
+    <line x1="150" y1="120" x2="100" y2="170" stroke="currentColor" stroke-width="2"/>
+  </svg>
+  <svg class="deco-mol dm2" viewBox="0 0 200 200">
+    <circle cx="40" cy="100" r="9" fill="currentColor"/>
+    <circle cx="100" cy="100" r="9" fill="currentColor"/>
+    <circle cx="160" cy="100" r="9" fill="currentColor"/>
+    <line x1="40" y1="100" x2="100" y2="100" stroke="currentColor" stroke-width="2"/>
+    <line x1="100" y1="100" x2="160" y2="100" stroke="currentColor" stroke-width="2"/>
+  </svg>
+
+  <div class="content">
+    <div class="pfad-eyebrow">Lernpfad · Q1</div>
+    <div class="pfad-roman">VII</div>
+    <h1 class="pfad-title">Kunststoffe — Bau &amp; Klassen</h1>
+    <p class="pfad-subtitle">Thermoplaste, Duroplaste, Elastomere</p>
+
+    <div class="status-banner">
+      <div class="pulse"></div>
+      <span>Im Aufbau</span>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-card">
+        <div class="meta-card-label">Zeitraum</div>
+        <div class="meta-card-value">SJW 12</div>
+      </div>
+      <div class="meta-card">
+        <div class="meta-card-label">Freischaltung</div>
+        <div class="meta-card-value" id="unlock-date">2026-11-14</div>
+      </div>
+      <div class="meta-card">
+        <div class="meta-card-label">Status</div>
+        <div class="meta-card-value" id="status-text">Wird berechnet …</div>
+      </div>
+    </div>
+
+    <div class="password-zone" id="pw-zone">
+      <div class="pw-label">Frühzeitiger Zugang · Passwort eingeben</div>
+      <form class="pw-form" id="pw-form" autocomplete="off">
+        <input type="password" class="pw-input" id="pw-input" placeholder="Passwort" autocomplete="off">
+        <button type="submit" class="pw-submit">Entsperren</button>
+      </form>
+      <div class="pw-feedback" id="pw-feedback"></div>
+    </div>
+
+    <div class="unlocked-content" id="unlocked">
+      <h2>Materialien &amp; Musterlösungen</h2>
+      <p>Dieser Bereich ist nun freigeschaltet. Hier finden Sie zukünftig die Lernpfad-Inhalte zu <em>Kunststoffe — Bau &amp; Klassen</em>: Aufgaben, Experimente, Musterlösungen, weiterführende Links, Google-Classroom-Verknüpfung.</p>
+      <div class="placeholder-text">
+        // Inhalte werden zu gegebener Zeit ergänzt //
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  Chemie · Leistungs­kurs · <a href="../chemie-lk-kursplan.html">Zurück zum Kursplan</a>
+</footer>
+
+<script>
+  // Konfiguration
+  const UNLOCK_ISO = "2026-11-14T07:00:00+02:00"; // Samstag früh, MESZ
+  const PASSWORD = "Chemieistüberall.";
+
+  const unlockDate = new Date(UNLOCK_ISO);
+  const now = new Date();
+  const isUnlocked = now >= unlockDate;
+
+  const statusEl = document.getElementById('status-text');
+  const pwZone = document.getElementById('pw-zone');
+  const unlockedEl = document.getElementById('unlocked');
+
+  // Format unlock date nicely
+  const fmtUnlock = unlockDate.toLocaleDateString('de-DE', {
+    weekday: 'short', day: '2-digit', month: '2-digit', year: 'numeric'
+  });
+  document.getElementById('unlock-date').textContent = fmtUnlock;
+
+  // Check if past local-storage flag (already unlocked via PW earlier)
+  const storageKey = 'lp_unlock_' + window.location.pathname;
+  const pwUnlocked = sessionStorage.getItem(storageKey) === '1';
+
+  function reveal() {
+    unlockedEl.classList.add('show');
+    pwZone.style.display = 'none';
+    statusEl.textContent = 'Verfügbar';
+    statusEl.style.color = 'var(--teal-deep)';
+  }
+
+  if (isUnlocked) {
+    reveal();
+  } else if (pwUnlocked) {
+    reveal();
+    statusEl.textContent = 'Vorab freigeschaltet';
+  } else {
+    // Show countdown-style status
+    const days = Math.ceil((unlockDate - now) / (1000 * 60 * 60 * 24));
+    statusEl.textContent = days > 0 ? 'Noch ' + days + ' Tag' + (days === 1 ? '' : 'e') : 'Heute';
+  }
+
+  // Password form
+  const form = document.getElementById('pw-form');
+  const input = document.getElementById('pw-input');
+  const feedback = document.getElementById('pw-feedback');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (input.value === PASSWORD) {
+      feedback.textContent = 'Korrekt — Inhalte werden geladen …';
+      sessionStorage.setItem(storageKey, '1');
+      setTimeout(reveal, 600);
+    } else {
+      feedback.textContent = 'Passwort nicht korrekt.';
+      input.value = '';
+      input.focus();
+      // gentle shake
+      form.animate(
+        [{ transform: 'translateX(0)' },
+         { transform: 'translateX(-6px)' },
+         { transform: 'translateX(6px)' },
+         { transform: 'translateX(0)' }],
+        { duration: 280, iterations: 1 }
+      );
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000" preserveAspectRatio="xMidYMid meet">
+  <rect width="1000" height="1000" fill="#ffffff"/>
+  <line x1="449.60" y1="410.00" x2="550.40" y2="410.00" stroke="#1c1712" stroke-width="9.90" stroke-linecap="round"/>
+  <line x1="410.00" y1="370.40" x2="410.00" y2="269.60" stroke="#1c1712" stroke-width="9.90" stroke-linecap="round"/>
+  <line x1="370.40" y1="410.00" x2="269.60" y2="410.00" stroke="#1c1712" stroke-width="9.90" stroke-linecap="round"/>
+  <line x1="590.00" y1="370.40" x2="590.00" y2="269.60" stroke="#1c1712" stroke-width="9.90" stroke-linecap="round"/>
+  <line x1="590.00" y1="449.60" x2="590.00" y2="550.40" stroke="#1c1712" stroke-width="9.90" stroke-linecap="round"/>
+  <line x1="629.60" y1="410.00" x2="730.40" y2="410.00" stroke="#1c1712" stroke-width="9.90" stroke-linecap="round"/>
+  <line x1="410.00" y1="449.60" x2="410.00" y2="550.40" stroke="#1c1712" stroke-width="9.90" stroke-linecap="round"/>
+  <line x1="410.00" y1="629.60" x2="410.00" y2="730.40" stroke="#1c1712" stroke-width="9.90" stroke-linecap="round"/>
+  <circle cx="410.00" cy="410.00" r="39.60" fill="#ffffff"/>
+  <text x="410.00" y="410.00" font-size="72.00" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="500" text-anchor="middle" dominant-baseline="central" fill="#1c1712">C</text>
+  <circle cx="590.00" cy="410.00" r="39.60" fill="#ffffff"/>
+  <text x="590.00" y="410.00" font-size="72.00" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="500" text-anchor="middle" dominant-baseline="central" fill="#1c1712">C</text>
+  <circle cx="410.00" cy="230.00" r="39.60" fill="#ffffff"/>
+  <text x="410.00" y="230.00" font-size="72.00" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="500" text-anchor="middle" dominant-baseline="central" fill="#1c1712">H</text>
+  <circle cx="410.00" cy="590.00" r="39.60" fill="#ffffff"/>
+  <text x="410.00" y="590.00" font-size="72.00" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="500" text-anchor="middle" dominant-baseline="central" fill="#1c1712">O</text>
+  <circle cx="230.00" cy="410.00" r="39.60" fill="#ffffff"/>
+  <text x="230.00" y="410.00" font-size="72.00" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="500" text-anchor="middle" dominant-baseline="central" fill="#1c1712">H</text>
+  <circle cx="590.00" cy="230.00" r="39.60" fill="#ffffff"/>
+  <text x="590.00" y="230.00" font-size="72.00" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="500" text-anchor="middle" dominant-baseline="central" fill="#1c1712">H</text>
+  <circle cx="590.00" cy="590.00" r="39.60" fill="#ffffff"/>
+  <text x="590.00" y="590.00" font-size="72.00" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="500" text-anchor="middle" dominant-baseline="central" fill="#1c1712">H</text>
+  <circle cx="770.00" cy="410.00" r="39.60" fill="#ffffff"/>
+  <text x="770.00" y="410.00" font-size="72.00" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="500" text-anchor="middle" dominant-baseline="central" fill="#1c1712">H</text>
+  <circle cx="410.00" cy="770.00" r="39.60" fill="#ffffff"/>
+  <text x="410.00" y="770.00" font-size="72.00" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="500" text-anchor="middle" dominant-baseline="central" fill="#1c1712">H</text>
+  <line x1="471.20" y1="615.20" x2="471.20" y2="564.80" stroke="#1c1712" stroke-width="9.90" stroke-linecap="round"/>
+  <line x1="348.80" y1="564.80" x2="348.80" y2="615.20" stroke="#1c1712" stroke-width="9.90" stroke-linecap="round"/>
+  
+</svg>

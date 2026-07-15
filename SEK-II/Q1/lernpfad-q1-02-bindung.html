@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chemische Bindung als Gesamtwellenfunktion · Lernpfad II · Chemie LK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0a1612; --paper:#f5f1e8; --paper-warm:#ede5d3;
+    --accent:#1e5d52; --accent-deep:#a83610; --gold:#c9a961;
+    --teal:#1e5d52; --teal-deep:#0d3a32; --dplus:#b3341a; --dminus:#1f5fb0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter Tight',sans-serif; background:var(--paper); color:var(--ink);
+    line-height:1.6; min-height:100vh; display:flex; flex-direction:column; overflow-x:hidden;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(217,79,30,.04) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(30,93,82,.05) 0%, transparent 45%);
+  }
+  ::selection{background:var(--accent); color:var(--paper);}
+  a{color:var(--accent);}
+  :focus-visible{outline:3px solid var(--accent-deep); outline-offset:2px; border-radius:2px;}
+
+  .nav-bar{
+    padding:1.3rem 6vw; display:flex; justify-content:space-between; align-items:center;
+    font-family:'JetBrains Mono',monospace; font-size:.72rem; letter-spacing:.15em; text-transform:uppercase;
+    border-bottom:1px solid rgba(10,22,18,.08); position:sticky; top:0; z-index:50;
+    background:rgba(245,241,232,.92); backdrop-filter:blur(8px);
+  }
+  .nav-bar a{color:var(--ink); opacity:.6; text-decoration:none; transition:opacity .3s,color .3s;}
+  .nav-bar a:hover{opacity:1; color:var(--accent);}
+  .nav-bar .crumb-sep{margin:0 .6rem; opacity:.3;}
+
+  .hero{padding:5rem 6vw 3.5rem; position:relative; text-align:center;}
+  .hero::before{content:''; position:absolute; inset:0;
+    background-image:linear-gradient(to right,rgba(10,22,18,.03) 1px,transparent 1px),linear-gradient(to bottom,rgba(10,22,18,.03) 1px,transparent 1px);
+    background-size:60px 60px; pointer-events:none;}
+  .hero-inner{max-width:940px; margin:0 auto; position:relative; z-index:2;}
+  .pfad-eyebrow{font-family:'JetBrains Mono',monospace; font-size:.75rem; letter-spacing:.3em; text-transform:uppercase; color:var(--teal-deep); display:flex; justify-content:center; align-items:center; gap:1rem; margin-bottom:1.1rem;}
+  .pfad-eyebrow::before,.pfad-eyebrow::after{content:''; width:40px; height:1px; background:var(--accent); opacity:.5;}
+  .pfad-roman{font-family:'Fraunces',serif; font-style:italic; font-weight:200; font-size:clamp(5rem,13vw,10rem); line-height:.85; color:var(--accent); letter-spacing:-.04em; margin-bottom:1rem;}
+  .pfad-title{font-family:'Fraunces',serif; font-weight:300; font-size:clamp(1.9rem,5vw,3.3rem); line-height:1.05; letter-spacing:-.025em; margin-bottom:.7rem;}
+  .pfad-title em{font-style:italic; color:var(--accent);}
+  .pfad-subtitle{font-family:'Fraunces',serif; font-style:italic; font-weight:300; font-size:clamp(1.05rem,1.6vw,1.3rem); opacity:.75; margin-bottom:2.4rem;}
+  .status-banner{display:inline-flex; align-items:center; gap:1rem; padding:1rem 1.8rem; background:var(--ink); color:var(--paper); font-family:'JetBrains Mono',monospace; font-size:.78rem; letter-spacing:.22em; text-transform:uppercase; position:relative; overflow:hidden;}
+  .status-banner .pulse{width:9px; height:9px; border-radius:50%; background:var(--accent); animation:pulse 1.4s ease-in-out infinite; flex-shrink:0;}
+  @keyframes pulse{0%,100%{opacity:1; transform:scale(1);} 50%{opacity:.4; transform:scale(1.4);}}
+  .status-banner span{position:relative; z-index:1;}
+  .meta-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.2rem; max-width:720px; margin:2.4rem auto 0;}
+  .meta-card{padding:1.2rem 1.3rem; background:var(--paper-warm); border-left:3px solid var(--accent); text-align:left;}
+  .meta-card-label{font-family:'JetBrains Mono',monospace; font-size:.64rem; letter-spacing:.2em; text-transform:uppercase; opacity:.55; margin-bottom:.4rem;}
+  .meta-card-value{font-family:'Fraunces',serif; font-style:italic; font-weight:400; font-size:1.1rem;}
+
+  .password-zone{margin-top:2.6rem; padding-top:2.4rem; border-top:1px dashed rgba(10,22,18,.2);}
+  .pw-label{font-family:'JetBrains Mono',monospace; font-size:.7rem; letter-spacing:.22em; text-transform:uppercase; color:var(--teal-deep); opacity:.75; margin-bottom:1rem;}
+  .pw-form{display:inline-flex; border:1px solid var(--ink); background:var(--paper);}
+  .pw-input{padding:.8rem 1.1rem; border:none; background:transparent; font-family:'JetBrains Mono',monospace; font-size:.85rem; color:var(--ink); width:240px; outline:none;}
+  .pw-input::placeholder{opacity:.35;}
+  .pw-submit{padding:.8rem 1.5rem; background:var(--ink); color:var(--paper); border:none; cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; transition:background .3s;}
+  .pw-submit:hover{background:var(--accent);}
+  .pw-feedback{margin-top:1rem; font-family:'Fraunces',serif; font-style:italic; font-size:.95rem; color:var(--accent-deep); min-height:1.3em;}
+
+  .lernpfad{display:none;}
+  .lernpfad.show{display:block; animation:fadeUp .5s ease;}
+  @keyframes fadeUp{from{opacity:0; transform:translateY(18px);} to{opacity:1; transform:none;}}
+  .lp-section{max-width:1000px; margin:0 auto; padding:3.2rem 6vw;}
+  .lp-section+.lp-section{border-top:1px solid rgba(10,22,18,.08);}
+  .lp-band{background:var(--paper-warm);}
+  .sec-num{font-family:'JetBrains Mono',monospace; font-size:.72rem; letter-spacing:.28em; text-transform:uppercase; color:var(--accent-deep); margin-bottom:.7rem;}
+  .lp-section h2{font-family:'Fraunces',serif; font-weight:400; font-size:clamp(1.7rem,3.4vw,2.4rem); line-height:1.1; letter-spacing:-.02em; margin-bottom:.5rem;}
+  .lp-section h2 em{font-style:italic; color:var(--accent);}
+  .lp-section h3{font-family:'Fraunces',serif; font-weight:500; font-size:1.25rem; margin:2rem 0 .7rem; color:var(--teal-deep);}
+  .lp-section h4{font-family:'Inter Tight',sans-serif; font-weight:600; font-size:1rem; margin:1.3rem 0 .4rem;}
+  .lp-section p{margin:.7rem 0;}
+  .lp-section p.lead{font-size:1.12rem; opacity:.9;}
+  .lp-section ul,.lp-section ol{margin:.6rem 0 .6rem 1.4rem;}
+  .lp-section li{margin:.35rem 0;}
+  .muted{opacity:.62;} .fw600{font-weight:600;}
+  .deltaplus{color:var(--dplus); font-weight:700;} .deltaminus{color:var(--dminus); font-weight:700;}
+
+  .goal-grid{display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; margin-top:1.4rem;}
+  @media(max-width:720px){.goal-grid{grid-template-columns:1fr;}}
+  .goal-card{background:var(--paper); border:1px solid rgba(10,22,18,.12); border-left:3px solid var(--accent); padding:1.2rem 1.3rem;}
+  .lp-band .goal-card{background:#fbf8f1;}
+  .goal-card .glab{font-family:'JetBrains Mono',monospace; font-size:.64rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent-deep); margin-bottom:.5rem;}
+  .goal-card ul{margin:.3rem 0 0 1.1rem;}
+
+  figure{margin:1.6rem 0; text-align:center;}
+  figure svg,.mol svg,.sugar-fig svg{max-width:100%; height:auto;}
+  .figbox{background:#fff; border:1px solid rgba(10,22,18,.12); border-radius:8px; padding:1rem; display:inline-block; max-width:100%;}
+  figcaption{font-family:'JetBrains Mono',monospace; font-size:.68rem; letter-spacing:.06em; color:#7a7368; margin-top:.7rem; text-transform:uppercase;}
+
+  .duo{display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; margin-top:1.2rem;}
+  @media(max-width:760px){.duo{grid-template-columns:1fr;}}
+  .sugar-card{background:#fff; border:1px solid rgba(10,22,18,.12); border-radius:10px; padding:1.1rem; text-align:center;}
+  .sugar-card .sname{font-family:'Fraunces',serif; font-style:italic; font-size:1.2rem; color:var(--teal-deep);}
+  .sugar-card .sform{font-family:'JetBrains Mono',monospace; font-size:.8rem; color:#7a7368; margin-bottom:.4rem;}
+  .sugar-fig{min-height:240px;}
+  .toggle-row{display:flex; flex-wrap:wrap; gap:.45rem; justify-content:center; margin-top:.6rem;}
+
+  .btn{display:inline-flex; align-items:center; gap:.5rem; cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; padding:.6rem 1.1rem; border:1px solid var(--ink); background:var(--paper); color:var(--ink); transition:all .2s; border-radius:6px;}
+  .btn:hover{background:var(--ink); color:var(--paper);}
+  .btn.on{background:var(--accent); color:var(--paper); border-color:var(--accent);}
+
+  .reveal{border:1px solid rgba(10,22,18,.15); border-radius:10px; margin:.9rem 0; overflow:hidden; background:#fff;}
+  .lp-band .reveal{background:#fbf8f1;}
+  .reveal-head{display:flex; align-items:center; gap:.8rem; padding:.95rem 1.2rem; cursor:pointer; background:transparent; border:none; width:100%; text-align:left; font-family:inherit; font-size:1rem; color:var(--ink); font-weight:600;}
+  .reveal-head .rv-icon{width:26px; height:26px; flex-shrink:0; border-radius:50%; background:var(--accent); color:#fff; display:grid; place-items:center; font-size:.9rem; transition:transform .3s;}
+  .reveal.open .rv-icon{transform:rotate(45deg);}
+  .reveal-head .rv-tag{margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:.6rem; letter-spacing:.16em; text-transform:uppercase; color:#9a9285; font-weight:400;}
+  .reveal-body{display:none; padding:0 1.2rem 1.2rem;}
+  .reveal.open .reveal-body{display:block; animation:fadeUp .35s ease;}
+  .reveal-body .answer{font-weight:600; color:var(--accent-deep);}
+
+  .prop-grid{display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1rem;}
+  @media(max-width:600px){.prop-grid{grid-template-columns:1fr;}}
+  .prop{background:#fff; border:1px solid rgba(10,22,18,.12); border-radius:10px; padding:1rem 1.1rem;}
+  .lp-band .prop{background:#fbf8f1;}
+  .prop .ptitle{font-weight:700; display:flex; align-items:center; gap:.5rem;}
+  .prop .pemoji,.pemoji{font-size:1.2rem;}
+  .pill{display:inline-block; background:var(--paper-warm); border:1px solid rgba(10,22,18,.12); border-radius:999px; padding:.15rem .7rem; font-family:'JetBrains Mono',monospace; font-size:.66rem;}
+
+  .callout{border-left:4px solid var(--accent); background:rgba(30,93,82,.06); padding:1rem 1.2rem; border-radius:0 8px 8px 0; margin:1.2rem 0;}
+  .callout.warn{border-color:var(--accent-deep); background:rgba(168,54,16,.06);}
+  .callout.fast{border-color:var(--gold); background:rgba(201,169,97,.12);}
+  .callout .co-tag{font-family:'JetBrains Mono',monospace; font-size:.64rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent-deep); margin-bottom:.4rem;}
+
+  .trainer-cta{margin:1.6rem 0; padding:1.6rem; border-radius:14px; color:var(--paper); background:linear-gradient(135deg,var(--teal-deep),#14463c); display:flex; flex-wrap:wrap; align-items:center; gap:1.2rem; justify-content:space-between;}
+  .trainer-cta .tc-txt{flex:1 1 280px;}
+  .trainer-cta h4{color:var(--paper); margin:0 0 .3rem; font-size:1.15rem;}
+  .trainer-cta p{color:rgba(245,241,232,.85); margin:.2rem 0; font-size:.95rem;}
+  .trainer-cta .btn-cta{background:var(--gold); color:#231a05; border:none; padding:.95rem 1.6rem; border-radius:8px; font-family:'JetBrains Mono',monospace; font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; text-decoration:none; font-weight:700; white-space:nowrap; transition:transform .2s;}
+  .trainer-cta .btn-cta:hover{transform:translateY(-2px);}
+  .chiprow{display:flex; flex-wrap:wrap; gap:.4rem; margin-top:.7rem;}
+  .chip{background:rgba(245,241,232,.14); border:1px solid rgba(245,241,232,.3); color:var(--paper); border-radius:999px; padding:.18rem .7rem; font-size:.74rem;}
+
+  .vorlage{border:2px solid var(--accent); border-radius:14px; overflow:hidden; margin:1.4rem 0; background:#fff;}
+  .vorlage-head{background:var(--accent); color:#fff; padding:.8rem 1.2rem; display:flex; align-items:center; gap:.7rem;}
+  .vorlage-head .vt{font-family:'Fraunces',serif; font-style:italic; font-size:1.2rem;}
+  .vorlage-head .vbadge{margin-left:auto; background:var(--gold); color:#231a05; font-family:'JetBrains Mono',monospace; font-size:.6rem; letter-spacing:.12em; padding:.2rem .6rem; border-radius:5px; text-transform:uppercase;}
+  .vorlage-body{padding:1.3rem; display:grid; grid-template-columns:.9fr 1.1fr; gap:1.3rem;}
+  @media(max-width:740px){.vorlage-body{grid-template-columns:1fr;}}
+  .vorlage .vfig{text-align:center;}
+  .vkeys{list-style:none; margin:0; padding:0;}
+  .vkeys li{padding:.5rem 0; border-bottom:1px dashed rgba(10,22,18,.13); display:flex; gap:.6rem; align-items:flex-start;}
+  .vkeys li:last-child{border-bottom:none;}
+  .vkeys .vk-ico{color:var(--accent-deep); font-weight:700;}
+  .vkeys .vk-label{font-weight:600;}
+
+  details.fach{border:1px solid rgba(10,22,18,.14); border-radius:10px; margin:.7rem 0; background:#fff; overflow:hidden;}
+  details.fach>summary{list-style:none; cursor:pointer; padding:.9rem 1.2rem; font-weight:600; display:flex; align-items:center; gap:.7rem;}
+  details.fach>summary::-webkit-details-marker{display:none;}
+  details.fach>summary .fa-emoji{font-size:1.2rem;}
+  details.fach>summary .fa-chev{margin-left:auto; transition:transform .3s; color:var(--accent);}
+  details.fach[open]>summary .fa-chev{transform:rotate(90deg);}
+  details.fach .fa-body{padding:0 1.2rem 1.2rem; border-top:1px solid rgba(10,22,18,.08);}
+  details.fach .fa-body p:first-child{margin-top:.8rem;}
+
+  .aufgabe{border:1px solid rgba(10,22,18,.14); border-radius:12px; padding:1.3rem; margin:1.1rem 0; background:#fff;}
+  .lp-band .aufgabe{background:#fbf8f1;}
+  .aufgabe .a-head{display:flex; align-items:center; gap:.7rem; margin-bottom:.6rem; flex-wrap:wrap;}
+  .a-badge{font-family:'JetBrains Mono',monospace; font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; padding:.22rem .65rem; border-radius:6px; font-weight:700;}
+  .a-badge.repro{background:#e4f1ec; color:var(--teal-deep);}
+  .a-badge.anwend{background:#fbecd6; color:#8a4a12;}
+  .a-badge.transfer{background:#f0e3f5; color:#6b3a80;}
+  .a-title{font-weight:600; font-size:1.05rem;}
+  .a-mols{display:flex; flex-wrap:wrap; gap:1rem; justify-content:center; margin:1rem 0;}
+  .a-mol{background:#fff; border:1px solid rgba(10,22,18,.12); border-radius:10px; padding:.6rem; width:170px;}
+  .a-mol .mol{min-height:150px; display:grid; place-items:center;}
+  .a-mol .ml{text-align:center; font-family:'JetBrains Mono',monospace; font-size:.62rem; letter-spacing:.05em; color:#7a7368; margin-top:.3rem;}
+
+  .dl-grid{display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1.2rem;}
+  @media(max-width:600px){.dl-grid{grid-template-columns:1fr;}}
+  .dl-card{background:#fff; border:1px solid rgba(10,22,18,.13); border-radius:10px; padding:1.1rem;}
+  .dl-card .dl-k{font-family:'JetBrains Mono',monospace; font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-deep);}
+  .dl-card .dl-t{font-weight:600; margin:.3rem 0;}
+  .dl-card .dl-file{font-family:'JetBrains Mono',monospace; font-size:.78rem; color:#6c6358;}
+
+  table.sp{width:100%; border-collapse:collapse; margin-top:1rem; font-size:.92rem;}
+  table.sp th,table.sp td{text-align:left; padding:.6rem .7rem; border-bottom:1px solid rgba(10,22,18,.12); vertical-align:top;}
+  table.sp th{font-family:'JetBrains Mono',monospace; font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--accent-deep);}
+
+  footer{padding:2.4rem 6vw; background:var(--ink); color:var(--paper); font-family:'JetBrains Mono',monospace; font-size:.72rem; letter-spacing:.1em; text-align:center; opacity:.92;}
+  footer a{color:var(--gold); text-decoration:none;}
+
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none !important; transition:none !important; scroll-behavior:auto !important;}}
+
+/* ===================================================================
+   Ergänzungen · Lernpfad II „Chemische Bindung als Gesamtwellenfunktion“
+   (Design-System identisch zur Atombau-Vorlage · nur neue Bausteine)
+   =================================================================== */
+
+/* --- generische Zwei-Spalten-Panels --- */
+.duo2{display:grid; grid-template-columns:1fr 1fr; gap:1.6rem; margin-top:1.2rem;}
+@media(max-width:760px){.duo2{grid-template-columns:1fr;}}
+.panel{background:#fff; border:1px solid rgba(10,22,18,.12); border-radius:12px; padding:1.1rem 1.2rem;}
+.lp-band .panel{background:#fbf8f1;}
+.panel h4{margin:.1rem 0 .5rem;}
+.panel .p-cap{font-family:'JetBrains Mono',monospace; font-size:.66rem; letter-spacing:.06em; color:#7a7368; text-transform:uppercase; margin-top:.5rem;}
+
+/* --- Konflikt-Kasten (kognitiver Konflikt) --- */
+.conflict{border:2px dashed var(--accent-deep); border-radius:14px; padding:1.2rem 1.3rem; margin:1.4rem 0; background:rgba(168,54,16,.05);}
+.conflict .cf-tag{font-family:'JetBrains Mono',monospace; font-size:.66rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent-deep); margin-bottom:.5rem; display:flex; align-items:center; gap:.5rem;}
+.conflict .cf-vs{display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:1rem; margin:.8rem 0;}
+@media(max-width:640px){.conflict .cf-vs{grid-template-columns:1fr;}}
+.conflict .cf-side{background:#fff; border:1px solid rgba(10,22,18,.12); border-radius:10px; padding:.8rem 1rem; font-size:.94rem;}
+.conflict .cf-vs-mid{font-family:'Fraunces',serif; font-style:italic; font-size:1.5rem; color:var(--accent-deep); text-align:center;}
+
+/* --- interaktiver Regler (Slider-Panels) --- */
+.slab{background:#fff; border:1px solid rgba(10,22,18,.12); border-radius:12px; padding:1rem 1.1rem; margin:1rem 0;}
+.lp-band .slab{background:#fbf8f1;}
+.slab .sl-fig{width:100%; overflow:hidden;}
+.slab .sl-fig svg{display:block; width:100%; height:auto;}
+.slab .sl-ctrl{display:flex; align-items:center; gap:.9rem; margin-top:.7rem; flex-wrap:wrap;}
+.slab .sl-ctrl input[type=range]{flex:1 1 220px; accent-color:var(--accent); height:26px; cursor:pointer;}
+.slab .sl-read{font-family:'JetBrains Mono',monospace; font-size:.8rem; color:var(--teal-deep); background:var(--paper-warm); border-radius:6px; padding:.35rem .6rem; white-space:nowrap;}
+.slab .sl-read b{color:var(--accent-deep);}
+.slab .sl-note{font-size:.86rem; color:#4a5350; margin-top:.6rem; min-height:1.2em;}
+
+/* --- Seifenblasen-Panel (animiert) --- */
+.bubbles-fig{width:100%;} .bubbles-fig svg{display:block; width:100%; height:auto;}
+.bubble-toggle{display:flex; gap:.5rem; flex-wrap:wrap; justify-content:center; margin-top:.7rem;}
+
+/* --- MO-Diagramm (H2 vs He2) --- */
+.mo-switch{display:flex; gap:.5rem; flex-wrap:wrap; margin:1rem 0 .4rem;}
+.mo-fig{width:100%;} .mo-fig svg{display:block; width:100%; height:auto; max-width:520px; margin:0 auto;}
+.mo-verdict{margin-top:.8rem; padding:.8rem 1rem; border-radius:8px; font-size:.95rem; border-left:4px solid var(--accent);}
+.mo-verdict.bond{background:rgba(30,93,82,.08); border-color:var(--teal);}
+.mo-verdict.nobond{background:rgba(168,54,16,.08); border-color:var(--accent-deep);}
+.mo-verdict b{color:var(--accent-deep);}
+
+/* --- Lückentext (Cloze) mit Aufdeck-Feldern --- */
+.cloze{line-height:2.1; font-size:1.02rem;}
+.cloze .gap{display:inline-block; position:relative; min-width:9.5em; text-align:center; border-bottom:2px solid var(--accent-deep); cursor:pointer; padding:0 .35em; font-weight:600; color:transparent; user-select:none; transition:color .2s;}
+.cloze .gap::after{content:attr(data-hint); position:absolute; left:0; right:0; bottom:.15em; color:#b9ac97; font-weight:400; font-style:italic; font-size:.82rem; pointer-events:none;}
+.cloze .gap.shown{color:var(--accent-deep);}
+.cloze .gap.shown::after{content:'';}
+.cloze-hint{font-size:.82rem; color:#6a726e; margin:.5rem 0 0;}
+
+/* --- Hybridisierungs-Karten mit Klick-Aufdeckung --- */
+.hyb-tabs{display:flex; gap:.5rem; flex-wrap:wrap; margin:1.2rem 0 .6rem;}
+.hyb-tab{font-family:'JetBrains Mono',monospace; font-size:.72rem; letter-spacing:.08em; padding:.55rem 1rem; border:1px solid var(--ink); border-radius:8px; background:var(--paper); cursor:pointer; text-transform:uppercase; transition:all .2s;}
+.hyb-tab:hover{background:var(--ink); color:var(--paper);}
+.hyb-tab.on{background:var(--accent); color:#fff; border-color:var(--accent);}
+.hyb-panel{display:none;}
+.hyb-panel.on{display:block; animation:fadeUp .35s ease;}
+.hyb-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:1.3rem; align-items:start;}
+@media(max-width:760px){.hyb-grid{grid-template-columns:1fr;}}
+.hyb-fig{background:#fff; border:1px solid rgba(10,22,18,.12); border-radius:12px; padding:1rem; text-align:center;}
+.lp-band .hyb-fig{background:#fbf8f1;}
+.hyb-fig svg{display:block; width:100%; height:auto; max-width:420px; margin:0 auto;}
+.hyb-steps{display:flex; gap:.4rem; flex-wrap:wrap; justify-content:center; margin-top:.7rem;}
+.hyb-facts li{margin:.5rem 0;}
+.hyb-facts b{color:var(--teal-deep);}
+.mini-mol{display:inline-block; font-family:'JetBrains Mono',monospace; background:var(--paper-warm); border-radius:6px; padding:.1rem .5rem; font-size:.82rem;}
+
+/* --- π-System / Farbigkeit --- */
+.pi-fig{width:100%;} .pi-fig svg{display:block; width:100%; height:auto;}
+.pi-chain-ctrl{display:flex; align-items:center; gap:.9rem; flex-wrap:wrap; margin-top:.8rem;}
+.pi-chain-ctrl input[type=range]{flex:1 1 220px; accent-color:var(--accent); cursor:pointer;}
+.pi-readout{display:grid; grid-template-columns:repeat(3,1fr); gap:.7rem; margin-top:.9rem;}
+@media(max-width:560px){.pi-readout{grid-template-columns:1fr;}}
+.pi-rc{background:#fff; border:1px solid rgba(10,22,18,.12); border-radius:10px; padding:.7rem .8rem; text-align:center;}
+.lp-band .pi-rc{background:#fbf8f1;}
+.pi-rc .rk{font-family:'JetBrains Mono',monospace; font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent-deep);}
+.pi-rc .rv{font-family:'Fraunces',serif; font-size:1.25rem; color:var(--teal-deep); margin-top:.15rem;}
+.pi-swatch{width:100%; height:34px; border-radius:6px; margin-top:.4rem; border:1px solid rgba(10,22,18,.15);}
+
+/* --- Bilanz-Formel --- */
+.bilanz{font-family:'JetBrains Mono',monospace; background:var(--paper-warm); border-radius:10px; padding:.9rem 1.1rem; text-align:center; font-size:.95rem; margin:1rem 0; letter-spacing:.02em;}
+.bilanz b{color:var(--accent-deep);}
+
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <div>
+    <a href="../chemie-lk-kursplan.html">← Kursplan</a>
+    <span class="crumb-sep">/</span><span style="opacity:.4">Q1</span>
+    <span class="crumb-sep">/</span><span style="opacity:.8">Lernpfad II</span>
+  </div>
+  <div style="opacity:.5">Chemie · LK</div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="pfad-eyebrow">Lernpfad · Q1</div>
+    <div class="pfad-roman">II</div>
+    <h1 class="pfad-title">Chemische Bindung als <em>Gesamtwellenfunktion</em></h1>
+    <p class="pfad-subtitle">Vom Elektronenpaar zum Molekülorbital — warum Bindung erst als stehende Welle verständlich wird</p>
+    <div class="status-banner"><div class="pulse"></div><span id="status-text">Wird berechnet …</span></div>
+
+    <div class="meta-grid">
+      <div class="meta-card"><div class="meta-card-label">Zeitraum</div><div class="meta-card-value">SJW 4</div></div>
+      <div class="meta-card"><div class="meta-card-label">Freischaltung</div><div class="meta-card-value" id="unlock-date">2026-09-19</div></div>
+      <div class="meta-card"><div class="meta-card-label">Basiskonzept</div><div class="meta-card-value">Struktur–Eigenschafts-Beziehungen</div></div>
+    </div>
+
+    <div class="password-zone" id="pw-zone">
+      <div class="pw-label">Frühzeitiger Zugang · Passwort eingeben</div>
+      <form class="pw-form" id="pw-form" autocomplete="off">
+        <input type="password" class="pw-input" id="pw-input" placeholder="Passwort" autocomplete="off">
+        <button type="submit" class="pw-submit">Entsperren</button>
+      </form>
+      <div class="pw-feedback" id="pw-feedback"></div>
+    </div>
+  </div>
+</header>
+
+<div class="lernpfad" id="lernpfad">
+
+  <!-- ============================ § 0 ============================ -->
+  <section class="lp-section">
+    <div class="sec-num">§ 0 · Worum es geht</div>
+    <h2>Warum die <em>Edelgasregel</em> nur die halbe Wahrheit ist</h2>
+    <p class="lead">Bisher galt: Atome teilen sich Elektronen in <span class="fw600">Elektronenpaarbindungen</span>, um volle Außenschalen (Edelgaskonfiguration) zu erreichen — das sei „energetisch günstig“. In diesem Lernpfad stellst du diese Begründung auf die Probe: Rein <span class="fw600">elektrostatisch</span> (Coulomb) lässt sich die Bindung <span class="fw600">nicht</span> erklären. Erst der <span class="fw600">Wellencharakter</span> der Elektronen — Elektronen als <span class="fw600">stehende Wellen</span>, die zu einer gemeinsamen <span class="fw600">Gesamtwellenfunktion</span> verschmelzen — macht die Atombindung verständlich. Daraus folgen Molekülorbitale, Hybridisierung und schließlich die <span class="fw600">Farbigkeit</span> organischer Moleküle.</p>
+
+    <div class="goal-grid">
+      <div class="goal-card"><div class="glab">Inhalte</div>
+        <ul>
+          <li>Bindungsenergie H·+·H → H₂ und der Widerspruch zur reinen Elektrostatik</li>
+          <li>Bindende &amp; antibindende σ-Molekülorbitale (LCAO), H₂ vs. He</li>
+          <li>Hybridisierung sp³/sp²/sp an Ethan, Ethen, Ethin</li>
+          <li>π-Elektronensysteme, konjugierte Doppelbindungen und Farbigkeit</li>
+        </ul></div>
+      <div class="goal-card"><div class="glab">Kompetenzen · „Ich kann …“ — zum Abhaken</div>
+        <ul class="kann-list">
+          <li class="kann"><input type="checkbox" data-kann="k1"><span>… den <span class="fw600">Widerspruch</span> zwischen Edelgasregel und Coulomb-Kräften benennen und die Notwendigkeit des Wellenmodells begründen.</span></li>
+          <li class="kann"><input type="checkbox" data-kann="k2"><span>… bindende und antibindende <span class="fw600">σ-Molekülorbitale</span> als LCAO konstruieren und die Bindungs-Bilanz für H₂ und He aufstellen.</span></li>
+          <li class="kann"><input type="checkbox" data-kann="k3"><span>… die <span class="fw600">Hybridisierung</span> (sp³, sp², sp) aus der Molekülgeometrie herleiten.</span></li>
+          <li class="kann"><input type="checkbox" data-kann="k4"><span>… erklären, wie ausgedehnte <span class="fw600">π-Systeme</span> zur Absorption sichtbaren Lichts und damit zur Farbigkeit führen.</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout"><div class="co-tag">So arbeitest du</div>Der Einstieg (§ 1) beginnt mit einem <span class="fw600">Denkkonflikt</span>: Schiebe die interaktiven Regler und beobachte, wo die reine Elektrostatik versagt. § 2 baut daraus das <span class="fw600">Molekülorbital-Modell</span>. In § 3 wird die <span class="fw600">Hybridisierung</span> zum Aufklappen erschlossen, in § 4 die <span class="fw600">Farbigkeit</span>. § 5 ist für Schnelläufer:innen. Verdeckte Lösungsfelder deckst du durch <span class="fw600">Tippen oder Wischen</span> auf — zur Besprechung lassen sie sich wieder zudecken.</div>
+  </section>
+
+  <!-- ============================ § 1 ============================ -->
+  <section class="lp-section lp-band">
+    <div class="sec-num">§ 1 · Einstieg · Kognitiver Konflikt</div>
+    <h2>Zwei Wasserstoffatome nähern sich an — was passiert <em>energetisch</em>?</h2>
+    <p class="lead">Nach dem Bohr-Modell und der Edelgasregel ist klar: H·&nbsp;+&nbsp;·H bilden das Molekül H–H, weil jedes H-Atom durch das <span class="fw600">gemeinsame Elektronenpaar</span> eine gefüllte 1s-„Schale“ (Duett) erreicht. Aber schau genauer hin: In einem H₂-Molekül nähern sich zwei <span class="fw600">Protonen</span> und zwei <span class="fw600">Elektronen</span> an. Was sagen die Coulomb-Kräfte dazu?</p>
+
+    <h3>Aufgabe 9 · Bindungsenergie in Abhängigkeit vom Kernabstand</h3>
+    <p>Schiebe den Regler und verfolge, wie sich die Lewis-Darstellung von zwei getrennten Radikalen (·H&nbsp;&nbsp;H·) über das gebundene Molekül H–H bis zu stark angenäherten, „kollidierenden“ Kernen verändert. Die Kurve zeigt gleichzeitig die <span class="fw600">Bindungsenergie E</span> in kJ·mol⁻¹ in Abhängigkeit vom <span class="fw600">Bindungsabstand l</span> in pm.</p>
+
+    <div class="slab" data-fig="bondcurve">
+      <div class="sl-fig"></div>
+      <div class="sl-ctrl">
+        <input type="range" min="40" max="300" value="74" step="1" aria-label="Kernabstand in pm">
+        <span class="sl-read">l = <b class="v-l">74</b> pm &nbsp;·&nbsp; E = <b class="v-e">−436</b> kJ·mol⁻¹</span>
+      </div>
+      <div class="sl-note"></div>
+    </div>
+
+    <div class="reveal" data-reveal>
+      <button class="reveal-head"><span class="rv-icon">+</span> Aufgabe 9 · Musterbeschreibung der Kurve <span class="rv-tag">aufdecken</span></button>
+      <div class="reveal-body">
+        <p><span class="answer">Bei großem Abstand (rechts) ist E ≈ 0: Die Atome „spüren“ sich kaum.</span> Nähern sie sich, sinkt die Energie, weil die Anziehung überwiegt — bis zum <span class="fw600">Minimum bei l = 74 pm</span> (der Bindungslänge im H₂-Molekül) mit E = <span class="fw600">−436 kJ·mol⁻¹</span> (der Bindungsenergie). Bei noch kleinerem Abstand steigt E <span class="fw600">steil an</span>: Die Kern–Kern- und Elektron–Elektron-Abstoßung dominiert, die Atome „kollidieren“. Der stabilste Zustand ist also das Minimum — dort ist das Molekül gebunden.</p>
+      </div>
+    </div>
+
+    <h3>Der gedankliche Stolperstein: reicht Coulomb allein?</h3>
+    <p>Stell die Bindungskurve nun dem <span class="fw600">rein elektrostatischen (Coulomb-)Bild</span> gegenüber. Zwei Elementarladungen nähern sich an — gleichnamige (+/+ oder −/−) stoßen sich ab (E steigt), gegennamige (+/−) ziehen sich an (E sinkt). Wähle das Ladungspaar und schiebe den Abstand:</p>
+
+    <div class="slab" data-fig="coulomb">
+      <div class="bubble-toggle" style="margin-bottom:.6rem">
+        <button class="btn on" data-pair="pm">+ und − (Anziehung)</button>
+        <button class="btn" data-pair="pp">+ und + (Abstoßung)</button>
+        <button class="btn" data-pair="mm">− und − (Abstoßung)</button>
+      </div>
+      <div class="sl-fig"></div>
+      <div class="sl-ctrl">
+        <input type="range" min="40" max="300" value="150" step="1" aria-label="Ladungsabstand in pm">
+        <span class="sl-read">r = <b class="v-r">150</b> pm &nbsp;·&nbsp; E<sub>pot</sub> = <b class="v-ep">…</b> kJ·mol⁻¹</span>
+      </div>
+      <div class="sl-note"></div>
+    </div>
+
+    <div class="conflict">
+      <div class="cf-tag">⚡ Denkkonflikt</div>
+      <div class="cf-vs">
+        <div class="cf-side"><b>Coulomb erwartet:</b> Bei kleinem Abstand steigt die Energie zweier gleichnamiger Ladungen <b>ohne Grenze</b> an; gegennamige stürzen ohne Minimum ineinander. Ein <b>stabiles Energieminimum</b> bei genau 74 pm lässt sich so <b>nicht</b> begründen — bestenfalls heben sich Anziehung und Abstoßung <b>einmal</b> auf, ohne echte energetische Begünstigung.</div>
+        <div class="cf-vs-mid">≠</div>
+        <div class="cf-side"><b>Beobachtet:</b> H₂ hat ein klares, tiefes Minimum bei −436 kJ·mol⁻¹. Die Bindung ist real und energetisch stark begünstigt.</div>
+      </div>
+      <p style="margin:.6rem 0 0"><b>Folgerung:</b> Elektronen sind keine punktförmigen Ladungskügelchen auf Bohr-Bahnen. Um die Bindung zu verstehen, brauchen wir ihren <span class="fw600">Wellencharakter</span> — Elektronen als <span class="fw600">stehende Wellen</span>, deren Aufenthaltsräume (Orbitale) sich überlagern.</p>
+    </div>
+
+    <h3>Das Seifenblasenmodell: von zwei Wellen zu einer</h3>
+    <p>Denk dir jedes 1s-Elektron als eine <span class="fw600">wabernde Seifenblase</span> (stehende Welle) um seinen Kern. Nähern sich die Kerne, ist es energetisch günstiger, wenn die beiden Blasen zu <span class="fw600">einer gemeinsamen, langgezogenen Blase</span> über <em>beide</em> Protonen verschmelzen — eine <span class="fw600">gemeinsame Schwingung</span>, die <span class="fw600">Gesamtwellenfunktion</span>. Genau diese Verschmelzung senkt die Energie und hält das Molekül zusammen.</p>
+
+    <div class="slab" data-fig="bubbles">
+      <div class="bubbles-fig"></div>
+      <div class="bubble-toggle">
+        <button class="btn" data-bub="apart">getrennt · zwei Wellen</button>
+        <button class="btn on" data-bub="merge">verschmolzen · Gesamtwellenfunktion</button>
+      </div>
+      <div class="sl-note" style="text-align:center"></div>
+    </div>
+
+    <div class="callout"><div class="co-tag">Kerngedanke</div>Die chemische Bindung entsteht, weil sich die Elektronen-Wellen zweier Atome zu einer <span class="fw600">energetisch günstigeren Gesamtwellenfunktion</span> über beide Kerne überlagern. Das ist der Übergang vom Bohr-Bild zum <span class="fw600">Molekülorbital-Modell</span> (§ 2).</div>
+  </section>
+
+  <!-- ============================ § 2 ============================ -->
+  <section class="lp-section">
+    <div class="sec-num">§ 2 · Molekülorbitale</div>
+    <h2>Bindende und antibindende <em>σ-Molekülorbitale</em> (LCAO)</h2>
+    <p class="lead">Eine Atombindung ist nach dem <span class="fw600">Molekülorbital(MO)-Modell</span> die Konstruktion <em>eines</em> Molekülorbitals aus zwei Atomorbitalen — durch <span class="fw600">Linearkombination der Atomorbitale (LCAO)</span>. Zwei 1s-Wellen (ψ<sub>a</sub>, ψ<sub>b</sub>) können sich dabei auf zwei Arten überlagern:</p>
+
+    <div class="duo2">
+      <div class="panel">
+        <div data-fig="lcao" data-mode="bond"></div>
+        <h4>Additive Überlagerung → bindendes σ-MO</h4>
+        <p>ψ<sub>a</sub> <span class="fw600">+</span> ψ<sub>b</sub>: Die Wellen verstärken sich <span class="fw600">zwischen</span> den Kernen. Dort wächst die Elektronendichte → die Kerne werden „zusammengehalten“. Dieses MO liegt <span class="fw600">energetisch tiefer</span> als die Ausgangs-Atomorbitale.</p>
+      </div>
+      <div class="panel">
+        <div data-fig="lcao" data-mode="anti"></div>
+        <h4>Subtraktive Überlagerung → antibindendes σ*-MO</h4>
+        <p>ψ<sub>a</sub> <span class="fw600">−</span> ψ<sub>b</sub>: Zwischen den Kernen entsteht eine <span class="fw600">Knotenebene</span> (Dichte = 0). Die Kerne stoßen sich ab. Dieses MO liegt <span class="fw600">energetisch höher</span> als die Atomorbitale.</p>
+      </div>
+    </div>
+
+    <h3>Aufgabe 10 · Lückentext „Atombindung“ — Begriffe aufdecken</h3>
+    <p class="cloze-hint">Tippe auf ein unterstrichenes Feld, um deine Vermutung zu prüfen. Die kleinen Kursivhinweise geben die Anzahl der Buchstaben-Silben grob vor.</p>
+    <p class="cloze">
+      Eine Atombindung ist nach dem MO-Modell die Konstruktion von zwei
+      <span class="gap" data-hint="Ausgangs-Orbitale">Atomorbitalen</span>
+      zu einem Molekülorbital. Grund für stabile chemische Bindungen sind die Besetzung energetisch günstigerer
+      <span class="gap" data-hint="delokalisierte MOs">Molekülorbitale</span>
+      und der daraus resultierenden
+      <span class="gap" data-hint="Energiegewinn">Bindungsenergie</span>.
+      Es wird von einer Überlappung der Elektronendichte gesprochen, also einer
+      <span class="gap" data-hint="gemeinsame Welle">Gesamtwellenfunktion</span>
+      im Sinne des Modells der stehenden Wellen.
+    </p>
+    <div class="toggle-row" style="justify-content:flex-start; margin-top:.4rem">
+      <button class="btn" data-cloze-all>alle aufdecken / zudecken</button>
+    </div>
+
+    <div class="vorlage">
+      <div class="vorlage-head"><span>📘</span><span class="vt">Molekülorbital (MO)</span><span class="vbadge">Merksatz</span></div>
+      <div class="vorlage-body" style="grid-template-columns:1fr">
+        <p style="margin:0">Beim MO-Verfahren werden über das Molekül <span class="fw600">delokalisierte</span> Molekülorbitale durch eine <span class="fw600">Linearkombination der Atomorbitale (LCAO)</span> aller Atome gebildet. Man unterscheidet <span class="fw600">bindende</span> (σ — rotationssymmetrisch; π — nicht rotationssymmetrisch) und <span class="fw600">antibindende</span> (σ*, π*) Molekülorbitale.</p>
+      </div>
+    </div>
+
+    <h3>Warum bindet H₂, aber nicht He₂? — Die MO-Bilanz</h3>
+    <p>Fülle die Molekülorbitale von unten nach oben mit den vorhandenen Elektronen (Energieprinzip, Pauli). Wechsle zwischen Wasserstoff und Helium und lies die <span class="fw600">Bindungsbilanz</span> ab.</p>
+
+    <div class="mo-switch">
+      <button class="btn on" data-mo="h2">Wasserstoff · H₂ (2 e⁻)</button>
+      <button class="btn" data-mo="he2">Helium · „He₂“ (4 e⁻)</button>
+    </div>
+    <div class="mo-fig" data-fig="modiagram" data-species="h2"></div>
+    <div class="mo-verdict"></div>
+
+    <div class="bilanz">Bindungsordnung&nbsp; = &nbsp;½ · ( <b>bindende</b> e⁻ − <b>antibindende</b> e⁻ )</div>
+
+    <div class="callout"><div class="co-tag">Fazit · woher „2, 8, …“ kommen</div>Die vollbesetzten „Schalen“ mit <span class="fw600">2, 8, …</span> Elektronen sind kein Selbstzweck: Sie ergeben sich aus den <span class="fw600">räumlichen Strukturen der Orbitale</span>. Eine Bindung ist genau dann stabil, wenn die Besetzung der Molekülorbitale in Summe eine <span class="fw600">energetisch günstigere Gesamtwellenfunktion</span> liefert (mehr bindende als antibindende Elektronen). Bei „He₂“ heben sich bindendes und antibindendes MO auf → Bindungsordnung 0 → <span class="fw600">kein Molekül</span>. Die Edelgasregel ist also die <em>Folge</em> der Orbitalstruktur, nicht ihre Ursache.</div>
+  </section>
+
+  <!-- ============================ § 3 ============================ -->
+  <section class="lp-section lp-band">
+    <div class="sec-num">§ 3 · Hybridisierung</div>
+    <h2>Wenn die Atomorbitale nicht zur <em>Geometrie</em> passen</h2>
+    <p class="lead">Kohlenstoff bietet im 2. Energieniveau ein kugelförmiges <span class="mini-mol">2s</span> und drei senkrecht zueinander stehende, hantelförmige <span class="mini-mol">2p<sub>x</sub></span> <span class="mini-mol">2p<sub>y</sub></span> <span class="mini-mol">2p<sub>z</sub></span>-Orbitale an. Deren Geometrie (90° zwischen den p-Orbitalen) passt aber <span class="fw600">nicht</span> zu den beobachteten Bindungswinkeln in Ethan (109,5°), Ethen (120°) oder Ethin (180°). Lösung: die Orbitale werden rechnerisch neu kombiniert — <span class="fw600">Hybridisierung</span>.</p>
+
+    <div class="hyb-tabs">
+      <button class="hyb-tab on" data-hyb="sp3">Ethan · sp³</button>
+      <button class="hyb-tab" data-hyb="sp2">Ethen · sp²</button>
+      <button class="hyb-tab" data-hyb="sp">Ethin · sp</button>
+    </div>
+
+    <!-- sp3 -->
+    <div class="hyb-panel on" data-hyb-panel="sp3">
+      <div class="hyb-grid">
+        <div class="hyb-fig">
+          <div data-hybfig="sp3" data-step="0"></div>
+          <div class="hyb-steps">
+            <button class="btn on" data-hstep="0">1 · Atomorbitale</button>
+            <button class="btn" data-hstep="1">2 · Hybridisierung</button>
+            <button class="btn" data-hstep="2">3 · Molekül</button>
+          </div>
+        </div>
+        <div>
+          <h4>Ethan C₂H₆ · sp³</h4>
+          <ul class="hyb-facts">
+            <li>Kombination: <b>ein 2s + drei 2p</b> → <b>vier gleichwertige sp³-Hybridorbitale</b>.</li>
+            <li>Anordnung: <b>tetraedrisch</b>, Bindungswinkel <b>109,5°</b> — größtmöglicher Abstand der Elektronen(paare).</li>
+            <li>Jedes sp³ überlappt frontal (σ) mit einem H-1s bzw. mit dem sp³ des zweiten C-Atoms → <b>C–C-σ-Bindung</b>.</li>
+            <li>Alle vier Bindungen sind Einfachbindungen (nur σ), frei drehbar.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- sp2 -->
+    <div class="hyb-panel" data-hyb-panel="sp2">
+      <div class="hyb-grid">
+        <div class="hyb-fig">
+          <div data-hybfig="sp2" data-step="0"></div>
+          <div class="hyb-steps">
+            <button class="btn on" data-hstep="0">1 · Atomorbitale</button>
+            <button class="btn" data-hstep="1">2 · Hybridisierung</button>
+            <button class="btn" data-hstep="2">3 · σ + π</button>
+          </div>
+        </div>
+        <div>
+          <h4>Ethen C₂H₄ · sp²</h4>
+          <ul class="hyb-facts">
+            <li>Kombination: <b>ein 2s + zwei 2p</b> → <b>drei sp²-Hybridorbitale</b>; ein <b>2p-Orbital bleibt unhybridisiert</b>.</li>
+            <li>Anordnung: <b>trigonal-planar</b>, Bindungswinkel <b>120°</b>.</li>
+            <li>Die drei sp² bilden σ-Bindungen (2×C–H, 1×C–C). Das unhybridisierte 2p steht <b>senkrecht</b> zur Molekülebene.</li>
+            <li>Die beiden senkrechten 2p überlappen <b>seitlich</b> → <b>π-Bindung</b>. Zusammen: eine C=C-<b>Doppelbindung</b> (1 σ + 1 π), <b>nicht</b> frei drehbar.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- sp -->
+    <div class="hyb-panel" data-hyb-panel="sp">
+      <div class="hyb-grid">
+        <div class="hyb-fig">
+          <div data-hybfig="sp" data-step="0"></div>
+          <div class="hyb-steps">
+            <button class="btn on" data-hstep="0">1 · Atomorbitale</button>
+            <button class="btn" data-hstep="1">2 · Hybridisierung</button>
+            <button class="btn" data-hstep="2">3 · σ + 2 π</button>
+          </div>
+        </div>
+        <div>
+          <h4>Ethin C₂H₂ · sp</h4>
+          <ul class="hyb-facts">
+            <li>Kombination: <b>ein 2s + ein 2p</b> → <b>zwei sp-Hybridorbitale</b>; <b>zwei 2p bleiben unhybridisiert</b>.</li>
+            <li>Anordnung: <b>linear</b>, Bindungswinkel <b>180°</b>.</li>
+            <li>Die zwei unhybridisierten 2p (p<sub>y</sub>, p<sub>z</sub>) stehen senkrecht zueinander und überlappen zu <b>zwei π-Bindungen</b>.</li>
+            <li>Zusammen: eine C≡C-<b>Dreifachbindung</b> (1 σ + 2 π).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <h3>Aufgabe 12 · Lückentext „Hybridisierung“ (Ethan) — Begriffe aufdecken</h3>
+    <p class="cloze">
+      Um der Molekülgeometrie im Ethanmolekül mit größtmöglichem Abstand der
+      <span class="gap" data-hint="Ladungsträger">Elektronen</span>
+      untereinander gerecht zu werden, müssen die
+      <span class="gap" data-hint="s + p">Atomorbitale</span>
+      des Kohlenstoffatoms zu
+      <span class="gap" data-hint="gemischte Orbitale">Hybridorbitalen</span>
+      rechnerisch kombiniert werden (Hybridisierung). Dadurch lassen sich die kugelförmigen
+      <span class="gap" data-hint="kugelförmig">s-Orbitale</span>
+      mit den senkrecht zueinander stehenden, hantelförmigen
+      <span class="gap" data-hint="hantelförmig">p-Orbitalen</span>
+      zu vier energetisch gleichwertigen 2sp³-Hybridorbitalen mit
+      <span class="gap" data-hint="Geometrie">tetraedrischer</span>
+      Anordnung und entsprechenden
+      <span class="gap" data-hint="109,5°">Bindungswinkeln</span>
+      von 109,5° konstruieren.
+    </p>
+    <div class="toggle-row" style="justify-content:flex-start; margin-top:.4rem">
+      <button class="btn" data-cloze-all>alle aufdecken / zudecken</button>
+    </div>
+
+    <div class="aufgabe">
+      <div class="a-head"><span class="a-badge anwend">Anwendung</span><span class="a-title">Aufgabe 13 · Weitere sp³-Moleküle (Abitur-Übung)</span></div>
+      <p>Übertrage das sp³-Bild auf Moleküle mit freien Elektronenpaaren: Ammoniak (NH₃) und Wasser (H₂O). Auch hier ist der Zentralatom-Kern sp³-hybridisiert — freie Elektronenpaare besetzen Hybridorbitale und „drücken“ die Bindungswinkel unter 109,5°.</p>
+      <div class="wipe" data-wipe>
+        <div class="wipe-inner">
+          <p style="margin:.2rem 0"><b>Ammoniak NH₃:</b> N ist sp³-hybridisiert. Drei sp³ bilden N–H-σ-Bindungen, das vierte trägt ein <b>freies Elektronenpaar</b>. Dessen stärkere Abstoßung staucht den H–N–H-Winkel auf ≈ 107°. Geometrie: trigonal-pyramidal.</p>
+          <p style="margin:.2rem 0"><b>Wasser H₂O:</b> O ist sp³-hybridisiert mit <b>zwei</b> freien Elektronenpaaren. Der H–O–H-Winkel sinkt auf ≈ 104,5°. Geometrie: gewinkelt.</p>
+          <p style="margin:.2rem 0"><b>Kohlenstoffdioxid CO₂:</b> C ist <b>sp</b>-hybridisiert (linear, 180°); die p-Orbitale bilden zwei π-Bindungen zu den O-Atomen → O=C=O.</p>
+        </div>
+        <canvas class="wipe-cv"></canvas>
+        <button class="wipe-btn" type="button">Aufdecken</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ § 4 ============================ -->
+  <section class="lp-section">
+    <div class="sec-num">§ 4 · π-Elektronensysteme &amp; Farbigkeit</div>
+    <h2>Von der Doppelbindung zur <em>Farbe</em></h2>
+    <p class="lead">In sp²-hybridisierten Kohlenstoffatomen steht je ein unhybridisiertes 2p-Orbital <span class="fw600">senkrecht</span> zur Molekülebene. Liegen mehrere Doppelbindungen <span class="fw600">konjugiert</span> (abwechselnd Doppel-/Einfachbindung) nebeneinander, überlappen <span class="fw600">alle</span> diese p-Orbitale seitlich zu <span class="fw600">einer</span> ausgedehnten Gesamtwellenfunktion — dem <span class="fw600">π-Elektronensystem</span>.</p>
+
+    <p>Je größer dieses System, desto <span class="fw600">kleiner</span> wird der energetische Abstand ΔE zwischen höchstem besetzten und niedrigstem unbesetzten π-MO (HOMO→LUMO). Kleineres ΔE bedeutet: Es wird Licht <span class="fw600">größerer Wellenlänge</span> absorbiert. Sobald die Absorption in den <span class="fw600">sichtbaren Bereich</span> rückt, erscheint der Stoff <span class="fw600">farbig</span> — in der <span class="fw600">Komplementärfarbe</span> des absorbierten Bereichs.</p>
+
+    <div class="slab" data-fig="pichain">
+      <div class="pi-fig"></div>
+      <div class="pi-chain-ctrl">
+        <span class="sl-read">Konjugierte Doppelbindungen: <b class="v-n">2</b></span>
+        <input type="range" min="1" max="11" value="2" step="1" aria-label="Anzahl konjugierter Doppelbindungen">
+      </div>
+      <div class="pi-readout">
+        <div class="pi-rc"><div class="rk">Kette</div><div class="rv v-name">1,3-Butadien</div></div>
+        <div class="pi-rc"><div class="rk">Absorption λ<sub>max</sub></div><div class="rv v-lambda">217 nm</div></div>
+        <div class="pi-rc"><div class="rk">Farbeindruck</div><div class="rv v-color">farblos</div><div class="pi-swatch v-swatch"></div></div>
+      </div>
+      <div class="sl-note"></div>
+    </div>
+
+    <div class="duo2">
+      <div class="panel">
+        <div data-fig="pimo" data-mol="ethene"></div>
+        <div class="p-cap">Ethen · isoliertes π-MO (ein Paar p-Orbitale)</div>
+      </div>
+      <div class="panel">
+        <div data-fig="pimo" data-mol="butadiene"></div>
+        <div class="p-cap">1,3-Butadien · delokalisiertes π-System (vier p-Orbitale)</div>
+      </div>
+    </div>
+
+    <div class="callout"><div class="co-tag">Kernaussage · Aufgabe 15</div>In konjugierten Doppelbindungssystemen bilden alle unhybridisierten p-Orbitale durch ihre senkrechte Stellung zur Molekülebene <span class="fw600">eine</span> Gesamtwellenfunktion über das ganze π-System. Je nach dessen Größe wird elektromagnetische Strahlung <span class="fw600">unterschiedlicher Energie</span> unter Anregung der π-Elektronen absorbiert — das ist die Ursache der Farbigkeit von Molekülen mit <span class="fw600">Chromophoren</span> (farbgebenden Gruppen).</div>
+
+    <div class="trainer-cta">
+      <div class="tc-txt">
+        <h4>Aufgabe 14 &amp; 16 · 3D-Chromophormodelle in Tinkercad</h4>
+        <p>Öffne die vier Beispielmodelle unter „Aktivitäten“, benenne die modellierten Atom- und Hybridorbitale (s, p, sp³, sp², delokalisiertes π-System) und modelliere ggf. weiter. Ordne die farbgebenden funktionellen Gruppen (Chromophore) zu.</p>
+        <div class="chiprow">
+          <span class="chip">Atomorbitale C</span><span class="chip">sp³ (s + 3p)</span><span class="chip">sp² (s + 2p)</span><span class="chip">konjugiertes π-System</span>
+        </div>
+      </div>
+      <a class="btn-cta" href="https://www.tinkercad.com/classrooms/5bUxp6qX5Rj/activities/kJP9fwogY9D" target="_blank" rel="noopener">Tinkercad-Kurs öffnen →</a>
+    </div>
+
+    <div class="aufgabe">
+      <div class="a-head"><span class="a-badge transfer">Transfer</span><span class="a-title">Aufgabe 16 · Zuordnung Modell → Orbitaltyp</span></div>
+      <p>Ordne jedem der vier Tinkercad-Modelle den passenden Orbitaltyp zu. Prüfe anschließend durch Aufdecken.</p>
+      <div class="wipe" data-wipe>
+        <div class="wipe-inner">
+          <table class="sp">
+            <thead><tr><th>Tinkercad-Modell</th><th>Orbitaltyp / Aussage</th></tr></thead>
+            <tbody>
+              <tr><td>„Atomorbitale vom Kohlenstoff, Sticks…“</td><td>reine Atomorbitale: 2s (Kugel) + 2p<sub>x,y,z</sub> (Hanteln, 90°) — Ausgangszustand vor Hybridisierung.</td></tr>
+              <tr><td>„Hybridorbitale (s + 3p ⇒ sp³)“</td><td>vier tetraedrische sp³-Hybridorbitale (109,5°) — z. B. Ethan, gesättigte C-Atome.</td></tr>
+              <tr><td>„Hybridorbitale (s + 2p ⇒ sp²)“</td><td>drei trigonal-planare sp² (120°) + ein senkrechtes p — Grundbaustein jeder C=C-Doppelbindung.</td></tr>
+              <tr><td>„Hybridorbitale konjugierte Doppelbi…“</td><td><span class="fw600">delokalisiertes π-Elektronensystem</span>: mehrere senkrechte p-Orbitale bilden eine gemeinsame Gesamtwellenfunktion → Chromophor, farbgebend.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <canvas class="wipe-cv"></canvas>
+        <button class="wipe-btn" type="button">Aufdecken</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ § 5 ============================ -->
+  <section class="lp-section lp-band">
+    <div class="sec-num">§ 5 · Für Schnelläufer:innen</div>
+    <h2>Kumulierte Doppelbindungen: warum <em>Allene</em> nicht konjugiert sind</h2>
+    <div class="callout fast"><div class="co-tag">Schnelläufer:innen-Aufgabe</div>Analysiere die Geometrie an einem <span class="fw600">sp-hybridisierten</span> Kohlenstoffatom mit <span class="fw600">kumulierten</span> Doppelbindungen (zwei Doppelbindungen am selben C-Atom), z. B. im <span class="fw600">Allen</span> (Propa-1,2-dien, H₂C=C=CH₂). Erkläre, warum sich hier — anders als bei konjugierten Systemen — <span class="fw600">kein</span> ausgedehntes π-Elektronensystem bildet.</div>
+
+    <div class="slab" data-fig="allene">
+      <div class="sl-fig"></div>
+      <div class="sl-note" style="text-align:center"></div>
+    </div>
+
+    <div class="reveal" data-reveal>
+      <button class="reveal-head"><span class="rv-icon">+</span> Lösung · geometrisch verhinderte Überlappung <span class="rv-tag">aufdecken</span></button>
+      <div class="reveal-body">
+        <p><span class="answer">Das zentrale C-Atom im Allen ist sp-hybridisiert und trägt zwei unhybridisierte p-Orbitale (p<sub>y</sub> und p<sub>z</sub>), die <span class="fw600">rechtwinklig zueinander</span> stehen.</span> Jedes bildet mit <em>einem</em> der äußeren sp²-C-Atome eine π-Bindung. Weil p<sub>y</sub> und p<sub>z</sub> um 90° gegeneinander verdreht sind, stehen auch die beiden π-Bindungen <span class="fw600">senkrecht</span> zueinander — und damit die beiden CH₂-Endgruppen. Die π-Elektronendichten liegen in <span class="fw600">zueinander rechtwinkligen Ebenen</span>: Sie können <span class="fw600">nicht</span> seitlich überlappen. Deshalb entsteht <span class="fw600">kein</span> durchgehendes (konjugiertes) π-System, sondern zwei isolierte, orthogonale π-Bindungen. Allene sind daher — trotz zweier Doppelbindungen — nicht farbig im Sinne konjugierter Chromophore, und ihre Endgruppen sind gegeneinander verdrillt (Achsenchiralität).</p>
+      </div>
+    </div>
+
+    <div class="aufgabe">
+      <div class="a-head"><span class="a-badge transfer">Transfer</span><span class="a-title">Weiterdenken · Alkine &amp; lineare π-Systeme</span></div>
+      <p>Übertrage die Analyse auf ein Alkin (z. B. Ethin, C≡C): Auch hier stehen die zwei π-Bindungen senkrecht zueinander, bilden aber am <em>selben</em> Bindungsachsen-Paar einen rotationssymmetrischen „π-Zylinder“. Diskutiere den Unterschied zur seitlichen (konjugierten) Überlappung entlang einer Kette.</p>
+      <div class="wipe" data-wipe>
+        <div class="wipe-inner">
+          <p style="margin:.2rem 0">Im Alkin liegen beide π-Bindungen <b>entlang derselben C≡C-Achse</b> — sie summieren sich zu einem rotationssymmetrischen π-Elektronen-„Zylinder“ um die Bindungsachse. Das ist eine <b>lokale</b> Verstärkung, aber keine <b>Verlängerung</b> des π-Systems über mehrere Atome. Eine echte Konjugation (kleineres ΔE, Farbigkeit) entsteht nur, wenn p-Orbitale <b>entlang der Kette</b> abwechselnd und <b>parallel</b> stehen — genau das verhindert die 90°-Verdrillung bei kumulierten Doppelbindungen (Allen).</p>
+        </div>
+        <canvas class="wipe-cv"></canvas>
+        <button class="wipe-btn" type="button">Aufdecken</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ § 6 ============================ -->
+  <section class="lp-section">
+    <div class="sec-num">§ 6 · Material &amp; Sicherung</div>
+    <h2>Arbeitsblatt, <em>Musterlösung</em> &amp; Selbsteinschätzung</h2>
+    <p>Zu diesem Lernpfad gehören ein Typst-Arbeitsblatt (Mitschrift mit Lücken) und die zugehörige Musterlösung. Beide werden aus einer gemeinsamen Quelle über das <span class="mini-mol">LOESUNG</span>-Flag erzeugt.</p>
+
+    <div class="dl-grid">
+      <div class="dl-card">
+        <div class="dl-k">Arbeitsblatt · Mitschrift</div>
+        <div class="dl-t">Chemische Atombindung als Gesamtwellenfunktion</div>
+        <div class="dl-file">photonen-elektronen-mitschrift.pdf</div>
+      </div>
+      <div class="dl-card">
+        <div class="dl-k">Musterlösung · Lehrkraft</div>
+        <div class="dl-t">Vollständige Lösungen zu Aufgabe 9–16</div>
+        <div class="dl-file">photonen-elektronen-loesung.pdf</div>
+      </div>
+    </div>
+
+    <h3>Selbsteinschätzung „Ich kann …“</h3>
+    <div class="goal-card"><div class="glab">Häkchen setzen — wird lokal gespeichert</div>
+      <ul class="kann-list">
+        <li class="kann"><input type="checkbox" data-kann="s1"><span>… beschreiben, warum sich H₂ nicht rein elektrostatisch erklären lässt, und den Wellencharakter als Notwendigkeit begründen.</span></li>
+        <li class="kann"><input type="checkbox" data-kann="s2"><span>… bindende/antibindende σ-MOs zeichnen und die Bindungsordnung für H₂ und He₂ berechnen.</span></li>
+        <li class="kann"><input type="checkbox" data-kann="s3"><span>… sp³-, sp²- und sp-Hybridisierung an Ethan, Ethen und Ethin herleiten und die Geometrie angeben.</span></li>
+        <li class="kann"><input type="checkbox" data-kann="s4"><span>… den Zusammenhang zwischen Größe des π-Systems, ΔE, Absorptionswellenlänge und Farbe erklären.</span></li>
+        <li class="kann"><input type="checkbox" data-kann="s5"><span>… begründen, warum kumulierte Doppelbindungen (Allene) kein konjugiertes π-System bilden.</span></li>
+      </ul>
+    </div>
+  </section>
+
+</div><!-- /lernpfad -->
+
+<footer>
+  Chemie · Leistungs­kurs · Lernpfad II — Chemische Bindung als Gesamtwellenfunktion · <a href="../chemie-lk-kursplan.html">Zurück zum Kursplan</a>
+</footer>
+
+<script>
+"use strict";
+/* ===================================================================
+   Lernpfad II — Chemische Bindung als Gesamtwellenfunktion
+   render-core + app (ein self-contained File, keine externen Assets)
+   =================================================================== */
+
+function $(s,r){return (r||document).querySelector(s);}
+function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));}
+
+/* -------- Palette -------- */
+var RED='#d0432a', BLUE='#2f6fb0', REDf='rgba(208,67,42,.30)', BLUEf='rgba(47,111,176,.30)';
+var INK='#0a1612', TEAL='#1e5d52', TEALd='#0d3a32', ACC='#a83610', GOLD='#c9a961';
+
+/* -------- Wellenlänge -> sRGB (Näherung) -------- */
+function wlToRGB(wl){
+  var r=0,g=0,b=0;
+  if(wl>=380&&wl<440){r=-(wl-440)/60;b=1;}
+  else if(wl<490){g=(wl-440)/50;b=1;}
+  else if(wl<510){g=1;b=-(wl-510)/20;}
+  else if(wl<580){r=(wl-510)/70;g=1;}
+  else if(wl<645){r=1;g=-(wl-645)/65;}
+  else if(wl<=780){r=1;}
+  var f=1;
+  if(wl>700)f=0.3+0.7*(780-wl)/80; else if(wl<420)f=0.3+0.7*(wl-380)/40;
+  var G=function(c){return Math.round(255*Math.pow(Math.max(0,c)*f,0.8));};
+  return [G(r),G(g),G(b)];
+}
+function rgbStr(a){return 'rgb('+a[0]+','+a[1]+','+a[2]+')';}
+
+/* -------- Orbital-Primitive (schematisch, phasen-kodiert rot/blau) -------- */
+function teardropPath(cx,cy,len,wdt){
+  return 'M '+cx+' '+cy+
+    ' C '+(cx+len*0.22)+' '+(cy-wdt)+' '+(cx+len*0.85)+' '+(cy-wdt*0.55)+' '+(cx+len)+' '+cy+
+    ' C '+(cx+len*0.85)+' '+(cy+wdt*0.55)+' '+(cx+len*0.22)+' '+(cy+wdt)+' '+cx+' '+cy+' Z';
+}
+function lobe(cx,cy,ang,len,wdt,fill,op){
+  return '<g transform="rotate('+ang+' '+cx+' '+cy+')"><path d="'+teardropPath(cx,cy,len,wdt)+
+    '" fill="'+fill+'" fill-opacity="'+op+'" stroke="'+fill+'" stroke-opacity="0.55" stroke-width="1"/></g>';
+}
+function pOrbital(cx,cy,ang,len,wdt){ /* zweilappig, phasen-kodiert */
+  return lobe(cx,cy,ang,len,wdt,RED,.62)+lobe(cx,cy,ang+180,len,wdt,BLUE,.62);
+}
+function hybLobe(cx,cy,ang,len,wdt){ /* großer Frontlappen + kleiner Rücklappen */
+  return lobe(cx,cy,ang,len,wdt,RED,.6)+lobe(cx,cy,ang+180,len*0.32,wdt*0.5,BLUE,.5);
+}
+function sSphere(cx,cy,r){
+  return '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="'+RED+'" fill-opacity=".22" stroke="'+RED+'" stroke-opacity=".55"/>'+
+         '<circle cx="'+cx+'" cy="'+cy+'" r="2.4" fill="'+INK+'"/>';
+}
+function nucleus(cx,cy,label){
+  return '<circle cx="'+cx+'" cy="'+cy+'" r="3" fill="'+INK+'"/>'+(label?
+    '<text x="'+cx+'" y="'+(cy+15)+'" text-anchor="middle" font-family="Fraunces,serif" font-size="13" fill="'+INK+'">'+label+'</text>':'');
+}
+function axes3(cx,cy,s){ /* kleine x/y/z-Achsen */
+  return '<g stroke="#9a9285" stroke-width="1">'+
+    '<line x1="'+cx+'" y1="'+cy+'" x2="'+(cx+s)+'" y2="'+cy+'"/>'+
+    '<line x1="'+cx+'" y1="'+cy+'" x2="'+cx+'" y2="'+(cy-s)+'"/>'+
+    '<line x1="'+cx+'" y1="'+cy+'" x2="'+(cx-s*0.6)+'" y2="'+(cy+s*0.6)+'"/></g>'+
+    '<text x="'+(cx+s+3)+'" y="'+(cy+4)+'" font-size="10" fill="#9a9285">x</text>'+
+    '<text x="'+(cx-2)+'" y="'+(cy-s-3)+'" font-size="10" fill="#9a9285">z</text>'+
+    '<text x="'+(cx-s*0.6-9)+'" y="'+(cy+s*0.6+9)+'" font-size="10" fill="#9a9285">y</text>';
+}
+
+/* =======================  § 1  Bindungskurve (Morse)  ======================= */
+function morseE(l){ var De=436,l0=74,a=0.0335; var x=1-Math.exp(-a*(l-l0)); return De*(x*x-1); }
+function bondCurveSVG(l){
+  var W=680,H=300, px0=70,px1=W-24, py0=44,py1=H-40;
+  var lmin=40,lmax=300, emin=-470,emax=480;
+  var X=function(L){return px0+(L-lmin)/(lmax-lmin)*(px1-px0);};
+  var Y=function(E){return py1-(E-emin)/(emax-emin)*(py1-py0);};
+  /* Kurve */
+  var d='',first=true;
+  for(var L=lmin;L<=lmax;L+=2){ var E=morseE(L); if(E>emax)E=emax; d+=(first?'M':'L')+X(L).toFixed(1)+' '+Y(E).toFixed(1)+' '; first=false; }
+  var Ecur=morseE(l); var mx=X(l),my=Y(Math.max(Ecur,emin));
+  /* Kopf: zwei H-Atome im skalierten Abstand */
+  var hcx=W/2, hy=26, sep=Math.max(14,Math.min(150,(l-40)/260*150+14));
+  var ax=hcx-sep/2, bx=hcx+sep/2;
+  var stateLbl = l>150?'·H&nbsp;&nbsp;&nbsp;H·  (zwei Radikale)': (l<=62?'H⋯H  (Kollision)':'H—H  (Bindung)');
+  var head='<g>'+
+    '<circle cx="'+ax+'" cy="'+hy+'" r="7" fill="#f4d97a" stroke="#c9a961"/>'+
+    '<circle cx="'+bx+'" cy="'+hy+'" r="7" fill="#f4d97a" stroke="#c9a961"/>'+
+    '<circle cx="'+ax+'" cy="'+hy+'" r="1.8" fill="'+INK+'"/>'+
+    '<circle cx="'+bx+'" cy="'+hy+'" r="1.8" fill="'+INK+'"/>'+
+    (l<=140?'<line x1="'+ax+'" y1="'+hy+'" x2="'+bx+'" y2="'+hy+'" stroke="'+INK+'" stroke-width="2"/>':
+      '<circle cx="'+(ax-9)+'" cy="'+hy+'" r="1.6" fill="'+ACC+'"/><circle cx="'+(bx+9)+'" cy="'+hy+'" r="1.6" fill="'+ACC+'"/>')+
+    '</g>';
+  /* Achsen + Beschriftung */
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Energiediagramm H2">';
+  svg+='<rect x="0" y="0" width="'+W+'" height="'+H+'" fill="#fff"/>';
+  svg+=head;
+  /* Nulllinie */
+  svg+='<line x1="'+px0+'" y1="'+Y(0)+'" x2="'+px1+'" y2="'+Y(0)+'" stroke="#c9beac" stroke-dasharray="3 3"/>';
+  /* Achsen */
+  svg+='<line x1="'+px0+'" y1="'+py0+'" x2="'+px0+'" y2="'+py1+'" stroke="'+INK+'"/>';
+  svg+='<line x1="'+px0+'" y1="'+Y(0)+'" x2="'+px1+'" y2="'+Y(0)+'" stroke="'+INK+'"/>';
+  svg+='<polygon points="'+px0+','+(py0-2)+' '+(px0-4)+','+(py0+6)+' '+(px0+4)+','+(py0+6)+'" fill="'+INK+'"/>';
+  svg+='<polygon points="'+(px1+2)+','+Y(0)+' '+(px1-6)+','+(Y(0)-4)+' '+(px1-6)+','+(Y(0)+4)+'" fill="'+INK+'"/>';
+  svg+='<text x="'+(px0-8)+'" y="'+(py0+4)+'" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="10" fill="'+INK+'">E / kJ·mol⁻¹</text>';
+  svg+='<text x="'+(px1)+'" y="'+(Y(0)+18)+'" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="10" fill="'+INK+'">l / pm</text>';
+  /* Ticks */
+  [-436,0].forEach(function(E){ svg+='<text x="'+(px0-8)+'" y="'+(Y(E)+4)+'" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="10" fill="#7a7368">'+E+'</text>'; });
+  [74,150,250].forEach(function(L){ svg+='<line x1="'+X(L)+'" y1="'+Y(0)+'" x2="'+X(L)+'" y2="'+(Y(0)+4)+'" stroke="#7a7368"/><text x="'+X(L)+'" y="'+(Y(0)+16)+'" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#7a7368">'+L+'</text>'; });
+  /* Minimum-Markierung */
+  svg+='<line x1="'+X(74)+'" y1="'+Y(0)+'" x2="'+X(74)+'" y2="'+Y(-436)+'" stroke="'+ACC+'" stroke-dasharray="2 3" stroke-opacity=".6"/>';
+  svg+='<line x1="'+px0+'" y1="'+Y(-436)+'" x2="'+X(74)+'" y2="'+Y(-436)+'" stroke="'+ACC+'" stroke-dasharray="2 3" stroke-opacity=".6"/>';
+  /* Kurve */
+  svg+='<path d="'+d+'" fill="none" stroke="'+ACC+'" stroke-width="2.6"/>';
+  /* Marker */
+  svg+='<circle cx="'+mx.toFixed(1)+'" cy="'+my.toFixed(1)+'" r="6" fill="'+TEAL+'" stroke="#fff" stroke-width="2"/>';
+  svg+='<text x="'+hcx+'" y="'+(hy+22)+'" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="'+INK+'">'+stateLbl+'</text>';
+  svg+='</svg>';
+  return svg;
+}
+
+/* =======================  § 1  Coulomb-Potenzial  ======================= */
+function coulombE(pair,r){ var C0=138935; var s=(pair==='pm')?-1:1; return s*C0/r; } /* kJ/mol */
+function coulombSVG(pair,r){
+  var W=680,H=300, px0=70,px1=W-24, py0=44,py1=H-40;
+  var rmin=40,rmax=300, emin=-2600,emax=2600;
+  var X=function(R){return px0+(R-rmin)/(rmax-rmin)*(px1-px0);};
+  var Y=function(E){E=Math.max(emin,Math.min(emax,E));return py1-(E-emin)/(emax-emin)*(py1-py0);};
+  var d='',first=true;
+  for(var R=rmin;R<=rmax;R+=2){ var E=coulombE(pair,R); d+=(first?'M':'L')+X(R).toFixed(1)+' '+Y(E).toFixed(1)+' '; first=false; }
+  var Ecur=coulombE(pair,r); var mx=X(r),my=Y(Ecur);
+  var q1=(pair==='mm')?'−':'+', q2=(pair==='pp')?'+':((pair==='pm')?'−':'−');
+  var c1=(q1==='+')?ACC:BLUE, c2=(q2==='+')?ACC:BLUE;
+  var hcx=W/2,hy=24, sep=Math.max(16,Math.min(150,(r-40)/260*150+16));
+  var head='<circle cx="'+(hcx-sep/2)+'" cy="'+hy+'" r="10" fill="'+c1+'" fill-opacity=".85"/>'+
+    '<text x="'+(hcx-sep/2)+'" y="'+(hy+4)+'" text-anchor="middle" font-size="13" fill="#fff" font-weight="700">'+q1+'</text>'+
+    '<circle cx="'+(hcx+sep/2)+'" cy="'+hy+'" r="10" fill="'+c2+'" fill-opacity=".85"/>'+
+    '<text x="'+(hcx+sep/2)+'" y="'+(hy+4)+'" text-anchor="middle" font-size="13" fill="#fff" font-weight="700">'+q2+'</text>';
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Coulomb-Potenzial">';
+  svg+='<rect width="'+W+'" height="'+H+'" fill="#fff"/>'+head;
+  svg+='<line x1="'+px0+'" y1="'+Y(0)+'" x2="'+px1+'" y2="'+Y(0)+'" stroke="'+INK+'"/>';
+  svg+='<line x1="'+px0+'" y1="'+py0+'" x2="'+px0+'" y2="'+py1+'" stroke="'+INK+'"/>';
+  svg+='<polygon points="'+px0+','+(py0-2)+' '+(px0-4)+','+(py0+6)+' '+(px0+4)+','+(py0+6)+'" fill="'+INK+'"/>';
+  svg+='<polygon points="'+(px1+2)+','+Y(0)+' '+(px1-6)+','+(Y(0)-4)+' '+(px1-6)+','+(Y(0)+4)+'" fill="'+INK+'"/>';
+  svg+='<text x="'+(px0-8)+'" y="'+(py0+4)+'" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="10" fill="'+INK+'">E_pot / kJ·mol⁻¹</text>';
+  svg+='<text x="'+px1+'" y="'+(Y(0)+18)+'" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="10" fill="'+INK+'">r / pm</text>';
+  svg+='<text x="'+(px0-8)+'" y="'+(Y(0)+4)+'" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="9" fill="#7a7368">0</text>';
+  svg+='<text x="'+(px0+6)+'" y="'+(py0+12)+'" font-family="JetBrains Mono,monospace" font-size="9" fill="#7a7368">Abstoßung ↑</text>';
+  svg+='<text x="'+(px0+6)+'" y="'+(py1-4)+'" font-family="JetBrains Mono,monospace" font-size="9" fill="#7a7368">Anziehung ↓</text>';
+  svg+='<path d="'+d+'" fill="none" stroke="'+(pair==='pm'?BLUE:ACC)+'" stroke-width="2.6"/>';
+  svg+='<circle cx="'+mx.toFixed(1)+'" cy="'+my.toFixed(1)+'" r="6" fill="'+TEAL+'" stroke="#fff" stroke-width="2"/>';
+  svg+='</svg>';
+  return svg;
+}
+
+/* =======================  § 1  Seifenblasen  ======================= */
+function bubblesSVG(mode){
+  var W=680,H=220,cy=H/2;
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Seifenblasenmodell">';
+  svg+='<rect width="'+W+'" height="'+H+'" fill="#fff"/>';
+  var ax=W*0.38, bx=W*0.62;
+  if(mode==='apart'){
+    svg+='<ellipse cx="'+ax+'" cy="'+cy+'" rx="66" ry="58" fill="'+REDf+'" stroke="'+RED+'" stroke-opacity=".6">'+
+      '<animate attributeName="rx" values="66;72;62;66" dur="3.2s" repeatCount="indefinite"/>'+
+      '<animate attributeName="ry" values="58;52;62;58" dur="3.2s" repeatCount="indefinite"/></ellipse>';
+    svg+='<ellipse cx="'+bx+'" cy="'+cy+'" rx="66" ry="58" fill="'+BLUEf+'" stroke="'+BLUE+'" stroke-opacity=".6">'+
+      '<animate attributeName="rx" values="66;60;70;66" dur="2.7s" repeatCount="indefinite"/>'+
+      '<animate attributeName="ry" values="58;64;54;58" dur="2.7s" repeatCount="indefinite"/></ellipse>';
+    svg+=nucleus(ax,cy,'H')+nucleus(bx,cy,'H');
+    svg+='<text x="'+(W/2)+'" y="'+(H-14)+'" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#7a7368">zwei getrennte stehende Wellen (1s)</text>';
+  } else {
+    var mx=W/2;
+    svg+='<ellipse cx="'+mx+'" cy="'+cy+'" rx="150" ry="62" fill="rgba(30,93,82,.20)" stroke="'+TEAL+'" stroke-opacity=".7">'+
+      '<animate attributeName="rx" values="150;158;144;150" dur="3.4s" repeatCount="indefinite"/>'+
+      '<animate attributeName="ry" values="62;56;68;62" dur="3.4s" repeatCount="indefinite"/></ellipse>';
+    svg+=nucleus(mx-46,cy,'H')+nucleus(mx+46,cy,'H');
+    svg+='<text x="'+(W/2)+'" y="'+(H-14)+'" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="'+TEALd+'">eine gemeinsame, langgezogene Welle → Gesamtwellenfunktion (σ)</text>';
+  }
+  svg+='</svg>';
+  return svg;
+}
+
+/* =======================  § 2  LCAO-Überlagerung  ======================= */
+function lcaoSVG(mode){
+  var W=340,H=200,cy=118, ax=W*0.34,bx=W*0.66;
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" role="img">';
+  svg+='<rect width="'+W+'" height="'+H+'" fill="#fff"/>';
+  /* Wellenfunktions-Kurven ψa, ψb oben */
+  function psi(cx,sign){ var d='M '+(cx-46)+' 40 ';
+    for(var x=-46;x<=46;x+=4){ var y=40-sign*30*Math.exp(-x*x/380); d+='L '+(cx+x)+' '+y.toFixed(1)+' '; } return d; }
+  svg+='<line x1="14" y1="40" x2="'+(W-14)+'" y2="40" stroke="#d8cdba"/>';
+  svg+='<path d="'+psi(ax,1)+'" fill="none" stroke="'+RED+'" stroke-width="2"/>';
+  svg+='<path d="'+psi(bx,(mode==='bond')?1:-1)+'" fill="none" stroke="'+BLUE+'" stroke-width="2"/>';
+  svg+='<text x="'+ax+'" y="18" text-anchor="middle" font-size="11" fill="'+RED+'">ψ_a</text>';
+  svg+='<text x="'+bx+'" y="18" text-anchor="middle" font-size="11" fill="'+BLUE+'">ψ_b</text>';
+  svg+='<text x="'+(W/2)+'" y="40" text-anchor="middle" font-size="13" fill="'+INK+'">'+(mode==='bond'?'+':'−')+'</text>';
+  /* resultierendes MO unten */
+  if(mode==='bond'){
+    svg+='<ellipse cx="'+(W/2)+'" cy="'+cy+'" rx="72" ry="30" fill="'+REDf+'" stroke="'+RED+'" stroke-opacity=".7"/>';
+    svg+=nucleus(W/2-26,cy,'')+nucleus(W/2+26,cy,'');
+    svg+='<text x="'+(W/2)+'" y="'+(H-12)+'" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="'+TEALd+'">σ · Dichte ZWISCHEN den Kernen</text>';
+  } else {
+    svg+='<ellipse cx="'+(W/2-30)+'" cy="'+cy+'" rx="30" ry="26" fill="'+REDf+'" stroke="'+RED+'" stroke-opacity=".7"/>';
+    svg+='<ellipse cx="'+(W/2+30)+'" cy="'+cy+'" rx="30" ry="26" fill="'+BLUEf+'" stroke="'+BLUE+'" stroke-opacity=".7"/>';
+    svg+='<line x1="'+(W/2)+'" y1="'+(cy-34)+'" x2="'+(W/2)+'" y2="'+(cy+34)+'" stroke="'+INK+'" stroke-dasharray="3 3"/>';
+    svg+=nucleus(W/2-30,cy,'')+nucleus(W/2+30,cy,'');
+    svg+='<text x="'+(W/2)+'" y="'+(H-12)+'" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="'+ACC+'">σ* · Knotenebene (Dichte = 0)</text>';
+  }
+  svg+='</svg>';
+  return svg;
+}
+</script>
+
+<script>
+/* =======================  § 2  MO-Energiediagramm  ======================= */
+function arrowUp(x,y){return '<line x1="'+x+'" y1="'+(y+7)+'" x2="'+x+'" y2="'+(y-7)+'" stroke="'+INK+'" stroke-width="1.6"/><polygon points="'+x+','+(y-9)+' '+(x-3)+','+(y-4)+' '+(x+3)+','+(y-4)+'" fill="'+INK+'"/>';}
+function arrowDn(x,y){return '<line x1="'+x+'" y1="'+(y-7)+'" x2="'+x+'" y2="'+(y+7)+'" stroke="'+INK+'" stroke-width="1.6"/><polygon points="'+x+','+(y+9)+' '+(x-3)+','+(y+4)+' '+(x+3)+','+(y+4)+'" fill="'+INK+'"/>';}
+function moDiagramSVG(species){
+  var W=500,H=340, cx=W/2, aoX=90, boX=W-90;
+  var yAO=H/2, yB=H-70, yAB=70; /* AO-Niveau mittig, bindend unten, antibindend oben */
+  var neAO=(species==='he2')?2:1;
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="MO-Diagramm">';
+  svg+='<rect width="'+W+'" height="'+H+'" fill="#fff"/>';
+  /* Energieachse */
+  svg+='<line x1="26" y1="30" x2="26" y2="'+(H-26)+'" stroke="'+INK+'"/><polygon points="26,24 22,34 30,34" fill="'+INK+'"/>';
+  svg+='<text x="20" y="40" font-family="JetBrains Mono,monospace" font-size="10" fill="'+INK+'" transform="rotate(-90 20 40)">Energie</text>';
+  function level(x,y,lab,side){ return '<line x1="'+(x-34)+'" y1="'+y+'" x2="'+(x+34)+'" y2="'+y+'" stroke="'+INK+'" stroke-width="2"/>'+
+    '<text x="'+x+'" y="'+(side==='b'?y+18:y-8)+'" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="#5a6360">'+lab+'</text>'; }
+  /* AO links/rechts */
+  svg+=level(aoX,yAO,species==='he2'?'1s(a)':'1s(a)','a');
+  svg+=level(boX,yAO,species==='he2'?'1s(b)':'1s(b)','a');
+  /* MO Mitte */
+  svg+=level(cx,yB,'bindendes σ-MO','b');
+  svg+=level(cx,yAB,'antibindendes σ*-MO','t');
+  /* Verbindungslinien */
+  var dash='stroke="#c9beac" stroke-dasharray="3 3"';
+  svg+='<line x1="'+(aoX+34)+'" y1="'+yAO+'" x2="'+(cx-34)+'" y2="'+yB+'" '+dash+'/>';
+  svg+='<line x1="'+(boX-34)+'" y1="'+yAO+'" x2="'+(cx+34)+'" y2="'+yB+'" '+dash+'/>';
+  svg+='<line x1="'+(aoX+34)+'" y1="'+yAO+'" x2="'+(cx-34)+'" y2="'+yAB+'" '+dash+'/>';
+  svg+='<line x1="'+(boX-34)+'" y1="'+yAO+'" x2="'+(cx+34)+'" y2="'+yAB+'" '+dash+'/>';
+  /* Elektronen in AO */
+  function fillAO(x,y,n){ var s=''; if(n>=1)s+=arrowUp(x-7,y-1); if(n>=2)s+=arrowDn(x+7,y-1); return s; }
+  svg+=fillAO(aoX,yAO,neAO)+fillAO(boX,yAO,neAO);
+  /* Elektronen in MO: bindend zuerst voll (2), dann antibindend */
+  var total=2*neAO;
+  var nb=Math.min(2,total), na=Math.max(0,total-2);
+  var mos=''; if(nb>=1)mos+=arrowUp(cx-7,yB-1); if(nb>=2)mos+=arrowDn(cx+7,yB-1);
+  if(na>=1)mos+=arrowUp(cx-7,yAB-1); if(na>=2)mos+=arrowDn(cx+7,yAB-1);
+  svg+=mos;
+  /* Titel */
+  svg+='<text x="'+cx+'" y="20" text-anchor="middle" font-family="Fraunces,serif" font-size="15" fill="'+INK+'">'+(species==='he2'?'„He₂“ · 4 Elektronen':'H₂ · 2 Elektronen')+'</text>';
+  svg+='</svg>';
+  return svg;
+}
+
+/* =======================  § 3  Hybridisierung  ======================= */
+function hybFigSVG(type,step){
+  var W=420,H=300,cx=W/2,cy=H/2+6;
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Hybridisierung '+type+'">';
+  svg+='<rect width="'+W+'" height="'+H+'" fill="#fff"/>';
+  var cap='';
+  if(step===0){ /* Atomorbitale (s + p, 90°) */
+    svg+=axes3(72,H-46,34);
+    svg+=sSphere(cx-92,cy,22);
+    svg+='<text x="'+(cx-92)+'" y="'+(cy+40)+'" text-anchor="middle" font-size="11" fill="#5a6360">2s (Kugel)</text>';
+    /* p-Orbitale 90° */
+    svg+=pOrbital(cx+50,cy,0,52,26);
+    svg+=pOrbital(cx+50,cy,90,52,26);
+    if(type!=='sp')svg+=pOrbital(cx+50,cy,45,50,24);
+    svg+='<text x="'+(cx+50)+'" y="'+(cy+58)+'" text-anchor="middle" font-size="11" fill="#5a6360">2p (Hanteln, 90°)</text>';
+    cap='Ausgangszustand: kugelförmiges 2s + hantelförmige 2p-Orbitale (senkrecht zueinander).';
+  } else if(step===1){ /* Hybridorbitale */
+    if(type==='sp3'){ [45,135,225,315].forEach(function(a){ svg+=hybLobe(cx,cy,a,64,30); });
+      cap='vier gleichwertige sp³-Hybridorbitale · tetraedrisch (109,5°).'; }
+    else if(type==='sp2'){ [0,120,240].forEach(function(a){ svg+=hybLobe(cx,cy,a,66,30); });
+      svg+='<g opacity=".9">'+pOrbital(cx,cy,90,44,20)+'</g>';
+      svg+='<text x="'+(cx+70)+'" y="'+(cy-70)+'" text-anchor="middle" font-size="10" fill="'+BLUE+'">unhybridisiertes 2p ⊥</text>';
+      cap='drei sp²-Hybridorbitale (120°, in einer Ebene) + ein unhybridisiertes 2p senkrecht dazu.'; }
+    else { [0,180].forEach(function(a){ svg+=hybLobe(cx,cy,a,72,30); });
+      svg+='<g opacity=".9">'+pOrbital(cx,cy,90,42,18)+'</g>';
+      svg+='<g opacity=".55">'+pOrbital(cx,cy,90,26,30)+'</g>';
+      svg+='<text x="'+cx+'" y="'+(cy-82)+'" text-anchor="middle" font-size="10" fill="'+BLUE+'">zwei unhybridisierte 2p (p_y, p_z) ⊥</text>';
+      cap='zwei sp-Hybridorbitale (linear, 180°) + zwei unhybridisierte 2p (senkrecht zueinander).'; }
+  } else { /* Molekül */
+    var y=cy; var c1=cx-58,c2=cx+58;
+    if(type==='sp3'){
+      svg+=hybLobe(c1,y,0,44,22)+hybLobe(c2,y,180,44,22);
+      svg+='<ellipse cx="'+cx+'" cy="'+y+'" rx="26" ry="15" fill="rgba(30,93,82,.25)" stroke="'+TEAL+'"/>';
+      [140,-140].forEach(function(a){ svg+=hybLobe(c1,y,a,34,17); });
+      [40,-40].forEach(function(a){ svg+=hybLobe(c2,y,a,34,17); });
+      svg+=nucleus(c1,y,'C')+nucleus(c2,y,'C');
+      svg+='<text x="'+cx+'" y="'+(y-26)+'" text-anchor="middle" font-size="11" fill="'+TEALd+'">C–C σ-Bindung</text>';
+      cap='Ethan: alle Bindungen sind σ (Einfachbindungen), frei drehbar.';
+    } else if(type==='sp2'){
+      svg+=hybLobe(c1,y,0,40,20)+hybLobe(c2,y,180,40,20);
+      svg+='<ellipse cx="'+cx+'" cy="'+y+'" rx="22" ry="13" fill="rgba(30,93,82,.22)" stroke="'+TEAL+'"/>';
+      /* π-Wolken oben/unten */
+      svg+='<ellipse cx="'+cx+'" cy="'+(y-40)+'" rx="52" ry="20" fill="'+REDf+'" stroke="'+RED+'" stroke-opacity=".6"/>';
+      svg+='<ellipse cx="'+cx+'" cy="'+(y+40)+'" rx="52" ry="20" fill="'+BLUEf+'" stroke="'+BLUE+'" stroke-opacity=".6"/>';
+      svg+=nucleus(c1,y,'C')+nucleus(c2,y,'C');
+      svg+='<text x="'+cx+'" y="'+(y-64)+'" text-anchor="middle" font-size="11" fill="'+ACC+'">π (seitliche p-Überlappung)</text>';
+      svg+='<text x="'+cx+'" y="'+(y+72)+'" text-anchor="middle" font-size="10" fill="'+TEALd+'">C=C: 1 σ + 1 π</text>';
+      cap='Ethen: Doppelbindung aus σ (in der Ebene) + π (senkrecht) → nicht frei drehbar.';
+    } else {
+      svg+=hybLobe(c1,y,0,40,20)+hybLobe(c2,y,180,40,20);
+      svg+='<ellipse cx="'+cx+'" cy="'+y+'" rx="22" ry="13" fill="rgba(30,93,82,.22)" stroke="'+TEAL+'"/>';
+      svg+='<ellipse cx="'+cx+'" cy="'+(y-36)+'" rx="46" ry="16" fill="'+REDf+'" stroke="'+RED+'" stroke-opacity=".55"/>';
+      svg+='<ellipse cx="'+cx+'" cy="'+(y+36)+'" rx="46" ry="16" fill="'+BLUEf+'" stroke="'+BLUE+'" stroke-opacity=".55"/>';
+      svg+='<ellipse cx="'+cx+'" cy="'+y+'" rx="46" ry="10" fill="none" stroke="'+GOLD+'" stroke-dasharray="4 3"/>';
+      svg+=nucleus(c1,y,'C')+nucleus(c2,y,'C');
+      svg+='<text x="'+cx+'" y="'+(y-58)+'" text-anchor="middle" font-size="10" fill="'+ACC+'">2 π (senkrecht zueinander)</text>';
+      svg+='<text x="'+cx+'" y="'+(y+66)+'" text-anchor="middle" font-size="10" fill="'+TEALd+'">C≡C: 1 σ + 2 π</text>';
+      cap='Ethin: Dreifachbindung aus σ + zwei π-Bindungen, linear.';
+    }
+  }
+  svg+='</svg>';
+  return {svg:svg,cap:cap};
+}
+
+/* =======================  § 4  π-System / Farbigkeit  ======================= */
+var POLY=[null,
+  {name:'Ethen',lam:180},
+  {name:'1,3-Butadien',lam:217},
+  {name:'1,3,5-Hexatrien',lam:258},
+  {name:'1,3,5,7-Octatetraen',lam:304},
+  {name:'Decapentaen',lam:334},
+  {name:'Dodecahexaen',lam:364},
+  {name:'Tetradecaheptaen',lam:390},
+  {name:'Polyen · 8 Doppelb.',lam:410},
+  {name:'Polyen · 9 Doppelb.',lam:425},
+  {name:'Polyen · 10 Doppelb.',lam:440},
+  {name:'β-Carotin (Modell, 11)',lam:452}];
+function perceived(lam){
+  if(lam<400) return {txt:'farblos',rgb:[239,231,215]};
+  var abs=wlToRGB(lam); var comp=[255-abs[0],255-abs[1],255-abs[2]];
+  var name='farbig';
+  if(lam<430)name='blassgelb'; else if(lam<445)name='gelb'; else if(lam<495)name='orange'; else if(lam<560)name='rot';
+  return {txt:name,rgb:comp};
+}
+function piChainSVG(n){
+  var W=680,H=140,cy=70, x0=60,dx=Math.min(52,(W-100)/(2*n));
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="konjugierte Kette">';
+  svg+='<rect width="'+W+'" height="'+H+'" fill="#fff"/>';
+  /* Zickzack-Kette mit abwechselnden Doppelbindungen + senkrechte p-Orbitale */
+  var pts=[]; var nC=2*n; for(var i=0;i<nC;i++){ pts.push({x:x0+i*dx, y:cy+((i%2===0)?-10:10)}); }
+  /* π-Wolke (delokalisiert) */
+  var top='M '+pts[0].x+' '+(cy-26); pts.forEach(function(p){top+=' L '+p.x+' '+(p.y-24);}); top+=' L '+pts[nC-1].x+' '+(cy-26);
+  var bot='M '+pts[0].x+' '+(cy+26); pts.forEach(function(p){bot+=' L '+p.x+' '+(p.y+24);}); bot+=' L '+pts[nC-1].x+' '+(cy+26);
+  svg+='<path d="'+top+'" fill="none" stroke="'+RED+'" stroke-opacity=".5" stroke-width="10" stroke-linecap="round"/>';
+  svg+='<path d="'+bot+'" fill="none" stroke="'+BLUE+'" stroke-opacity=".5" stroke-width="10" stroke-linecap="round"/>';
+  /* σ-Gerüst */
+  var d='M '+pts[0].x+' '+pts[0].y; for(var j=1;j<nC;j++)d+=' L '+pts[j].x+' '+pts[j].y;
+  svg+='<path d="'+d+'" fill="none" stroke="'+INK+'" stroke-width="2"/>';
+  for(var k=0;k<nC;k++){ svg+='<circle cx="'+pts[k].x+'" cy="'+pts[k].y+'" r="3" fill="'+INK+'"/>'; }
+  svg+='<text x="'+(W/2)+'" y="'+(H-10)+'" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="#7a7368">'+n+' konjugierte Doppelbindungen · '+nC+' senkrechte p-Orbitale bilden EIN π-System</text>';
+  svg+='</svg>';
+  return svg;
+}
+function piMOSVG(mol){
+  var W=340,H=180,cy=H/2;
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" role="img"><rect width="'+W+'" height="'+H+'" fill="#fff"/>';
+  var nC=(mol==='ethene')?2:4, x0=(W-(nC-1)*54)/2;
+  for(var i=0;i<nC;i++){ var x=x0+i*54;
+    svg+=lobe(x,cy,90,30,20,RED,.5)+lobe(x,cy,270,30,20,BLUE,.5);
+    svg+='<circle cx="'+x+'" cy="'+cy+'" r="3" fill="'+INK+'"/>';
+  }
+  /* σ-Kette */
+  svg+='<line x1="'+x0+'" y1="'+cy+'" x2="'+(x0+(nC-1)*54)+'" y2="'+cy+'" stroke="'+INK+'" stroke-width="2"/>';
+  /* Überlappungsbögen */
+  if(mol==='butadiene'){
+    svg+='<path d="M '+x0+' '+(cy-30)+' Q '+(W/2)+' '+(cy-52)+' '+(x0+(nC-1)*54)+' '+(cy-30)+'" fill="none" stroke="'+GOLD+'" stroke-dasharray="4 3"/>';
+    svg+='<text x="'+(W/2)+'" y="18" text-anchor="middle" font-size="10" fill="'+ACC+'">delokalisiert über 4 C</text>';
+  } else {
+    svg+='<text x="'+(W/2)+'" y="18" text-anchor="middle" font-size="10" fill="#7a7368">lokalisiert (1 Doppelbindung)</text>';
+  }
+  svg+='</svg>'; return svg;
+}
+
+/* =======================  § 5  Allen  ======================= */
+function alleneSVG(){
+  var W=680,H=260,cy=H/2, c1=W*0.30,c2=W*0.5,c3=W*0.70;
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Allen"><rect width="'+W+'" height="'+H+'" fill="#fff"/>';
+  /* Achse */
+  svg+='<line x1="'+(c1-40)+'" y1="'+cy+'" x2="'+(c3+40)+'" y2="'+cy+'" stroke="'+INK+'" stroke-width="2"/>';
+  /* π1 in der Ebene (rot/blau, oben/unten) zwischen c1-c2 */
+  svg+='<ellipse cx="'+((c1+c2)/2)+'" cy="'+(cy-26)+'" rx="42" ry="15" fill="'+REDf+'" stroke="'+RED+'" stroke-opacity=".6"/>';
+  svg+='<ellipse cx="'+((c1+c2)/2)+'" cy="'+(cy+26)+'" rx="42" ry="15" fill="'+BLUEf+'" stroke="'+BLUE+'" stroke-opacity=".6"/>';
+  svg+='<text x="'+((c1+c2)/2)+'" y="'+(cy-46)+'" text-anchor="middle" font-size="10" fill="'+ACC+'">π₁ (Ebene senkrecht zum Blatt)</text>';
+  /* π2 senkrecht dazu (in der Blattebene, links/rechts) zwischen c2-c3 -> als horizontale Lappen */
+  svg+='<ellipse cx="'+((c2+c3)/2-18)+'" cy="'+cy+'" rx="15" ry="30" fill="'+REDf+'" stroke="'+RED+'" stroke-opacity=".6"/>';
+  svg+='<ellipse cx="'+((c2+c3)/2+18)+'" cy="'+cy+'" rx="15" ry="30" fill="'+BLUEf+'" stroke="'+BLUE+'" stroke-opacity=".6"/>';
+  svg+='<text x="'+((c2+c3)/2)+'" y="'+(cy+52)+'" text-anchor="middle" font-size="10" fill="'+BLUE+'">π₂ (um 90° verdreht)</text>';
+  /* Kerne */
+  svg+=nucleus(c1,cy,'C')+nucleus(c2,cy,'C')+nucleus(c3,cy,'C');
+  /* CH2-Endgruppen: links vertikal, rechts horizontal (verdreht) */
+  svg+='<line x1="'+c1+'" y1="'+cy+'" x2="'+(c1-26)+'" y2="'+(cy-22)+'" stroke="'+INK+'"/><line x1="'+c1+'" y1="'+cy+'" x2="'+(c1-26)+'" y2="'+(cy+22)+'" stroke="'+INK+'"/>';
+  svg+='<line x1="'+c3+'" y1="'+cy+'" x2="'+(c3+26)+'" y2="'+cy+'" stroke="'+INK+'" stroke-dasharray="3 2"/>';
+  svg+='<text x="'+(c1-40)+'" y="'+cy+'" text-anchor="middle" font-size="11" fill="'+INK+'">H₂C</text>';
+  svg+='<text x="'+(c3+42)+'" y="'+cy+'" text-anchor="middle" font-size="11" fill="'+INK+'">CH₂</text>';
+  svg+='<text x="'+c2+'" y="24" text-anchor="middle" font-family="Fraunces,serif" font-size="14" fill="'+INK+'">Allen · H₂C=C=CH₂ · zentrales C ist sp</text>';
+  svg+='<text x="'+(W/2)+'" y="'+(H-12)+'" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="'+ACC+'">π₁ ⊥ π₂ → keine seitliche Überlappung → KEIN durchgehendes π-System</text>';
+  svg+='</svg>'; return svg;
+}
+</script>
+
+<script>
+/* =====================================================================
+   Controller / Verdrahtung
+   ===================================================================== */
+
+/* -------- § 1 Bindungskurve -------- */
+function wireBondCurve(){
+  var wrap=$('[data-fig="bondcurve"]'); if(!wrap)return;
+  var fig=$('.sl-fig',wrap), rng=$('input[type=range]',wrap);
+  var vl=$('.v-l',wrap), ve=$('.v-e',wrap), note=$('.sl-note',wrap);
+  function upd(){ var l=+rng.value; fig.innerHTML=bondCurveSVG(l);
+    var E=Math.round(morseE(l)); vl.textContent=l; ve.textContent=(E>0?'+':'')+E;
+    var t; if(l>150)t='Große Abstände: E ≈ 0 — die Atome „spüren“ sich kaum, zwei Radikale.';
+    else if(l>=68&&l<=82)t='Minimum bei ≈ 74 pm: der stabilste Zustand, Bindungsenergie −436 kJ·mol⁻¹.';
+    else if(l<62)t='Kernabstand zu klein: Kern–Kern- und Elektron–Elektron-Abstoßung — E steigt steil, „Kollision“.';
+    else t='Anziehung überwiegt: die Energie sinkt in Richtung Minimum.';
+    note.textContent=t;
+  }
+  rng.addEventListener('input',upd); upd();
+}
+
+/* -------- § 1 Coulomb -------- */
+function wireCoulomb(){
+  var wrap=$('[data-fig="coulomb"]'); if(!wrap)return;
+  var fig=$('.sl-fig',wrap), rng=$('input[type=range]',wrap);
+  var vr=$('.v-r',wrap), vep=$('.v-ep',wrap), note=$('.sl-note',wrap);
+  var pair='pm';
+  function upd(){ var r=+rng.value; fig.innerHTML=coulombSVG(pair,r);
+    var E=Math.round(coulombE(pair,r)); vr.textContent=r; vep.textContent=(E>0?'+':'')+E;
+    var t;
+    if(pair==='pm')t='+/− ziehen sich an: E fällt monoton ins Negative — KEIN Minimum, kein stabiler Gleichgewichtsabstand.';
+    else t='Gleichnamige Ladungen stoßen sich ab: E steigt monoton — je näher, desto größer, ohne Grenze.';
+    note.textContent=t+' Rein elektrostatisch entsteht nirgends das beobachtete Minimum bei 74 pm.';
+  }
+  $$('.btn[data-pair]',wrap).forEach(function(b){ b.addEventListener('click',function(){
+    pair=b.dataset.pair; $$('.btn[data-pair]',wrap).forEach(function(x){x.classList.toggle('on',x===b);}); upd();
+  });});
+  rng.addEventListener('input',upd); upd();
+}
+
+/* -------- § 1 Seifenblasen -------- */
+function wireBubbles(){
+  var wrap=$('[data-fig="bubbles"]'); if(!wrap)return;
+  var fig=$('.bubbles-fig',wrap), note=$('.sl-note',wrap);
+  function set(mode){ fig.innerHTML=bubblesSVG(mode);
+    note.textContent=(mode==='merge')
+      ? 'Verschmolzen: eine gemeinsame Schwingung über beide Kerne — energetisch günstiger. Das ist die Bindung.'
+      : 'Getrennt: jede Welle schwingt um ihren eigenen Kern — höhere Energie.';
+    $$('.btn[data-bub]',wrap).forEach(function(x){x.classList.toggle('on',x.dataset.bub===mode);});
+  }
+  $$('.btn[data-bub]',wrap).forEach(function(b){ b.addEventListener('click',function(){set(b.dataset.bub);}); });
+  set('merge');
+}
+
+/* -------- § 2 LCAO (statisch) -------- */
+function drawLCAO(){ $$('[data-fig="lcao"]').forEach(function(el){ el.innerHTML=lcaoSVG(el.dataset.mode||'bond'); }); }
+
+/* -------- § 2 MO-Diagramm -------- */
+function wireMO(){
+  var fig=$('[data-fig="modiagram"]'); if(!fig)return;
+  var verdict=$('.mo-verdict'); var switchWrap=$('.mo-switch');
+  function set(sp){ fig.innerHTML=moDiagramSVG(sp);
+    if(sp==='he2'){ verdict.className='mo-verdict nobond';
+      verdict.innerHTML='<b>„He₂“:</b> Bindendes UND antibindendes σ-MO sind je doppelt besetzt. Bindungsordnung = ½·(2 − 2) = <b>0</b> → die stabilisierende und destabilisierende Wirkung heben sich auf → <b>kein He₂-Molekül</b>. Helium bleibt einatomig (Edelgas).'; }
+    else { verdict.className='mo-verdict bond';
+      verdict.innerHTML='<b>H₂:</b> Beide Elektronen besetzen das energieärmere <b>bindende</b> σ-MO, das antibindende bleibt leer. Bindungsordnung = ½·(2 − 0) = <b>1</b> → eine stabile Einfachbindung. Die „volle Schale“ (Duett) ist hier die Folge des gefüllten bindenden MO.'; }
+    $$('.btn[data-mo]',switchWrap).forEach(function(x){x.classList.toggle('on',(x.dataset.mo==='he2')===(sp==='he2'));});
+  }
+  $$('.btn[data-mo]',switchWrap).forEach(function(b){ b.addEventListener('click',function(){set(b.dataset.mo);}); });
+  set('h2');
+}
+
+/* -------- § 3 Hybridisierung -------- */
+function wireHybrid(){
+  $$('.hyb-tab').forEach(function(tab){ tab.addEventListener('click',function(){
+    var key=tab.dataset.hyb;
+    $$('.hyb-tab').forEach(function(t){t.classList.toggle('on',t===tab);});
+    $$('.hyb-panel').forEach(function(p){p.classList.toggle('on',p.dataset.hybPanel===key);});
+  });});
+  $$('[data-hybfig]').forEach(function(fig){
+    var type=fig.dataset.hybfig, panel=fig.closest('.hyb-panel');
+    function render(step){ var r=hybFigSVG(type,step); fig.innerHTML=r.svg;
+      var capEl=panel.querySelector('.hyb-cap'); if(!capEl){ capEl=document.createElement('div'); capEl.className='hyb-cap p-cap'; capEl.style.marginTop='.5rem'; fig.parentNode.insertBefore(capEl,fig.nextSibling.nextSibling||null); }
+    }
+    var steps=$$('.btn[data-hstep]',panel);
+    steps.forEach(function(b){ b.addEventListener('click',function(){
+      var s=+b.dataset.hstep; var r=hybFigSVG(type,s); fig.innerHTML=r.svg;
+      var cap=panel.querySelector('.hyb-cap'); if(cap)cap.textContent=r.cap;
+      steps.forEach(function(x){x.classList.toggle('on',x===b);});
+    });});
+    var r0=hybFigSVG(type,0); fig.innerHTML=r0.svg;
+    var cap=document.createElement('div'); cap.className='hyb-cap p-cap'; cap.style.marginTop='.5rem'; cap.textContent=r0.cap;
+    var stepsRow=$('.hyb-steps',panel); if(stepsRow)stepsRow.parentNode.insertBefore(cap,stepsRow.nextSibling);
+  });
+}
+
+/* -------- Lückentext (Cloze) -------- */
+function wireCloze(){
+  $$('.cloze .gap').forEach(function(g){ g.addEventListener('click',function(){ g.classList.toggle('shown'); }); });
+  $$('[data-cloze-all]').forEach(function(btn){ btn.addEventListener('click',function(){
+    var cloze=btn.closest('.lp-section').querySelectorAll('.cloze .gap');
+    var anyHidden=Array.prototype.some.call(cloze,function(g){return !g.classList.contains('shown');});
+    Array.prototype.forEach.call(cloze,function(g){ g.classList.toggle('shown',anyHidden); });
+  });});
+}
+
+/* -------- § 4 π-Kette -------- */
+function wirePiChain(){
+  var wrap=$('[data-fig="pichain"]'); if(!wrap)return;
+  var fig=$('.pi-fig',wrap), rng=$('input[type=range]',wrap);
+  var vn=$('.v-n',wrap), vname=$('.v-name',wrap), vlam=$('.v-lambda',wrap), vcol=$('.v-color',wrap), vsw=$('.v-swatch',wrap), note=$('.sl-note',wrap);
+  function upd(){ var n=+rng.value; var p=POLY[n]; fig.innerHTML=piChainSVG(n);
+    vn.textContent=n; vname.textContent=p.name; vlam.textContent=p.lam+' nm';
+    var pc=perceived(p.lam); vcol.textContent=pc.txt; vsw.style.background='rgb('+pc.rgb[0]+','+pc.rgb[1]+','+pc.rgb[2]+')';
+    var t;
+    if(p.lam<400)t='λ_max liegt im UV (< 400 nm) → kein sichtbares Licht wird absorbiert → der Stoff ist farblos.';
+    else t='λ_max liegt im sichtbaren Bereich: absorbiert wird ≈ '+p.lam+' nm → wahrgenommen wird die Komplementärfarbe ('+pc.txt+').';
+    note.textContent='Mehr konjugierte Doppelbindungen → kleineres ΔE (HOMO→LUMO) → Absorption zu größeren Wellenlängen. '+t;
+  }
+  rng.addEventListener('input',upd); upd();
+}
+function drawPiMO(){ $$('[data-fig="pimo"]').forEach(function(el){ el.innerHTML=piMOSVG(el.dataset.mol); }); }
+
+/* -------- § 5 Allen -------- */
+function drawAllene(){ var wrap=$('[data-fig="allene"]'); if(!wrap)return;
+  $('.sl-fig',wrap).innerHTML=alleneSVG();
+  $('.sl-note',wrap).textContent='Die beiden π-Bindungen stehen um 90° verdreht — ihre Elektronendichten liegen in rechtwinkligen Ebenen und können nicht überlappen.';
+}
+
+/* -------- Aufklapp-Antworten -------- */
+function wireReveals(){ $$('[data-reveal]').forEach(function(card){
+  var head=$('.reveal-head',card); if(head)head.addEventListener('click',function(){card.classList.toggle('open');});
+});}
+
+/* -------- Wisch-Aufdeckung (Moderation, rücksetzbar) -------- */
+function wireWipes(){
+  $$('.wipe[data-wipe]').forEach(function(wrap){
+    var inner=$('.wipe-inner',wrap), cv=$('.wipe-cv',wrap), btn=$('.wipe-btn',wrap);
+    if(!inner||!cv)return; var ctx=cv.getContext('2d'); if(!ctx)return;
+    var covered=true, painting=false, last=null;
+    function cover(){ var dpr=window.devicePixelRatio||1; var w=wrap.clientWidth,h=inner.offsetHeight;
+      cv.width=Math.max(1,Math.round(w*dpr)); cv.height=Math.max(1,Math.round(h*dpr));
+      cv.style.width=w+'px'; cv.style.height=h+'px'; ctx.setTransform(dpr,0,0,dpr,0,0);
+      ctx.globalCompositeOperation='source-over';
+      var grd=ctx.createLinearGradient(0,0,w,h); grd.addColorStop(0,'#2a6d61'); grd.addColorStop(1,'#1e5d52');
+      ctx.fillStyle=grd; ctx.fillRect(0,0,w,h);
+      ctx.strokeStyle='rgba(255,255,255,0.06)'; ctx.lineWidth=6;
+      for(var x=-h;x<w;x+=16){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x+h,h);ctx.stroke();}
+      ctx.fillStyle='rgba(255,255,255,0.92)'; ctx.font="600 13px 'JetBrains Mono', monospace"; ctx.textBaseline='middle';
+      ctx.fillText('L\u00d6SUNG \u00b7 tippen oder wischen zum Aufdecken',16,Math.min(26,h/2));
+      cv.classList.remove('gone'); covered=true; if(btn)btn.textContent='Aufdecken';
+    }
+    function revealAll(){ ctx.clearRect(0,0,cv.width,cv.height); cv.classList.add('gone'); covered=false; if(btn)btn.textContent='Zudecken'; }
+    function erodeAt(x,y){ ctx.globalCompositeOperation='destination-out'; ctx.lineCap='round'; ctx.lineJoin='round'; ctx.lineWidth=46;
+      if(last){ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(x,y);ctx.stroke();}
+      ctx.beginPath();ctx.arc(x,y,23,0,Math.PI*2);ctx.fill(); last={x:x,y:y}; }
+    function pos(e){ var r=cv.getBoundingClientRect(); var t=(e.touches&&e.touches[0])||e; return {x:t.clientX-r.left,y:t.clientY-r.top}; }
+    var startPt=null,moved=false; var TH=7;
+    cv.addEventListener('pointerdown',function(e){ if(!covered)return; painting=true; moved=false; startPt=pos(e); last=null; try{cv.setPointerCapture(e.pointerId);}catch(_){} });
+    cv.addEventListener('pointermove',function(e){ if(!painting)return; var p=pos(e);
+      if(!moved){ if(Math.hypot(p.x-startPt.x,p.y-startPt.y)<TH)return; moved=true; last=startPt; erodeAt(startPt.x,startPt.y); }
+      erodeAt(p.x,p.y); });
+    cv.addEventListener('pointerup',function(){ if(!painting)return; painting=false; if(!moved&&covered)revealAll(); last=null; });
+    cv.addEventListener('pointercancel',function(){ painting=false; last=null; });
+    if(btn)btn.addEventListener('click',function(){ covered?revealAll():cover(); });
+    cover();
+    if(window.ResizeObserver){ var ro=new ResizeObserver(function(){ if(covered)cover(); }); ro.observe(inner); }
+    window.addEventListener('resize',function(){ if(covered)cover(); });
+  });
+}
+
+/* -------- Selbsteinschätzung -------- */
+function wireSelfAssess(){
+  var base='lp2_kann_'+window.location.pathname+'_';
+  $$('.kann input[data-kann]').forEach(function(box){
+    var key=base+box.dataset.kann;
+    try{ box.checked=localStorage.getItem(key)==='1'; }catch(e){}
+    box.closest('.kann').classList.toggle('done',box.checked);
+    box.addEventListener('change',function(){ try{localStorage.setItem(key,box.checked?'1':'0');}catch(e){}
+      box.closest('.kann').classList.toggle('done',box.checked); });
+  });
+}
+
+/* -------- INIT -------- */
+function initLernpfad(){
+  if(window.__lp2Init)return; window.__lp2Init=true;
+  wireReveals();
+  wireBondCurve(); wireCoulomb(); wireBubbles();
+  drawLCAO(); wireMO();
+  wireHybrid(); wireCloze();
+  wirePiChain(); drawPiMO(); drawAllene();
+  wireWipes(); wireSelfAssess();
+}
+
+/* -------- Freischaltung / Passwort -------- */
+(function(){
+  var UNLOCK_ISO="2026-09-19T07:00:00+02:00";
+  var PASSWORD="Chemieist\u00fcberall.";
+  var unlockDate=new Date(UNLOCK_ISO), now=new Date(), isUnlocked=now>=unlockDate;
+  var statusEl=$('#status-text'), pwZone=$('#pw-zone'), lernpfadEl=$('#lernpfad'), ud=$('#unlock-date');
+  if(ud)ud.textContent=unlockDate.toLocaleDateString('de-DE',{weekday:'short',day:'2-digit',month:'2-digit',year:'numeric'});
+  var storageKey='lp_unlock_'+window.location.pathname;
+  var ssGet=function(k){try{return sessionStorage.getItem(k);}catch(e){return null;}};
+  var ssSet=function(k,v){try{sessionStorage.setItem(k,v);}catch(e){}};
+  var pwUnlocked=ssGet(storageKey)==='1';
+  function reveal(prefix){ lernpfadEl.classList.add('show'); if(pwZone)pwZone.style.display='none'; if(statusEl)statusEl.textContent=prefix||'Verf\u00fcgbar'; initLernpfad(); }
+  if(isUnlocked)reveal('Verf\u00fcgbar');
+  else if(pwUnlocked)reveal('Vorab freigeschaltet');
+  else if(statusEl){ var days=Math.ceil((unlockDate-now)/86400000); statusEl.textContent=days>0?'Noch '+days+' Tag'+(days===1?'':'e'):'Heute'; }
+  var form=$('#pw-form');
+  if(form){ var input=$('#pw-input'), feedback=$('#pw-feedback');
+    form.addEventListener('submit',function(e){ e.preventDefault();
+      if(input.value===PASSWORD){ feedback.textContent='Korrekt \u2014 Inhalte werden geladen \u2026'; ssSet(storageKey,'1'); setTimeout(function(){reveal('Vorab freigeschaltet');},450); }
+      else{ feedback.textContent='Passwort nicht korrekt.'; input.value=''; input.focus();
+        form.animate([{transform:'translateX(0)'},{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}],{duration:280}); }
+    });
+  }
+})();
+</script>
+</body>
+</html>
