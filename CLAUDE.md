@@ -16,9 +16,9 @@
   personenbezogenen Daten in Dateien oder Commit-Nachrichten.
 
 ## Struktur SEK-II
-- SEK-II/chemie-lk-kursplan.html — Kursübersicht LK.
-- SEK-II/Q1/ — die neun Lernpfade (lernpfad-q1-01…09).
-- SEK-II/Q1/organik-build/ — Generator für Lernpfad 03:
+- SEK-II/Leistungskurs/chemie-lk-kursplan.html — Kursübersicht LK.
+- SEK-II/Leistungskurs/Q1/ — die neun Lernpfade (lernpfad-q1-01…09).
+- SEK-II/Leistungskurs/Q1/organik-build/ — Generator für Lernpfad 03:
   src/ erzeugt die HTML, svg/ enthält die Strukturformeln.
   Ausgabe gehört nach Q1/, NICHT nochmal in organik-build/.
 
