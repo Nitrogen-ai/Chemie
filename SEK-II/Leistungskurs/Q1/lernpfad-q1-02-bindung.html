@@ -281,8 +281,7 @@
 
 <nav class="nav-bar">
   <div>
-    <a href="../chemie-lk-kursplan.html">← Kursplan</a>
-    <span class="crumb-sep">/</span><span style="opacity:.4">Q1</span>
+    <span style="opacity:.4">Q1</span>
     <span class="crumb-sep">/</span><span style="opacity:.8">Lernpfad II</span>
   </div>
   <div style="opacity:.5">Chemie · LK</div>
@@ -298,17 +297,7 @@
 
     <div class="meta-grid">
       <div class="meta-card"><div class="meta-card-label">Zeitraum</div><div class="meta-card-value">SJW 4</div></div>
-      <div class="meta-card"><div class="meta-card-label">Freischaltung</div><div class="meta-card-value" id="unlock-date">2026-09-19</div></div>
       <div class="meta-card"><div class="meta-card-label">Basiskonzept</div><div class="meta-card-value">Struktur–Eigenschafts-Beziehungen</div></div>
-    </div>
-
-    <div class="password-zone" id="pw-zone">
-      <div class="pw-label">Frühzeitiger Zugang · Passwort eingeben</div>
-      <form class="pw-form" id="pw-form" autocomplete="off">
-        <input type="password" class="pw-input" id="pw-input" placeholder="Passwort" autocomplete="off">
-        <button type="submit" class="pw-submit">Entsperren</button>
-      </form>
-      <div class="pw-feedback" id="pw-feedback"></div>
     </div>
   </div>
 </header>
@@ -716,7 +705,7 @@
 </div><!-- /lernpfad -->
 
 <footer>
-  Chemie · Leistungs­kurs · Lernpfad II — Chemische Bindung als Gesamtwellenfunktion · <a href="../chemie-lk-kursplan.html">Zurück zum Kursplan</a>
+  Chemie · Leistungs­kurs · Lernpfad II — Chemische Bindung als Gesamtwellenfunktion
 </footer>
 
 <script>
@@ -1312,29 +1301,12 @@ function initLernpfad(){
   wireWipes(); wireSelfAssess();
 }
 
-/* -------- Freischaltung / Passwort -------- */
+/* -------- Direkte Anzeige -------- */
 (function(){
-  var UNLOCK_ISO="2026-09-19T07:00:00+02:00";
-  var PASSWORD="Chemieist\u00fcberall.";
-  var unlockDate=new Date(UNLOCK_ISO), now=new Date(), isUnlocked=now>=unlockDate;
-  var statusEl=$('#status-text'), pwZone=$('#pw-zone'), lernpfadEl=$('#lernpfad'), ud=$('#unlock-date');
-  if(ud)ud.textContent=unlockDate.toLocaleDateString('de-DE',{weekday:'short',day:'2-digit',month:'2-digit',year:'numeric'});
-  var storageKey='lp_unlock_'+window.location.pathname;
-  var ssGet=function(k){try{return sessionStorage.getItem(k);}catch(e){return null;}};
-  var ssSet=function(k,v){try{sessionStorage.setItem(k,v);}catch(e){}};
-  var pwUnlocked=ssGet(storageKey)==='1';
-  function reveal(prefix){ lernpfadEl.classList.add('show'); if(pwZone)pwZone.style.display='none'; if(statusEl)statusEl.textContent=prefix||'Verf\u00fcgbar'; initLernpfad(); }
-  if(isUnlocked)reveal('Verf\u00fcgbar');
-  else if(pwUnlocked)reveal('Vorab freigeschaltet');
-  else if(statusEl){ var days=Math.ceil((unlockDate-now)/86400000); statusEl.textContent=days>0?'Noch '+days+' Tag'+(days===1?'':'e'):'Heute'; }
-  var form=$('#pw-form');
-  if(form){ var input=$('#pw-input'), feedback=$('#pw-feedback');
-    form.addEventListener('submit',function(e){ e.preventDefault();
-      if(input.value===PASSWORD){ feedback.textContent='Korrekt \u2014 Inhalte werden geladen \u2026'; ssSet(storageKey,'1'); setTimeout(function(){reveal('Vorab freigeschaltet');},450); }
-      else{ feedback.textContent='Passwort nicht korrekt.'; input.value=''; input.focus();
-        form.animate([{transform:'translateX(0)'},{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}],{duration:280}); }
-    });
-  }
+  var statusEl=$('#status-text'), lernpfadEl=$('#lernpfad');
+  lernpfadEl.classList.add('show');
+  if(statusEl)statusEl.textContent='Verf\u00fcgbar';
+  initLernpfad();
 })();
 </script>
 </body>

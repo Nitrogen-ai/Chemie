@@ -195,8 +195,7 @@
 
 <nav class="nav-bar">
   <div>
-    <a href="../chemie-lk-kursplan.html">← Kursplan</a>
-    <span class="crumb-sep">/</span><span style="opacity:.4">Q1</span>
+    <span style="opacity:.4">Q1</span>
     <span class="crumb-sep">/</span><span style="opacity:.8">Lernpfad III</span>
   </div>
   <div style="opacity:.5">Chemie · LK</div>
@@ -211,16 +210,7 @@
     <div class="status-banner"><div class="pulse"></div><span id="status-text">Wird berechnet …</span></div>
     <div class="meta-grid">
       <div class="meta-card"><div class="meta-card-label">Zeitraum</div><div class="meta-card-value">SJW 5</div></div>
-      <div class="meta-card"><div class="meta-card-label">Freischaltung</div><div class="meta-card-value" id="unlock-date">2026-09-26</div></div>
       <div class="meta-card"><div class="meta-card-label">Basiskonzept</div><div class="meta-card-value">Struktur &amp; Eigenschaft</div></div>
-    </div>
-    <div class="password-zone" id="pw-zone">
-      <div class="pw-label">Frühzeitiger Zugang · Passwort eingeben</div>
-      <form class="pw-form" id="pw-form" autocomplete="off">
-        <input type="password" class="pw-input" id="pw-input" placeholder="Passwort" autocomplete="off">
-        <button type="submit" class="pw-submit">Entsperren</button>
-      </form>
-      <div class="pw-feedback" id="pw-feedback"></div>
     </div>
   </div>
 </header>
@@ -558,7 +548,7 @@
 </div><!-- /.lernpfad -->
 
 <footer>
-  Chemie · Leistungs­kurs · <a href="../chemie-lk-kursplan.html">Zurück zum Kursplan</a> · Struktur &amp; Eigenschaft
+  Chemie · Leistungs­kurs · Struktur &amp; Eigenschaft
 </footer>
 
 <script>
@@ -1140,50 +1130,13 @@ function svgFor(struct, rep) {
 }
 
 
-/* ============================ UNLOCK / PASSWORD ============================ */
+/* ============================ Direkte Anzeige ============================ */
 (function(){
-  const UNLOCK_ISO = "2026-09-26T07:00:00+02:00";
-  const PASSWORD = "Chemieist\u00fcberall.";
-  const unlockDate = new Date(UNLOCK_ISO);
-  const now = new Date();
-  const isUnlocked = now >= unlockDate;
   const statusEl = document.getElementById('status-text');
-  const pwZone = document.getElementById('pw-zone');
   const lernpfadEl = document.getElementById('lernpfad');
-  document.getElementById('unlock-date').textContent =
-    unlockDate.toLocaleDateString('de-DE', {weekday:'short', day:'2-digit', month:'2-digit', year:'numeric'});
-  const storageKey = 'lp_unlock_' + window.location.pathname;
-  function ssGet(k){ try { return sessionStorage.getItem(k); } catch(e){ return null; } }
-  function ssSet(k,v){ try { sessionStorage.setItem(k,v); } catch(e){} }
-  const pwUnlocked = ssGet(storageKey) === '1';
-
-  function reveal(prefix){
-    lernpfadEl.classList.add('show');
-    pwZone.style.display = 'none';
-    statusEl.textContent = prefix || 'Verf\u00fcgbar';
-    initLernpfad();
-  }
-  if (isUnlocked) reveal('Verf\u00fcgbar');
-  else if (pwUnlocked) reveal('Vorab freigeschaltet');
-  else {
-    const days = Math.ceil((unlockDate - now) / 86400000);
-    statusEl.textContent = days > 0 ? 'Noch ' + days + ' Tag' + (days===1?'':'e') : 'Heute';
-  }
-  const form = document.getElementById('pw-form');
-  const input = document.getElementById('pw-input');
-  const feedback = document.getElementById('pw-feedback');
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    if (input.value === PASSWORD) {
-      feedback.textContent = 'Korrekt — Inhalte werden geladen \u2026';
-      ssSet(storageKey, '1');
-      setTimeout(() => reveal('Vorab freigeschaltet'), 500);
-    } else {
-      feedback.textContent = 'Passwort nicht korrekt.';
-      input.value = ''; input.focus();
-      form.animate([{transform:'translateX(0)'},{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}], {duration:280});
-    }
-  });
+  lernpfadEl.classList.add('show');
+  if (statusEl) statusEl.textContent = 'Verf\u00fcgbar';
+  initLernpfad();
 })();
 
 /* ============================ INIT ============================ */
