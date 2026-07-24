@@ -399,8 +399,6 @@
 
 <nav class="nav-bar">
   <div>
-    <a href="../chemie-lk-kursplan.html">← Kursplan</a>
-    <span class="crumb-sep">/</span>
     <span style="opacity: 0.4">Q1</span>
     <span class="crumb-sep">/</span>
     <span style="opacity: 0.8">Lernpfad V</span>
@@ -444,26 +442,9 @@
         <div class="meta-card-label">Zeitraum</div>
         <div class="meta-card-value">SJW 7</div>
       </div>
-      <div class="meta-card">
-        <div class="meta-card-label">Freischaltung</div>
-        <div class="meta-card-value" id="unlock-date">2026-10-10</div>
-      </div>
-      <div class="meta-card">
-        <div class="meta-card-label">Status</div>
-        <div class="meta-card-value" id="status-text">Wird berechnet …</div>
-      </div>
     </div>
 
-    <div class="password-zone" id="pw-zone">
-      <div class="pw-label">Frühzeitiger Zugang · Passwort eingeben</div>
-      <form class="pw-form" id="pw-form" autocomplete="off">
-        <input type="password" class="pw-input" id="pw-input" placeholder="Passwort" autocomplete="off">
-        <button type="submit" class="pw-submit">Entsperren</button>
-      </form>
-      <div class="pw-feedback" id="pw-feedback"></div>
-    </div>
-
-    <div class="unlocked-content" id="unlocked">
+    <div class="unlocked-content show" id="unlocked">
       <h2>Materialien &amp; Musterlösungen</h2>
       <p>Dieser Bereich ist nun freigeschaltet. Hier finden Sie zukünftig die Lernpfad-Inhalte zu <em>Peptide &amp; EPA-Modell</em>: Aufgaben, Experimente, Musterlösungen, weiterführende Links, Google-Classroom-Verknüpfung.</p>
       <div class="placeholder-text">
@@ -474,76 +455,9 @@
 </main>
 
 <footer>
-  Chemie · Leistungs­kurs · <a href="../chemie-lk-kursplan.html">Zurück zum Kursplan</a>
+  Chemie · Leistungs­kurs
 </footer>
 
-<script>
-  // Konfiguration
-  const UNLOCK_ISO = "2026-10-10T07:00:00+02:00"; // Samstag früh, MESZ
-  const PASSWORD = "Chemieistüberall.";
-
-  const unlockDate = new Date(UNLOCK_ISO);
-  const now = new Date();
-  const isUnlocked = now >= unlockDate;
-
-  const statusEl = document.getElementById('status-text');
-  const pwZone = document.getElementById('pw-zone');
-  const unlockedEl = document.getElementById('unlocked');
-
-  // Format unlock date nicely
-  const fmtUnlock = unlockDate.toLocaleDateString('de-DE', {
-    weekday: 'short', day: '2-digit', month: '2-digit', year: 'numeric'
-  });
-  document.getElementById('unlock-date').textContent = fmtUnlock;
-
-  // Check if past local-storage flag (already unlocked via PW earlier)
-  const storageKey = 'lp_unlock_' + window.location.pathname;
-  const pwUnlocked = sessionStorage.getItem(storageKey) === '1';
-
-  function reveal() {
-    unlockedEl.classList.add('show');
-    pwZone.style.display = 'none';
-    statusEl.textContent = 'Verfügbar';
-    statusEl.style.color = 'var(--teal-deep)';
-  }
-
-  if (isUnlocked) {
-    reveal();
-  } else if (pwUnlocked) {
-    reveal();
-    statusEl.textContent = 'Vorab freigeschaltet';
-  } else {
-    // Show countdown-style status
-    const days = Math.ceil((unlockDate - now) / (1000 * 60 * 60 * 24));
-    statusEl.textContent = days > 0 ? 'Noch ' + days + ' Tag' + (days === 1 ? '' : 'e') : 'Heute';
-  }
-
-  // Password form
-  const form = document.getElementById('pw-form');
-  const input = document.getElementById('pw-input');
-  const feedback = document.getElementById('pw-feedback');
-
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    if (input.value === PASSWORD) {
-      feedback.textContent = 'Korrekt — Inhalte werden geladen …';
-      sessionStorage.setItem(storageKey, '1');
-      setTimeout(reveal, 600);
-    } else {
-      feedback.textContent = 'Passwort nicht korrekt.';
-      input.value = '';
-      input.focus();
-      // gentle shake
-      form.animate(
-        [{ transform: 'translateX(0)' },
-         { transform: 'translateX(-6px)' },
-         { transform: 'translateX(6px)' },
-         { transform: 'translateX(0)' }],
-        { duration: 280, iterations: 1 }
-      );
-    }
-  });
-</script>
 
 </body>
 </html>
