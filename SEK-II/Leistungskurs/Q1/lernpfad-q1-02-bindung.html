@@ -674,20 +674,13 @@
   <!-- ============================ § 6 ============================ -->
   <section class="lp-section">
     <div class="sec-num">§ 6 · Material &amp; Sicherung</div>
-    <h2>Arbeitsblatt, <em>Musterlösung</em> &amp; Selbsteinschätzung</h2>
-    <p>Zu diesem Lernpfad gehören ein Typst-Arbeitsblatt (Mitschrift mit Lücken) und die zugehörige Musterlösung. Beide werden aus einer gemeinsamen Quelle über das <span class="mini-mol">LOESUNG</span>-Flag erzeugt.</p>
+    <h2>Materialien im <em>Google Classroom</em> &amp; Selbsteinschätzung</h2>
+    <p class="lead">Aufgabenblätter, Musterlösungen und Plicker-Übungen zu diesem Lernpfad werden über den Google Classroom des Kurses bereitgestellt.</p>
 
-    <div class="dl-grid">
-      <div class="dl-card">
-        <div class="dl-k">Arbeitsblatt · Mitschrift</div>
-        <div class="dl-t">Chemische Atombindung als Gesamtwellenfunktion</div>
-        <div class="dl-file">photonen-elektronen-mitschrift.pdf</div>
-      </div>
-      <div class="dl-card">
-        <div class="dl-k">Musterlösung · Lehrkraft</div>
-        <div class="dl-t">Vollständige Lösungen zu Aufgabe 9–16</div>
-        <div class="dl-file">photonen-elektronen-loesung.pdf</div>
-      </div>
+    <div class="dl-grid" style="grid-template-columns:1fr;">
+      <a href="https://classroom.google.com/u/0/c/MjIzMDQ1Njg5OTJa" target="_blank" rel="noopener" style="text-decoration:none; color:inherit;">
+        <div class="dl-card"><div class="dl-k">Google Classroom</div><div class="dl-t">🎓 Materialien &amp; Plicker-Übungen</div><div class="dl-file">classroom.google.com →</div></div>
+      </a>
     </div>
 
     <h3>Selbsteinschätzung „Ich kann …“</h3>
@@ -780,9 +773,12 @@ function bondCurveSVG(l){
   var X=function(L){return px0+(L-lmin)/(lmax-lmin)*(px1-px0);};
   var Y=function(E){return py1-(E-emin)/(emax-emin)*(py1-py0);};
   /* Kurve */
-  var d='',first=true;
-  for(var L=lmin;L<=lmax;L+=2){ var E=morseE(L); if(E>emax)E=emax; d+=(first?'M':'L')+X(L).toFixed(1)+' '+Y(E).toFixed(1)+' '; first=false; }
-  var Ecur=morseE(l); var mx=X(l),my=Y(Math.max(Ecur,emin));
+  var d='',first=true, dDot='',dotFirst=true;
+  for(var L=lmin;L<=lmax;L+=2){ var E=morseE(L);
+    if(E<=emax){ d+=(first?'M':'L')+X(L).toFixed(1)+' '+Y(E).toFixed(1)+' '; first=false; }
+    else { dDot+=(dotFirst?'M':'L')+X(L).toFixed(1)+' '+py0+' '; dotFirst=false; }
+  }
+  var Ecur=morseE(l); var mx=X(l),my=Y(Math.min(emax,Math.max(Ecur,emin)));
   /* Kopf: zwei H-Atome im skalierten Abstand */
   var hcx=W/2, hy=26, sep=Math.max(14,Math.min(150,(l-40)/260*150+14));
   var ax=hcx-sep/2, bx=hcx+sep/2;
@@ -806,7 +802,7 @@ function bondCurveSVG(l){
   svg+='<line x1="'+px0+'" y1="'+Y(0)+'" x2="'+px1+'" y2="'+Y(0)+'" stroke="'+INK+'"/>';
   svg+='<polygon points="'+px0+','+(py0-2)+' '+(px0-4)+','+(py0+6)+' '+(px0+4)+','+(py0+6)+'" fill="'+INK+'"/>';
   svg+='<polygon points="'+(px1+2)+','+Y(0)+' '+(px1-6)+','+(Y(0)-4)+' '+(px1-6)+','+(Y(0)+4)+'" fill="'+INK+'"/>';
-  svg+='<text x="'+(px0-8)+'" y="'+(py0+4)+'" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="10" fill="'+INK+'">E / kJ·mol⁻¹</text>';
+  svg+='<text x="18" y="'+((py0+py1)/2)+'" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="'+INK+'" transform="rotate(-90 18 '+((py0+py1)/2)+')">E / kJ·mol⁻¹</text>';
   svg+='<text x="'+(px1)+'" y="'+(Y(0)+18)+'" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="10" fill="'+INK+'">l / pm</text>';
   /* Ticks */
   [-436,0].forEach(function(E){ svg+='<text x="'+(px0-8)+'" y="'+(Y(E)+4)+'" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="10" fill="#7a7368">'+E+'</text>'; });
@@ -814,6 +810,8 @@ function bondCurveSVG(l){
   /* Minimum-Markierung */
   svg+='<line x1="'+X(74)+'" y1="'+Y(0)+'" x2="'+X(74)+'" y2="'+Y(-436)+'" stroke="'+ACC+'" stroke-dasharray="2 3" stroke-opacity=".6"/>';
   svg+='<line x1="'+px0+'" y1="'+Y(-436)+'" x2="'+X(74)+'" y2="'+Y(-436)+'" stroke="'+ACC+'" stroke-dasharray="2 3" stroke-opacity=".6"/>';
+  /* Kurve jenseits des sichtbaren Energiebereichs: gepunktet statt Sättigungsplateau */
+  if(dDot)svg+='<path d="'+dDot+'" fill="none" stroke="'+ACC+'" stroke-width="2" stroke-dasharray="3 4" stroke-opacity=".7"/>';
   /* Kurve */
   svg+='<path d="'+d+'" fill="none" stroke="'+ACC+'" stroke-width="2.6"/>';
   /* Marker */
@@ -846,7 +844,7 @@ function coulombSVG(pair,r){
   svg+='<line x1="'+px0+'" y1="'+py0+'" x2="'+px0+'" y2="'+py1+'" stroke="'+INK+'"/>';
   svg+='<polygon points="'+px0+','+(py0-2)+' '+(px0-4)+','+(py0+6)+' '+(px0+4)+','+(py0+6)+'" fill="'+INK+'"/>';
   svg+='<polygon points="'+(px1+2)+','+Y(0)+' '+(px1-6)+','+(Y(0)-4)+' '+(px1-6)+','+(Y(0)+4)+'" fill="'+INK+'"/>';
-  svg+='<text x="'+(px0-8)+'" y="'+(py0+4)+'" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="10" fill="'+INK+'">E_pot / kJ·mol⁻¹</text>';
+  svg+='<text x="18" y="'+((py0+py1)/2)+'" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="'+INK+'" transform="rotate(-90 18 '+((py0+py1)/2)+')">E_pot / kJ·mol⁻¹</text>';
   svg+='<text x="'+px1+'" y="'+(Y(0)+18)+'" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="10" fill="'+INK+'">r / pm</text>';
   svg+='<text x="'+(px0-8)+'" y="'+(Y(0)+4)+'" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="9" fill="#7a7368">0</text>';
   svg+='<text x="'+(px0+6)+'" y="'+(py0+12)+'" font-family="JetBrains Mono,monospace" font-size="9" fill="#7a7368">Abstoßung ↑</text>';
@@ -864,10 +862,10 @@ function bubblesSVG(mode){
   svg+='<rect width="'+W+'" height="'+H+'" fill="#fff"/>';
   var ax=W*0.38, bx=W*0.62;
   if(mode==='apart'){
-    svg+='<ellipse cx="'+ax+'" cy="'+cy+'" rx="66" ry="58" fill="'+REDf+'" stroke="'+RED+'" stroke-opacity=".6">'+
+    svg+='<ellipse cx="'+ax+'" cy="'+cy+'" rx="66" ry="58" fill="rgba(30,93,82,.20)" stroke="'+TEAL+'" stroke-opacity=".7">'+
       '<animate attributeName="rx" values="66;72;62;66" dur="3.2s" repeatCount="indefinite"/>'+
       '<animate attributeName="ry" values="58;52;62;58" dur="3.2s" repeatCount="indefinite"/></ellipse>';
-    svg+='<ellipse cx="'+bx+'" cy="'+cy+'" rx="66" ry="58" fill="'+BLUEf+'" stroke="'+BLUE+'" stroke-opacity=".6">'+
+    svg+='<ellipse cx="'+bx+'" cy="'+cy+'" rx="66" ry="58" fill="rgba(30,93,82,.20)" stroke="'+TEAL+'" stroke-opacity=".7">'+
       '<animate attributeName="rx" values="66;60;70;66" dur="2.7s" repeatCount="indefinite"/>'+
       '<animate attributeName="ry" values="58;64;54;58" dur="2.7s" repeatCount="indefinite"/></ellipse>';
     svg+=nucleus(ax,cy,'H')+nucleus(bx,cy,'H');
@@ -895,8 +893,9 @@ function lcaoSVG(mode){
   svg+='<line x1="14" y1="40" x2="'+(W-14)+'" y2="40" stroke="#d8cdba"/>';
   svg+='<path d="'+psi(ax,1)+'" fill="none" stroke="'+RED+'" stroke-width="2"/>';
   svg+='<path d="'+psi(bx,(mode==='bond')?1:-1)+'" fill="none" stroke="'+BLUE+'" stroke-width="2"/>';
-  svg+='<text x="'+ax+'" y="18" text-anchor="middle" font-size="11" fill="'+RED+'">ψ_a</text>';
-  svg+='<text x="'+bx+'" y="18" text-anchor="middle" font-size="11" fill="'+BLUE+'">ψ_b</text>';
+  var psiLabelY=32;
+  svg+='<text x="'+ax+'" y="'+psiLabelY+'" text-anchor="middle" font-size="11" fill="'+RED+'">ψ<tspan baseline-shift="sub" font-size="75%">a</tspan></text>';
+  svg+='<text x="'+bx+'" y="'+psiLabelY+'" text-anchor="middle" font-size="11" fill="'+BLUE+'">ψ<tspan baseline-shift="sub" font-size="75%">b</tspan></text>';
   svg+='<text x="'+(W/2)+'" y="40" text-anchor="middle" font-size="13" fill="'+INK+'">'+(mode==='bond'?'+':'−')+'</text>';
   /* resultierendes MO unten */
   if(mode==='bond'){
@@ -927,7 +926,7 @@ function moDiagramSVG(species){
   svg+='<rect width="'+W+'" height="'+H+'" fill="#fff"/>';
   /* Energieachse */
   svg+='<line x1="26" y1="30" x2="26" y2="'+(H-26)+'" stroke="'+INK+'"/><polygon points="26,24 22,34 30,34" fill="'+INK+'"/>';
-  svg+='<text x="20" y="40" font-family="JetBrains Mono,monospace" font-size="10" fill="'+INK+'" transform="rotate(-90 20 40)">Energie</text>';
+  svg+='<text x="14" y="'+((30+(H-26))/2)+'" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="'+INK+'" transform="rotate(-90 14 '+((30+(H-26))/2)+')">Energie</text>';
   function level(x,y,lab,side){ return '<line x1="'+(x-34)+'" y1="'+y+'" x2="'+(x+34)+'" y2="'+y+'" stroke="'+INK+'" stroke-width="2"/>'+
     '<text x="'+x+'" y="'+(side==='b'?y+18:y-8)+'" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="#5a6360">'+lab+'</text>'; }
   /* AO links/rechts */
@@ -952,7 +951,7 @@ function moDiagramSVG(species){
   if(na>=1)mos+=arrowUp(cx-7,yAB-1); if(na>=2)mos+=arrowDn(cx+7,yAB-1);
   svg+=mos;
   /* Titel */
-  svg+='<text x="'+cx+'" y="20" text-anchor="middle" font-family="Fraunces,serif" font-size="15" fill="'+INK+'">'+(species==='he2'?'„He₂“ · 4 Elektronen':'H₂ · 2 Elektronen')+'</text>';
+  svg+='<text x="'+cx+'" y="20" text-anchor="middle" font-family="Fraunces,serif" font-size="15" fill="'+INK+'">'+(species==='he2'?'„He₂“ · 4 e⁻':'H₂ · 2 e⁻')+'</text>';
   svg+='</svg>';
   return svg;
 }
