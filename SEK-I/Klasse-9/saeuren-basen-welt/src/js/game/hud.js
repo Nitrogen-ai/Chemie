@@ -168,9 +168,56 @@ function createHud(kontext) {
   hud.appendChild(heftPanel);
   alleTogglePanels.push(heftPanel);
 
+  function baueAufgabenAbschnitt() {
+    const abschnitt = doc.createElement("div");
+    abschnitt.className = "aufgaben-abschnitt";
+
+    const fortschritt = SBW.questFortschritt();
+    const abgeschlossenById = { q1: fortschritt.q1, q2: fortschritt.q2, q3: fortschritt.q3 };
+
+    SBW.QUEST_DEFINITIONEN.forEach((quest) => {
+      const zeile = doc.createElement("div");
+      zeile.className = "aufgaben-zeile";
+      const freigeschaltet = SBW.istQuestFreigeschaltet(quest.id);
+      let status = "gesperrt";
+      if (freigeschaltet) status = abgeschlossenById[quest.id] ? "abgeschlossen" : "offen";
+      const statusText = { gesperrt: "gesperrt", offen: "offen", abgeschlossen: "erledigt" }[status];
+      zeile.classList.add(`aufgabe-${status}`);
+      zeile.innerHTML = `<strong>DS ${quest.doppelstunde} (${statusText})</strong>: ${quest.auftrag}`;
+      abschnitt.appendChild(zeile);
+    });
+
+    if (SBW.istQuestFreigeschaltet("q3")) {
+      const freitextLabel = doc.createElement("div");
+      freitextLabel.className = "skala-titel";
+      freitextLabel.textContent = "Zusammenhang Nadelwald ↔ Waldsee (deine Begründung):";
+      abschnitt.appendChild(freitextLabel);
+
+      const freitextFeld = doc.createElement("textarea");
+      freitextFeld.className = "q3-freitext-feld";
+      freitextFeld.value = SBW.ladeQ3Freitext();
+      freitextFeld.addEventListener("change", () => {
+        SBW.speichereQ3Freitext(freitextFeld.value);
+      });
+      abschnitt.appendChild(freitextFeld);
+    }
+
+    if (fortschritt.q1 && fortschritt.q2 && fortschritt.q3) {
+      const code = SBW.erzeugeFortschrittscode(fortschritt);
+      const codeAnzeige = doc.createElement("div");
+      codeAnzeige.className = "fortschrittscode hud-messwert";
+      codeAnzeige.textContent = `Fortschrittscode: ${code}`;
+      abschnitt.appendChild(codeAnzeige);
+    }
+
+    return abschnitt;
+  }
+
   function aktualisiereHeftPanel() {
     const eintraege = SBW.ladeForschungsheft();
     heftPanel.innerHTML = "";
+    heftPanel.appendChild(baueAufgabenAbschnitt());
+
     const tabelle = doc.createElement("table");
     tabelle.className = "heft-tabelle";
     const kopf = doc.createElement("tr");

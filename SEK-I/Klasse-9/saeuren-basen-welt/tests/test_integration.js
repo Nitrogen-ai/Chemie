@@ -290,9 +290,10 @@ if (fs.existsSync(worldPath) && fs.existsSync(blocksPath)) {
 
 if (SBW.istZeitschlossOffen) {
   test("Quests: Zeitschloss vor Datum geschlossen, nach Datum offen", () => {
-    const datum = "2026-01-10"; // Samstag
-    assertEqual(SBW.istZeitschlossOffen(datum, new Date("2026-01-09T06:00:00Z")), false);
-    assertEqual(SBW.istZeitschlossOffen(datum, new Date("2026-01-10T06:00:00+02:00")), true);
+    const datum = "2026-01-10"; // Samstag, oeffnet 07:00 MESZ = 05:00 UTC
+    assertEqual(SBW.istZeitschlossOffen(datum, new Date("2026-01-09T06:00:00Z")), false, "Tag vorher");
+    assertEqual(SBW.istZeitschlossOffen(datum, new Date("2026-01-10T04:00:00Z")), false, "eine Stunde vor Oeffnung");
+    assertEqual(SBW.istZeitschlossOffen(datum, new Date("2026-01-10T06:00:00Z")), true, "eine Stunde nach Oeffnung");
   });
 
   test("Quests: Passwort schaltet vor dem Datum frei", () => {
