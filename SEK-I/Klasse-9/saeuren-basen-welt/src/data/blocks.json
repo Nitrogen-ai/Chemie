@@ -1,0 +1,36 @@
+[
+  { "id": "cola", "name": "Cola", "ph": 2.5, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#3b2416" },
+  { "id": "zitrone", "name": "Zitronensaft", "ph": 2.4, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#e8d840" },
+  { "id": "essig", "name": "Haushaltsessig (5 %)", "ph": 2.5, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#e8e0c8" },
+  { "id": "apfelsaft", "name": "Apfelsaft", "ph": 3.5, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#c98a2e" },
+  { "id": "kaffee", "name": "Kaffee", "ph": 5.0, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#4a3021" },
+  { "id": "milch", "name": "Milch", "ph": 6.6, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#f2efe3" },
+  { "id": "leitungswasser", "name": "Leitungswasser", "ph": 7.2, "kategorie": "Neutral", "vorkommen": "Hütte, Brunnen", "farbe": "#bcd9e8" },
+  { "id": "dest_wasser", "name": "Destilliertes Wasser", "ph": 7.0, "kategorie": "Neutral", "vorkommen": "Hütte", "farbe": "#d3ecf5" },
+  { "id": "backpulver", "name": "Backpulverlösung", "ph": 8.3, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#f5f2ea" },
+  { "id": "seifenloesung", "name": "Seifenlösung", "ph": 9.5, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#e0e8d8" },
+  { "id": "waschmittel", "name": "Waschmittellösung", "ph": 10.5, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#dfe8ee" },
+  { "id": "salmiakgeist", "name": "Salmiakgeist (verd.)", "ph": 11.5, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#e8f0e0" },
+  { "id": "kalkwasser", "name": "Kalkwasser", "ph": 12.4, "kategorie": "Labor", "vorkommen": "Hütte", "farbe": "#f0f0eb" },
+  { "id": "rohrreiniger", "name": "Rohrreiniger", "ph": 13.5, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#c9d6d0" },
+
+  { "id": "moorboden", "name": "Moorboden", "ph": 3.8, "kategorie": "Boden", "vorkommen": "Moorsenke", "farbe": "#3b2e26" },
+  { "id": "nadelwaldboden", "name": "Nadelwaldboden", "ph": 4.2, "kategorie": "Boden", "vorkommen": "Fichtenhain", "farbe": "#4a3826" },
+  { "id": "laubwaldboden", "name": "Laubwaldboden", "ph": 5.5, "kategorie": "Boden", "vorkommen": "Laubwald", "farbe": "#5c4530" },
+  { "id": "ackerboden", "name": "Ackerboden", "ph": 6.8, "kategorie": "Boden", "vorkommen": "Feld", "farbe": "#6b4a30" },
+  { "id": "kalkboden", "name": "Kalkboden", "ph": 7.9, "kategorie": "Boden", "vorkommen": "Steinbruch", "farbe": "#c9c2a8" },
+
+  { "id": "moorsee", "name": "Moorwasser", "ph": 4.0, "kategorie": "Gewässer", "vorkommen": "Moorsenke", "farbe": "#1c2a1e" },
+  { "id": "waldsee_sauer", "name": "versauerter Waldsee", "ph": 4.8, "kategorie": "Gewässer", "vorkommen": "Fichtenhain", "farbe": "#2e4a42" },
+  { "id": "bach", "name": "Bachwasser", "ph": 7.4, "kategorie": "Gewässer", "vorkommen": "Bachlauf", "farbe": "#4a90a4" },
+  { "id": "kalkbach", "name": "kalkreicher Bach", "ph": 8.2, "kategorie": "Gewässer", "vorkommen": "Steinbruch", "farbe": "#6fb8c4" },
+  { "id": "meerwasser", "name": "Meerwasser", "ph": 8.1, "kategorie": "Gewässer", "vorkommen": "Küste", "farbe": "#2a6b8a" },
+
+  { "id": "gras", "name": "Gras", "ph": null, "kategorie": "Dekoration", "vorkommen": "überall", "farbe": "#5c8a3c" },
+  { "id": "stein", "name": "Stein", "ph": null, "kategorie": "Dekoration", "vorkommen": "überall", "farbe": "#8a8a86" },
+  { "id": "holz", "name": "Holz", "ph": null, "kategorie": "Dekoration", "vorkommen": "überall", "farbe": "#6b4a2f" },
+  { "id": "laub", "name": "Laub", "ph": null, "kategorie": "Dekoration", "vorkommen": "überall", "farbe": "#4a7a2e" },
+  { "id": "sand", "name": "Sand", "ph": null, "kategorie": "Dekoration", "vorkommen": "Küste", "farbe": "#d8c9a0" },
+  { "id": "bretter", "name": "Bretter", "ph": null, "kategorie": "Dekoration", "vorkommen": "Hütte", "farbe": "#a87e4f" },
+  { "id": "fichtennadeln", "name": "Fichtennadeln", "ph": null, "kategorie": "Dekoration", "vorkommen": "Fichtenhain", "farbe": "#2e5c3a" }
+]

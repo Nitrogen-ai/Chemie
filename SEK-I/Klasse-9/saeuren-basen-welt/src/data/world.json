@@ -1,0 +1,53 @@
+{
+  "groesse": { "x": 64, "z": 64 },
+  "grundhoehe": 6,
+  "start": { "x": 32, "y": 14, "z": 36 },
+  "hintergrundBoden": "gras",
+  "unterbauBlock": "stein",
+  "kuestenSand": { "block": "sand", "breite": 3 },
+  "baumTypen": {
+    "nadel": { "stamm": "holz", "krone": "fichtennadeln" },
+    "laub": { "stamm": "holz", "krone": "laub" }
+  },
+
+  "zonen": [
+    { "id": "moorsenke", "name": "Moorsenke", "zentrum": [16, 16], "radius": 12, "bodenBlock": "moorboden" },
+    { "id": "fichtenhain", "name": "Fichtenhain", "zentrum": [48, 14], "radius": 12, "bodenBlock": "nadelwaldboden" },
+    { "id": "laubwald", "name": "Laubwald", "zentrum": [52, 44], "radius": 12, "bodenBlock": "laubwaldboden" },
+    { "id": "feld", "name": "Feld", "zentrum": [30, 56], "radius": 11, "bodenBlock": "ackerboden" },
+    { "id": "steinbruch_kueste", "name": "Steinbruch und Küste", "zentrum": [10, 42], "radius": 13, "bodenBlock": "kalkboden" }
+  ],
+
+  "gewaesser": [
+    { "blockId": "moorsee", "zentrum": [15, 13], "radius": 4, "tiefe": 2 },
+    { "blockId": "waldsee_sauer", "zentrum": [49, 9], "radius": 3, "tiefe": 2 },
+    { "blockId": "kalkbach", "pfad": [[22, 42], [16, 41], [9, 40], [3, 39]], "breite": 2, "tiefe": 1 },
+    { "blockId": "bach", "pfad": [[46, 46], [40, 50], [33, 55], [26, 58]], "breite": 2, "tiefe": 1 },
+    { "blockId": "meerwasser", "randKante": "west", "bisSpalte": 6, "tiefe": 2 }
+  ],
+
+  "huette": {
+    "zentrum": [32, 32],
+    "breiteX": 20,
+    "tiefeZ": 7,
+    "wandBlock": "bretter",
+    "dachBlock": "holz",
+    "hoeheWand": 3,
+    "regal": [
+      "cola", "zitrone", "essig", "apfelsaft", "kaffee", "milch",
+      "leitungswasser", "dest_wasser", "backpulver", "seifenloesung",
+      "waschmittel", "salmiakgeist", "kalkwasser", "rohrreiniger"
+    ]
+  },
+
+  "baeume": [
+    { "x": 20, "z": 20, "typ": "nadel" },
+    { "x": 44, "z": 12, "typ": "nadel" },
+    { "x": 54, "z": 10, "typ": "nadel" },
+    { "x": 46, "z": 20, "typ": "nadel" },
+    { "x": 56, "z": 40, "typ": "laub" },
+    { "x": 50, "z": 50, "typ": "laub" },
+    { "x": 58, "z": 46, "typ": "laub" },
+    { "x": 46, "z": 36, "typ": "laub" }
+  ]
+}
