@@ -179,8 +179,8 @@ html, body {
 
 </script>
 <script>
-window.SBW_BLOCKS = [];
-window.SBW_WORLD = {};
+window.SBW_BLOCKS = [{"id": "cola", "name": "Cola", "ph": 2.5, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#3b2416"}, {"id": "zitrone", "name": "Zitronensaft", "ph": 2.4, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#e8d840"}, {"id": "essig", "name": "Haushaltsessig (5 %)", "ph": 2.5, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#e8e0c8"}, {"id": "apfelsaft", "name": "Apfelsaft", "ph": 3.5, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#c98a2e"}, {"id": "kaffee", "name": "Kaffee", "ph": 5.0, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#4a3021"}, {"id": "milch", "name": "Milch", "ph": 6.6, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#f2efe3"}, {"id": "leitungswasser", "name": "Leitungswasser", "ph": 7.2, "kategorie": "Neutral", "vorkommen": "Hütte, Brunnen", "farbe": "#bcd9e8"}, {"id": "dest_wasser", "name": "Destilliertes Wasser", "ph": 7.0, "kategorie": "Neutral", "vorkommen": "Hütte", "farbe": "#d3ecf5"}, {"id": "backpulver", "name": "Backpulverlösung", "ph": 8.3, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#f5f2ea"}, {"id": "seifenloesung", "name": "Seifenlösung", "ph": 9.5, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#e0e8d8"}, {"id": "waschmittel", "name": "Waschmittellösung", "ph": 10.5, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#dfe8ee"}, {"id": "salmiakgeist", "name": "Salmiakgeist (verd.)", "ph": 11.5, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#e8f0e0"}, {"id": "kalkwasser", "name": "Kalkwasser", "ph": 12.4, "kategorie": "Labor", "vorkommen": "Hütte", "farbe": "#f0f0eb"}, {"id": "rohrreiniger", "name": "Rohrreiniger", "ph": 13.5, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#c9d6d0"}, {"id": "moorboden", "name": "Moorboden", "ph": 3.8, "kategorie": "Boden", "vorkommen": "Moorsenke", "farbe": "#3b2e26"}, {"id": "nadelwaldboden", "name": "Nadelwaldboden", "ph": 4.2, "kategorie": "Boden", "vorkommen": "Fichtenhain", "farbe": "#4a3826"}, {"id": "laubwaldboden", "name": "Laubwaldboden", "ph": 5.5, "kategorie": "Boden", "vorkommen": "Laubwald", "farbe": "#5c4530"}, {"id": "ackerboden", "name": "Ackerboden", "ph": 6.8, "kategorie": "Boden", "vorkommen": "Feld", "farbe": "#6b4a30"}, {"id": "kalkboden", "name": "Kalkboden", "ph": 7.9, "kategorie": "Boden", "vorkommen": "Steinbruch", "farbe": "#c9c2a8"}, {"id": "moorsee", "name": "Moorwasser", "ph": 4.0, "kategorie": "Gewässer", "vorkommen": "Moorsenke", "farbe": "#1c2a1e"}, {"id": "waldsee_sauer", "name": "versauerter Waldsee", "ph": 4.8, "kategorie": "Gewässer", "vorkommen": "Fichtenhain", "farbe": "#2e4a42"}, {"id": "bach", "name": "Bachwasser", "ph": 7.4, "kategorie": "Gewässer", "vorkommen": "Bachlauf", "farbe": "#4a90a4"}, {"id": "kalkbach", "name": "kalkreicher Bach", "ph": 8.2, "kategorie": "Gewässer", "vorkommen": "Steinbruch", "farbe": "#6fb8c4"}, {"id": "meerwasser", "name": "Meerwasser", "ph": 8.1, "kategorie": "Gewässer", "vorkommen": "Küste", "farbe": "#2a6b8a"}, {"id": "gras", "name": "Gras", "ph": null, "kategorie": "Dekoration", "vorkommen": "überall", "farbe": "#5c8a3c"}, {"id": "stein", "name": "Stein", "ph": null, "kategorie": "Dekoration", "vorkommen": "überall", "farbe": "#8a8a86"}, {"id": "holz", "name": "Holz", "ph": null, "kategorie": "Dekoration", "vorkommen": "überall", "farbe": "#6b4a2f"}, {"id": "laub", "name": "Laub", "ph": null, "kategorie": "Dekoration", "vorkommen": "überall", "farbe": "#4a7a2e"}, {"id": "sand", "name": "Sand", "ph": null, "kategorie": "Dekoration", "vorkommen": "Küste", "farbe": "#d8c9a0"}, {"id": "bretter", "name": "Bretter", "ph": null, "kategorie": "Dekoration", "vorkommen": "Hütte", "farbe": "#a87e4f"}, {"id": "fichtennadeln", "name": "Fichtennadeln", "ph": null, "kategorie": "Dekoration", "vorkommen": "Fichtenhain", "farbe": "#2e5c3a"}];
+window.SBW_WORLD = {"groesse": {"x": 64, "z": 64}, "grundhoehe": 6, "start": {"x": 32, "y": 14, "z": 36}, "hintergrundBoden": "gras", "unterbauBlock": "stein", "kuestenSand": {"block": "sand", "breite": 3}, "baumTypen": {"nadel": {"stamm": "holz", "krone": "fichtennadeln"}, "laub": {"stamm": "holz", "krone": "laub"}}, "zonen": [{"id": "moorsenke", "name": "Moorsenke", "zentrum": [16, 16], "radius": 12, "bodenBlock": "moorboden"}, {"id": "fichtenhain", "name": "Fichtenhain", "zentrum": [48, 14], "radius": 12, "bodenBlock": "nadelwaldboden"}, {"id": "laubwald", "name": "Laubwald", "zentrum": [52, 44], "radius": 12, "bodenBlock": "laubwaldboden"}, {"id": "feld", "name": "Feld", "zentrum": [30, 56], "radius": 11, "bodenBlock": "ackerboden"}, {"id": "steinbruch_kueste", "name": "Steinbruch und Küste", "zentrum": [10, 42], "radius": 13, "bodenBlock": "kalkboden"}], "gewaesser": [{"blockId": "moorsee", "zentrum": [15, 13], "radius": 4, "tiefe": 2}, {"blockId": "waldsee_sauer", "zentrum": [49, 9], "radius": 3, "tiefe": 2}, {"blockId": "kalkbach", "pfad": [[22, 42], [16, 41], [9, 40], [3, 39]], "breite": 2, "tiefe": 1}, {"blockId": "bach", "pfad": [[46, 46], [40, 50], [33, 55], [26, 58]], "breite": 2, "tiefe": 1}, {"blockId": "meerwasser", "randKante": "west", "bisSpalte": 6, "tiefe": 2}], "huette": {"zentrum": [32, 32], "breiteX": 20, "tiefeZ": 7, "wandBlock": "bretter", "dachBlock": "holz", "hoeheWand": 3, "regal": ["cola", "zitrone", "essig", "apfelsaft", "kaffee", "milch", "leitungswasser", "dest_wasser", "backpulver", "seifenloesung", "waschmittel", "salmiakgeist", "kalkwasser", "rohrreiniger"]}, "baeume": [{"x": 20, "z": 20, "typ": "nadel"}, {"x": 44, "z": 12, "typ": "nadel"}, {"x": 54, "z": 10, "typ": "nadel"}, {"x": 46, "z": 20, "typ": "nadel"}, {"x": 56, "z": 40, "typ": "laub"}, {"x": 50, "z": 50, "typ": "laub"}, {"x": 58, "z": 46, "typ": "laub"}, {"x": 46, "z": 36, "typ": "laub"}]};
 window.SBW_QUESTS = [];
 </script>
 <script>
@@ -997,46 +997,121 @@ if (typeof globalThis !== "undefined") {
 }
 
 
+// --- js/game/blocks.js ---
+// Blockregister, generiert aus data/blocks.json (§6). Vergibt die numerischen
+// Codes fürs Uint8Array-Chunk-Format (0 = Luft, reserviert).
+
+function ladeBlocksJson() {
+  if (typeof window !== "undefined" && window.SBW_BLOCKS) {
+    return window.SBW_BLOCKS;
+  }
+  if (typeof require !== "undefined") {
+    return require("../../data/blocks.json");
+  }
+  return [];
+}
+
+function baueBlockregister() {
+  const rohdaten = ladeBlocksJson();
+  const BLOCKS = rohdaten.map((def, index) => Object.assign({ code: index + 1 }, def));
+  const BLOCK_BY_ID = {};
+  const BLOCK_BY_CODE = {};
+  const CODE_BY_ID = {};
+
+  BLOCKS.forEach((def) => {
+    BLOCK_BY_ID[def.id] = def;
+    BLOCK_BY_CODE[def.code] = def;
+    CODE_BY_ID[def.id] = def.code;
+  });
+
+  function getBlockDefByCode(code) {
+    return BLOCK_BY_CODE[code] || null;
+  }
+
+  function getBlockDefById(id) {
+    return BLOCK_BY_ID[id] || null;
+  }
+
+  function istMessbar(blockIdOderCode) {
+    const def = typeof blockIdOderCode === "number" ? getBlockDefByCode(blockIdOderCode) : getBlockDefById(blockIdOderCode);
+    return !!def && typeof def.ph === "number";
+  }
+
+  return {
+    AIR: 0,
+    BLOCKS,
+    BLOCK_BY_ID,
+    BLOCK_BY_CODE,
+    CODE_BY_ID,
+    getBlockDefByCode,
+    getBlockDefById,
+    istMessbar,
+  };
+}
+
+const SBW_BLOCKS_EXPORTS = baueBlockregister();
+
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = SBW_BLOCKS_EXPORTS;
+}
+if (typeof globalThis !== "undefined") {
+  globalThis.SBW = globalThis.SBW || {};
+  Object.assign(globalThis.SBW, SBW_BLOCKS_EXPORTS);
+}
+
+
+// --- js/game/storage.js ---
+// localStorage-Wrapper (§2.3: hier ausdrücklich erlaubt, anders als in
+// Claude-Artefakten). Fortschrittscode kommt in M4 dazu.
+
+function speichereJSON(schluessel, wert) {
+  try {
+    localStorage.setItem(schluessel, JSON.stringify(wert));
+    return true;
+  } catch (fehler) {
+    return false;
+  }
+}
+
+function ladeJSON(schluessel, standardwert) {
+  try {
+    const roh = localStorage.getItem(schluessel);
+    if (roh === null) return standardwert;
+    return JSON.parse(roh);
+  } catch (fehler) {
+    return standardwert;
+  }
+}
+
+const SBW_STORAGE_EXPORTS = { speichereJSON, ladeJSON };
+
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = SBW_STORAGE_EXPORTS;
+}
+if (typeof globalThis !== "undefined") {
+  globalThis.SBW = globalThis.SBW || {};
+  Object.assign(globalThis.SBW, SBW_STORAGE_EXPORTS);
+}
+
+
 // --- js/game/main.js ---
-// Bootstrap. Baut aktuell die M1-Testwelt (§13, M1.3: "flaches 32x32-Feld aus
-// Gras, Stein und Holz mit ein paar Erhebungen"). Wird in M2 durch den echten
-// Insel-Aufbau aus data/world.json ersetzt.
+// Bootstrap. Baut die Insel aus data/world.json (§7) mit dem Blockregister
+// aus blocks.js.
 
 (function () {
   const CHUNK_SIZE_X = SBW.CHUNK_SIZE_X;
   const CHUNK_SIZE_Y = SBW.CHUNK_SIZE_Y;
   const CHUNK_SIZE_Z = SBW.CHUNK_SIZE_Z;
 
-  const TESTWELT_BREITE = 32; // Blöcke, in X wie Z
-  const CHUNKS_PRO_ACHSE = TESTWELT_BREITE / CHUNK_SIZE_X;
+  function baueWelt(rezept, blockregister) {
+    const breiteX = rezept.groesse.x;
+    const breiteZ = rezept.groesse.z;
+    const chunksX = breiteX / CHUNK_SIZE_X;
+    const chunksZ = breiteZ / CHUNK_SIZE_Z;
 
-  const BLOCK_GRAS = 1;
-  const BLOCK_STEIN = 2;
-  const BLOCK_HOLZ = 3;
-
-  const TESTWELT_FARBEN = {
-    [BLOCK_GRAS]: "#5c8a3c",
-    [BLOCK_STEIN]: "#8a8a86",
-    [BLOCK_HOLZ]: "#6b4a2f",
-  };
-
-  function gelaendeHoehe(worldX, worldZ) {
-    const welle = Math.sin(worldX / 6) * Math.cos(worldZ / 6) * 2;
-    return Math.max(1, Math.round(4 + welle));
-  }
-
-  // ein paar feste Erhebungen ("Baumstämme") zum Testen vertikaler Geometrie
-  const HOLZ_STAEMME = [
-    { x: 5, z: 5, hoehe: 3 },
-    { x: 20, z: 10, hoehe: 4 },
-    { x: 10, z: 25, hoehe: 3 },
-    { x: 26, z: 26, hoehe: 3 },
-  ];
-
-  function baueTestwelt() {
     const chunks = new Map();
-    for (let cx = 0; cx < CHUNKS_PRO_ACHSE; cx++) {
-      for (let cz = 0; cz < CHUNKS_PRO_ACHSE; cz++) {
+    for (let cx = 0; cx < chunksX; cx++) {
+      for (let cz = 0; cz < chunksZ; cz++) {
         chunks.set(`${cx},${cz}`, new SBW.Chunk(cx, cz));
       }
     }
@@ -1047,16 +1122,19 @@ if (typeof globalThis !== "undefined") {
       return chunks.get(`${cx},${cz}`);
     }
 
-    function setBlock(worldX, worldY, worldZ, blockId) {
+    function setBlockId(worldX, worldY, worldZ, blockId) {
+      if (worldX < 0 || worldX >= breiteX || worldZ < 0 || worldZ >= breiteZ) return;
+      if (worldY < 0 || worldY >= CHUNK_SIZE_Y) return;
       const chunk = chunkAt(worldX, worldZ);
       if (!chunk) return;
       const lx = ((worldX % CHUNK_SIZE_X) + CHUNK_SIZE_X) % CHUNK_SIZE_X;
       const lz = ((worldZ % CHUNK_SIZE_Z) + CHUNK_SIZE_Z) % CHUNK_SIZE_Z;
-      chunk.set(lx, worldY, lz, blockId);
+      const code = blockId === null ? 0 : blockregister.CODE_BY_ID[blockId];
+      chunk.set(lx, worldY, lz, code);
     }
 
-    function getBlock(worldX, worldY, worldZ) {
-      if (worldX < 0 || worldX >= TESTWELT_BREITE || worldZ < 0 || worldZ >= TESTWELT_BREITE) return 0;
+    function getBlockCode(worldX, worldY, worldZ) {
+      if (worldX < 0 || worldX >= breiteX || worldZ < 0 || worldZ >= breiteZ) return 0;
       if (worldY < 0 || worldY >= CHUNK_SIZE_Y) return 0;
       const chunk = chunkAt(worldX, worldZ);
       if (!chunk) return 0;
@@ -1065,24 +1143,171 @@ if (typeof globalThis !== "undefined") {
       return chunk.get(lx, worldY, lz);
     }
 
-    for (let worldX = 0; worldX < TESTWELT_BREITE; worldX++) {
-      for (let worldZ = 0; worldZ < TESTWELT_BREITE; worldZ++) {
-        const hoehe = gelaendeHoehe(worldX, worldZ);
-        for (let y = 0; y < hoehe - 1; y++) {
-          setBlock(worldX, y, worldZ, BLOCK_STEIN);
-        }
-        setBlock(worldX, hoehe - 1, worldZ, BLOCK_GRAS);
+    // Höher als jede mögliche Geländehöhe (Grundhöhe + Wellen + Hüttendach) —
+    // damit eine spätere, niedrigere Säule (Teich, Meer) übrig gebliebene
+    // höhere Blöcke aus einem früheren Durchlauf zuverlässig wegräumt.
+    const SAEULEN_RAEUM_HOEHE = 24;
+
+    function fuelleSaeule(worldX, worldZ, hoehe, deckBlockId, unterbauBlockId) {
+      for (let y = 0; y < hoehe - 1; y++) {
+        setBlockId(worldX, y, worldZ, unterbauBlockId);
+      }
+      setBlockId(worldX, hoehe - 1, worldZ, deckBlockId);
+      for (let y = hoehe; y < SAEULEN_RAEUM_HOEHE; y++) {
+        setBlockId(worldX, y, worldZ, null);
       }
     }
 
-    HOLZ_STAEMME.forEach(({ x, z, hoehe: stammHoehe }) => {
-      const basis = gelaendeHoehe(x, z);
-      for (let y = 0; y < stammHoehe; y++) {
-        setBlock(x, basis + y, z, BLOCK_HOLZ);
+    function geglaetteteGrundhoehe(worldX, worldZ, grundhoehe) {
+      const welle = Math.sin(worldX / 10) * Math.cos(worldZ / 10) * 2;
+      return Math.max(3, Math.round(grundhoehe + welle));
+    }
+
+    function naechsteZone(worldX, worldZ) {
+      let beste = null;
+      let besterAnteil = Infinity;
+      rezept.zonen.forEach((zone) => {
+        const [zx, zz] = zone.zentrum;
+        const distanz = Math.hypot(worldX - zx, worldZ - zz);
+        const anteil = distanz / zone.radius;
+        if (anteil <= 1 && anteil < besterAnteil) {
+          besterAnteil = anteil;
+          beste = zone;
+        }
+      });
+      return beste;
+    }
+
+    function distanzZuPfad(worldX, worldZ, pfad) {
+      let minDistanz = Infinity;
+      for (let i = 0; i < pfad.length - 1; i++) {
+        const [ax, az] = pfad[i];
+        const [bx, bz] = pfad[i + 1];
+        const dx = bx - ax;
+        const dz = bz - az;
+        const laenge2 = dx * dx + dz * dz;
+        let t = laenge2 === 0 ? 0 : ((worldX - ax) * dx + (worldZ - az) * dz) / laenge2;
+        t = Math.max(0, Math.min(1, t));
+        const px = ax + t * dx;
+        const pz = az + t * dz;
+        minDistanz = Math.min(minDistanz, Math.hypot(worldX - px, worldZ - pz));
+      }
+      return minDistanz;
+    }
+
+    // 1) Grundterrain: Zonen-Boden oder Hintergrundwiese, sanfte Wellen.
+    for (let worldX = 0; worldX < breiteX; worldX++) {
+      for (let worldZ = 0; worldZ < breiteZ; worldZ++) {
+        const zone = naechsteZone(worldX, worldZ);
+        const deckBlock = zone ? zone.bodenBlock : rezept.hintergrundBoden;
+        const hoehe = geglaetteteGrundhoehe(worldX, worldZ, rezept.grundhoehe);
+        fuelleSaeule(worldX, worldZ, hoehe, deckBlock, rezept.unterbauBlock);
+      }
+    }
+
+    // 2) Gewässer: Teiche (Kreis, flacher Wasserspiegel), Bäche (Pfad), Küste (Rand).
+    rezept.gewaesser.forEach((gw) => {
+      if (gw.zentrum && gw.radius) {
+        const [zx, zz] = gw.zentrum;
+        const wasserHoehe = Math.max(2, rezept.grundhoehe - gw.tiefe);
+        for (let worldX = Math.floor(zx - gw.radius); worldX <= zx + gw.radius; worldX++) {
+          for (let worldZ = Math.floor(zz - gw.radius); worldZ <= zz + gw.radius; worldZ++) {
+            if (Math.hypot(worldX - zx, worldZ - zz) <= gw.radius) {
+              fuelleSaeule(worldX, worldZ, wasserHoehe, gw.blockId, rezept.unterbauBlock);
+            }
+          }
+        }
+      } else if (gw.pfad) {
+        const wasserHoehe = Math.max(2, rezept.grundhoehe - 1);
+        const minX = Math.min(...gw.pfad.map((p) => p[0])) - gw.breite;
+        const maxX = Math.max(...gw.pfad.map((p) => p[0])) + gw.breite;
+        const minZ = Math.min(...gw.pfad.map((p) => p[1])) - gw.breite;
+        const maxZ = Math.max(...gw.pfad.map((p) => p[1])) + gw.breite;
+        for (let worldX = minX; worldX <= maxX; worldX++) {
+          for (let worldZ = minZ; worldZ <= maxZ; worldZ++) {
+            if (distanzZuPfad(worldX, worldZ, gw.pfad) <= gw.breite / 2) {
+              fuelleSaeule(worldX, worldZ, wasserHoehe, gw.blockId, rezept.unterbauBlock);
+            }
+          }
+        }
+      } else if (gw.randKante === "west") {
+        const wasserHoehe = Math.max(2, rezept.grundhoehe - gw.tiefe);
+        for (let worldX = 0; worldX < gw.bisSpalte; worldX++) {
+          for (let worldZ = 0; worldZ < breiteZ; worldZ++) {
+            fuelleSaeule(worldX, worldZ, wasserHoehe, gw.blockId, rezept.unterbauBlock);
+          }
+        }
+        if (rezept.kuestenSand) {
+          for (let worldX = gw.bisSpalte; worldX < gw.bisSpalte + rezept.kuestenSand.breite; worldX++) {
+            for (let worldZ = 0; worldZ < breiteZ; worldZ++) {
+              const hoehe = geglaetteteGrundhoehe(worldX, worldZ, rezept.grundhoehe);
+              fuelleSaeule(worldX, worldZ, hoehe, rezept.kuestenSand.block, rezept.unterbauBlock);
+            }
+          }
+        }
       }
     });
 
-    return { chunks, getBlock };
+    // 3) Hütte: Boden, Wände mit Türlücke, Dach, Regal mit den Haushaltsprodukten.
+    const huette = rezept.huette;
+    if (huette) {
+      const [hx, hz] = huette.zentrum;
+      const halbX = Math.floor(huette.breiteX / 2);
+      const halbZ = Math.floor(huette.tiefeZ / 2);
+      const bodenY = geglaetteteGrundhoehe(hx, hz, rezept.grundhoehe);
+
+      for (let worldX = hx - halbX; worldX <= hx + halbX; worldX++) {
+        for (let worldZ = hz - halbZ; worldZ <= hz + halbZ; worldZ++) {
+          fuelleSaeule(worldX, worldZ, bodenY, "bretter", rezept.unterbauBlock);
+        }
+      }
+
+      const tuerMitteX = hx;
+      for (let worldX = hx - halbX; worldX <= hx + halbX; worldX++) {
+        for (let stufe = 1; stufe <= huette.hoeheWand; stufe++) {
+          const istTuer = Math.abs(worldX - tuerMitteX) <= 1 && stufe <= 2;
+          if (!istTuer) setBlockId(worldX, bodenY - 1 + stufe, hz - halbZ, huette.wandBlock);
+          setBlockId(worldX, bodenY - 1 + stufe, hz + halbZ, huette.wandBlock);
+        }
+      }
+      for (let worldZ = hz - halbZ; worldZ <= hz + halbZ; worldZ++) {
+        for (let stufe = 1; stufe <= huette.hoeheWand; stufe++) {
+          setBlockId(hx - halbX, bodenY - 1 + stufe, worldZ, huette.wandBlock);
+          setBlockId(hx + halbX, bodenY - 1 + stufe, worldZ, huette.wandBlock);
+        }
+      }
+      for (let worldX = hx - halbX; worldX <= hx + halbX; worldX++) {
+        for (let worldZ = hz - halbZ; worldZ <= hz + halbZ; worldZ++) {
+          setBlockId(worldX, bodenY + huette.hoeheWand, worldZ, huette.dachBlock);
+        }
+      }
+
+      const regalZ = hz + halbZ - 1;
+      const regalStartX = hx - Math.floor((huette.regal.length - 1) / 2);
+      huette.regal.forEach((blockId, index) => {
+        setBlockId(regalStartX + index, bodenY + 1, regalZ, blockId);
+      });
+    }
+
+    // 4) Bäume: Stamm + einfache Krone.
+    if (rezept.baeume && rezept.baumTypen) {
+      rezept.baeume.forEach((baum) => {
+        const typ = rezept.baumTypen[baum.typ];
+        if (!typ) return;
+        const basis = geglaetteteGrundhoehe(baum.x, baum.z, rezept.grundhoehe);
+        for (let y = 0; y < 3; y++) {
+          setBlockId(baum.x, basis + y, baum.z, typ.stamm);
+        }
+        const kroneY = basis + 3;
+        setBlockId(baum.x, kroneY, baum.z, typ.krone);
+        setBlockId(baum.x + 1, kroneY - 1, baum.z, typ.krone);
+        setBlockId(baum.x - 1, kroneY - 1, baum.z, typ.krone);
+        setBlockId(baum.x, kroneY - 1, baum.z + 1, typ.krone);
+        setBlockId(baum.x, kroneY - 1, baum.z - 1, typ.krone);
+      });
+    }
+
+    return { chunks, chunksX, chunksZ, getBlockCode, breiteX, breiteZ };
   }
 
   function baueChunkMeshes(world, getUV) {
@@ -1090,7 +1315,7 @@ if (typeof globalThis !== "undefined") {
     for (const [key, chunk] of world.chunks) {
       const [cx, cz] = key.split(",").map(Number);
       const localGetBlock = (lx, ly, lz) =>
-        world.getBlock(cx * CHUNK_SIZE_X + lx, ly, cz * CHUNK_SIZE_Z + lz);
+        world.getBlockCode(cx * CHUNK_SIZE_X + lx, ly, cz * CHUNK_SIZE_Z + lz);
       const meshData = SBW.greedyMesh(localGetBlock, [CHUNK_SIZE_X, CHUNK_SIZE_Y, CHUNK_SIZE_Z], getUV);
       if (meshData.indices.length === 0) continue;
       const geometry = SBW.meshToBufferGeometry(THREE, meshData);
@@ -1107,11 +1332,18 @@ if (typeof globalThis !== "undefined") {
     const scene = SBW.createScene();
     const camera = SBW.createCamera(window.innerWidth / window.innerHeight);
 
-    const world = baueTestwelt();
+    const rezept = window.SBW_WORLD;
+    const world = baueWelt(rezept, SBW);
 
-    const layout = SBW.computeAtlasLayout([BLOCK_GRAS, BLOCK_STEIN, BLOCK_HOLZ]);
+    const codes = SBW.BLOCKS.map((def) => def.code);
+    const farbenNachCode = {};
+    SBW.BLOCKS.forEach((def) => {
+      farbenNachCode[def.code] = def.farbe;
+    });
+
+    const layout = SBW.computeAtlasLayout(codes);
     const atlasCanvas = document.createElement("canvas");
-    SBW.drawAtlasCanvas(atlasCanvas, layout, TESTWELT_FARBEN);
+    SBW.drawAtlasCanvas(atlasCanvas, layout, farbenNachCode);
     const texture = SBW.createAtlasTexture(atlasCanvas);
     const material = SBW.createAtlasMaterial(texture);
     const getUV = SBW.createAtlasUVProvider(layout);
@@ -1133,10 +1365,16 @@ if (typeof globalThis !== "undefined") {
       },
     });
 
-    const spielerZustand = SBW.createPlayerState([16, 12, 16]);
+    const startUeberschreibung = new URLSearchParams(window.location.search).get("start");
+    const start3 = startUeberschreibung ? (() => {
+      const [x, y, z] = startUeberschreibung.split(",").map(Number);
+      return { x, y, z };
+    })() : rezept.start;
+    const spielerZustand = SBW.createPlayerState([start3.x, start3.y, start3.z]);
     const eingabe = SBW.createControls ? SBW.createControls(canvas) : null;
 
     const debugModus = new URLSearchParams(window.location.search).get("debug") === "1";
+    const uebersichtsModus = new URLSearchParams(window.location.search).get("uebersicht") === "1";
     let fpsAnzeige = null;
     let fpsFrameZaehler = 0;
     let fpsLetzteAnzeige = performance.now();
@@ -1146,12 +1384,16 @@ if (typeof globalThis !== "undefined") {
       fpsAnzeige.textContent = "-- fps";
       document.getElementById("hud").appendChild(fpsAnzeige);
     }
+    if (debugModus || uebersichtsModus) {
+      window.SBW_DEBUG_WORLD = world;
+      window.SBW_DEBUG_PLAYER = spielerZustand;
+    }
 
     let letzteZeit = performance.now();
     let renderLoopHandle;
 
     function isSolid(x, y, z) {
-      return world.getBlock(Math.floor(x), Math.floor(y), Math.floor(z)) !== 0;
+      return world.getBlockCode(Math.floor(x), Math.floor(y), Math.floor(z)) !== 0;
     }
 
     function renderLoop(jetzt) {
@@ -1159,21 +1401,27 @@ if (typeof globalThis !== "undefined") {
       const dt = Math.min(0.05, (jetzt - letzteZeit) / 1000);
       letzteZeit = jetzt;
 
-      const input = eingabe ? eingabe.getInput(camera) : { moveX: 0, moveZ: 0, jump: false };
+      const input = eingabe ? eingabe.getInput() : { moveX: 0, moveZ: 0, jump: false };
       SBW.stepPhysics(spielerZustand, input, dt, isSolid);
 
-      if (eingabe) {
+      if (uebersichtsModus) {
+        // Nur zur visuellen Kontrolle beim Bauen, kein Teil der Spielsteuerung.
+        camera.far = 140;
+        camera.updateProjectionMatrix();
+        scene.fog = null;
+        camera.position.set(rezept.groesse.x / 2, 80, rezept.groesse.z / 2 + 0.01);
+        camera.lookAt(rezept.groesse.x / 2, 0, rezept.groesse.z / 2);
+      } else {
         camera.position.set(
           spielerZustand.position.x,
           spielerZustand.position.y + SBW.PLAYER_EYE_HEIGHT,
           spielerZustand.position.z
         );
-        eingabe.applyLook(camera);
-      } else {
-        // Vor M1.4 (controls.js) gibt es noch keine Blickrichtung — feste
-        // Übersichtskamera, damit sich Terrain/Atlas/Nebel visuell prüfen lassen.
-        camera.position.set(TESTWELT_BREITE * 0.9, TESTWELT_BREITE * 0.6, TESTWELT_BREITE * 0.9);
-        camera.lookAt(TESTWELT_BREITE / 2, 4, TESTWELT_BREITE / 2);
+        if (eingabe) {
+          eingabe.applyLook(camera);
+        } else {
+          camera.lookAt(rezept.groesse.x / 2, 6, rezept.groesse.z / 2);
+        }
       }
 
       SBW.resizeRendererToCanvas(renderer, camera);

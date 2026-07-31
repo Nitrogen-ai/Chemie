@@ -262,6 +262,29 @@ if (fs.existsSync(blocksPath)) {
 }
 
 // ---------------------------------------------------------------------------
+// data/world.json — jede der sechs Zonen hat mindestens einen messbaren Block
+// ---------------------------------------------------------------------------
+
+const worldPath = path.join(__dirname, "..", "src", "data", "world.json");
+if (fs.existsSync(worldPath) && fs.existsSync(blocksPath)) {
+  test("Welt: jede der sechs Zonen (inkl. Hütte) enthält mindestens einen messbaren Block", () => {
+    const welt = JSON.parse(fs.readFileSync(worldPath, "utf-8"));
+    const blocks = JSON.parse(fs.readFileSync(blocksPath, "utf-8"));
+    const messbar = new Set(blocks.filter((b) => typeof b.ph === "number").map((b) => b.id));
+
+    assert(welt.huette && welt.huette.regal.length > 0, "Hütte hat kein Regal");
+    welt.huette.regal.forEach((id) => assert(messbar.has(id), `Regal-Block ${id} ist nicht messbar`));
+
+    assert(welt.zonen.length === 5, "erwartet 5 Freiland-Zonen zusätzlich zur Hütte (macht 6 Zonen)");
+    welt.zonen.forEach((zone) => {
+      assert(messbar.has(zone.bodenBlock), `Zone ${zone.id}: Bodenblock ${zone.bodenBlock} ist nicht messbar`);
+    });
+  });
+} else {
+  console.log("  (uebersprungen: data/world.json noch nicht vorhanden)");
+}
+
+// ---------------------------------------------------------------------------
 // game/quests.js — Zeitschloss
 // ---------------------------------------------------------------------------
 
@@ -300,7 +323,7 @@ if (SBW.erzeugeFortschrittscode && SBW.dekodiereFortschrittscode) {
     assertEqual(decoded.korrekt, 11);
   });
 } else {
-  console.log("  (uebersprungen: game/storage.js noch nicht vorhanden)");
+  console.log("  (uebersprungen: Fortschrittscode (storage.js) noch nicht vorhanden)");
 }
 
 // ---------------------------------------------------------------------------
