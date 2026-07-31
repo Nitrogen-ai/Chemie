@@ -91,11 +91,21 @@ function createAtlasUVProvider(layout) {
   };
 }
 
+// Zeichnet genau eine Kachel neu (z.B. für den Indikator-Blinkeffekt beim
+// Messen), ohne den ganzen Atlas neu aufzubauen.
+function zeichneEineKachel(canvas, layout, blockId, hex) {
+  const uv = layout.uvByBlockId[blockId];
+  if (!uv) return;
+  const ctx = canvas.getContext("2d");
+  drawTile(ctx, uv.col * layout.tileSize, uv.row * layout.tileSize, layout.tileSize, hex);
+}
+
 const SBW_ATLAS_EXPORTS = {
   TILE_SIZE,
   computeAtlasLayout,
   drawAtlasCanvas,
   createAtlasUVProvider,
+  zeichneEineKachel,
 };
 
 if (typeof module !== "undefined" && module.exports) {

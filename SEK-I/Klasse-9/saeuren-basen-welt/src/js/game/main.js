@@ -252,10 +252,12 @@
     const getUV = SBW.createAtlasUVProvider(layout);
 
     const chunkMeshes = baueChunkMeshes(world, getUV);
+    const meshListe = [];
     chunkMeshes.forEach(({ geometry, cx, cz }) => {
       const mesh = new THREE.Mesh(geometry, material);
       mesh.position.set(cx * CHUNK_SIZE_X, 0, cz * CHUNK_SIZE_Z);
       scene.add(mesh);
+      meshListe.push(mesh);
     });
 
     SBW.attachContextLossHandling(renderer, canvas, {
@@ -268,13 +270,48 @@
       },
     });
 
+    const hud = SBW.createHud({
+      document,
+      atlasCanvas,
+      atlasLayout: layout,
+      atlasTexture: texture,
+      farbenNachCode,
+      blockregister: SBW,
+    });
+
+    const raycaster = new THREE.Raycaster();
+    raycaster.far = 6; // Reichweite zum Antippen, ca. 6 Blöcke
+
+    function blockUnterFadenkreuz() {
+      const richtung = camera.getWorldDirection(new THREE.Vector3());
+      raycaster.set(camera.position, richtung);
+      const treffer = raycaster.intersectObjects(meshListe, false);
+      if (treffer.length === 0) return null;
+      const einschlag = treffer[0];
+      const punkt = einschlag.point.clone().sub(einschlag.face.normal.clone().multiplyScalar(0.5));
+      return {
+        x: Math.floor(punkt.x),
+        y: Math.floor(punkt.y),
+        z: Math.floor(punkt.z),
+      };
+    }
+
     const startUeberschreibung = new URLSearchParams(window.location.search).get("start");
     const start3 = startUeberschreibung ? (() => {
       const [x, y, z] = startUeberschreibung.split(",").map(Number);
       return { x, y, z };
     })() : rezept.start;
     const spielerZustand = SBW.createPlayerState([start3.x, start3.y, start3.z]);
-    const eingabe = SBW.createControls ? SBW.createControls(canvas) : null;
+    const eingabe = SBW.createControls
+      ? SBW.createControls(canvas, {
+          onTap: () => {
+            const block = blockUnterFadenkreuz();
+            if (!block) return;
+            const code = world.getBlockCode(block.x, block.y, block.z);
+            if (code !== 0) hud.wendeWerkzeugAn(code);
+          },
+        })
+      : null;
 
     const debugModus = new URLSearchParams(window.location.search).get("debug") === "1";
     const uebersichtsModus = new URLSearchParams(window.location.search).get("uebersicht") === "1";
@@ -290,6 +327,7 @@
     if (debugModus || uebersichtsModus) {
       window.SBW_DEBUG_WORLD = world;
       window.SBW_DEBUG_PLAYER = spielerZustand;
+      window.SBW_DEBUG_HUD = hud;
     }
 
     let letzteZeit = performance.now();

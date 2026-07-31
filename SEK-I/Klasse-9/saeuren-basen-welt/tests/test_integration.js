@@ -227,11 +227,11 @@ if (SBW.computeAtlasLayout) {
 // game/indicator.js
 // ---------------------------------------------------------------------------
 
-if (SBW.getIndicatorFarbe) {
+if (SBW.getIndikatorFarbe) {
   test("Indikator: jeder pH-Wert 0-14 liefert fuer beide Indikatoren eine definierte Farbe", () => {
     for (let ph = 0; ph <= 14; ph += 0.5) {
-      const uni = SBW.getIndicatorFarbe("universal", ph);
-      const rk = SBW.getIndicatorFarbe("rotkohl", ph);
+      const uni = SBW.getIndikatorFarbe("universal", ph);
+      const rk = SBW.getIndikatorFarbe("rotkohl", ph);
       assert(typeof uni === "string" && /^#[0-9a-fA-F]{6}$/.test(uni), `Universalindikator undefiniert bei pH ${ph}`);
       assert(typeof rk === "string" && /^#[0-9a-fA-F]{6}$/.test(rk), `Rotkohlsaft undefiniert bei pH ${ph}`);
     }
