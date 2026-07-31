@@ -174,11 +174,13 @@ function createHud(kontext) {
 
     const fortschritt = SBW.questFortschritt();
     const abgeschlossenById = { q1: fortschritt.q1, q2: fortschritt.q2, q3: fortschritt.q3 };
+    let alleFreigeschaltet = true;
 
     SBW.QUEST_DEFINITIONEN.forEach((quest) => {
       const zeile = doc.createElement("div");
       zeile.className = "aufgaben-zeile";
       const freigeschaltet = SBW.istQuestFreigeschaltet(quest.id);
+      if (!freigeschaltet) alleFreigeschaltet = false;
       let status = "gesperrt";
       if (freigeschaltet) status = abgeschlossenById[quest.id] ? "abgeschlossen" : "offen";
       const statusText = { gesperrt: "gesperrt", offen: "offen", abgeschlossen: "erledigt" }[status];
@@ -186,6 +188,34 @@ function createHud(kontext) {
       zeile.innerHTML = `<strong>DS ${quest.doppelstunde} (${statusText})</strong>: ${quest.auftrag}`;
       abschnitt.appendChild(zeile);
     });
+
+    if (!alleFreigeschaltet) {
+      const fruehzugangZeile = doc.createElement("div");
+      fruehzugangZeile.className = "fruehzugang-zeile";
+
+      const fruehzugangFeld = doc.createElement("input");
+      fruehzugangFeld.type = "text";
+      fruehzugangFeld.className = "fruehzugang-feld";
+      fruehzugangFeld.placeholder = "Frühzugang-Passwort";
+
+      const fruehzugangKnopf = doc.createElement("div");
+      fruehzugangKnopf.className = "fruehzugang-knopf touch-ziel";
+      fruehzugangKnopf.textContent = "Freischalten";
+      fruehzugangKnopf.addEventListener("touchstart", (event) => {
+        event.preventDefault();
+        const erfolgreich = SBW.schaltePasswortFrei(fruehzugangFeld.value);
+        if (erfolgreich) {
+          zeigeToast("Frühzugang aktiviert.");
+          aktualisiereHeftPanel();
+        } else {
+          zeigeToast("Passwort nicht erkannt.");
+        }
+      });
+
+      fruehzugangZeile.appendChild(fruehzugangFeld);
+      fruehzugangZeile.appendChild(fruehzugangKnopf);
+      abschnitt.appendChild(fruehzugangZeile);
+    }
 
     if (SBW.istQuestFreigeschaltet("q3")) {
       const freitextLabel = doc.createElement("div");
