@@ -270,15 +270,6 @@
       },
     });
 
-    const hud = SBW.createHud({
-      document,
-      atlasCanvas,
-      atlasLayout: layout,
-      atlasTexture: texture,
-      farbenNachCode,
-      blockregister: SBW,
-    });
-
     const raycaster = new THREE.Raycaster();
     raycaster.far = 6; // Reichweite zum Antippen, ca. 6 Blöcke
 
@@ -296,6 +287,12 @@
       };
     }
 
+    // Steuerung ZUERST erzeugen (Joystick-/Look-Zone), HUD-Buttons DANACH:
+    // beide hängen als Geschwister im selben #hud-Container, ohne z-index
+    // gewinnt das später hinzugefügte Element beim Antippen. Wären die HUD-
+    // Buttons zuerst da, läge die unsichtbare Joystick-/Look-Zone darüber und
+    // würde jeden Tipp auf z.B. "Forschungsheft" abfangen.
+    let hud;
     const startUeberschreibung = new URLSearchParams(window.location.search).get("start");
     const start3 = startUeberschreibung ? (() => {
       const [x, y, z] = startUeberschreibung.split(",").map(Number);
@@ -312,6 +309,15 @@
           },
         })
       : null;
+
+    hud = SBW.createHud({
+      document,
+      atlasCanvas,
+      atlasLayout: layout,
+      atlasTexture: texture,
+      farbenNachCode,
+      blockregister: SBW,
+    });
 
     const debugModus = new URLSearchParams(window.location.search).get("debug") === "1";
     const uebersichtsModus = new URLSearchParams(window.location.search).get("uebersicht") === "1";
