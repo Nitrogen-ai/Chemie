@@ -95,6 +95,124 @@ html, body {
   border-radius: 4px;
 }
 
+#forschungsheft-button {
+  top: 12px;
+  left: 12px;
+  padding: 8px 14px;
+  font-family: var(--font-display);
+  font-size: 14px;
+}
+
+#skala-button {
+  top: 12px;
+  right: 12px;
+  padding: 8px 14px;
+  font-family: var(--font-display);
+  font-size: 14px;
+}
+
+#werkzeug-toast {
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  font-size: 14px;
+  max-width: 80%;
+  text-align: center;
+}
+
+.hud-panel {
+  pointer-events: auto;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(420px, 84vw);
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 14px 16px;
+}
+
+.skala-titel {
+  font-family: var(--font-display);
+  font-size: 14px;
+  margin: 6px 0 4px;
+}
+
+.skala-streifen {
+  display: flex;
+  height: 22px;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(35, 32, 28, 0.3);
+}
+
+.skala-segment {
+  flex: 1;
+}
+
+.skala-markiert {
+  outline: 3px solid var(--ink);
+  outline-offset: -3px;
+}
+
+.skala-beschriftung {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.heft-tabelle {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.heft-tabelle th,
+.heft-tabelle td {
+  text-align: left;
+  padding: 4px 6px;
+  border-bottom: 1px solid rgba(35, 32, 28, 0.2);
+}
+
+.heft-farbpunkt {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid rgba(35, 32, 28, 0.4);
+}
+
+#einordnung-prompt {
+  top: auto;
+  bottom: 140px;
+}
+
+.einordnung-knoepfe {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.einordnung-knopf {
+  flex: 1;
+  text-align: center;
+  padding: 10px 4px;
+  border: 2px solid var(--teal);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+}
+
+.werkzeug-aktiv {
+  background: rgba(30, 93, 82, 0.35);
+  border-color: var(--terracotta);
+}
+
+.werkzeug-gesperrt {
+  opacity: 0.4;
+}
+
 .touch-ziel {
   min-width: 44px;
   min-height: 44px;
@@ -158,8 +276,14 @@ html, body {
 }
 
 .werkzeug-slot {
+  position: relative;
   width: 44px;
   height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 15px;
 }
 
 </style>
@@ -497,11 +621,21 @@ function createAtlasUVProvider(layout) {
   };
 }
 
+// Zeichnet genau eine Kachel neu (z.B. für den Indikator-Blinkeffekt beim
+// Messen), ohne den ganzen Atlas neu aufzubauen.
+function zeichneEineKachel(canvas, layout, blockId, hex) {
+  const uv = layout.uvByBlockId[blockId];
+  if (!uv) return;
+  const ctx = canvas.getContext("2d");
+  drawTile(ctx, uv.col * layout.tileSize, uv.row * layout.tileSize, layout.tileSize, hex);
+}
+
 const SBW_ATLAS_EXPORTS = {
   TILE_SIZE,
   computeAtlasLayout,
   drawAtlasCanvas,
   createAtlasUVProvider,
+  zeichneEineKachel,
 };
 
 if (typeof module !== "undefined" && module.exports) {
@@ -1060,6 +1194,428 @@ if (typeof globalThis !== "undefined") {
 }
 
 
+// --- js/game/indicator.js ---
+// pH → Farbe für beide Indikatoren, nach CLAUDE.md §6.1/§6.2.
+// Wichtig: Diese Hex-Werte sind Näherungen und wurden nicht eigenmächtig
+// verändert — nur linear zwischen den angegebenen Stützstellen interpoliert.
+
+const UNIVERSAL_FARBEN = {
+  1: "#e02020",
+  2: "#e8452a",
+  3: "#ef6c1f",
+  4: "#f59120",
+  5: "#f2c31d",
+  6: "#d3d21c",
+  7: "#4caf50",
+  8: "#2f9e8f",
+  9: "#1f7ab8",
+  10: "#1c56a8",
+  11: "#3b3f9e",
+  12: "#5b2f92",
+  13: "#6b2585",
+  14: "#4e1a63",
+};
+
+const ROTKOHL_FARBEN = {
+  1: "#c8102e",
+  2: "#c8102e",
+  3: "#d6285a",
+  4: "#c73a7a",
+  5: "#a83a92",
+  6: "#8b3fa0",
+  7: "#6b46b0",
+  8: "#4a53b5",
+  9: "#2f6bb8",
+  10: "#2e8b9e",
+  11: "#2f9e7d",
+  12: "#4aa84a",
+  13: "#8bb52e",
+  14: "#d4c62e",
+};
+
+function hexZuRgb(hex) {
+  const m = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(hex);
+  return { r: parseInt(m[1], 16), g: parseInt(m[2], 16), b: parseInt(m[3], 16) };
+}
+
+function rgbZuHex(r, g, b) {
+  const kanal = (n) => Math.round(n).toString(16).padStart(2, "0");
+  return `#${kanal(r)}${kanal(g)}${kanal(b)}`;
+}
+
+function mischeHexFarben(hexA, hexB, t) {
+  const a = hexZuRgb(hexA);
+  const b = hexZuRgb(hexB);
+  return rgbZuHex(a.r + (b.r - a.r) * t, a.g + (b.g - a.g) * t, a.b + (b.b - a.b) * t);
+}
+
+function getIndikatorFarbe(typ, ph) {
+  const tabelle = typ === "rotkohl" ? ROTKOHL_FARBEN : UNIVERSAL_FARBEN;
+  const phGeklemmt = Math.min(14, Math.max(1, ph));
+  const unten = Math.floor(phGeklemmt);
+  const oben = Math.ceil(phGeklemmt);
+  if (unten === oben) return tabelle[unten];
+  return mischeHexFarben(tabelle[unten], tabelle[oben], phGeklemmt - unten);
+}
+
+const SBW_INDICATOR_EXPORTS = { UNIVERSAL_FARBEN, ROTKOHL_FARBEN, getIndikatorFarbe };
+
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = SBW_INDICATOR_EXPORTS;
+}
+if (typeof globalThis !== "undefined") {
+  globalThis.SBW = globalThis.SBW || {};
+  Object.assign(globalThis.SBW, SBW_INDICATOR_EXPORTS);
+}
+
+
+// --- js/game/hud.js ---
+// HUD: Werkzeugleiste, Farbskala, Forschungsheft-Ansicht, Messvorgang (§8).
+
+const FLASH_DAUER_MS = 8000;
+
+const WERKZEUGE = [
+  { id: "universal", label: "U", titel: "Pipette Universalindikator" },
+  { id: "rotkohl", label: "R", titel: "Rotkohlsaft" },
+  { id: "ph_meter", label: "pH", titel: "pH-Meter (ab DS 2)" },
+];
+
+function erzeugeFarbskalaStreifen(doc, farbtabelle) {
+  const streifen = doc.createElement("div");
+  streifen.className = "skala-streifen";
+  for (let ph = 1; ph <= 14; ph++) {
+    const segment = doc.createElement("div");
+    segment.className = "skala-segment";
+    segment.style.background = farbtabelle[ph];
+    segment.dataset.ph = String(ph);
+    streifen.appendChild(segment);
+  }
+  return streifen;
+}
+
+function createHud(kontext) {
+  const doc = kontext.document;
+  const hud = doc.getElementById("hud");
+  const blockregister = kontext.blockregister;
+
+  let aktivesWerkzeug = "universal";
+  let flashTimeoutByCode = new Map();
+
+  // --- Fadenkreuz ------------------------------------------------------------
+  const fadenkreuz = doc.createElement("div");
+  fadenkreuz.className = "hud-fadenkreuz";
+  hud.appendChild(fadenkreuz);
+
+  // --- Werkzeugleiste ------------------------------------------------------
+  const werkzeugleiste = doc.createElement("div");
+  werkzeugleiste.id = "werkzeugleiste";
+
+  const slotByWerkzeug = {};
+  WERKZEUGE.forEach((werkzeug) => {
+    const slot = doc.createElement("div");
+    slot.className = "werkzeug-slot hud-flaeche touch-ziel";
+    slot.textContent = werkzeug.label;
+    slot.title = werkzeug.titel;
+    slot.dataset.werkzeug = werkzeug.id;
+    slot.addEventListener("touchstart", (event) => {
+      event.preventDefault();
+      waehleWerkzeug(werkzeug.id);
+    });
+    werkzeugleiste.appendChild(slot);
+    slotByWerkzeug[werkzeug.id] = slot;
+  });
+  hud.appendChild(werkzeugleiste);
+
+  function aktualisiereWerkzeugleiste() {
+    WERKZEUGE.forEach((werkzeug) => {
+      const slot = slotByWerkzeug[werkzeug.id];
+      const gesperrt = werkzeug.id === "ph_meter" && !istPhMeterFreigeschaltet();
+      slot.classList.toggle("werkzeug-aktiv", werkzeug.id === aktivesWerkzeug);
+      slot.classList.toggle("werkzeug-gesperrt", gesperrt);
+    });
+  }
+
+  function istPhMeterFreigeschaltet() {
+    return typeof SBW.istPhMeterFreigeschaltet === "function" && SBW.istPhMeterFreigeschaltet();
+  }
+
+  function waehleWerkzeug(werkzeugId) {
+    if (werkzeugId === "ph_meter" && !istPhMeterFreigeschaltet()) {
+      zeigeToast("pH-Meter ist noch nicht freigeschaltet.");
+      return;
+    }
+    aktivesWerkzeug = werkzeugId;
+    aktualisiereWerkzeugleiste();
+  }
+  aktualisiereWerkzeugleiste();
+
+  // --- Toast (kurze Rückmeldung) ------------------------------------------
+  const toast = doc.createElement("div");
+  toast.id = "werkzeug-toast";
+  toast.className = "hud-flaeche";
+  toast.style.display = "none";
+  hud.appendChild(toast);
+
+  let toastTimeout = null;
+  function zeigeToast(text, dauerMs = 2200) {
+    toast.textContent = text;
+    toast.style.display = "block";
+    if (toastTimeout) clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => {
+      toast.style.display = "none";
+    }, dauerMs);
+  }
+
+  // --- Farbskala-Panel ------------------------------------------------------
+  const skalaButton = doc.createElement("div");
+  skalaButton.id = "skala-button";
+  skalaButton.className = "hud-flaeche touch-ziel";
+  skalaButton.textContent = "pH-Skala";
+  hud.appendChild(skalaButton);
+
+  const skalaPanel = doc.createElement("div");
+  skalaPanel.id = "skala-panel";
+  skalaPanel.className = "hud-flaeche hud-panel";
+  skalaPanel.style.display = "none";
+
+  const skalaUeberschriftUni = doc.createElement("div");
+  skalaUeberschriftUni.className = "skala-titel";
+  skalaUeberschriftUni.textContent = "Universalindikator";
+  const streifenUni = erzeugeFarbskalaStreifen(doc, SBW.UNIVERSAL_FARBEN);
+
+  const skalaUeberschriftRotkohl = doc.createElement("div");
+  skalaUeberschriftRotkohl.className = "skala-titel";
+  skalaUeberschriftRotkohl.textContent = "Rotkohlsaft";
+  const streifenRotkohl = erzeugeFarbskalaStreifen(doc, SBW.ROTKOHL_FARBEN);
+
+  const skalaBeschriftung = doc.createElement("div");
+  skalaBeschriftung.className = "skala-beschriftung";
+  skalaBeschriftung.innerHTML = "<span>sauer</span><span>neutral</span><span>basisch</span>";
+
+  skalaPanel.appendChild(skalaUeberschriftUni);
+  skalaPanel.appendChild(streifenUni);
+  skalaPanel.appendChild(skalaUeberschriftRotkohl);
+  skalaPanel.appendChild(streifenRotkohl);
+  skalaPanel.appendChild(skalaBeschriftung);
+  hud.appendChild(skalaPanel);
+
+  // Nur ein Panel gleichzeitig offen, sonst überlappen sie sich (beide oben mittig).
+  const alleTogglePanels = [skalaPanel];
+  function schliesseAndereToggle(panel) {
+    alleTogglePanels.forEach((p) => {
+      if (p !== panel) p.style.display = "none";
+    });
+  }
+
+  skalaButton.addEventListener("touchstart", (event) => {
+    event.preventDefault();
+    const wirdGeoeffnet = skalaPanel.style.display === "none";
+    schliesseAndereToggle(skalaPanel);
+    skalaPanel.style.display = wirdGeoeffnet ? "block" : "none";
+  });
+
+  function markiereSkala(werkzeug, ph) {
+    const streifen = werkzeug === "rotkohl" ? streifenRotkohl : streifenUni;
+    Array.from(streifen.children).forEach((segment) => {
+      segment.classList.remove("skala-markiert");
+    });
+    const phGeklemmt = Math.min(14, Math.max(1, Math.round(ph)));
+    const segment = streifen.children[phGeklemmt - 1];
+    if (segment) segment.classList.add("skala-markiert");
+    schliesseAndereToggle(skalaPanel);
+    skalaPanel.style.display = "block";
+  }
+
+  // --- Forschungsheft-Panel -------------------------------------------------
+  const heftButton = doc.createElement("div");
+  heftButton.id = "forschungsheft-button";
+  heftButton.className = "hud-flaeche touch-ziel";
+  heftButton.textContent = "Forschungsheft";
+  hud.appendChild(heftButton);
+
+  const heftPanel = doc.createElement("div");
+  heftPanel.id = "forschungsheft-panel";
+  heftPanel.className = "hud-flaeche hud-panel";
+  heftPanel.style.display = "none";
+  hud.appendChild(heftPanel);
+  alleTogglePanels.push(heftPanel);
+
+  function aktualisiereHeftPanel() {
+    const eintraege = SBW.ladeForschungsheft();
+    heftPanel.innerHTML = "";
+    const tabelle = doc.createElement("table");
+    tabelle.className = "heft-tabelle";
+    const kopf = doc.createElement("tr");
+    kopf.innerHTML = "<th>Stoff</th><th>Farbe</th><th>Einordnung</th>";
+    tabelle.appendChild(kopf);
+    eintraege.forEach((eintrag) => {
+      const zeile = doc.createElement("tr");
+      const zelleStoff = doc.createElement("td");
+      zelleStoff.textContent = eintrag.stoffName;
+      const zelleFarbe = doc.createElement("td");
+      const farbpunkt = doc.createElement("span");
+      farbpunkt.className = "heft-farbpunkt";
+      farbpunkt.style.background = eintrag.beobachteteFarbe || "#ccc";
+      zelleFarbe.appendChild(farbpunkt);
+      const zelleEinordnung = doc.createElement("td");
+      zelleEinordnung.textContent = eintrag.einordnung || (eintrag.phWert != null ? `${eintrag.phWert}` : "–");
+      zeile.appendChild(zelleStoff);
+      zeile.appendChild(zelleFarbe);
+      zeile.appendChild(zelleEinordnung);
+      tabelle.appendChild(zeile);
+    });
+    heftPanel.appendChild(tabelle);
+  }
+
+  heftButton.addEventListener("touchstart", (event) => {
+    event.preventDefault();
+    const wirdGeoeffnet = heftPanel.style.display === "none";
+    schliesseAndereToggle(heftPanel);
+    if (wirdGeoeffnet) aktualisiereHeftPanel();
+    heftPanel.style.display = wirdGeoeffnet ? "block" : "none";
+  });
+
+  // --- Einordnungs-Prompt ---------------------------------------------------
+  const prompt = doc.createElement("div");
+  prompt.id = "einordnung-prompt";
+  prompt.className = "hud-flaeche hud-panel";
+  prompt.style.display = "none";
+
+  const promptFrage = doc.createElement("div");
+  promptFrage.className = "skala-titel";
+  promptFrage.textContent = "Wie ordnest du das ein?";
+  prompt.appendChild(promptFrage);
+
+  const promptKnoepfe = doc.createElement("div");
+  promptKnoepfe.className = "einordnung-knoepfe";
+  let ausstehenderEintrag = null;
+  ["sauer", "neutral", "basisch"].forEach((kategorie) => {
+    const knopf = doc.createElement("div");
+    knopf.className = "einordnung-knopf touch-ziel";
+    knopf.textContent = kategorie;
+    knopf.addEventListener("touchstart", (event) => {
+      event.preventDefault();
+      if (!ausstehenderEintrag) return;
+      SBW.trageInForschungsheftEin(Object.assign({}, ausstehenderEintrag, { einordnung: kategorie }));
+      ausstehenderEintrag = null;
+      prompt.style.display = "none";
+      zeigeToast(`Eingetragen: ${kategorie}`);
+    });
+    promptKnoepfe.appendChild(knopf);
+  });
+  prompt.appendChild(promptKnoepfe);
+  hud.appendChild(prompt);
+
+  // --- Blink-Effekt am Atlas ------------------------------------------------
+  function blinkeBlock(blockCode, farbe) {
+    const bestehenderTimeout = flashTimeoutByCode.get(blockCode);
+    if (bestehenderTimeout) clearTimeout(bestehenderTimeout);
+
+    SBW.zeichneEineKachel(kontext.atlasCanvas, kontext.atlasLayout, blockCode, farbe);
+    kontext.atlasTexture.needsUpdate = true;
+
+    const timeout = setTimeout(() => {
+      const originalFarbe = kontext.farbenNachCode[blockCode];
+      SBW.zeichneEineKachel(kontext.atlasCanvas, kontext.atlasLayout, blockCode, originalFarbe);
+      kontext.atlasTexture.needsUpdate = true;
+      flashTimeoutByCode.delete(blockCode);
+    }, FLASH_DAUER_MS);
+    flashTimeoutByCode.set(blockCode, timeout);
+  }
+
+  // --- Werkzeug anwenden ------------------------------------------------------
+  function wendeWerkzeugAn(blockCode) {
+    const blockDef = blockregister.getBlockDefByCode(blockCode);
+    if (!blockDef) return;
+
+    if (typeof blockDef.ph !== "number") {
+      zeigeToast("Hier lässt sich nichts messen.");
+      return;
+    }
+
+    if (aktivesWerkzeug === "ph_meter") {
+      if (!istPhMeterFreigeschaltet()) {
+        zeigeToast("pH-Meter ist noch nicht freigeschaltet.");
+        return;
+      }
+      zeigeToast(`${blockDef.name}: pH ${blockDef.ph}`);
+      SBW.trageInForschungsheftEin({
+        stoffId: blockDef.id,
+        stoffName: blockDef.name,
+        werkzeug: "ph_meter",
+        beobachteteFarbe: null,
+        einordnung: null,
+        phWert: blockDef.ph,
+      });
+      return;
+    }
+
+    const farbe = SBW.getIndikatorFarbe(aktivesWerkzeug, blockDef.ph);
+    blinkeBlock(blockCode, farbe);
+    markiereSkala(aktivesWerkzeug, blockDef.ph);
+
+    ausstehenderEintrag = {
+      stoffId: blockDef.id,
+      stoffName: blockDef.name,
+      werkzeug: aktivesWerkzeug,
+      beobachteteFarbe: farbe,
+    };
+    prompt.style.display = "block";
+  }
+
+  return { wendeWerkzeugAn, waehleWerkzeug, zeigeToast };
+}
+
+const SBW_HUD_EXPORTS = { createHud };
+
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = SBW_HUD_EXPORTS;
+}
+if (typeof globalThis !== "undefined") {
+  globalThis.SBW = globalThis.SBW || {};
+  Object.assign(globalThis.SBW, SBW_HUD_EXPORTS);
+}
+
+
+// --- js/game/journal.js ---
+// Forschungsheft nach §8: Stoff / beobachtete Farbe / eigene Einordnung.
+// Persistent in localStorage unter sbw.journal.v1.
+
+const JOURNAL_SCHLUESSEL = "sbw.journal.v1";
+
+function journalSchluesselFuer(stoffId, werkzeug) {
+  return `${stoffId}::${werkzeug}`;
+}
+
+function ladeForschungsheft() {
+  return SBW.ladeJSON(JOURNAL_SCHLUESSEL, []);
+}
+
+function trageInForschungsheftEin(eintrag) {
+  const heft = ladeForschungsheft();
+  const schluessel = journalSchluesselFuer(eintrag.stoffId, eintrag.werkzeug);
+  const index = heft.findIndex((e) => journalSchluesselFuer(e.stoffId, e.werkzeug) === schluessel);
+  const neuerEintrag = Object.assign({ zeitpunkt: Date.now() }, eintrag);
+  if (index >= 0) {
+    heft[index] = neuerEintrag;
+  } else {
+    heft.push(neuerEintrag);
+  }
+  SBW.speichereJSON(JOURNAL_SCHLUESSEL, heft);
+  return heft;
+}
+
+const SBW_JOURNAL_EXPORTS = { JOURNAL_SCHLUESSEL, ladeForschungsheft, trageInForschungsheftEin };
+
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = SBW_JOURNAL_EXPORTS;
+}
+if (typeof globalThis !== "undefined") {
+  globalThis.SBW = globalThis.SBW || {};
+  Object.assign(globalThis.SBW, SBW_JOURNAL_EXPORTS);
+}
+
+
 // --- js/game/storage.js ---
 // localStorage-Wrapper (§2.3: hier ausdrücklich erlaubt, anders als in
 // Claude-Artefakten). Fortschrittscode kommt in M4 dazu.
@@ -1349,10 +1905,12 @@ if (typeof globalThis !== "undefined") {
     const getUV = SBW.createAtlasUVProvider(layout);
 
     const chunkMeshes = baueChunkMeshes(world, getUV);
+    const meshListe = [];
     chunkMeshes.forEach(({ geometry, cx, cz }) => {
       const mesh = new THREE.Mesh(geometry, material);
       mesh.position.set(cx * CHUNK_SIZE_X, 0, cz * CHUNK_SIZE_Z);
       scene.add(mesh);
+      meshListe.push(mesh);
     });
 
     SBW.attachContextLossHandling(renderer, canvas, {
@@ -1365,13 +1923,48 @@ if (typeof globalThis !== "undefined") {
       },
     });
 
+    const hud = SBW.createHud({
+      document,
+      atlasCanvas,
+      atlasLayout: layout,
+      atlasTexture: texture,
+      farbenNachCode,
+      blockregister: SBW,
+    });
+
+    const raycaster = new THREE.Raycaster();
+    raycaster.far = 6; // Reichweite zum Antippen, ca. 6 Blöcke
+
+    function blockUnterFadenkreuz() {
+      const richtung = camera.getWorldDirection(new THREE.Vector3());
+      raycaster.set(camera.position, richtung);
+      const treffer = raycaster.intersectObjects(meshListe, false);
+      if (treffer.length === 0) return null;
+      const einschlag = treffer[0];
+      const punkt = einschlag.point.clone().sub(einschlag.face.normal.clone().multiplyScalar(0.5));
+      return {
+        x: Math.floor(punkt.x),
+        y: Math.floor(punkt.y),
+        z: Math.floor(punkt.z),
+      };
+    }
+
     const startUeberschreibung = new URLSearchParams(window.location.search).get("start");
     const start3 = startUeberschreibung ? (() => {
       const [x, y, z] = startUeberschreibung.split(",").map(Number);
       return { x, y, z };
     })() : rezept.start;
     const spielerZustand = SBW.createPlayerState([start3.x, start3.y, start3.z]);
-    const eingabe = SBW.createControls ? SBW.createControls(canvas) : null;
+    const eingabe = SBW.createControls
+      ? SBW.createControls(canvas, {
+          onTap: () => {
+            const block = blockUnterFadenkreuz();
+            if (!block) return;
+            const code = world.getBlockCode(block.x, block.y, block.z);
+            if (code !== 0) hud.wendeWerkzeugAn(code);
+          },
+        })
+      : null;
 
     const debugModus = new URLSearchParams(window.location.search).get("debug") === "1";
     const uebersichtsModus = new URLSearchParams(window.location.search).get("uebersicht") === "1";
@@ -1387,6 +1980,7 @@ if (typeof globalThis !== "undefined") {
     if (debugModus || uebersichtsModus) {
       window.SBW_DEBUG_WORLD = world;
       window.SBW_DEBUG_PLAYER = spielerZustand;
+      window.SBW_DEBUG_HUD = hud;
     }
 
     let letzteZeit = performance.now();
