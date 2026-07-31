@@ -1,0 +1,23 @@
+[
+  {
+    "id": "q1",
+    "doppelstunde": 1,
+    "zeitschlossDatum": "2026-09-05",
+    "auftrag": "Sechs Haushaltsprodukte mit beiden Indikatoren prüfen und in sauer/neutral/basisch einordnen.",
+    "abschlussText": "6 korrekte Einordnungen"
+  },
+  {
+    "id": "q2",
+    "doppelstunde": 2,
+    "zeitschlossDatum": "2026-09-12",
+    "auftrag": "Alle vierzehn Haushaltsprodukte mit dem pH-Meter messen und nach pH ordnen.",
+    "abschlussText": "alle 14 Haushaltsprodukte gemessen"
+  },
+  {
+    "id": "q3",
+    "doppelstunde": 3,
+    "zeitschlossDatum": "2026-09-19",
+    "auftrag": "pH aller Böden und Gewässer erfassen, Zusammenhang Nadelwald↔Waldsee begründen.",
+    "abschlussText": "alle Messpunkte erfasst + Freitextantwort"
+  }
+]

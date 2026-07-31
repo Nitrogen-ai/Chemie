@@ -213,6 +213,45 @@ html, body {
   opacity: 0.4;
 }
 
+.aufgaben-abschnitt {
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(35, 32, 28, 0.25);
+}
+
+.aufgaben-zeile {
+  font-size: 13px;
+  padding: 4px 0;
+}
+
+.aufgabe-gesperrt {
+  opacity: 0.45;
+}
+
+.aufgabe-abgeschlossen {
+  color: var(--teal);
+}
+
+.q3-freitext-feld {
+  width: 100%;
+  min-height: 60px;
+  margin-top: 4px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  border: 1px solid rgba(35, 32, 28, 0.3);
+  border-radius: 6px;
+  padding: 6px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.fortschrittscode {
+  margin-top: 8px;
+  font-size: 15px;
+  font-weight: bold;
+  color: var(--terracotta);
+}
+
 .touch-ziel {
   min-width: 44px;
   min-height: 44px;
@@ -305,7 +344,7 @@ html, body {
 <script>
 window.SBW_BLOCKS = [{"id": "cola", "name": "Cola", "ph": 2.5, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#3b2416"}, {"id": "zitrone", "name": "Zitronensaft", "ph": 2.4, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#e8d840"}, {"id": "essig", "name": "Haushaltsessig (5 %)", "ph": 2.5, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#e8e0c8"}, {"id": "apfelsaft", "name": "Apfelsaft", "ph": 3.5, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#c98a2e"}, {"id": "kaffee", "name": "Kaffee", "ph": 5.0, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#4a3021"}, {"id": "milch", "name": "Milch", "ph": 6.6, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#f2efe3"}, {"id": "leitungswasser", "name": "Leitungswasser", "ph": 7.2, "kategorie": "Neutral", "vorkommen": "Hütte, Brunnen", "farbe": "#bcd9e8"}, {"id": "dest_wasser", "name": "Destilliertes Wasser", "ph": 7.0, "kategorie": "Neutral", "vorkommen": "Hütte", "farbe": "#d3ecf5"}, {"id": "backpulver", "name": "Backpulverlösung", "ph": 8.3, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#f5f2ea"}, {"id": "seifenloesung", "name": "Seifenlösung", "ph": 9.5, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#e0e8d8"}, {"id": "waschmittel", "name": "Waschmittellösung", "ph": 10.5, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#dfe8ee"}, {"id": "salmiakgeist", "name": "Salmiakgeist (verd.)", "ph": 11.5, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#e8f0e0"}, {"id": "kalkwasser", "name": "Kalkwasser", "ph": 12.4, "kategorie": "Labor", "vorkommen": "Hütte", "farbe": "#f0f0eb"}, {"id": "rohrreiniger", "name": "Rohrreiniger", "ph": 13.5, "kategorie": "Haushalt", "vorkommen": "Hütte", "farbe": "#c9d6d0"}, {"id": "moorboden", "name": "Moorboden", "ph": 3.8, "kategorie": "Boden", "vorkommen": "Moorsenke", "farbe": "#3b2e26"}, {"id": "nadelwaldboden", "name": "Nadelwaldboden", "ph": 4.2, "kategorie": "Boden", "vorkommen": "Fichtenhain", "farbe": "#4a3826"}, {"id": "laubwaldboden", "name": "Laubwaldboden", "ph": 5.5, "kategorie": "Boden", "vorkommen": "Laubwald", "farbe": "#5c4530"}, {"id": "ackerboden", "name": "Ackerboden", "ph": 6.8, "kategorie": "Boden", "vorkommen": "Feld", "farbe": "#6b4a30"}, {"id": "kalkboden", "name": "Kalkboden", "ph": 7.9, "kategorie": "Boden", "vorkommen": "Steinbruch", "farbe": "#c9c2a8"}, {"id": "moorsee", "name": "Moorwasser", "ph": 4.0, "kategorie": "Gewässer", "vorkommen": "Moorsenke", "farbe": "#1c2a1e"}, {"id": "waldsee_sauer", "name": "versauerter Waldsee", "ph": 4.8, "kategorie": "Gewässer", "vorkommen": "Fichtenhain", "farbe": "#2e4a42"}, {"id": "bach", "name": "Bachwasser", "ph": 7.4, "kategorie": "Gewässer", "vorkommen": "Bachlauf", "farbe": "#4a90a4"}, {"id": "kalkbach", "name": "kalkreicher Bach", "ph": 8.2, "kategorie": "Gewässer", "vorkommen": "Steinbruch", "farbe": "#6fb8c4"}, {"id": "meerwasser", "name": "Meerwasser", "ph": 8.1, "kategorie": "Gewässer", "vorkommen": "Küste", "farbe": "#2a6b8a"}, {"id": "gras", "name": "Gras", "ph": null, "kategorie": "Dekoration", "vorkommen": "überall", "farbe": "#5c8a3c"}, {"id": "stein", "name": "Stein", "ph": null, "kategorie": "Dekoration", "vorkommen": "überall", "farbe": "#8a8a86"}, {"id": "holz", "name": "Holz", "ph": null, "kategorie": "Dekoration", "vorkommen": "überall", "farbe": "#6b4a2f"}, {"id": "laub", "name": "Laub", "ph": null, "kategorie": "Dekoration", "vorkommen": "überall", "farbe": "#4a7a2e"}, {"id": "sand", "name": "Sand", "ph": null, "kategorie": "Dekoration", "vorkommen": "Küste", "farbe": "#d8c9a0"}, {"id": "bretter", "name": "Bretter", "ph": null, "kategorie": "Dekoration", "vorkommen": "Hütte", "farbe": "#a87e4f"}, {"id": "fichtennadeln", "name": "Fichtennadeln", "ph": null, "kategorie": "Dekoration", "vorkommen": "Fichtenhain", "farbe": "#2e5c3a"}];
 window.SBW_WORLD = {"groesse": {"x": 64, "z": 64}, "grundhoehe": 6, "start": {"x": 32, "y": 14, "z": 36}, "hintergrundBoden": "gras", "unterbauBlock": "stein", "kuestenSand": {"block": "sand", "breite": 3}, "baumTypen": {"nadel": {"stamm": "holz", "krone": "fichtennadeln"}, "laub": {"stamm": "holz", "krone": "laub"}}, "zonen": [{"id": "moorsenke", "name": "Moorsenke", "zentrum": [16, 16], "radius": 12, "bodenBlock": "moorboden"}, {"id": "fichtenhain", "name": "Fichtenhain", "zentrum": [48, 14], "radius": 12, "bodenBlock": "nadelwaldboden"}, {"id": "laubwald", "name": "Laubwald", "zentrum": [52, 44], "radius": 12, "bodenBlock": "laubwaldboden"}, {"id": "feld", "name": "Feld", "zentrum": [30, 56], "radius": 11, "bodenBlock": "ackerboden"}, {"id": "steinbruch_kueste", "name": "Steinbruch und Küste", "zentrum": [10, 42], "radius": 13, "bodenBlock": "kalkboden"}], "gewaesser": [{"blockId": "moorsee", "zentrum": [15, 13], "radius": 4, "tiefe": 2}, {"blockId": "waldsee_sauer", "zentrum": [49, 9], "radius": 3, "tiefe": 2}, {"blockId": "kalkbach", "pfad": [[22, 42], [16, 41], [9, 40], [3, 39]], "breite": 2, "tiefe": 1}, {"blockId": "bach", "pfad": [[46, 46], [40, 50], [33, 55], [26, 58]], "breite": 2, "tiefe": 1}, {"blockId": "meerwasser", "randKante": "west", "bisSpalte": 6, "tiefe": 2}], "huette": {"zentrum": [32, 32], "breiteX": 20, "tiefeZ": 7, "wandBlock": "bretter", "dachBlock": "holz", "hoeheWand": 3, "regal": ["cola", "zitrone", "essig", "apfelsaft", "kaffee", "milch", "leitungswasser", "dest_wasser", "backpulver", "seifenloesung", "waschmittel", "salmiakgeist", "kalkwasser", "rohrreiniger"]}, "baeume": [{"x": 20, "z": 20, "typ": "nadel"}, {"x": 44, "z": 12, "typ": "nadel"}, {"x": 54, "z": 10, "typ": "nadel"}, {"x": 46, "z": 20, "typ": "nadel"}, {"x": 56, "z": 40, "typ": "laub"}, {"x": 50, "z": 50, "typ": "laub"}, {"x": 58, "z": 46, "typ": "laub"}, {"x": 46, "z": 36, "typ": "laub"}]};
-window.SBW_QUESTS = [];
+window.SBW_QUESTS = [{"id": "q1", "doppelstunde": 1, "zeitschlossDatum": "2026-09-05", "auftrag": "Sechs Haushaltsprodukte mit beiden Indikatoren prüfen und in sauer/neutral/basisch einordnen.", "abschlussText": "6 korrekte Einordnungen"}, {"id": "q2", "doppelstunde": 2, "zeitschlossDatum": "2026-09-12", "auftrag": "Alle vierzehn Haushaltsprodukte mit dem pH-Meter messen und nach pH ordnen.", "abschlussText": "alle 14 Haushaltsprodukte gemessen"}, {"id": "q3", "doppelstunde": 3, "zeitschlossDatum": "2026-09-19", "auftrag": "pH aller Böden und Gewässer erfassen, Zusammenhang Nadelwald↔Waldsee begründen.", "abschlussText": "alle Messpunkte erfasst + Freitextantwort"}];
 </script>
 <script>
 // --- js/engine/chunk.js ---
@@ -1440,9 +1479,56 @@ function createHud(kontext) {
   hud.appendChild(heftPanel);
   alleTogglePanels.push(heftPanel);
 
+  function baueAufgabenAbschnitt() {
+    const abschnitt = doc.createElement("div");
+    abschnitt.className = "aufgaben-abschnitt";
+
+    const fortschritt = SBW.questFortschritt();
+    const abgeschlossenById = { q1: fortschritt.q1, q2: fortschritt.q2, q3: fortschritt.q3 };
+
+    SBW.QUEST_DEFINITIONEN.forEach((quest) => {
+      const zeile = doc.createElement("div");
+      zeile.className = "aufgaben-zeile";
+      const freigeschaltet = SBW.istQuestFreigeschaltet(quest.id);
+      let status = "gesperrt";
+      if (freigeschaltet) status = abgeschlossenById[quest.id] ? "abgeschlossen" : "offen";
+      const statusText = { gesperrt: "gesperrt", offen: "offen", abgeschlossen: "erledigt" }[status];
+      zeile.classList.add(`aufgabe-${status}`);
+      zeile.innerHTML = `<strong>DS ${quest.doppelstunde} (${statusText})</strong>: ${quest.auftrag}`;
+      abschnitt.appendChild(zeile);
+    });
+
+    if (SBW.istQuestFreigeschaltet("q3")) {
+      const freitextLabel = doc.createElement("div");
+      freitextLabel.className = "skala-titel";
+      freitextLabel.textContent = "Zusammenhang Nadelwald ↔ Waldsee (deine Begründung):";
+      abschnitt.appendChild(freitextLabel);
+
+      const freitextFeld = doc.createElement("textarea");
+      freitextFeld.className = "q3-freitext-feld";
+      freitextFeld.value = SBW.ladeQ3Freitext();
+      freitextFeld.addEventListener("change", () => {
+        SBW.speichereQ3Freitext(freitextFeld.value);
+      });
+      abschnitt.appendChild(freitextFeld);
+    }
+
+    if (fortschritt.q1 && fortschritt.q2 && fortschritt.q3) {
+      const code = SBW.erzeugeFortschrittscode(fortschritt);
+      const codeAnzeige = doc.createElement("div");
+      codeAnzeige.className = "fortschrittscode hud-messwert";
+      codeAnzeige.textContent = `Fortschrittscode: ${code}`;
+      abschnitt.appendChild(codeAnzeige);
+    }
+
+    return abschnitt;
+  }
+
   function aktualisiereHeftPanel() {
     const eintraege = SBW.ladeForschungsheft();
     heftPanel.innerHTML = "";
+    heftPanel.appendChild(baueAufgabenAbschnitt());
+
     const tabelle = doc.createElement("table");
     tabelle.className = "heft-tabelle";
     const kopf = doc.createElement("tr");
@@ -1616,9 +1702,159 @@ if (typeof globalThis !== "undefined") {
 }
 
 
+// --- js/game/quests.js ---
+// Aufgabenlogik und Zeitschloss, nach CLAUDE.md §9.
+//
+// WICHTIG: Die zeitschlossDatum-Werte in data/quests.json sind Platzhalter
+// (Samstage ab September 2026) und müssen vor dem echten Einsatz auf die
+// tatsächlichen Unterrichtswochen angepasst werden — analog zur Farbwerte-
+// Prüfung in §6 ("Nitrogen prüft das").
+
+const FRUEHZUGANG_PASSWORT = "Chemieistüberall.";
+const FRUEHZUGANG_SCHLUESSEL = "sbw.fruehzugang.v1";
+const Q3_FREITEXT_SCHLUESSEL = "sbw.q3.freitext.v1";
+
+// Wie in den bestehenden Lernpfaden: Freischaltung samstags 07:00 MESZ.
+// MESZ (UTC+2) wird hier als fester Versatz behandelt, nicht per echter
+// Zeitzonen-/DST-Berechnung — für ein Schuljahr in der Sommerzeit ausreichend
+// und ohne Zeitzonen-Bibliothek umsetzbar.
+const MESZ_VERSATZ_STUNDEN = 2;
+
+function zeitschlossOeffnungszeitpunkt(datumIso) {
+  const [jahr, monat, tag] = datumIso.split("-").map(Number);
+  return Date.UTC(jahr, monat - 1, tag, 7 - MESZ_VERSATZ_STUNDEN, 0, 0);
+}
+
+function istZeitschlossOffen(datumIso, jetzt, passwort) {
+  if (passwort === FRUEHZUGANG_PASSWORT) return true;
+  const jetztMs = (jetzt instanceof Date ? jetzt : new Date(jetzt)).getTime();
+  return jetztMs >= zeitschlossOeffnungszeitpunkt(datumIso);
+}
+
+function ladeQuestDefinitionen() {
+  if (typeof window !== "undefined" && window.SBW_QUESTS) return window.SBW_QUESTS;
+  if (typeof require !== "undefined") return require("../../data/quests.json");
+  return [];
+}
+
+const QUEST_DEFINITIONEN = ladeQuestDefinitionen();
+
+function gespeichertesFruehzugangPasswort() {
+  return typeof SBW !== "undefined" && SBW.ladeJSON ? SBW.ladeJSON(FRUEHZUGANG_SCHLUESSEL, null) : null;
+}
+
+function schaltePasswortFrei(eingabe) {
+  if (eingabe === FRUEHZUGANG_PASSWORT) {
+    SBW.speichereJSON(FRUEHZUGANG_SCHLUESSEL, eingabe);
+    return true;
+  }
+  return false;
+}
+
+function istQuestFreigeschaltet(questId, jetzt) {
+  const quest = QUEST_DEFINITIONEN.find((q) => q.id === questId);
+  if (!quest) return false;
+  return istZeitschlossOffen(quest.zeitschlossDatum, jetzt || new Date(), gespeichertesFruehzugangPasswort());
+}
+
+function istPhMeterFreigeschaltet() {
+  return istQuestFreigeschaltet("q2");
+}
+
+function kategorieAusPh(ph) {
+  if (ph < 6.5) return "sauer";
+  if (ph > 7.5) return "basisch";
+  return "neutral";
+}
+
+function zaehleKorrekteEinordnungenQ1() {
+  const heft = SBW.ladeForschungsheft();
+  let korrekt = 0;
+  heft.forEach((eintrag) => {
+    if (eintrag.werkzeug !== "universal" && eintrag.werkzeug !== "rotkohl") return;
+    const blockDef = SBW.getBlockDefById(eintrag.stoffId);
+    if (!blockDef || typeof blockDef.ph !== "number") return;
+    if (eintrag.einordnung === kategorieAusPh(blockDef.ph)) korrekt++;
+  });
+  return korrekt;
+}
+
+const HUETTE_ITEM_IDS = [
+  "cola", "zitrone", "essig", "apfelsaft", "kaffee", "milch",
+  "leitungswasser", "dest_wasser", "backpulver", "seifenloesung",
+  "waschmittel", "salmiakgeist", "kalkwasser", "rohrreiniger",
+];
+
+const BODEN_UND_GEWAESSER_IDS = [
+  "moorboden", "nadelwaldboden", "laubwaldboden", "ackerboden", "kalkboden",
+  "moorsee", "waldsee_sauer", "bach", "kalkbach", "meerwasser",
+];
+
+function speichereQ3Freitext(text) {
+  SBW.speichereJSON(Q3_FREITEXT_SCHLUESSEL, text);
+}
+
+function ladeQ3Freitext() {
+  return SBW.ladeJSON(Q3_FREITEXT_SCHLUESSEL, "");
+}
+
+function istQuestQ1Abgeschlossen() {
+  return zaehleKorrekteEinordnungenQ1() >= 6;
+}
+
+function istQuestQ2Abgeschlossen() {
+  const heft = SBW.ladeForschungsheft();
+  const gemessen = new Set(heft.filter((e) => e.werkzeug === "ph_meter").map((e) => e.stoffId));
+  return HUETTE_ITEM_IDS.every((id) => gemessen.has(id));
+}
+
+function istQuestQ3Abgeschlossen() {
+  const heft = SBW.ladeForschungsheft();
+  const gemessen = new Set(heft.map((e) => e.stoffId));
+  const alleGemessen = BODEN_UND_GEWAESSER_IDS.every((id) => gemessen.has(id));
+  return alleGemessen && ladeQ3Freitext().trim().length > 0;
+}
+
+function questFortschritt() {
+  return {
+    q1: istQuestQ1Abgeschlossen(),
+    q2: istQuestQ2Abgeschlossen(),
+    q3: istQuestQ3Abgeschlossen(),
+    korrekt: zaehleKorrekteEinordnungenQ1(),
+  };
+}
+
+const SBW_QUESTS_EXPORTS = {
+  QUEST_DEFINITIONEN,
+  FRUEHZUGANG_PASSWORT,
+  istZeitschlossOffen,
+  istQuestFreigeschaltet,
+  istPhMeterFreigeschaltet,
+  schaltePasswortFrei,
+  kategorieAusPh,
+  zaehleKorrekteEinordnungenQ1,
+  istQuestQ1Abgeschlossen,
+  istQuestQ2Abgeschlossen,
+  istQuestQ3Abgeschlossen,
+  speichereQ3Freitext,
+  ladeQ3Freitext,
+  questFortschritt,
+  HUETTE_ITEM_IDS,
+  BODEN_UND_GEWAESSER_IDS,
+};
+
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = SBW_QUESTS_EXPORTS;
+}
+if (typeof globalThis !== "undefined") {
+  globalThis.SBW = globalThis.SBW || {};
+  Object.assign(globalThis.SBW, SBW_QUESTS_EXPORTS);
+}
+
+
 // --- js/game/storage.js ---
 // localStorage-Wrapper (§2.3: hier ausdrücklich erlaubt, anders als in
-// Claude-Artefakten). Fortschrittscode kommt in M4 dazu.
+// Claude-Artefakten) und Fortschrittscode (§9).
 
 function speichereJSON(schluessel, wert) {
   try {
@@ -1639,7 +1875,25 @@ function ladeJSON(schluessel, standardwert) {
   }
 }
 
-const SBW_STORAGE_EXPORTS = { speichereJSON, ladeJSON };
+// Kompakter, deterministisch dekodierbarer Code aus Quest-Status und Anzahl
+// korrekter Einordnungen (§9) — kein Server, keine personenbezogenen Daten.
+function erzeugeFortschrittscode(status) {
+  const bits = (status.q1 ? 1 : 0) | (status.q2 ? 2 : 0) | (status.q3 ? 4 : 0);
+  const wert = bits | (Math.max(0, status.korrekt || 0) << 3);
+  return wert.toString(36).toUpperCase();
+}
+
+function dekodiereFortschrittscode(code) {
+  const wert = parseInt(code, 36);
+  return {
+    q1: (wert & 1) !== 0,
+    q2: (wert & 2) !== 0,
+    q3: (wert & 4) !== 0,
+    korrekt: wert >> 3,
+  };
+}
+
+const SBW_STORAGE_EXPORTS = { speichereJSON, ladeJSON, erzeugeFortschrittscode, dekodiereFortschrittscode };
 
 if (typeof module !== "undefined" && module.exports) {
   module.exports = SBW_STORAGE_EXPORTS;
