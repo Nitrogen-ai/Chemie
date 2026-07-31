@@ -1,0 +1,66 @@
+.touch-ziel {
+  min-width: 44px;
+  min-height: 44px;
+  pointer-events: auto;
+  touch-action: none;
+}
+
+#joystick-zone {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  pointer-events: auto;
+  touch-action: none;
+}
+
+#look-zone {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  pointer-events: auto;
+  touch-action: none;
+}
+
+.joystick-basis {
+  position: absolute;
+  width: 88px;
+  height: 88px;
+  margin: -44px 0 0 -44px;
+  border-radius: 50%;
+  border: 2px solid var(--teal);
+  background: rgba(250, 246, 238, 0.35);
+}
+
+.joystick-knopf {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  border-radius: 50%;
+  background: rgba(30, 93, 82, 0.65);
+}
+
+#sprung-button {
+  position: absolute;
+  right: 16px;
+  bottom: 88px;
+  width: 56px;
+  height: 56px;
+}
+
+#werkzeugleiste {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  gap: 8px;
+}
+
+.werkzeug-slot {
+  width: 44px;
+  height: 44px;
+}
