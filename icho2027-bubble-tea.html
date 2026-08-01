@@ -143,6 +143,63 @@ footer{background:var(--boba);color:#f2e7da;padding:40px 0;margin-top:50px;text-
 footer p{margin:6px 0;font-size:.86rem;opacity:.8}
 footer .dots{font-size:1.4rem;letter-spacing:6px;color:var(--mango)}
 @media(max-width:640px){.cup{opacity:.25;width:60vw}.hero{padding:54px 0 70px}}
+
+/* ---------- EINSTIEGSEXPERIMENT (LAB) ---------- */
+.lab{padding:46px 0 14px;scroll-margin-top:62px}
+.lab-lede{font-family:"Fraunces",serif;font-style:italic;font-weight:500;
+  font-size:clamp(1.3rem,3vw,1.9rem);color:var(--tea-deep);max-width:26ch;line-height:1.28}
+.lab-intro{max-width:64ch;margin:12px 0 2px;opacity:.9;font-size:.98rem}
+.lab-tiles{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:22px 0 6px}
+@media(max-width:560px){.lab-tiles{grid-template-columns:1fr}}
+.tile{position:relative;cursor:pointer;border:none;text-align:left;color:#fff;
+  border-radius:20px;padding:22px 22px 34px;min-height:140px;overflow:hidden;
+  box-shadow:var(--shadow);transition:transform .18s,box-shadow .18s;font-family:"Outfit",sans-serif}
+.tile:hover{transform:translateY(-3px)}
+.tile:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.tile.sweet{background:radial-gradient(120% 130% at 12% 0%,#ffb24d 0%,var(--berry) 58%,#b23a77 100%)}
+.tile.salty{background:radial-gradient(120% 130% at 12% 0%,#3ec0ac 0%,var(--tea) 52%,var(--tea-deep) 100%)}
+.tile .k{font-family:"Space Mono",monospace;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;opacity:.92}
+.tile h3{font-family:"Fraunces",serif;font-weight:600;font-size:1.5rem;margin:6px 0 4px}
+.tile p{margin:0;font-size:.9rem;opacity:.95;max-width:32ch}
+.tile .em{position:absolute;right:18px;top:16px;font-size:1.7rem;opacity:.9}
+.tile .go{position:absolute;right:18px;bottom:12px;font-family:"Space Mono",monospace;font-size:.7rem;opacity:.92}
+.tile.active{outline:3px solid var(--ink);outline-offset:3px}
+.tile.active .go::after{content:" ✓"}
+
+.lab-empty{margin-top:14px;border:1.5px dashed var(--line);border-radius:16px;
+  padding:22px;text-align:center;color:var(--ink);opacity:.6;font-size:.95rem}
+.lab-guide{display:none;margin-top:10px}
+.lab-guide.active{display:block;animation:labfade .4s ease}
+@keyframes labfade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.lab-safe{background:#fff6e3;border-left:4px solid var(--mango);padding:12px 16px;
+  border-radius:0 12px 12px 0;font-size:.88rem;margin:4px 0 16px}
+.lab-safe b{font-family:"Fraunces",serif}
+.mat{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:6px 0 20px}
+@media(max-width:560px){.mat{grid-template-columns:1fr}}
+.mat .card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:13px 15px}
+.mat h5{font-family:"Fraunces",serif;font-size:.98rem;margin:0 0 7px}
+.mat ul{margin:0;padding-left:16px;font-size:.88rem}.mat li{margin:3px 0}
+
+.lsteps{display:flex;flex-direction:column;gap:14px}
+.lstep{background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+.lstep-head{display:flex;align-items:center;gap:13px;padding:14px 18px;
+  background:linear-gradient(180deg,var(--paper),var(--cream))}
+.lstep-num{flex:0 0 auto;width:34px;height:34px;border-radius:10px;color:#fff;
+  font-family:"Fraunces",serif;font-weight:900;display:grid;place-items:center}
+.g-sweet .lstep-num{background:var(--berry)}
+.g-salty .lstep-num{background:var(--tea)}
+.lstep-head h4{font-family:"Fraunces",serif;font-weight:600;font-size:1.06rem}
+.lstep-body{display:grid;grid-template-columns:1fr 1fr}
+@media(max-width:640px){.lstep-body{grid-template-columns:1fr}}
+.do{padding:15px 18px;border-right:1px solid var(--line);font-size:.92rem}
+@media(max-width:640px){.do{border-right:none;border-bottom:1px solid var(--line)}}
+.micro{padding:15px 18px;background:#f2f8f6}
+.lbl{font-family:"Space Mono",monospace;font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;
+  opacity:.6;display:block;margin-bottom:8px}
+.micro svg{margin:0 auto 9px;max-width:100%;height:auto}
+.micro p{margin:0;font-size:.87rem}
+.mono{font-family:"Space Mono",monospace}
 </style>
 </head>
 <body>
@@ -180,6 +237,7 @@ footer .dots{font-size:1.4rem;letter-spacing:6px;color:var(--mango)}
 <nav class="nav"><div class="wrap">
   <b>🧋 IChO&nbsp;’27</b>
   <a href="#kontext">Kontext</a>
+  <a href="#lab">0 · Experiment</a>
   <a href="#a1">1 · Rätsel</a>
   <a href="#a2">2 · Biopolymere</a>
   <a href="#a3">3 · Popping 1</a>
@@ -206,6 +264,260 @@ footer .dots{font-size:1.4rem;letter-spacing:6px;color:var(--mango)}
     Dieses Werkzeug ist als <b>Lern- und Nachbereitungshilfe</b> gedacht — ideal für die Begleitung im Unterricht oder die
     Besprechung nach der Abgabe. Jede Aufgabe bietet zuerst eine <span style="color:#5b3fa0;font-weight:600">spoilerfreie Hilfe
     am Analogiebeispiel</span>, dann die <span style="color:var(--tea-deep);font-weight:600">Musterlösung zur Selbstkontrolle</span>.
+  </div>
+</section>
+
+
+<!-- ============ EINSTIEGSEXPERIMENT ============ -->
+<section class="lab wrap" id="lab">
+  <div class="taghead"><span class="num">00</span><h2>Einstiegsexperiment</h2><span class="pts">Hands-on</span></div>
+  <p class="lab-lede">Popping Boba selbst herstellen — und dabei die Alginat-Chemie sehen.</p>
+  <p class="lab-intro">Dieses Sphärifizierungs-Experiment macht die Aufgaben&nbsp;5c/5e/5f begreifbar: dieselben Ca²⁺-Brücken,
+  die hier eine Gelhaut bilden, bestimmen dort das „Eierkarton"-Modell, die Ziehzeit und das Auflösen mit EDTA.
+  Wähle eine Variante — die Anleitung erklärt jeden Schritt zusätzlich auf Teilchenebene.</p>
+
+  <div class="lab-tiles">
+    <button class="tile sweet" data-variant="sweet" aria-controls="guide-sweet">
+      <span class="em">🥭</span>
+      <span class="k">Süße Variante</span>
+      <h3>Maracuja Popping Boba</h3>
+      <p>Fruchtige Perlen mit flüssigem Kern — mit dem pH-Trick für sauren Saft.</p>
+      <span class="go">Anleitung öffnen →</span>
+    </button>
+    <button class="tile salty" data-variant="salty" aria-controls="guide-salty">
+      <span class="em">🌿</span>
+      <span class="k">Salzige Variante</span>
+      <h3>Pflanzliches Kaviar</h3>
+      <p>Herzhafte Mini-Perlen aus Gemüse-/Algensud — als veganer „Kaviar".</p>
+      <span class="go">Anleitung öffnen →</span>
+    </button>
+  </div>
+
+  <div class="lab-empty" id="lab-empty">↑ Tippe auf eine der beiden Flächen, um die passende Zubereitungsanleitung zu öffnen.</div>
+
+  <div class="lab-guide g-sweet" id="guide-sweet" data-variant="sweet">
+    <div class="lab-safe"><b>Lebensmittelecht &amp; sicher:</b> Alle Stoffe sind Lebensmittelzusatzstoffe (E401 Natriumalginat, E327 Calciumlactat, E509 Calciumchlorid, E331 Natriumcitrat) und in diesen Mengen unbedenklich. Sauber arbeiten, das Calciumbad nicht trinken, fertige Perlen vor dem Verzehr spülen.</div><div class="mat">
+  <div class="card"><h5>Zutaten</h5><ul>
+    <li>250&nbsp;mL Maracujasaft <span class="mono">(alt. Mango, Erdbeere, Litschi)</span></li>
+    <li>2&nbsp;g Natriumalginat (E401)</li>
+    <li>1 Prise Natriumcitrat (E331) zum Entsäuern</li>
+    <li>5&nbsp;g Calciumlactat (E327) + 500&nbsp;mL Wasser</li>
+  </ul></div>
+  <div class="card"><h5>Geräte</h5><ul>
+    <li>Stabmixer, Feinwaage</li>
+    <li>Pipette / Spritze / Dosierlöffel</li>
+    <li>Sieb, 2 Schüsseln, Schüssel klares Spülwasser</li>
+  </ul></div>
+</div><div class="lsteps"><div class="lstep g-sweet">
+  <div class="lstep-head"><span class="lstep-num">1</span><h4>Fruchtbasis entsäuern &amp; Alginat lösen</h4></div>
+  <div class="lstep-body">
+    <div class="do"><span class="lbl">Das tust du</span>Maracujasaft ist sauer. Rühre eine Prise <b>Natriumcitrat</b> ein, bis er milder schmeckt, mixe dann <b>2&nbsp;g Natriumalginat</b> ein und lass die Masse ~15&nbsp;min ruhen (Luftblasen entweichen).</div>
+    <div class="micro"><span class="lbl">Auf Teilchenebene</span><svg viewBox="0 0 340 128" xmlns="http://www.w3.org/2000/svg" font-family="'Space Mono',monospace">
+  <path d="M14,52 q16,-13 32,0 q16,13 32,0" fill="none" stroke="#0e7d72" stroke-width="2.5"/>
+  <line x1="46" y1="52" x2="46" y2="74" stroke="#0e7d72" stroke-width="2"/>
+  <text x="28" y="90" font-size="12" fill="#241a12">COOH</text>
+  <text x="12" y="112" font-size="10" fill="#a83610">sauer (pH≈3) · ungeladen</text>
+  <line x1="120" y1="47" x2="172" y2="47" stroke="#241a12" stroke-width="1.6"/>
+  <polygon points="172,47 163,43 163,51" fill="#241a12"/>
+  <line x1="172" y1="60" x2="120" y2="60" stroke="#241a12" stroke-width="1.6"/>
+  <polygon points="120,60 129,56 129,64" fill="#241a12"/>
+  <text x="108" y="33" font-size="10" fill="#8e6fcb">+ Citrat³⁻ (Base)</text>
+  <text x="128" y="80" font-size="10" fill="#c94b4b">− H⁺</text>
+  <path d="M198,52 q16,-13 32,0 q16,13 32,0" fill="none" stroke="#0e7d72" stroke-width="2.5"/>
+  <line x1="230" y1="52" x2="230" y2="74" stroke="#0e7d72" stroke-width="2"/>
+  <text x="212" y="90" font-size="12" fill="#0a5a52" font-weight="700">COO⁻</text>
+  <text x="198" y="112" font-size="10" fill="#0a5a52">geladen · gelierfähig</text>
+  <circle cx="312" cy="38" r="10" fill="#c94b4b"/><text x="304" y="42" font-size="10" fill="#fff">H⁺</text>
+  <line x1="266" y1="54" x2="301" y2="43" stroke="#c94b4b" stroke-width="1.4" stroke-dasharray="4 3"/>
+  <polygon points="301,43 292,44 296,51" fill="#c94b4b"/>
+</svg><p>Bei niedrigem pH sind die Carboxygruppen des Alginats <b>protoniert</b> (–COOH, ungeladen) — Ca²⁺ findet keine Ankerpunkte. Citrat entzieht H⁺, es entsteht <b>–COO⁻</b>: erst jetzt ist das Alginat gelierfähig.</p></div>
+  </div>
+</div><div class="lstep g-sweet">
+  <div class="lstep-head"><span class="lstep-num">2</span><h4>Calciumbad ansetzen</h4></div>
+  <div class="lstep-body">
+    <div class="do"><span class="lbl">Das tust du</span>Löse <b>5&nbsp;g Calciumlactat</b> in <b>500&nbsp;mL Wasser</b> (geschmacksneutral, ideal für Süßes).</div>
+    <div class="micro"><span class="lbl">Auf Teilchenebene</span><svg viewBox="0 0 340 122" xmlns="http://www.w3.org/2000/svg" font-family="'Space Mono',monospace"><circle cx="66" cy="58" r="26" fill="none" stroke="#7fb3d5" stroke-width="1" stroke-dasharray="3 3"/><circle cx="66" cy="58" r="15" fill="#f4a724"/><text x="55" y="62" font-size="10" fill="#241a12" font-weight="700">Ca²⁺</text><circle cx="170" cy="58" r="26" fill="none" stroke="#7fb3d5" stroke-width="1" stroke-dasharray="3 3"/><circle cx="170" cy="58" r="15" fill="#f4a724"/><text x="159" y="62" font-size="10" fill="#241a12" font-weight="700">Ca²⁺</text><circle cx="274" cy="58" r="26" fill="none" stroke="#7fb3d5" stroke-width="1" stroke-dasharray="3 3"/><circle cx="274" cy="58" r="15" fill="#f4a724"/><text x="263" y="62" font-size="10" fill="#241a12" font-weight="700">Ca²⁺</text><circle cx="112" cy="26" r="9" fill="#9fb0bf"/><text x="105" y="29" font-size="9" fill="#fff">Lac⁻</text><circle cx="210" cy="98" r="9" fill="#9fb0bf"/><text x="203" y="101" font-size="9" fill="#fff">Lac⁻</text><circle cx="300" cy="40" r="9" fill="#9fb0bf"/><text x="293" y="43" font-size="9" fill="#fff">Lac⁻</text><circle cx="40" cy="100" r="9" fill="#9fb0bf"/><text x="33" y="103" font-size="9" fill="#fff">Lac⁻</text><circle cx="150" cy="104" r="9" fill="#9fb0bf"/><text x="143" y="107" font-size="9" fill="#fff">Lac⁻</text><text x="14" y="116" font-size="10" fill="#241a12">frei bewegliche, hydratisierte Ca²⁺-Ionen (+ Lactat⁻)</text></svg><p>Calciumlactat dissoziiert vollständig zu frei beweglichen <b>Ca²⁺</b> und Lactat⁻. Die Ca²⁺-Ionen sind von Wasser umhüllt (hydratisiert) und diffusionsbereit.</p></div>
+  </div>
+</div><div class="lstep g-sweet">
+  <div class="lstep-head"><span class="lstep-num">3</span><h4>Tropfen ins Calciumbad geben</h4></div>
+  <div class="lstep-body">
+    <div class="do"><span class="lbl">Das tust du</span>Lass mit Pipette oder Löffel einzelne Tropfen ins Bad fallen — sofort bildet sich außen eine Gelhaut.</div>
+    <div class="micro"><span class="lbl">Auf Teilchenebene</span><svg viewBox="0 0 340 158" xmlns="http://www.w3.org/2000/svg" font-family="'Space Mono',monospace">
+  <path d="M20,10 Q6,79 20,148" fill="none" stroke="#241a12" stroke-width="1.2" opacity="0.35"/>
+  <text x="24" y="16" font-size="8.5" fill="#241a12" opacity="0.55">Tropfen-Oberfläche</text>
+  <path d="M44,54 q30,-15 60,0 q30,15 60,0 q30,-15 60,0 q30,15 60,0" fill="none" stroke="#0e7d72" stroke-width="2.6"/>
+  <path d="M44,110 q30,15 60,0 q30,-15 60,0 q30,15 60,0 q30,-15 60,0" fill="none" stroke="#0e7d72" stroke-width="2.6"/>
+  <g stroke="#0a5a52" stroke-width="2">
+    <line x1="74" y1="54" x2="74" y2="72"/><line x1="194" y1="54" x2="194" y2="72"/><line x1="284" y1="54" x2="284" y2="72"/>
+    <line x1="74" y1="110" x2="74" y2="92"/><line x1="194" y1="110" x2="194" y2="92"/><line x1="284" y1="110" x2="284" y2="92"/>
+  </g>
+  <g fill="#0a5a52" font-size="9" font-weight="700">
+    <text x="62" y="82">O⁻</text><text x="182" y="82">O⁻</text><text x="272" y="82">O⁻</text>
+    <text x="62" y="90">O⁻</text><text x="182" y="90">O⁻</text><text x="272" y="90">O⁻</text>
+  </g>
+  <g>
+    <circle cx="134" cy="82" r="13" fill="#f4a724"/><text x="123" y="86" font-size="9" font-weight="700" fill="#241a12">Ca²⁺</text>
+    <circle cx="234" cy="82" r="13" fill="#f4a724"/><text x="223" y="86" font-size="9" font-weight="700" fill="#241a12">Ca²⁺</text>
+  </g>
+  <g stroke="#c98a17" stroke-width="1" stroke-dasharray="3 2">
+    <line x1="124" y1="76" x2="80" y2="72"/><line x1="124" y1="88" x2="80" y2="92"/>
+    <line x1="224" y1="76" x2="190" y2="72"/><line x1="224" y1="88" x2="190" y2="92"/>
+  </g>
+  <circle cx="312" cy="24" r="11" fill="#e85d9e"/><text x="302" y="28" font-size="9" fill="#fff">Na⁺</text>
+  <line x1="290" y1="60" x2="308" y2="34" stroke="#e85d9e" stroke-width="1.3" stroke-dasharray="4 3"/>
+  <polygon points="308,34 299,36 304,42" fill="#e85d9e"/>
+  <text x="14" y="150" font-size="10" fill="#241a12">1 Ca²⁺ verbrückt 2 –COO⁻ zweier Ketten → „Eierkarton"-Netzwerk</text>
+</svg><p>An der Tropfenoberfläche diffundiert Ca²⁺ ein, verdrängt je 2 Na⁺ und <b>verbrückt zwei –COO⁻</b> benachbarter Ketten — die „Eierkarton"-Knoten (vgl. Aufgabe&nbsp;5c). So wächst ein 3D-Netzwerk.</p></div>
+  </div>
+</div><div class="lstep g-sweet">
+  <div class="lstep-head"><span class="lstep-num">4</span><h4>Ziehzeit steuern (≈ 1–2 min)</h4></div>
+  <div class="lstep-body">
+    <div class="do"><span class="lbl">Das tust du</span>Nur kurz ziehen lassen, dann mit dem Sieb heben. <b>Zu kurz</b> → Haut reißt; <b>zu lang</b> → alles geliert, kein Popping.</div>
+    <div class="micro"><span class="lbl">Auf Teilchenebene</span><svg viewBox="0 0 220 158" xmlns="http://www.w3.org/2000/svg" font-family="'Space Mono',monospace">
+  <circle cx="104" cy="80" r="62" fill="#cfeae6"/>
+  <circle cx="104" cy="80" r="42" fill="#f7c8df"/>
+  <text x="104" y="78" font-size="10" fill="#241a12" text-anchor="middle">flüssiger</text>
+  <text x="104" y="90" font-size="10" fill="#241a12" text-anchor="middle">Kern</text>
+  <g stroke="#c98a17" stroke-width="1.4">
+    <line x1="104" y1="10" x2="104" y2="34"/><polygon points="104,34 100,26 108,26" fill="#c98a17"/>
+    <line x1="174" y1="80" x2="150" y2="80"/><polygon points="150,80 158,76 158,84" fill="#c98a17"/>
+    <line x1="104" y1="150" x2="104" y2="126"/><polygon points="104,126 100,134 108,134" fill="#c98a17"/>
+    <line x1="34" y1="80" x2="58" y2="80"/><polygon points="58,80 50,76 50,84" fill="#c98a17"/>
+  </g>
+  <text x="112" y="20" font-size="9" fill="#c98a17" font-weight="700">Ca²⁺</text>
+  <text x="150" y="150" font-size="9" fill="#0a5a52">Gelhaut (vernetzt)</text>
+  <line x1="150" y1="146" x2="132" y2="118" stroke="#0a5a52" stroke-width="0.8"/>
+  <text x="8" y="152" font-size="9" fill="#241a12" opacity="0.7">Front wandert nach innen</text>
+</svg><p>Die Gelfront wandert von außen nach innen und wird mit der Zeit dicker. Der Kern soll flüssig bleiben — daher die begrenzte Verweilzeit (genau die Chemie aus Aufgabe&nbsp;5e).</p></div>
+  </div>
+</div><div class="lstep g-sweet">
+  <div class="lstep-head"><span class="lstep-num">5</span><h4>Spülen &amp; servieren</h4></div>
+  <div class="lstep-body">
+    <div class="do"><span class="lbl">Das tust du</span>In klarem Wasser spülen und ins Getränk geben. Beim Zerbeißen platzt die Perle und gibt den Fruchtsaft frei.</div>
+    <div class="micro"><span class="lbl">Auf Teilchenebene</span><svg viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg" font-family="'Space Mono',monospace">
+  <path d="M90,32 a48,48 0 1 0 0.1,0" fill="#f7c8df"/>
+  <path d="M118,40 a48,48 0 0 1 -0,80" fill="none" stroke="#0e7d72" stroke-width="4"/>
+  <path d="M62,120 a48,48 0 0 1 46,-88" fill="none" stroke="#0e7d72" stroke-width="4"/>
+  <path d="M120,44 l9,7 l-8,7 l11,9" fill="none" stroke="#fbf4e9" stroke-width="4"/>
+  <g fill="#f7c8df">
+    <circle cx="152" cy="42" r="6"/><circle cx="172" cy="30" r="4.5"/><circle cx="184" cy="52" r="5.5"/><circle cx="166" cy="58" r="3.5"/>
+  </g>
+  <text x="6" y="84" font-size="11" fill="#241a12">Biss</text>
+  <line x1="30" y1="80" x2="52" y2="80" stroke="#241a12" stroke-width="1.5"/><polygon points="52,80 44,76 44,84" fill="#241a12"/>
+  <text x="66" y="142" font-size="10" fill="#0a5a52" font-weight="700">Membran reißt → Popping!</text>
+</svg><p>Das Spülen entfernt anhaftendes Ca²⁺ und <b>stoppt die Gelierung</b>. Beim Biss reißt die dünne Membran, der flüssige Maracuja-Kern tritt aus.</p></div>
+  </div>
+</div></div>
+  </div>
+
+  <div class="lab-guide g-salty" id="guide-salty" data-variant="salty">
+    <div class="lab-safe"><b>Lebensmittelecht &amp; sicher:</b> Alle Stoffe sind Lebensmittelzusatzstoffe (E401 Natriumalginat, E327 Calciumlactat, E509 Calciumchlorid, E331 Natriumcitrat) und in diesen Mengen unbedenklich. Sauber arbeiten, das Calciumbad nicht trinken, fertige Perlen vor dem Verzehr spülen.</div><div class="mat">
+  <div class="card"><h5>Zutaten</h5><ul>
+    <li>200&nbsp;mL milder, herzhafter Sud <span class="mono">(Gemüse/Alge; Farbe: Rote Bete, Erbse)</span></li>
+    <li>2&nbsp;g Natriumalginat (E401)</li>
+    <li>5&nbsp;g Calciumchlorid (E509) + 500&nbsp;mL Wasser</li>
+    <li>kein Natriumcitrat nötig (Basis ~pH-neutral)</li>
+  </ul></div>
+  <div class="card"><h5>Geräte</h5><ul>
+    <li>Stabmixer, Feinwaage</li>
+    <li>feine Pipette / Spritze für Kaviargröße</li>
+    <li>Sieb, 2 Schüsseln, Schüssel klares Spülwasser</li>
+  </ul></div>
+</div><div class="lsteps"><div class="lstep g-salty">
+  <div class="lstep-head"><span class="lstep-num">1</span><h4>Herzhafte Basis &amp; Alginat lösen</h4></div>
+  <div class="lstep-body">
+    <div class="do"><span class="lbl">Das tust du</span>Nutze eine milde, nahezu pH-neutrale herzhafte Flüssigkeit (klarer Gemüse-/Algensud, für Farbe z.&nbsp;B. Rote-Bete- oder Erbsensud). Mixe <b>2&nbsp;g Natriumalginat</b> ein, ~15&nbsp;min ruhen lassen.</div>
+    <div class="micro"><span class="lbl">Auf Teilchenebene</span><svg viewBox="0 0 340 130" xmlns="http://www.w3.org/2000/svg" font-family="'Space Mono',monospace">
+  <g fill="#8fb8d6" opacity="0.55">
+    <circle cx="46" cy="18" r="2"/><circle cx="130" cy="14" r="2"/><circle cx="228" cy="20" r="2"/>
+    <circle cx="300" cy="30" r="2"/><circle cx="180" cy="112" r="2"/><circle cx="80" cy="110" r="2"/><circle cx="268" cy="106" r="2"/>
+  </g>
+  <path d="M14,62 q22,-18 44,0 q22,18 44,0 q22,-18 44,0 q22,18 44,0 q22,-18 44,0" fill="none" stroke="#0e7d72" stroke-width="2.6"/>
+  <line x1="36" y1="53" x2="36" y2="76" stroke="#0e7d72" stroke-width="2"/><text x="18" y="90" font-size="11" fill="#0a5a52" font-weight="700">COO⁻</text>
+  <line x1="124" y1="53" x2="124" y2="76" stroke="#0e7d72" stroke-width="2"/><text x="106" y="90" font-size="11" fill="#0a5a52" font-weight="700">COO⁻</text>
+  <line x1="212" y1="53" x2="212" y2="76" stroke="#0e7d72" stroke-width="2"/><text x="194" y="90" font-size="11" fill="#0a5a52" font-weight="700">COO⁻</text>
+  <circle cx="74" cy="30" r="11" fill="#e85d9e"/><text x="64" y="34" font-size="10" fill="#fff">Na⁺</text>
+  <circle cx="168" cy="26" r="11" fill="#e85d9e"/><text x="158" y="30" font-size="10" fill="#fff">Na⁺</text>
+  <circle cx="262" cy="32" r="11" fill="#e85d9e"/><text x="252" y="36" font-size="10" fill="#fff">Na⁺</text>
+  <text x="14" y="122" font-size="10" fill="#241a12">Ketten hydratisieren &amp; verschlaufen → viskose Lösung</text>
+</svg><p>Natriumalginat zerfällt in <b>polyanionische Ketten (–COO⁻)</b> und Na⁺-Gegenionen; die geladenen Ketten hydratisieren und verschlaufen. Da die Basis neutral ist, sind die –COO⁻ bereits geladen — <b>kein Entsäuern nötig</b>.</p></div>
+  </div>
+</div><div class="lstep g-salty">
+  <div class="lstep-head"><span class="lstep-num">2</span><h4>Calciumbad ansetzen</h4></div>
+  <div class="lstep-body">
+    <div class="do"><span class="lbl">Das tust du</span>Löse <b>5&nbsp;g Calciumchlorid</b> in <b>500&nbsp;mL Wasser</b>.</div>
+    <div class="micro"><span class="lbl">Auf Teilchenebene</span><svg viewBox="0 0 340 122" xmlns="http://www.w3.org/2000/svg" font-family="'Space Mono',monospace"><circle cx="66" cy="58" r="26" fill="none" stroke="#7fb3d5" stroke-width="1" stroke-dasharray="3 3"/><circle cx="66" cy="58" r="15" fill="#f4a724"/><text x="55" y="62" font-size="10" fill="#241a12" font-weight="700">Ca²⁺</text><circle cx="170" cy="58" r="26" fill="none" stroke="#7fb3d5" stroke-width="1" stroke-dasharray="3 3"/><circle cx="170" cy="58" r="15" fill="#f4a724"/><text x="159" y="62" font-size="10" fill="#241a12" font-weight="700">Ca²⁺</text><circle cx="274" cy="58" r="26" fill="none" stroke="#7fb3d5" stroke-width="1" stroke-dasharray="3 3"/><circle cx="274" cy="58" r="15" fill="#f4a724"/><text x="263" y="62" font-size="10" fill="#241a12" font-weight="700">Ca²⁺</text><circle cx="112" cy="26" r="9" fill="#7d94a6"/><text x="105" y="29" font-size="9" fill="#fff">Cl⁻</text><circle cx="210" cy="98" r="9" fill="#7d94a6"/><text x="203" y="101" font-size="9" fill="#fff">Cl⁻</text><circle cx="300" cy="40" r="9" fill="#7d94a6"/><text x="293" y="43" font-size="9" fill="#fff">Cl⁻</text><circle cx="40" cy="100" r="9" fill="#7d94a6"/><text x="33" y="103" font-size="9" fill="#fff">Cl⁻</text><circle cx="150" cy="104" r="9" fill="#7d94a6"/><text x="143" y="107" font-size="9" fill="#fff">Cl⁻</text><text x="14" y="116" font-size="10" fill="#241a12">frei bewegliche, hydratisierte Ca²⁺-Ionen (+ 2 Cl⁻)</text></svg><p>CaCl₂ dissoziiert zu <b>Ca²⁺ + 2 Cl⁻</b>. Die hydratisierten Ca²⁺-Ionen stehen als Vernetzer bereit.</p></div>
+  </div>
+</div><div class="lstep g-salty">
+  <div class="lstep-head"><span class="lstep-num">3</span><h4>Kaviar-Perlen tröpfeln</h4></div>
+  <div class="lstep-body">
+    <div class="do"><span class="lbl">Das tust du</span>Mit feiner Pipette oder Spritze viele <b>winzige</b> Tropfen ins Bad geben → Perlen in Kaviargröße.</div>
+    <div class="micro"><span class="lbl">Auf Teilchenebene</span><svg viewBox="0 0 340 158" xmlns="http://www.w3.org/2000/svg" font-family="'Space Mono',monospace">
+  <path d="M20,10 Q6,79 20,148" fill="none" stroke="#241a12" stroke-width="1.2" opacity="0.35"/>
+  <text x="24" y="16" font-size="8.5" fill="#241a12" opacity="0.55">Tropfen-Oberfläche</text>
+  <path d="M44,54 q30,-15 60,0 q30,15 60,0 q30,-15 60,0 q30,15 60,0" fill="none" stroke="#0e7d72" stroke-width="2.6"/>
+  <path d="M44,110 q30,15 60,0 q30,-15 60,0 q30,15 60,0 q30,-15 60,0" fill="none" stroke="#0e7d72" stroke-width="2.6"/>
+  <g stroke="#0a5a52" stroke-width="2">
+    <line x1="74" y1="54" x2="74" y2="72"/><line x1="194" y1="54" x2="194" y2="72"/><line x1="284" y1="54" x2="284" y2="72"/>
+    <line x1="74" y1="110" x2="74" y2="92"/><line x1="194" y1="110" x2="194" y2="92"/><line x1="284" y1="110" x2="284" y2="92"/>
+  </g>
+  <g fill="#0a5a52" font-size="9" font-weight="700">
+    <text x="62" y="82">O⁻</text><text x="182" y="82">O⁻</text><text x="272" y="82">O⁻</text>
+    <text x="62" y="90">O⁻</text><text x="182" y="90">O⁻</text><text x="272" y="90">O⁻</text>
+  </g>
+  <g>
+    <circle cx="134" cy="82" r="13" fill="#f4a724"/><text x="123" y="86" font-size="9" font-weight="700" fill="#241a12">Ca²⁺</text>
+    <circle cx="234" cy="82" r="13" fill="#f4a724"/><text x="223" y="86" font-size="9" font-weight="700" fill="#241a12">Ca²⁺</text>
+  </g>
+  <g stroke="#c98a17" stroke-width="1" stroke-dasharray="3 2">
+    <line x1="124" y1="76" x2="80" y2="72"/><line x1="124" y1="88" x2="80" y2="92"/>
+    <line x1="224" y1="76" x2="190" y2="72"/><line x1="224" y1="88" x2="190" y2="92"/>
+  </g>
+  <circle cx="312" cy="24" r="11" fill="#e85d9e"/><text x="302" y="28" font-size="9" fill="#fff">Na⁺</text>
+  <line x1="290" y1="60" x2="308" y2="34" stroke="#e85d9e" stroke-width="1.3" stroke-dasharray="4 3"/>
+  <polygon points="308,34 299,36 304,42" fill="#e85d9e"/>
+  <text x="14" y="150" font-size="10" fill="#241a12">1 Ca²⁺ verbrückt 2 –COO⁻ zweier Ketten → „Eierkarton"-Netzwerk</text>
+</svg><p>Gleiche Chemie wie bei der Popping Boba: Ca²⁺ verbrückt –COO⁻ benachbarter Ketten (Eierkarton). Kleine Tropfen haben viel Oberfläche → sehr schnelle, gleichmäßige Hautbildung.</p></div>
+  </div>
+</div><div class="lstep g-salty">
+  <div class="lstep-head"><span class="lstep-num">4</span><h4>Kurz vernetzen lassen (≈ 1 min)</h4></div>
+  <div class="lstep-body">
+    <div class="do"><span class="lbl">Das tust du</span>Bei den kleinen Perlen genügt etwa <b>1&nbsp;min</b>; dann abschöpfen.</div>
+    <div class="micro"><span class="lbl">Auf Teilchenebene</span><svg viewBox="0 0 220 158" xmlns="http://www.w3.org/2000/svg" font-family="'Space Mono',monospace">
+  <circle cx="104" cy="80" r="62" fill="#cfeae6"/>
+  <circle cx="104" cy="80" r="42" fill="#dcead0"/>
+  <text x="104" y="78" font-size="10" fill="#241a12" text-anchor="middle">flüssiger</text>
+  <text x="104" y="90" font-size="10" fill="#241a12" text-anchor="middle">Kern</text>
+  <g stroke="#c98a17" stroke-width="1.4">
+    <line x1="104" y1="10" x2="104" y2="34"/><polygon points="104,34 100,26 108,26" fill="#c98a17"/>
+    <line x1="174" y1="80" x2="150" y2="80"/><polygon points="150,80 158,76 158,84" fill="#c98a17"/>
+    <line x1="104" y1="150" x2="104" y2="126"/><polygon points="104,126 100,134 108,134" fill="#c98a17"/>
+    <line x1="34" y1="80" x2="58" y2="80"/><polygon points="58,80 50,76 50,84" fill="#c98a17"/>
+  </g>
+  <text x="112" y="20" font-size="9" fill="#c98a17" font-weight="700">Ca²⁺</text>
+  <text x="150" y="150" font-size="9" fill="#0a5a52">Gelhaut (vernetzt)</text>
+  <line x1="150" y1="146" x2="132" y2="118" stroke="#0a5a52" stroke-width="0.8"/>
+  <text x="8" y="152" font-size="9" fill="#241a12" opacity="0.7">Front wandert nach innen</text>
+</svg><p>Weil der Weg von der Oberfläche zum Zentrum kurz ist, ist die Gelfront schnell durch. Die kurze Zeit hält den Kern flüssig.</p></div>
+  </div>
+</div><div class="lstep g-salty">
+  <div class="lstep-head"><span class="lstep-num">5</span><h4>Spülen &amp; anrichten</h4></div>
+  <div class="lstep-body">
+    <div class="do"><span class="lbl">Das tust du</span>Perlen spülen und über Speisen oder Getränke geben.</div>
+    <div class="micro"><span class="lbl">Auf Teilchenebene</span><svg viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg" font-family="'Space Mono',monospace">
+  <path d="M90,32 a48,48 0 1 0 0.1,0" fill="#dcead0"/>
+  <path d="M118,40 a48,48 0 0 1 -0,80" fill="none" stroke="#0e7d72" stroke-width="4"/>
+  <path d="M62,120 a48,48 0 0 1 46,-88" fill="none" stroke="#0e7d72" stroke-width="4"/>
+  <path d="M120,44 l9,7 l-8,7 l11,9" fill="none" stroke="#fbf4e9" stroke-width="4"/>
+  <g fill="#dcead0">
+    <circle cx="152" cy="42" r="6"/><circle cx="172" cy="30" r="4.5"/><circle cx="184" cy="52" r="5.5"/><circle cx="166" cy="58" r="3.5"/>
+  </g>
+  <text x="6" y="84" font-size="11" fill="#241a12">Biss</text>
+  <line x1="30" y1="80" x2="52" y2="80" stroke="#241a12" stroke-width="1.5"/><polygon points="52,80 44,76 44,84" fill="#241a12"/>
+  <text x="66" y="142" font-size="10" fill="#0a5a52" font-weight="700">Membran reißt → Popping!</text>
+</svg><p>Rest-Ca²⁺ abspülen <b>stoppt die Vernetzung</b>; die Perlen sind außen fest, innen flüssig — beim Biss platzt die Membran.</p></div>
+  </div>
+</div></div>
   </div>
 </section>
 
@@ -243,29 +555,34 @@ footer .dots{font-size:1.4rem;letter-spacing:6px;color:var(--mango)}
           <li><b>Buchstabenzahl zählen:</b> Gesucht sind immer genau <b>6</b> Buchstaben — das schließt viele Synonyme aus (z.&nbsp;B. „Gold“ ✗, „Silber“ ✓).</li>
           <li><b>Periodensystem:</b> „Nachbar von …“ heißt benachbarte Gruppe/Periode.</li>
         </ul>
-        <div class="ex">Beispiel-Hinweis „Flüssigkeit, R&nbsp;=&nbsp;0&nbsp;Ω, sprudelt“ → 6 Buchstaben → <b>Helium</b>? Nein, 6 Buchstaben & supraleitend-kalt-flüssig passt zu <b>HELIUM</b> (Edelgas). So testet man Kandidaten gegen die Buchstabenzahl <em>und</em> die kreisförmig geteilten Buchstaben der Nachbarwörter.</div>
+        <div class="ex">Beispiel (analog, nicht aus diesem Rätsel): „Flüssiges Metall bei Raumtempernatur“ ⇒ Quecksilber hat <em>10</em> Buchstaben, passt also <b>nicht</b> in eine 6er-Wabe — die Buchstabenzahl ist damit ein scharfes Ausschlusskriterium. Achte außerdem auf Hinweise, bei denen <em>zwei</em> benachbarte Felder zusammen einen Begriff ergeben (z.&nbsp;B. ein Wortteil im Hinweis selbst).</div>
         <p>Trick: Überlappende Buchstaben benachbarter Wörter sind die härteste Kontrolle — wenn ein Kandidat dort nicht passt, ist er falsch.</p>
       </div></div>
       <button class="btn sol">✓ Musterlösung zur Selbstkontrolle <span class="chev">▾</span></button>
       <div class="panel solp"><div class="inner">
-        <h5>Wahrscheinliche Begriffe je Hinweis (6 Buchstaben)</h5>
+        <h5>Die 14 Begriffe je Hinweisfeld (jeweils 6 Buchstaben)</h5>
         <ul>
-          <li><b>Δp = 0</b> → <b>ISOBAR</b> (Zustandsänderung bei konstantem Druck)</li>
-          <li><b>Nachbar von Sr</b> → <b>BARIUM</b> (steht in Gruppe 2 unter Strontium)</li>
-          <li><b>C₇H₁₆</b> → <b>HEPTAN</b></li>
-          <li><b>Edelgas</b> → <b>HELIUM</b></li>
-          <li><b>Edelmetall</b> → <b>SILBER</b> (alt.: PLATIN)</li>
           <li><b>Massenzahl von C</b> → <b>ZWOELF</b> (¹²C → 12)</li>
-          <li><b>Chem. Chamäleon</b> → <b>MANGAN</b> (Farbwechsel-Demo des Permanganats)</li>
+          <li><b>Edelmetall</b> → <b>PLATIN</b></li>
+          <li><b>Bei CdSe 1,74 eV</b> → <b>LUECKE</b> — das Hinweisfeld nennt „[Band…]“, gesucht ist also die <b>Band­lücke</b> (1,74 eV ist die Bandlücke von CdSe).</li>
+          <li><b>Farbe</b> → <b>ORANGE</b></li>
           <li><b>Anion des Schwefels</b> → <b>SULFID</b> (S²⁻)</li>
-          <li><b>Krimi-Anion</b> → <b>CYANID</b> (Giftmord-Klassiker, CN⁻)</li>
-          <li><b>Labor-Ball</b> → <b>KOLBEN</b> (Rundkolben)</li>
+          <li><b>Edelgas</b> → <b>HELIUM</b></li>
+          <li><b>Chem. Chamäleon</b> → <b>MANGAN</b> (Farbenspiel der Oxidationsstufen)</li>
           <li><b>Aromaten sind …</b> → <b>PLANAR</b> (eben, cyclisch, konjugiert)</li>
-          <li><b>Bei CdSe 1,74 eV</b> → Bandlücke; λ = 1240/1,74 ≈ 713 nm ⇒ <b>(rot)</b></li>
+          <li><b>Nachbar von Sr</b> → <b>BARIUM</b> (Gruppe 2, direkt unter Strontium)</li>
+          <li><b>Skelettformel</b> (gezeigte Struktur) → <b>GLYCIN</b> (die abgebildete Aminosäure H₂N–CH₂–COOH)</li>
+          <li><b>C₇H₁₆</b> → <b>HEPTAN</b></li>
+          <li><b>Δp = 0</b> → <b>ISOBAR</b> (Zustandsänderung bei konstantem Druck)</li>
+          <li><b>Krimi-Anion</b> → <b>CYANID</b> (Giftmord-Klassiker, CN⁻)</li>
+          <li><b>Laborball</b> → <b>PELEUS</b> (der Peleusball / Pipettierball)</li>
         </ul>
-        <div class="ans"><b>Ehrlicher Hinweis:</b> Das zentrale <b>Lösungswort</b> ergibt sich aus der räumlichen Anordnung der Sechsecke
-        (Startfeld + Leserichtung). Diese Verzahnung ist aus der reinen Texterfassung der PDF <b>nicht zuverlässig rekonstruierbar</b> —
-        bitte am gedruckten Wabenbild gegenprüfen. Thematisch liegt ein Bezug zu „BOBA“ / „BUBBLE“ / „TAIWAN“ nahe.</div>
+        <div class="ans"><b>Lösungswort: TAIPEH.</b> Es steht im zentralen Feld und ist die deutsche Schreibweise der Hauptstadt
+        <b>Taiwans</b> — dem Austragungsort der IChO 2027. Laut Musterlösung wird ausschließlich <em>TAIPEH</em> akzeptiert,
+        auch wenn sich aus denselben Buchstaben andere Worte bilden ließen.<br>
+        <span style="font-size:.85em;opacity:.85">Hinweis zur Rätselmechanik: Startfeld und Leserichtung (mit/gegen den Uhrzeigersinn) jeder Wabe muss man
+        selbst finden; nur Sechserringe <em>um ein Hinweisfeld</em> tragen ein gültiges Wort. Teilpunkte (je 0,5 P) gibt es
+        auch, wenn Start/Leserichtung nicht stimmen.</span></div>
       </div></div>
     </div>
   </div>
@@ -314,15 +631,16 @@ footer .dots{font-size:1.4rem;letter-spacing:6px;color:var(--mango)}
       <div class="panel hintp"><div class="inner">
         <h5>Herkunft + Geliermechanismus betrachten</h5>
         <p>Gelatine wird aus Kollagen (Bindegewebe) gewonnen. Welche Klasse von Makromolekülen ist Kollagen? Und: <em>wie</em> geliert das Material — physikalisch (reversibel) oder ionisch vernetzt?</p>
-        <div class="ex">Analog: Agar-Agar geliert thermoreversibel, ist aber bis ~85&nbsp;°C stabil. Gelatine dagegen schmilzt schon nahe Körpertemperatur — das ist entscheidend für „warm vs. kalt“-Anwendungen.</div>
+        <div class="ex">Analog: Agar-Agar geliert thermoreversibel, bleibt aber bis ~85&nbsp;°C stabil. Gelatine dagegen löst sich schon bei mäßiger Erwärmung wieder auf — das ist für „warmer Tee vs. kaltes Dessert“ entscheidend.</div>
       </div></div>
       <button class="btn sol">✓ Musterlösung zur Selbstkontrolle <span class="chev">▾</span></button>
       <div class="panel solp"><div class="inner">
         <p><b>Monomere:</b> Gelatine ist ein hydrolysiertes <b>Protein</b> (aus Kollagen) und besteht aus <b>Aminosäuren</b>,
         überwiegend Glycin, Prolin und Hydroxyprolin.</p>
-        <div class="ans"><b>Eignung:</b> Für Popping Boba <b>ungeeignet</b>. Gelatine bildet ein <em>thermoreversibles, physikalisches</em> Gel
-        (Tripelhelix-Bildung), das schon bei ~30–35&nbsp;°C schmilzt. Im warmen Bubble Tea würde die Hülle zerfließen.
-        Außerdem fehlt der ionotrope Vernetzungsmechanismus; eine stabile, flüssigkeitsgefüllte Kapsel wie beim Ca²⁺-Alginat ist nicht erreichbar.</div>
+        <div class="ans"><b>Eignung:</b> Für Bobas <b>ungeeignet</b>. Gelatine bildet ein <em>thermoreversibles, physikalisches</em> Gel
+        (Tripelhelices), das sich in Wasser oberhalb von etwa <b>50&nbsp;°C auflöst</b>. Da Bobas in <b>warmen Tee</b> gegeben werden,
+        würde die Gelstruktur zerfließen. (Es fehlt zudem der ionotrope Vernetzungsmechanismus des Ca²⁺-Alginats für eine stabile,
+        flüssigkeitsgefüllte Kapsel.)</div>
       </div></div>
     </div>
   </div>
@@ -340,11 +658,13 @@ footer .dots{font-size:1.4rem;letter-spacing:6px;color:var(--mango)}
       </div></div>
       <button class="btn sol">✓ Musterlösung zur Selbstkontrolle <span class="chev">▾</span></button>
       <div class="panel solp"><div class="inner">
-        <p><b>Glycan</b> = Polysaccharid; ein Polymer aus Monosaccharid-Einheiten, die über <em>glycosidische Bindungen</em> verknüpft sind.</p>
+        <p><b>Glycan</b> (= Polysaccharid): ein <b>Polymer</b> aus <b>mindestens elf Monosaccharid</b>-Einheiten (Einfachzuckern),
+        die über <b>glycosidische Bindungen</b> verknüpft sind. <span style="font-size:.85em;opacity:.8">(Die vier fett gesetzten Begriffe sind im Lösungsschlüssel je 0,5 P wert.)</span></p>
         <ul>
-          <li><b>Stärke:</b> ausschließlich Glucose (Amylose + Amylopektin) ⇒ <b>Homoglycan</b> (kein Heteroglycan).</li>
-          <li><b>Alginat:</b> zwei verschiedene Uronsäuren — D-Mannuronsäure (M) und L-Guluronsäure (G) ⇒ <b>Heteroglycan</b>.</li>
+          <li><b>Stärke:</b> ausschließlich Glucose (Amylose + Amylopektin) ⇒ <b>Homoglycan</b> (Monoglycan), also <em>kein</em> Heteroglycan.</li>
+          <li><b>Alginat:</b> zwei verschiedene Monomere — D-Mannuronat (M) und L-Guluronat (G) ⇒ <b>Heteroglycan</b>.</li>
         </ul>
+        <div class="ans">Begründung: <b>Heteroglycane</b> bestehen aus <em>unterschiedlichen</em> Monomeren. Alginat erfüllt das (M + G), Stärke nicht (nur Glucose).</div>
       </div></div>
     </div>
   </div>
@@ -435,13 +755,40 @@ footer .dots{font-size:1.4rem;letter-spacing:6px;color:var(--mango)}
       <div class="panel hintp"><div class="inner">
         <h5>Stereozentren zählen, dann 2ⁿ</h5>
         <p>Ein Stereozentrum trägt vier verschiedene Substituenten. C1 (CHO) und C6 (COOH) sind <em>keine</em> Stereozentren. Prüfe C2–C5.</p>
-        <div class="ex">Analog: Threose hat 2 Stereozentren ⇒ 2² = 4 Stereoisomere = 2 Enantiomerenpaare. Diastereomere zu <em>einem</em> Molekül = alle außer ihm selbst und seinem Enantiomer = 4 − 2 = 2.</div>
+        <div class="ex">Analog: Threose hat 2 Stereozentren ⇒ 2² = 4 Stereoisomere. Da je zwei davon Enantiomere sind, zählt der Lösungsschlüssel 4 / 2 = <b>2 Diastereomere</b>. Übertrage genau dieses Schema (2ⁿ, dann ÷ 2).</div>
       </div></div>
       <button class="btn sol">✓ Musterlösung zur Selbstkontrolle <span class="chev">▾</span></button>
       <div class="panel solp"><div class="inner">
-        <p><b>Stereozentren:</b> C2, C3, C4, C5 ⇒ <b>n = 4</b> (C1 = CHO, C6 = COOH zählen nicht).</p>
-        <p>Stereoisomere insgesamt: <b>2⁴ = 16</b> (keine Meso-Symmetrie, da beide Kettenenden verschieden sind) ⇒ 8 Enantiomerenpaare.</p>
-        <div class="ans">Bezogen auf <em>ein</em> bestimmtes Isomer gibt es <b>16 − 2 = 14 Diastereomere</b> (alle Stereoisomere außer dem Molekül selbst und seinem Enantiomer).</div>
+        <p><b>Stereozentren:</b> C2, C3, C4, C5 ⇒ <b>n = 4</b> (C1 = CHO und C6 = COOH sind keine Stereozentren).</p>
+        <svg width="100%" viewBox="0 0 320 110" font-family="Space Mono" font-size="12">
+          <!-- zigzag backbone C1..C6 -->
+          <polyline points="30,70 70,46 110,70 150,46 190,70 230,46 270,70"
+            fill="none" stroke="#241a12" stroke-width="2"/>
+          <!-- C1 aldehyde -->
+          <line x1="30" y1="70" x2="14" y2="52" stroke="#241a12" stroke-width="2"/>
+          <line x1="33" y1="70" x2="17" y2="52" stroke="#241a12" stroke-width="2"/>
+          <text x="2" y="48" fill="#a83610">O</text><text x="20" y="86">H</text>
+          <text x="22" y="86" opacity="0">.</text>
+          <!-- OH groups + stereocenter stars on C2..C5 -->
+          <line x1="70" y1="46" x2="70" y2="24" stroke="#241a12" stroke-width="2"/><text x="60" y="20">OH</text>
+          <text x="62" y="62" fill="#a83610" font-size="16" font-weight="700">∗</text>
+          <line x1="110" y1="70" x2="110" y2="92" stroke="#241a12" stroke-width="2"/><text x="100" y="106">OH</text>
+          <text x="102" y="62" fill="#a83610" font-size="16" font-weight="700">∗</text>
+          <line x1="150" y1="46" x2="150" y2="24" stroke="#241a12" stroke-width="2"/><text x="140" y="20">OH</text>
+          <text x="142" y="62" fill="#a83610" font-size="16" font-weight="700">∗</text>
+          <line x1="190" y1="70" x2="190" y2="92" stroke="#241a12" stroke-width="2"/><text x="180" y="106">OH</text>
+          <text x="182" y="62" fill="#a83610" font-size="16" font-weight="700">∗</text>
+          <!-- C6 carboxyl -->
+          <line x1="270" y1="70" x2="286" y2="52" stroke="#241a12" stroke-width="2"/>
+          <line x1="273" y1="70" x2="289" y2="52" stroke="#241a12" stroke-width="2"/>
+          <text x="284" y="48" fill="#0e7d72">O</text>
+          <line x1="270" y1="70" x2="270" y2="92" stroke="#241a12" stroke-width="2"/><text x="262" y="106" fill="#0e7d72">OH</text>
+        </svg>
+        <p class="cap">Glucuronsäure (offenkettig): vier Stereozentren ∗ an C2–C5; C1 (CHO) und C6 (COOH) zählen nicht.</p>
+        <p>Stereoisomere insgesamt: <b>2⁴ = 16</b>. Davon sind jeweils zwei zueinander <em>enantiomer</em>, sodass sich
+        <b>16 / 2 = 8</b> ergeben.</p>
+        <div class="ans"><b>8 Diastereomere</b> (gemäß Lösungsschlüssel: 16 Stereoisomere, paarweise Enantiomere ⇒ Zahl halbiert ⇒ 8).
+        <span style="font-size:.85em;opacity:.8"><br>Hinweis: Der Schlüssel zählt hier die 8 Enantiomerenpaare als „Diastereomere“. Teilpunkte: 2⁴ = 16 (1 P) · Halbierung durch Enantiomerie (1 P) · Endergebnis 8 (1 P).</span></div>
       </div></div>
     </div>
   </div>
@@ -460,18 +807,23 @@ footer .dots{font-size:1.4rem;letter-spacing:6px;color:var(--mango)}
       <button class="btn sol">✓ Musterlösung zur Selbstkontrolle <span class="chev">▾</span></button>
       <div class="panel solp"><div class="inner">
         <p>Das zweite Monomer ist <b>L-Guluronsäure</b> (als Guluronat) — das <b>C5-Epimer</b> der D-Mannuronsäure.</p>
-        <svg width="170" height="200" viewBox="0 0 170 200" font-family="Space Mono" font-size="13">
-          <line x1="85" y1="18" x2="85" y2="180" stroke="#241a12" stroke-width="1.5"/>
-          <text x="60" y="14">CHO</text>
-          <line x1="55" y1="46" x2="115" y2="46" stroke="#241a12"/><text x="118" y="50">OH</text><text x="28" y="50">H</text>
-          <line x1="55" y1="78" x2="115" y2="78" stroke="#241a12"/><text x="118" y="82">OH</text><text x="28" y="82">H</text>
-          <line x1="55" y1="110" x2="115" y2="110" stroke="#241a12"/><text x="14" y="114">HO</text><text x="120" y="114">H</text>
-          <line x1="55" y1="142" x2="115" y2="142" stroke="#241a12"/><text x="118" y="146">OH</text><text x="28" y="146">H</text>
-          <text x="68" y="196" fill="#0e7d72">COO⁻</text>
-          <text x="2" y="46" font-size="10" fill="#8e6fcb">C2</text><text x="2" y="78" font-size="10" fill="#8e6fcb">C3</text>
-          <text x="2" y="110" font-size="10" fill="#8e6fcb">C4</text><text x="2" y="142" font-size="10" fill="#8e6fcb">C5</text>
+        <svg width="178" height="210" viewBox="0 0 178 210" font-family="Space Mono" font-size="13">
+          <line x1="89" y1="20" x2="89" y2="184" stroke="#241a12" stroke-width="1.5"/>
+          <text x="74" y="16">CHO</text>
+          <!-- C2: HO left, H right -->
+          <line x1="59" y1="48" x2="119" y2="48" stroke="#241a12"/><text x="20" y="52">HO</text><text x="122" y="52">H</text>
+          <!-- C3: HO left, H right -->
+          <line x1="59" y1="80" x2="119" y2="80" stroke="#241a12"/><text x="20" y="84">HO</text><text x="122" y="84">H</text>
+          <!-- C4: H left, OH right -->
+          <line x1="59" y1="112" x2="119" y2="112" stroke="#241a12"/><text x="46" y="116">H</text><text x="122" y="116">OH</text>
+          <!-- C5: HO left, H right -->
+          <line x1="59" y1="144" x2="119" y2="144" stroke="#241a12"/><text x="20" y="148">HO</text><text x="122" y="148">H</text>
+          <text x="68" y="202" fill="#0e7d72">COO⁻</text>
+          <g font-size="10" fill="#8e6fcb">
+            <text x="2" y="48">C2</text><text x="2" y="80">C3</text><text x="2" y="112">C4</text><text x="2" y="144">C5</text>
+          </g>
         </svg>
-        <p class="cap">L-Guluronat · OH: C2 links, C3 links, C4 rechts, C5 links</p>
+        <p class="cap">L-Guluronat · OH-Stellung: C2 links, C3 links, C4 rechts, C5 links (C1 = CHO oben, C6 = COO⁻ unten).</p>
         <div class="ans"><b>L-Guluronsäure / L-Guluronat</b> (bei neutralem pH einfach deprotoniert, –COO⁻).</div>
       </div></div>
     </div>
@@ -487,19 +839,22 @@ footer .dots{font-size:1.4rem;letter-spacing:6px;color:var(--mango)}
         <h5>Bindungsbilanz pro C-Atom</h5>
         <p>Regel: Bindung C–O zählt <b>+1</b>, Bindung C–H zählt <b>−1</b>, Bindung C–C zählt <b>0</b>. Eine Doppelbindung C=O zählt <b>+2</b>. Geh Atom für Atom durch.</p>
         <div class="ex">Analog (Ethanol): C der CH₃-Gruppe: 3×(C–H) + 1×(C–C) = −3. C der CH₂OH-Gruppe: 2×(C–H) + 1×(C–O) + 1×(C–C) = −1.</div>
-        <p>Wichtig: Im Pyranosering ist <b>C1</b> das Halbacetal (zwei C–O-Bindungen!) und <b>C5</b> trägt das <em>Ring-Sauerstoff</em>.</p>
+        <p>Wichtig: Der <b>anomere (Halbacetal-)Kohlenstoff</b> trägt zwei C–O-Bindungen (Ring-O + OH), der <b>Carboxyl-Kohlenstoff</b> ein C=O plus ein C–OH. Die Musterlösung nummeriert den Carboxyl-C als C1.</p>
       </div></div>
       <button class="btn sol">✓ Musterlösung zur Selbstkontrolle <span class="chev">▾</span></button>
       <div class="panel solp"><div class="inner">
+        <p>Vorgehen: C–C-Bindungen homolytisch (0), alle übrigen heterolytisch nach Elektronegativität spalten ⇒
+        C–O zählt <b>+1</b>, C–H zählt <b>−1</b>, C=O zählt <b>+2</b>. Nummerierung wie in der Musterlösung: <b>Carboxyl-C = C1</b>, anomerer (Halbacetal-)C = C6.</p>
         <ul>
-          <li><b>C1</b> (Halbacetal): 2×(C–O: Ring-O + OH) +2, 1×(C–H) −1, 1×(C–C) 0 ⇒ <b>+1</b></li>
-          <li><b>C2</b>: 1×(C–O) +1, 1×(C–H) −1, 2×(C–C) 0 ⇒ <b>0</b></li>
-          <li><b>C3</b>: 1×(C–O) +1, 1×(C–H) −1, 2×(C–C) 0 ⇒ <b>0</b></li>
-          <li><b>C4</b>: 1×(C–O) +1, 1×(C–H) −1, 2×(C–C) 0 ⇒ <b>0</b></li>
-          <li><b>C5</b> (trägt Ring-O): 1×(C–O) +1, 1×(C–H) −1, 2×(C–C) 0 ⇒ <b>0</b></li>
-          <li><b>C6</b> (–COO⁻/–COOH): C=O +2, C–O +1, C–C 0 ⇒ <b>+3</b></li>
+          <li><b>C1</b> (Carboxyl –COOH): C=O (+2) + C–OH (+1) ⇒ <b>+III</b></li>
+          <li><b>C2</b> (Ring-C, trägt –COOH und das Ring-O): C–O<sub>Ring</sub> +1, C–H −1, 2×C–C 0 ⇒ <b>0</b></li>
+          <li><b>C3</b> (–CHOH–): C–O +1, C–H −1, 2×C–C 0 ⇒ <b>0</b></li>
+          <li><b>C4</b> (–CHOH–): C–O +1, C–H −1, 2×C–C 0 ⇒ <b>0</b></li>
+          <li><b>C5</b> (–CHOH–): C–O +1, C–H −1, 2×C–C 0 ⇒ <b>0</b></li>
+          <li><b>C6</b> (anomeres Halbacetal: Ring-O + OH): 2×C–O (+2), C–H −1, C–C 0 ⇒ <b>+I</b></li>
         </ul>
-        <div class="ans"><b>C1 = +1 · C2 = 0 · C3 = 0 · C4 = 0 · C5 = 0 · C6 = +3</b></div>
+        <div class="ans"><b>C1 = +III · C2 = 0 · C3 = 0 · C4 = 0 · C5 = 0 · C6 = +I</b>
+        <span style="font-size:.85em;opacity:.8"><br>Chemisch unabhängig von der Nummerierung: der <em>Carboxyl</em>-Kohlenstoff ist +III, der <em>anomere</em> (Halbacetal-)Kohlenstoff +I, die vier übrigen Ringkohlenstoffe 0. Der Lösungsweg muss skizziert sein (sonst max. 2 P).</span></div>
       </div></div>
     </div>
   </div>
@@ -598,16 +953,19 @@ footer .dots{font-size:1.4rem;letter-spacing:6px;color:var(--mango)}
         <div class="ex">Analog: 50 g Nudeln mit 10 % Feuchte = 45 g Trockenmasse; gehen 1 g ins Kochwasser, bleiben 44 g im Produkt.</div></div></div>
       <button class="btn sol">✓ Musterlösung <span class="chev">▾</span></button>
       <div class="panel solp"><div class="inner">
+        <p><b>1. Masse Stärke in den gequollenen Perlen</b><br>
+        m<sub>Stärke</sub> = m<sub>Stärke, Einwaage</sub> − m<sub>Stärke, Kochverlust</sub></p>
         <ul>
-          <li>Reine Stärke anfangs: 0,88 · 68,0 g = <b>59,84 g</b>; Restwasser 0,12 · 68,0 = 8,16 g</li>
-          <li>Ins Kochwasser ausgetreten (Rückstand): 2,94 g Stärke</li>
-          <li>Stärke in der gekochten Boba: 59,84 − 2,94 = <b>56,90 g</b></li>
-          <li>Wasser in der gekochten Boba: 83,6 − 56,90 = <b>26,70 g</b></li>
-          <li>Beim Kochen <em>aufgenommenes</em> Wasser: 26,70 − 8,16 = <b>18,54 g</b></li>
+          <li>Stärke in der Einwaage: 88&nbsp;% · 68,0 g = <b>59,84 g</b></li>
+          <li>beim Kochen ausgetreten (eingedampfter Rückstand): 2,94 g</li>
+          <li>Stärke in der gekochten Boba: 59,84 − 2,94 = <b>56,9 g</b></li>
         </ul>
-        <p>Wasserabsorptionsvermögen = aufgenommenes Wasser / reine Stärke = 18,54 / 56,90 = 0,326</p>
-        <div class="ans"><b>≈ 32,6 % (m/m)</b><br>
-        <span style="font-size:.85em;opacity:.8">Hinweis zur Lesart: Bezieht man den <em>gesamten</em> Wassergehalt der gekochten Boba auf die Stärke (26,70/56,90), erhält man 46,9 %. Der Begriff „absorbiertes Wasser“ spricht für die Netto-Aufnahme (32,6 %). Mit dem offiziellen Lösungsschlüssel abgleichen.</span></div></div></div>
+        <p><b>2. Wasserabsorptionsvermögen</b><br>
+        = (m<sub>gequollen</sub> − m<sub>Stärke</sub>) / m<sub>Stärke</sub> = (83,6 g − 56,9 g) / 56,9 g = 26,7 / 56,9</p>
+        <div class="ans"><b>= 46,9 % (m/m)</b>
+        <span style="font-size:.85em;opacity:.85"><br>Alternative laut Lösungsschlüssel (ohne Abzug der „verlorenen“ Stärke, max. 3,0 P):
+        (83,6 − 59,84)/59,84 = <b>39,8 %</b>. Teilpunkte gibt es je für Ansatz und folgerichtiges Zwischenergebnis.</span></div>
+      </div></div>
     </div>
   </div>
 
@@ -729,11 +1087,17 @@ footer .dots{font-size:1.4rem;letter-spacing:6px;color:var(--mango)}
         <div class="ex">Analog: Hat ein Polymerbaustein 4 C-Atome, gilt n(Baustein) = n(C)/4.</div></div></div>
       <button class="btn sol">✓ Musterlösung <span class="chev">▾</span></button>
       <div class="panel solp"><div class="inner">
-        <p>Pro 100 g:</p>
-        <ul><li>n(C) = 39,8/12,011 = 3,314 mol ⇒ n(Uronsäure-Einheit) = 3,314/6 = <b>0,5523 mol</b></li>
-        <li>n(Ca) = 2,8/40,08 = <b>0,0699 mol</b></li></ul>
-        <p>Verhältnis Ca : Uronsäure = 0,0699 : 0,5523 = 1 : 7,9</p>
-        <div class="ans"><b>≈ 1 Ca²⁺ je 8 Uronsäure-Einheiten</b> (also etwa jede vierte Carboxylatgruppe ist über Ca²⁺ verbrückt).</div></div></div>
+        <p>Aus den Masseanteilen ergeben sich mit den molaren Massen die Stoffmengen je Gramm Gel:</p>
+        <ul>
+          <li>O: 53,1&nbsp;% / 15,999 = <b>33,2 mmol/g</b></li>
+          <li>C: 39,8&nbsp;% / 12,011 = <b>33,1 mmol/g</b></li>
+          <li>H: 4,3&nbsp;% / 1,0078 = <b>43 mmol/g</b></li>
+          <li>Ca: 2,8&nbsp;% / 40,078 = <b>0,70 mmol/g</b></li>
+        </ul>
+        <p>Stoffmengenverhältnis C : H : O : Ca = 33,1 : 43 : 33,2 : 0,70, d.&nbsp;h. Summenformel des Gels ≈ <b>C₄₇H₆₁O₄₇Ca</b>.</p>
+        <p>Eine Uronsäure-Einheit enthält 6 C-Atome ⇒ Ca : Uronsäure = 1 : (47/6).</p>
+        <div class="ans"><b>≈ 1 Ca²⁺ je 8 Uronsäure-Einheiten (1 : 8)</b></div>
+      </div></div>
     </div>
   </div>
 
@@ -761,22 +1125,41 @@ footer .dots{font-size:1.4rem;letter-spacing:6px;color:var(--mango)}
         <div class="ex">Analog: In hartem Wasser bindet EDTA Ca²⁺/Mg²⁺ und „enthärtet“ es. Dieselbe Logik löst hier die ionischen Quervernetzungen.</div></div></div>
       <button class="btn sol">✓ Musterlösung <span class="chev">▾</span></button>
       <div class="panel solp"><div class="inner">
-        <p>EDTA entzieht dem Gel die vernetzenden Ca²⁺-Ionen über den sehr stabilen Chelatkomplex. Ohne Ca²⁺-Brücken trennen sich die Alginatketten und gehen in Lösung — das Gel zerfällt.</p>
-        <p><b>Reaktionsgleichung:</b><br>
-        Ca²⁺<sub>(Alginat-Gel)</sub> + H₂EDTA²⁻ → [Ca(EDTA)]²⁻ + 2 H⁺ (+ gelöstes Alginat)</p>
-        <svg width="100%" viewBox="0 0 300 160" font-family="Space Mono" font-size="11">
-          <circle cx="150" cy="80" r="16" fill="#f4a724"/><text x="139" y="84" font-weight="700">Ca</text>
-          <g stroke="#0e7d72" stroke-width="1.6">
-            <line x1="150" y1="64" x2="110" y2="30"/><line x1="150" y1="64" x2="190" y2="30"/>
-            <line x1="134" y1="80" x2="60" y2="80"/><line x1="166" y1="80" x2="240" y2="80"/>
-            <line x1="150" y1="96" x2="110" y2="130"/><line x1="150" y1="96" x2="190" y2="130"/></g>
-          <g fill="#241a12">
-            <text x="86" y="26">⁻OOC</text><text x="178" y="26">COO⁻</text>
-            <text x="20" y="84">⁻OOC</text><text x="244" y="84">COO⁻</text>
-            <text x="84" y="146">N</text><text x="188" y="146">N</text></g>
-          <text x="110" y="118" fill="#8e6fcb">N</text><text x="180" y="118" fill="#8e6fcb">N</text>
+        <p>EDTA entzieht dem Gel die vernetzenden Ca²⁺-Ionen über einen sehr stabilen Chelatkomplex. Ohne Ca²⁺-Brücken trennen sich die Alginatketten und gehen in Lösung — das Gel zerfällt.</p>
+        <p><b>Reaktionsgleichung (wie im Lösungsschlüssel):</b><br>
+        Ca(Alg)₂ + Na₂H₂edta → [Ca(edta)]²⁻ + 2 AlgH + 2 Na⁺</p>
+        <p style="font-size:.85em;opacity:.85">edta = Ethylendiamintetraacetat (C₁₀H₁₂N₂O₈⁴⁻); AlgH = Alginsäure (auch als Alg⁻ + H⁺ formulierbar). Eine Ionengleichung ohne Na⁺ wird ebenfalls akzeptiert; statt Ca(Alg)₂ ist auch eine andere Gel-Formel (z.&nbsp;B. Ca(Alg)₈⁶⁻ aus Teil d) zulässig.</p>
+        <svg width="100%" viewBox="0 0 340 200" font-family="Space Mono" font-size="11">
+          <!-- central Ca -->
+          <circle cx="170" cy="100" r="17" fill="#f4a724"/><text x="158" y="104" font-weight="700">Ca</text>
+          <!-- ethylenediamine backbone: N - CH2-CH2 - N -->
+          <line x1="120" y1="150" x2="150" y2="150" stroke="#241a12" stroke-width="1.6"/>
+          <line x1="150" y1="150" x2="190" y2="150" stroke="#241a12" stroke-width="1.6"/>
+          <line x1="190" y1="150" x2="220" y2="150" stroke="#241a12" stroke-width="1.6"/>
+          <text x="108" y="154" fill="#8e6fcb" font-weight="700">N</text>
+          <text x="222" y="154" fill="#8e6fcb" font-weight="700">N</text>
+          <!-- coordinate bonds N -> Ca (dashed) -->
+          <line x1="120" y1="146" x2="160" y2="112" stroke="#8e6fcb" stroke-width="1.4" stroke-dasharray="4 3"/>
+          <line x1="220" y1="146" x2="180" y2="112" stroke="#8e6fcb" stroke-width="1.4" stroke-dasharray="4 3"/>
+          <!-- four acetate arms CH2-COO(-) , O -> Ca dashed -->
+          <g stroke="#241a12" stroke-width="1.6">
+            <line x1="112" y1="150" x2="70" y2="128"/><line x1="112" y1="150" x2="78" y2="176"/>
+            <line x1="228" y1="150" x2="270" y2="128"/><line x1="228" y1="150" x2="262" y2="176"/>
+          </g>
+          <g fill="#0e7d72" font-weight="700">
+            <text x="34" y="124">⁻OOC</text><text x="44" y="184">⁻OOC</text>
+            <text x="274" y="124">COO⁻</text><text x="266" y="184">COO⁻</text>
+          </g>
+          <!-- four O -> Ca coordinate bonds -->
+          <g stroke="#0e7d72" stroke-width="1.3" stroke-dasharray="4 3">
+            <line x1="74" y1="118" x2="156" y2="94"/><line x1="82" y1="170" x2="156" y2="106"/>
+            <line x1="266" y1="118" x2="184" y2="94"/><line x1="258" y1="170" x2="184" y2="106"/>
+          </g>
+          <!-- charge bracket -->
+          <text x="300" y="60" font-size="15">2−</text>
+          <line x1="296" y1="44" x2="296" y2="160" stroke="#241a12"/><line x1="296" y1="44" x2="290" y2="44" stroke="#241a12"/><line x1="296" y1="160" x2="290" y2="160" stroke="#241a12"/>
         </svg>
-        <p class="cap">[Ca(EDTA)]²⁻ : Ca²⁺ wird von 2 Amin-N und 4 Carboxylat-O sechszähnig (oktaedrisch) umschlossen</p>
+        <p class="cap">[Ca(edta)]²⁻: sechszähnig (hexadentat) — 2 Amin-N + 4 Carboxylat-O koordinieren Ca²⁺ <b>oktaedrisch</b>; die N–CH₂–CH₂–N-Brücke ist das Ethylendiamin-Rückgrat.</p>
         <div class="ans">EDTA bildet mit Ca²⁺ den oktaedrischen <b>[Ca(EDTA)]²⁻</b>-Chelatkomplex (2 N- + 4 O-Donoren). Da Ca²⁺ aus den Junction-Zonen entfernt wird, löst sich das Gel auf.</div></div></div>
     </div>
   </div>
@@ -801,18 +1184,53 @@ footer .dots{font-size:1.4rem;letter-spacing:6px;color:var(--mango)}
     <div class="q"><div class="tag">a</div><div class="qtext"><div class="ask">Wie viele Bobas passen höchstens in das Getränk? Zeige Rechenweg/Skizze.</div></div><button class="check">✓</button></div>
     <div class="reveals">
       <button class="btn hint">💡 Hilfe & Strategie <span class="chev">▾</span></button>
-      <div class="panel hintp"><div class="inner"><h5>Volumen + Packungsdichte</h5>
-        <p>Berechne (1) das Volumen der Boba-Schicht (Zylinder), (2) das Volumen einer Kugel. Da Kugeln den Raum nicht lückenlos füllen, multipliziere mit der <b>dichtesten Kugelpackung</b> (φ = π/(3√2) ≈ 0,74) für die Obergrenze.</p>
-        <div class="ex">V_Zylinder = π·r²·h · · · V_Kugel = (4/3)·π·r³. „Höchstens“ ⇒ φ = 0,74 ansetzen.</div></div></div>
+      <div class="panel hintp"><div class="inner"><h5>Schicht für Schicht denken — nicht Volumen teilen</h5>
+        <p>Becher- und Kugelmaße liegen in <em>derselben</em> Größenordnung. Eine reine „Volumen ÷ Packungsdichte"-Rechnung
+        überschätzt deshalb stark (angeschnittene Randkugeln!). Besser zwei Fragen trennen:</p>
+        <ul>
+          <li><b>Wie viele Kugeln passen in <em>eine</em> dichteste Lage</b> in die Kreisfläche (⌀ 7 cm)?</li>
+          <li><b>Wie viele Lagen</b> passen in die Höhe (2,65 cm)?</li>
+        </ul>
+        <div class="ex">Reihenabstand innerhalb einer Lage: h = (√3/2)·d<sub>Kugel</sub> ≈ 0,866 cm.
+        Lagenabstand (3D, Tetraeder): h<sub>Tet</sub> = (a/3)·√6 mit a = d<sub>Kugel</sub>. Tipp: dichteste Packung stapelt <b>ABA</b> — die 3. Lage sitzt genau über der 1.</div></div></div>
       <button class="btn sol">✓ Musterlösung <span class="chev">▾</span></button>
       <div class="panel solp"><div class="inner">
-        <ul>
-          <li>V_Schicht = π·(3,5 cm)²·2,65 cm = π·12,25·2,65 ≈ <b>102,0 cm³</b></li>
-          <li>V_Boba = (4/3)·π·(0,5 cm)³ ≈ <b>0,5236 cm³</b></li>
-          <li>Mit dichtester Packung: N = 0,74·102,0 / 0,5236 ≈ 75,5 / 0,5236</li>
-        </ul>
-        <div class="ans"><b>N ≈ 144 Bobas</b> (theoretische Obergrenze bei dichtester Kugelpackung).<br>
-        <span style="font-size:.85em;opacity:.8">Realistisch etwas weniger (~120–135), da die Becherwand Randlücken erzwingt. Ohne Packungskorrektur (φ = 1) ergäbe die reine Volumendivision ~195 — das ist physikalisch nicht erreichbar.</span></div></div></div>
+        <p>Schichtweise dichteste Kugelpackung im Zylinder — <b>nicht</b> über Volumen/Packungsdichte (das überschätzt stark).</p>
+        <svg width="100%" viewBox="0 0 320 175" font-family="Space Mono" font-size="10">
+          <!-- TOP VIEW: layer 1 = 37 -->
+          <circle cx="75" cy="60" r="53" fill="none" stroke="#241a12" stroke-width="1.3"/>
+          <g fill="#bfe6df" stroke="#0e7d72" stroke-width="1">
+            <circle cx="54" cy="18" r="6"/><circle cx="68" cy="18" r="6"/><circle cx="82" cy="18" r="6"/><circle cx="96" cy="18" r="6"/>
+            <circle cx="47" cy="32" r="6"/><circle cx="61" cy="32" r="6"/><circle cx="75" cy="32" r="6"/><circle cx="89" cy="32" r="6"/><circle cx="103" cy="32" r="6"/>
+            <circle cx="40" cy="46" r="6"/><circle cx="54" cy="46" r="6"/><circle cx="68" cy="46" r="6"/><circle cx="82" cy="46" r="6"/><circle cx="96" cy="46" r="6"/><circle cx="110" cy="46" r="6"/>
+            <circle cx="33" cy="60" r="6"/><circle cx="47" cy="60" r="6"/><circle cx="61" cy="60" r="6"/><circle cx="75" cy="60" r="6"/><circle cx="89" cy="60" r="6"/><circle cx="103" cy="60" r="6"/><circle cx="117" cy="60" r="6"/>
+            <circle cx="40" cy="74" r="6"/><circle cx="54" cy="74" r="6"/><circle cx="68" cy="74" r="6"/><circle cx="82" cy="74" r="6"/><circle cx="96" cy="74" r="6"/><circle cx="110" cy="74" r="6"/>
+            <circle cx="47" cy="88" r="6"/><circle cx="61" cy="88" r="6"/><circle cx="75" cy="88" r="6"/><circle cx="89" cy="88" r="6"/><circle cx="103" cy="88" r="6"/>
+            <circle cx="54" cy="102" r="6"/><circle cx="68" cy="102" r="6"/><circle cx="82" cy="102" r="6"/><circle cx="96" cy="102" r="6"/>
+          </g>
+          <text x="40" y="130" font-weight="700" fill="#0e7d72">Lage 1 (Draufsicht)</text>
+          <text x="34" y="143">7 + 2·(6+5+4) = 37</text>
+          <!-- SIDE VIEW: ABA stack -->
+          <text x="196" y="12" font-weight="700" fill="#a83610">Stapelung A–B–A</text>
+          <g stroke-width="1">
+            <g fill="#bfe6df" stroke="#0e7d72"><circle cx="200" cy="118" r="9"/><circle cx="218" cy="118" r="9"/><circle cx="236" cy="118" r="9"/><circle cx="254" cy="118" r="9"/><circle cx="272" cy="118" r="9"/></g>
+            <g fill="#f6d9a6" stroke="#a83610"><circle cx="209" cy="102" r="9"/><circle cx="227" cy="102" r="9"/><circle cx="245" cy="102" r="9"/><circle cx="263" cy="102" r="9"/></g>
+            <g fill="#bfe6df" stroke="#0e7d72"><circle cx="200" cy="86" r="9"/><circle cx="218" cy="86" r="9"/><circle cx="236" cy="86" r="9"/><circle cx="254" cy="86" r="9"/><circle cx="272" cy="86" r="9"/></g>
+          </g>
+          <text x="180" y="90" fill="#0e7d72">A</text><text x="180" y="106" fill="#a83610">B</text><text x="180" y="122" fill="#0e7d72">A</text>
+          <line x1="292" y1="77" x2="292" y2="127" stroke="#241a12"/><line x1="288" y1="77" x2="296" y2="77" stroke="#241a12"/><line x1="288" y1="127" x2="296" y2="127" stroke="#241a12"/>
+          <text x="196" y="145">Höhe ≈ 2,63 cm &lt; 2,65 cm ✓</text>
+        </svg>
+        <p><b>1. Lage (unten):</b> Entlang des Durchmessers liegen 7 Kugeln. Mit Reihenabstand h = (√3/2)·2r ≈ 0,866 cm
+        passen 7 Reihen in die Kreisfläche: 7 + 2·(6+5+4) = <b>37 Kugeln</b>.</p>
+        <p><b>2. Lage:</b> Die Kugeln sitzen in den Mulden der 1. Lage: 3+4+5+6+5+4 = 27, zeichnerisch passen 3 weitere ⇒ <b>30 Kugeln</b>.</p>
+        <p><b>3. Lage:</b> Höhe für 3 Lagen = 2·h<sub>Tet</sub> + 2r mit h<sub>Tet</sub> = (a/3)·√6, a = 2r = 1 cm:
+        2·(1/3)·√6 + 1 ≈ <b>2,63 cm &lt; 2,65 cm</b> ⇒ dritte Lage passt. Im ABA-Muster liegt sie genau über der 1. Lage ⇒ <b>37 Kugeln</b>.</p>
+        <div class="ans"><b>N = 37 + 30 + 37 = 104 Bobas</b>
+        <span style="font-size:.85em;opacity:.85"><br>Bewertung: 104 → 5 P · 101–107 → 4 P · 98–110 → 3 P.
+        Typische Fehlerpfade (nur Teilpunkte): nur 2 Lagen ⇒ ~64–67; Zylindervolumen·0,74 / Kugelvolumen ⇒ ~144; Zylindervolumen / Kugelvolumen ⇒ ~194.
+        Der reale Becher der Aufgabenautoren enthielt nur 81 (nicht perfekt zylindrisch, lose Packung).</span></div>
+      </div></div>
     </div>
   </div>
 </section>
@@ -870,6 +1288,20 @@ window.addEventListener('resize',()=>{
   document.querySelectorAll('.btn.open').forEach(b=>{
     b.nextElementSibling.style.maxHeight=b.nextElementSibling.querySelector('.inner').scrollHeight+32+'px';});
 });
+// ---- Einstiegsexperiment: Variantenauswahl ----
+(function(){
+  const tiles=document.querySelectorAll('.tile');
+  const guides=document.querySelectorAll('.lab-guide');
+  const empty=document.getElementById('lab-empty');
+  tiles.forEach(tile=>{
+    tile.addEventListener('click',()=>{
+      const v=tile.dataset.variant;
+      tiles.forEach(t=>t.classList.toggle('active',t===tile));
+      guides.forEach(g=>g.classList.toggle('active',g.dataset.variant===v));
+      if(empty) empty.style.display='none';
+    });
+  });
+})();
 </script>
 </body>
 </html>
