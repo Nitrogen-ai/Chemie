@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Unterrichtsmodus (Web-Spektrometer)
+Comment=Wechselt zur Web-Spektrometer-Oberflaeche
+Exec=lxterminal -e /usr/local/bin/pi-modus-unterricht
+Icon=camera-web
+Terminal=false

@@ -1,0 +1,15 @@
+[Unit]
+Description=Pi Kamera-Wache mit Pushover-Alarm
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=nitrogen
+EnvironmentFile=/etc/camera-watch.env
+ExecStart=/usr/bin/python3 /home/nitrogen/camera_watch.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
