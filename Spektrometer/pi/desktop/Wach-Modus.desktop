@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Wach-Modus (Kamera-Ueberwachung)
+Comment=Wechselt zur Kamera-Ueberwachung mit Push-Alarm
+Exec=lxterminal -e /usr/local/bin/pi-modus-wache
+Icon=camera-photo
+Terminal=false

@@ -1,0 +1,6 @@
+#!/bin/bash
+echo "Wechsle in den Wach-Modus (Kamera-Ueberwachung)..."
+sudo systemctl disable --now spectrometer-webapp.service
+sudo systemctl enable --now camera-watch.service
+pkill -f "chromium.*8080" 2>/dev/null || true
+echo "Fertig. Kamera-Wache laeuft und startet ab jetzt bei jedem Neustart automatisch."

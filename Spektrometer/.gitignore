@@ -1,0 +1,5 @@
+pi/spectrometer_web/settings.json
+pi/spectrometer_web/reference.json
+pi/systemd/camera-watch.env
+__pycache__/
+*.pyc

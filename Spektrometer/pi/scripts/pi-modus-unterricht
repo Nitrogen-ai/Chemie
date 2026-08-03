@@ -1,0 +1,6 @@
+#!/bin/bash
+echo "Wechsle in den Unterrichtsmodus (Web-Spektrometer)..."
+sudo systemctl disable --now camera-watch.service
+sudo systemctl enable --now spectrometer-webapp.service
+echo "Fertig. Browser im Kiosk-Modus startet beim naechsten Neustart automatisch,"
+echo "oder jetzt sofort mit: chromium --kiosk http://localhost:8080"
