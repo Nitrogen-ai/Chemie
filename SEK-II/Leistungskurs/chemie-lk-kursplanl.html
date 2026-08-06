@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Chemie LK · Lehrkraft-Ansicht</title>
+</head>
+<body>
+<!--
+  Lehrkraft-Ansicht: lädt chemie-lk-kursplan.html unverändert nach und
+  setzt window.LEHRERMODUS=true, bevor deren Skript läuft. Dadurch: alle
+  Lernpfad-Links immer freigeschaltet.
+  Diese Datei selbst enthält keine eigenen Inhalte und muss bei
+  Änderungen am echten Kursplan NICHT angefasst werden.
+  Funktioniert nur über echtes http(s)-Hosting (GitHub Pages), nicht
+  per Doppelklick als lokale Datei.
+-->
+<script>
+  window.LEHRERMODUS = true;
+  fetch('chemie-lk-kursplan.html')
+    .then(function (r) {
+      if (!r.ok) throw new Error(r.status + ' ' + r.statusText);
+      return r.text();
+    })
+    .then(function (html) {
+      document.open();
+      document.write(html);
+      document.close();
+    })
+    .catch(function (err) {
+      document.body.textContent = 'Konnte chemie-lk-kursplan.html nicht laden: ' + err;
+    });
+</script>
+<noscript>Diese Lehrkraft-Ansicht benötigt JavaScript.</noscript>
+</body>
+</html>
