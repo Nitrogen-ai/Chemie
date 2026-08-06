@@ -807,7 +807,8 @@
     transform: translateX(3px);
   }
 
-  .lernpfad-btn.disabled {
+  .lernpfad-btn.disabled,
+  .lernpfad-btn.locked {
     background: rgba(10, 22, 18, 0.04);
     border-left-color: rgba(10, 22, 18, 0.2);
     color: rgba(10, 22, 18, 0.4);
@@ -815,7 +816,8 @@
     pointer-events: none;
   }
 
-  .lernpfad-btn.disabled .lp-icon { color: rgba(10, 22, 18, 0.3); }
+  .lernpfad-btn.disabled .lp-icon,
+  .lernpfad-btn.locked .lp-icon { color: rgba(10, 22, 18, 0.3); }
 
   .placeholder-notice {
     margin-top: 2rem;
@@ -1154,18 +1156,9 @@
 
         <div class="lernpfad-links">
           <div class="lernpfad-label">Lernpfade zu dieser Einheit</div>
-          <div class="lernpfad-btn disabled">
-            <span class="lp-icon">i.</span>
-            <span>Atombau — Modelle, Quantenzahlen, Konfiguration</span>
-          </div>
-          <div class="lernpfad-btn disabled">
-            <span class="lp-icon">ii.</span>
-            <span>Chemische Bindung &amp; Wechselwirkungen</span>
-          </div>
-          <div class="lernpfad-btn disabled">
-            <span class="lp-icon">iii.</span>
-            <span>Organische Chemie — Stoffklassen &amp; funktionelle Gruppen</span>
-          </div>
+          <a class="lernpfad-btn" href="Q1/lernpfad-q1-01-atombau.html" data-unlock="2026-09-11"><span class="lp-icon">i.</span><span>Atombau — Modelle, Quantenzahlen, Konfiguration</span><span class="lp-arrow">→</span></a>
+          <a class="lernpfad-btn" href="Q1/lernpfad-q1-02-bindung.html" data-unlock="2026-09-18"><span class="lp-icon">ii.</span><span>Chemische Bindung &amp; Wechselwirkungen</span><span class="lp-arrow">→</span></a>
+          <a class="lernpfad-btn" href="Q1/lernpfad-q1-03-organik.html" data-unlock="2026-09-25"><span class="lp-icon">iii.</span><span>Organische Chemie — Stoffklassen &amp; funktionelle Gruppen</span><span class="lp-arrow">→</span></a>
         </div>
       </div>
 
@@ -1202,10 +1195,7 @@
 
         <div class="lernpfad-links">
           <div class="lernpfad-label">Lernpfad zu dieser Einheit</div>
-          <div class="lernpfad-btn disabled">
-            <span class="lp-icon">iv.</span>
-            <span>Aminosäuren — Bausteine, Chiralität, FISCHER-Projektion</span>
-          </div>
+          <a class="lernpfad-btn" href="Q1/lernpfad-q1-04-aminosaeuren.html" data-unlock="2026-10-02"><span class="lp-icon">iv.</span><span>Aminosäuren — Bausteine, Chiralität, FISCHER-Projektion</span><span class="lp-arrow">→</span></a>
         </div>
       </div>
 
@@ -1222,10 +1212,7 @@
 
         <div class="lernpfad-links">
           <div class="lernpfad-label">Lernpfad zu dieser Einheit</div>
-          <div class="lernpfad-btn disabled">
-            <span class="lp-icon">v.</span>
-            <span>Peptide &amp; EPA-Modell — Kondensation, Hydrolyse, Geometrie</span>
-          </div>
+          <a class="lernpfad-btn" href="Q1/lernpfad-q1-05-peptide.html" data-unlock="2026-10-09"><span class="lp-icon">v.</span><span>Peptide &amp; EPA-Modell — Kondensation, Hydrolyse, Geometrie</span><span class="lp-arrow">→</span></a>
         </div>
       </div>
 
@@ -1258,10 +1245,7 @@
 
         <div class="lernpfad-links">
           <div class="lernpfad-label">Lernpfad zu dieser Einheit</div>
-          <div class="lernpfad-btn disabled">
-            <span class="lp-icon">vi.</span>
-            <span>Proteinstrukturen — Primär bis Quartär, Denaturierung, Nachweise</span>
-          </div>
+          <a class="lernpfad-btn" href="Q1/lernpfad-q1-06-proteinstrukturen.html" data-unlock="2026-11-20"><span class="lp-icon">vi.</span><span>Proteinstrukturen — Primär bis Quartär, Denaturierung, Nachweise</span><span class="lp-arrow">→</span></a>
         </div>
       </div>
 
@@ -1290,10 +1274,7 @@
 
         <div class="lernpfad-links">
           <div class="lernpfad-label">Lernpfad zu dieser Einheit</div>
-          <div class="lernpfad-btn disabled">
-            <span class="lp-icon">vii.</span>
-            <span>Kunststoffe — Klassen, Eigenschaften, Einteilung</span>
-          </div>
+          <a class="lernpfad-btn" href="Q1/lernpfad-q1-07-kunststoffe-bau.html" data-unlock="2026-11-27"><span class="lp-icon">vii.</span><span>Kunststoffe — Klassen, Eigenschaften, Einteilung</span><span class="lp-arrow">→</span></a>
         </div>
       </div>
 
@@ -1330,10 +1311,7 @@
 
         <div class="lernpfad-links">
           <div class="lernpfad-label">Lernpfad zu dieser Einheit</div>
-          <div class="lernpfad-btn disabled">
-            <span class="lp-icon">viii.</span>
-            <span>Vom Monomer zum Polymer — Mechanismen (A<sub>E</sub>, S<sub>N</sub>, Polymerisation)</span>
-          </div>
+          <a class="lernpfad-btn" href="Q1/lernpfad-q1-08-monomer-polymer.html" data-unlock="2027-01-08"><span class="lp-icon">viii.</span><span>Vom Monomer zum Polymer — Mechanismen (A<sub>E</sub>, S<sub>N</sub>, Polymerisation)</span><span class="lp-arrow">→</span></a>
         </div>
       </div>
 
@@ -1354,10 +1332,7 @@
 
         <div class="lernpfad-links">
           <div class="lernpfad-label">Lernpfad zu dieser Einheit</div>
-          <div class="lernpfad-btn disabled">
-            <span class="lp-icon">ix.</span>
-            <span>Verarbeitung &amp; Wiederverwertung — Recycling, Nachhaltigkeit</span>
-          </div>
+          <a class="lernpfad-btn" href="Q1/lernpfad-q1-09-recycling.html" data-unlock="2027-01-15"><span class="lp-icon">ix.</span><span>Verarbeitung &amp; Wiederverwertung — Recycling, Nachhaltigkeit</span><span class="lp-arrow">→</span></a>
         </div>
       </div>
 
@@ -1911,6 +1886,30 @@
 </footer>
 
 <script>
+  // === Zeitgesteuerte Freischaltung ===
+  // Lehrkraft-Wrapper (chemie-lk-kursplanl.html) setzt window.LEHRERMODUS=true
+  // vor diesem Skript und hebt damit alle Sperren auf.
+  const parseISO = s => {
+    const p = (s || '').split('-');
+    return new Date(+p[0], (+p[1] || 1) - 1, +p[2] || 1, 18, 0, 0);
+  };
+  const fmtKurz = d => {
+    const z = n => (n < 10 ? '0' : '') + n;
+    return z(d.getDate()) + '.' + z(d.getMonth() + 1) + '.';
+  };
+  const lehrkraft = !!window.LEHRERMODUS;
+  if (lehrkraft) document.documentElement.classList.add('lehrkraft');
+  const now = new Date();
+  document.querySelectorAll('.lernpfad-btn[data-unlock]').forEach(a => {
+    const unlock = parseISO(a.dataset.unlock);
+    if (lehrkraft || now >= unlock) return;
+    a.classList.add('locked');
+    a.setAttribute('aria-disabled', 'true');
+    a.addEventListener('click', e => e.preventDefault());
+    const arrow = a.querySelector('.lp-arrow');
+    if (arrow) arrow.textContent = '🔒 ab ' + fmtKurz(unlock);
+  });
+
   // === Semester switching ===
   const buttons = document.querySelectorAll('.semester-btn');
   const contents = document.querySelectorAll('.semester-content');
