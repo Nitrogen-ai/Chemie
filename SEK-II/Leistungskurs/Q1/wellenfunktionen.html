@@ -1,1 +1,1014 @@
-doctype
+<title>Stehende Elektronen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#f3f1f8;
+  --bg-elev:#ffffff;
+  --bg-sunken:#e7e3f2;
+  --ink:#171327;
+  --ink-dim:#5b5674;
+  --ink-faint:#8b86a3;
+  --line:#d8d3e8;
+  --accent:#b5730f;
+  --accent-soft:#f0dfb9;
+  --blue:#3457c9;
+  --blue-soft:#dde4fb;
+  --red:#c23b4e;
+  --red-soft:#f8dde1;
+  --card:#ffffff;
+  --shadow: 0 1px 2px rgba(23,19,39,.06), 0 8px 24px -12px rgba(23,19,39,.18);
+  --radius: 14px;
+  --serif: 'Fraunces', ui-serif, Georgia, serif;
+  --sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b0a17;
+    --bg-elev:#141227;
+    --bg-sunken:#0e0c1c;
+    --ink:#eeecf9;
+    --ink-dim:#b1acc9;
+    --ink-faint:#7d7898;
+    --line:#2a2645;
+    --accent:#e8ad4f;
+    --accent-soft:#3a2c11;
+    --blue:#7f9bff;
+    --blue-soft:#1b2450;
+    --red:#f18294;
+    --red-soft:#3c1b23;
+    --card:#141227;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px -14px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b0a17;
+  --bg-elev:#141227;
+  --bg-sunken:#0e0c1c;
+  --ink:#eeecf9;
+  --ink-dim:#b1acc9;
+  --ink-faint:#7d7898;
+  --line:#2a2645;
+  --accent:#e8ad4f;
+  --accent-soft:#3a2c11;
+  --blue:#7f9bff;
+  --blue-soft:#1b2450;
+  --red:#f18294;
+  --red-soft:#3c1b23;
+  --card:#141227;
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px -14px rgba(0,0,0,.6);
+}
+
+*{box-sizing:border-box;}
+html{-webkit-font-smoothing:antialiased;}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--sans); line-height:1.55;
+  font-size:16px;
+}
+::selection{ background:var(--accent-soft); }
+a{ color:var(--blue); }
+img,canvas{ max-width:100%; display:block; }
+.wrap{ max-width:920px; margin:0 auto; padding:0 24px; }
+.wrap-wide{ max-width:1160px; margin:0 auto; padding:0 24px; }
+
+h1,h2,h3,h4{ font-family:var(--serif); font-weight:600; text-wrap:balance; margin:0 0 .4em; color:var(--ink); }
+h1{ font-size:clamp(2.2rem,5vw,3.6rem); font-weight:500; line-height:1.05; }
+h2{ font-size:clamp(1.6rem,3vw,2.2rem); }
+h3{ font-size:1.25rem; }
+p{ margin:0 0 1em; color:var(--ink-dim); max-width:65ch; }
+p.lead{ font-size:1.15rem; color:var(--ink); }
+.kicker{
+  font-family:var(--mono); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--accent); font-weight:600; display:flex; align-items:center; gap:.6em;
+}
+.kicker .num{
+  width:1.6em;height:1.6em;border-radius:50%;border:1px solid currentColor;
+  display:inline-flex;align-items:center;justify-content:center;font-size:.9em;
+}
+code, .mono{ font-family:var(--mono); }
+.formula{
+  font-family:var(--mono); background:var(--bg-sunken); border:1px solid var(--line);
+  border-radius:10px; padding:.9em 1.1em; display:inline-block; font-size:.95rem;
+  color:var(--ink); font-variant-numeric:tabular-nums; overflow-x:auto; max-width:100%;
+}
+
+/* --- nav rail --- */
+.railnav{
+  position:fixed; right:18px; top:50%; transform:translateY(-50%); z-index:40;
+  display:flex; flex-direction:column; gap:14px;
+}
+.railnav a{
+  width:10px;height:10px;border-radius:50%; background:var(--line); border:none; display:block;
+  position:relative; text-decoration:none;
+}
+.railnav a.active{ background:var(--accent); box-shadow:0 0 0 4px var(--accent-soft); }
+.railnav a span{
+  position:absolute; right:20px; top:50%; transform:translateY(-50%);
+  white-space:nowrap; font-family:var(--mono); font-size:.68rem; letter-spacing:.06em;
+  color:var(--ink-dim); background:var(--card); border:1px solid var(--line); padding:.3em .6em;
+  border-radius:6px; opacity:0; pointer-events:none; transition:opacity .15s;
+  box-shadow:var(--shadow);
+}
+.railnav a:hover span{ opacity:1; }
+@media (max-width: 860px){ .railnav{ display:none; } }
+
+/* --- top bar --- */
+.topbar{
+  position:sticky; top:0; z-index:30; backdrop-filter: blur(10px);
+  background:color-mix(in srgb, var(--bg) 82%, transparent);
+  border-bottom:1px solid var(--line);
+}
+.topbar-inner{
+  max-width:1160px; margin:0 auto; padding:.7em 24px; display:flex; align-items:center; justify-content:space-between; gap:1em;
+}
+.brand{ font-family:var(--serif); font-weight:600; font-size:1.05rem; display:flex; gap:.5em; align-items:baseline; }
+.brand .sub{ font-family:var(--mono); font-size:.68rem; color:var(--ink-faint); letter-spacing:.06em; }
+
+section{ padding:88px 0; border-bottom:1px solid var(--line); }
+section:last-of-type{ border-bottom:none; }
+.hero{ padding-top:64px; padding-bottom:56px; }
+
+/* --- standing wave hero canvas --- */
+.wave-stage{
+  background:var(--bg-elev); border:1px solid var(--line); border-radius:var(--radius);
+  box-shadow:var(--shadow); padding:20px; margin-top:2em;
+}
+.wave-canvas-wrap{ position:relative; }
+canvas.wave{ width:100%; height:220px; border-radius:8px; background:var(--bg-sunken); }
+.wave-controls{ display:flex; flex-wrap:wrap; gap:.6em; align-items:center; margin-top:1em; }
+.chip{
+  font-family:var(--mono); font-size:.82rem; padding:.5em 1em; border-radius:999px;
+  border:1px solid var(--line); background:var(--bg-elev); color:var(--ink-dim); cursor:pointer;
+  transition:all .15s;
+}
+.chip:hover{ border-color:var(--accent); color:var(--ink); }
+.chip.active{ background:var(--accent); border-color:var(--accent); color:#241a03; font-weight:600; }
+.wave-caption{ font-size:.85rem; color:var(--ink-faint); margin-top:.8em; }
+
+/* --- two col --- */
+.grid2{ display:grid; grid-template-columns:1.1fr .9fr; gap:48px; align-items:start; }
+@media (max-width:800px){ .grid2{ grid-template-columns:1fr; } }
+
+/* --- phasor demo --- */
+.phasor-panel{
+  background:var(--bg-elev); border:1px solid var(--line); border-radius:var(--radius);
+  box-shadow:var(--shadow); padding:24px;
+}
+.phasor-grid{ display:grid; grid-template-columns:180px 1fr; gap:20px; }
+@media (max-width:560px){ .phasor-grid{ grid-template-columns:1fr; } }
+canvas.phasor-disc{ background:var(--bg-sunken); border-radius:10px; }
+canvas.phasor-wave{ width:100%; height:74px; background:var(--bg-sunken); border-radius:8px; margin-bottom:8px; }
+.wave-row{ display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+.wave-row .tag{ font-family:var(--mono); font-size:.72rem; width:74px; flex:none; color:var(--ink-faint); }
+.playbar{ display:flex; align-items:center; gap:.8em; margin-top:14px; }
+.iconbtn{
+  width:34px;height:34px;border-radius:50%; border:1px solid var(--line); background:var(--bg-elev);
+  color:var(--ink); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:.9rem;
+}
+.iconbtn:hover{ border-color:var(--accent); }
+input[type=range]{ accent-color:var(--accent); width:100%; }
+
+/* --- quantum number reference card --- */
+.qbox{
+  background:var(--bg-elev); border:1px solid var(--line); border-radius:var(--radius);
+  box-shadow:var(--shadow); padding:0; overflow:hidden;
+}
+.qrow{ display:grid; grid-template-columns:1fr 1.3fr; gap:0; border-bottom:1px solid var(--line); }
+.qrow:last-child{ border-bottom:none; }
+.qrow > div{ padding:14px 18px; }
+.qrow .k{ font-family:var(--mono); font-size:.86rem; color:var(--accent); background:var(--bg-sunken); font-weight:600; }
+.qrow .v{ font-size:.92rem; color:var(--ink-dim); }
+.qrow .v b{ color:var(--ink); font-weight:600; }
+
+/* --- orbital explorer --- */
+.explorer{
+  background:var(--bg-elev); border:1px solid var(--line); border-radius:var(--radius);
+  box-shadow:var(--shadow); overflow:hidden; margin-top:2em;
+}
+.explorer-controls{ padding:22px 24px; border-bottom:1px solid var(--line); background:var(--bg-sunken); }
+.control-row{ display:flex; flex-wrap:wrap; gap:.5em; align-items:center; margin-bottom:.9em; }
+.control-row:last-child{ margin-bottom:0; }
+.control-label{ font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); width:88px; flex:none; }
+.pill{
+  font-family:var(--mono); font-size:.86rem; padding:.4em .9em; border-radius:8px;
+  border:1px solid var(--line); background:var(--bg-elev); color:var(--ink-dim); cursor:pointer;
+}
+.pill:disabled{ opacity:.3; cursor:not-allowed; }
+.pill.on{ background:var(--blue); border-color:var(--blue); color:#fff; font-weight:600; }
+.explorer-body{ display:grid; grid-template-columns:1.2fr .8fr; }
+@media (max-width:820px){ .explorer-body{ grid-template-columns:1fr; } }
+.cloud-pane{ padding:20px; border-right:1px solid var(--line); }
+@media (max-width:820px){ .cloud-pane{ border-right:none; border-bottom:1px solid var(--line); } }
+canvas.cloud{ width:100%; aspect-ratio:1/1; background:radial-gradient(circle at 50% 45%, var(--bg-sunken), var(--bg-elev)); border-radius:10px; }
+.orbital-title{ font-family:var(--serif); font-size:1.3rem; margin:.6em 0 0; }
+.side-pane{ padding:20px 24px; display:flex; flex-direction:column; gap:20px; }
+.metric{ display:flex; justify-content:space-between; align-items:baseline; padding:8px 0; border-bottom:1px dashed var(--line); font-size:.9rem; }
+.metric .l{ color:var(--ink-faint); }
+.metric .v{ font-family:var(--mono); color:var(--ink); font-variant-numeric:tabular-nums; }
+canvas.radial{ width:100%; height:110px; background:var(--bg-sunken); border-radius:8px; }
+.energy-ladder{ display:flex; flex-direction:column-reverse; gap:6px; }
+.energy-rung{ display:flex; align-items:center; gap:8px; font-family:var(--mono); font-size:.76rem; color:var(--ink-faint); }
+.energy-rung .bar{ height:2px; background:var(--line); flex:1; position:relative; }
+.energy-rung.now{ color:var(--accent); font-weight:600; }
+.energy-rung.now .bar{ background:var(--accent); height:3px; }
+
+/* legend dots */
+.legend{ display:flex; gap:1.2em; font-size:.8rem; color:var(--ink-faint); flex-wrap:wrap; }
+.legend span{ display:inline-flex; align-items:center; gap:.4em; }
+.dot{ width:9px;height:9px;border-radius:50%; display:inline-block; }
+
+/* --- config / aufbau --- */
+.element-picker{ display:flex; flex-wrap:wrap; gap:.5em; align-items:center; margin:1.2em 0; }
+.el-btn{
+  font-family:var(--mono); font-weight:600; padding:.5em .9em; border-radius:8px;
+  border:1px solid var(--line); background:var(--bg-elev); cursor:pointer; color:var(--ink-dim);
+}
+.el-btn.on{ background:var(--red); border-color:var(--red); color:#fff; }
+.z-slider-row{ display:flex; align-items:center; gap:1em; margin-top:.8em; }
+.z-slider-row input{ flex:1; }
+.z-readout{ font-family:var(--mono); font-size:1rem; min-width:6.5em; text-align:right; color:var(--ink); }
+
+.orbital-diagram{ background:var(--bg-elev); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:22px; margin-top:1.4em; overflow-x:auto; }
+.shell-row{ display:flex; align-items:center; gap:14px; padding:6px 0; white-space:nowrap; }
+.shell-n{ font-family:var(--mono); font-size:.78rem; color:var(--ink-faint); width:2.4em; flex:none; }
+.subshell{ display:flex; gap:3px; }
+.box{
+  width:30px;height:30px; border:1.5px solid var(--line); border-radius:5px; position:relative;
+  display:flex; align-items:center; justify-content:center; background:var(--bg-sunken); flex:none;
+}
+.box .arrow{ font-size:1rem; line-height:1; }
+.box .arrow.up{ color:var(--blue); }
+.box .arrow.down{ color:var(--red); }
+.box.last{ box-shadow:0 0 0 2px var(--accent); }
+.subshell-label{ font-family:var(--mono); font-size:.7rem; color:var(--ink-faint); margin-right:2px; }
+
+.last-e-card{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line);
+  border:1px solid var(--line); border-radius:10px; overflow:hidden; margin-top:1.2em;
+}
+.last-e-card > div{ background:var(--bg-elev); padding:12px 14px; text-align:center; }
+.last-e-card .k{ font-family:var(--mono); font-size:.7rem; color:var(--accent); letter-spacing:.05em; text-transform:uppercase; }
+.last-e-card .v{ font-family:var(--mono); font-size:1.3rem; margin-top:.2em; color:var(--ink); }
+
+/* excite */
+.excite-card{ background:var(--bg-elev); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:24px; margin-top:1.4em; }
+.btn{
+  font-family:var(--sans); font-weight:600; font-size:.92rem; padding:.75em 1.4em; border-radius:10px;
+  border:1px solid var(--accent); background:var(--accent); color:#241a03; cursor:pointer;
+}
+.btn:hover{ filter:brightness(1.05); }
+.btn.ghost{ background:transparent; color:var(--accent); }
+
+footer{ padding:40px 0 80px; }
+.callout{
+  border-left:3px solid var(--accent); background:var(--accent-soft); padding:.9em 1.2em; border-radius:0 10px 10px 0;
+  font-size:.92rem; color:var(--ink); margin:1.4em 0;
+}
+.callout b{ color:var(--accent); }
+.callout.blue{ border-color:var(--blue); background:var(--blue-soft); }
+.small{ font-size:.82rem; color:var(--ink-faint); }
+</style>
+
+<div class="railnav" id="railnav">
+  <a href="#hero" data-label="Stehende Wellen"><span>Stehende Wellen</span></a>
+  <a href="#phase" data-label="Komplexe Phase"><span>Komplexe Phase</span></a>
+  <a href="#schroedinger" data-label="Schrödinger-Gleichung"><span>Schrödinger-Gleichung</span></a>
+  <a href="#explorer" data-label="Orbitale erkunden"><span>Orbitale erkunden</span></a>
+  <a href="#konfiguration" data-label="Energieschemata"><span>Energieschemata</span></a>
+  <a href="#anregung" data-label="Anregung"><span>Anregung</span></a>
+</div>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Stehende Elektronen <span class="sub">Q1 LK CHEMIE · ATOMBAU</span></div>
+    <div class="small mono" id="scrollhint">§1 / 6</div>
+  </div>
+</div>
+
+<section class="hero" id="hero">
+  <div class="wrap">
+    <div class="kicker"><span class="num">1</span> Stehende Wellen</div>
+    <h1>Warum ein Orbital wie eine Saite klingt</h1>
+    <p class="lead">Ihr habt die Saite, die Membran und die Seifenblase im Video schwingen sehen: Bei bestimmten
+      Frequenzen entstehen <b>stehende Wellen</b> mit festen Knoten. Nur ganzzahlige Vielfache passen hinein &mdash;
+      alles andere löscht sich selbst aus. Genau dieses Prinzip macht aus einem Elektron im Atom ein Teilchen mit
+      <b>gequantelten</b> Energiestufen.</p>
+
+    <div class="wave-stage">
+      <div class="wave-canvas-wrap"><canvas class="wave" id="waveCanvas"></canvas></div>
+      <div class="wave-controls">
+        <span class="small mono" style="margin-right:.4em;">Schwingungsmodus n =</span>
+        <button class="chip active" data-n="1">n = 1</button>
+        <button class="chip" data-n="2">n = 2</button>
+        <button class="chip" data-n="3">n = 3</button>
+        <button class="chip" data-n="4">n = 4</button>
+        <button class="chip" data-n="5">n = 5</button>
+      </div>
+      <p class="wave-caption">Genau wie im Experiment: mit steigender Frequenz (9&nbsp;Hz → 18&nbsp;Hz → 27&nbsp;Hz &hellip;)
+        entstehen mehr Knotenpunkte. Jeder Modus n entspricht später einer Energiestufe &mdash; bei n&nbsp;=&nbsp;1 dem
+        1s&#8209;Orbital, bei n&nbsp;=&nbsp;2 den 2s&#8209; oder 2p&#8209;Orbitalen.</p>
+    </div>
+
+    <div class="callout">Eine 1‑dimensionale Saite kennt nur eine Art Knoten. Eine 2‑dimensionale Membran kann Knoten
+      in verschiedenen <b>Mustern</b> bilden (das wird später zur Nebenquantenzahl l). Eine 3‑dimensionale Seifenblase
+      kann diese Muster zusätzlich <b>räumlich drehen</b> (das wird zur Magnetquantenzahl m). Drei Dimensionen,
+      drei Quantenzahlen &mdash; das ist kein Zufall.</p></div>
+  </div>
+</section>
+
+<section id="phase">
+  <div class="wrap">
+    <div class="kicker"><span class="num">2</span> Komplexe Phase</div>
+    <h2>Wozu braucht eine Welle die Zahl i?</h2>
+    <p>Die Saite oben schwingt reell: <span class="mono">y(x,t) = A·sin(kx)·cos(ωt)</span>. Ein Elektron erfüllt
+      aber die <b>zeitabhängige Schrödinger-Gleichung</b></p>
+    <p class="formula">iħ · ∂ψ/∂t &nbsp;=&nbsp; Ĥψ</p>
+    <p>Auf der linken Seite steht ein <b>i</b>. Für eine stehende Welle mit fester Energie E lässt sich das lösen,
+      indem man Ort und Zeit trennt:</p>
+    <p class="formula">ψ(x,t) &nbsp;=&nbsp; φ(x) · e<sup>−iEt/ħ</sup></p>
+    <p>Nach Euler ist e<sup>−iθ</sup> = cos θ − i·sin θ &mdash; ein Zeiger, der mit konstanter Länge 1 in der
+      komplexen Ebene rotiert, ohne je größer oder kleiner zu werden. φ(x) legt die <b>Form</b> im Raum fest
+      (die stehende Welle, wie in Kapitel 1), der Zeiger e<sup>−iEt/ħ</sup> lässt diese Form mit der Zeit
+      <b>rotieren</b>, statt zu wachsen oder zu zerfallen. Spielt beides zusammen ab &mdash; links der Zeiger in
+      der komplexen Ebene, rechts Real- und Imaginärteil als Wellen:</p>
+
+    <div class="phasor-panel">
+      <div class="phasor-grid">
+        <div>
+          <canvas class="phasor-disc" id="phasorDisc" width="180" height="180"></canvas>
+        </div>
+        <div>
+          <div class="wave-row"><span class="tag">Re ψ</span><canvas class="phasor-wave" id="waveRe"></canvas></div>
+          <div class="wave-row"><span class="tag">Im ψ</span><canvas class="phasor-wave" id="waveIm"></canvas></div>
+          <div class="wave-row"><span class="tag">|ψ|²</span><canvas class="phasor-wave" id="waveAbs"></canvas></div>
+        </div>
+      </div>
+      <div class="playbar">
+        <button class="iconbtn" id="playBtn" aria-label="Animation starten/pausieren">❚❚</button>
+        <input type="range" id="speedRange" min="0.2" max="2.5" step="0.1" value="1" aria-label="Geschwindigkeit">
+        <span class="small mono">Geschwindigkeit</span>
+      </div>
+    </div>
+
+    <div class="callout blue">Für die <b>Aufenthaltswahrscheinlichkeit</b> wird ψ mit seinem konjugiert-komplexen
+      Partner ψ* multipliziert: |ψ|² = ψ*·ψ = φ(x)²·|e<sup>−iEt/ħ</sup>|² = φ(x)²·1 = φ(x)². Der rotierende Zeiger
+      hat Betrag 1 &mdash; er verschwindet beim Betragsquadrat spurlos. Übrig bleibt eine reelle, zeitlich
+      <b>konstante</b> Größe: die stehende Welle bewegt sich nicht, obwohl ihre Phase ständig rotiert. Für Chemiker:innen
+      ist φ(x)² nichts anderes als die <b>Elektronendichte</b> &mdash; die „Punktwolke“ aus der Orbitalübersicht.</div>
+  </div>
+</section>
+
+<section id="schroedinger">
+  <div class="wrap">
+    <div class="kicker"><span class="num">3</span> Schrödinger-Gleichung</div>
+    <h2>Aus der Wellengleichung werden Orbitale</h2>
+    <p>Für ein Elektron im Coulomb-Feld eines Kerns lautet die zeitunabhängige Schrödinger-Gleichung</p>
+    <p class="formula">Ĥφ = Eφ &nbsp;&nbsp;mit&nbsp;&nbsp; Ĥ = −ħ²/2m · ∇² − e²/4πε₀r</p>
+    <p>Wie bei der Seifenblase trennt man auch hier Radius und Richtung: φ(r,θ,φ) = R(r) · Y(θ,φ). Der Radialteil
+      R beschreibt, <i>wie weit</i> die stehende Welle vom Kern entfernt schwingt (→ Knotenkugeln), der Winkelteil Y
+      beschreibt, <i>in welche Richtung</i> die Lappen zeigen (→ Knotenebenen). Erlaubt sind nur Kombinationen, bei
+      denen die Welle sich am Kern und im Unendlichen glatt schließt &mdash; exakt wie die Saite, die an beiden Enden
+      festgehalten wird. Das erzwingt drei ganze Zahlen:</p>
+
+    <div class="qbox">
+      <div class="qrow"><div class="k">n = 1, 2, 3 &hellip;</div><div class="v"><b>Hauptquantenzahl</b> — Energiestufe der Elektronen (Anzahl der radialen „Bäuche“)</div></div>
+      <div class="qrow"><div class="k">0 ≤ l ≤ n−1</div><div class="v"><b>Nebenquantenzahl</b> — Art des Orbitals (s, p, d, f &hellip;)</div></div>
+      <div class="qrow"><div class="k">−l ≤ m ≤ +l</div><div class="v"><b>Magnetquantenzahl</b> — räumliche Ausrichtung des Orbitals</div></div>
+      <div class="qrow"><div class="k">s = ±½</div><div class="v"><b>Spinquantenzahl</b> — Eigendrehrichtung des Elektrons</div></div>
+    </div>
+
+    <p style="margin-top:1.6em;">Und die Energie? Aus der Bedingung, dass genau n Halbwellen um den Kern
+      „stehen“ müssen (2πr = n·λ<sub>de&nbsp;Broglie</sub>, Bohr–Sommerfeld), folgt für das Wasserstoffatom exakt
+      die Formel, mit der ihr die Emissionslinien berechnet:</p>
+    <p class="formula">E<sub>n</sub> = −13,6 eV / n²</p>
+    <p class="small">Für Mehrelektronenatome gilt diese einfache Formel nicht mehr exakt (die Elektronen stoßen
+      sich gegenseitig ab), aber die <b>Reihenfolge</b> der Energiestufen bleibt vorhersagbar &mdash; dazu gleich mehr
+      im Energieschema.</p>
+  </div>
+</section>
+
+<section id="explorer">
+  <div class="wrap-wide">
+    <div class="kicker"><span class="num">4</span> Orbitale erkunden</div>
+    <h2>φ<sub>n,l,m</sub> selbst berechnet und sichtbar gemacht</h2>
+    <p>Jede Kugelwolke unten ist keine Illustration, sondern eine echte Monte-Carlo-Stichprobe aus |φ<sub>n,l,m</sub>|²
+      &mdash; berechnet exakt so, wie es die Schrödinger-Gleichung für das Wasserstoffatom vorschreibt (Radialteil
+      über Laguerre-Polynome, Winkelteil über reelle Kugelflächenfunktionen). Blau und Rot zeigen das <b>Vorzeichen</b>
+      von φ, nicht die Ladung &mdash; wichtig für später, wenn Orbitale sich zu Bindungen überlappen.</p>
+
+    <div class="explorer">
+      <div class="explorer-controls">
+        <div class="control-row">
+          <span class="control-label">n</span>
+          <div id="nPicker"></div>
+        </div>
+        <div class="control-row">
+          <span class="control-label">Unterschale</span>
+          <div id="lPicker"></div>
+        </div>
+        <div class="control-row">
+          <span class="control-label">Orbital</span>
+          <div id="orbPicker"></div>
+        </div>
+      </div>
+      <div class="explorer-body">
+        <div class="cloud-pane">
+          <canvas class="cloud" id="cloudCanvas" width="640" height="640"></canvas>
+          <h3 class="orbital-title" id="orbTitle">1s</h3>
+          <div class="legend">
+            <span><span class="dot" style="background:var(--accent)"></span> φ &gt; 0 (kugelsymmetrisch)</span>
+            <span><span class="dot" style="background:var(--blue)"></span> φ &gt; 0</span>
+            <span><span class="dot" style="background:var(--red)"></span> φ &lt; 0</span>
+          </div>
+        </div>
+        <div class="side-pane">
+          <div>
+            <div class="metric"><span class="l">Hauptquantenzahl n</span><span class="v" id="mN">1</span></div>
+            <div class="metric"><span class="l">Nebenquantenzahl l</span><span class="v" id="mL">0</span></div>
+            <div class="metric"><span class="l">Orientierungen (2l+1)</span><span class="v" id="mOr">1</span></div>
+            <div class="metric"><span class="l">Radiale Knoten</span><span class="v" id="mNodes">0</span></div>
+            <div class="metric"><span class="l">Energie E<sub>n</sub></span><span class="v" id="mE">−13,6 eV</span></div>
+          </div>
+          <div>
+            <div class="small mono" style="margin-bottom:.5em;">Radiale Dichte r²·R(r)²</div>
+            <canvas class="radial" id="radialCanvas"></canvas>
+          </div>
+          <div>
+            <div class="small mono" style="margin-bottom:.6em;">Energieleiter</div>
+            <div class="energy-ladder" id="energyLadder"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="small" style="margin-top:1em;">Vereinfachung: dargestellt sind wasserstoffähnliche Orbitale (ein Elektron,
+      ein Kern). In Mehrelektronenatomen verzerrt die Abschirmung durch andere Elektronen die Form leicht &mdash;
+      Knoten, Vorzeichen und grobe Gestalt bleiben aber dieselben, deshalb rechnen Chemiker:innen trotzdem mit diesen Bildern.</p>
+  </div>
+</section>
+
+<section id="konfiguration">
+  <div class="wrap">
+    <div class="kicker"><span class="num">5</span> Energieschemata</div>
+    <h2>Vom Orbital zur Elektronenkonfiguration</h2>
+    <p>Elektronen füllen die Orbitale nach drei Regeln: <b>Energieprinzip</b> (energieärmste Orbitale zuerst,
+      Reihenfolge nach n+l), <b>Pauli-Prinzip</b> (keine zwei Elektronen in allen vier Quantenzahlen gleich) und
+      <b>Hund'sche Regel</b> (gleich energiereiche Orbitale zuerst einzeln besetzen). Wählt ein Element:</p>
+
+    <div class="element-picker" id="elementPicker"></div>
+    <div class="z-slider-row">
+      <span class="small mono">Z</span>
+      <input type="range" id="zRange" min="1" max="56" value="4">
+      <span class="z-readout mono" id="zReadout">4 · Be</span>
+    </div>
+
+    <div class="orbital-diagram" id="diagramWrap"></div>
+
+    <div class="last-e-card" id="lastECard"></div>
+    <p class="small">Umkästelt: das <b>zuletzt besetzte</b> Elektron &mdash; genau das Elektron, dessen vier
+      Quantenzahlen im Lösungsblatt abgefragt werden.</p>
+    <p class="small" style="margin-top:-.6em;">Vereinfachung: es gilt das reine Aufbauprinzip nach der (n+l)-Regel.
+      Einzelne reale Ausnahmen (z.&nbsp;B. Chrom, Kupfer) sind hier nicht berücksichtigt.</p>
+  </div>
+</section>
+
+<section id="anregung">
+  <div class="wrap">
+    <div class="kicker"><span class="num">6</span> Anregung</div>
+    <h2>Ein Elektron springt &mdash; ein Photon entsteht</h2>
+    <p>Absorbiert das Atom ein Photon passender Energie, springt das äußerste Elektron aus seinem Grundzustands-Orbital
+      in ein energiereicheres, freies Orbital. Genau umgekehrt entsteht beim Zurückfallen wieder ein Photon &mdash;
+      die diskreten Linien aus Kapitel I eures Lösungsblatts.</p>
+    <div class="excite-card">
+      <button class="btn" id="exciteBtn">⚡ Elektron anregen (hν)</button>
+      <button class="btn ghost" id="resetExciteBtn" style="margin-left:.6em;">Zurücksetzen</button>
+      <p class="small" id="exciteCaption" style="margin-top:1em;">Klickt, um das äußerste Elektron des oben
+        gewählten Elements testweise ins nächste freie Orbital zu heben (vereinfachte Illustration).</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="small">Erstellt für den Q1-LK Chemie &middot; Grundlegende Wiederholung: Atombau. Alle Rechnungen
+      (Radialteile, Winkelanteile, Energien) werden live im Browser ausgeführt, keine vorgerenderten Bilder.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+
+/* ================= utilities ================= */
+function dpr(){ return Math.min(window.devicePixelRatio||1, 2); }
+function fitCanvas(c){
+  const r = c.getBoundingClientRect();
+  const d = dpr();
+  const w = Math.max(1, Math.round(r.width*d)), h = Math.max(1, Math.round(r.height*d));
+  if(c.width!==w || c.height!==h){ c.width=w; c.height=h; }
+  const ctx = c.getContext('2d');
+  ctx.setTransform(d,0,0,d,0,0);
+  return {ctx, w:r.width, h:r.height};
+}
+function cssVar(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ================= rail nav active state ================= */
+const railLinks = Array.from(document.querySelectorAll('#railnav a'));
+const sections = railLinks.map(a=>document.querySelector(a.getAttribute('href')));
+const scrollhint = document.getElementById('scrollhint');
+function updateRail(){
+  let idx=0, best=-Infinity;
+  sections.forEach((s,i)=>{ if(!s) return; const r=s.getBoundingClientRect(); const score=-Math.abs(r.top-120); if(r.top<220 && score>best){best=score; idx=i;} });
+  railLinks.forEach((a,i)=>a.classList.toggle('active', i===idx));
+  scrollhint.textContent = '§'+(idx+1)+' / '+sections.length;
+}
+document.addEventListener('scroll', updateRail, {passive:true});
+window.addEventListener('resize', updateRail);
+updateRail();
+
+/* ================= 1. standing wave hero ================= */
+(function(){
+  const canvas = document.getElementById('waveCanvas');
+  let n = 1, t0 = performance.now();
+  document.querySelectorAll('.wave-controls .chip').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.wave-controls .chip').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      n = parseInt(btn.dataset.n,10);
+    });
+  });
+  function draw(tms){
+    const {ctx,w,h} = fitCanvas(canvas);
+    ctx.clearRect(0,0,w,h);
+    const midY = h/2;
+    const amp = h*0.34;
+    const t = prefersReduced? 0 : (tms-t0)/1000;
+    const omega = 2*Math.PI*0.6;
+    // node markers
+    ctx.strokeStyle = cssVar('--line'); ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(0,midY); ctx.lineTo(w,midY); ctx.stroke();
+    // string
+    ctx.beginPath();
+    for(let px=0; px<=w; px+=2){
+      const x = px/w;
+      const y = Math.sin(n*Math.PI*x) * Math.cos(omega*t) * amp;
+      const py = midY - y;
+      if(px===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+    }
+    ctx.strokeStyle = cssVar('--accent'); ctx.lineWidth=2.6; ctx.lineJoin='round'; ctx.stroke();
+    // envelope (faint)
+    ctx.beginPath();
+    for(let px=0; px<=w; px+=2){ const x=px/w; const y=Math.sin(n*Math.PI*x)*amp; ctx.lineTo(px, midY-y); }
+    ctx.strokeStyle = cssVar('--ink-faint'); ctx.globalAlpha=.25; ctx.lineWidth=1; ctx.stroke(); ctx.globalAlpha=1;
+    // nodes
+    ctx.fillStyle = cssVar('--red');
+    for(let k=0;k<=n;k++){ const x=(k/n)*w; ctx.beginPath(); ctx.arc(x,midY,3.5,0,7); ctx.fill(); }
+    if(!prefersReduced) requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+  window.addEventListener('resize', ()=>{ if(prefersReduced) draw(performance.now()); });
+})();
+
+/* ================= 2. phasor demo ================= */
+(function(){
+  const disc = document.getElementById('phasorDisc');
+  const waveRe = document.getElementById('waveRe');
+  const waveIm = document.getElementById('waveIm');
+  const waveAbs = document.getElementById('waveAbs');
+  const playBtn = document.getElementById('playBtn');
+  const speedRange = document.getElementById('speedRange');
+  let playing = !prefersReduced, speed = 1, t = 0, last = performance.now();
+
+  playBtn.addEventListener('click', ()=>{ playing=!playing; playBtn.textContent = playing? '❚❚' : '▶'; });
+  speedRange.addEventListener('input', ()=>{ speed=parseFloat(speedRange.value); });
+
+  function drawDisc(){
+    const {ctx,w,h} = fitCanvas(disc);
+    ctx.clearRect(0,0,w,h);
+    const cx=w/2, cy=h/2, R=Math.min(w,h)*0.38;
+    ctx.strokeStyle=cssVar('--line'); ctx.lineWidth=1;
+    ctx.beginPath(); ctx.arc(cx,cy,R,0,7); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx-R-6,cy); ctx.lineTo(cx+R+6,cy); ctx.moveTo(cx,cy-R-6); ctx.lineTo(cx,cy+R+6); ctx.stroke();
+    ctx.font='10px '+cssVar('--mono')||'monospace';
+    ctx.fillStyle=cssVar('--ink-faint');
+    ctx.fillText('Re', cx+R+8, cy+4); ctx.fillText('Im', cx-4, cy-R-10);
+    const angle = -t; // e^{-i t}
+    const px = cx + R*Math.cos(angle), py = cy + R*Math.sin(angle);
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(px,py);
+    ctx.strokeStyle=cssVar('--blue'); ctx.lineWidth=2.4; ctx.stroke();
+    ctx.beginPath(); ctx.arc(px,py,4,0,7); ctx.fillStyle=cssVar('--blue'); ctx.fill();
+    ctx.beginPath(); ctx.arc(cx,cy,2.5,0,7); ctx.fillStyle=cssVar('--ink-faint'); ctx.fill();
+  }
+  function drawWave(canvas, fn, color, fixed){
+    const {ctx,w,h} = fitCanvas(canvas);
+    ctx.clearRect(0,0,w,h);
+    const midY=h/2, amp=h*0.4;
+    ctx.strokeStyle=cssVar('--line'); ctx.beginPath(); ctx.moveTo(0,midY); ctx.lineTo(w,midY); ctx.lineWidth=1; ctx.stroke();
+    ctx.beginPath();
+    for(let px=0;px<=w;px+=3){
+      const x = px/w * 4*Math.PI;
+      const val = fixed!==undefined ? fixed : fn(x - t);
+      const y = midY - val*amp;
+      if(px===0) ctx.moveTo(px,y); else ctx.lineTo(px,y);
+    }
+    ctx.strokeStyle=color; ctx.lineWidth=2; ctx.stroke();
+    // marker at x=0 phase (left edge tracks current 'now' point)
+  }
+  function frame(now){
+    const dt = Math.min(0.05,(now-last)/1000); last=now;
+    if(playing) t += dt*speed*1.4;
+    drawDisc();
+    drawWave(waveRe, (x)=>Math.cos(x), cssVar('--blue'));
+    drawWave(waveIm, (x)=>Math.sin(x), cssVar('--red'));
+    drawWave(waveAbs, null, cssVar('--accent'), 1);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+/* ================= math: laguerre, radial, angular ================= */
+function factorial(n){ let r=1; for(let i=2;i<=n;i++) r*=i; return r; }
+function laguerre(k, alpha, x){
+  if(k===0) return 1;
+  if(k===1) return 1+alpha-x;
+  let Lm2=1, Lm1=1+alpha-x, Lk=0;
+  for(let i=2;i<=k;i++){
+    Lk = ((2*i-1+alpha-x)*Lm1 - (i-1+alpha)*Lm2)/i;
+    Lm2=Lm1; Lm1=Lk;
+  }
+  return Lk;
+}
+function radialR(n,l,r){
+  const rho = 2*r/n;
+  const norm = Math.sqrt(Math.pow(2/n,3) * factorial(n-l-1) / (2*n*factorial(n+l)));
+  return norm * Math.exp(-rho/2) * Math.pow(rho,l) * laguerre(n-l-1, 2*l+1, rho);
+}
+
+const ORB_TYPES = {
+  0:{ label:'s', orbitals:[ {key:'s', name:'s', shape:function(){return 1;}} ] },
+  1:{ label:'p', orbitals:[
+      {key:'pz', name:'p_z', shape:function(x,y,z){return z;}},
+      {key:'px', name:'p_x', shape:function(x,y,z){return x;}},
+      {key:'py', name:'p_y', shape:function(x,y,z){return y;}},
+    ]},
+  2:{ label:'d', orbitals:[
+      {key:'dz2', name:'d_z²', shape:function(x,y,z){return (3*z*z-1)/2;}},
+      {key:'dxz', name:'d_xz', shape:function(x,y,z){return x*z;}},
+      {key:'dyz', name:'d_yz', shape:function(x,y,z){return y*z;}},
+      {key:'dx2y2', name:'d_x²−y²', shape:function(x,y,z){return (x*x-y*y)/2;}},
+      {key:'dxy', name:'d_xy', shape:function(x,y,z){return x*y;}},
+    ]},
+  3:{ label:'f', orbitals:[
+      {key:'fz3', name:'f_z³', shape:function(x,y,z){return z*(5*z*z-3)/2;}},
+      {key:'fxz2', name:'f_xz²', shape:function(x,y,z){return x*(5*z*z-1)/4;}},
+      {key:'fyz2', name:'f_yz²', shape:function(x,y,z){return y*(5*z*z-1)/4;}},
+      {key:'fxyz', name:'f_xyz', shape:function(x,y,z){return x*y*z;}},
+      {key:'fzx2y2', name:'f_z(x²−y²)', shape:function(x,y,z){return z*(x*x-y*y)/2;}},
+      {key:'fxx23y2', name:'f_x(x²−3y²)', shape:function(x,y,z){return x*(x*x-3*y*y)/2;}},
+      {key:'fy3x2y2', name:'f_y(3x²−y²)', shape:function(x,y,z){return y*(3*x*x-y*y)/2;}},
+    ]},
+};
+
+function estimateAngularMax(shape){
+  let m=0;
+  for(let i=0;i<2500;i++){
+    const z=Math.random()*2-1, phi=Math.random()*2*Math.PI, s=Math.sqrt(1-z*z);
+    const v=Math.abs(shape(s*Math.cos(phi), s*Math.sin(phi), z));
+    if(v>m) m=v;
+  }
+  return m*1.18 || 1;
+}
+function sampleDirection(shape, ymax){
+  for(let tries=0;tries<400;tries++){
+    const z=Math.random()*2-1, phi=Math.random()*2*Math.PI, s=Math.sqrt(1-z*z);
+    const x=s*Math.cos(phi), y=s*Math.sin(phi);
+    const v=shape(x,y,z);
+    if(Math.random() < (v*v)/(ymax*ymax)) return {x,y,z,sign:v>=0?1:-1};
+  }
+  return {x:0,y:0,z:1,sign:1};
+}
+function radialProfile(n,l){
+  let Pmax=0, rAtMax=0.01;
+  const rScanMax = 4*n*n+24, step=Math.max(0.03, rScanMax/1400);
+  for(let r=0.02;r<rScanMax;r+=step){
+    const Rv=radialR(n,l,r), P=r*r*Rv*Rv;
+    if(P>Pmax){Pmax=P; rAtMax=r;}
+  }
+  let rmax=rAtMax;
+  for(let r=rAtMax;r<rScanMax;r+=step){
+    const Rv=radialR(n,l,r), P=r*r*Rv*Rv;
+    rmax=r;
+    if(P < 0.0018*Pmax && r>rAtMax) break;
+  }
+  return {Pmax:Pmax*1.15, rmax:rmax*1.2};
+}
+function sampleRadius(n,l,profile){
+  for(let tries=0;tries<600;tries++){
+    const r = Math.random()*profile.rmax;
+    const Rv = radialR(n,l,r), P=r*r*Rv*Rv;
+    if(Math.random()*profile.Pmax < P) return r;
+  }
+  return profile.rmax*0.35;
+}
+function generateCloud(n,l,shape,count){
+  const profile = radialProfile(n,l);
+  const ymax = estimateAngularMax(shape);
+  const pts=[];
+  for(let i=0;i<count;i++){
+    const r = sampleRadius(n,l,profile);
+    const d = sampleDirection(shape, ymax);
+    pts.push([d.x*r, d.y*r, d.z*r, d.sign]);
+  }
+  return {pts, profile};
+}
+
+/* ================= 4. orbital explorer ================= */
+(function(){
+  const nPicker = document.getElementById('nPicker');
+  const lPicker = document.getElementById('lPicker');
+  const orbPicker = document.getElementById('orbPicker');
+  const cloudCanvas = document.getElementById('cloudCanvas');
+  const radialCanvas = document.getElementById('radialCanvas');
+  const orbTitle = document.getElementById('orbTitle');
+  const energyLadder = document.getElementById('energyLadder');
+
+  let state = {n:1, l:0, orbIdx:0};
+  let cloud = null, azimuth = 0.6;
+
+  function lLabel(l){ return {0:'s',1:'p',2:'d',3:'f'}[l]; }
+
+  function buildNPicker(){
+    nPicker.innerHTML='';
+    for(let n=1;n<=4;n++){
+      const b=document.createElement('button');
+      b.className='pill'+(n===state.n?' on':''); b.textContent='n = '+n;
+      b.addEventListener('click', ()=>{ state.n=n; if(state.l>n-1) state.l=n-1; clampOrb(); rebuild(); });
+      nPicker.appendChild(b);
+    }
+  }
+  function clampOrb(){ const orbs=ORB_TYPES[state.l].orbitals; if(state.orbIdx>=orbs.length) state.orbIdx=0; }
+  function buildLPicker(){
+    lPicker.innerHTML='';
+    for(let l=0;l<=3;l++){
+      const avail = state.n >= l+1;
+      const b=document.createElement('button');
+      b.className='pill'+(l===state.l?' on':'');
+      b.textContent = state.n+lLabel(l);
+      b.disabled=!avail;
+      b.addEventListener('click', ()=>{ state.l=l; state.orbIdx=0; rebuild(); });
+      lPicker.appendChild(b);
+    }
+  }
+  function buildOrbPicker(){
+    orbPicker.innerHTML='';
+    ORB_TYPES[state.l].orbitals.forEach((o,i)=>{
+      const b=document.createElement('button');
+      b.className='pill'+(i===state.orbIdx?' on':'');
+      b.textContent=o.name;
+      b.addEventListener('click', ()=>{ state.orbIdx=i; renderAll(); });
+      orbPicker.appendChild(b);
+    });
+  }
+
+  function drawRadial(){
+    const {ctx,w,h} = fitCanvas(radialCanvas);
+    ctx.clearRect(0,0,w,h);
+    const profile = cloud.profile;
+    ctx.beginPath();
+    let first=true;
+    for(let px=0; px<=w; px++){
+      const r = (px/w)*profile.rmax;
+      const Rv = radialR(state.n,state.l,r);
+      const P = r*r*Rv*Rv / profile.Pmax;
+      const y = h - 6 - P*(h-14);
+      if(first){ ctx.moveTo(px,y); first=false; } else ctx.lineTo(px,y);
+    }
+    ctx.lineTo(w,h); ctx.lineTo(0,h); ctx.closePath();
+    ctx.fillStyle = cssVar('--accent-soft'); ctx.fill();
+    ctx.beginPath(); first=true;
+    for(let px=0; px<=w; px++){
+      const r = (px/w)*profile.rmax;
+      const Rv = radialR(state.n,state.l,r);
+      const P = r*r*Rv*Rv / profile.Pmax;
+      const y = h - 6 - P*(h-14);
+      if(first){ ctx.moveTo(px,y); first=false; } else ctx.lineTo(px,y);
+    }
+    ctx.strokeStyle=cssVar('--accent'); ctx.lineWidth=1.8; ctx.stroke();
+  }
+
+  function countRadialNodes(){
+    const profile = cloud.profile;
+    let count=0, prevSign=null;
+    const steps=400;
+    for(let i=1;i<steps;i++){
+      const r = (i/steps)*profile.rmax*0.98 + 0.001;
+      const v = radialR(state.n,state.l,r);
+      const sign = v>=0?1:-1;
+      if(prevSign!==null && sign!==prevSign) count++;
+      prevSign=sign;
+    }
+    return count;
+  }
+
+  function buildEnergyLadder(){
+    energyLadder.innerHTML='';
+    for(let n=1;n<=5;n++){
+      const row=document.createElement('div');
+      row.className='energy-rung'+(n===state.n && n<=4?' now':'');
+      const eV = n<=4 ? (-13.6/(n*n)).toFixed(2)+' eV' : '→ 0 eV';
+      row.innerHTML = '<span>n='+(n<=4?n:'…')+'</span><span class="bar"></span><span>'+eV+'</span>';
+      energyLadder.appendChild(row);
+    }
+  }
+
+  let rotHandle=null;
+  function drawCloud(){
+    const {ctx,w,h} = fitCanvas(cloudCanvas);
+    ctx.clearRect(0,0,w,h);
+    const cx=w/2, cy=h/2;
+    const scale = Math.min(w,h) / (cloud.profile.rmax*2.3);
+    const cosA=Math.cos(azimuth), sinA=Math.sin(azimuth);
+    const isS = state.l===0;
+    const colorPos = isS? cssVar('--accent') : cssVar('--blue');
+    const colorNeg = cssVar('--red');
+    ctx.save();
+    for(const p of cloud.pts){
+      const x=p[0], y=p[1], z=p[2], sign=p[3];
+      const sx = cx + (x*cosA - y*sinA)*scale;
+      const sy = cy - z*scale;
+      ctx.globalAlpha = 0.55;
+      ctx.fillStyle = sign>=0 ? colorPos : colorNeg;
+      ctx.beginPath(); ctx.arc(sx,sy,1.6,0,7); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function renderAll(){
+    const type = ORB_TYPES[state.l];
+    const orb = type.orbitals[state.orbIdx];
+    orbTitle.textContent = state.n + orb.name;
+    document.getElementById('mN').textContent = state.n;
+    document.getElementById('mL').textContent = state.l + ' ('+type.label+')';
+    document.getElementById('mOr').textContent = (2*state.l+1);
+    document.getElementById('mE').textContent = (-13.6/(state.n*state.n)).toFixed(2)+' eV';
+    cloud = generateCloud(state.n, state.l, orb.shape, 2600);
+    document.getElementById('mNodes').textContent = countRadialNodes();
+    drawCloud(); drawRadial(); buildEnergyLadder();
+  }
+
+  function rebuild(){
+    buildNPicker(); buildLPicker(); buildOrbPicker(); renderAll();
+  }
+
+  function loop(){
+    if(cloud){ azimuth += (prefersReduced?0:0.0035); drawCloud(); }
+    requestAnimationFrame(loop);
+  }
+  buildNPicker(); buildLPicker(); buildOrbPicker(); renderAll();
+  requestAnimationFrame(loop);
+  window.addEventListener('resize', ()=>{ if(cloud){ drawCloud(); drawRadial(); } });
+})();
+
+/* ================= 5. aufbau / configuration ================= */
+const ELEMENTS = [null,'H','He','Li','Be','B','C','N','O','F','Ne','Na','Mg','Al','Si','P','S','Cl','Ar','K','Ca',
+  'Sc','Ti','V','Cr','Mn','Fe','Co','Ni','Cu','Zn','Ga','Ge','As','Se','Br','Kr','Rb','Sr','Y','Zr','Nb','Mo','Tc',
+  'Ru','Rh','Pd','Ag','Cd','In','Sn','Sb','Te','I','Xe','Cs','Ba'];
+
+const FILL_ORDER = [ {n:1,l:0},{n:2,l:0},{n:2,l:1},{n:3,l:0},{n:3,l:1},{n:4,l:0},{n:3,l:2},{n:4,l:1},
+  {n:5,l:0},{n:4,l:2},{n:5,l:1},{n:6,l:0},{n:4,l:3},{n:5,l:2},{n:6,l:1},{n:7,l:0},{n:5,l:3},{n:6,l:2},{n:7,l:1} ];
+const CAP = {0:2,1:6,2:10,3:14};
+
+function buildConfig(Z){
+  let remaining=Z; const filled=[];
+  for(const sub of FILL_ORDER){
+    if(remaining<=0) break;
+    const cap=CAP[sub.l];
+    const count=Math.min(cap,remaining);
+    filled.push({n:sub.n,l:sub.l,count});
+    remaining-=count;
+  }
+  return filled;
+}
+function fillHund(l,count){
+  const slots=2*l+1;
+  const boxes=[]; for(let i=0;i<slots;i++) boxes.push({m:-l+i, up:false, down:false});
+  let e=count;
+  for(let i=0;i<slots && e>0;i++){ boxes[i].up=true; e--; }
+  for(let i=0;i<slots && e>0;i++){ boxes[i].down=true; e--; }
+  return boxes;
+}
+function lastElectron(l,count){
+  const slots=2*l+1;
+  if(count<=slots) return {m:-l+(count-1), s:'+½', boxIndex:count-1, phase:'up'};
+  return {m:-l+(count-slots-1), s:'−½', boxIndex:count-slots-1, phase:'down'};
+}
+
+const SUBSHELL_LABEL = {0:'s',1:'p',2:'d',3:'f'};
+function orderedForDisplay(filled){
+  // group by n, then order l ascending for display rows (conventional written form)
+  const byN={};
+  filled.forEach(f=>{ (byN[f.n] = byN[f.n]||[]).push(f); });
+  return Object.keys(byN).map(Number).sort((a,b)=>a-b).map(n=>({n, subs: byN[n].sort((a,b)=>a.l-b.l)}));
+}
+
+(function(){
+  const elementPicker = document.getElementById('elementPicker');
+  const zRange = document.getElementById('zRange');
+  const zReadout = document.getElementById('zReadout');
+  const diagramWrap = document.getElementById('diagramWrap');
+  const lastECard = document.getElementById('lastECard');
+  const pinned = [4,9,40,55];
+  const pinnedNames = {4:'Beryllium',9:'Fluor',40:'Zirconium',55:'Cäsium'};
+
+  function buildPicker(){
+    elementPicker.innerHTML='';
+    pinned.forEach(z=>{
+      const b=document.createElement('button');
+      b.className='el-btn'; b.textContent=ELEMENTS[z]+' · '+pinnedNames[z];
+      b.addEventListener('click', ()=>setZ(z));
+      b.dataset.z=z;
+      elementPicker.appendChild(b);
+    });
+  }
+  function setZ(z){
+    zRange.value=z;
+    zReadout.textContent = z+' · '+ELEMENTS[z];
+    Array.from(elementPicker.children).forEach(b=>b.classList.toggle('on', parseInt(b.dataset.z,10)===z));
+    render(z);
+  }
+  zRange.addEventListener('input', ()=> setZ(parseInt(zRange.value,10)) );
+
+  function render(Z){
+    const filled = buildConfig(Z);
+    const last = filled[filled.length-1];
+    const rows = orderedForDisplay(filled);
+    diagramWrap.innerHTML='';
+    rows.forEach(row=>{
+      const rowEl=document.createElement('div'); rowEl.className='shell-row';
+      const nEl=document.createElement('div'); nEl.className='shell-n'; nEl.textContent='n='+row.n;
+      rowEl.appendChild(nEl);
+      row.subs.forEach(sub=>{
+        const wrap=document.createElement('div'); wrap.style.display='flex'; wrap.style.alignItems='center'; wrap.style.gap='4px'; wrap.style.marginRight='14px';
+        const lab=document.createElement('span'); lab.className='subshell-label'; lab.textContent=row.n+SUBSHELL_LABEL[sub.l];
+        wrap.appendChild(lab);
+        const sh=document.createElement('div'); sh.className='subshell';
+        const boxes=fillHund(sub.l, sub.count);
+        const isLastSub = (sub===last);
+        const le = isLastSub? lastElectron(sub.l, sub.count) : null;
+        boxes.forEach((bx,i)=>{
+          const be=document.createElement('div'); be.className='box';
+          if(isLastSub && i===le.boxIndex) be.classList.add('last');
+          let inner='';
+          if(bx.up) inner += '<span class="arrow up">↑</span>';
+          if(bx.down) inner += '<span class="arrow down">↓</span>';
+          be.innerHTML=inner;
+          sh.appendChild(be);
+        });
+        wrap.appendChild(sh);
+        rowEl.appendChild(wrap);
+      });
+      diagramWrap.appendChild(rowEl);
+    });
+
+    const le = lastElectron(last.l, last.count);
+    lastECard.innerHTML = ''
+      + '<div><div class="k">n</div><div class="v">'+last.n+'</div></div>'
+      + '<div><div class="k">l</div><div class="v">'+last.l+' ('+SUBSHELL_LABEL[last.l]+')</div></div>'
+      + '<div><div class="k">m</div><div class="v">'+le.m+'</div></div>'
+      + '<div><div class="k">s</div><div class="v">'+le.s+'</div></div>';
+  }
+
+  buildPicker(); setZ(4);
+  window.__setZ = setZ; // used by excite section
+})();
+
+/* ================= 6. excite demo ================= */
+(function(){
+  const exciteBtn = document.getElementById('exciteBtn');
+  const resetBtn = document.getElementById('resetExciteBtn');
+  const caption = document.getElementById('exciteCaption');
+  let excited=false;
+  exciteBtn.addEventListener('click', ()=>{
+    const z = parseInt(document.getElementById('zRange').value,10);
+    const filled = buildConfig(z);
+    const last = filled[filled.length-1];
+    // find next subshell in FILL_ORDER after 'last' that is not yet full for this Z, i.e. the next one in the list
+    const idx = FILL_ORDER.findIndex(s=>s.n===last.n && s.l===last.l);
+    const next = FILL_ORDER[idx+1];
+    if(next){
+      caption.innerHTML = 'Ein Photon hebt ein Elektron aus <b>'+last.n+SUBSHELL_LABEL[last.l]+'</b> in das nächsthöhere freie Orbital <b>'+next.n+SUBSHELL_LABEL[next.l]+'</b>. Beim Zurückfallen wird die Energiedifferenz als Photon wieder abgestrahlt.';
+    }
+    excited=true;
+  });
+  resetBtn.addEventListener('click', ()=>{
+    caption.textContent='Klickt, um das äußerste Elektron des oben gewählten Elements testweise ins nächste freie Orbital zu heben (vereinfachte Illustration).';
+    excited=false;
+  });
+})();
+
+})();
+</script>
