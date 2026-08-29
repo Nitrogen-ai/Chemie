@@ -93,6 +93,36 @@ Diese Werte sind jetzt der Default in `settings.example.json`, sollten aber bei 
 Neuaufbau/jeder Kamerademontage neu überprüft werden (`/frame.jpg` ansehen: heller Punkt muss
 rechts sein, direkt daneben eine plausible Farbreihenfolge zum langwelligen Ende hin).
 
+## Wellenlängen-Kalibrierung (`wavelength_factor`)
+**Kalibriert am 2026-08-29 auf `0.5381` nm/Pixel** (vorher unvalidierter Default `0.6`).
+
+Methode, wie im Original-Lambda-Paket dokumentiert (`Einrichtung`-Datei bzw. `GUI.py`,
+Funktion `spectrum_scale_calibration`): Statt einer separaten schmalbandigen Referenz-LED
+wurde die **bekannte Peak-Wellenlänge der ohnehin verbauten weißen LED** (aus deren
+technischem Datenblatt) als Kalibrierpunkt genutzt. Der Nutzer hatte dafür historisch bereits
+`LambdaSpektrometer/Setup_files/setup.csv` erzeugt (liegt in `~/Downloads/LambdaSpektrometer/`
+bzw. `~/Desktop/LambdaSpektrometer/`, nicht Teil dieses Repos) — deren Maximum liegt exakt bei
+**391,2 nm**, das ist der historisch verwendete Referenzwert.
+
+Vorgehen für die Übertragung auf den neuen picamera2-Aufbau:
+1. Live-Emissionsspektrum der weißen LED aufgenommen (Referenzmessung durch die
+   Wasser-Küvette, altes `wavelength_factor=0.6`).
+2. Darin das **lokale** Maximum im violett-blauen Bereich gesucht (nicht das globale Maximum —
+   das liegt in der breiten Phosphor-Bande bei längeren Wellenlängen). Form und Lage relativ
+   zum Nebenminimum stimmten mit der Form der historischen `setup.csv` überein (steiler Peak,
+   danach Einbruch, danach breiter Anstieg) — das bestätigt, welcher Peak der richtige ist.
+3. Pixelabstand des Peaks zum hellen Referenzpunkt bestimmt (`peak_wavelength_alt / 0.6`),
+   neuen Faktor berechnet: `391.2 / pixelabstand = 0.5381`.
+4. Auf `/settings` eingetragen und mit einer frischen Absorptionsmessung (rötliche Lösung
+   gegen Wasser-Referenz) plausibilisiert: Banden liegen jetzt bei ~385nm (violett) und
+   ~520nm (grün) mit abfallender Extinktion zum Rot hin — genau das erwartete Verhalten für
+   eine rötliche Probe (Rot wird durchgelassen, Grün/Blau absorbiert).
+
+**Bleibt zu tun:** `spectrum_angle_deg` (Winkelkorrektur) ist noch nicht kalibriert (Default
+`0.0`), und der Kalibrierfaktor beruht auf einem einzigen Referenzpunkt (391,2nm) — für höhere
+Präzision wäre ein zweiter bekannter Punkt (z.B. eine schmalbandige Referenz-LED wie im
+Original-Aufbau vorgesehen) sinnvoll, um Nichtlinearitäten zu erkennen.
+
 ## Funktionsweise der Spektrum-Auswertung (`spectro.py`)
 1. `find_aperture`: sucht in der rechten Bildhälfte entlang der mittleren Zeile den hellsten Punkt
    (die nullte Beugungsordnung / das direkte Bild des Eintrittsspalts), bestimmt daraus Mittelpunkt
@@ -138,11 +168,13 @@ rechts sein, direkt daneben eine plausible Farbreihenfolge zum langwelligen Ende
     Rauschen, 593 Punkte) und ein plausibles Absorptionsspektrum (rötliche Lösung gegen
     Wasser-Referenz, 475 Punkte, deutliche Extinktionsbanden) aufgenommen und als CSV/PNG/SVG
     exportiert.
-  - ⏳ **Noch offen: `wavelength_factor` (nm/Pixel) ist weiterhin der unvalidierte Default
-    (`0.6`)** — die x-Achsen-Werte in den obigen Testspektren sind also nur ungefähr richtig.
-    Nächster Schritt: mit einer Lichtquelle bekannter Wellenlänge (z.B. schmalbandige LED,
-    Laserpointer) den Peak im Live-Bild einer bekannten nm-Zahl zuordnen und `wavelength_factor`
-    auf der `/settings`-Seite entsprechend nachjustieren.
+  - ✅ **`wavelength_factor` kalibriert (2026-08-29): `0.5381` nm/Pixel** anhand der bekannten
+    Peak-Wellenlänge (391,2nm) der verbauten weißen LED aus deren Datenblatt, siehe Abschnitt
+    "Wellenlängen-Kalibrierung" oben — die x-Achsen-Werte der Testspektren sind damit nicht
+    mehr nur grob geschätzt.
+  - ⏳ `spectrum_angle_deg` (Winkelkorrektur) ist noch nicht kalibriert (Default `0.0`), und
+    ein zweiter unabhängiger Referenzpunkt (z.B. schmalbandige Referenz-LED) würde die
+    Kalibrierung gegen Nichtlinearitäten absichern.
   - ⏳ Flask läuft aktuell mit dem eingebauten Entwicklungsserver (`app.run(...)`) — für den
     Dauerbetrieb wäre ein richtiger WSGI-Server (z.B. `waitress` oder `gunicorn`) sauberer,
     aktuell aber stabil genug für den Klassenzimmer-Einsatz.
