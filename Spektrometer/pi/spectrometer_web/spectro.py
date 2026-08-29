@@ -16,7 +16,21 @@ DEFAULT_SETTINGS = {
     "spectrum_angle_deg": 0.0,
     "led_brightness": 100,
     "csv_german": True,
+    "image_rotation_deg": 0,
+    "image_flip": False,
 }
+
+
+def apply_rotation(frame, settings):
+    """Bringt das Rohbild in die vom Auswertungs-Algorithmus erwartete Ausrichtung
+    (heller Referenzpunkt/0. Ordnung rechts, Spektrum laeuft nach links). Ersetzt die
+    feste camera.rotation/vflip-Konfiguration des Lambda-Originals durch Drehung +
+    optionale Spiegelung per Einstellung, da Kamera/Spiegel-Aufbau je nach Einbaulage
+    unterschiedlich orientiert sein koennen (eine reine Drehung kann eine Spiegelung
+    im Strahlengang, z.B. durch ein Umlenkprisma, nicht ausgleichen)."""
+    k = {0: 0, 90: 1, 180: 2, 270: 3}.get(int(settings.get("image_rotation_deg", 0)), 0)
+    rotated = np.rot90(frame, k) if k else frame
+    return np.fliplr(rotated) if settings.get("image_flip") else rotated
 
 
 def load_settings():
