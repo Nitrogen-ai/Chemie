@@ -1,4 +1,6 @@
 {
   "wavelength_factor": 0.6,
-  "spectrum_angle_deg": 0.0
+  "spectrum_angle_deg": 0.0,
+  "led_brightness": 100,
+  "csv_german": true
 }
