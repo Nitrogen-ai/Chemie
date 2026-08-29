@@ -236,9 +236,9 @@ INDEX_HTML = """
   <img id="frame" src="/frame.jpg" alt="Kamerabild">
   <img id="plot" src="/live_plot.svg" alt="Spektrum">
   <div class="row">
-    <a class="btn" href="/export/csv">CSV herunterladen</a>
-    <a class="btn" href="/export/png">PNG herunterladen</a>
-    <a class="btn" href="/export/svg">SVG herunterladen</a>
+    <button class="btn" onclick="downloadExport('/export/csv', 'messung.csv')">CSV herunterladen</button>
+    <button class="btn" onclick="downloadExport('/export/png', 'messung.png')">PNG herunterladen</button>
+    <button class="btn" onclick="downloadExport('/export/svg', 'messung.svg')">SVG herunterladen</button>
   </div>
   <h2 style="font-size:1rem;">Messreihe</h2>
   <div class="row">
@@ -247,9 +247,9 @@ INDEX_HTML = """
     <span id="series-count" style="color:#9aa39b;">0 Messungen</span>
   </div>
   <div class="row">
-    <a class="btn" href="/export/series/csv">Messreihe als CSV</a>
-    <a class="btn" href="/export/series/png">Messreihe als PNG</a>
-    <a class="btn" href="/export/series/svg">Messreihe als SVG</a>
+    <button class="btn" onclick="downloadExport('/export/series/csv', 'messreihe.csv')">Messreihe als CSV</button>
+    <button class="btn" onclick="downloadExport('/export/series/png', 'messreihe.png')">Messreihe als PNG</button>
+    <button class="btn" onclick="downloadExport('/export/series/svg', 'messreihe.svg')">Messreihe als SVG</button>
   </div>
   <p><a class="settings" href="/settings">Kalibrierung &amp; Einstellungen</a></p>
   <p id="status" style="color:#9aa39b;"></p>
@@ -265,6 +265,26 @@ updateButtons();
 function setMode(m) {
   fetch('/api/mode', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({mode: m})})
     .then(r => r.json()).then(d => { mode = d.mode; updateButtons(); });
+}
+function downloadExport(url, filename) {
+  fetch(url).then(r => {
+    if (!r.ok) {
+      return r.text().then(msg => { throw new Error(msg); });
+    }
+    return r.blob();
+  }).then(blob => {
+    const objectUrl = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = objectUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(objectUrl);
+    document.getElementById('status').textContent = filename + ' heruntergeladen.';
+  }).catch(err => {
+    document.getElementById('status').textContent = 'Export fehlgeschlagen: ' + err.message;
+  });
 }
 function captureReference() {
   fetch('/api/reference', {method:'POST'}).then(() => {
