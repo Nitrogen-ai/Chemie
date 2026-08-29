@@ -1,5 +1,5 @@
 {
-  "wavelength_factor": 0.6,
+  "wavelength_factor": 0.5381,
   "spectrum_angle_deg": 0.0,
   "led_brightness": 100,
   "csv_german": true,
