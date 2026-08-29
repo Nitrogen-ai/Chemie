@@ -57,6 +57,9 @@ pi/
     spectrometer-webapp.service Dauerhaft aktiver Dienst, startet app.py beim Boot
   scripts/
     labwc-autostart            Startet automatisch einen Kiosk-Chromium auf http://localhost:8080
+    toggle-kiosk               Start/Stop des Kiosk-Chromium (Desktop-Icon + Hotkey Strg+Alt+K)
+  desktop/
+    Web-Spektrometer-Kiosk.desktop  Desktop-Icon fuer toggle-kiosk
 ```
 Diese Dateien sind Kopien vom Pi (Stand siehe Commit-Datum) — die "lebende" Version läuft auf dem
 Gerät selbst unter `/home/nitrogen/...` bzw. `/etc/systemd/system/...`. Änderungen müssen auf
@@ -79,6 +82,30 @@ zuverlässig gesendet, solange der "Persönlicher Hotspot"-Bildschirm auf dem iP
 ist — sonst wird die Sichtbarkeit gedrosselt und der Pi findet das Netz beim WLAN-Scan nicht
 (`nmcli device wifi list` zeigt es dann schlicht nicht an). Vor dem Schuleinsatz: Hotspot-Screen
 kurz offen lassen, bis der Pi sich verbunden hat; danach bleibt die Verbindung stabil.
+
+## Touchscreen-Bedienung (Kiosk-Chromium)
+Der Kiosk-Browser (`--kiosk`) hat bewusst keine Adressleiste/Zurück-Taste — Klicks auf einen
+Link, der den Browser navigiert (statt per JS im Hintergrund zu laden), führen dort in eine
+Sackgasse (siehe "Export-Downloads" unten, dort behoben). Für den generellen Ausstieg:
+- **Hotkey `Strg+Alt+K`** (eigener Eintrag in `~/.config/labwc/rc.xml`, ergänzt am 2026-08-30):
+  startet/beendet den Kiosk-Chromium (`/usr/local/bin/toggle-kiosk`) — beendet ihn, wenn er
+  läuft, startet ihn neu, wenn nicht. Gibt bei Bedarf den Blick auf den normalen labwc-Desktop
+  (Panel, Dateimanager) frei.
+- **Desktop-Icon "Web-Spektrometer (Vollbild an/aus)"** auf dem Desktop: macht dasselbe per Klick,
+  für den Fall, dass keine Tastatur zur Hand ist.
+- **`Strg+Alt+W`** (System-Standard des Pi-Panels, nicht von uns ergänzt) öffnet direkt das
+  WLAN-Menü, auch während der Kiosk-Browser im Vordergrund ist — kein Ausstieg aus dem Kiosk
+  nötig, nur um ein Netz auszuwählen.
+- **Wichtig zu wissen:** `--kiosk` blendet Adressleiste/Chrome-UI grundsätzlich aus, unabhängig
+  vom Fenster-Vollbildstatus — ein reines "Vollbild → Fenster"-Umschalten (wie F11 in einem
+  normalen Browser) würde die Adressleiste NICHT zurückbringen. Der Hotkey beendet den Prozess
+  daher komplett, statt ihn nur zu verkleinern.
+
+Nach einem `sudo reboot` dauert es (Kamera-Init, WSGI-Warmup, `labwc-autostart`s `sleep 6`)
+ca. 20–30s, bis der Kiosk-Browser die Seite tatsächlich anzeigt — ein manueller Chromium-Neustart
+per SSH mit von Hand gesetzten Wayland-Umgebungsvariablen funktioniert dagegen unzuverlässig
+(fehlende Session-Umgebungsvariablen); im Zweifel `toggle-kiosk` (Hotkey/Icon) oder `sudo reboot`
+verwenden, nicht manuell per SSH nachbauen.
 
 ## Bildausrichtung (`image_rotation_deg` / `image_flip` in den Einstellungen)
 `find_aperture`/`extract_spectrum` erwarten den hellen Referenzpunkt (0. Ordnung/direktes Bild
@@ -141,6 +168,13 @@ Original-Aufbau vorgesehen) sinnvoll, um Nichtlinearitäten zu erkennen.
 6. `resample`/`build_csv_series`: für die Messreihen-Funktion — mehrere Einzelmessungen (jede
    mit eigenem Wellenlängen-Raster aus ihrer eigenen Aufnahme) werden auf ein gemeinsames
    1nm-Raster (380–1000nm) interpoliert, bevor sie gemeinsam als CSV/Plot exportiert werden.
+7. `render_plot`: x-Achse ist fest auf `PLOT_XLIM = (350, 700)` gesetzt (nicht auto-skaliert),
+   y-Achse bei Extinktion fest auf `(0, 3)` — **bewusst, seit 2026-08-30**. Grund: das
+   Live-Spektrum aktualisiert sich alle 1,5s per Refresh, dabei streut sowohl der von
+   `find_aperture` gefundene Wellenlängenbereich leicht als auch (bei Absorption) einzelne
+   `-log10`-Ausreisser bei nahe-Null-Intensität stark — ohne feste Achsen sprang das Diagramm
+   bei jedem Refresh sichtbar in Größe/Bereich (von einem Nutzer per Video dokumentiert). Die
+   CSV-Rohdaten bleiben unverändert (nur die Anzeige ist geclippt), Export bleibt vollständig.
 
 ## Stand nach Phasen
 
