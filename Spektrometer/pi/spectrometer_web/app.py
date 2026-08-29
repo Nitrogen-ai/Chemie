@@ -9,6 +9,7 @@ from PIL import Image
 from picamera2 import Picamera2
 
 import spectro
+from led import Led
 
 app = Flask(__name__)
 lock = threading.Lock()
@@ -25,7 +26,9 @@ picam2.set_controls({
 picam2.start()
 time.sleep(2)
 
-state = {"mode": "emission", "last_measurement": None}
+led = Led(brightness=spectro.load_settings()["led_brightness"])
+
+state = {"mode": "emission", "last_measurement": None, "series": []}
 
 
 def capture_frame():
@@ -104,6 +107,40 @@ def freeze_measurement():
     return jsonify({"status": "ok", "points": len(wavelengths)})
 
 
+@app.route("/api/led", methods=["POST"])
+def set_led():
+    data = request.json or {}
+    if "brightness" in data:
+        led.set_brightness(float(data["brightness"]))
+        s = spectro.load_settings()
+        s["led_brightness"] = led.brightness
+        spectro.save_settings(s)
+    if "on" in data:
+        led.on() if data["on"] else led.off()
+    return jsonify({"on": led.is_on, "brightness": led.brightness})
+
+
+@app.route("/api/series/add", methods=["POST"])
+def series_add():
+    wavelengths, values, ylabel = current_spectrum()
+    state["series"].append({
+        "label": str(len(state["series"]) + 1),
+        "wavelengths": wavelengths.tolist(),
+        "values": values.tolist(),
+        "ylabel": ylabel,
+    })
+    return jsonify({"status": "ok", "count": len(state["series"])})
+
+
+@app.route("/api/series/clear", methods=["POST"])
+def series_clear():
+    state["series"] = []
+    return jsonify({"status": "ok"})
+
+
+SERIES_GRID = np.arange(380.0, 1001.0, 1.0)
+
+
 @app.route("/export/<fmt>")
 def export(fmt):
     m = state["last_measurement"]
@@ -112,7 +149,8 @@ def export(fmt):
     wavelengths = np.array(m["wavelengths"])
     values = np.array(m["values"])
     if fmt == "csv":
-        csv_text = spectro.build_csv(wavelengths, values, m["ylabel"])
+        german = spectro.load_settings()["csv_german"]
+        csv_text = spectro.build_csv(wavelengths, values, m["ylabel"], german=german)
         return Response(csv_text, mimetype="text/csv",
                          headers={"Content-Disposition": "attachment; filename=messung.csv"})
     if fmt in ("svg", "png"):
@@ -123,13 +161,40 @@ def export(fmt):
     return "Unbekanntes Format", 400
 
 
+@app.route("/export/series/<fmt>")
+def export_series(fmt):
+    series = state["series"]
+    if not series:
+        return "Keine Messreihe vorhanden. Erst Messungen hinzufuegen.", 400
+    entries = [
+        {"label": f"{e['label']} ({e['ylabel']})",
+         "values": spectro.resample(np.array(e["wavelengths"]), np.array(e["values"]), SERIES_GRID)}
+        for e in series
+    ]
+    if fmt == "csv":
+        german = spectro.load_settings()["csv_german"]
+        csv_text = spectro.build_csv_series(SERIES_GRID, entries, german=german)
+        return Response(csv_text, mimetype="text/csv",
+                         headers={"Content-Disposition": "attachment; filename=messreihe.csv"})
+    if fmt in ("svg", "png"):
+        data = spectro.render_plot(SERIES_GRID, None, "Messwert", "Messreihe",
+                                    svg=(fmt == "svg"), extra_series=entries)
+        mimetype = "image/svg+xml" if fmt == "svg" else "image/png"
+        return Response(data, mimetype=mimetype,
+                         headers={"Content-Disposition": f"attachment; filename=messreihe.{fmt}"})
+    return "Unbekanntes Format", 400
+
+
 @app.route("/settings", methods=["GET", "POST"])
 def settings_page():
     if request.method == "POST":
         s = spectro.load_settings()
         s["wavelength_factor"] = float(request.form["wavelength_factor"])
         s["spectrum_angle_deg"] = float(request.form["spectrum_angle_deg"])
+        s["led_brightness"] = float(request.form["led_brightness"])
+        s["csv_german"] = request.form.get("csv_mode") == "german"
         spectro.save_settings(s)
+        led.set_brightness(s["led_brightness"])
     s = spectro.load_settings()
     return render_template_string(SETTINGS_HTML, settings=s)
 
@@ -159,6 +224,12 @@ INDEX_HTML = """
     <button onclick="captureReference()">Referenz aufnehmen</button>
     <button onclick="freeze()">Messung sichern</button>
   </div>
+  <div class="row">
+    <button id="btn-led" onclick="toggleLed()">Licht an/aus</button>
+    <label style="color:#9aa39b; font-size:0.85rem;">Helligkeit
+      <input type="range" min="0" max="100" id="led-brightness" onchange="setLedBrightness(this.value)">
+    </label>
+  </div>
   <img id="frame" src="/frame.jpg" alt="Kamerabild">
   <img id="plot" src="/live_plot.svg" alt="Spektrum">
   <div class="row">
@@ -166,13 +237,26 @@ INDEX_HTML = """
     <a class="btn" href="/export/png">PNG herunterladen</a>
     <a class="btn" href="/export/svg">SVG herunterladen</a>
   </div>
+  <h2 style="font-size:1rem;">Messreihe</h2>
+  <div class="row">
+    <button onclick="seriesAdd()">Zur Messreihe hinzufuegen</button>
+    <button onclick="seriesClear()">Messreihe leeren</button>
+    <span id="series-count" style="color:#9aa39b;">0 Messungen</span>
+  </div>
+  <div class="row">
+    <a class="btn" href="/export/series/csv">Messreihe als CSV</a>
+    <a class="btn" href="/export/series/png">Messreihe als PNG</a>
+    <a class="btn" href="/export/series/svg">Messreihe als SVG</a>
+  </div>
   <p><a class="settings" href="/settings">Kalibrierung &amp; Einstellungen</a></p>
   <p id="status" style="color:#9aa39b;"></p>
 <script>
 let mode = "{{ mode }}";
+let ledOn = false;
 function updateButtons() {
   document.getElementById('btn-emission').className = mode === 'emission' ? 'active' : '';
   document.getElementById('btn-absorption').className = mode === 'absorption' ? 'active' : '';
+  document.getElementById('btn-led').className = ledOn ? 'active' : '';
 }
 updateButtons();
 function setMode(m) {
@@ -187,6 +271,25 @@ function captureReference() {
 function freeze() {
   fetch('/api/freeze', {method:'POST'}).then(r => r.json()).then(d => {
     document.getElementById('status').textContent = 'Messung gesichert (' + d.points + ' Punkte) - Export-Links oben sind jetzt aktuell.';
+  });
+}
+function toggleLed() {
+  ledOn = !ledOn;
+  fetch('/api/led', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({on: ledOn})})
+    .then(r => r.json()).then(d => { ledOn = d.on; document.getElementById('led-brightness').value = d.brightness; updateButtons(); });
+}
+function setLedBrightness(v) {
+  fetch('/api/led', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({brightness: Number(v)})});
+}
+function seriesAdd() {
+  fetch('/api/series/add', {method:'POST'}).then(r => r.json()).then(d => {
+    document.getElementById('series-count').textContent = d.count + ' Messungen';
+    document.getElementById('status').textContent = 'Zur Messreihe hinzugefuegt (' + d.count + ' insgesamt).';
+  });
+}
+function seriesClear() {
+  fetch('/api/series/clear', {method:'POST'}).then(() => {
+    document.getElementById('series-count').textContent = '0 Messungen';
   });
 }
 setInterval(() => {
@@ -217,6 +320,15 @@ a{color:#9aa39b;}
   </label>
   <label>Winkelkorrektur des Spektrums (Grad)
     <input type="number" step="0.1" name="spectrum_angle_deg" value="{{ settings.spectrum_angle_deg }}">
+  </label>
+  <label>LED-Helligkeit beim Einschalten (%)
+    <input type="number" step="1" min="0" max="100" name="led_brightness" value="{{ settings.led_brightness }}">
+  </label>
+  <label>CSV-Stil
+    <select name="csv_mode">
+      <option value="german" {{ "selected" if settings.csv_german else "" }}>Deutsch (Semikolon, Komma)</option>
+      <option value="english" {{ "" if settings.csv_german else "selected" }}>Englisch (Komma, Punkt)</option>
+    </select>
   </label>
   <button type="submit">Speichern</button>
 </form>

@@ -1,26 +1,33 @@
 # Spektrometer — Raspberry-Pi-Projekt
 
 ## Worum es geht
-Ein Raspberry Pi 4 Model B (4GB) mit OV5647-Kameramodul übernimmt drei Rollen:
-1. **Fernsteuerung** vom Mac/Laptop aus über SSH und VNC (WLAN, kein Bildschirm nötig).
-2. **Wach-Modus**: dauerhafte Bewegungserkennung zuhause mit Pushover-Alarm (Foto-Anhang) aufs Handy.
-3. **Unterrichtsmodus**: browserbasiertes Vis-Spektrometer, das über ein optisches Gitter/Spalt-Setup
-   Absorptions- und Emissionsspektren misst — Ablösung der ursprünglichen Tkinter-Anwendung "Lambda".
+Ein Raspberry Pi 4 Model B (4GB) mit OV5647-Kameramodul und Touchscreen betreibt ein
+browserbasiertes Vis-Spektrometer ("Lambdacloud"), das über ein optisches Gitter/Spalt-Setup
+Absorptions- und Emissionsspektren misst. Ein einziger Flask-Prozess (`spectrometer_web/`) hält
+den Kamerazugriff und bedient gleichzeitig zwei Anzeigen: den Pi-eigenen Touchscreen (Kiosk-
+Chromium, lokal) und jedes andere Gerät im selben WLAN/Hotspot (Browser, per `nitrogen.local`).
+Fernsteuerung des Pi selbst läuft weiterhin über SSH und VNC.
 
-Nur eine der Rollen (2) und (3) kann gleichzeitig aktiv sein (eine Kamera, ein Prozess).
-Das Umschalten übernehmen zwei systemd-Dienste plus Skripte, siehe unten.
+Frühere Rolle als Kamera-Wache (Bewegungserkennung + Pushover-Alarm) ist entfallen — dafür wird
+inzwischen eine andere Lösung genutzt, der komplette `camera_watch`-Anwendungsbereich (Skript,
+systemd-Dienst, Umschalt-Skripte, Pushover-Zugangsdaten) wurde aus diesem Repo und vom Pi
+entfernt.
 
 ## Herkunft & Lizenz
-Die Kernidee (automatische Erkennung der 0. Ordnung im Kamerabild, Scan-Linie durchs Spektrum,
-Wellenlängen-Umrechnung über einen linearen nm/Pixel-Faktor, Effizienzkorrektur des Gitters)
-stammt aus dem Referenzprojekt **"Lambda"** der Uni Würzburg (Didaktik der Chemie):
+Die Kernalgorithmik (automatische Erkennung der 0. Ordnung im Kamerabild, Scan-Linie durchs
+Spektrum, Wellenlängen-Umrechnung über einen linearen nm/Pixel-Faktor, Effizienzkorrektur des
+Gitters, Regenbogen-Einfärbung des Diagramms per `wavelength_to_color`, LED-Ansteuerung über
+GPIO, Messreihen-Konzept) stammt aus dem Open-Source-Projekt **"Lambda"** von Maurice Kahre
+(2021), das seinerseits auf dem Referenzprojekt der Uni Würzburg (Didaktik der Chemie) beruht:
 <https://www.chemie.uni-wuerzburg.de/didaktik/lehrpersonen/low-cost-messgeraete/vis-spektrometer/>
 
 Lizenz des Originals: **CC BY 4.0**, Maurice Kahre (2021), selbst basierend auf einer
 **MIT-lizenzierten** Vorarbeit von Tony Butterfield (2016). Der Code hier (`pi/spectrometer_web/`)
-ist eine eigenständige Neuentwicklung (Python/Flask/picamera2 statt Tkinter/picamera), aber die
-Kernalgorithmik ist inspiriert vom Original — Namensnennung entsprechend beibehalten, wenn dieses
-Repo veröffentlicht wird.
+ist eine eigenständige Neuentwicklung (Python/Flask/picamera2 statt Tkinter/legacy `picamera`) —
+Lambdas Tkinter-Desktop-Oberfläche läuft auf dem aktuellen Pi-OS (nur noch `libcamera`/picamera2-
+Stack) nicht mehr, deshalb wurden gezielt einzelne, kameraunabhängige Bausteine der
+Algorithmik/Funktionalität übernommen und auf picamera2 portiert, nicht die komplette GUI.
+Namensnennung entsprechend beibehalten, da dieses Repo öffentlich ist.
 
 ## Gerät erreichen
 - Hostname: `nitrogen.local` (mDNS/Bonjour, IP ändert sich, Name bleibt stabil)
@@ -41,30 +48,37 @@ Vermutlich eine Schutzfunktion des Heim-Routers gegen viele schnelle Verbindungs
 ## Aufbau in diesem Repo
 ```
 pi/
-  camera_watch.py              Wach-Modus: Bewegungserkennung + Pushover-Alarm
   spectrometer_web/
-    app.py                     Flask-Webserver (Kern der Unterrichtsmodus-Anwendung)
+    app.py                     Flask-Webserver (Kamera, State, API-Routen, HTML-Templates)
     spectro.py                 Bildauswertung: Spalterkennung, Wellenlängen-Umrechnung, Plot/CSV
+    led.py                     LED-Ansteuerung (RPi.GPIO PWM, Pin 7) fuer Emissionsbeleuchtung
     settings.example.json      Vorlage für settings.json (Kalibrierwerte) — echte Datei bleibt auf dem Pi
   systemd/
-    camera-watch.service       Wach-Modus als systemd-Dienst
-    spectrometer-webapp.service Unterrichtsmodus als systemd-Dienst
-    camera-watch.env.example   Vorlage für /etc/camera-watch.env (Pushover-Zugangsdaten)
+    spectrometer-webapp.service Dauerhaft aktiver Dienst, startet app.py beim Boot
   scripts/
-    pi-modus-wache             Umschalt-Skript: aktiviert Wach-Modus, deaktiviert Unterrichtsmodus
-    pi-modus-unterricht        Umschalt-Skript: umgekehrt
-    labwc-autostart            Startet im Unterrichtsmodus automatisch einen Kiosk-Chromium
-  desktop/
-    Wach-Modus.desktop         Desktop-Icon für pi-modus-wache
-    Unterrichtsmodus.desktop   Desktop-Icon für pi-modus-unterricht
+    labwc-autostart            Startet automatisch einen Kiosk-Chromium auf http://localhost:8080
 ```
 Diese Dateien sind Kopien vom Pi (Stand siehe Commit-Datum) — die "lebende" Version läuft auf dem
 Gerät selbst unter `/home/nitrogen/...` bzw. `/etc/systemd/system/...`. Änderungen müssen auf
 beiden Seiten synchron gehalten werden (aktuell manuell per `scp`/SSH-Heredoc, kein Deploy-Skript).
 
 **Nicht im Repo (bewusst, siehe .gitignore-Prinzip):** `settings.json`, `reference.json`
-(Kalibrierung/Referenzmessung sind Laufzeitzustand des konkreten Aufbaus), `camera-watch.env`
-(enthält echte Pushover-Zugangsdaten).
+(Kalibrierung/Referenzmessung sind Laufzeitzustand des konkreten Aufbaus).
+
+## WLAN
+Der Pi kennt zwei WLAN-Profile (NetworkManager, `nmcli`): das Heim-WLAN
+(`netplan-wlan0-WLAN-311366`, Priorität 10) und den Schul-Hotspot (`Schul-Hotspot-iPhone`,
+SSID "iPhone", Priorität 5) — er verbindet sich automatisch mit dem jeweils erreichbaren Netz,
+sobald das aktuell genutzte wegfällt (kein aktives Umschalten weg von einer funktionierenden
+Verbindung). **Am 2026-08-29 live getestet:** Heim-WLAN am Pi deaktiviert, Pi hat automatisch den
+Hotspot "iPhone" übernommen (IP im 172.20.10.0/28-Bereich), `nitrogen.local:8080` war darüber per
+mDNS erreichbar — funktioniert also zuverlässig, kein IP-Fallback nötig.
+
+**Wichtige Eigenheit von Apples Personal Hotspot:** Das SSID "iPhone" wird für neue Scans nur
+zuverlässig gesendet, solange der "Persönlicher Hotspot"-Bildschirm auf dem iPhone selbst offen
+ist — sonst wird die Sichtbarkeit gedrosselt und der Pi findet das Netz beim WLAN-Scan nicht
+(`nmcli device wifi list` zeigt es dann schlicht nicht an). Vor dem Schuleinsatz: Hotspot-Screen
+kurz offen lassen, bis der Pi sich verbunden hat; danach bleibt die Verbindung stabil.
 
 ## Funktionsweise der Spektrum-Auswertung (`spectro.py`)
 1. `find_aperture`: sucht in der rechten Bildhälfte entlang der mittleren Zeile den hellsten Punkt
@@ -79,33 +93,54 @@ beiden Seiten synchron gehalten werden (aktuell manuell per `scp`/SSH-Heredoc, k
    Wellenlängen hin ab) — beides 1:1 aus dem Referenzprojekt übernommen.
 4. Absorptionsmodus: `Extinktion = -log10(I / I_referenz)`, Referenz wird per Knopfdruck
    ("Referenz aufnehmen") gespeichert (`reference.json`, per Wellenlänge interpoliert mit `np.interp`).
+5. `wavelength_to_color`: bildet eine Wellenlänge auf eine RGB-Sichtfarbe ab (aus Lambda
+   portiert), nutzt `render_plot`, um den Diagrammhintergrund einzufärben.
+6. `resample`/`build_csv_series`: für die Messreihen-Funktion — mehrere Einzelmessungen (jede
+   mit eigenem Wellenlängen-Raster aus ihrer eigenen Aufnahme) werden auf ein gemeinsames
+   1nm-Raster (380–1000nm) interpoliert, bevor sie gemeinsam als CSV/Plot exportiert werden.
 
-## Stand nach Phasen (siehe auch das Artefakt "Pi 4B — Wache, Klassenzimmer, Web-Spektrometer")
+## Stand nach Phasen
 
 - **Phase 1 (Grundsystem/Fernsteuerung): fertig.** SSH, VNC (TigerVNC), Hostname `nitrogen.local`.
-- **Phase 2 (Wach-Modus): fertig, getestet.** Bewegung → Foto → Pushover-Push kommt an,
-  2-Minuten-Cooldown gegen Spam eingebaut (`camera_watch.py`, `COOLDOWN_SECONDS`).
-- **Phase 3 (Umschaltbarkeit): fertig, getestet.** Beide Modi schließen sich sauber gegenseitig
-  aus (ein `enable`/`disable`-Paar pro Wechsel), Kiosk-Autostart im Unterrichtsmodus funktioniert.
-- **Phase 4 (Web-Spektrometer): Grundgerüst steht, echte Messungen stehen noch aus.**
-  - ✅ Live-Ansicht (Kamerabild + Live-Spektrum), Emission/Absorption-Umschalter,
-    Referenzaufnahme, "Messung sichern", Export als CSV/PNG/SVG, Kalibrierungsseite (`/settings`).
+- **Phase 2 (Wach-Modus): entfernt (2026-08-29).** Bewegungserkennung/Pushover wird nicht mehr
+  gebraucht (Alternative gefunden), kompletter `camera_watch`-Anwendungsbereich aus Repo und Pi
+  entfernt. `spectrometer-webapp.service` läuft seitdem dauerhaft, kein Umschalten mehr nötig.
+- **Phase 3 (Web-Spektrometer, Grundgerüst): fertig.** Live-Ansicht (Kamerabild + Live-Spektrum),
+  Emission/Absorption-Umschalter, Referenzaufnahme, "Messung sichern", Export als CSV/PNG/SVG,
+  Kalibrierungsseite (`/settings`), Kiosk-Autostart auf dem Touchscreen.
+- **Phase 4 (Lambdacloud — Funktionsumfang aus dem Lambda-Projekt): fertig, ungetestet am
+  echten Aufbau.**
+  - ✅ LED-Steuerung (an/aus/Helligkeit) über `led.py` (Pin 7, `RPi.GPIO` PWM).
+  - ✅ Messreihe: mehrere Messungen sammeln (`/api/series/add`), gemeinsamer Export als
+    mehrspaltige CSV bzw. überlagerter Plot (`/export/series/<fmt>`), auf gemeinsames
+    1nm-Raster (380–1000nm) resampled (`spectro.resample`).
+  - ✅ Diagramm mit Regenbogen-Hintergrund nach Wellenlänge (`spectro.wavelength_to_color`).
+  - ✅ CSV-Sprachmodus (Deutsch/Englisch) als Einstellung, wie im Lambda-Original.
+  - ✅ **Live am echten Aufbau getestet (2026-08-29):** LED per API tatsächlich an/ausgeschaltet,
+    Messreihe mit zwei Messungen angelegt und als CSV/SVG exportiert — alles über das Netz
+    erreichbar und fehlerfrei (`journalctl -u spectrometer-webapp` sauber).
   - ⏳ **Nächster Schritt laut Nutzer: echte Proben messen** (Farbstofflösungen für Absorption,
     verschiedene Lichtquellen für Emission) und dabei den Kalibrierfaktor (`wavelength_factor`)
     gegen bekannte Referenzwellenlängen validieren/korrigieren.
-  - ⏳ Noch nicht gebaut: Messreihen mit unterschiedlichen Konzentrationen (nice-to-have laut Plan).
   - ⏳ Flask läuft aktuell mit dem eingebauten Entwicklungsserver (`app.run(...)`) — für den
     Dauerbetrieb wäre ein richtiger WSGI-Server (z.B. `waitress` oder `gunicorn`) sauberer,
     aktuell aber stabil genug für den Klassenzimmer-Einsatz.
-  - ⏳ Validierung der Ergebnisse gegen die alte Lambda-Software ist hinfällig, da die alte App
-    laut Entscheidung des Nutzers bewusst nicht weiterverwendet wird (moderner libcamera-Stack
-    statt Legacy-`picamera`).
-- **Phase 5 (Feinschliff/Doku): noch nicht begonnen.**
+- **Phase 5 (WLAN-Erweiterung Schul-Hotspot): fertig, live getestet.** Zweites `nmcli`-Profil
+  für den Hotspot "iPhone" angelegt, automatischer Wechsel und mDNS-Erreichbarkeit bestätigt
+  (siehe Abschnitt "WLAN" oben inkl. der Hotspot-Sichtbarkeits-Eigenheit).
+- **Phase 6 (Feinschliff/Doku): noch nicht begonnen.**
 
 ## Für die nahtlose Fortführung
-- Der Pi läuft aktuell im **Unterrichtsmodus** (spectrometer-webapp aktiv, camera-watch deaktiviert).
+- Der Pi läuft aktuell im (einzigen verbliebenen) Web-Spektrometer-Modus, `spectrometer-webapp`
+  dauerhaft aktiv. Es gibt keinen Wach-Modus mehr, Stand 2026-08-29 auf dem Pi deployt und
+  live getestet (LED, Messreihe, WLAN-Hotspot-Wechsel).
+- Der Pi kennt inzwischen zwei WLAN-Profile und wechselt selbstständig — falls er beim nächsten
+  Zugriff nicht unter `nitrogen.local` antwortet, könnte er gerade im jeweils anderen Netz hängen
+  (z.B. noch im Schul-Hotspot, wenn zuletzt dort getestet wurde). Eigenes Gerät ggf. ebenfalls
+  ins selbe Netz wechseln, siehe Abschnitt "WLAN" oben.
 - Wenn der Nutzer "weiter mit dem Spektrometer" sagt: zuerst per SSH prüfen, ob die Dateien auf
   dem Pi noch dem Stand hier im Repo entsprechen (Verbindungsabbrüche mitten im Deploy sind schon
   vorgekommen, siehe oben) — Diff zwischen `pi/spectrometer_web/*.py` hier und den Dateien auf
   dem Pi ist der sicherste erste Schritt nach einer Pause.
-- Reale Messungen mit dem Nutzer sind der nächste inhaltliche Schritt, keine neue Funktion.
+- Reale Messungen mit dem Nutzer (Farbstofflösungen, Lichtquellen, Kalibrierfaktor validieren)
+  sind der nächste inhaltliche Schritt.

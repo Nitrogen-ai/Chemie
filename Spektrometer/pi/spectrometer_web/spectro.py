@@ -14,6 +14,8 @@ REFERENCE_PATH = "/home/nitrogen/spectrometer_web/reference.json"
 DEFAULT_SETTINGS = {
     "wavelength_factor": 0.6,
     "spectrum_angle_deg": 0.0,
+    "led_brightness": 100,
+    "csv_german": True,
 }
 
 
@@ -105,6 +107,35 @@ def compute_extinction(wavelengths, intensities, ref_wavelengths, ref_intensitie
     return -np.log10(intensities_safe / ref_interp)
 
 
+# Sichtbare Wellenlaenge -> RGB (0..1), fuer die Regenbogen-Einfaerbung der Diagramme.
+# Portiert aus LambdaSpektrometer/Python_scripts/spectrometer.py::wavelength_to_color
+# (Maurice Kahre, 2021, CC BY 4.0), nur auf 0..1-Floats statt 0..255-Ints umgestellt.
+def wavelength_to_color(wavelength):
+    thresholds = [380, 400, 440, 460, 490, 580, 780]
+    color = [0.0, 0.0, 0.0]
+    factor = 0.0
+    for i in range(len(thresholds) - 1):
+        t1, t2 = thresholds[i], thresholds[i + 1]
+        if wavelength < t1 or wavelength >= t2:
+            continue
+        if i % 2 != 0:
+            t1, t2 = t2, t1
+        if i < 5:
+            color[i % 3] = (wavelength - t2) / (t1 - t2)
+        color[2 - i // 2] = 1.0
+        factor = 1.0
+        break
+    if 380 <= wavelength < 420:
+        factor = 0.2 + 0.8 * (wavelength - 380) / (420 - 380)
+    elif 600 <= wavelength < 780:
+        factor = 0.2 + 0.8 * (780 - wavelength) / (780 - 600)
+    return color[0] * factor, color[1] * factor, color[2] * factor
+
+
+def resample(wavelengths, values, grid):
+    return np.interp(grid, wavelengths, values, left=np.nan, right=np.nan)
+
+
 def build_csv(wavelengths, values, value_label, german=True):
     lines = []
     if german:
@@ -118,13 +149,45 @@ def build_csv(wavelengths, values, value_label, german=True):
     return "\n".join(lines)
 
 
-def render_plot(wavelengths, values, ylabel, title, svg=True):
+def build_csv_series(grid, entries, german=True):
+    """entries: Liste von {"label": str, "values": array (auf 'grid' resampled)}."""
+    sep = ";" if german else ","
+
+    def fmt(v):
+        if np.isnan(v):
+            return ""
+        text = f"{v:.4f}"
+        return text.replace(".", ",") if german else text
+
+    header = ["Wellenlaenge [nm]"] + [e["label"] for e in entries]
+    lines = [sep.join(header)]
+    for row_i, wl in enumerate(grid):
+        wl_text = f"{wl:.1f}".replace(".", ",") if german else f"{wl:.1f}"
+        row = [wl_text] + [fmt(e["values"][row_i]) for e in entries]
+        lines.append(sep.join(row))
+    return "\n".join(lines)
+
+
+def render_plot(wavelengths, values, ylabel, title, svg=True, extra_series=None):
     fig, ax = plt.subplots(figsize=(8, 4))
-    ax.plot(wavelengths, values, color="black", linewidth=1)
+
+    lo, hi = float(np.min(wavelengths)), float(np.max(wavelengths))
+    band_lo, band_hi = max(lo, 380.0), min(hi, 780.0)
+    if band_hi > band_lo:
+        for wl in np.arange(band_lo, band_hi, 4.0):
+            ax.axvspan(wl, wl + 4.0, color=wavelength_to_color(wl + 2.0), alpha=0.25, linewidth=0, zorder=0)
+
+    if extra_series:
+        for entry in extra_series:
+            ax.plot(wavelengths, entry["values"], linewidth=1, label=entry["label"], zorder=2)
+        ax.legend(fontsize=8)
+    else:
+        ax.plot(wavelengths, values, color="black", linewidth=1, zorder=2)
+
     ax.set_xlabel("Wellenlaenge [nm]")
     ax.set_ylabel(ylabel)
     ax.set_title(title)
-    ax.grid(alpha=0.3)
+    ax.grid(alpha=0.3, zorder=1)
     fig.tight_layout()
     if svg:
         buf = io.StringIO()
