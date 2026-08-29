@@ -33,7 +33,8 @@ state = {"mode": "emission", "last_measurement": None, "series": []}
 
 def capture_frame():
     with lock:
-        return picam2.capture_array()
+        frame = picam2.capture_array()
+    return spectro.apply_rotation(frame, spectro.load_settings())
 
 
 def current_spectrum():
@@ -193,6 +194,8 @@ def settings_page():
         s["spectrum_angle_deg"] = float(request.form["spectrum_angle_deg"])
         s["led_brightness"] = float(request.form["led_brightness"])
         s["csv_german"] = request.form.get("csv_mode") == "german"
+        s["image_rotation_deg"] = int(request.form["image_rotation_deg"])
+        s["image_flip"] = request.form.get("image_flip") == "on"
         spectro.save_settings(s)
         led.set_brightness(s["led_brightness"])
     s = spectro.load_settings()
@@ -323,6 +326,18 @@ a{color:#9aa39b;}
   </label>
   <label>LED-Helligkeit beim Einschalten (%)
     <input type="number" step="1" min="0" max="100" name="led_brightness" value="{{ settings.led_brightness }}">
+  </label>
+  <label>Bilddrehung (falls Spektrum nicht horizontal verlaeuft)
+    <select name="image_rotation_deg">
+      <option value="0" {{ "selected" if settings.image_rotation_deg == 0 else "" }}>0 Grad</option>
+      <option value="90" {{ "selected" if settings.image_rotation_deg == 90 else "" }}>90 Grad</option>
+      <option value="180" {{ "selected" if settings.image_rotation_deg == 180 else "" }}>180 Grad</option>
+      <option value="270" {{ "selected" if settings.image_rotation_deg == 270 else "" }}>270 Grad</option>
+    </select>
+  </label>
+  <label style="display:flex; align-items:center; gap:8px;">
+    <input type="checkbox" name="image_flip" style="width:auto;" {{ "checked" if settings.image_flip else "" }}>
+    Bild horizontal spiegeln (nach der Drehung)
   </label>
   <label>CSV-Stil
     <select name="csv_mode">

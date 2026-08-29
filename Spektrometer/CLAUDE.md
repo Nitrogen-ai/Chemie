@@ -80,6 +80,19 @@ ist — sonst wird die Sichtbarkeit gedrosselt und der Pi findet das Netz beim W
 (`nmcli device wifi list` zeigt es dann schlicht nicht an). Vor dem Schuleinsatz: Hotspot-Screen
 kurz offen lassen, bis der Pi sich verbunden hat; danach bleibt die Verbindung stabil.
 
+## Bildausrichtung (`image_rotation_deg` / `image_flip` in den Einstellungen)
+`find_aperture`/`extract_spectrum` erwarten den hellen Referenzpunkt (0. Ordnung/direktes Bild
+des Spalts) in der **rechten** Bildhälfte, mit dem Spektrum nach links auslaufend. Das rohe
+Kamerabild kommt aber je nach Kamera-/Spiegel-Einbaulage in beliebiger Orientierung an —
+`spectro.apply_rotation()` dreht (0/90/180/270°) und spiegelt (horizontal) optional, bevor die
+Auswertung läuft. **Für den aktuellen Aufbau bestätigt (2026-08-29): `image_rotation_deg=90`
+plus `image_flip=true`.** Eine reine Drehung reichte nicht — der Strahlengang enthält offenbar
+eine Spiegelung (z.B. durch das Umlenkprisma an der Küvette), die Rot/Blau-Reihenfolge war bei
+purer 90°-Drehung genau vertauscht (heller Punkt zwar rechts, aber Rot statt Blau daneben).
+Diese Werte sind jetzt der Default in `settings.example.json`, sollten aber bei jedem
+Neuaufbau/jeder Kamerademontage neu überprüft werden (`/frame.jpg` ansehen: heller Punkt muss
+rechts sein, direkt daneben eine plausible Farbreihenfolge zum langwelligen Ende hin).
+
 ## Funktionsweise der Spektrum-Auswertung (`spectro.py`)
 1. `find_aperture`: sucht in der rechten Bildhälfte entlang der mittleren Zeile den hellsten Punkt
    (die nullte Beugungsordnung / das direkte Bild des Eintrittsspalts), bestimmt daraus Mittelpunkt
@@ -119,9 +132,17 @@ kurz offen lassen, bis der Pi sich verbunden hat; danach bleibt die Verbindung s
   - ✅ **Live am echten Aufbau getestet (2026-08-29):** LED per API tatsächlich an/ausgeschaltet,
     Messreihe mit zwei Messungen angelegt und als CSV/SVG exportiert — alles über das Netz
     erreichbar und fehlerfrei (`journalctl -u spectrometer-webapp` sauber).
-  - ⏳ **Nächster Schritt laut Nutzer: echte Proben messen** (Farbstofflösungen für Absorption,
-    verschiedene Lichtquellen für Emission) und dabei den Kalibrierfaktor (`wavelength_factor`)
-    gegen bekannte Referenzwellenlängen validieren/korrigieren.
+  - ✅ **Erste echte Proben gemessen (2026-08-29):** Bildausrichtung gefunden (siehe Abschnitt
+    "Bildausrichtung" oben, `image_rotation_deg=90`+`image_flip=true`), danach ein
+    plausibles Emissionsspektrum (LED durch Wasser-Küvette, strukturierter Verlauf statt
+    Rauschen, 593 Punkte) und ein plausibles Absorptionsspektrum (rötliche Lösung gegen
+    Wasser-Referenz, 475 Punkte, deutliche Extinktionsbanden) aufgenommen und als CSV/PNG/SVG
+    exportiert.
+  - ⏳ **Noch offen: `wavelength_factor` (nm/Pixel) ist weiterhin der unvalidierte Default
+    (`0.6`)** — die x-Achsen-Werte in den obigen Testspektren sind also nur ungefähr richtig.
+    Nächster Schritt: mit einer Lichtquelle bekannter Wellenlänge (z.B. schmalbandige LED,
+    Laserpointer) den Peak im Live-Bild einer bekannten nm-Zahl zuordnen und `wavelength_factor`
+    auf der `/settings`-Seite entsprechend nachjustieren.
   - ⏳ Flask läuft aktuell mit dem eingebauten Entwicklungsserver (`app.run(...)`) — für den
     Dauerbetrieb wäre ein richtiger WSGI-Server (z.B. `waitress` oder `gunicorn`) sauberer,
     aktuell aber stabil genug für den Klassenzimmer-Einsatz.
