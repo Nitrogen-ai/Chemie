@@ -182,11 +182,17 @@ def build_csv_series(grid, entries, german=True):
     return "\n".join(lines)
 
 
+PLOT_XLIM = (350.0, 700.0)
+
+
 def render_plot(wavelengths, values, ylabel, title, svg=True, extra_series=None):
+    """xlim ist bewusst fest (PLOT_XLIM), nicht auto-skaliert: Bei jedem Live-Refresh
+    variiert der von extract_spectrum gefundene Wellenlaengenbereich leicht, dazu kommen
+    bei der Extinktionsberechnung nahe Null geteilte Ausreisser (-log10 explodiert) --
+    ohne feste Achsen springt das Bild dadurch bei jedem Refresh sichtbar herum."""
     fig, ax = plt.subplots(figsize=(8, 4))
 
-    lo, hi = float(np.min(wavelengths)), float(np.max(wavelengths))
-    band_lo, band_hi = max(lo, 380.0), min(hi, 780.0)
+    band_lo, band_hi = max(PLOT_XLIM[0], 380.0), min(PLOT_XLIM[1], 780.0)
     if band_hi > band_lo:
         for wl in np.arange(band_lo, band_hi, 4.0):
             ax.axvspan(wl, wl + 4.0, color=wavelength_to_color(wl + 2.0), alpha=0.25, linewidth=0, zorder=0)
@@ -198,6 +204,9 @@ def render_plot(wavelengths, values, ylabel, title, svg=True, extra_series=None)
     else:
         ax.plot(wavelengths, values, color="black", linewidth=1, zorder=2)
 
+    ax.set_xlim(*PLOT_XLIM)
+    if "Extinktion" in ylabel:
+        ax.set_ylim(0, 3)
     ax.set_xlabel("Wellenlaenge [nm]")
     ax.set_ylabel(ylabel)
     ax.set_title(title)
