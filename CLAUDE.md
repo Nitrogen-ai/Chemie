@@ -15,6 +15,11 @@
 - Dieses Repo ist public. Keine Schüler-Klarnamen, Noten oder
   personenbezogenen Daten in Dateien oder Commit-Nachrichten.
 
+## Umgezogen
+Das Spektrometer-Projekt (`Spektrometer/`) lag hier bis 2026-08-30, liegt jetzt im Repo
+`Nitrogen-ai/Jugend-Forscht` unter `spektrometer/` — inhaltlich ein Jugend-Forscht-Projekt.
+Git-Historie bis zum Umzug bleibt hier in diesem Repo.
+
 ## Struktur SEK-II
 - SEK-II/Leistungskurs/chemie-lk-kursplan.html — Kursübersicht LK.
 - SEK-II/Leistungskurs/Q1/ — die neun Lernpfade (lernpfad-q1-01…09).
