@@ -1,0 +1,9 @@
+[
+  { "id": "boden", "name": "Plaza-Stein", "ph": null, "kategorie": "Dekoration", "vorkommen": "überall", "farbe": "#c9c2a8" },
+  { "id": "sockel", "name": "Hebel-Sockel", "ph": null, "kategorie": "Dekoration", "vorkommen": "Stationen", "farbe": "#6b5a44" },
+  { "id": "hebel", "name": "Hebel", "ph": null, "kategorie": "Interaktion", "vorkommen": "Stationen", "farbe": "#a83610" },
+  { "id": "saeure", "name": "Säure-Baustein", "ph": null, "kategorie": "Teilchen", "vorkommen": "Stationen", "farbe": "#a83610" },
+  { "id": "wasser", "name": "Wasser-Baustein", "ph": null, "kategorie": "Teilchen", "vorkommen": "Stationen", "farbe": "#2f6bb8" },
+  { "id": "ladung", "name": "Ladungs-Baustein", "ph": null, "kategorie": "Teilchen", "vorkommen": "Stationen", "farbe": "#c9a961" },
+  { "id": "elektron", "name": "Elektronenpaar", "ph": null, "kategorie": "Teilchen", "vorkommen": "Stationen", "farbe": "#eaf6ff" }
+]
