@@ -1,0 +1,6 @@
+{
+  "groesse": { "x": 304, "z": 32 },
+  "grundhoehe": 4,
+  "bodenBlock": "boden",
+  "start": { "x": 24, "y": 6, "z": 26 }
+}
