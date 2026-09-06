@@ -1,47 +1,10 @@
-/* ============================ UNLOCK / PASSWORD ============================ */
+/* ============================ Direkte Anzeige ============================ */
 (function(){
-  const UNLOCK_ISO = "2026-09-26T07:00:00+02:00";
-  const PASSWORD = "Chemieist\u00fcberall.";
-  const unlockDate = new Date(UNLOCK_ISO);
-  const now = new Date();
-  const isUnlocked = now >= unlockDate;
   const statusEl = document.getElementById('status-text');
-  const pwZone = document.getElementById('pw-zone');
   const lernpfadEl = document.getElementById('lernpfad');
-  document.getElementById('unlock-date').textContent =
-    unlockDate.toLocaleDateString('de-DE', {weekday:'short', day:'2-digit', month:'2-digit', year:'numeric'});
-  const storageKey = 'lp_unlock_' + window.location.pathname;
-  function ssGet(k){ try { return sessionStorage.getItem(k); } catch(e){ return null; } }
-  function ssSet(k,v){ try { sessionStorage.setItem(k,v); } catch(e){} }
-  const pwUnlocked = ssGet(storageKey) === '1';
-
-  function reveal(prefix){
-    lernpfadEl.classList.add('show');
-    pwZone.style.display = 'none';
-    statusEl.textContent = prefix || 'Verf\u00fcgbar';
-    initLernpfad();
-  }
-  if (isUnlocked) reveal('Verf\u00fcgbar');
-  else if (pwUnlocked) reveal('Vorab freigeschaltet');
-  else {
-    const days = Math.ceil((unlockDate - now) / 86400000);
-    statusEl.textContent = days > 0 ? 'Noch ' + days + ' Tag' + (days===1?'':'e') : 'Heute';
-  }
-  const form = document.getElementById('pw-form');
-  const input = document.getElementById('pw-input');
-  const feedback = document.getElementById('pw-feedback');
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    if (input.value === PASSWORD) {
-      feedback.textContent = 'Korrekt — Inhalte werden geladen \u2026';
-      ssSet(storageKey, '1');
-      setTimeout(() => reveal('Vorab freigeschaltet'), 500);
-    } else {
-      feedback.textContent = 'Passwort nicht korrekt.';
-      input.value = ''; input.focus();
-      form.animate([{transform:'translateX(0)'},{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}], {duration:280});
-    }
-  });
+  lernpfadEl.classList.add('show');
+  if (statusEl) statusEl.textContent = 'Verf\u00fcgbar';
+  initLernpfad();
 })();
 
 /* ============================ INIT ============================ */
