@@ -1794,21 +1794,23 @@ function bohrFigureSVG() {
     orbits += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#0a1612" stroke-width="1.4" stroke-opacity="0.45"/>`;
     orbits += `<text x="${cx + r + 4}" y="${cy - 4}" font-size="11" font-family="'JetBrains Mono',monospace" fill="#5a5249">n=${i + 1}</text>`;
   });
-  // electron jump n=3 -> n=2 with emitted photon (squiggle)
+  // electron jump n=3 -> n=2 with emitted photon (echte Sinuswelle + Pfeilspitze)
   const e3x = cx, e3y = cy - radii[2], e2x = cx, e2y = cy - radii[1];
-  let squig = "M 196 96 ";
-  for (let k = 0; k < 7; k++) { const x = 196 + k * 14; const yy = 96 + (k % 2 === 0 ? -7 : 7); squig += `L ${x} ${yy} `; }
+  let squig = "M 196,96.0 ";
+  for (let k = 1; k <= 44; k++) { const x = 196 + k * 2; const yy = 96 + 8 * Math.sin(k * Math.PI / 6); squig += `L ${x},${yy.toFixed(2)} `; }
+  const squigArrow = '<polygon points="288.51,82.47 286.89,91.05 281.11,87.1" fill="#c9a961"/>';
   const oneLine = emissionSpectrumSVG([656], { w: 150, h: 56, barH: 40, noAxis: true });
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">
 <rect width="${W}" height="${H}" fill="#fff"/>
 ${orbits}
-<circle cx="${cx}" cy="${cy}" r="13" fill="#a83610"/><text x="${cx}" y="${cy}" font-size="12" text-anchor="middle" dominant-baseline="central" fill="#fff" font-weight="700">K</text>
+<circle cx="${cx}" cy="${cy}" r="13" fill="#a83610"/><text x="${cx}" y="${cy}" font-size="8.5" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" dominant-baseline="central" fill="#fff" font-weight="700">Kern</text>
 <circle cx="${e3x}" cy="${e3y}" r="7" fill="#1f5fb0"/>
 <circle cx="${e2x}" cy="${e2y}" r="7" fill="#1f5fb0" opacity="0.35"/>
 <path d="M ${e3x + 10} ${e3y + 4} Q ${e3x + 26} ${(e3y + e2y) / 2} ${e2x + 10} ${e2y - 4}" fill="none" stroke="#1f5fb0" stroke-width="2" stroke-dasharray="3 3"/>
 <text x="${cx + 30}" y="${(e3y + e2y) / 2}" font-size="11" font-family="'JetBrains Mono',monospace" fill="#1f5fb0">ΔE</text>
-<path d="${squig}" fill="none" stroke="#c9a961" stroke-width="2.4"/>
-<text x="222" y="84" font-size="12" font-family="'JetBrains Mono',monospace" fill="#8a6d1f">Photon hν</text>
+<path d="${squig}" fill="none" stroke="#c9a961" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+${squigArrow}
+<text x="222" y="78" font-size="12" font-family="'JetBrains Mono',monospace" fill="#8a6d1f">Photon hν</text>
 <g transform="translate(196,128)">${oneLine.replace(/^<svg[^>]*>/, '').replace(/<\/svg>$/, '')}</g>
 <text x="271" y="122" font-size="11" font-family="'JetBrains Mono',monospace" text-anchor="middle" fill="#5a5249">diskret</text>
 </svg>`;
