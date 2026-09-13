@@ -225,6 +225,13 @@
 .assign .dot{display:inline-block; width:20px; height:20px; border-radius:50%; border:2px solid var(--accent); background:transparent; transition:all .15s;}
 .assign .ac:hover .dot{background:rgba(30,93,82,.18);}
 .assign .ac.on .dot{background:var(--accent); box-shadow:0 0 0 3px rgba(30,93,82,.18);}
+.assign .ac.right .dot{background:var(--accent); box-shadow:0 0 0 3px rgba(30,93,82,.28);}
+.assign .ac.wrong .dot{background:var(--accent-deep); border-color:var(--accent-deep); box-shadow:0 0 0 3px rgba(168,54,16,.25);}
+.assign .ac.missed .dot{border-color:var(--gold); border-style:dashed; box-shadow:0 0 0 3px rgba(201,169,97,.3);}
+.assign-actions{display:flex; align-items:center; gap:1rem; margin-top:.9rem; flex-wrap:wrap;}
+.check-btn{background:var(--ink); color:var(--paper); border:none; cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:.68rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:.55rem 1.1rem; border-radius:7px; transition:opacity .15s;}
+.check-btn:hover{opacity:.85;}
+.assign-fb{font-family:'JetBrains Mono',monospace; font-size:.78rem; color:var(--teal-deep);}
 .assign-hint{font-size:.84rem; color:#6c6358; margin-top:.5rem;}
 
 /* Dye-Gitter (4 Farbstoffe) */
@@ -382,18 +389,22 @@
   .t2-qz-table{width:100%; border-collapse:collapse; font-size:.95rem; background:#fff; border-radius:10px; overflow:hidden;}
   .lp-band .t2-qz-table{background:#fbf8f1;}
   .t2-qz-table th{background:var(--teal-deep); color:#fff; font-family:'JetBrains Mono',monospace; font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; padding:.6rem .7rem; text-align:center; font-weight:700;}
-  .t2-qz-table th:first-child,.t2-qz-whyh{text-align:left;}
-  .t2-qz-row{cursor:pointer; border-top:1px solid rgba(10,22,18,.1); transition:background .15s;}
-  .t2-qz-row:hover{background:rgba(30,93,82,.05);}
-  .t2-qz-row.open{background:rgba(201,169,97,.14);}
+  .t2-qz-table th:first-child{text-align:left;}
+  .t2-qz-row{border-top:1px solid rgba(10,22,18,.1);}
+  .t2-qz-row.solved{background:rgba(30,93,82,.06);}
   .t2-qz-el{padding:.55rem .7rem; white-space:nowrap;}
   .t2-qz-sym{font-family:'Fraunces',serif; font-weight:600; color:var(--accent-deep); margin-right:.2rem;}
-  .t2-qz-v{text-align:center; font-family:'JetBrains Mono',monospace; font-size:1rem; padding:.55rem .5rem;}
-  .t2-qz-v .t2-ph{color:#c4b69d;}
-  .t2-qz-why{padding:.55rem .7rem; font-size:.86rem; color:#4a5350;}
-  .t2-qz-why .t2-ph{color:#c4b69d; font-style:italic;}
-  .t2-val{display:none;} .t2-qz-row.open .t2-val{display:inline;} .t2-qz-row.open .t2-ph{display:none;}
-  .t2-qz-why b,.t2-qz-val b{color:var(--accent-deep);}
+  .t2-qz-in{text-align:center; padding:.4rem .35rem;}
+  .t2-qz-sel{font-family:'JetBrains Mono',monospace; font-size:.86rem; padding:.35rem .4rem; border-radius:6px; border:1px solid rgba(10,22,18,.22); background:#fff; color:var(--ink); min-width:58px;}
+  .t2-qz-sel.right{border-color:var(--accent); background:rgba(30,93,82,.09); color:var(--teal-deep); font-weight:700;}
+  .t2-qz-sel.wrong{border-color:var(--accent-deep); background:rgba(168,54,16,.08); color:var(--accent-deep);}
+  .t2-qz-sel[disabled]{opacity:.85;}
+  .t2-qz-check{padding:.4rem .5rem; white-space:nowrap;}
+  .t2-qz-btn{padding:.4rem .8rem; font-size:.62rem;}
+  .t2-qz-fb{display:inline-block; margin-left:.5rem; font-family:'JetBrains Mono',monospace; font-size:.72rem; color:var(--teal-deep); vertical-align:middle;}
+  .t2-qz-explain td{padding:.7rem .7rem 1rem;}
+  .t2-qz-why{font-size:.86rem; color:#4a5350;}
+  .t2-qz-why b{color:var(--accent-deep);}
   .t2-qz-hint{font-size:.82rem; color:#6a726e; margin:.6rem 0;}
   .t2-qz-mini{overflow-x:auto;} .t2-qz-mini svg{display:block; width:100%; min-width:600px; height:auto; margin-top:.4rem;}
 
@@ -437,6 +448,34 @@
   .t2-wr{margin:0;}
   .t2-wr-img{width:100%; height:150px; object-fit:cover; border-radius:10px; border:1px solid rgba(10,22,18,.14); display:block;}
   .t2-wr figcaption{margin-top:.35rem; font-size:.8rem; color:#6a726e; font-family:'JetBrains Mono',monospace; text-align:center;}
+
+  /* ===== Wissens-Check (Plickers-Selbstcheck) ===== */
+  .qz-group-label{font-family:'JetBrains Mono',monospace; font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent-deep); margin:1.8rem 0 1rem; display:flex; align-items:center; gap:.7rem;}
+  .qz-group-label:first-child{margin-top:0;}
+  .qz-group-label::after{content:''; flex:1; height:1px; background:rgba(168,54,16,.25);}
+  .qz-progress{display:flex; align-items:center; gap:.8rem; margin-bottom:1.4rem; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:.75rem; color:var(--teal-deep);}
+  .qz-bar{flex:1; height:8px; background:rgba(10,22,18,.1); border-radius:999px; overflow:hidden;}
+  .qz-fill{height:100%; width:0; background:var(--accent-deep); border-radius:999px; transition:width .3s ease;}
+  .qz-item{margin-bottom:1.5rem; padding-bottom:1.5rem; border-bottom:1px dotted rgba(10,22,18,.18);}
+  .qz-item:last-child{border-bottom:none; margin-bottom:0; padding-bottom:0;}
+  .qz-text{font-family:'Fraunces',serif; font-weight:500; font-size:1.08rem; margin-bottom:.85rem; color:var(--ink); line-height:1.45;}
+  .qz-text .qn{color:var(--accent-deep); font-family:'JetBrains Mono',monospace; margin-right:.4rem; font-style:normal;}
+  .qz-opts{display:grid; gap:.55rem;}
+  .qz-opt{display:flex; align-items:center; gap:.8rem; width:100%; text-align:left; cursor:pointer; font-family:'Inter Tight',sans-serif; font-size:.95rem; font-weight:500; color:var(--ink); background:var(--paper); border:1px solid rgba(10,22,18,.18); border-radius:10px; padding:.65rem .9rem; transition:.15s;}
+  .qz-opt:hover:not([disabled]){border-color:var(--accent-deep); transform:translateX(3px);}
+  .qz-opt .lett{flex-shrink:0; width:26px; height:26px; border-radius:6px; background:rgba(30,93,82,.1); color:var(--teal); font-family:'JetBrains Mono',monospace; font-weight:700; font-size:.78rem; display:grid; place-items:center;}
+  .qz-opt.correct{border-color:var(--teal); background:rgba(30,93,82,.08);}
+  .qz-opt.correct .lett{background:var(--teal); color:var(--paper);}
+  .qz-opt.wrong{border-color:var(--accent-deep); background:rgba(168,54,16,.07);}
+  .qz-opt.wrong .lett{background:var(--accent-deep); color:var(--paper);}
+  .qz-opt[disabled]{cursor:default; opacity:.85;}
+  .qz-opt.correct[disabled],.qz-opt.wrong[disabled]{opacity:1;}
+  .qz-hint{margin-top:.55rem; font-size:.86rem; font-weight:500; color:var(--accent-deep); background:rgba(168,54,16,.06); border-radius:8px; padding:.55rem .75rem; display:none;}
+  .qz-hint.show{display:block;}
+  .qz-done{margin-top:.55rem; font-size:.86rem; font-weight:600; color:var(--teal-deep); display:none;}
+  .qz-done.show{display:block;}
+  .qz-solved{margin-top:1.2rem; padding:.8rem 1rem; border-radius:10px; background:rgba(30,93,82,.08); border:1px solid rgba(30,93,82,.28); color:var(--teal-deep); font-family:'Fraunces',serif; font-weight:600; font-size:.98rem; display:none; align-items:center; gap:.5rem;}
+  .qz-solved.show{display:flex;}
 
 </style>
 </head>
@@ -554,6 +593,10 @@
         <tr><td class="src">Flamme · Natriumchlorid (NaCl)</td><td class="mini"><div data-spectrum="emission" data-lines="589:2" data-w="190" data-h="56" data-noaxis="1"></div></td><td class="ac" data-k="Na-a"><span class="dot"></span></td><td class="ac" data-k="Na-b"><span class="dot"></span></td></tr>
       </tbody>
     </table>
+    <div class="assign-actions">
+      <button class="check-btn assign-check-btn" type="button">Prüfen</button>
+      <span class="assign-fb"></span>
+    </div>
     <p class="assign-hint">Tipp zum Erkennen: <span class="fw600">Glüht</span> die Quelle (heiß, fest/dicht) → eher kontinuierlich. Stammt das Licht aus <span class="fw600">einzelnen Atomen / Halbleiter-Übergängen</span> → eher diskret.</p>
 
     <div class="wipe" data-wipe>
@@ -952,14 +995,120 @@
   </section>
 
 
+  <!-- ==================== Wissens-Check (Plickers-Selbstcheck) ==================== -->
+  <section class="lp-section lp-band">
+    <div class="sec-num">Wissens-Check</div>
+    <h2>Selbstcheck: die <em>Plickers-Fragen</em> zum Nachholen</h2>
+    <p class="lead">Dieselben Fragen wie im Unterricht mit den Plickers-Karten, hier zum eigenständigen Wiederholen und Nachholen am Rechner. Bei einer falschen Antwort bekommst du einen Hinweis, bei richtiger Antwort geht es weiter.</p>
+
+    <div class="qz-wrap" data-qz>
+      <div class="qz-progress"><span class="qz-count">0 / 8 richtig</span><span class="qz-bar"><span class="qz-fill"></span></span></div>
+
+      <div class="qz-group-label">Teil I &middot; Elektronen und Photonen</div>
+
+      <div class="qz-item">
+        <div class="qz-text"><span class="qn">1.</span>Ein Elektron springt in einem Atom von einem h&ouml;heren auf ein niedrigeres Energieniveau und sendet dabei ein Photon einer genau definierten Wellenl&auml;nge aus. Welche Art von Spektrum entsteht dadurch?</div>
+        <div class="qz-opts">
+          <button class="qz-opt" data-hint="Ein kontinuierliches Spektrum entsteht durch viele unterschiedlich schwingende Ladungen (W&auml;rmestrahlung), nicht durch einen einzelnen, scharf definierten Elektronensprung.">kontinuierliches W&auml;rmestrahlungsspektrum</button>
+          <button class="qz-opt" data-correct="true">diskretes Linienspektrum</button>
+        </div>
+        <div class="qz-hint"></div>
+        <div class="qz-done">Richtig &ndash; ein genau definierter Elektronensprung erzeugt eine einzelne, scharfe Spektrallinie.</div>
+      </div>
+
+      <div class="qz-item">
+        <div class="qz-text"><span class="qn">2.</span>Nennen Sie einen Grund f&uuml;r die Kontinuit&auml;t im W&auml;rmestrahlungsspektrum hei&szlig;er, dichter K&ouml;rper.</div>
+        <div class="qz-opts">
+          <button class="qz-opt" data-hint="Diskrete Energiespr&uuml;nge erzeugen gerade ein Linienspektrum, nicht die Kontinuit&auml;t der W&auml;rmestrahlung.">diskrete, quantisierte Energiespr&uuml;nge</button>
+          <button class="qz-opt" data-correct="true">unterschiedlich starke, regellose Ladungsschwingungen (Hertz&rsquo;scher Dipol)</button>
+          <button class="qz-opt" data-hint="Wasserstoffbr&uuml;cken sind zwischenmolekulare Kr&auml;fte und keine Ursache f&uuml;r W&auml;rmestrahlung einzelner Ladungen.">unterschiedlich starke Wasserstoffbr&uuml;cken zwischen den Teilchen</button>
+          <button class="qz-opt" data-hint="Die Elementarladung eines Elektrons ist immer gleich gro&szlig;, das erkl&auml;rt keine Kontinuit&auml;t.">unterschiedlich stark geladene Elektronen</button>
+        </div>
+        <div class="qz-hint"></div>
+        <div class="qz-done">Richtig &ndash; unz&auml;hlige unterschiedlich schnell schwingende Ladungen strahlen alle Frequenzen ab.</div>
+      </div>
+
+      <div class="qz-item">
+        <div class="qz-text"><span class="qn">3.</span>Eine gr&uuml;ne LED sendet monochromatisches Licht aus. In welchem Wellenl&auml;ngenbereich liegt dieses Licht?</div>
+        <div class="qz-opts">
+          <button class="qz-opt" data-hint="600 nm liegt im orangen Bereich des sichtbaren Spektrums.">&asymp; 600 nm</button>
+          <button class="qz-opt" data-hint="450 nm liegt im blauen Bereich des sichtbaren Spektrums.">&asymp; 450 nm</button>
+          <button class="qz-opt" data-correct="true">&asymp; 550 nm</button>
+          <button class="qz-opt" data-hint="300 nm liegt im UV-Bereich, au&szlig;erhalb des sichtbaren Lichts.">&asymp; 300 nm</button>
+        </div>
+        <div class="qz-hint"></div>
+        <div class="qz-done">Richtig &ndash; rund 550 nm liegt im gr&uuml;nen Bereich des sichtbaren Spektrums.</div>
+      </div>
+
+      <div class="qz-item">
+        <div class="qz-text"><span class="qn">4.</span>Ein Spinatblatt erscheint gr&uuml;n. Wie kommt dieser Farbeindruck zustande?</div>
+        <div class="qz-opts">
+          <button class="qz-opt" data-correct="true">Kontinuierliches Sonnenlicht trifft auf das Blatt, Chlorophyll absorbiert die blauen und roten Spektralanteile, die gr&uuml;nen Anteile werden reflektiert und ins Auge geworfen.</button>
+          <button class="qz-opt" data-hint="W&auml;re Gr&uuml;n absorbiert, m&uuml;sste das Blatt in der Komplement&auml;rfarbe (Magenta/Purpur) erscheinen, nicht gr&uuml;n.">Kontinuierliches Sonnenlicht trifft auf das Blatt, Chlorophyll absorbiert die gr&uuml;nen Spektralanteile, die blauen und roten Anteile werden reflektiert und ins Auge geworfen.</button>
+        </div>
+        <div class="qz-hint"></div>
+        <div class="qz-done">Richtig &ndash; genau die nicht absorbierten (gr&uuml;nen) Anteile werden reflektiert und erzeugen den Farbeindruck.</div>
+      </div>
+
+      <div class="qz-item">
+        <div class="qz-text"><span class="qn">5.</span>Der Farbstoff Crocin (mehrere polare OH-Gruppen und Zuckerreste) soll beim Kochen mit Safran eine Speise m&ouml;glichst intensiv einf&auml;rben. Welches L&ouml;semittel ist daf&uuml;r geeignet?</div>
+        <div class="qz-opts">
+          <button class="qz-opt" data-hint="Crocin ist durch seine vielen OH-Gruppen und Zuckerreste stark polar/hydrophil, in unpolarem &Ouml;l l&ouml;st es sich kaum (Regel: Gleiches l&ouml;st sich in Gleichem).">Olivenöl (unpolar)</button>
+          <button class="qz-opt" data-correct="true">Wasser (polar)</button>
+        </div>
+        <div class="qz-hint"></div>
+        <div class="qz-done">Richtig &ndash; Crocin ist hydrophil und l&ouml;st sich gut im polaren Wasser.</div>
+      </div>
+
+      <div class="qz-group-label">Teil II &middot; Orbitalmodell und Quantenzahlen</div>
+
+      <div class="qz-item">
+        <div class="qz-text"><span class="qn">6.</span>Welche Elektronenkonfiguration (Kurzform) ist f&uuml;r Barium (Z=56) im Grundzustand korrekt?</div>
+        <div class="qz-opts">
+          <button class="qz-opt" data-hint="Barium hat zwei Valenzelektronen mehr als das Edelgas Xenon (Z=54), nicht nur eines, das 6s-Orbital muss vollst&auml;ndig mit einem Elektronenpaar besetzt sein.">[Xe] 6s&sup1;</button>
+          <button class="qz-opt" data-correct="true">[Xe] 6s&sup2;</button>
+          <button class="qz-opt" data-hint="Die 5d-Unterschale liegt energetisch &uuml;ber 6s und bleibt bei Barium im Grundzustand leer, die beiden zus&auml;tzlichen Elektronen besetzen zuerst 6s.">[Xe] 5d&sup2;</button>
+        </div>
+        <div class="qz-hint"></div>
+        <div class="qz-done">Richtig &ndash; Barium steht in der 2. Hauptgruppe, zwei Valenzelektronen im 6s-Orbital.</div>
+      </div>
+
+      <div class="qz-item">
+        <div class="qz-text"><span class="qn">7.</span>Welche vier Quantenzahlen beschreiben das zuletzt besetzte Elektron von Natrium ([Ne] 3s&sup1;)?</div>
+        <div class="qz-opts">
+          <button class="qz-opt" data-hint="n=2 w&auml;re eine innere, bereits vollst&auml;ndig besetzte Schale (Neon-Rumpf), nicht das Valenzelektron von Natrium.">n=2, l=0, m=0, s=+&frac12;</button>
+          <button class="qz-opt" data-correct="true">n=3, l=0, m=0, s=+&frac12;</button>
+          <button class="qz-opt" data-hint="l=1 st&uuml;nde f&uuml;r ein p-Orbital, das Valenzelektron von Natrium sitzt aber im 3s-Orbital (l=0).">n=3, l=1, m=0, s=+&frac12;</button>
+          <button class="qz-opt" data-hint="Natrium hat im Grundzustand nur drei besetzte Schalen, n=5 kommt nicht vor.">n=5, l=0, m=0, s=+&frac12;</button>
+        </div>
+        <div class="qz-hint"></div>
+        <div class="qz-done">Richtig &ndash; n=3 (dritte Schale), l=0 (s-Orbital), m=0 (einziges s-Orbital), s=+&frac12;.</div>
+      </div>
+
+      <div class="qz-item">
+        <div class="qz-text"><span class="qn">8.</span>Bei der Flammenf&auml;rbung von Natrium wird ein Elektron durch die Hitze angeregt und f&auml;llt anschlie&szlig;end unter Aussendung von Licht der Wellenl&auml;nge 589 nm zur&uuml;ck. Welche Flammenfarbe und welcher Orbital&uuml;bergang geh&ouml;ren zusammen?</div>
+        <div class="qz-opts">
+          <button class="qz-opt" data-hint="Natrium f&auml;rbt die Flamme nicht gr&uuml;n (das w&auml;re z.&nbsp;B. Kupfer oder Barium), au&szlig;erdem ist auch die &Uuml;bergangsrichtung vertauscht.">Farbe Gr&uuml;n; &Uuml;bergang 3p &rarr; 3s</button>
+          <button class="qz-opt" data-hint="4s liegt energetisch viel h&ouml;her als 3p, die charakteristische Natrium-Linie bei 589 nm entsteht zwischen 3s und 3p.">Farbe Orange(-gelb); &Uuml;bergang 3s &rarr; 4s</button>
+          <button class="qz-opt" data-hint="Die Farbe stimmt, aber die Richtung ist vertauscht: Angeregt wird von 3s nach 3p, das Licht wird beim Zur&uuml;ckfallen von 3p nach 3s ausgesandt.">Farbe Orange(-gelb); Anregung 3p &rarr; 3s</button>
+          <button class="qz-opt" data-correct="true">Farbe Orange(-gelb); Anregung 3s &rarr; 3p, Lichtaussendung beim R&uuml;ckfall 3p &rarr; 3s</button>
+        </div>
+        <div class="qz-hint"></div>
+        <div class="qz-done">Richtig &ndash; durch die Hitze wird das Elektron von 3s nach 3p angeregt, beim Zur&uuml;ckfallen auf 3s wird das charakteristische orange-gelbe Licht bei 589 nm (Natrium-D-Linie) ausgesandt.</div>
+      </div>
+
+      <div class="qz-solved">&#10003; Stark &ndash; alle acht Plickers-Fragen richtig beantwortet!</div>
+    </div>
+  </section>
+
   <!-- ============================ § 8 ============================ -->
   <section class="lp-section lp-band">
     <div class="sec-num">Anhang · Material</div>
     <h2>Materialien &amp; Übungen im Google Classroom</h2>
-    <p class="lead">Aufgabenblätter, Musterlösungen und Plicker-Übungen zu diesem Lernpfad werden über den Google Classroom des Kurses bereitgestellt.</p>
+    <p class="lead">Aufgabenblätter und Musterlösungen zu diesem Lernpfad werden über den Google Classroom des Kurses bereitgestellt. Die Plickers-Übungen findest du direkt oben im Wissens-Check auf dieser Seite.</p>
     <div class="dl-grid" style="grid-template-columns:1fr;">
       <a href="https://classroom.google.com/u/0/c/MjIzMDQ1Njg5OTJa" target="_blank" rel="noopener" style="text-decoration:none; color:inherit;">
-        <div class="dl-card"><div class="dl-k">Google Classroom</div><div class="dl-t">🎓 Materialien &amp; Plicker-Übungen</div><div class="dl-file">classroom.google.com →</div></div>
+        <div class="dl-card"><div class="dl-k">Google Classroom</div><div class="dl-t">🎓 Aufgabenblätter &amp; Musterlösungen</div><div class="dl-file">classroom.google.com →</div></div>
       </a>
     </div>
   </section>
@@ -981,6 +1130,7 @@
    werden koennen. Reine Funktionen (kein DOM) -> Node UND Browser.
    ===================================================================== */
 "use strict";
+
 
 const SIN60 = Math.sin(Math.PI / 3); // 0.866
 const COS60 = Math.cos(Math.PI / 3); // 0.5
@@ -1644,21 +1794,23 @@ function bohrFigureSVG() {
     orbits += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#0a1612" stroke-width="1.4" stroke-opacity="0.45"/>`;
     orbits += `<text x="${cx + r + 4}" y="${cy - 4}" font-size="11" font-family="'JetBrains Mono',monospace" fill="#5a5249">n=${i + 1}</text>`;
   });
-  // electron jump n=3 -> n=2 with emitted photon (squiggle)
+  // electron jump n=3 -> n=2 with emitted photon (echte Sinuswelle + Pfeilspitze)
   const e3x = cx, e3y = cy - radii[2], e2x = cx, e2y = cy - radii[1];
-  let squig = "M 196 96 ";
-  for (let k = 0; k < 7; k++) { const x = 196 + k * 14; const yy = 96 + (k % 2 === 0 ? -7 : 7); squig += `L ${x} ${yy} `; }
+  let squig = "M 196,96.0 ";
+  for (let k = 1; k <= 44; k++) { const x = 196 + k * 2; const yy = 96 + 8 * Math.sin(k * Math.PI / 6); squig += `L ${x},${yy.toFixed(2)} `; }
+  const squigArrow = '<polygon points="288.51,82.47 286.89,91.05 281.11,87.1" fill="#c9a961"/>';
   const oneLine = emissionSpectrumSVG([656], { w: 150, h: 56, barH: 40, noAxis: true });
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">
 <rect width="${W}" height="${H}" fill="#fff"/>
 ${orbits}
-<circle cx="${cx}" cy="${cy}" r="13" fill="#a83610"/><text x="${cx}" y="${cy}" font-size="12" text-anchor="middle" dominant-baseline="central" fill="#fff" font-weight="700">K</text>
+<circle cx="${cx}" cy="${cy}" r="13" fill="#a83610"/><text x="${cx}" y="${cy}" font-size="8.5" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" dominant-baseline="central" fill="#fff" font-weight="700">Kern</text>
 <circle cx="${e3x}" cy="${e3y}" r="7" fill="#1f5fb0"/>
 <circle cx="${e2x}" cy="${e2y}" r="7" fill="#1f5fb0" opacity="0.35"/>
 <path d="M ${e3x + 10} ${e3y + 4} Q ${e3x + 26} ${(e3y + e2y) / 2} ${e2x + 10} ${e2y - 4}" fill="none" stroke="#1f5fb0" stroke-width="2" stroke-dasharray="3 3"/>
 <text x="${cx + 30}" y="${(e3y + e2y) / 2}" font-size="11" font-family="'JetBrains Mono',monospace" fill="#1f5fb0">ΔE</text>
-<path d="${squig}" fill="none" stroke="#c9a961" stroke-width="2.4"/>
-<text x="222" y="84" font-size="12" font-family="'JetBrains Mono',monospace" fill="#8a6d1f">Photon hν</text>
+<path d="${squig}" fill="none" stroke="#c9a961" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+${squigArrow}
+<text x="222" y="78" font-size="12" font-family="'JetBrains Mono',monospace" fill="#8a6d1f">Photon hν</text>
 <g transform="translate(196,128)">${oneLine.replace(/^<svg[^>]*>/, '').replace(/<\/svg>$/, '')}</g>
 <text x="271" y="122" font-size="11" font-family="'JetBrains Mono',monospace" text-anchor="middle" fill="#5a5249">diskret</text>
 </svg>`;
@@ -1679,32 +1831,60 @@ if (typeof module !== "undefined" && module.exports)
    ===================================================================== */
 "use strict";
 
+/* ---------------------------- Zeitstrahl-Daten -------------------------- */
+/* Datierungen 1:1 aus der Quelle (Aufgabenblatt S. 4). */
+var MODELS = [
+  { key: "demokrit",   year: "400 v. Chr.", name: "Demokrit / Leukipp", idea: "Materie besteht aus unteilbaren Teilchen (\u00e1tomos). Eine rein philosophische Idee ohne Experiment.", limit: "Kein experimenteller Beleg; keine Aussage \u00fcber Aufbau oder Eigenschaften der Teilchen." },
+  { key: "dalton",     year: "1808",        name: "Dalton",             idea: "Atome sind kleinste, unteilbare, massive Kugeln; jedes Element hat eine eigene Atomsorte. Erkl\u00e4rt Massengesetze.", limit: "Keine innere Struktur \u2192 kann elektrische Ladung, Spektren und chemische Bindung nicht erkl\u00e4ren." },
+  { key: "thomson",    year: "1903",        name: "Thomson",            idea: "\u201eRosinenkuchen\u201c: negative Elektronen sitzen in einer gleichm\u00e4\u00dfig positiv geladenen Kugel.", limit: "Streuversuch widerlegt die verteilte Ladung; keine Energiestufen, keine Linienspektren." },
+  { key: "rutherford", year: "1911",        name: "Rutherford",         idea: "Aus dem Streuversuch: winziger, massereicher, positiver Kern; H\u00fclle fast leerer Raum mit Elektronen.", limit: "Kreisende Elektronen m\u00fcssten Energie abstrahlen und in den Kern st\u00fcrzen; erkl\u00e4rt keine diskreten Linien." },
+  { key: "bohr",       year: "1913",        name: "Bohr / Sommerfeld",  idea: "Elektronen auf festen Schalen (Energiestufen); Spr\u00fcnge erzeugen genau die beobachteten Spektrallinien.", limit: "Funktioniert quantitativ nur f\u00fcr H; Schalenbild erkl\u00e4rt Feinstruktur und Mehrelektronen-Atome nur unzureichend." },
+  { key: "orbital",    year: "1927",        name: "Orbitalmodell",      idea: "Wellenmechanik: Elektronen als stehende Wellen \u2192 Orbitale (Aufenthaltsr\u00e4ume). Quantenzahlen n, l, m, s beschreiben jeden Zustand.", limit: "Anschauung st\u00f6\u00dft an Grenzen (kein \u201eBahn\u201c-Bild); exakt nur f\u00fcr einfache Systeme l\u00f6sbar \u2013 daf\u00fcr das umfassendste Modell.", hot: true },
+  { key: "particles",  year: "ab 1970",     name: "Elementarteilchen",  idea: "Standardmodell: Quarks, Leptonen, Kraftteilchen, Higgs-Boson \u2013 der Aufbau \u201eunter\u201c den Atomen.", limit: "Jenseits der Schulchemie; f\u00fcr Bindung und Reaktivit\u00e4t bleibt das Orbitalmodell ma\u00dfgeblich." }
+];
+/* Untere Spur: experimentelle Erkenntnisse (Auswahl, 1:1 aus der Quelle). */
+var DISCOVERIES = [
+  { year: "1787\u201394", txt: "Massengesetze" },
+  { year: "1874", txt: "Elektron" },
+  { year: "1884", txt: "H-Linienspektrum" },
+  { year: "1897", txt: "Kathodenstrahlung" },
+  { year: "um 1900", txt: "Radioaktivit\u00e4t" },
+  { year: "1909", txt: "Streuversuch" },
+  { year: "1924", txt: "Welle-Teilchen-Dualismus" },
+  { year: "1925", txt: "Elektronenspin" },
+  { year: "1927", txt: "Unsch\u00e4rferelation" }
+];
+
 /* ----------------------- Direkte Anzeige ----------------------- */
 (function () {
   const statusEl = document.getElementById('status-text');
   const lernpfadEl = document.getElementById('lernpfad');
   lernpfadEl.classList.add('show');
   if (statusEl) statusEl.textContent = 'Verf\u00fcgbar';
-  initLernpfad();
+  // Verz\u00f6gert, bis das gesamte Script (alle Teil2*.js-Datenbl\u00f6cke weiter unten)
+  // durchgelaufen ist \u2013 sonst greifen fr\u00fche Aufrufe auf noch nicht zugewiesene
+  // var-Datens\u00e4tze (z. B. ELEMENTS_T2, ORB_S/D) zu und brechen ab.
+  setTimeout(function () { try { initLernpfad(); } catch (e) { console.error(e); } }, 0);
 })();
 
 /* ----------------------------- INIT ----------------------------- */
 function initLernpfad() {
   if (window.__lpInit) return; window.__lpInit = true;
-  wireReveals();
-  drawFigures();
-  drawSpectra();
-  drawDyes();
-  wireDyeSteppers();
-  wireWipes();
-  wireAssign();
-  wireSelfAssess();
-  drawTeil2();
-  wireTeil2();
-  drawTeil2b();
-  wireTeil2b();
-  drawTeil2c();
-  wireTeil2c();
+  function safe(fn) { try { fn(); } catch (e) { console.error(e); } }
+  safe(wireReveals);
+  safe(drawFigures);
+  safe(drawSpectra);
+  safe(drawDyes);
+  safe(wireDyeSteppers);
+  safe(wireWipes);
+  safe(wireAssign);
+  safe(wireSelfAssess);
+  safe(drawTeil2);
+  safe(wireTeil2);
+  safe(drawTeil2b);
+  safe(wireTeil2b);
+  safe(drawTeil2c);
+  safe(wireTeil2c);
 }
 
 function wireReveals() {
@@ -1863,10 +2043,43 @@ function wireWipes() {
   });
 }
 
-/* --------------------- Lichtquellen-Zuordnung (anklickbar) --------------------- */
+/* --------------------- Lichtquellen-Zuordnung (anklickbar + Selbstcheck) --------------------- */
+var ASSIGN_CORRECT = {
+  'Sonne': ['b'], 'Glueh': ['b'], 'Laser': ['a'],
+  'LEDb': ['a'], 'LEDr': ['a'], 'LEDg': ['a'], 'LEDw': ['a', 'b'],
+  'Mg': ['b'], 'Cu': ['a'], 'CuS': ['a'], 'Li': ['a'], 'Na': ['a']
+};
 function wireAssign() {
   document.querySelectorAll('.assign .ac').forEach(cell => {
-    cell.addEventListener('click', () => cell.classList.toggle('on'));
+    cell.addEventListener('click', () => {
+      cell.classList.toggle('on');
+      cell.classList.remove('right', 'wrong', 'missed');
+    });
+  });
+  var btn = document.querySelector('.assign-check-btn');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    var correctCount = 0, totalExpected = 0;
+    document.querySelectorAll('.assign .ac').forEach(cell => {
+      var k = cell.dataset.k;
+      var m = k && k.match(/^(.*)-([ab])$/);
+      if (!m) return;
+      var base = m[1], letter = m[2];
+      var shouldBeOn = (ASSIGN_CORRECT[base] || []).indexOf(letter) !== -1;
+      cell.classList.remove('right', 'wrong', 'missed');
+      if (shouldBeOn) totalExpected++;
+      if (cell.classList.contains('on')) {
+        if (shouldBeOn) { cell.classList.add('right'); correctCount++; }
+        else cell.classList.add('wrong');
+      } else if (shouldBeOn) {
+        cell.classList.add('missed');
+      }
+    });
+    var fb = document.querySelector('.assign-fb');
+    if (fb) {
+      fb.textContent = correctCount + ' von ' + totalExpected + ' richtig markiert' +
+        (correctCount === totalExpected ? ' – stark!' : ', gelb gestrichelt = übersehen, rot = falsch markiert.');
+    }
   });
 }
 
@@ -1958,29 +2171,6 @@ function modelIconSVG(key, size) {
   return '<svg viewBox="0 0 48 48" width="' + size + '" height="' + size + '" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' + iconShapes(key) + '</svg>';
 }
 
-/* ---------------------------- Zeitstrahl-Daten -------------------------- */
-/* Datierungen 1:1 aus der Quelle (Aufgabenblatt S. 4). */
-var MODELS = [
-  { key: "demokrit",   year: "400 v. Chr.", name: "Demokrit / Leukipp", idea: "Materie besteht aus unteilbaren Teilchen (\u00e1tomos). Eine rein philosophische Idee ohne Experiment.", limit: "Kein experimenteller Beleg; keine Aussage \u00fcber Aufbau oder Eigenschaften der Teilchen." },
-  { key: "dalton",     year: "1808",        name: "Dalton",             idea: "Atome sind kleinste, unteilbare, massive Kugeln; jedes Element hat eine eigene Atomsorte. Erkl\u00e4rt Massengesetze.", limit: "Keine innere Struktur \u2192 kann elektrische Ladung, Spektren und chemische Bindung nicht erkl\u00e4ren." },
-  { key: "thomson",    year: "1903",        name: "Thomson",            idea: "\u201eRosinenkuchen\u201c: negative Elektronen sitzen in einer gleichm\u00e4\u00dfig positiv geladenen Kugel.", limit: "Streuversuch widerlegt die verteilte Ladung; keine Energiestufen, keine Linienspektren." },
-  { key: "rutherford", year: "1911",        name: "Rutherford",         idea: "Aus dem Streuversuch: winziger, massereicher, positiver Kern; H\u00fclle fast leerer Raum mit Elektronen.", limit: "Kreisende Elektronen m\u00fcssten Energie abstrahlen und in den Kern st\u00fcrzen; erkl\u00e4rt keine diskreten Linien." },
-  { key: "bohr",       year: "1913",        name: "Bohr / Sommerfeld",  idea: "Elektronen auf festen Schalen (Energiestufen); Spr\u00fcnge erzeugen genau die beobachteten Spektrallinien.", limit: "Funktioniert quantitativ nur f\u00fcr H; Schalenbild erkl\u00e4rt Feinstruktur und Mehrelektronen-Atome nur unzureichend." },
-  { key: "orbital",    year: "1927",        name: "Orbitalmodell",      idea: "Wellenmechanik: Elektronen als stehende Wellen \u2192 Orbitale (Aufenthaltsr\u00e4ume). Quantenzahlen n, l, m, s beschreiben jeden Zustand.", limit: "Anschauung st\u00f6\u00dft an Grenzen (kein \u201eBahn\u201c-Bild); exakt nur f\u00fcr einfache Systeme l\u00f6sbar \u2013 daf\u00fcr das umfassendste Modell.", hot: true },
-  { key: "particles",  year: "ab 1970",     name: "Elementarteilchen",  idea: "Standardmodell: Quarks, Leptonen, Kraftteilchen, Higgs-Boson \u2013 der Aufbau \u201eunter\u201c den Atomen.", limit: "Jenseits der Schulchemie; f\u00fcr Bindung und Reaktivit\u00e4t bleibt das Orbitalmodell ma\u00dfgeblich." }
-];
-/* Untere Spur: experimentelle Erkenntnisse (Auswahl, 1:1 aus der Quelle). */
-var DISCOVERIES = [
-  { year: "1787\u201394", txt: "Massengesetze" },
-  { year: "1874", txt: "Elektron" },
-  { year: "1884", txt: "H-Linienspektrum" },
-  { year: "1897", txt: "Kathodenstrahlung" },
-  { year: "um 1900", txt: "Radioaktivit\u00e4t" },
-  { year: "1909", txt: "Streuversuch" },
-  { year: "1924", txt: "Welle-Teilchen-Dualismus" },
-  { year: "1925", txt: "Elektronenspin" },
-  { year: "1927", txt: "Unsch\u00e4rferelation" }
-];
 
 function timelineSVG() {
   var W = 1040, H = 366, n = MODELS.length;
@@ -2350,25 +2540,39 @@ function configWidgetHTML() {
     '</div>';
 }
 
-/* ---------------------- § II.4 Quantenzahltabelle ---------------------- */
+/* ---------------------- § II.4 Quantenzahltabelle (Selbstausfüllen) ---------------------- */
+function quantumWhyHTML(Z) {
+  var L = occupancy(Z).last;
+  var sStr = (L.s > 0 ? "+" : "\u2212") + "\u00bd";
+  var mStr = (L.m < 0 ? "\u2212" + Math.abs(L.m) : "" + L.m);
+  return "letztes e\u207b in <b>" + L.label + "</b>: n=" + L.n + " (Schale), l=" + L.l + " &rarr; " + LNAME[L.l] + "-Unterschale, m=" + mStr + " (welches Orbital), s=" + sStr + " (Spinrichtung)";
+}
+function mOptionsHTML(l) {
+  if (l === "" || l == null) return '';
+  var lim = +l, opts = '';
+  for (var m = -lim; m <= lim; m++) opts += '<option value="' + m + '">' + m + '</option>';
+  return opts;
+}
 function quantumTableHTML() {
+  var nOpts = [1, 2, 3, 4, 5, 6].map(function (n) { return '<option value="' + n + '">' + n + '</option>'; }).join("");
+  var lOpts = [0, 1, 2, 3].map(function (l) { return '<option value="' + l + '">' + l + ' (' + LNAME[l] + ')</option>'; }).join("");
+  var sOpts = '<option value="0.5">+\u00bd</option><option value="-0.5">\u2212\u00bd</option>';
   var rows = ELEMENTS_T2.map(function (el) {
-    var L = occupancy(el.Z).last;
-    var sStr = (L.s > 0 ? "+" : "\u2212") + "\u00bd";
-    var mStr = (L.m < 0 ? "\u2212" + Math.abs(L.m) : "" + L.m);
-    var why = "letztes e\u207b in <b>" + L.label + "</b>: n=" + L.n + " (Schale), l=" + L.l + " &rarr; " + LNAME[L.l] + "-Unterschale, m=" + mStr + " (welches Orbital), s=" + sStr + " (Spinrichtung)";
-    function cell(q, v) { return '<td class="t2-qz-v" data-q="' + q + '"><span class="t2-ph">?</span><span class="t2-val">' + v + '</span></td>'; }
     return '<tr class="t2-qz-row" data-z="' + el.Z + '">' +
       '<td class="t2-qz-el"><span class="t2-qz-sym">' + el.sym + '</span> ' + el.name + '</td>' +
-      cell("n", L.n) + cell("l", L.l) + cell("m", mStr) + cell("s", sStr) +
-      '<td class="t2-qz-why"><span class="t2-ph">&rarr; tippen</span><span class="t2-val">' + why + '</span></td>' +
-    '</tr>';
+      '<td class="t2-qz-in"><select class="t2-qz-sel" data-q="n" aria-label="Hauptquantenzahl n"><option value="">?</option>' + nOpts + '</select></td>' +
+      '<td class="t2-qz-in"><select class="t2-qz-sel" data-q="l" aria-label="Nebenquantenzahl l"><option value="">?</option>' + lOpts + '</select></td>' +
+      '<td class="t2-qz-in"><select class="t2-qz-sel" data-q="m" aria-label="Magnetquantenzahl m"><option value="">?</option></select></td>' +
+      '<td class="t2-qz-in"><select class="t2-qz-sel" data-q="s" aria-label="Spinquantenzahl s"><option value="">?</option>' + sOpts + '</select></td>' +
+      '<td class="t2-qz-check"><button class="check-btn t2-qz-btn" type="button">pr\u00fcfen</button><span class="t2-qz-fb"></span></td>' +
+    '</tr>' +
+    '<tr class="t2-qz-explain" data-z="' + el.Z + '" hidden><td colspan="6"><div class="t2-qz-why"></div><div class="t2-qz-mini"></div></td></tr>';
   }).join("");
   return '<div class="t2-qz-wrap"><table class="t2-qz-table">' +
-    '<thead><tr><th>Element</th><th>n</th><th>l</th><th>m</th><th>s</th><th class="t2-qz-whyh">zuletzt besetztes Elektron</th></tr></thead>' +
+    '<thead><tr><th>Element</th><th>n</th><th>l</th><th>m</th><th>s</th><th>&nbsp;</th></tr></thead>' +
     '<tbody>' + rows + '</tbody></table>' +
-    '<p class="t2-qz-hint">&rarr; <b>Zeile antippen</b>: erst selbst vorhersagen, dann Werte, Begr&uuml;ndung und das zugeh&ouml;rige K&auml;stchen aufdecken.</p>' +
-    '<div class="t2-qz-mini"></div></div>';
+    '<p class="t2-qz-hint">F\u00fclle f\u00fcr jedes Element die vier Quantenzahlen des <b>zuletzt besetzten Elektrons</b> aus (vgl. K\u00e4stchen oben in \u00a7 II.3) und pr\u00fcfe deine Antwort.</p>' +
+  '</div>';
 }
 
 /* ------------------------------ Rendering ------------------------------ */
@@ -2429,14 +2633,53 @@ function wireTeil2b() {
       stage.dataset.step = range.value; refreshCfg(stage);
     });
   });
-  // § II.4 — Tabellenzeilen aufdecken + Mini-Kästchen
+  // § II.4 — Quantenzahlen selbst ausfüllen + prüfen
   document.querySelectorAll('.t2-qz-row').forEach(function (row) {
-    row.addEventListener('click', function () {
-      var wrap = row.closest('[data-fig2b="quantum"]'); if (!wrap) return;
-      var open = row.classList.toggle('open');
-      wrap.querySelectorAll('.t2-qz-row').forEach(function (r) { if (r !== row) r.classList.remove('open'); });
-      var mini = wrap.querySelector('.t2-qz-mini');
-      if (mini) mini.innerHTML = open ? boxDiagramSVG(+row.dataset.z, { highlightLast: true }) : '';
+    var lSel = row.querySelector('.t2-qz-sel[data-q="l"]');
+    var mSel = row.querySelector('.t2-qz-sel[data-q="m"]');
+    if (lSel && mSel) {
+      lSel.addEventListener('change', function () {
+        mSel.innerHTML = '<option value="">?</option>' + mOptionsHTML(lSel.value);
+        mSel.classList.remove('right', 'wrong');
+      });
+    }
+    row.querySelectorAll('.t2-qz-sel').forEach(function (sel) {
+      sel.addEventListener('change', function () { sel.classList.remove('right', 'wrong'); });
+    });
+    var btn = row.querySelector('.t2-qz-btn');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var Z = +row.dataset.z;
+      var L = occupancy(Z).last;
+      var correct = { n: L.n, l: L.l, m: L.m, s: L.s };
+      var sels = row.querySelectorAll('.t2-qz-sel');
+      var allRight = true, allFilled = true;
+      sels.forEach(function (sel) {
+        var q = sel.dataset.q;
+        sel.classList.remove('right', 'wrong');
+        if (sel.value === '') { allFilled = false; allRight = false; return; }
+        var val = +sel.value;
+        if (val === correct[q]) { sel.classList.add('right'); }
+        else { sel.classList.add('wrong'); allRight = false; }
+      });
+      var fb = row.querySelector('.t2-qz-fb');
+      if (!allFilled) { if (fb) fb.textContent = 'erst alle vier ausfüllen'; return; }
+      if (allRight) {
+        if (fb) fb.textContent = '✔ richtig';
+        row.classList.add('solved');
+        sels.forEach(function (sel) { sel.setAttribute('disabled', 'disabled'); });
+        btn.setAttribute('disabled', 'disabled');
+        var explainRow = row.nextElementSibling;
+        if (explainRow && explainRow.classList.contains('t2-qz-explain')) {
+          explainRow.hidden = false;
+          var why = explainRow.querySelector('.t2-qz-why');
+          if (why) why.innerHTML = quantumWhyHTML(Z);
+          var mini = explainRow.querySelector('.t2-qz-mini');
+          if (mini) mini.innerHTML = boxDiagramSVG(Z, { highlightLast: true });
+        }
+      } else {
+        if (fb) fb.textContent = 'noch nicht ganz — rot markierte Felder korrigieren';
+      }
     });
   });
 }
@@ -2643,6 +2886,61 @@ function wireTeil2c() {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = { orbitalSVG: orbitalSVG, standingWavesSVG: standingWavesSVG, orbitalGridHTML: orbitalGridHTML, ORB_S: ORB_S, ORB_D: ORB_D };
 }
+
+</script>
+<script>
+/* >>> quiz.js <<< */
+/* ===== quiz.js — Wissens-Check (Plickers-Selbstcheck) ===== */
+(function () {
+  var LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
+  function initQuiz() {
+    document.querySelectorAll('[data-qz]').forEach(function (quiz) {
+      var items = quiz.querySelectorAll('.qz-item');
+      var total = items.length, solved = 0;
+      var pcount = quiz.querySelector('.qz-count');
+      var pfill = quiz.querySelector('.qz-fill');
+      var doneBox = quiz.querySelector('.qz-solved');
+      function updateProgress() {
+        if (pcount) pcount.textContent = solved + ' / ' + total + ' richtig';
+        if (pfill) pfill.style.width = (total ? (solved / total * 100) : 0) + '%';
+        if (doneBox && solved === total) doneBox.classList.add('show');
+      }
+      items.forEach(function (q) {
+        var opts = q.querySelectorAll('.qz-opt');
+        var hint = q.querySelector('.qz-hint');
+        var done = q.querySelector('.qz-done');
+        var answered = false;
+        opts.forEach(function (opt, i) {
+          var lett = document.createElement('span');
+          lett.className = 'lett';
+          lett.textContent = LETTERS[i];
+          opt.insertBefore(lett, opt.firstChild);
+          opt.addEventListener('click', function () {
+            if (answered) return;
+            if (opt.getAttribute('data-correct') === 'true') {
+              answered = true;
+              opt.classList.add('correct');
+              opts.forEach(function (o) { o.setAttribute('disabled', 'disabled'); });
+              if (hint) hint.classList.remove('show');
+              if (done) done.classList.add('show');
+              solved++;
+              updateProgress();
+            } else {
+              opt.classList.add('wrong');
+              opt.setAttribute('disabled', 'disabled');
+              if (hint) {
+                hint.textContent = opt.getAttribute('data-hint') || 'Nicht ganz richtig – versuch es nochmal.';
+                hint.classList.add('show');
+              }
+            }
+          });
+        });
+      });
+      updateProgress();
+    });
+  }
+  document.addEventListener('DOMContentLoaded', initQuiz);
+})();
 
 </script>
 </body>

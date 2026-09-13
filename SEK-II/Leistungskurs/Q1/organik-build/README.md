@@ -8,7 +8,7 @@ funktionelle Gruppen und zwischenmolekulare Kräfte. Verknüpft mit dem
 
 | Datei | Zweck |
 |---|---|
-| `lernpfad-03-organik.html` | **Deploybare Seite** (self-contained, eine Datei). Zeitschloss + Passwortgate bleiben erhalten. |
+| `lernpfad-03-organik.html` | **Deploybare Seite** (self-contained, eine Datei). Wird direkt angezeigt, kein Zeitschloss/Passwortgate. |
 | `mitschrift-organik.pdf` / `.typ` | Mitschrift (Lückenfassung) für die Hand der SuS. |
 | `musterloesung-organik.pdf` / `.typ` | Deckungsgleich gelayoutete Musterlösung. |
 | `svg/` | Vektorgrafiken (Skelett-/Strukturformeln + Abbildungen), die die `.typ`-Dateien einbinden. |
@@ -20,8 +20,7 @@ funktionelle Gruppen und zwischenmolekulare Kräfte. Verknüpft mit dem
 Die Seite ist eigenständig — sie braucht `svg/` und `src/` **nicht**, da Renderer,
 Abbildungen und Logik bereits inline enthalten sind.
 
-- **Freischaltung:** automatisch ab `2026-09-26 07:00 MESZ` (SJW 5).
-- **Vorzeitiger Zugang:** Passwort `Chemieistüberall.` (wie in den übrigen Lernpfaden).
+- **Zugang:** keine Freischaltung/Passwortgate mehr — die Seite zeigt ihre Inhalte direkt beim Aufruf an (wie die übrigen Lernpfade).
 
 ### Verknüpfung
 Aufruf des Trainers (Übungsmodus, Stoffklassen Alkane … Ester) erfolgt aus § 5.
