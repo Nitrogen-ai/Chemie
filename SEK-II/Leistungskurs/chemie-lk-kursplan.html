@@ -861,6 +861,79 @@
     color: var(--accent-deep);
     letter-spacing: 0.1em;
   }
+
+  /* ===== Q&A JE KOMPETENZ/SJW ===== */
+  .qa-toggle {
+    grid-column: 1 / -1;
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.6rem;
+    padding: 0.4rem 0.9rem;
+    background: rgba(217, 79, 30, 0.06);
+    border: 1px solid rgba(217, 79, 30, 0.25);
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .qa-toggle:hover { background: rgba(217, 79, 30, 0.12); }
+
+  .qa-toggle .qa-caret {
+    display: inline-block;
+    transition: transform 0.25s ease;
+  }
+
+  .qa-toggle.open .qa-caret { transform: rotate(90deg); }
+
+  .qa-panel {
+    grid-column: 1 / -1;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.35s ease;
+  }
+
+  .qa-panel.open { max-height: 1400px; }
+
+  .qa-panel-inner {
+    margin-top: 0.8rem;
+    padding: 1rem 1.2rem;
+    background: rgba(30, 93, 82, 0.05);
+    border-left: 2px solid var(--teal);
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .qa-item + .qa-item {
+    padding-top: 0.9rem;
+    border-top: 1px dotted rgba(10, 22, 18, 0.15);
+  }
+
+  .qa-q {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 500;
+    color: var(--teal-deep);
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .qa-q::before { content: 'F · '; color: var(--accent); font-style: normal; }
+
+  .qa-a {
+    font-size: 0.92rem;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  .qa-a::before { content: 'A · '; color: var(--teal); font-weight: 600; }
 </style>
 </head>
 <body>
@@ -1137,19 +1210,19 @@
       <div class="comp-group">
         <div class="comp-group-label">Sachkompetenz · Atom &amp; Bindung</div>
 
-        <div class="competency">
+        <div class="competency" data-qa="q1__u01__sjw1-3__1">
           <div class="comp-week">SJW 1 – 3</div>
           <div class="comp-text">Ich kann <strong>Atommodelle</strong> (Rutherford, Bohr, Sommerfeld, Orbitalmodell) gegeneinander abgrenzen und mit ihrer Hilfe den Aufbau von Atomen <em>differenziert</em> beschreiben.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u01__sjw1-3__2">
           <div class="comp-week">SJW 1 – 3</div>
           <div class="comp-text">Ich kann <strong>Quantenzahlen</strong> und Elektronen­konfigurationen herleiten und nutze sie, um chemisches Verhalten zu prognostizieren.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u01__sjw4__1">
           <div class="comp-week">SJW 4</div>
           <div class="comp-text">Ich nutze differenzierte Teilchen- und Bindungs­modelle (Atombindung, Lewis, EPA, Hybridisierung, mesomere Grenz­formeln, Metall- &amp; Ionen­bindung), um Stoff­eigenschaften zu <em>deuten und vorauszusagen</em>.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u01__sjw5__1">
           <div class="comp-week">SJW 5</div>
           <div class="comp-text">Ich erstelle eine Übersicht der <strong>Stoff­klassen der organischen Chemie</strong> mit Struktur­merkmalen, funktionellen Gruppen und zwischen­molekularen Kräften und erkläre den Zusammen­hang zu Eigenschaften.</div>
         </div>
@@ -1176,19 +1249,19 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Aminosäuren — Bausteine</div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u02__sjw6__1">
           <div class="comp-week">SJW 6</div>
           <div class="comp-text">Ich beschreibe und begründe <strong>Ordnungs­prinzipien für Aminosäuren</strong> und wende sie an.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u02__sjw6__2">
           <div class="comp-week">SJW 6</div>
           <div class="comp-text">Ich leite Voraussagen über die <em>Eigenschaften von Aminosäuren</em> auf Basis ihrer zwitter­ionischen Struktur begründet ab.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u02__sjw6__3">
           <div class="comp-week">SJW 6</div>
           <div class="comp-text">Ich erkenne <strong>asymmetrisch substituierte Kohlenstoff-Atome</strong> in Molekülen und identifiziere damit chirale Verbindungen.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u02__sjw6__4">
           <div class="comp-week">SJW 6</div>
           <div class="comp-text">Ich formuliere — abgeleitet aus den IUPAC-Regeln — <strong>FISCHER-Projektions­formeln</strong> für α-L- und α-D-Aminosäuren.</div>
         </div>
@@ -1201,11 +1274,11 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Peptide &amp; das EPA-Modell</div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u02__sjw7__1">
           <div class="comp-week">SJW 7</div>
           <div class="comp-text">Ich bestimme den <strong>Reaktionstyp</strong> bei Bildung und Spaltung von Peptiden (Kondensation/Hydrolyse).</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u02__sjw7__2">
           <div class="comp-week">SJW 7</div>
           <div class="comp-text">Ich wende das <strong>EPA-Modell</strong> an, um die planare Peptid­bindung und die tetraedrische Struktur am α-Kohlenstoff-Atom zu erklären.</div>
         </div>
@@ -1218,27 +1291,27 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Strukturebenen &amp; Eigenschaften</div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u02__sjw8-11__1">
           <div class="comp-week">SJW 8 – 11</div>
           <div class="comp-text">Ich erkläre <strong>Sekundär- und Tertiär­strukturen</strong> der Proteine als Folge zwischen­molekularer Wechsel­wirkungen (einschließlich Ionen-Dipol).</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u02__sjw8-11__2">
           <div class="comp-week">SJW 8 – 11</div>
           <div class="comp-text">Ich wähle geeignete <em>Realmodelle</em> aus, um Strukturebenen von Proteinen darzustellen, und beantworte damit chemische Fragestellungen.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u02__sjw8-11__3">
           <div class="comp-week">SJW 8 – 11</div>
           <div class="comp-text">Ich führe <strong>Nachweisreaktionen</strong> (Biuret, Ninhydrin) für Proteine durch und wende sie zum Nachweis in Lebensmitteln an.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u02__sjw8-11__4">
           <div class="comp-week">SJW 8 – 11</div>
           <div class="comp-text">Ich leite den Sachverhalt der <strong>Denaturierung</strong> aus Alltagssituationen ab, entwickle eigene Frage­stellungen und argumentiere fachlich schlüssig.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u02__sjw8-11__5">
           <div class="comp-week">SJW 8 – 11</div>
           <div class="comp-text">Ich wähle chemische Sachverhalte und Informationen <em>adressaten- und situations­gerecht</em> aus und beurteile die fachliche Richtigkeit von Quellen und Medien.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u02__sjw8-11__6">
           <div class="comp-week">SJW 8 – 11</div>
           <div class="comp-text">Ich treffe mithilfe fachlicher Kriterien begründete <strong>Entscheidungen in Alltags­situationen</strong> (z. B. zu Gar­methoden von Lebens­mitteln).</div>
         </div>
@@ -1263,11 +1336,11 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Bau, Eigenschaften, Einteilung</div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u03__sjw12__1">
           <div class="comp-week">SJW 12</div>
           <div class="comp-text">Ich beschreibe das <strong>Ordnungsprinzip</strong> der Kunststoffklassen (Thermo-, Duroplaste, Elastomere) anhand des Zusammenhangs Struktur ↔ Eigenschaften und wende Modelle zur Beschreibung an.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u03__sjw12__2">
           <div class="comp-week">SJW 12</div>
           <div class="comp-text">Ich teile Kunststoffe nach <em>Rohstoff­quelle und Abbau­barkeit</em> ein.</div>
         </div>
@@ -1280,31 +1353,31 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Vom Monomer zum Polymer</div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u03__sjw13-16__1">
           <div class="comp-week">SJW 13 – 16</div>
           <div class="comp-text">Ich bestimme die Reaktions­typen <strong>Addition und Substitution</strong> an verschiedenen Beispielen.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u03__sjw13-16__2">
           <div class="comp-week">SJW 13 – 16</div>
           <div class="comp-text">Ich beschreibe den Reaktions­mechanismus der <strong>elektrophilen Addition</strong> und stelle ihn mit Strukturformeln dar.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u03__sjw13-16__3">
           <div class="comp-week">SJW 13 – 16</div>
           <div class="comp-text">Ich stelle den Mechanismus der <strong>radikalischen Polymerisation</strong> dar und verwende die Fachsprache präzise (Startradikal, Initiation, Kettenwachstum, Kettenabbruch).</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u03__sjw13-16__4">
           <div class="comp-week">SJW 13 – 16</div>
           <div class="comp-text">Ich stelle den Mechanismus der <strong>nucleophilen Substitution (S<sub>N</sub>)</strong> mit Strukturformeln dar und beschreibe ihn fachsprachlich korrekt.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u03__sjw13-16__5">
           <div class="comp-week">SJW 13 – 16</div>
           <div class="comp-text">Ich formuliere <em>konstitutionelle Repetier­einheiten</em> verschiedener Kunststoffe und Gesamt­reaktions­gleichungen unter Berücksichtigung stöchio­metrischer Verhältnisse.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u03__sjw13-16__6">
           <div class="comp-week">SJW 13 – 16</div>
           <div class="comp-text">Ich erfasse die <strong>Vielfalt von Kunststoffen</strong> und ihren Eigenschaften auf Basis unterschiedlicher Kombinationen und Anordnungen von Monomeren.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u03__sjw13-16__7">
           <div class="comp-week">SJW 13 – 16</div>
           <div class="comp-text">Ich nutze geeignete <em>Darstellungs­formen</em> für Reaktions­mechanismen und überführe diese ineinander.</div>
         </div>
@@ -1317,15 +1390,15 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Verarbeitung &amp; Wiederverwertung</div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u03__sjw17__1">
           <div class="comp-week">SJW 17</div>
           <div class="comp-text">Ich recherchiere zur <strong>Umwelt­problematik</strong> durch Kunststoffe und zu modernen Werkstoffen ziel­gerichtet in analogen und digitalen Medien und wähle passende Quellen aus.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u03__sjw17__2">
           <div class="comp-week">SJW 17</div>
           <div class="comp-text">Ich beurteile und bewerte, wie sich Verwendung von Kunst­stoffen und das eigene Handeln im Sinne einer <em>nachhaltigen Entwicklung</em> aus ökologischer, ökonomischer und sozialer Perspektive auswirkt.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q1__u03__sjw17__3">
           <div class="comp-week">SJW 17</div>
           <div class="comp-text">Ich beschreibe den <strong>Stoffkreislauf</strong> am Beispiel eines rohstofflich recyclebaren Kunst­stoffs von der Herstellung bis zur Wieder­verwertung und tausche mich konstruktiv darüber aus.</div>
         </div>
@@ -1365,19 +1438,19 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Energie &amp; Reaktionswärme</div>
-        <div class="competency">
+        <div class="competency" data-qa="q2__u01__sjw19-21__1">
           <div class="comp-week">SJW 19 – 21</div>
           <div class="comp-text">Ich deute Phänomene der <strong>Energie­umwandlung</strong> beim Ablauf chemischer und physikalisch-chemischer Vorgänge als <em>exotherm oder endotherm</em>.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q2__u01__sjw19-21__2">
           <div class="comp-week">SJW 19 – 21</div>
           <div class="comp-text">Ich entwickle geeignete <strong>Reaktions­gleichungen</strong> für thermodynamische Betrachtungen unter Angabe des Aggregat- oder Lösungs­zustands (s, l, g, aq).</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q2__u01__sjw19-21__3">
           <div class="comp-week">SJW 19 – 21</div>
           <div class="comp-text">Ich wende die <strong>Kalorimeter­gleichung</strong> an, um Reaktions­enthalpien rechnerisch zu ermitteln, und führe eine detaillierte Fehler­betrachtung durch.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q2__u01__sjw19-21__4">
           <div class="comp-week">SJW 19 – 21</div>
           <div class="comp-text">Ich nehme <em>kalorimetrische Untersuchungen</em> vor, dokumentiere und werte sie aus; ich überführe Daten in maßstabs­gerechte und beschriftete Diagramme.</div>
         </div>
@@ -1385,15 +1458,15 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Bildungs­enthalpie &amp; Satz von Hess</div>
-        <div class="competency">
+        <div class="competency" data-qa="q2__u01__sjw22-23__1">
           <div class="comp-week">SJW 22 – 23</div>
           <div class="comp-text">Ich wende den <strong>Satz von Hess</strong> an, um Reaktions­enthalpien rechnerisch über molare Standard­bildungs­enthalpien zu ermitteln.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q2__u01__sjw22-23__2">
           <div class="comp-week">SJW 22 – 23</div>
           <div class="comp-text">Ich erkläre Phänomene der Stoff- und Energie­umwandlung sowie des Umbaus chemischer Bindungen und unterscheide konsequent zwischen <em>Stoff- und Teilchenebene</em>.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q2__u01__sjw22-23__3">
           <div class="comp-week">SJW 22 – 23</div>
           <div class="comp-text">Ich beurteile am Beispiel des Lösevorgangs von Ionen- bzw. Molekül­substanzen (Gitter- &amp; Hydratations­enthalpie) <strong>Möglichkeiten und Grenzen chemischer Sichtweisen</strong>.</div>
         </div>
@@ -1401,15 +1474,15 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Triebkräfte &amp; Spontaneität</div>
-        <div class="competency">
+        <div class="competency" data-qa="q2__u01__sjw24-25__1">
           <div class="comp-week">SJW 24 – 25</div>
           <div class="comp-text">Ich stelle theorie­geleitet <strong>Hypothesen über die Spontaneität</strong> chemischer Reaktionen auf und prüfe sie mithilfe thermo­dynamischer Prinzipien.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q2__u01__sjw24-25__2">
           <div class="comp-week">SJW 24 – 25</div>
           <div class="comp-text">Ich nutze die <strong>GIBBS-HELMHOLTZ-Gleichung</strong>, berechne die freie molare Reaktions­enthalpie bei verschiedenen Temperaturen und ermittle Grenz­temperaturen.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q2__u01__sjw24-25__3">
           <div class="comp-week">SJW 24 – 25</div>
           <div class="comp-text">Ich beurteile je nach Kontext (z. B. Treibstoffe, Energiespeicher) <em>Chancen und Risiken</em> ausgewählter Produkte und Verhaltensweisen.</div>
         </div>
@@ -1429,19 +1502,19 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Reaktions­geschwindigkeit</div>
-        <div class="competency">
+        <div class="competency" data-qa="q2__u02__sjw26-28__1">
           <div class="comp-week">SJW 26 – 28</div>
           <div class="comp-text">Ich beschreibe <strong>Einflussfaktoren</strong> auf chemische Reaktionen und Möglich­keiten der Steuerung durch Variation von Reaktions­bedingungen.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q2__u02__sjw26-28__2">
           <div class="comp-week">SJW 26 – 28</div>
           <div class="comp-text">Ich formuliere <em>Fragestellungen</em> zur Abhängigkeit der Reaktions­geschwindigkeit und plane das experimentelle Vorgehen zur Überprüfung selbständig.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q2__u02__sjw26-28__3">
           <div class="comp-week">SJW 26 – 28</div>
           <div class="comp-text">Ich stelle <strong>quantitative Untersuchungen</strong> zum zeitlichen Verlauf einer Reaktion an, protokolliere und werte mit Diagrammen aus (v = Δc/Δt; v = k · c).</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q2__u02__sjw26-28__4">
           <div class="comp-week">SJW 26 – 28</div>
           <div class="comp-text">Ich beschreibe den Reaktions­mechanismus der <strong>radikalischen Substitution</strong> (Halogenierung von Alkanen) mit allen Schritten.</div>
         </div>
@@ -1449,15 +1522,15 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Katalyse</div>
-        <div class="competency">
+        <div class="competency" data-qa="q2__u02__sjw29-30__1">
           <div class="comp-week">SJW 29 – 30</div>
           <div class="comp-text">Ich beschreibe Einfluss­faktoren auf chemische Reaktionen durch den Einsatz von <strong>Katalysatoren</strong> (homogen, heterogen, Bio­katalyse, Autokatalyse).</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q2__u02__sjw29-30__2">
           <div class="comp-week">SJW 29 – 30</div>
           <div class="comp-text">Ich nutze Modelle, um chemische Abläufe auf der <em>Katalysator­oberfläche</em> (Diffusion, Adsorption, Dissoziation, Desorption) zu veranschaulichen.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q2__u02__sjw29-30__3">
           <div class="comp-week">SJW 29 – 30</div>
           <div class="comp-text">Ich nutze das Konzept vom Aufbau und von den Eigenschaften der Stoffe zur <strong>Vernetzung von Sachverhalten</strong> innerhalb der Chemie sowie zur Physik und Biologie.</div>
         </div>
@@ -1477,19 +1550,19 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Beschreibung des Gleichgewichts</div>
-        <div class="competency">
+        <div class="competency" data-qa="q2__u03__sjw31-32__1">
           <div class="comp-week">SJW 31 – 32</div>
           <div class="comp-text">Ich beschreibe die <strong>Umkehrbarkeit</strong> chemischer Reaktionen als Voraussetzung des chemischen Gleichgewichts.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q2__u03__sjw31-32__2">
           <div class="comp-week">SJW 31 – 32</div>
           <div class="comp-text">Ich beschreibe — auch mit Modellen — das <em>dynamische Gleichgewicht</em> und wende es auf verschiedene Beispiele an.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q2__u03__sjw31-32__3">
           <div class="comp-week">SJW 31 – 32</div>
           <div class="comp-text">Ich wende das <strong>MWG</strong> an, leite es aus den Reaktions­geschwindigkeiten der Hin- und Rück­reaktion her und berechne Gleichgewichts­konzentrationen (für Δν = 0, u. a. Ester­synthese).</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q2__u03__sjw31-32__4">
           <div class="comp-week">SJW 31 – 32</div>
           <div class="comp-text">Ich grenze mithilfe von Modellen den <em>statischen Zustand</em> auf Stoffebene vom <em>dynamischen Zustand</em> auf Teilchenebene ab.</div>
         </div>
@@ -1497,15 +1570,15 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Beeinflussung des Gleichgewichts</div>
-        <div class="competency">
+        <div class="competency" data-qa="q2__u03__sjw33-34__1">
           <div class="comp-week">SJW 33 – 34</div>
           <div class="comp-text">Ich beschreibe die Einfluss­faktoren auf die Gleichgewichts­lage und wende das <strong>Prinzip von Le Chatelier</strong> auf verschiedene Reaktionen an.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q2__u03__sjw33-34__2">
           <div class="comp-week">SJW 33 – 34</div>
           <div class="comp-text">Ich beurteile und bewerte, wie sich chemische Verfahren (z. B. Haber-Bosch) und eigenes Handeln im Sinne einer <em>nachhaltigen Entwicklung</em> ökologisch, ökonomisch und sozial auswirken.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q2__u03__sjw33-34__3">
           <div class="comp-week">SJW 33 – 34</div>
           <div class="comp-text">Ich beurteile fachlich, je nach Kontext, <strong>Chancen und Risiken</strong> ausgewählter Produkte und Verhaltensweisen.</div>
         </div>
@@ -1513,7 +1586,7 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Löslichkeits­gleichgewicht</div>
-        <div class="competency">
+        <div class="competency" data-qa="q2__u03__sjw35__1">
           <div class="comp-week">SJW 35</div>
           <div class="comp-text">Ich nehme eine quantitative Untersuchung (<strong>Konduktometrie</strong>) vor, protokolliere und werte sie mit Diagrammen aus; ich interpretiere K<sub>L</sub>-Werte.</div>
         </div>
@@ -1553,15 +1626,15 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Brønsted &amp; Protolyse­gleichgewichte</div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u01__sjw34__1">
           <div class="comp-week">SJW 34</div>
           <div class="comp-text">Ich leite aus typischen <strong>Strukturmerkmalen von Teilchen</strong> deren Funktion als Protonen­donator bzw. -akzeptor begründet ab.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u01__sjw34__2">
           <div class="comp-week">SJW 34</div>
           <div class="comp-text">Ich beschreibe die <em>Umkehrbarkeit</em> chemischer Reaktionen und das Donator-Akzeptor-Prinzip und wende es exemplarisch auf Säure-Base-Reaktionen aus Natur, Technik und Alltag an.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u01__sjw34__3">
           <div class="comp-week">SJW 34</div>
           <div class="comp-text">Ich nutze Modelle zur chemischen Bindung und zu intermolekularen Wechselwirkungen, um <strong>Protolyse­reaktionen</strong> zu erklären.</div>
         </div>
@@ -1569,15 +1642,15 @@
 
       <div class="comp-group">
         <div class="comp-group-label">pH-Wert &amp; pK-Werte</div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u01__sjw35__1">
           <div class="comp-week">SJW 35</div>
           <div class="comp-text">Ich wende bekannte mathematische Verfahren auf <strong>pH-Wert-Berechnungen</strong> an (vollständige und unvollständige Protolyse, pH = ½(pK<sub>S</sub> − lg c<sub>0</sub>(HA))).</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u01__sjw36__1">
           <div class="comp-week">SJW 36</div>
           <div class="comp-text">Ich treffe mithilfe fachlicher Kriterien begründete Entscheidungen in <em>Alltags­situationen</em>, denen Säure-Base-Reaktionen zugrunde liegen.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u01__sjw36__2">
           <div class="comp-week">SJW 36</div>
           <div class="comp-text">Ich wähle aussagekräftige Informationen zu chemischen Sachverhalten (z. B. pK<sub>S</sub>-/pK<sub>B</sub>-Werte) aus und interpretiere sie.</div>
         </div>
@@ -1585,23 +1658,27 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Puffer, Indikatoren &amp; Titrationen</div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u01__sjw37__1">
           <div class="comp-week">SJW 37</div>
           <div class="comp-text">Ich wähle aussagekräftige Informationen zur <strong>Pufferwirkung</strong> aus und erkläre Bedeutung in Natur und Technik (z. B. Blutpuffer).</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u01__sjw37__2">
+          <div class="comp-week">SJW 37</div>
+          <div class="comp-text">Ich berechne den <strong>pH-Wert von Puffersystemen</strong> mithilfe der Henderson-Hasselbalch-Gleichung (pH = pK<sub>S</sub> + lg(c(A<sup>−</sup>)/c(HA))) und wende sie auf Beispiele aus Natur und Technik an. <em>(prüfungsrelevant laut Fachbrief, ergänzt PS Chemie 2027/28)</em></div>
+        </div>
+        <div class="competency" data-qa="q3__u01__sjw37__3">
           <div class="comp-week">SJW 37</div>
           <div class="comp-text">Ich leite chemische Sachverhalte zu <em>Pflanzenfarbstoffen als Indikatoren</em> aus Alltagssituationen ab und vernetze die Säure-Base-Theorie nach Brønsted innerhalb der Chemie.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u01__sjw38__1">
           <div class="comp-week">SJW 38</div>
           <div class="comp-text">Ich führe — den chemischen Arbeitsweisen und Sicherheits­regeln entsprechend — <strong>Säure-Base-Titrationen</strong> durch, protokolliere und werte sie rechnerisch und grafisch aus.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u01__sjw38__2">
           <div class="comp-week">SJW 38</div>
           <div class="comp-text">Ich ermittle <em>charakteristische Punkte</em> einer Titrationskurve (Äquivalenz-, Halbäquivalenz-, Neutralpunkt) und interpretiere verschiedene Titrationsverläufe.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u01__sjw38__3">
           <div class="comp-week">SJW 38</div>
           <div class="comp-text">Ich nutze digitale Werkzeuge und Medien, um Messwerte aufzunehmen, darzustellen und auszuwerten.</div>
         </div>
@@ -1621,11 +1698,11 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Aromatische Systeme — Benzol</div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u02__sjw39-40__1">
           <div class="comp-week">SJW 39 – 40</div>
           <div class="comp-text">Ich diskutiere Möglichkeiten und Grenzen des <strong>Mesomeriemodells</strong> und der Aromatizität.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u02__sjw39-40__2">
           <div class="comp-week">SJW 39 – 40</div>
           <div class="comp-text">Ich wähle aussagekräftige Informationen und Daten aus Quellen mit unterschiedlichen, auch <em>komplexen Darstellungs­formen</em> aus und erschließe sie.</div>
         </div>
@@ -1633,23 +1710,23 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Licht, Farbe &amp; Indikatoren</div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u02__sjw43-45__1">
           <div class="comp-week">SJW 43 – 45</div>
           <div class="comp-text">Ich erkläre <strong>Farbigkeit</strong> mithilfe des Energie­stufen­modells und der Wechselwirkung von Licht und Materie.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u02__sjw43-45__2">
           <div class="comp-week">SJW 43 – 45</div>
           <div class="comp-text">Ich leite Voraussagen über die <em>Farbigkeit von Stoffen</em> auf Basis chemischer Strukturen (konjugierte Doppel­bindungen, delokalisierte π-Elektronen, Chromophor, auxochrome Gruppen) begründet ab.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u02__sjw43-45__3">
           <div class="comp-week">SJW 43 – 45</div>
           <div class="comp-text">Ich wende das <strong>Donator-Akzeptor-Prinzip</strong> auf Indikator­farbstoffe an und beschreibe, wie Veränderungen eines delokalisierten Elektronen­systems durch eine Säure-Base-Reaktion die Funktion erklären.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u02__sjw43-45__4">
           <div class="comp-week">SJW 43 – 45</div>
           <div class="comp-text">Ich unterscheide zwischen Alltags- und Fachsprache bei Begriffen zum Thema <em>Farbe</em> (bathochrom, hypsochrom, Absorption, Emission).</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u02__sjw43-45__5">
           <div class="comp-week">SJW 43 – 45</div>
           <div class="comp-text">Ich beurteile grundlegende Aspekte zu <strong>Gefahren und Sicherheit</strong> beim Einsatz von Azofarbstoffen im Alltag.</div>
         </div>
@@ -1669,27 +1746,27 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Elektronen­übertragungen</div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u03__sjw46-48__1">
           <div class="comp-week">SJW 46 – 48</div>
           <div class="comp-text">Ich interpretiere Phänomene der <strong>Stoffumwandlung bei Redox­reaktionen</strong> und bestimme den Reaktionstyp.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u03__sjw46-48__2">
           <div class="comp-week">SJW 46 – 48</div>
           <div class="comp-text">Ich unterscheide konsequent zwischen <em>Stoff- und Teilchenebene</em> bei der Betrachtung von Redoxreaktionen und wende das Donator-Akzeptor-Prinzip an.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u03__sjw46-48__3">
           <div class="comp-week">SJW 46 – 48</div>
           <div class="comp-text">Ich nehme qualitative experimentelle Untersuchungen ausgewählter Redox­reaktionen vor und beachte dabei <strong>chemische Arbeitsweisen und Sicherheitsregeln</strong>.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u03__sjw46-48__4">
           <div class="comp-week">SJW 46 – 48</div>
           <div class="comp-text">Ich nutze das Modell der <strong>Oxidationszahlen</strong>, um Redox­reaktionen zu erkennen, zu beschreiben und zu strukturieren — auch für Disproportion. und Synproportion.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u03__sjw46-48__5">
           <div class="comp-week">SJW 46 – 48</div>
           <div class="comp-text">Ich diskutiere Möglichkeiten und Grenzen des <em>Bohr-Sommerfeld'schen Atommodells</em> beim Ableiten der Oxidationszahlen für Elemente.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u03__sjw46-48__6">
           <div class="comp-week">SJW 46 – 48</div>
           <div class="comp-text">Ich verwende <strong>Fachbegriffe und -sprache</strong> korrekt (Redoxpaare, Donator/Akzeptor, Oxidations- &amp; Reduktions­mittel).</div>
         </div>
@@ -1697,15 +1774,15 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Angewandte Redoxreaktionen</div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u03__sjw49-50__1">
           <div class="comp-week">SJW 49 – 50</div>
           <div class="comp-text">Ich treffe mithilfe fachlicher Kriterien begründete Entscheidungen in <em>Alltagssituationen</em> (z. B. Bleich- und Desinfektions­mittel).</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u03__sjw49-50__2">
           <div class="comp-week">SJW 49 – 50</div>
           <div class="comp-text">Ich beurteile grundlegende Aspekte zu <strong>Gefahren und Sicherheit im Labor</strong>, etwa bei stark exothermen Redoxreaktionen zur Metallgewinnung.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q3__u03__sjw49-50__3">
           <div class="comp-week">SJW 49 – 50</div>
           <div class="comp-text">Ich plane <em>experiment­basierte Vorgehens­weisen</em>, um Hypothesen zu prüfen (z. B. bei einer Redoxtitration).</div>
         </div>
@@ -1745,19 +1822,19 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Das Daniell-Element &amp; galvanische Zellen</div>
-        <div class="competency">
+        <div class="competency" data-qa="q4__u01__sjw1-4__1">
           <div class="comp-week">SJW 1 – 4</div>
           <div class="comp-text">Ich interpretiere Phänomene der <strong>Stoff- und Energie­umwandlung</strong> bei elektrochemischen Reaktionen.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q4__u01__sjw1-4__2">
           <div class="comp-week">SJW 1 – 4</div>
           <div class="comp-text">Ich unterscheide konsequent zwischen <em>Stoff- und Teilchenebene</em> bei der Betrachtung elektrochemischer Reaktionen.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q4__u01__sjw1-4__3">
           <div class="comp-week">SJW 1 – 4</div>
           <div class="comp-text">Ich entwickle <strong>Reaktions­gleichungen</strong> für elektrochemische Reaktionen und berechne die Zellspannung unter Standard­bedingungen.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q4__u01__sjw1-4__4">
           <div class="comp-week">SJW 1 – 4</div>
           <div class="comp-text">Ich nehme qualitative <em>experimentelle Untersuchungen</em> ausgewählter elektrochemischer Reaktionen vor, beachte die Sicherheits­regeln, protokolliere und werte aus.</div>
         </div>
@@ -1765,11 +1842,11 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Konzentrations­zellen &amp; Nernst</div>
-        <div class="competency">
+        <div class="competency" data-qa="q4__u01__sjw6-7__1">
           <div class="comp-week">SJW 6 – 7</div>
           <div class="comp-text">Ich plane — unter Berücksichtigung der <strong>Variablen­kontrolle</strong> — experimentbasierte Vorgehens­weisen, um Hypothesen bei der Untersuchung von Konzentrations­zellen zu prüfen.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q4__u01__sjw6-7__2">
           <div class="comp-week">SJW 6 – 7</div>
           <div class="comp-text">Ich wende die <strong>Nernst-Gleichung</strong> auf Redoxpaare Metall-Atom/Metall-Ion an und führe entsprechende Berechnungen durch.</div>
         </div>
@@ -1777,11 +1854,11 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Elektrolyse</div>
-        <div class="competency">
+        <div class="competency" data-qa="q4__u01__sjw8-9__1">
           <div class="comp-week">SJW 8 – 9</div>
           <div class="comp-text">Ich nehme <strong>quantitative experimentelle Untersuchungen</strong> ausgewählter elektrochemischer Reaktionen vor (Elektrolyse) und werte sie systematisch aus.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q4__u01__sjw8-9__2">
           <div class="comp-week">SJW 8 – 9</div>
           <div class="comp-text">Ich wende das <em>1. und 2. Faraday-Gesetz</em> an, um Stoffmengen bei Elektrolysen zu berechnen.</div>
         </div>
@@ -1789,11 +1866,11 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Batterien, Akkus, Brennstoffzellen</div>
-        <div class="competency">
+        <div class="competency" data-qa="q4__u01__sjw10__1">
           <div class="comp-week">SJW 10</div>
           <div class="comp-text">Ich beschreibe die <strong>Umkehrbarkeit</strong> chemischer Reaktionen am Beispiel Akkumulator/Brennstoffzelle und leite chemische Sachverhalte aus Alltags­situationen ab.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q4__u01__sjw10__2">
           <div class="comp-week">SJW 10</div>
           <div class="comp-text">Ich bewerte die <em>gesellschaftliche Relevanz und ökologische Bedeutung</em> der Elektrochemie (Rohstoffe für Batterien, bedrohte Elemente, Mobilitätswende).</div>
         </div>
@@ -1801,11 +1878,11 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Korrosion &amp; Korrosions­schutz</div>
-        <div class="competency">
+        <div class="competency" data-qa="q4__u01__sjw11__1">
           <div class="comp-week">SJW 11</div>
           <div class="comp-text">Ich identifiziere und entwickle <strong>Fragestellungen</strong> zu chemischen Sachverhalten der Korrosion von Metallen (Lokalelement, Sauerstoff- und Säurekorrosion).</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q4__u01__sjw11__2">
           <div class="comp-week">SJW 11</div>
           <div class="comp-text">Ich definiere und experimentiere mit <em>Nanomaterialien</em> (superhydrophobe Beschichtungen) und beschreibe ihre Oberflächen­eigenschaften.</div>
         </div>
@@ -1825,11 +1902,11 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Vernetzung &amp; Methodik</div>
-        <div class="competency">
+        <div class="competency" data-qa="q4__u02__sjw12-13__1">
           <div class="comp-week">SJW 12 – 13</div>
           <div class="comp-text">Ich nutze chemische Konzepte und Theorien zur <strong>Vernetzung von Sachverhalten</strong> innerhalb der Chemie über alle vier Semester hinweg.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q4__u02__sjw12-13__2">
           <div class="comp-week">SJW 12 – 13</div>
           <div class="comp-text">Ich gestalte die <em>Wiederholung und Abitur­vorbereitung aktiv mit</em> — durch eigene Schwerpunkt­setzung, Lern­produkte und Diskussions­beiträge.</div>
         </div>
@@ -1837,15 +1914,15 @@
 
       <div class="comp-group">
         <div class="comp-group-label">Experimentelle Sicherheit</div>
-        <div class="competency">
+        <div class="competency" data-qa="q4__u02__sjw14-15__1">
           <div class="comp-week">SJW 14 – 15</div>
           <div class="comp-text">Ich führe ausgewählte <strong>experimentelle Aufgaben­formate</strong> selbstständig durch — den chemischen Arbeitsweisen und Sicherheits­regeln entsprechend.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q4__u02__sjw14-15__2">
           <div class="comp-week">SJW 14 – 15</div>
           <div class="comp-text">Ich reflektiere die <em>eigenen Ergebnisse</em> und den eigenen Prozess der Erkenntnis­gewinnung und stelle bei der Interpretation fach­übergreifende Bezüge her.</div>
         </div>
-        <div class="competency">
+        <div class="competency" data-qa="q4__u02__sjw14-15__3">
           <div class="comp-week">SJW 14 – 15</div>
           <div class="comp-text">Ich präsentiere chemische Sachverhalte sowie Lern- und Arbeitsergebnisse <strong>adressaten- und situations­gerecht</strong> unter Einsatz geeigneter analoger und digitaler Medien.</div>
         </div>
@@ -1984,6 +2061,43 @@
         }
       });
     });
+  });
+
+  // === Q&A je Kompetenz/SJW ===
+  // Hier nach und nach Fragen ergänzen, die im Unterricht aufkamen.
+  // Schlüssel = data-qa-Attribut des jeweiligen .competency-Blocks im
+  // Quelltext (direkt sichtbar über dem comp-text), Format:
+  //   qX__uNN__sjwWW__k   (Halbjahr__Einheit__Schuljahreswoche__Index)
+  // Ein Kompetenz-Block ohne Eintrag hier zeigt keinen Q&A-Button.
+  const QA_DATA = {
+    // Beispiel zum Einfügen (Schlüssel aus dem Quelltext übernehmen):
+    // 'q1__u01__sjw1-3__1': [
+    //   { q: 'Frage, die im Unterricht aufkam?', a: 'Kurze, klare Antwort dazu.' }
+    // ],
+  };
+
+  document.querySelectorAll('.competency[data-qa]').forEach(comp => {
+    const items = QA_DATA[comp.dataset.qa];
+    if (!items || !items.length) return;
+
+    const toggle = document.createElement('button');
+    toggle.type = 'button';
+    toggle.className = 'qa-toggle';
+    toggle.innerHTML = `<span class="qa-caret">▸</span><span>Fragen &amp; Antworten aus dem Unterricht (${items.length})</span>`;
+
+    const panel = document.createElement('div');
+    panel.className = 'qa-panel';
+    panel.innerHTML = `<div class="qa-panel-inner">${
+      items.map(it => `<div class="qa-item"><div class="qa-q">${it.q}</div><div class="qa-a">${it.a}</div></div>`).join('')
+    }</div>`;
+
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('open');
+      panel.classList.toggle('open');
+    });
+
+    comp.appendChild(toggle);
+    comp.appendChild(panel);
   });
 
   // === Open Q1 by default after a moment ===

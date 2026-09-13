@@ -1,0 +1,592 @@
+<meta charset="UTF-8">
+<title>Elektronenkorrelation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#f3f1f8;
+  --bg-elev:#ffffff;
+  --bg-sunken:#e7e3f2;
+  --ink:#171327;
+  --ink-dim:#5b5674;
+  --ink-faint:#8b86a3;
+  --line:#d8d3e8;
+  --accent:#b5730f;
+  --accent-soft:#f0dfb9;
+  --blue:#3457c9;
+  --blue-soft:#dde4fb;
+  --red:#c23b4e;
+  --red-soft:#f8dde1;
+  --green:#2f8f5b;
+  --green-soft:#dcf0e4;
+  --card:#ffffff;
+  --shadow: 0 1px 2px rgba(23,19,39,.06), 0 8px 24px -12px rgba(23,19,39,.18);
+  --radius: 14px;
+  --serif: 'Fraunces', ui-serif, Georgia, serif;
+  --sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b0a17; --bg-elev:#141227; --bg-sunken:#0e0c1c;
+    --ink:#eeecf9; --ink-dim:#b1acc9; --ink-faint:#7d7898;
+    --line:#2a2645; --accent:#e8ad4f; --accent-soft:#3a2c11;
+    --blue:#7f9bff; --blue-soft:#1b2450; --red:#f18294; --red-soft:#3c1b23;
+    --green:#6fce9c; --green-soft:#123023;
+    --card:#141227; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px -14px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b0a17; --bg-elev:#141227; --bg-sunken:#0e0c1c;
+  --ink:#eeecf9; --ink-dim:#b1acc9; --ink-faint:#7d7898;
+  --line:#2a2645; --accent:#e8ad4f; --accent-soft:#3a2c11;
+  --blue:#7f9bff; --blue-soft:#1b2450; --red:#f18294; --red-soft:#3c1b23;
+  --green:#6fce9c; --green-soft:#123023;
+  --card:#141227; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px -14px rgba(0,0,0,.6);
+}
+
+*{box-sizing:border-box;}
+html{-webkit-font-smoothing:antialiased;}
+body{ margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans); line-height:1.55; font-size:16px; }
+::selection{ background:var(--accent-soft); }
+a{ color:var(--blue); }
+img,canvas{ max-width:100%; display:block; }
+.wrap{ max-width:920px; margin:0 auto; padding:0 24px; }
+.wrap-wide{ max-width:1160px; margin:0 auto; padding:0 24px; }
+
+h1,h2,h3,h4{ font-family:var(--serif); font-weight:600; text-wrap:balance; margin:0 0 .4em; color:var(--ink); }
+h1{ font-size:clamp(2.1rem,4.6vw,3.3rem); font-weight:500; line-height:1.08; }
+h2{ font-size:clamp(1.6rem,3vw,2.2rem); }
+h3{ font-size:1.2rem; }
+p{ margin:0 0 1em; color:var(--ink-dim); max-width:66ch; }
+p.lead{ font-size:1.13rem; color:var(--ink); }
+.kicker{ font-family:var(--mono); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:600; display:flex; align-items:center; gap:.6em; }
+.kicker .num{ width:1.6em;height:1.6em;border-radius:50%;border:1px solid currentColor; display:inline-flex;align-items:center;justify-content:center;font-size:.9em; }
+code, .mono{ font-family:var(--mono); }
+.formula{ font-family:var(--mono); background:var(--bg-sunken); border:1px solid var(--line); border-radius:10px; padding:.9em 1.1em; display:inline-block; font-size:.95rem; color:var(--ink); font-variant-numeric:tabular-nums; overflow-x:auto; max-width:100%; }
+
+.railnav{ position:fixed; right:18px; top:50%; transform:translateY(-50%); z-index:40; display:flex; flex-direction:column; gap:14px; }
+.railnav a{ width:10px;height:10px;border-radius:50%; background:var(--line); border:none; display:block; position:relative; text-decoration:none; }
+.railnav a.active{ background:var(--accent); box-shadow:0 0 0 4px var(--accent-soft); }
+.railnav a span{ position:absolute; right:20px; top:50%; transform:translateY(-50%); white-space:nowrap; font-family:var(--mono); font-size:.68rem; letter-spacing:.06em; color:var(--ink-dim); background:var(--card); border:1px solid var(--line); padding:.3em .6em; border-radius:6px; opacity:0; pointer-events:none; transition:opacity .15s; box-shadow:var(--shadow); }
+.railnav a:hover span{ opacity:1; }
+@media (max-width: 860px){ .railnav{ display:none; } }
+
+.topbar{ position:sticky; top:0; z-index:30; backdrop-filter: blur(10px); background:color-mix(in srgb, var(--bg) 82%, transparent); border-bottom:1px solid var(--line); }
+.topbar-inner{ max-width:1160px; margin:0 auto; padding:.7em 24px; display:flex; align-items:center; justify-content:space-between; gap:1em; flex-wrap:wrap; }
+.brand{ font-family:var(--serif); font-weight:600; font-size:1.05rem; display:flex; gap:.5em; align-items:baseline; }
+.brand .sub{ font-family:var(--mono); font-size:.68rem; color:var(--ink-faint); letter-spacing:.06em; }
+.backlink{ font-family:var(--mono); font-size:.76rem; color:var(--ink-dim); text-decoration:none; border:1px solid var(--line); padding:.35em .7em; border-radius:8px; }
+.backlink:hover{ border-color:var(--accent); color:var(--ink); }
+
+section{ padding:84px 0; border-bottom:1px solid var(--line); }
+section:last-of-type{ border-bottom:none; }
+.hero{ padding-top:60px; padding-bottom:52px; }
+
+.badge{ display:inline-flex; align-items:center; gap:.4em; font-family:var(--mono); font-size:.7rem; letter-spacing:.05em; text-transform:uppercase; background:var(--green-soft); color:var(--green); border:1px solid var(--green); padding:.3em .7em; border-radius:999px; margin-bottom:1em; }
+
+.panel{ background:var(--bg-elev); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:20px; margin-top:1.6em; }
+.panel-controls{ display:flex; flex-wrap:wrap; gap:.6em; align-items:center; margin-top:1em; }
+.chip{ font-family:var(--mono); font-size:.82rem; padding:.5em 1em; border-radius:999px; border:1px solid var(--line); background:var(--bg-elev); color:var(--ink-dim); cursor:pointer; transition:all .15s; }
+.chip:hover{ border-color:var(--accent); color:var(--ink); }
+.chip.active{ background:var(--accent); border-color:var(--accent); color:#241a03; font-weight:600; }
+.caption{ font-size:.85rem; color:var(--ink-faint); margin-top:.8em; }
+.iconbtn{ width:34px;height:34px;border-radius:50%; border:1px solid var(--line); background:var(--bg-elev); color:var(--ink); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:.9rem; }
+.iconbtn:hover{ border-color:var(--accent); }
+
+.grid2{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+@media (max-width:700px){ .grid2{ grid-template-columns:1fr; } }
+canvas.plot{ width:100%; height:180px; background:var(--bg-sunken); border-radius:10px; }
+canvas.scatter{ width:100%; height:260px; background:var(--bg-sunken); border-radius:10px; }
+canvas.hist{ width:100%; height:260px; background:var(--bg-sunken); border-radius:10px; }
+canvas.mol{ width:100%; height:260px; background:var(--bg-sunken); border-radius:10px; }
+
+.legend{ display:flex; gap:1.2em; font-size:.8rem; color:var(--ink-faint); flex-wrap:wrap; margin-top:.8em; }
+.legend span{ display:inline-flex; align-items:center; gap:.4em; }
+.dot{ width:9px;height:9px;border-radius:50%; display:inline-block; }
+.dash{ width:16px; height:0; border-top:2px dashed currentColor; display:inline-block; }
+
+.qbox{ background:var(--bg-elev); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:0; overflow:hidden; margin-top:1.6em; }
+.qrow{ display:grid; grid-template-columns:1fr 1.3fr; gap:0; border-bottom:1px solid var(--line); }
+.qrow:last-child{ border-bottom:none; }
+.qrow > div{ padding:14px 18px; }
+.qrow .k{ font-family:var(--mono); font-size:.86rem; color:var(--accent); background:var(--bg-sunken); font-weight:600; }
+.qrow .v{ font-size:.92rem; color:var(--ink-dim); }
+.qrow .v b{ color:var(--ink); font-weight:600; }
+
+.box{ width:30px;height:30px; border:1.5px solid var(--line); border-radius:5px; position:relative; display:inline-flex; align-items:center; justify-content:center; background:var(--bg-sunken); }
+.box .arrow{ font-size:1rem; line-height:1; }
+.box .arrow.up{ color:var(--blue); }
+.box .arrow.down{ color:var(--red); }
+.orbrow{ display:flex; align-items:center; gap:10px; margin:.6em 0; }
+.orbrow .lab{ font-family:var(--mono); font-size:.82rem; color:var(--ink-faint); width:3.2em; }
+
+.cmpgrid{ display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); margin-top:1.6em; }
+@media (max-width:700px){ .cmpgrid{ grid-template-columns:1fr; } }
+.cmpcol{ padding:22px 24px; background:var(--bg-elev); }
+.cmpcol + .cmpcol{ border-left:1px solid var(--line); }
+@media (max-width:700px){ .cmpcol + .cmpcol{ border-left:none; border-top:1px solid var(--line); } }
+.cmpcol h3{ margin-bottom:.5em; }
+.cmpcol h3 .tag{ font-family:var(--mono); font-size:.68rem; color:var(--ink-faint); display:block; letter-spacing:.08em; text-transform:uppercase; margin-bottom:.3em; }
+.cmpcol svg{ width:100%; height:auto; margin:.6em 0 1em; }
+
+footer{ padding:40px 0 80px; }
+.callout{ border-left:3px solid var(--accent); background:var(--accent-soft); padding:.9em 1.2em; border-radius:0 10px 10px 0; font-size:.92rem; color:var(--ink); margin:1.4em 0; }
+.callout b{ color:var(--accent); }
+.callout.blue{ border-color:var(--blue); background:var(--blue-soft); }
+.callout.green{ border-color:var(--green); background:var(--green-soft); }
+.small{ font-size:.82rem; color:var(--ink-faint); }
+</style>
+
+<div class="railnav" id="railnav">
+  <a href="#hero" data-label="Erinnerung"><span>Erinnerung</span></a>
+  <a href="#h-vs-he" data-label="H vs. He"><span>H vs. He</span></a>
+  <a href="#korrelation" data-label="Korrelation"><span>Korrelation</span></a>
+  <a href="#lcao" data-label="LCAO-Analogie"><span>LCAO-Analogie</span></a>
+  <a href="#wannier" data-label="Wannier-Molekül"><span>Wannier-Molekül</span></a>
+</div>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Elektronenkorrelation <span class="sub">Q1 LK CHEMIE · VERTIEFUNG</span></div>
+    <a class="backlink" href="wellenfunktionen.html">← zurück zu „Stehende Elektronen“</a>
+  </div>
+</div>
+
+<section class="hero" id="hero">
+  <div class="wrap">
+    <span class="badge">● Vertiefung · freiwillig</span>
+    <div class="kicker"><span class="num">1</span> Erinnerung</div>
+    <h1>Schwingt ein Orbital eigentlich?</h1>
+    <p class="lead">Deine Frage nach der Stunde war im Kern: Bewegt sich ein Elektron im s&#8209;Orbital wie ein
+      kleines Pendel &mdash; und ändert sich das, wenn zwei Elektronen (wie bei Helium) dasselbe Orbital besetzen?
+      Kurze Antwort zuerst: <b>nein, nichts schwingt</b>. Der Grund liegt genau in der komplexen Phase, die ihr in
+      §2 von „Stehende Elektronen“ kennengelernt habt.</p>
+
+    <div class="formula">ψ(x,t) = φ(x) · e<sup>−iEt/ħ</sup> &nbsp;&nbsp;⟹&nbsp;&nbsp; |ψ(x,t)|² = φ(x)² · |e<sup>−iEt/ħ</sup>|² = φ(x)²</div>
+    <p style="margin-top:1em;">Der Zeiger e<sup>−iEt/ħ</sup> rotiert zwar ständig in der komplexen Ebene &mdash;
+      aber er hat konstanten Betrag 1 und verschwindet beim Betragsquadrat spurlos. Ein <b>stationärer Zustand</b>
+      (jedes reine n,l,m,s&#8209;Orbital ist einer) hat deshalb eine <b>zeitlich konstante</b> Aufenthaltswahrscheinlichkeit.
+      Kein Kreisen, kein Pendeln, keine Bahn &mdash; die Elektronenwolke „steht“ einfach da, exakt wie die stehende
+      Welle auf der Saite aus Kapitel&nbsp;1, nur eben dreidimensional und mit einer unsichtbaren Phase statt einer
+      sichtbaren Auslenkung.</p>
+
+    <div class="callout">Wirklich schwingen würde nur eine <b>Überlagerung</b> zweier Energiezustände (z.&nbsp;B.
+      1s + 2p während eines Übergangs) &mdash; dann oszilliert die Ladungsdichte mit ω = (E₂−E₁)/ħ, und genau das
+      strahlt als Photon ab. Ein reines Orbital allein tut das nicht.</p></div>
+
+    <p>Die eigentlich interessante Frage ist also nicht „schwingt es“, sondern: <b>Was genau unterscheidet ein
+      Elektron im 1s&#8209;Orbital des Wasserstoffs von zwei Elektronen im 1s&#8209;Orbital des Heliums</b>, wenn
+      doch beides zeitlich stillsteht? Darum geht es im Rest dieser Seite.</p>
+  </div>
+</section>
+
+<section id="h-vs-he">
+  <div class="wrap">
+    <div class="kicker"><span class="num">2</span> Wasserstoff vs. Helium</div>
+    <h2>Gleiche Form, andere Größe, gepaarter Spin</h2>
+    <p>Beide Atome besetzen im Grundzustand nur ein 1s&#8209;Orbital &mdash; bei Helium aber mit <b>zwei</b>
+      Elektronen. Nach dem Pauli&#8209;Prinzip, das ihr aus dem Aufbauprinzip kennt, geht das nur mit
+      <b>entgegengesetztem Spin</b>:</p>
+
+    <div class="orbrow">
+      <span class="lab">H, 1s¹</span>
+      <div class="box"><span class="arrow up">↑</span></div>
+    </div>
+    <div class="orbrow">
+      <span class="lab">He, 1s²</span>
+      <div class="box"><span class="arrow up">↑</span><span class="arrow down">↓</span></div>
+    </div>
+
+    <p style="margin-top:1.2em;">Die zweite Kernladung (Z = 2 statt Z = 1) zieht die Elektronen bei Helium stärker
+      an; jedes Elektron „sieht" wegen der Abschirmung durch das jeweils andere aber nicht die volle Kernladung,
+      sondern eine <b>effektive Kernladung</b> Z<sub>eff</sub> ≈ 1,69 (Ergebnis des Variationsverfahrens, kein
+      direkter Messwert). Die radiale Aufenthaltswahrscheinlichkeit bleibt <b>knotenfrei</b> (weiterhin echtes
+      1s, wie bei H) &mdash; nur enger um den Kern gezogen:</p>
+
+    <div class="panel">
+      <canvas class="plot" id="densityCanvas"></canvas>
+      <div class="legend">
+        <span><span class="dot" style="background:var(--blue)"></span> H, 1s (Z = 1)</span>
+        <span><span class="dot" style="background:var(--accent)"></span> He, 1s (Z<sub>eff</sub> ≈ 1,69, je Elektron)</span>
+      </div>
+      <p class="caption">r²R(r)² gegen den Kernabstand r (in Bohr-Radien a₀). Beide Kurven sind auf ∫r²R²dr = 1
+        normiert &mdash; deshalb muss die schmalere He-Kurve automatisch höher werden.</p>
+    </div>
+
+    <div class="callout blue">In dieser einfachen Näherung ist Helium nichts als „zwei unabhängige Wasserstoff-artige
+      1s-Elektronen mit halbierter Reichweite“ &mdash; eine reine Produktwellenfunktion
+      Ψ(r₁,r₂) ≈ φ₁s(r₁)·φ₁s(r₂). Das ignoriert aber etwas Entscheidendes: die beiden Elektronen spüren sich
+      gegenseitig. Dazu mehr im nächsten Abschnitt.</p></div>
+  </div>
+</section>
+
+<section id="korrelation">
+  <div class="wrap-wide">
+    <div class="kicker"><span class="num">3</span> Elektronenkorrelation</div>
+    <h2>Elektronen, die sich ausweichen</h2>
+    <p>Die Produktwellenfunktion φ₁s(r₁)·φ₁s(r₂) behandelt die Positionen der beiden Elektronen als
+      <b>statistisch unabhängig</b> &mdash; wo Elektron 1 gerade ist, hätte keinerlei Einfluss darauf, wo Elektron 2
+      ist. Real stoßen sich beide aber ab (Coulomb-Term e²/4πε₀r₁₂ im Hamiltonoperator), sodass sie sich bevorzugt
+      auf <b>entgegengesetzten Seiten</b> des Kerns aufhalten. Diese sogenannte <b>Winkelkorrelation</b> lässt sich
+      nicht direkt „filmen“ (es gibt ja keine Bahnen) &mdash; aber man kann sie sichtbar machen, indem man viele
+      gedachte, unabhängige Momentaufnahmen simuliert und die Winkeldifferenz Δθ zwischen den beiden gemessenen
+      Positionen histogrammiert:</p>
+
+    <div class="panel">
+      <div class="panel-controls" style="margin-top:0; margin-bottom:1.2em;">
+        <span class="small mono" style="margin-right:.4em;">Modell:</span>
+        <button class="chip active" data-mode="independent">unabhängig (φ₁s·φ₁s)</button>
+        <button class="chip" data-mode="correlated">korreliert (real)</button>
+        <button class="iconbtn" id="corrPlay" aria-label="Start/Pause" style="margin-left:.6em;">❚❚</button>
+        <button class="iconbtn" id="corrReset" aria-label="Zurücksetzen">↺</button>
+      </div>
+      <div class="grid2">
+        <div>
+          <canvas class="scatter" id="corrScatter"></canvas>
+          <p class="caption">Jede „Momentaufnahme“ markiert zwei gleichzeitig gemessene Elektronpositionen auf einer
+            Kugelschale um den Kern (schematisch, gleicher Radius).</p>
+        </div>
+        <div>
+          <canvas class="hist" id="corrHist"></canvas>
+          <p class="caption">Häufigkeit der Winkeldifferenz Δθ über <span class="mono" id="corrCount">0</span>
+            simulierte Messungen. 0° = gleiche Seite, 180° = gegenüberliegende Seite.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">Wichtig: Die Punkte „springen“ hier von Messung zu Messung &mdash; sie stellen
+      <b>keine Bewegung eines Elektrons in der Zeit</b> dar, sondern das Ergebnis vieler unabhängiger Experimente
+      an identisch präparierten Heliumatomen. Genau wie in Kapitel&nbsp;1 gezeigt, ändert sich die Wahrscheinlichkeitsverteilung
+      selbst nicht mit der Zeit. Im <b>unabhängigen</b> Modell ist Δθ gleichverteilt (flaches Histogramm), im
+      <b>korrelierten</b> Modell häuft es sich um 180° &mdash; das „Coulomb-Loch“: die gemeinsame Aufenthaltswahrscheinlichkeit
+      dafür, dass beide Elektronen gleichzeitig auf derselben Seite sind, ist abgesenkt.</p></div>
+
+    <p>Um diese Korrelation überhaupt in die Wellenfunktion einzubauen, reicht ein einzelnes Produkt φ₁s(r₁)φ₁s(r₂)
+      nicht mehr aus. Man mischt weitere Konfigurationen bei (<b>Konfigurationswechselwirkung</b>, kurz CI):</p>
+    <div class="formula">Ψ<sub>He</sub> ≈ c₀·φ₁s(r₁)φ₁s(r₂) + c₁·φ₂s(r₁)φ₂s(r₂) + c₂·Σ φ₂p(r₁)φ₂p(r₂) + …</div>
+    <p style="margin-top:1em;">Das senkt die berechnete Energie in Richtung des tatsächlichen (spektroskopisch
+      gemessenen) Werts &mdash; die reine Produktnäherung liegt für Helium um etwa 1,4&nbsp;% der Gesamtenergie
+      daneben, das ist die sogenannte <b>Korrelationsenergie</b>.</p>
+  </div>
+</section>
+
+<section id="lcao">
+  <div class="wrap">
+    <div class="kicker"><span class="num">4</span> Die LCAO-Analogie</div>
+    <h2>Verwandte Rechentechnik, andere Physik</h2>
+    <p>Die CI-Mischung von oben <i>sieht</i> aus wie die LCAO-Linearkombination, die ihr bald für H₂ verwendet:
+      beides sind Linearkombinationen von Basisfunktionen, beide werden variationell optimiert, um die Energie zu
+      senken. Trotzdem stecken zwei verschiedene Probleme dahinter:</p>
+
+    <div class="cmpgrid">
+      <div class="cmpcol">
+        <h3><span class="tag">Ein Teilchen · zwei Zentren</span>H₂ (LCAO)</h3>
+        <svg viewBox="0 0 220 110" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="75" cy="55" r="34" fill="var(--blue-soft)" stroke="var(--blue)" stroke-width="1.5"/>
+          <circle cx="145" cy="55" r="34" fill="var(--blue-soft)" stroke="var(--blue)" stroke-width="1.5"/>
+          <ellipse cx="110" cy="55" rx="26" ry="20" fill="var(--accent-soft)" opacity="0.85"/>
+          <circle cx="75" cy="55" r="4" fill="var(--ink)"/>
+          <circle cx="145" cy="55" r="4" fill="var(--ink)"/>
+          <text x="75" y="95" font-size="10" fill="var(--ink-faint)" text-anchor="middle" font-family="var(--mono)">Kern A</text>
+          <text x="145" y="95" font-size="10" fill="var(--ink-faint)" text-anchor="middle" font-family="var(--mono)">Kern B</text>
+        </svg>
+        <p class="small">φ = c<sub>A</sub>φ<sub>A</sub>(r) + c<sub>B</sub>φ<sub>B</sub>(r) &mdash; <b>ein</b> Elektron,
+          dessen Aufenthaltswahrscheinlichkeit sich über zwei Kerne verteilt. Konstruktive Interferenz
+          <b>zwischen</b> den Kernen (orange) senkt die Energie &mdash; das ist die Bindung.</p>
+      </div>
+      <div class="cmpcol">
+        <h3><span class="tag">Zwei Teilchen · ein Zentrum</span>He (CI)</h3>
+        <svg viewBox="0 0 220 110" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="110" cy="55" r="42" fill="var(--red-soft)" stroke="var(--red)" stroke-width="1.5" opacity="0.5"/>
+          <circle cx="110" cy="55" r="3" fill="var(--ink)"/>
+          <circle cx="80" cy="34" r="5" fill="var(--blue)"/>
+          <circle cx="140" cy="76" r="5" fill="var(--blue)"/>
+          <line x1="80" y1="34" x2="140" y2="76" stroke="var(--ink-faint)" stroke-width="1" stroke-dasharray="3 3"/>
+          <text x="110" y="100" font-size="10" fill="var(--ink-faint)" text-anchor="middle" font-family="var(--mono)">ein Kern</text>
+        </svg>
+        <p class="small">Ψ ≈ c₀φ₁s(r₁)φ₁s(r₂) + … &mdash; <b>zwei</b> Elektronen an einem Kern, deren
+          <i>relative</i> Position korreliert ist. Gegenseitiges Ausweichen (Coulomb-Loch) senkt die Energie &mdash;
+          das ist keine Bindung, sondern Abstoßungsvermeidung.</p>
+      </div>
+    </div>
+
+    <div class="callout green">Merksatz: LCAO bei H₂ ist Ein-Teilchen-Interferenz über zwei Orte im Raum.
+      Elektronenkorrelation bei He ist Zwei-Teilchen-Statistik an einem Ort. Beide sind stationär &mdash;
+      <b>keine</b> der beiden Beschreibungen enthält eine zeitliche Schwingung.</div>
+  </div>
+</section>
+
+<section id="wannier">
+  <div class="wrap">
+    <div class="kicker"><span class="num">5</span> Wannier-Molekül</div>
+    <h2>Wo echte Schwingung ins Spiel kommt</h2>
+    <p>Eine Ausnahme gibt es &mdash; nicht im Grundzustand, sondern bei <b>doppelt angeregten</b> Zuständen von
+      Helium (beide Elektronen gleichzeitig hoch angeregt, nahe der zweiten Ionisierungsschwelle). Dort versagt die
+      unabhängige Orbitalnäherung fast völlig, und die Atomphysik beschreibt das Elektronenpaar tatsächlich wie ein
+      <b>gebogenes dreiatomiges Molekül</b> Elektron–Kern–Elektron, mit echten Schwingungs- und Rotationsquantenzahlen
+      (Herrick, Kellman, Feagin/Briggs; formal über Hyperkugelkoordinaten). Das ist die einzige Stelle, an der die
+      Analogie zur Molekülschwingung wörtlich zutrifft:</p>
+
+    <div class="panel">
+      <div class="panel-controls" style="margin-top:0; margin-bottom:1.2em;">
+        <button class="chip active" data-mol="stretch">symmetrische Streckung</button>
+        <button class="chip" data-mol="bend">Biegeschwingung</button>
+        <button class="chip" data-mol="asym">asymmetrische Streckung</button>
+      </div>
+      <canvas class="mol" id="molCanvas"></canvas>
+      <p class="caption" id="molCaption">Beide Elektronen bewegen sich radial im Gleichtakt zum Kern hin und her
+        &mdash; wie das „Atmen“ eines linearen Moleküls.</p>
+    </div>
+
+    <div class="callout">Vorsicht mit der Analogie: Auch hier „bewegt“ sich kein Elektron auf einer klassischen Bahn.
+      Die drei Muster oben stehen für die <b>Knotenstruktur</b> der stationären Vielteilchen-Wellenfunktion dieser
+      speziellen, stark korrelierten Resonanzzustände &mdash; nicht für den Grundzustand von Helium, und nicht für
+      eine literale Trajektorie. Es ist die einzige Situation in der Atomphysik, in der Chemiker:innen ernsthaft von
+      „Schwingungsquantenzahlen“ zweier Elektronen sprechen.</p></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="small">Vertiefung zu „<a href="wellenfunktionen.html">Stehende Elektronen</a>“ &middot; Q1-LK Chemie,
+      Atombau. Alle Rechnungen (Radialteile, Monte-Carlo-Stichproben, Schwingungsmoden) werden live im Browser
+      ausgeführt.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+
+function dpr(){ return Math.min(window.devicePixelRatio||1, 2); }
+function fitCanvas(c){
+  const r = c.getBoundingClientRect();
+  const d = dpr();
+  const w = Math.max(1, Math.round(r.width*d)), h = Math.max(1, Math.round(r.height*d));
+  if(c.width!==w || c.height!==h){ c.width=w; c.height=h; }
+  const ctx = c.getContext('2d');
+  ctx.setTransform(d,0,0,d,0,0);
+  return {ctx, w:r.width, h:r.height};
+}
+function cssVar(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---- rail nav ---- */
+const railLinks = Array.from(document.querySelectorAll('#railnav a'));
+const sections = railLinks.map(a=>document.querySelector(a.getAttribute('href')));
+function updateRail(){
+  let idx=0, best=-Infinity;
+  sections.forEach((s,i)=>{ if(!s) return; const r=s.getBoundingClientRect(); const score=-Math.abs(r.top-120); if(r.top<220 && score>best){best=score; idx=i;} });
+  railLinks.forEach((a,i)=>a.classList.toggle('active', i===idx));
+}
+document.addEventListener('scroll', updateRail, {passive:true});
+window.addEventListener('resize', updateRail);
+updateRail();
+
+/* ---- shared hydrogen-like radial math ---- */
+function factorial(n){ let r=1; for(let i=2;i<=n;i++) r*=i; return r; }
+function laguerre(k, alpha, x){
+  if(k===0) return 1;
+  if(k===1) return 1+alpha-x;
+  let Lm2=1, Lm1=1+alpha-x, Lk=0;
+  for(let i=2;i<=k;i++){ Lk = ((2*i-1+alpha-x)*Lm1 - (i-1+alpha)*Lm2)/i; Lm2=Lm1; Lm1=Lk; }
+  return Lk;
+}
+function radialR(n,l,r,Z){
+  Z = Z||1;
+  const rho = 2*Z*r/n;
+  const norm = Math.sqrt(Math.pow(2*Z/n,3) * factorial(n-l-1) / (2*n*factorial(n+l)));
+  return norm * Math.exp(-rho/2) * Math.pow(rho,l) * laguerre(n-l-1, 2*l+1, rho);
+}
+
+/* ================= 2. density comparison H vs He ================= */
+(function(){
+  const canvas = document.getElementById('densityCanvas');
+  const rMax = 6; // Bohr radii
+  function P(Z,r){ const Rv = radialR(1,0,r,Z); return r*r*Rv*Rv; }
+  function draw(){
+    const {ctx,w,h} = fitCanvas(canvas);
+    ctx.clearRect(0,0,w,h);
+    let pmax=0;
+    for(let px=0; px<=w; px++){ const r=(px/w)*rMax; pmax=Math.max(pmax, P(1,r), P(1.69,r)); }
+    pmax*=1.08;
+    function curve(Z,color){
+      ctx.beginPath();
+      for(let px=0; px<=w; px++){
+        const r=(px/w)*rMax; const y = h-8-(P(Z,r)/pmax)*(h-16);
+        if(px===0) ctx.moveTo(px,y); else ctx.lineTo(px,y);
+      }
+      ctx.strokeStyle=color; ctx.lineWidth=2.2; ctx.stroke();
+    }
+    ctx.strokeStyle=cssVar('--line'); ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(0,h-8); ctx.lineTo(w,h-8); ctx.stroke();
+    curve(1, cssVar('--blue'));
+    curve(1.69, cssVar('--accent'));
+  }
+  draw();
+  window.addEventListener('resize', draw);
+})();
+
+/* ================= 3. correlation scatter + histogram ================= */
+(function(){
+  const scatterC = document.getElementById('corrScatter');
+  const histC = document.getElementById('corrHist');
+  const countEl = document.getElementById('corrCount');
+  const playBtn = document.getElementById('corrPlay');
+  const resetBtn = document.getElementById('corrReset');
+  const modeChips = Array.from(document.querySelectorAll('[data-mode]'));
+  const nBins = 18;
+  let mode = 'independent', playing = !prefersReduced, count = 0;
+  let bins = new Array(nBins).fill(0);
+  let last1=null, last2=null, lastAge=0;
+  let lastTick = performance.now(), acc=0;
+
+  function gaussianJitter(sigma){
+    const u1=Math.max(1e-9,Math.random()), u2=Math.random();
+    return sigma*Math.sqrt(-2*Math.log(u1))*Math.cos(2*Math.PI*u2);
+  }
+  function sample(){
+    const t1 = Math.random()*2*Math.PI;
+    let t2;
+    if(mode==='independent'){ t2 = Math.random()*2*Math.PI; }
+    else { t2 = t1 + Math.PI + gaussianJitter(0.55); }
+    let d = Math.abs(t1-t2) % (2*Math.PI);
+    if(d>Math.PI) d = 2*Math.PI - d;
+    const bin = Math.min(nBins-1, Math.floor(d/Math.PI*nBins));
+    bins[bin]++; count++;
+    last1=t1; last2=t2; lastAge=0;
+    countEl.textContent = count;
+  }
+  function resetAll(){ bins=new Array(nBins).fill(0); count=0; last1=null; last2=null; countEl.textContent='0'; drawScatter(); drawHist(); }
+
+  function drawScatter(){
+    const {ctx,w,h} = fitCanvas(scatterC);
+    ctx.clearRect(0,0,w,h);
+    const cx=w/2, cy=h/2, R=Math.min(w,h)*0.36;
+    ctx.strokeStyle=cssVar('--line'); ctx.lineWidth=1.2;
+    ctx.beginPath(); ctx.arc(cx,cy,R,0,7); ctx.stroke();
+    ctx.beginPath(); ctx.arc(cx,cy,3,0,7); ctx.fillStyle=cssVar('--ink-faint'); ctx.fill();
+    if(last1!==null){
+      const alpha = Math.max(0, 1-lastAge/1.4);
+      const p1 = [cx+R*Math.cos(last1), cy+R*Math.sin(last1)];
+      const p2 = [cx+R*Math.cos(last2), cy+R*Math.sin(last2)];
+      ctx.globalAlpha = 0.35*alpha;
+      ctx.strokeStyle = cssVar('--ink-faint'); ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(p1[0],p1[1]); ctx.lineTo(p2[0],p2[1]); ctx.stroke();
+      ctx.globalAlpha = 0.55+0.45*alpha;
+      ctx.fillStyle = cssVar('--blue');
+      ctx.beginPath(); ctx.arc(p1[0],p1[1],5,0,7); ctx.fill();
+      ctx.fillStyle = cssVar('--red');
+      ctx.beginPath(); ctx.arc(p2[0],p2[1],5,0,7); ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+  }
+  function drawHist(){
+    const {ctx,w,h} = fitCanvas(histC);
+    ctx.clearRect(0,0,w,h);
+    const maxV = Math.max(1,...bins);
+    const bw = w/nBins;
+    for(let i=0;i<nBins;i++){
+      const bh = (bins[i]/maxV)*(h-30);
+      ctx.fillStyle = cssVar('--accent');
+      ctx.globalAlpha = 0.85;
+      ctx.fillRect(i*bw+1, h-24-bh, bw-2, bh);
+    }
+    ctx.globalAlpha=1;
+    ctx.strokeStyle=cssVar('--line'); ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(0,h-24); ctx.lineTo(w,h-24); ctx.stroke();
+    ctx.fillStyle=cssVar('--ink-faint'); ctx.font='10px sans-serif';
+    ctx.fillText('0°', 2, h-8);
+    ctx.fillText('90°', w/2-10, h-8);
+    ctx.fillText('180°', w-28, h-8);
+  }
+
+  modeChips.forEach(ch=>ch.addEventListener('click', ()=>{
+    modeChips.forEach(c=>c.classList.remove('active'));
+    ch.classList.add('active');
+    mode = ch.dataset.mode;
+    resetAll();
+  }));
+  playBtn.addEventListener('click', ()=>{ playing=!playing; playBtn.textContent = playing?'❚❚':'▶'; });
+  resetBtn.addEventListener('click', resetAll);
+
+  function frame(now){
+    const dt=(now-lastTick)/1000; lastTick=now;
+    lastAge += dt; acc += dt;
+    if(playing && count<4000 && acc>0.11){ acc=0; sample(); }
+    drawScatter(); drawHist();
+    requestAnimationFrame(frame);
+  }
+  drawScatter(); drawHist();
+  requestAnimationFrame(frame);
+  window.addEventListener('resize', ()=>{ drawScatter(); drawHist(); });
+})();
+
+/* ================= 5. Wannier-molecule normal modes ================= */
+(function(){
+  const canvas = document.getElementById('molCanvas');
+  const caption = document.getElementById('molCaption');
+  const chips = Array.from(document.querySelectorAll('[data-mol]'));
+  const CAPTIONS = {
+    stretch: 'Beide Elektronen bewegen sich radial im Gleichtakt zum Kern hin und her — wie das „Atmen“ eines linearen Moleküls.',
+    bend: 'Der Winkel zwischen beiden Elektronen (Kern im Scheitel) oszilliert um 180° — wie die Biegeschwingung in H₂O.',
+    asym: 'Ein Elektron bewegt sich nach außen, während sich das andere nach innen bewegt (gegenphasig) — die asymmetrische Streckschwingung.',
+  };
+  let mol = 'stretch', t=0, last=performance.now();
+  chips.forEach(ch=>ch.addEventListener('click', ()=>{
+    chips.forEach(c=>c.classList.remove('active'));
+    ch.classList.add('active');
+    mol = ch.dataset.mol;
+    caption.textContent = CAPTIONS[mol];
+  }));
+
+  function draw(){
+    const {ctx,w,h} = fitCanvas(canvas);
+    ctx.clearRect(0,0,w,h);
+    const cx=w/2, cy=h/2;
+    const R0 = Math.min(w,h)*0.28, A = R0*0.28;
+    let r1=R0, r2=R0, ang=Math.PI;
+    const osc = prefersReduced? 0 : Math.sin(t);
+    if(mol==='stretch'){ r1 = r2 = R0 + A*osc; }
+    else if(mol==='bend'){ ang = Math.PI + 0.5*osc; }
+    else { r1 = R0 + A*osc; r2 = R0 - A*osc; }
+    const halfAng = ang/2;
+    const x1 = cx + r1*Math.cos(Math.PI/2-halfAng), y1 = cy - r1*Math.sin(Math.PI/2-halfAng);
+    const x2 = cx + r2*Math.cos(Math.PI/2+halfAng+Math.PI-ang), y2 = cy - r2*Math.sin(Math.PI/2+halfAng+Math.PI-ang);
+    // simpler: place symmetric about vertical axis through nucleus, angle ang between the two arms
+    const a1 = Math.PI/2 + ang/2, a2 = Math.PI/2 - ang/2;
+    const p1 = [cx + r1*Math.cos(a1), cy - r1*Math.sin(a1)];
+    const p2 = [cx + r2*Math.cos(a2), cy - r2*Math.sin(a2)];
+
+    ctx.strokeStyle = cssVar('--ink-faint'); ctx.lineWidth=1.6;
+    ctx.beginPath(); ctx.moveTo(p1[0],p1[1]); ctx.lineTo(cx,cy); ctx.lineTo(p2[0],p2[1]); ctx.stroke();
+
+    ctx.fillStyle = cssVar('--ink');
+    ctx.beginPath(); ctx.arc(cx,cy,6,0,7); ctx.fill();
+
+    ctx.fillStyle = cssVar('--blue');
+    ctx.beginPath(); ctx.arc(p1[0],p1[1],7,0,7); ctx.fill();
+    ctx.fillStyle = cssVar('--red');
+    ctx.beginPath(); ctx.arc(p2[0],p2[1],7,0,7); ctx.fill();
+
+    ctx.fillStyle = cssVar('--ink-faint'); ctx.font='11px sans-serif'; ctx.textAlign='center';
+    ctx.fillText('Kern', cx, cy+20);
+    ctx.fillText('e⁻', p1[0], p1[1]-12);
+    ctx.fillText('e⁻', p2[0], p2[1]-12);
+    ctx.textAlign='left';
+  }
+  function frame(now){
+    const dt=(now-last)/1000; last=now;
+    if(!prefersReduced) t += dt*1.6;
+    draw();
+    requestAnimationFrame(frame);
+  }
+  draw();
+  requestAnimationFrame(frame);
+  window.addEventListener('resize', draw);
+})();
+
+})();
+</script>
