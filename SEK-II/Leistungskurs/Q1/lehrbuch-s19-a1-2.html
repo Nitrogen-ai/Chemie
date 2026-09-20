@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Lehrbuch, S. 19 · Aufgabe A1–A2 · Chemie LK</title>
+<style>
+:root{--ink:#0a1612;--paper:#f5f1e8;--card:#fffdf7;--teal:#1e5d52;--teal-deep:#0d3a32;--rust:#a83610;--gold:#c9a961;--plus:#b3341a;--minus:#1f5fb0;
+--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;--sans:-apple-system,"Helvetica Neue","Segoe UI",Arial,sans-serif;--mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:4.5rem}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.6;font-size:1.02rem;
+ background-image:radial-gradient(circle at 15% 20%,rgba(168,54,16,.05),transparent 40%),radial-gradient(circle at 85% 75%,rgba(30,93,82,.06),transparent 45%)}
+::selection{background:var(--teal);color:var(--paper)}
+:focus-visible{outline:3px solid var(--rust);outline-offset:2px;border-radius:3px}
+sub,sup{line-height:0;font-size:.72em}
+.bar{position:sticky;top:0;z-index:20;background:rgba(245,241,232,.93);backdrop-filter:blur(8px);border-bottom:1px solid rgba(10,22,18,.1);
+ display:flex;gap:.5rem;align-items:center;justify-content:center;flex-wrap:wrap;padding:.6rem 4vw;font-family:var(--mono);font-size:.78rem;letter-spacing:.08em}
+.bar a{color:var(--ink);text-decoration:none;padding:.25rem .8rem;border:1px solid rgba(10,22,18,.18);border-radius:99px;background:var(--card);transition:.2s}
+.bar a:hover{background:var(--teal);color:var(--paper);border-color:var(--teal)}
+header{text-align:center;padding:3.6rem 6vw 2.2rem;position:relative}
+header::before{content:"";position:absolute;inset:0;pointer-events:none;
+ background-image:linear-gradient(to right,rgba(10,22,18,.035) 1px,transparent 1px),linear-gradient(to bottom,rgba(10,22,18,.035) 1px,transparent 1px);background-size:56px 56px;
+ -webkit-mask-image:linear-gradient(#000,transparent);mask-image:linear-gradient(#000,transparent)}
+.eyebrow{position:relative;font-family:var(--mono);font-size:.74rem;letter-spacing:.28em;text-transform:uppercase;color:var(--teal-deep);margin-bottom:.8rem}
+h1{position:relative;font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,7vw,4.6rem);line-height:1.05;letter-spacing:-.02em}
+h1 em{color:var(--teal);font-style:italic}
+.sub{position:relative;font-family:var(--serif);font-style:italic;font-size:1.3rem;color:var(--rust);margin-top:.5rem}
+main{max-width:960px;margin:0 auto;padding:1rem 5vw 5rem;display:grid;gap:1.6rem}
+.aufg{background:var(--card);border:1px solid rgba(10,22,18,.12);border-radius:14px;box-shadow:0 1px 0 rgba(10,22,18,.04),0 12px 30px -18px rgba(10,22,18,.25);
+ display:grid;grid-template-columns:5.2rem 1fr;overflow:hidden}
+.nr{background:var(--teal);color:var(--paper);font-family:var(--serif);font-style:italic;font-size:2.3rem;display:flex;justify-content:center;padding-top:1.1rem;letter-spacing:-.03em}
+.nr small{font-family:var(--mono);font-style:normal;font-size:.62rem;letter-spacing:.2em;display:block;text-align:center;opacity:.7;margin-bottom:-.2rem}
+.inhalt{padding:1.5rem 1.7rem 1.7rem;display:grid;gap:1.1rem;min-width:0}
+h2{font-family:var(--serif);font-weight:500;font-size:1.25rem;line-height:1.3}
+h3{font-family:var(--mono);font-weight:500;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--teal-deep);margin-bottom:.35rem}
+p{max-width:64ch}
+.lead{font-family:var(--serif);font-size:1.18rem;line-height:1.5}
+.zwei{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
+.box{border:1px solid rgba(10,22,18,.12);border-radius:10px;padding:1rem 1.1rem;background:#fff}
+.box.warm{border-left:4px solid var(--rust)}.box.kalt{border-left:4px solid var(--teal)}
+.fig{width:100%;height:auto;display:block;background:#fff;border:1px solid rgba(10,22,18,.1);border-radius:10px}
+.cap{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:#4a5a54;margin-top:.4rem}
+table{width:100%;border-collapse:collapse;font-size:.98rem}
+th{font-family:var(--mono);font-weight:500;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;text-align:left;color:var(--teal-deep);padding:.5rem .7rem;border-bottom:2px solid var(--teal)}
+td.nw{white-space:nowrap}
+td{padding:.65rem .7rem;border-bottom:1px solid rgba(10,22,18,.1);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+.formel{font-family:var(--serif);font-size:1.25rem}
+.ion{display:inline-block;font-family:var(--serif);font-size:1.05rem;padding:.12rem .55rem;border-radius:99px;margin:.12rem .18rem .12rem 0;border:1.5px solid;background:#fff}
+.ion.p{color:var(--plus);border-color:var(--plus)}.ion.n{color:var(--minus);border-color:var(--minus)}
+.dots{display:inline-flex;gap:.22rem;vertical-align:middle}.dots i{width:.6rem;height:.6rem;border-radius:50%;background:var(--ink);display:block}
+.dots.ab i{background:var(--plus)}.dots.auf i{background:var(--minus)}
+.pfeil{color:var(--teal);font-weight:700}
+.chg{font-weight:700}.chg.p{color:var(--plus)}.chg.n{color:var(--minus)}
+.gleichung{font-family:var(--serif);font-size:clamp(1.7rem,4.5vw,2.6rem);text-align:center;padding:.6rem 0;letter-spacing:.01em}
+.gleichung .a{color:var(--teal);margin:0 .35em}
+.karten{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem}
+.karte{border:1px solid rgba(10,22,18,.12);border-radius:12px;padding:1.1rem 1.15rem;background:#fff;position:relative;overflow:hidden}
+.karte::before{content:"";position:absolute;left:0;top:0;right:0;height:5px;background:var(--c,var(--teal))}
+.karte .sym{font-size:1.9rem;line-height:1;margin-bottom:.4rem}
+.karte h4{font-family:var(--serif);font-weight:500;font-size:1.12rem;margin-bottom:.4rem;line-height:1.25}
+.karte ul{list-style:none;display:grid;gap:.3rem;font-size:.96rem}
+.karte li{padding-left:1.1rem;position:relative}
+.karte li::before{content:"";position:absolute;left:0;top:.62em;width:.5rem;height:.5rem;border-radius:50%;background:var(--c,var(--teal));opacity:.75}
+.kette{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.9rem;align-items:stretch;counter-reset:s}
+.schritt{position:relative;background:#fff;border:1px solid rgba(10,22,18,.12);border-radius:12px;padding:1rem 1rem 1rem 1rem;text-align:center;font-size:.95rem}
+.schritt .ic{font-size:1.9rem;display:block;margin-bottom:.25rem}
+.schritt:not(:last-child)::after{content:"→";position:absolute;right:-.72rem;top:50%;transform:translateY(-50%);z-index:2;font-size:1.2rem;color:var(--teal);background:var(--paper);border-radius:50%;width:1.3rem;height:1.3rem;line-height:1.25rem}
+.leiter{display:grid;gap:.55rem}
+.stufe{display:grid;grid-template-columns:2.4rem 1fr;gap:.9rem;align-items:center;background:#fff;border:1px solid rgba(10,22,18,.12);border-radius:12px;padding:.8rem 1rem;position:relative;overflow:hidden}
+.stufe::before{content:"";position:absolute;left:0;top:0;bottom:0;width:var(--w);background:var(--c);opacity:.13}
+.stufe .z{font-family:var(--serif);font-style:italic;font-size:1.7rem;color:var(--c);text-align:center;position:relative}
+.stufe b{font-family:var(--serif);font-weight:500;font-size:1.1rem;position:relative}
+.stufe span{display:block;font-size:.94rem;color:#33443d;position:relative}
+.achse{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:#4a5a54;margin:-.2rem .2rem 0;border-top:2px solid var(--teal);padding-top:.3rem;position:relative}
+.achse::after{content:"";position:absolute;right:-1px;top:-6px;border-left:9px solid var(--teal);border-top:5px solid transparent;border-bottom:5px solid transparent}
+@media(max-width:640px){.aufg{grid-template-columns:1fr}.nr{padding:.5rem 1rem;justify-content:flex-start;font-size:1.7rem}.nr small{display:inline;margin:0 .5rem 0 0;padding-top:.5rem}.schritt:not(:last-child)::after{display:none}.inhalt{padding:1.2rem 1.1rem}}
+@media print{body{background:#fff}.bar{display:none}header{padding:1rem 0}.aufg{box-shadow:none;break-inside:avoid}main{padding:0}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<nav class="bar" aria-label="Aufgaben"><a href="#a1">A1</a><a href="#a2">A2</a></nav>
+<header>
+<div class="eyebrow">Chemie LK · Q1</div>
+<h1>Lehrbuch, <em>S. 19</em></h1>
+<div class="sub">Aufgabe A1–A2</div>
+</header>
+<main><section class="aufg" id="a1"><div class="nr"><div><small>Aufgabe</small>A1</div></div><div class="inhalt">
+<p class="lead">Bei vergleichbarer Moleküloberfläche gilt von <b>schwach nach stark</b>:</p>
+<div class="leiter"><div class="stufe" style="--c:#5a8f7b;--w:25%"><div class="z">1</div><div><b>London-Kräfte</b><span>Iod · Schwefel · Alkane</span></div></div><div class="stufe" style="--c:#1f5fb0;--w:50%"><div class="z">2</div><div><b>Dipol-Dipol-Kräfte</b><span>Dimethylether · Ethanal (Acetaldehyd) · Propanon (Aceton) · Chlorfluorid und andere Interhalogenverbindungen</span></div></div><div class="stufe" style="--c:#7a3fa0;--w:75%"><div class="z">3</div><div><b>Dipol-Ionen-Kräfte</b><span>Lösungen beliebiger Salze in Wasser</span></div></div><div class="stufe" style="--c:#a83610;--w:100%"><div class="z">4</div><div><b>Wasserstoffbrücken</b><span>Wasser · Fluorwasserstoff (Hydrogenfluorid) · Ammoniak · Ethanol · Essigsäure · Lösungen dieser Stoffe in Wasser</span></div></div></div>
+<div class="achse"><span>schwach</span><span>stark</span></div></div></section><section class="aufg" id="a2"><div class="nr"><div><small>Aufgabe</small>A2</div></div><div class="inhalt">
+<div class="box kalt"><h3>Antwort</h3><p class="lead" style="font-size:1.25rem"><b>Ja</b> – zwischen Fluorwasserstoff-Molekülen und Wasser-Molekülen können sich Wasserstoffbrücken ausbilden.</p></div>
+<svg class="fig" viewBox="0 0 740 262" role="img" aria-label="Wasserstoffbrücken: H-Atom eines HF-Moleküls zum freien Elektronenpaar am Sauerstoff eines Wassermoleküls; H-Atom des Wassers zum freien Elektronenpaar am Fluor eines zweiten HF-Moleküls" font-family="-apple-system,Helvetica Neue,Arial,sans-serif"><line x1="88" y1="150" x2="170" y2="150" stroke="#0a1612" stroke-width="2.6" stroke-linecap="round"/><circle cx="70" cy="150" r="15" fill="#fff"/><text x="70" y="157" text-anchor="middle" font-size="22" font-weight="600" fill="#0a1612" font-family="Iowan Old Style,Georgia,serif">F</text><circle cx="190" cy="150" r="15" fill="#fff"/><text x="190" y="157" text-anchor="middle" font-size="22" font-weight="600" fill="#0a1612" font-family="Iowan Old Style,Georgia,serif">H</text><line x1="75.0" y1="128.0" x2="65.0" y2="128.0" stroke="#0a1612" stroke-width="2.2" stroke-linecap="round"/><line x1="65.0" y1="172.0" x2="75.0" y2="172.0" stroke="#0a1612" stroke-width="2.2" stroke-linecap="round"/><line x1="48.0" y1="145.0" x2="48.0" y2="155.0" stroke="#0a1612" stroke-width="2.2" stroke-linecap="round"/><text x="70" y="108" text-anchor="middle" font-size="15" font-weight="700" fill="#1f5fb0">δ−</text><text x="190" y="116" text-anchor="middle" font-size="15" font-weight="700" fill="#b3341a">δ+</text><line x1="325" y1="150" x2="380" y2="108" stroke="#0a1612" stroke-width="2.6" stroke-linecap="round"/><line x1="325" y1="150" x2="380" y2="192" stroke="#0a1612" stroke-width="2.6" stroke-linecap="round"/><circle cx="325" cy="150" r="15" fill="#fff"/><text x="325" y="157" text-anchor="middle" font-size="22" font-weight="600" fill="#0a1612" font-family="Iowan Old Style,Georgia,serif">O</text><circle cx="398" cy="98" r="15" fill="#fff"/><text x="398" y="105" text-anchor="middle" font-size="22" font-weight="600" fill="#0a1612" font-family="Iowan Old Style,Georgia,serif">H</text><circle cx="398" cy="202" r="15" fill="#fff"/><text x="398" y="209" text-anchor="middle" font-size="22" font-weight="600" fill="#0a1612" font-family="Iowan Old Style,Georgia,serif">H</text><line x1="303.4" y1="156.7" x2="308.4" y2="165.3" stroke="#0a1612" stroke-width="2.2" stroke-linecap="round"/><line x1="308.4" y1="134.7" x2="303.4" y2="143.3" stroke="#0a1612" stroke-width="2.2" stroke-linecap="round"/><text x="325" y="198" text-anchor="middle" font-size="15" font-weight="700" fill="#1f5fb0">δ−</text><text x="398" y="66" text-anchor="middle" font-size="15" font-weight="700" fill="#b3341a">δ+</text><text x="398" y="244" text-anchor="middle" font-size="15" font-weight="700" fill="#b3341a">δ+</text><line x1="578" y1="98" x2="660" y2="98" stroke="#0a1612" stroke-width="2.6" stroke-linecap="round"/><circle cx="560" cy="98" r="15" fill="#fff"/><text x="560" y="105" text-anchor="middle" font-size="22" font-weight="600" fill="#0a1612" font-family="Iowan Old Style,Georgia,serif">F</text><circle cx="680" cy="98" r="15" fill="#fff"/><text x="680" y="105" text-anchor="middle" font-size="22" font-weight="600" fill="#0a1612" font-family="Iowan Old Style,Georgia,serif">H</text><line x1="565.0" y1="76.0" x2="555.0" y2="76.0" stroke="#0a1612" stroke-width="2.2" stroke-linecap="round"/><line x1="555.0" y1="120.0" x2="565.0" y2="120.0" stroke="#0a1612" stroke-width="2.2" stroke-linecap="round"/><line x1="538.0" y1="93.0" x2="538.0" y2="103.0" stroke="#0a1612" stroke-width="2.2" stroke-linecap="round"/><text x="560" y="56" text-anchor="middle" font-size="15" font-weight="700" fill="#1f5fb0">δ−</text><text x="680" y="66" text-anchor="middle" font-size="15" font-weight="700" fill="#b3341a">δ+</text><line x1="216" y1="150" x2="287.0" y2="150.0" stroke="#a83610" stroke-width="2.6" stroke-dasharray="7 6" stroke-linecap="round"/><polygon points="296,150 287.0,145.0 287.0,155.0" fill="#a83610"/><line x1="424" y1="98" x2="519.0" y2="98.0" stroke="#a83610" stroke-width="2.6" stroke-dasharray="7 6" stroke-linecap="round"/><polygon points="528,98 519.0,93.0 519.0,103.0" fill="#a83610"/><text x="256" y="136" text-anchor="middle" font-size="12" font-weight="700" fill="#a83610">Wasserstoffbrücke</text><text x="476" y="84" text-anchor="middle" font-size="12" font-weight="700" fill="#a83610">Wasserstoffbrücke</text><text x="130" y="204" text-anchor="middle" font-size="14" fill="#4a5a54">HF</text><text x="325" y="236" text-anchor="middle" font-size="14" fill="#4a5a54">H<tspan font-size="10" dy="3">2</tspan><tspan dy="-3">O</tspan></text><text x="620" y="150" text-anchor="middle" font-size="14" fill="#4a5a54">HF</text></svg>
+<div class="zwei">
+<div class="box"><h3>HF-Molekül</h3><p>ein stark <b class="chg p">positiv</b> polarisiertes H-Atom und ein stark <b class="chg n">negativ</b> polarisiertes F-Atom mit <b>drei</b> nicht bindenden Elektronenpaaren</p></div>
+<div class="box"><h3>H<sub>2</sub>O-Molekül</h3><p>zwei stark <b class="chg p">positiv</b> polarisierte H-Atome und ein stark <b class="chg n">negativ</b> polarisiertes O-Atom mit <b>zwei</b> nicht bindenden Elektronenpaaren</p></div>
+</div>
+<div class="zwei">
+<div class="box warm"><h3>H-Atom des HF</h3><p>wechselwirkt mit einem nicht bindenden Elektronenpaar am <b>Sauerstoff</b> eines Wasser-Moleküls.</p></div>
+<div class="box warm"><h3>H-Atom des Wassers</h3><p>wechselwirkt mit einem nicht bindenden Elektronenpaar am <b>Fluor</b> eines HF-Moleküls.</p></div>
+</div></div></section></main>
+</body>
+</html>
