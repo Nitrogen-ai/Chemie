@@ -87,8 +87,18 @@
   #toast.show { opacity: 1; }
   .final-lock .rt, .final-lock .h, .final-lock figcaption, .final-lock td { pointer-events: none; }
   @media (max-width: 600px) { .sheet { padding: 14px; } .brand small { display: none; } }
+  #printHead { display: none; }
+  @page { margin: 15mm 14mm 16mm; }
   @media print {
-    header.app, .fmt, .ins, .tools, .hint, .tablebtns, #toast { display: none !important; }
+    header.app, .fmt, .ins, .tools, .hint, .tablebtns, #toast, .meta, main > .note { display: none !important; }
+    #printHead { display: block; border-bottom: 2px solid var(--accent); padding-bottom: 6px; margin-bottom: 10px; }
+    #printHead h1 { font-size: 22px; margin: 0 0 2px; color: var(--accent); }
+    #printHead div { font-size: 13px; color: #444; }
+    .rt:empty::before, figcaption:empty::before { content: none; }
+    .rt:empty, figcaption:empty { display: none; }
+    .h { break-after: avoid; }
+    table.eln { break-inside: auto; } table.eln tr { break-inside: avoid; }
+    figure img { max-height: 120mm; }
     body { background: #fff; }
     main { padding: 0; }
     .sheet { border: 0; padding: 0; }
@@ -133,6 +143,7 @@
   </div>
 
   <div class="sheet" id="sheet">
+    <div id="printHead"></div>
     <div class="meta">
       <label class="wide">Titel des Versuchs<input id="mTitel" placeholder="z. B. Nachweis von Aminosäuren in Teigproben mit Ninhydrin"></label>
       <label>Name<input id="mName" autocomplete="name"></label>
@@ -172,7 +183,7 @@
     <div class="item"><div><b>Zwischenstand als .html</b><small>Eine Datei mit allen Texten und Bildern. Lässt sich in jedem Browser lesen und hier wieder importieren.</small></div><button class="btn" id="xHtml">Herunterladen</button></div>
     <div class="item"><div><b>Paket als .zip</b><small>protokoll.html + Bilder im Ordner „bilder“ + protokoll.json. Zum Archivieren, Weitergeben und Wiederherstellen.</small></div><button class="btn" id="xZip">Herunterladen</button></div>
     <div class="item"><div><b>Endfassung als .html</b><small>Markiert das Protokoll als Endfassung mit Zeitstempel und Prüfsumme und lädt es herunter. Danach ist es schreibgeschützt (entsperren möglich).</small></div><button class="btn primary" id="xFinal">Endfassung</button></div>
-    <div class="item"><div><b>Drucken / PDF</b><small>Über den Druckdialog des Browsers.</small></div><button class="btn" id="xPrint">Drucken</button></div>
+    <div class="item"><div><b>PDF für die Abgabe</b><small>Öffnet den Druckdialog; dort „Als PDF sichern“ wählen. Das PDF enthält Kopf mit Name und Datum, alle Texte (durchsuchbar) und Bilder.</small></div><button class="btn" id="xPrint">PDF / Drucken</button></div>
   </div>
   <div class="row"><button class="btn danger" id="xUnlock" hidden>Endfassung entsperren</button><button class="btn" data-close>Schließen</button></div>
 </dialog>
@@ -492,7 +503,16 @@ function render() {
   $("#fmt").style.display = locked ? "none" : "";
   $("#xUnlock").hidden = !locked;
   document.title = (doc.meta.titel || "Laborjournal") + " · Chemie LK";
+  updatePrintHead();
 }
+function updatePrintHead() {
+  const m = doc.meta;
+  $("#printHead").innerHTML = `<h1>${esc(m.titel || "Versuchsprotokoll")}</h1><div>${esc(m.name || "Name fehlt")}${m.team ? " · Team mit " + esc(m.team) : ""} · ${esc(m.datum ? new Date(m.datum + "T12:00").toLocaleDateString("de-DE") : "")} · ${esc(m.kurs)} · ${doc.status === "final" ? "Endfassung vom " + esc(new Date(doc.final.at).toLocaleString("de-DE")) + " · Prüfsumme " + esc(doc.final.hash.slice(0, 16)) + "…" : "Entwurf, gedruckt am " + new Date().toLocaleString("de-DE")}</div>`;
+}
+// Beim Drucken: Kopf aktualisieren, Dateiname für „Als PDF sichern“ = Datum - Titel - Name
+let titleBefore = "";
+window.addEventListener("beforeprint", () => { updatePrintHead(); titleBefore = document.title; document.title = baseFileName(doc.status === "final" ? "Endfassung" : ""); });
+window.addEventListener("afterprint", () => { document.title = titleBefore; });
 for (const [id, key] of [["mTitel", "titel"], ["mName", "name"], ["mTeam", "team"], ["mDatum", "datum"], ["mKurs", "kurs"]]) {
   $("#" + id).addEventListener("input", e => { doc.meta[key] = e.target.value; scheduleSave(); if (key === "titel") document.title = (e.target.value || "Laborjournal") + " · Chemie LK"; });
 }
