@@ -23,6 +23,9 @@ Git-Historie bis zum Umzug bleibt hier in diesem Repo.
 ## Struktur SEK-II
 - SEK-II/Leistungskurs/chemie-lk-kursplan.html — Kursübersicht LK.
 - SEK-II/Leistungskurs/Q1/ — die neun Lernpfade (lernpfad-q1-01…09).
+- SEK-II/Leistungskurs/laborjournal.html — elektronisches Laborjournal (ELN):
+  Speicherung in IndexedDB, Export .html/.zip (eigener ZIP-Code, Deflate-Lesen
+  über DecompressionStream), Import beider Formate. Keine Schülerdaten im Repo.
 - SEK-II/Leistungskurs/Q1/organik-build/ — Generator für Lernpfad 03:
   src/ erzeugt die HTML, svg/ enthält die Strukturformeln.
   Ausgabe gehört nach Q1/, NICHT nochmal in organik-build/.
