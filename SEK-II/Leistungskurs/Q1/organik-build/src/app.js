@@ -4,7 +4,8 @@
   const lernpfadEl = document.getElementById('lernpfad');
   lernpfadEl.classList.add('show');
   if (statusEl) statusEl.textContent = 'Verf\u00fcgbar';
-  initLernpfad();
+  // erst nach dem Skriptende starten: MOLS u. a. sind weiter unten als const definiert
+  setTimeout(initLernpfad, 0);
 })();
 
 /* ============================ INIT ============================ */
@@ -188,9 +189,12 @@ function drawPolyene(){
     const A=pts[i], B=pts[i+1];
     const dbl = (i%2===0); // alternierend Doppel-/Einfachbindung
     if (dbl){
-      const mx=-(B[1]-A[1]), my=(B[0]-A[0]); const ml=Math.hypot(mx,my); const ox=mx/ml*6, oy=my/ml*6;
-      body += '<line x1="'+(A[0]+ox)+'" y1="'+(A[1]+oy)+'" x2="'+(B[0]+ox)+'" y2="'+(B[1]+oy)+'" stroke="#1c1712" stroke-width="5" stroke-linecap="round"/>';
-      body += '<line x1="'+(A[0]-ox)+'" y1="'+(A[1]-oy)+'" x2="'+(B[0]-ox)+'" y2="'+(B[1]-oy)+'" stroke="#1c1712" stroke-width="5" stroke-linecap="round"/>';
+      // wie im Trainer: Achsenlinie + verkürzte Zweitlinie (Gleichstand im Zickzack: nach unten)
+      let mx=-(B[1]-A[1]), my=(B[0]-A[0]); const ml=Math.hypot(mx,my); if (my < 0) { mx=-mx; my=-my; }
+      const ox=mx/ml*L*0.16, oy=my/ml*L*0.16, ux=(B[0]-A[0])/ml, uy=(B[1]-A[1])/ml;
+      const iA = i===0 ? 0 : L*0.18, iB = i+1===n-1 ? 0 : L*0.18;
+      body += '<line x1="'+A[0]+'" y1="'+A[1]+'" x2="'+B[0]+'" y2="'+B[1]+'" stroke="#1c1712" stroke-width="5" stroke-linecap="round"/>';
+      body += '<line x1="'+(A[0]+ux*iA+ox)+'" y1="'+(A[1]+uy*iA+oy)+'" x2="'+(B[0]-ux*iB+ox)+'" y2="'+(B[1]-uy*iB+oy)+'" stroke="#1c1712" stroke-width="5" stroke-linecap="round"/>';
     } else {
       body += '<line x1="'+A[0]+'" y1="'+A[1]+'" x2="'+B[0]+'" y2="'+B[1]+'" stroke="#1c1712" stroke-width="5" stroke-linecap="round"/>';
     }
