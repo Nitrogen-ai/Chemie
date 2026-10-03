@@ -96,9 +96,12 @@
     #printHead div { font-size: 13px; color: #444; }
     .rt:empty::before, figcaption:empty::before { content: none; }
     .rt:empty, figcaption:empty { display: none; }
-    .h { break-after: avoid; }
-    table.eln { break-inside: auto; } table.eln tr { break-inside: avoid; }
-    figure img { max-height: 120mm; }
+    .h { break-after: avoid; page-break-after: avoid; }
+    .block:has(> .h) { break-after: avoid; page-break-after: avoid; }
+    figure, figure img { break-inside: avoid; page-break-inside: avoid; }
+    figure img { display: block; margin: 0 auto; }
+    table.eln { break-inside: avoid; page-break-inside: avoid; } table.eln tr { break-inside: avoid; }
+    figure img { max-height: 110mm; max-width: 100%; width: auto; }
     body { background: #fff; }
     main { padding: 0; }
     .sheet { border: 0; padding: 0; }
@@ -180,10 +183,11 @@
 <dialog id="dExport">
   <h2>Sichern und exportieren</h2>
   <div class="list">
+    <p class="note" style="margin:0">Abgabe in drei Schritten: <b>1</b> Endfassung · <b>2</b> ZIP · <b>3</b> PDF. Zwischendurch: Zwischenstand sichern.</p>
     <div class="item"><div><b>Zwischenstand als .html</b><small>Eine Datei mit allen Texten und Bildern. Lässt sich in jedem Browser lesen und hier wieder importieren.</small></div><button class="btn" id="xHtml">Herunterladen</button></div>
-    <div class="item"><div><b>Paket als .zip</b><small>protokoll.html + Bilder im Ordner „bilder“ + protokoll.json. Zum Archivieren, Weitergeben und Wiederherstellen.</small></div><button class="btn" id="xZip">Herunterladen</button></div>
-    <div class="item"><div><b>Endfassung als .html</b><small>Markiert das Protokoll als Endfassung mit Zeitstempel und Prüfsumme und lädt es herunter. Danach ist es schreibgeschützt (entsperren möglich).</small></div><button class="btn primary" id="xFinal">Endfassung</button></div>
-    <div class="item"><div><b>PDF für die Abgabe</b><small>Öffnet den Druckdialog; dort „Als PDF sichern“ wählen. Das PDF enthält Kopf mit Name und Datum, alle Texte (durchsuchbar) und Bilder.</small></div><button class="btn" id="xPrint">PDF / Drucken</button></div>
+    <div class="item"><div><b>1 · Endfassung als .html</b><small>Markiert das Protokoll als Endfassung mit Zeitstempel und Prüfsumme und lädt es herunter. Danach ist es schreibgeschützt (entsperren möglich).</small></div><button class="btn primary" id="xFinal">Endfassung</button></div>
+    <div class="item"><div><b>2 · Paket als .zip</b><small>protokoll.html + Bilder im Ordner „bilder“ + protokoll.json. Zum Archivieren, Weitergeben und Wiederherstellen.</small></div><button class="btn" id="xZip">Herunterladen</button></div>
+    <div class="item"><div><b>3 · PDF für die Abgabe</b><small>Öffnet den Druckdialog; dort „Als PDF sichern“ wählen. Das PDF enthält Kopf mit Name und Datum, alle Texte (durchsuchbar) und Bilder.</small></div><button class="btn" id="xPrint">PDF / Drucken</button></div>
   </div>
   <div class="row"><button class="btn danger" id="xUnlock" hidden>Endfassung entsperren</button><button class="btn" data-close>Schließen</button></div>
 </dialog>
@@ -283,49 +287,49 @@ function newDoc(tpl) {
 const H = (text, hint) => ({ type: "h", text, hint });
 const T = (ph, html = "") => ({ type: "text", html, ph });
 const TAB = rows => ({ type: "table", rows });
+// Formulierungen in den Vorlagen bewusst sachlich: Passiv bzw. unpersönlich, keine Personalpronomen
+const SACHLICH = "Sachlich formulieren: Passiv oder unpersönlich, ohne „ich“, „wir“, „man“, damit das Protokoll unabhängig von den Experimentierenden gilt und wiederverwendbar ist.";
 const PROTOKOLL = [
-  H("Forschungsfrage", "Eine klar beantwortbare Frage, die das Experiment klärt."),
-  T("Welche Frage soll das Experiment beantworten?"),
-  H("Hypothese", "Begründete Vermutung auf Teilchenebene (Struktur der Stoffe). Wird in der Auswertung ausdrücklich bestätigt oder widerlegt."),
-  T("Ich vermute, dass …, weil …"),
+  H("Forschungsfrage", "Eine klar beantwortbare, sachlich formulierte Frage (z. B. „Lässt sich … mit … nachweisen?“), ohne Personalpronomen."),
+  T("Lässt sich … nachweisen? / Wie hängt … von … ab?"),
+  H("Hypothese", "Begründete Vermutung auf Teilchenebene (Struktur der Stoffe). Wird in der Auswertung ausdrücklich bestätigt oder widerlegt. " + SACHLICH),
+  T("Vermutlich …, da …"),
   H("Material und Chemikalien", "Geräte, Chemikalien mit Konzentration, Gefahrstoffe mit GHS-Piktogramm, H- und P-Sätzen."),
   T("Geräte: … · Chemikalien: …"),
-  H("Durchführung", "Reproduzierbar: Mengen, Reihenfolge, Arbeitsschritte (z. B. Schütteln, Erwärmen: Temperatur, Zeit), Beobachtungskriterium. Skizze des Aufbaus als Bild einfügen."),
-  T("1. …"),
-  H("Beobachtung", "Nur was man sieht, ohne Deutung. Fotos mit Probenbeschriftung; Tabelle für mehrere Proben."),
+  H("Durchführung", "Reproduzierbar: Mengen, Reihenfolge, Arbeitsschritte (z. B. Schütteln, Erwärmen: Temperatur, Zeit), Beobachtungskriterium. Im Passiv: „… wird in … gegeben und … erhitzt.“ Skizze des Aufbaus als Bild einfügen."),
+  T("1. … wird … gegeben."),
+  H("Beobachtung", "Nur was zu sehen ist, ohne Deutung. Fotos mit Probenbeschriftung und Bildunterschrift; Tabelle für mehrere Proben."),
   TAB([["Probe", "Beobachtung"], ["", ""], ["", ""]]),
-  H("Auswertung", "Erklärung auf Teilchenebene mit Fachbegriffen, Formeln, Reaktionsgleichungen, Skizzen."),
-  T("Die Beobachtung lässt sich so erklären: …"),
-  H("Hypothesenüberprüfung", "Bestätigt, teilweise bestätigt oder widerlegt, mit Begründung."),
-  T("Die Hypothese wird … , da …"),
-  H("Ergebnisbewertung, Fehlerbetrachtung und Ausblick", "Wie verlässlich ist das Ergebnis? Fehlerquellen, Grenzen der Methode, konkreter Verbesserungsvorschlag oder Folgeexperiment."),
-  T("…"),
+  H("Auswertung und Hypothesenüberprüfung", "Erklärung auf Teilchenebene mit Fachbegriffen, Formeln, Reaktionsgleichungen, Skizzen. Abschluss mit dem Satz „Die Hypothese konnte bestätigt/widerlegt werden, da …“ (Zutreffendes stehen lassen). " + SACHLICH),
+  T("Die Beobachtung lässt sich auf Teilchenebene dadurch erklären, dass …"),
+  T("Satz zur Hypothesenüberprüfung", "Die Hypothese konnte bestätigt/widerlegt werden, da …"),
+  H("Ergebnisbewertung, Fehlerbetrachtung und Ausblick", "Wie verlässlich ist das Ergebnis? Fehlerquellen, Grenzen der Methode, konkreter Verbesserungsvorschlag oder Folgeexperiment. " + SACHLICH),
+  T("Das Ergebnis ist … verlässlich, da … Eine mögliche Fehlerquelle ist … Zur Absicherung könnte …"),
 ];
 const NINHYDRIN = [
   H("Gewählter Kontext", "A Forensik (Fingerabdrücke) oder B Umami (Teigproben)."),
   T("Kontext …"),
-  H("Forschungsfrage"),
-  T("Welche Frage soll das Experiment beantworten?"),
-  H("Hypothese", "Begründet auf Teilchenebene. Denken Sie an die Gruppenreagenz-Eigenschaft von Ninhydrin."),
-  T("Ich vermute, dass …, weil …"),
+  H("Forschungsfrage", "Sachlich, ohne Personalpronomen (z. B. „Lässt sich … mit Ninhydrin nachweisen?“)."),
+  T("Lässt sich … mit Ninhydrin nachweisen?"),
+  H("Hypothese", "Begründet auf Teilchenebene. An die Gruppenreagenz-Eigenschaft von Ninhydrin denken. " + SACHLICH),
+  T("Vermutlich …, da …"),
   H("Planung: Variablen und Kontrollen", "Was wird verändert, was gemessen, was konstant gehalten? Blindprobe (ohne Aminosäure) und Positivkontrolle (sicher mit Aminosäure)."),
-  TAB([["Element der Planung", "In unserem Experiment"], ["unabhängige Variable", ""], ["abhängige Variable", ""], ["konstante Variablen", ""], ["Blindprobe", ""], ["Positivkontrolle", ""], ["Wiederholungen", ""]]),
+  TAB([["Element der Planung", "Im Experiment"], ["unabhängige Variable", ""], ["abhängige Variable", ""], ["konstante Variablen", ""], ["Blindprobe", ""], ["Positivkontrolle", ""], ["Wiederholungen", ""]]),
   H("Material und Chemikalien", "Gefahrstoffe mit GHS-Piktogramm, Signalwort, H- und P-Sätzen."),
   TAB([["Chemikalie", "GHS / Signalwort", "H-Sätze", "P-Sätze"],
     ["Ninhydrin (fest)", "GHS07, Achtung", "H302, H315, H319", "P301+P312+P330, P305+P351+P338"],
     ["Ninhydrin-Sprühreagenz (0,5 % in Ethanol)", "GHS02, GHS07, Gefahr", "H225, H319", "P210, P240, P303+P361+P353, P403+P235"],
     ["", "", "", ""]]),
   T("Geräte: …"),
-  H("Durchführung", "Mengen, Reihenfolge, Temperatur und Zeit der Farbentwicklung, Beobachtungskriterium."),
-  T("1. …"),
-  H("Beobachtung", "Fotos vor weißem Hintergrund, jede Probe beschriftet."),
+  H("Durchführung", "Mengen, Reihenfolge, Temperatur und Zeit der Farbentwicklung, Beobachtungskriterium. Im Passiv: „… wird mit … besprüht und … min bei … °C erwärmt.“"),
+  T("1. … wird … gegeben."),
+  H("Beobachtung", "Fotos vor weißem Hintergrund, jede Probe beschriftet, Bildunterschrift ergänzen."),
   TAB([["Probe", "Farbe / Intensität", "Bemerkung"], ["Blindprobe", "", ""], ["Positivkontrolle", "", ""], ["", "", ""]]),
-  H("Auswertung", "Imin-Bildung, Ruhemanns Purpur, delokalisiertes π-Elektronensystem, Komplementärfarbe; Formeln als Bild (Foto oder SVG) einfügen."),
-  T("…"),
-  H("Hypothesenüberprüfung"),
-  T("Die Hypothese wird … , da …"),
-  H("Ergebnisbewertung, Fehlerbetrachtung und Ausblick", "Mindestens zwei Grenzen und ein konkreter Verbesserungsvorschlag (z. B. Dünnschichtchromatographie, Fotometrie bei 570 nm)."),
-  T("…"),
+  H("Auswertung und Hypothesenüberprüfung", "Imin-Bildung, Ruhemanns Purpur, delokalisiertes π-Elektronensystem, Komplementärfarbe; Formeln als Bild (Foto oder SVG) einfügen. Abschluss mit „Die Hypothese konnte bestätigt/widerlegt werden, da …“. " + SACHLICH),
+  T("Die Beobachtung lässt sich auf Teilchenebene dadurch erklären, dass …"),
+  T("Satz zur Hypothesenüberprüfung", "Die Hypothese konnte bestätigt/widerlegt werden, da …"),
+  H("Ergebnisbewertung, Fehlerbetrachtung und Ausblick", "Mindestens zwei Grenzen und ein konkreter Verbesserungsvorschlag (z. B. Dünnschichtchromatographie, Fotometrie bei 570 nm). " + SACHLICH),
+  T("Das Ergebnis ist … verlässlich, da … Eine Grenze des Nachweises ist … Zur Absicherung könnte …"),
 ];
 const TEMPLATES = [
   { key: "protokoll", name: "Versuchsprotokoll (SEK II)", desc: "Alle Abschnitte nach den Protokollkriterien", titel: "", blocks: PROTOKOLL },
@@ -358,15 +362,15 @@ async function prepareImage(file) {
     return { mime: "image/svg+xml", name: file.name || "grafik.svg", buf: new TextEncoder().encode(text).buffer };
   }
   if (!/^image\//.test(file.type)) throw new Error("Kein Bildformat");
-  const MAX = 2000;
+  const MAX = 1600;
   try {
     const bmp = await createImageBitmap(file, { imageOrientation: "from-image" });
     const scale = Math.min(1, MAX / Math.max(bmp.width, bmp.height));
-    if (scale === 1 && file.size < 1.5e6 && /jpeg|png|webp|gif/.test(file.type)) { bmp.close && bmp.close(); return { mime: file.type, name: file.name || "bild", buf: await fileToBuf(file) }; }
+    if (scale === 1 && file.size < 6e5 && /jpeg|png|webp|gif/.test(file.type)) { bmp.close && bmp.close(); return { mime: file.type, name: file.name || "bild", buf: await fileToBuf(file) }; }
     const c = document.createElement("canvas");
     c.width = Math.round(bmp.width * scale); c.height = Math.round(bmp.height * scale);
     const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height); g.drawImage(bmp, 0, 0, c.width, c.height);
-    const blob = await new Promise(r => c.toBlob(r, "image/jpeg", 0.86));
+    const blob = await new Promise(r => c.toBlob(r, "image/jpeg", 0.82));
     const base = (file.name || "foto").replace(/\.[^.]+$/, "");
     return { mime: "image/jpeg", name: base + ".jpg", buf: await blob.arrayBuffer() };
   } catch (e) {
@@ -674,7 +678,15 @@ async function exportZip() {
 function contentForHash(d) { return JSON.stringify({ meta: d.meta, blocks: d.blocks }); }
 async function finalize() {
   if (!doc.meta.name.trim()) { toast("Bitte zuerst den Namen eintragen"); $("#mName").focus(); return; }
-  if (!window.confirm("Protokoll als Endfassung markieren? Es wird danach schreibgeschützt und als .html heruntergeladen.")) return;
+  if (!doc.meta.titel.trim()) { toast("Bitte zuerst den Titel des Versuchs eintragen"); $("#mTitel").focus(); return; }
+  const hinweise = [];
+  const ohneText = doc.blocks.filter(b => b.type === "img" && !String(b.caption || "").trim()).length;
+  if (ohneText) hinweise.push(`${ohneText} Bild(er) ohne Bildunterschrift`);
+  const alles = doc.blocks.map(b => b.type === "text" ? b.html : b.type === "table" ? b.rows.flat().join(" ") : "").join(" ").replace(/<[^>]+>/g, " ");
+  const pron = alles.match(/\b(ich|wir|man|mein\w*|unser\w*|mich|uns)\b/gi) || [];
+  if (pron.length) hinweise.push(`${pron.length}× Personalpronomen (${[...new Set(pron.map(p => p.toLowerCase()))].join(", ")}): sachlicher im Passiv formulieren`);
+  if (/bestätigt\/widerlegt/.test(alles)) hinweise.push("„bestätigt/widerlegt“ noch nicht entschieden");
+  if (!window.confirm((hinweise.length ? "Hinweise vor der Abgabe:\n• " + hinweise.join("\n• ") + "\n\nTrotzdem " : "") + "als Endfassung markieren? Das Protokoll wird schreibgeschützt und als .html heruntergeladen. Danach ZIP und PDF erzeugen.")) return;
   // Prüfsumme über Text und Bilddaten
   const imgs = await allImages();
   let all = contentForHash(doc);
@@ -683,6 +695,7 @@ async function finalize() {
   doc.status = "final";
   render(); await saveNow();
   await exportHtml("Endfassung", "Endfassung");
+  setTimeout(() => { $("#dExport").showModal(); toast("Endfassung gesichert. Jetzt Schritt 2 (ZIP) und Schritt 3 (PDF).", 5000); }, 600);
 }
 
 /* ===================== Import ===================== */
