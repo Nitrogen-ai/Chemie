@@ -21,14 +21,15 @@ Das Spektrometer-Projekt (`Spektrometer/`) lag hier bis 2026-08-30, liegt jetzt 
 Git-Historie bis zum Umzug bleibt hier in diesem Repo.
 
 ## Struktur SEK-II
-- SEK-II/Leistungskurs/chemie-lk-kursplan.html — Kursübersicht LK.
-- SEK-II/Leistungskurs/Q1/ — die neun Lernpfade (lernpfad-q1-01…09).
+- SEK-II/Leistungskurs/chemie-lk-kursplan.html — Kursübersicht LK. Seit 2026-10-03 mit realem
+  Stundenverlauf je Einheit (`.verlauf`) und OHNE Links auf Lernpfade (Lernpfade bleiben als Dateien
+  bestehen). Selbsteinschätzung: Schlüssel = Index + Textanfang der Kompetenz → Kompetenztexte und
+  Reihenfolge nicht ändern; neue Kompetenzen mit `data-sa-key` (zählen nicht im Index).
+- SEK-II/Leistungskurs/Q1/ — Lernpfade lernpfad-q1-01, 02, 04…09 (nicht mehr verlinkt).
+  Lernpfad 03 Organik samt organik-build am 2026-10-03 entfernt (nicht mehr benötigt, in der Git-Historie).
 - SEK-II/Leistungskurs/laborjournal.html — elektronisches Laborjournal (ELN):
   Speicherung in IndexedDB, Export .html/.zip (eigener ZIP-Code, Deflate-Lesen
   über DecompressionStream), Import beider Formate. Keine Schülerdaten im Repo.
-- SEK-II/Leistungskurs/Q1/organik-build/ — Generator für Lernpfad 03:
-  src/ erzeugt die HTML, svg/ enthält die Strukturformeln.
-  Ausgabe gehört nach Q1/, NICHT nochmal in organik-build/.
 
 ## Was hier NIE hineingehört
 - PDFs und Musterlösungen (die .gitignore blockt *.pdf).

@@ -862,6 +862,20 @@
     letter-spacing: 0.1em;
   }
 
+  /* ===== REALER STUNDENVERLAUF JE EINHEIT ===== */
+  .verlauf { margin: 0 0 2.5rem; }
+  .verlauf ol { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--gold); }
+  .verlauf li { display: grid; grid-template-columns: 190px 1fr; gap: 1rem; padding: 0.55rem 0 0.55rem 1rem; position: relative; font-size: 0.95rem; line-height: 1.5; }
+  .verlauf li::before { content: ''; position: absolute; left: -6px; top: 0.95rem; width: 10px; height: 10px; border-radius: 50%; background: var(--paper); border: 2px solid var(--gold); }
+  .verlauf li.done::before { background: var(--gold); }
+  .verlauf li.next::before { background: var(--accent); border-color: var(--accent); }
+  .verlauf li.ferien { color: rgba(10, 22, 18, 0.5); font-style: italic; }
+  .verlauf li.klausur { font-weight: 600; color: var(--accent-deep); }
+  .verlauf .v-week { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.06em; color: var(--teal); padding-top: 0.15rem; }
+  .verlauf .v-plan { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-left: 0.4rem; }
+  @media (max-width: 820px) { .verlauf li { grid-template-columns: 1fr; gap: 0.1rem; } }
+  .tool-link { margin-top: 1rem; }
+
   /* ===== Q&A JE KOMPETENZ/SJW ===== */
   .qa-toggle {
     grid-column: 1 / -1;
@@ -1207,31 +1221,35 @@
     </div>
     <div class="unit-body">
 
+      <div class="verlauf">
+        <div class="comp-group-label">Stundenverlauf</div>
+        <ol>
+          <li class="done"><span class="v-week">SJW 1 · 24.–28.08.</span><span>Kursstart · 00 Olympiadenexperiment Bubble Tea (Alginat-Gelierung, Guluronat-Mechanismus)</span></li>
+          <li class="done"><span class="v-week">SJW 2 · 31.08.–04.09.</span><span>01 Atombau I: Elektronen und Photonen · 01 Atombau II: Das Orbitalmodell und Quantenzahlen</span></li>
+          <li class="done"><span class="v-week">SJW 3 · 07.–11.09.</span><span>02 Chemische Bindung und Wechselwirkungen · Kurztest Atombau</span></li>
+          <li class="done"><span class="v-week">SJW 4 · 14.–18.09.</span><span>Gruppenpuzzle Chromophor (Molekülgeometrie, Energiezustände, Lichtanregung, Farbwahrnehmung) · 03 Struktur-Eigenschaftsbeziehungen anhand von Stoffklassen</span></li>
+          <li class="done"><span class="v-week">SJW 5 · 21.–25.09.</span><span>03 Stoffklassen (Abschluss) · Kurztest Stoffklassen der SEK I</span></li>
+        </ol>
+      </div>
+
       <div class="comp-group">
         <div class="comp-group-label">Sachkompetenz · Atom &amp; Bindung</div>
 
         <div class="competency" data-qa="q1__u01__sjw1-3__1">
-          <div class="comp-week">SJW 1 – 3</div>
+          <div class="comp-week">SJW 2 – 3</div>
           <div class="comp-text">Ich kann <strong>Atommodelle</strong> (Rutherford, Bohr, Sommerfeld, Orbitalmodell) gegeneinander abgrenzen und mit ihrer Hilfe den Aufbau von Atomen <em>differenziert</em> beschreiben.</div>
         </div>
         <div class="competency" data-qa="q1__u01__sjw1-3__2">
-          <div class="comp-week">SJW 1 – 3</div>
+          <div class="comp-week">SJW 2 – 3</div>
           <div class="comp-text">Ich kann <strong>Quantenzahlen</strong> und Elektronen­konfigurationen herleiten und nutze sie, um chemisches Verhalten zu prognostizieren.</div>
         </div>
         <div class="competency" data-qa="q1__u01__sjw4__1">
-          <div class="comp-week">SJW 4</div>
+          <div class="comp-week">SJW 3 – 4</div>
           <div class="comp-text">Ich nutze differenzierte Teilchen- und Bindungs­modelle (Atombindung, Lewis, EPA, Hybridisierung, mesomere Grenz­formeln, Metall- &amp; Ionen­bindung), um Stoff­eigenschaften zu <em>deuten und vorauszusagen</em>.</div>
         </div>
         <div class="competency" data-qa="q1__u01__sjw5__1">
-          <div class="comp-week">SJW 5</div>
+          <div class="comp-week">SJW 4 – 5</div>
           <div class="comp-text">Ich erstelle eine Übersicht der <strong>Stoff­klassen der organischen Chemie</strong> mit Struktur­merkmalen, funktionellen Gruppen und zwischen­molekularen Kräften und erkläre den Zusammen­hang zu Eigenschaften.</div>
-        </div>
-
-        <div class="lernpfad-links">
-          <div class="lernpfad-label">Lernpfade zu dieser Einheit</div>
-          <a class="lernpfad-btn" href="Q1/lernpfad-q1-01-atombau.html" data-unlock="2026-09-11"><span class="lp-icon">i.</span><span>Atombau — Modelle, Quantenzahlen, Konfiguration</span><span class="lp-arrow">→</span></a>
-          <a class="lernpfad-btn" href="Q1/lernpfad-q1-02-bindung.html" data-unlock="2026-09-18"><span class="lp-icon">ii.</span><span>Chemische Bindung &amp; Wechselwirkungen</span><span class="lp-arrow">→</span></a>
-          <a class="lernpfad-btn" href="Q1/lernpfad-q1-03-organik.html" data-unlock="2026-09-25"><span class="lp-icon">iii.</span><span>Organische Chemie — Stoffklassen &amp; funktionelle Gruppen</span><span class="lp-arrow">→</span></a>
         </div>
       </div>
 
@@ -1243,14 +1261,28 @@
     <div class="unit-header">
       <div class="unit-num">02</div>
       <div class="unit-title">Proteine — <em>Bausteine des Lebens</em></div>
-      <div class="unit-weeks">4 Wochen<br>SJW 6 – 11<br>(Pause: Herbstferien)</div>
+      <div class="unit-weeks">7 Wochen<br>SJW 5 – 13<br>(Pause: Herbstferien)</div>
     </div>
     <div class="unit-body">
+
+      <div class="verlauf">
+        <div class="comp-group-label">Stundenverlauf</div>
+        <ol>
+          <li class="done"><span class="v-week">SJW 5 · ab 24.09.</span><span>04 Ordnungsprinzipien der Aminosäuren (Chiralität, FISCHER-Projektion)</span></li>
+          <li class="done"><span class="v-week">SJW 6 · 28.09.–02.10.</span><span>Kurztest Aminosäuren · 05 Zwischenmolekulare Wechselwirkungen am Beispiel von Glycin (Löslichkeitsexperiment, Versuchsprotokoll)</span></li>
+          <li class="done"><span class="v-week">SJW 6 – 7</span><span>Zwei Klausurvorbereitungssitzungen: Dipole, Salze und Hydratation, 1. Übungsklausur „Kohlenstoff“</span></li>
+          <li class="klausur next"><span class="v-week">SJW 7 · Mi 07.10.2026</span><span>1. Klausur (Atombau und chemische Bindung)</span></li>
+          <li><span class="v-week">SJW 7 – 8 · bis 16.10.</span><span>06 Nachweisreaktion von Aminosäuren: Ninhydrinreaktion · eigene Versuchsplanung (Forensik oder Umami), Protokoll im elektronischen Laborjournal</span></li>
+          <li class="ferien"><span class="v-week">SJW 9 – 10</span><span>Herbstferien 19.10.–31.10.2026</span></li>
+          <li><span class="v-week">SJW 11 · 02.–06.11.</span><span>Peptide und EPA-Modell<span class="v-plan">geplant</span></span></li>
+          <li><span class="v-week">SJW 12 – 13 · bis 20.11.</span><span>Strukturebenen der Proteine, Biuret-Reaktion, Denaturierung<span class="v-plan">geplant</span></span></li>
+        </ol>
+      </div>
 
       <div class="comp-group">
         <div class="comp-group-label">Aminosäuren — Bausteine</div>
         <div class="competency" data-qa="q1__u02__sjw6__1">
-          <div class="comp-week">SJW 6</div>
+          <div class="comp-week">SJW 5 – 6</div>
           <div class="comp-text">Ich beschreibe und begründe <strong>Ordnungs­prinzipien für Aminosäuren</strong> und wende sie an.</div>
         </div>
         <div class="competency" data-qa="q1__u02__sjw6__2">
@@ -1258,67 +1290,77 @@
           <div class="comp-text">Ich leite Voraussagen über die <em>Eigenschaften von Aminosäuren</em> auf Basis ihrer zwitter­ionischen Struktur begründet ab.</div>
         </div>
         <div class="competency" data-qa="q1__u02__sjw6__3">
-          <div class="comp-week">SJW 6</div>
+          <div class="comp-week">SJW 5 – 6</div>
           <div class="comp-text">Ich erkenne <strong>asymmetrisch substituierte Kohlenstoff-Atome</strong> in Molekülen und identifiziere damit chirale Verbindungen.</div>
         </div>
         <div class="competency" data-qa="q1__u02__sjw6__4">
-          <div class="comp-week">SJW 6</div>
+          <div class="comp-week">SJW 5 – 6</div>
           <div class="comp-text">Ich formuliere — abgeleitet aus den IUPAC-Regeln — <strong>FISCHER-Projektions­formeln</strong> für α-L- und α-D-Aminosäuren.</div>
         </div>
+      </div>
 
-        <div class="lernpfad-links">
-          <div class="lernpfad-label">Lernpfad zu dieser Einheit</div>
-          <a class="lernpfad-btn" href="Q1/lernpfad-q1-04-aminosaeuren.html" data-unlock="2026-10-02"><span class="lp-icon">iv.</span><span>Aminosäuren — Bausteine, Chiralität, FISCHER-Projektion</span><span class="lp-arrow">→</span></a>
+      <div class="comp-group">
+        <div class="comp-group-label">Nachweisreaktion &amp; Versuchsplanung — Ninhydrin</div>
+        <div class="competency" data-qa="q1__u02__sjw7-8__1" data-sa-key="q1_ninhydrin_1">
+          <div class="comp-week">SJW 7 – 8</div>
+          <div class="comp-text">Ich erschließe aus einem <em>nichtlinearen Fachtext</em> die Reaktion von Ninhydrin mit Aminosäuren und ordne das Farbprodukt <strong>Ruhemanns Purpur</strong> der Stoffklasse der Imine (SCHIFF'sche Basen) zu.</div>
+        </div>
+        <div class="competency" data-qa="q1__u02__sjw7-8__2" data-sa-key="q1_ninhydrin_2">
+          <div class="comp-week">SJW 7 – 8</div>
+          <div class="comp-text">Ich erkläre die Farbigkeit des Produkts mit dem <strong>vergrößerten delokalisierten π-Elektronensystem</strong>, der Absorption im langwelligeren Bereich und der Komplementärfarbe.</div>
+        </div>
+        <div class="competency" data-qa="q1__u02__sjw7-8__3" data-sa-key="q1_ninhydrin_3">
+          <div class="comp-week">SJW 7 – 8</div>
+          <div class="comp-text">Ich <strong>plane ein Experiment</strong> hypothesengeleitet (Variablen, Blindprobe, Positivkontrolle, Gefährdungsbeurteilung) in einem forensischen oder lebensmittelchemischen Kontext und führe es sicher durch.</div>
+        </div>
+        <div class="competency" data-qa="q1__u02__sjw7-8__4" data-sa-key="q1_ninhydrin_4">
+          <div class="comp-week">SJW 7 – 8</div>
+          <div class="comp-text">Ich dokumentiere mein Experiment <em>sachlich</em> im elektronischen Laborjournal und beurteile Aussagekraft und Grenzen des Nachweises (Ninhydrin als Gruppenreagenz).</div>
+        </div>
+
+        <div class="lernpfad-links tool-link">
+          <div class="lernpfad-label">Werkzeug für das Protokoll</div>
+          <a class="lernpfad-btn" href="laborjournal.html"><span class="lp-icon">✎</span><span>Elektronisches Laborjournal — Protokoll mit Fotos, Export als PDF und ZIP</span><span class="lp-arrow">→</span></a>
         </div>
       </div>
 
       <div class="comp-group">
         <div class="comp-group-label">Peptide &amp; das EPA-Modell</div>
         <div class="competency" data-qa="q1__u02__sjw7__1">
-          <div class="comp-week">SJW 7</div>
+          <div class="comp-week">SJW 11</div>
           <div class="comp-text">Ich bestimme den <strong>Reaktionstyp</strong> bei Bildung und Spaltung von Peptiden (Kondensation/Hydrolyse).</div>
         </div>
         <div class="competency" data-qa="q1__u02__sjw7__2">
-          <div class="comp-week">SJW 7</div>
+          <div class="comp-week">SJW 11</div>
           <div class="comp-text">Ich wende das <strong>EPA-Modell</strong> an, um die planare Peptid­bindung und die tetraedrische Struktur am α-Kohlenstoff-Atom zu erklären.</div>
-        </div>
-
-        <div class="lernpfad-links">
-          <div class="lernpfad-label">Lernpfad zu dieser Einheit</div>
-          <a class="lernpfad-btn" href="Q1/lernpfad-q1-05-peptide.html" data-unlock="2026-10-09"><span class="lp-icon">v.</span><span>Peptide &amp; EPA-Modell — Kondensation, Hydrolyse, Geometrie</span><span class="lp-arrow">→</span></a>
         </div>
       </div>
 
       <div class="comp-group">
         <div class="comp-group-label">Strukturebenen &amp; Eigenschaften</div>
         <div class="competency" data-qa="q1__u02__sjw8-11__1">
-          <div class="comp-week">SJW 8 – 11</div>
+          <div class="comp-week">SJW 12 – 13</div>
           <div class="comp-text">Ich erkläre <strong>Sekundär- und Tertiär­strukturen</strong> der Proteine als Folge zwischen­molekularer Wechsel­wirkungen (einschließlich Ionen-Dipol).</div>
         </div>
         <div class="competency" data-qa="q1__u02__sjw8-11__2">
-          <div class="comp-week">SJW 8 – 11</div>
+          <div class="comp-week">SJW 12 – 13</div>
           <div class="comp-text">Ich wähle geeignete <em>Realmodelle</em> aus, um Strukturebenen von Proteinen darzustellen, und beantworte damit chemische Fragestellungen.</div>
         </div>
         <div class="competency" data-qa="q1__u02__sjw8-11__3">
-          <div class="comp-week">SJW 8 – 11</div>
+          <div class="comp-week">SJW 12 – 13</div>
           <div class="comp-text">Ich führe <strong>Nachweisreaktionen</strong> (Biuret, Ninhydrin) für Proteine durch und wende sie zum Nachweis in Lebensmitteln an.</div>
         </div>
         <div class="competency" data-qa="q1__u02__sjw8-11__4">
-          <div class="comp-week">SJW 8 – 11</div>
+          <div class="comp-week">SJW 12 – 13</div>
           <div class="comp-text">Ich leite den Sachverhalt der <strong>Denaturierung</strong> aus Alltagssituationen ab, entwickle eigene Frage­stellungen und argumentiere fachlich schlüssig.</div>
         </div>
         <div class="competency" data-qa="q1__u02__sjw8-11__5">
-          <div class="comp-week">SJW 8 – 11</div>
+          <div class="comp-week">SJW 12 – 13</div>
           <div class="comp-text">Ich wähle chemische Sachverhalte und Informationen <em>adressaten- und situations­gerecht</em> aus und beurteile die fachliche Richtigkeit von Quellen und Medien.</div>
         </div>
         <div class="competency" data-qa="q1__u02__sjw8-11__6">
-          <div class="comp-week">SJW 8 – 11</div>
+          <div class="comp-week">SJW 12 – 13</div>
           <div class="comp-text">Ich treffe mithilfe fachlicher Kriterien begründete <strong>Entscheidungen in Alltags­situationen</strong> (z. B. zu Gar­methoden von Lebens­mitteln).</div>
-        </div>
-
-        <div class="lernpfad-links">
-          <div class="lernpfad-label">Lernpfad zu dieser Einheit</div>
-          <a class="lernpfad-btn" href="Q1/lernpfad-q1-06-proteinstrukturen.html" data-unlock="2026-11-20"><span class="lp-icon">vi.</span><span>Proteinstrukturen — Primär bis Quartär, Denaturierung, Nachweise</span><span class="lp-arrow">→</span></a>
         </div>
       </div>
 
@@ -1330,61 +1372,51 @@
     <div class="unit-header">
       <div class="unit-num">03</div>
       <div class="unit-title">Kunststoffe — <em>problematische Alleskönner</em></div>
-      <div class="unit-weeks">6 Wochen<br>SJW 12 – 17</div>
+      <div class="unit-weeks">4 Wochen<br>SJW 14 – 17<br>(verschoben, geplant)</div>
     </div>
     <div class="unit-body">
 
       <div class="comp-group">
         <div class="comp-group-label">Bau, Eigenschaften, Einteilung</div>
         <div class="competency" data-qa="q1__u03__sjw12__1">
-          <div class="comp-week">SJW 12</div>
+          <div class="comp-week">SJW 14</div>
           <div class="comp-text">Ich beschreibe das <strong>Ordnungsprinzip</strong> der Kunststoffklassen (Thermo-, Duroplaste, Elastomere) anhand des Zusammenhangs Struktur ↔ Eigenschaften und wende Modelle zur Beschreibung an.</div>
         </div>
         <div class="competency" data-qa="q1__u03__sjw12__2">
-          <div class="comp-week">SJW 12</div>
+          <div class="comp-week">SJW 14</div>
           <div class="comp-text">Ich teile Kunststoffe nach <em>Rohstoff­quelle und Abbau­barkeit</em> ein.</div>
-        </div>
-
-        <div class="lernpfad-links">
-          <div class="lernpfad-label">Lernpfad zu dieser Einheit</div>
-          <a class="lernpfad-btn" href="Q1/lernpfad-q1-07-kunststoffe-bau.html" data-unlock="2026-11-27"><span class="lp-icon">vii.</span><span>Kunststoffe — Klassen, Eigenschaften, Einteilung</span><span class="lp-arrow">→</span></a>
         </div>
       </div>
 
       <div class="comp-group">
         <div class="comp-group-label">Vom Monomer zum Polymer</div>
         <div class="competency" data-qa="q1__u03__sjw13-16__1">
-          <div class="comp-week">SJW 13 – 16</div>
+          <div class="comp-week">SJW 15 – 16</div>
           <div class="comp-text">Ich bestimme die Reaktions­typen <strong>Addition und Substitution</strong> an verschiedenen Beispielen.</div>
         </div>
         <div class="competency" data-qa="q1__u03__sjw13-16__2">
-          <div class="comp-week">SJW 13 – 16</div>
+          <div class="comp-week">SJW 15 – 16</div>
           <div class="comp-text">Ich beschreibe den Reaktions­mechanismus der <strong>elektrophilen Addition</strong> und stelle ihn mit Strukturformeln dar.</div>
         </div>
         <div class="competency" data-qa="q1__u03__sjw13-16__3">
-          <div class="comp-week">SJW 13 – 16</div>
+          <div class="comp-week">SJW 15 – 16</div>
           <div class="comp-text">Ich stelle den Mechanismus der <strong>radikalischen Polymerisation</strong> dar und verwende die Fachsprache präzise (Startradikal, Initiation, Kettenwachstum, Kettenabbruch).</div>
         </div>
         <div class="competency" data-qa="q1__u03__sjw13-16__4">
-          <div class="comp-week">SJW 13 – 16</div>
+          <div class="comp-week">SJW 15 – 16</div>
           <div class="comp-text">Ich stelle den Mechanismus der <strong>nucleophilen Substitution (S<sub>N</sub>)</strong> mit Strukturformeln dar und beschreibe ihn fachsprachlich korrekt.</div>
         </div>
         <div class="competency" data-qa="q1__u03__sjw13-16__5">
-          <div class="comp-week">SJW 13 – 16</div>
+          <div class="comp-week">SJW 15 – 16</div>
           <div class="comp-text">Ich formuliere <em>konstitutionelle Repetier­einheiten</em> verschiedener Kunststoffe und Gesamt­reaktions­gleichungen unter Berücksichtigung stöchio­metrischer Verhältnisse.</div>
         </div>
         <div class="competency" data-qa="q1__u03__sjw13-16__6">
-          <div class="comp-week">SJW 13 – 16</div>
+          <div class="comp-week">SJW 15 – 16</div>
           <div class="comp-text">Ich erfasse die <strong>Vielfalt von Kunststoffen</strong> und ihren Eigenschaften auf Basis unterschiedlicher Kombinationen und Anordnungen von Monomeren.</div>
         </div>
         <div class="competency" data-qa="q1__u03__sjw13-16__7">
-          <div class="comp-week">SJW 13 – 16</div>
+          <div class="comp-week">SJW 15 – 16</div>
           <div class="comp-text">Ich nutze geeignete <em>Darstellungs­formen</em> für Reaktions­mechanismen und überführe diese ineinander.</div>
-        </div>
-
-        <div class="lernpfad-links">
-          <div class="lernpfad-label">Lernpfad zu dieser Einheit</div>
-          <a class="lernpfad-btn" href="Q1/lernpfad-q1-08-monomer-polymer.html" data-unlock="2027-01-08"><span class="lp-icon">viii.</span><span>Vom Monomer zum Polymer — Mechanismen (A<sub>E</sub>, S<sub>N</sub>, Polymerisation)</span><span class="lp-arrow">→</span></a>
         </div>
       </div>
 
@@ -1402,18 +1434,15 @@
           <div class="comp-week">SJW 17</div>
           <div class="comp-text">Ich beschreibe den <strong>Stoffkreislauf</strong> am Beispiel eines rohstofflich recyclebaren Kunst­stoffs von der Herstellung bis zur Wieder­verwertung und tausche mich konstruktiv darüber aus.</div>
         </div>
-
-        <div class="lernpfad-links">
-          <div class="lernpfad-label">Lernpfad zu dieser Einheit</div>
-          <a class="lernpfad-btn" href="Q1/lernpfad-q1-09-recycling.html" data-unlock="2027-01-15"><span class="lp-icon">ix.</span><span>Verarbeitung &amp; Wiederverwertung — Recycling, Nachhaltigkeit</span><span class="lp-arrow">→</span></a>
-        </div>
       </div>
 
     </div>
   </article>
 
   <div class="holiday-note">
-    <strong>Unterrichts­pausen in Q1:</strong> Herbst­ferien 19.10. – 31.10.2026 · Weihnachts­ferien ab 23.12.2026
+    <strong>Unterrichts­pausen in Q1:</strong> Herbst­ferien 19.10. – 31.10.2026 · Weihnachts­ferien ab 23.12.2026<br>
+    <strong>Leistungs­nachweise:</strong> Kurztests Atombau (SJW 3), Stoffklassen (SJW 5), Aminosäuren (SJW 6) · 1. Klausur am 07.10.2026 · Versuchs­protokolle Glycin (SJW 6) und Ninhydrin (SJW 8)<br>
+    <strong>Stand:</strong> 03.10.2026 · ab SJW 6 gegenüber der Jahresplanung verschoben (Klausur­vorbereitung, Ninhydrin-Projekt); Einheit 03 von 6 auf 4 Wochen verdichtet
   </div>
 </section>
 
@@ -1595,10 +1624,6 @@
     </div>
   </article>
 
-  <div class="placeholder-notice">
-    <h3>Lernpfade zu Q2 — in Vorbereitung</h3>
-    <p>Werden ergänzt, sobald Q1 abgeschlossen ist</p>
-  </div>
 
   <div class="holiday-note">
     <strong>Unterrichts­pausen in Q2:</strong> Winterferien 01.02. – 06.02.2027 · Osterferien 22.03. – 02.04.2027 · Tag der Arbeit 01.05. · Christi Himmelfahrt 06.05. · Pfingstmontag 17.05. · Pfingstfreier Tag 18.05.2027
@@ -1791,10 +1816,6 @@
     </div>
   </article>
 
-  <div class="placeholder-notice">
-    <h3>Lernpfade zu Q3 — in Vorbereitung</h3>
-    <p>Werden ergänzt, sobald Q2 abgeschlossen ist</p>
-  </div>
 
   <div class="holiday-note">
     <strong>Unterrichts­pausen in Q3:</strong> Herbstferien 11.10. – 23.10.2027 · Tag der Deutschen Einheit Sa 03.10. · Reformationstag 31.10. (kein Schultag im Land Berlin – fällt 2027 auf So)
@@ -1931,10 +1952,6 @@
     </div>
   </article>
 
-  <div class="placeholder-notice">
-    <h3>Lernpfade zu Q4 — in Vorbereitung</h3>
-    <p>Werden ergänzt, sobald Q3 abgeschlossen ist</p>
-  </div>
 
   <div class="holiday-note">
     <strong>Unterrichts­pausen in Q4:</strong> Winterferien 31.01. – 05.02.2028 · Ende des Kurses vor Beginn der Osterferien am 10.04.2028
@@ -2013,9 +2030,12 @@
     4: 'Beherrscht und vernetzt.'
   };
 
-  document.querySelectorAll('.competency').forEach((comp, idx) => {
+  // Neue Kompetenzen tragen data-sa-key und zählen nicht mit, damit die
+  // gespeicherten Einschätzungen der älteren (Index + Textanfang) erhalten bleiben.
+  let saIdx = 0;
+  document.querySelectorAll('.competency').forEach(comp => {
     const text = comp.querySelector('.comp-text').textContent.slice(0, 60).replace(/\s+/g, '_');
-    const storageKey = `ce_${idx}_${text}`;
+    const storageKey = comp.dataset.saKey ? `ce_k_${comp.dataset.saKey}` : `ce_${saIdx++}_${text}`;
 
     const sa = document.createElement('div');
     sa.className = 'self-assessment';
