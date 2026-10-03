@@ -1075,6 +1075,50 @@ function render(struct, opts) {
   const bondParts = [];
   const line = (x1,y1,x2,y2) =>
     `<line x1="${x1.toFixed(2)}" y1="${y1.toFixed(2)}" x2="${x2.toFixed(2)}" y2="${y2.toFixed(2)}" stroke="#1c1712" stroke-width="${stroke.toFixed(2)}" stroke-linecap="round"/>`;
+  /* Skelettformel: Doppelbindungen wie im Aromaten-Renderer des Trainers (Stand 2026-10-03):
+     Achsenlinie + um 0,16 versetzte, an inneren Enden um 18 % gekürzte Zweitlinie zur Ringmitte
+     bzw. zur Seite der Nachbarbindungen (Gleichstand: nach unten); =O mit freiem Endatom zentriert. */
+  const skelSide = new Map();
+  if (isSkel) {
+    const adj = atoms.map(() => []);
+    bonds.forEach(b => { adj[b.a].push(b.b); adj[b.b].push(b.a); });
+    const ringOf = (s0, t0) => {
+      const prev = new Map([[s0, -1]]); let q = [s0];
+      for (let d = 0; d < 7 && q.length; d++) {
+        const nq = [];
+        for (const u of q) for (const v of adj[u]) {
+          if (u === s0 && v === t0) continue;
+          if (prev.has(v)) continue;
+          prev.set(v, u);
+          if (v === t0) { const path = []; for (let w = t0; w !== -1; w = prev.get(w)) path.push(w); return path; }
+          nq.push(v);
+        }
+        q = nq;
+      }
+      return null;
+    };
+    for (const b of bonds) {
+      if (b.o !== 2 || b.st) continue;
+      const A = atoms[b.a], B = atoms[b.b];
+      if ((visible[b.a] && adj[b.a].length === 1) || (visible[b.b] && adj[b.b].length === 1)) continue;
+      const ux = B.x - A.x, uy = B.y - A.y, l = Math.hypot(ux, uy) || 1;
+      const nx = -uy / l, ny = ux / l;
+      const ring = ringOf(b.a, b.b);
+      let score = 0;
+      if (ring) {
+        const rx = ring.reduce((t, i) => t + atoms[i].x, 0) / ring.length, ry = ring.reduce((t, i) => t + atoms[i].y, 0) / ring.length;
+        score = (rx - (A.x + B.x) / 2) * nx + (ry - (A.y + B.y) / 2) * ny;
+      } else {
+        for (const [i, j] of [[b.a, b.b], [b.b, b.a]]) for (const k of adj[i]) if (k !== j) {
+          const kx = atoms[k].x - atoms[i].x, ky = atoms[k].y - atoms[i].y, kl = Math.hypot(kx, ky) || 1;
+          score += (kx * nx + ky * ny) / kl;
+        }
+      }
+      if (Math.abs(score) < 1e-6) score = ny !== 0 ? ny : nx;
+      skelSide.set(b, score > 0 ? 1 : -1);
+    }
+  }
+
   for (const b of bonds) {
     const A = atoms[b.a], B = atoms[b.b];
     if (A.e === "H" && !visible[b.a]) continue;
@@ -1087,6 +1131,13 @@ function render(struct, opts) {
     const a0x = x1 + ux*padA, a0y = y1 + uy*padA, b0x = x2 - ux*padB, b0y = y2 - uy*padB;
     const px = -uy, py = ux;
     if (b.o === 1) { bondParts.push(line(a0x, a0y, b0x, b0y)); }
+    else if (b.o === 2 && skelSide.has(b)) {
+      const sd = skelSide.get(b), off2 = bondLen * 0.16;
+      const deg = i => bonds.reduce((t, x) => t + (x.a === i || x.b === i ? 1 : 0), 0);
+      const inA = visible[b.a] ? padA : (deg(b.a) === 1 ? 0 : len * 0.18), inB = visible[b.b] ? padB : (deg(b.b) === 1 ? 0 : len * 0.18);
+      bondParts.push(line(a0x, a0y, b0x, b0y));
+      bondParts.push(line(x1 + ux*inA + px*off2*sd, y1 + uy*inA + py*off2*sd, x2 - ux*inB + px*off2*sd, y2 - uy*inB + py*off2*sd));
+    }
     else if (b.o === 2) {
       const off = dbOff;
       bondParts.push(line(a0x - px*off, a0y - py*off, b0x - px*off, b0y - py*off));
@@ -1248,7 +1299,8 @@ function svgFor(struct, rep) {
   const lernpfadEl = document.getElementById('lernpfad');
   lernpfadEl.classList.add('show');
   if (statusEl) statusEl.textContent = 'Verf\u00fcgbar';
-  initLernpfad();
+  // erst nach dem Skriptende starten: MOLS u. a. sind weiter unten als const definiert
+  setTimeout(initLernpfad, 0);
 })();
 
 /* ============================ INIT ============================ */
@@ -1432,9 +1484,12 @@ function drawPolyene(){
     const A=pts[i], B=pts[i+1];
     const dbl = (i%2===0); // alternierend Doppel-/Einfachbindung
     if (dbl){
-      const mx=-(B[1]-A[1]), my=(B[0]-A[0]); const ml=Math.hypot(mx,my); const ox=mx/ml*6, oy=my/ml*6;
-      body += '<line x1="'+(A[0]+ox)+'" y1="'+(A[1]+oy)+'" x2="'+(B[0]+ox)+'" y2="'+(B[1]+oy)+'" stroke="#1c1712" stroke-width="5" stroke-linecap="round"/>';
-      body += '<line x1="'+(A[0]-ox)+'" y1="'+(A[1]-oy)+'" x2="'+(B[0]-ox)+'" y2="'+(B[1]-oy)+'" stroke="#1c1712" stroke-width="5" stroke-linecap="round"/>';
+      // wie im Trainer: Achsenlinie + verkürzte Zweitlinie (Gleichstand im Zickzack: nach unten)
+      let mx=-(B[1]-A[1]), my=(B[0]-A[0]); const ml=Math.hypot(mx,my); if (my < 0) { mx=-mx; my=-my; }
+      const ox=mx/ml*L*0.16, oy=my/ml*L*0.16, ux=(B[0]-A[0])/ml, uy=(B[1]-A[1])/ml;
+      const iA = i===0 ? 0 : L*0.18, iB = i+1===n-1 ? 0 : L*0.18;
+      body += '<line x1="'+A[0]+'" y1="'+A[1]+'" x2="'+B[0]+'" y2="'+B[1]+'" stroke="#1c1712" stroke-width="5" stroke-linecap="round"/>';
+      body += '<line x1="'+(A[0]+ux*iA+ox)+'" y1="'+(A[1]+uy*iA+oy)+'" x2="'+(B[0]-ux*iB+ox)+'" y2="'+(B[1]-uy*iB+oy)+'" stroke="#1c1712" stroke-width="5" stroke-linecap="round"/>';
     } else {
       body += '<line x1="'+A[0]+'" y1="'+A[1]+'" x2="'+B[0]+'" y2="'+B[1]+'" stroke="#1c1712" stroke-width="5" stroke-linecap="round"/>';
     }
