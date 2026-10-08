@@ -294,7 +294,7 @@ const ROLLEN = [
   TAB([["Rolle", "Name"], ["Medien und Protokoll", ""], ["Fachliche Qualität", ""]]),
 ];
 const AUSWERTUNG = [
-  H("Auswertung", "Erkläre die Beobachtung mit Fachbegriffen (Oxonium-Ionen, Nachweis) und stelle die Reaktionsgleichung auf. Schreibe zum Schluss: „Die Hypothese wurde bestätigt/widerlegt, da …“. " + SACHLICH),
+  H("Auswertung", "Erkläre die Beobachtung mit Fachbegriffen (Oxonium-Ionen, Nachweis) und entwickle die Reaktionsgleichung. Schreibe zum Schluss: „Die Hypothese wurde bestätigt/widerlegt, da …“. " + SACHLICH),
   T("Die Beobachtung zeigt, dass …"),
   T("Reaktionsgleichung: … + … → … + …"),
   T("Satz zur Hypothese", "Die Hypothese wurde bestätigt/widerlegt, da …"),
@@ -344,10 +344,32 @@ const METALL = [
   TAB([["Metall", "Beobachtung in der Salzsäure", "Knallgasprobe"], ["Magnesium", "", ""], ["Zink", "", ""], ["Eisen", "", ""], ["Kupfer", "", ""]]),
   ...AUSWERTUNG,
 ];
+const ROHR = [
+  ...ROLLEN,
+  H("Kontext", "Der Abfluss ist verstopft. Rohrreiniger-Granulat soll Haare und Fett im Rohr lösen. Wie funktioniert das?"),
+  H("Sicherheit", "Rohrreiniger ist ätzend (GHS05, Signalwort Gefahr). Schutzbrille und Handschuhe tragen, Perlen nur mit Pinzette oder Spatel anfassen, nur 2–3 Perlen verwenden."),
+  H("Forschungsfrage", "Eine Frage, die eure Tests beantworten können."),
+  T("Wie funktioniert …? / Welche Eigenschaften hat …?"),
+  H("Hypothese", "Begründete Vermutung: „Vermutlich …, da …“."),
+  T("Vermutlich …, da …"),
+  H("Material und Chemikalien", "Ergänze und streiche, was ihr nicht braucht."),
+  T("Geräte und Chemikalien …", "Schutzbrille, Schutzhandschuhe, Rohrreiniger-Granulat auf einem Uhrglas, Pinzette, Spatel, Reagenzglas mit Ständer, Wasser, Thermometer, pH-Indikatorpapier, Magnesiastäbchen, Gasbrenner"),
+  H("Durchführung", "Foto des Aufbaus einfügen: Trennen, Lösen mit Thermometer, pH-Test, Flammenfärbung. " + SACHLICH),
+  T("1. Die weißen Perlen werden mit der Pinzette von den grauen Kügelchen getrennt."),
+  H("Beobachtung", "Fotos mit Bildunterschrift: Thermometer vorher und nachher, pH-Papier neben der Farbskala, Flamme."),
+  TAB([["Test", "Beobachtung"], ["Temperatur beim Lösen", "vorher: … °C, nachher: … °C"], ["pH-Indikatorpapier", ""], ["Flammenfärbung", ""]]),
+  H("Auswertung", "Deute jeden Test mit Fachbegriffen (Hydroxid-Ionen, alkalische Lösung, Natrium-Nachweis) und entwickle die Dissoziationsgleichung. Schreibe zum Schluss: „Die Hypothese wurde bestätigt/widerlegt, da …“. " + SACHLICH),
+  T("Der pH-Wert zeigt, dass … · Die Temperatur … · Die Flammenfärbung weist … nach."),
+  T("Dissoziationsgleichung: NaOH(s) → … + …"),
+  T("Satz zur Hypothese", "Die Hypothese wurde bestätigt/widerlegt, da …"),
+  H("Fehlerbetrachtung", "Was könnte das Ergebnis verfälscht haben? Wie lässt sich der Versuch verbessern?"),
+  T("Eine mögliche Fehlerquelle ist … Verbessern ließe sich …"),
+];
 const TEMPLATES = [
   { key: "protokoll", name: "Versuchsprotokoll (SEK I)", desc: "Alle Abschnitte eines Protokolls mit Hinweisen", titel: "", blocks: PROTOKOLL },
   { key: "a", name: "Expertengruppe A: Carbonate", desc: "Reaktion von Oxonium-Ionen mit Carbonaten (Korallen, Kalk)", titel: "Reaktion von Oxonium-Ionen mit Carbonaten", blocks: CARBONAT },
   { key: "b", name: "Expertengruppe B: Unedle Metalle", desc: "Reaktion von Oxonium-Ionen mit unedlen Metallen", titel: "Reaktion von Oxonium-Ionen mit unedlen Metallen", blocks: METALL },
+  { key: "rohr", name: "Rohrreiniger: Basen und alkalische Lösungen", desc: "Wie funktioniert Rohrreiniger? pH-Wert, Temperatur, Flammenfärbung", titel: "Untersuchung eines Rohrreinigers", blocks: ROHR },
   { key: "leer", name: "Leeres Protokoll", desc: "Nur ein Textfeld", titel: "", blocks: [T("Hier schreiben …")] },
 ];
 
