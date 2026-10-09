@@ -173,6 +173,13 @@
   <div class="row"><button class="btn" data-close>Abbrechen</button></div>
 </dialog>
 
+<dialog id="dScan">
+  <h2>Protokoll wählen</h2>
+  <p class="note">Auf diesem Gerät gibt es schon unfertige Protokolle zu diesem Versuch. Mit einem eigenen, neuen Protokoll beginnen oder an einem bestehenden weiterarbeiten?</p>
+  <div class="row" style="justify-content:flex-start"><button class="btn primary" id="scanNeu">Neues Protokoll anfertigen</button></div>
+  <div class="list" id="scanList"></div>
+</dialog>
+
 <dialog id="dOpen">
   <h2>Meine Protokolle (in diesem Browser)</h2>
   <div class="list" id="docList"></div>
@@ -949,18 +956,35 @@ $("#xUnlock").onclick = () => { if (!window.confirm("Endfassung entsperren? Die 
   try { last = localStorage.getItem("eln-sek1-last"); } catch (e) {}
   if (!useMem && last) doc = await DB.getDoc(last);
   if (!doc && !useMem) { const all = await DB.allDocs(); if (all.length) doc = all.sort((a, b) => b.modified.localeCompare(a.modified))[0]; }
-  // Direktstart über QR-Code: ?vorlage=a öffnet das letzte Protokoll dieser Vorlage oder legt eines an
+  // Direktstart über QR-Code: ?vorlage=a legt ein neues Protokoll an. Gibt es auf dem Gerät schon
+  // unfertige Protokolle dieser Vorlage (z. B. von einer anderen Gruppe), wird nachgefragt.
   let wunsch = null;
   try { wunsch = new URLSearchParams(location.search).get("vorlage"); } catch (e) {}
   const wTpl = TEMPLATES.find(t => t.key === wunsch);
-  if (wTpl && (!doc || doc.tpl !== wTpl.key)) {
-    let vorh = null;
-    if (!useMem) { const all = await DB.allDocs(); vorh = all.filter(d => d.tpl === wTpl.key && d.status !== "final").sort((a, b) => b.modified.localeCompare(a.modified))[0] || null; }
-    doc = vorh || newDoc(wTpl);
-    if (!vorh) saveNow();
+  let offen = [];
+  if (wTpl) {
+    if (!useMem) offen = (await DB.allDocs()).filter(d => d.tpl === wTpl.key && d.status !== "final").sort((a, b) => b.modified.localeCompare(a.modified));
+    doc = newDoc(wTpl);
+    // Parameter entfernen: Neuladen setzt dann am gewählten Protokoll fort, statt erneut zu fragen
+    try { history.replaceState(null, "", location.pathname + location.hash); } catch (e) {}
   }
   if (!doc) doc = newDoc(TEMPLATES[0]);
   render();
+  if (wTpl && !offen.length) saveNow();
+  if (offen.length) {
+    const merken = () => { try { localStorage.setItem("eln-sek1-last", doc.id); } catch (e) {} };
+    const l = $("#scanList"); l.innerHTML = "";
+    for (const d of offen.slice(0, 8)) {
+      const it = document.createElement("div"); it.className = "item";
+      it.innerHTML = `<div><b>${esc(d.meta.titel || "ohne Titel")}</b><small>${esc(d.meta.name || "ohne Namen")}${d.meta.team ? " · " + esc(d.meta.team) : ""} · geändert ${new Date(d.modified).toLocaleString("de-DE")}</small></div>`;
+      const o = document.createElement("button"); o.className = "btn"; o.textContent = "Weiterarbeiten";
+      o.onclick = () => { doc = d; imgCache.clear(); render(); merken(); $("#dScan").close(); };
+      it.appendChild(o); l.appendChild(it);
+    }
+    $("#scanNeu").onclick = async () => { $("#dScan").close(); await saveNow(); merken(); toast("Neues Protokoll angelegt"); };
+    $("#dScan").addEventListener("cancel", e => e.preventDefault());
+    $("#dScan").showModal();
+  }
   $("#status").textContent = useMem ? "nur im Speicher" : "bereit";
   const pinFmt = () => { $("#fmt").style.top = $("header.app").offsetHeight + "px"; };
   pinFmt(); window.addEventListener("resize", pinFmt);
