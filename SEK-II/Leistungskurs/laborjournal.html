@@ -186,7 +186,7 @@
     <p class="note" style="margin:0">Abgabe in drei Schritten: <b>1</b> Endfassung · <b>2</b> ZIP · <b>3</b> PDF. Zwischendurch: Zwischenstand sichern.</p>
     <div class="item"><div><b>Zwischenstand als .html</b><small>Eine Datei mit allen Texten und Bildern. Lässt sich in jedem Browser lesen und hier wieder importieren.</small></div><button class="btn" id="xHtml">Herunterladen</button></div>
     <div class="item"><div><b>1 · Endfassung als .html</b><small>Markiert das Protokoll als Endfassung mit Zeitstempel und Prüfsumme und lädt es herunter. Danach ist es schreibgeschützt (entsperren möglich).</small></div><button class="btn primary" id="xFinal">Endfassung</button></div>
-    <div class="item"><div><b>2 · Paket als .zip</b><small>protokoll.html + Bilder im Ordner „bilder“ + protokoll.json. Zum Archivieren, Weitergeben und Wiederherstellen.</small></div><button class="btn" id="xZip">Herunterladen</button></div>
+    <div class="item"><div><b>2 · Paket als .zip</b><small>protokoll.html + Fotos in Originalgröße im Ordner „bilder“ + protokoll.json. Zum Archivieren, Weitergeben und Wiederherstellen.</small></div><button class="btn" id="xZip">Herunterladen</button></div>
     <div class="item"><div><b>3 · PDF für die Abgabe</b><small>Öffnet den Druckdialog; dort „Als PDF sichern“ wählen. Das PDF enthält Kopf mit Name und Datum, alle Texte (durchsuchbar) und Bilder.</small></div><button class="btn" id="xPrint">PDF / Drucken</button></div>
   </div>
   <div class="row"><button class="btn danger" id="xUnlock" hidden>Endfassung entsperren</button><button class="btn" data-close>Schließen</button></div>
@@ -254,7 +254,7 @@ const DB = {
   async putDoc(doc) { await DB.tx(["docs"], "readwrite", t => t.objectStore("docs").put({ id: doc.id, doc })); },
   async getDoc(id) { const t = DB.db.transaction("docs"); const r = await DB.req(t.objectStore("docs").get(id)); return r && r.doc; },
   async allDocs() { const t = DB.db.transaction("docs"); return (await DB.req(t.objectStore("docs").getAll())).map(r => r.doc); },
-  async putImg(docId, imgId, mime, name, buf) { await DB.tx(["images"], "readwrite", t => t.objectStore("images").put({ key: docId + "/" + imgId, docId, mime, name, buf })); },
+  async putImg(docId, imgId, mime, name, buf, orig) { await DB.tx(["images"], "readwrite", t => t.objectStore("images").put({ key: docId + "/" + imgId, docId, mime, name, buf, orig })); },
   async getImg(docId, imgId) { const t = DB.db.transaction("images"); return DB.req(t.objectStore("images").get(docId + "/" + imgId)); },
   async delDoc(id) {
     await DB.tx(["docs", "images"], "readwrite", t => {
@@ -270,7 +270,7 @@ let useMem = false;
 
 /* ===================== Zustand ===================== */
 let doc = null;            // aktuelles Protokoll
-const imgCache = new Map(); // imgId -> {mime, name, buf, url}
+const imgCache = new Map(); // imgId -> {mime, name, buf, url, orig?: {mime, name, buf}}
 let saveTimer = null;
 
 function newDoc(tpl) {
@@ -344,16 +344,17 @@ async function loadImg(imgId) {
   if (imgCache.has(imgId)) return imgCache.get(imgId);
   const r = useMem ? MEM.imgs.get(doc.id + "/" + imgId) : await DB.getImg(doc.id, imgId);
   if (!r) return null;
-  const rec = { mime: r.mime, name: r.name, buf: r.buf };
+  const rec = { mime: r.mime, name: r.name, buf: r.buf, orig: r.orig };
   imgCache.set(imgId, rec);
   return rec;
 }
-async function storeImg(imgId, mime, name, buf) {
-  imgCache.set(imgId, { mime, name, buf });
-  if (useMem) MEM.imgs.set(doc.id + "/" + imgId, { mime, name, buf });
-  else await DB.putImg(doc.id, imgId, mime, name, buf);
+async function storeImg(imgId, mime, name, buf, orig) {
+  imgCache.set(imgId, { mime, name, buf, orig });
+  if (useMem) MEM.imgs.set(doc.id + "/" + imgId, { mime, name, buf, orig });
+  else await DB.putImg(doc.id, imgId, mime, name, buf, orig);
 }
-// Kamerafotos verkleinern (max. 2000 px Kantenlänge, JPEG), SVG unverändert übernehmen
+// Kamerafotos: kompakte Fassung (max. 1200 px, JPEG) für Ansicht, .html und PDF;
+// das Original bleibt als orig erhalten und geht nur in die ZIP. SVG unverändert.
 async function prepareImage(file) {
   const isSvg = file.type === "image/svg+xml" || /\.svg$/i.test(file.name);
   if (isSvg) {
@@ -362,20 +363,25 @@ async function prepareImage(file) {
     return { mime: "image/svg+xml", name: file.name || "grafik.svg", buf: new TextEncoder().encode(text).buffer };
   }
   if (!/^image\//.test(file.type)) throw new Error("Kein Bildformat");
-  const MAX = 1600;
+  return compactImage(file, file.type, file.name);
+}
+async function compactImage(blob, type, name) {
+  const MAX = 1200;
+  const file = blob;
   try {
-    const bmp = await createImageBitmap(file, { imageOrientation: "from-image" });
+    const bmp = await createImageBitmap(blob, { imageOrientation: "from-image" });
     const scale = Math.min(1, MAX / Math.max(bmp.width, bmp.height));
-    if (scale === 1 && file.size < 6e5 && /jpeg|png|webp|gif/.test(file.type)) { bmp.close && bmp.close(); return { mime: file.type, name: file.name || "bild", buf: await fileToBuf(file) }; }
+    if (scale === 1 && file.size < 6e5 && /jpeg|png|webp|gif/.test(type)) { bmp.close && bmp.close(); return { mime: type, name: name || "bild", buf: await fileToBuf(file) }; }
     const c = document.createElement("canvas");
     c.width = Math.round(bmp.width * scale); c.height = Math.round(bmp.height * scale);
     const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height); g.drawImage(bmp, 0, 0, c.width, c.height);
-    const blob = await new Promise(r => c.toBlob(r, "image/jpeg", 0.82));
-    const base = (file.name || "foto").replace(/\.[^.]+$/, "");
-    return { mime: "image/jpeg", name: base + ".jpg", buf: await blob.arrayBuffer() };
+    bmp.close && bmp.close();
+    const klein = await new Promise(r => c.toBlob(r, "image/jpeg", 0.82));
+    const base = (name || "foto").replace(/\.[^.]+$/, "");
+    return { mime: "image/jpeg", name: base + ".jpg", buf: await klein.arrayBuffer(), orig: { mime: type, name: name || "foto", buf: await fileToBuf(file) } };
   } catch (e) {
     // z. B. HEIC in Browsern ohne Decoder
-    return { mime: file.type, name: file.name || "bild", buf: await fileToBuf(file) };
+    return { mime: type, name: name || "bild", buf: await fileToBuf(file) };
   }
 }
 async function insertImages(files, index) {
@@ -384,7 +390,7 @@ async function insertImages(files, index) {
     try {
       const p = await prepareImage(f);
       const imgId = uid();
-      await storeImg(imgId, p.mime, p.name, p.buf);
+      await storeImg(imgId, p.mime, p.name, p.buf, p.orig);
       doc.blocks.splice(index + n, 0, { id: uid(), type: "img", img: imgId, caption: "" });
       n++;
     } catch (e) { toast("Bild konnte nicht eingefügt werden: " + e.message); }
@@ -662,14 +668,17 @@ async function exportZip() {
   const files = [];
   const pathOf = new Map();
   let k = 1;
-  for (const [id, r] of imgs) {
+  const zipImg = new Map(); // in der ZIP liegen die Fotos in Originalgröße
+  for (const [id, rec] of imgs) {
+    const r = rec.orig || rec;
+    zipImg.set(id, r);
     const p = `bilder/abb-${String(k++).padStart(2, "0")}-${id}.${EXT[r.mime] || "bin"}`;
     pathOf.set(id, p);
     files.push({ name: p, data: new Uint8Array(r.buf) });
   }
   const label = doc.status === "final" ? "Endfassung" : "Zwischenstand";
   const html = buildHtml(doc, id => pathOf.get(id) || "", label);
-  const json = JSON.stringify({ ...doc, images: Object.fromEntries([...imgs].map(([id, r]) => [id, { path: pathOf.get(id), mime: r.mime, name: r.name }])) }, null, 1);
+  const json = JSON.stringify({ ...doc, images: Object.fromEntries([...zipImg].map(([id, r]) => [id, { path: pathOf.get(id), mime: r.mime, name: r.name }])) }, null, 1);
   const enc = new TextEncoder();
   files.unshift({ name: "protokoll.html", data: enc.encode(html) }, { name: "protokoll.json", data: enc.encode(json) });
   download(baseFileName(doc.status === "final" ? "Endfassung" : "") + ".zip", Zip.write(files));
@@ -722,7 +731,9 @@ async function adoptDoc(d, getImg) {
   let missing = 0;
   for (const b of nd.blocks.filter(b => b.type === "img")) {
     const r = await getImg(b.img);
-    if (r) await storeImg(b.img, r.mime, r.name, r.buf); else missing++;
+    if (!r) { missing++; continue; }
+    const p = /^image\/(?!svg)/.test(r.mime) ? await compactImage(new Blob([r.buf], { type: r.mime }), r.mime, r.name) : r;
+    await storeImg(b.img, p.mime, p.name, p.buf, p.orig);
   }
   await saveNow();
   render();
