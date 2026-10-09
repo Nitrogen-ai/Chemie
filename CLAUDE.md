@@ -30,6 +30,9 @@ Git-Historie bis zum Umzug bleibt hier in diesem Repo.
 - SEK-II/Leistungskurs/laborjournal.html — elektronisches Laborjournal (ELN):
   Speicherung in IndexedDB, Export .html/.zip (eigener ZIP-Code, Deflate-Lesen
   über DecompressionStream), Import beider Formate. Keine Schülerdaten im Repo.
+  Fotos: kompakte Fassung (max. 1200 px) für Ansicht/.html/PDF, Original als `orig` in IndexedDB
+  und nur in der ZIP; ZIP-Import erzeugt die kompakte Fassung neu. SEK-I/Klasse-9/laborjournal.html
+  teilt diesen Code – Änderungen an beiden vornehmen.
 
 ## Was hier NIE hineingehört
 - PDFs und Musterlösungen (die .gitignore blockt *.pdf).
