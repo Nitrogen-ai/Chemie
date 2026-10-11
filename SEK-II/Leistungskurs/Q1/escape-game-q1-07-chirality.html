@@ -123,7 +123,8 @@ textarea{width:100%;min-height:62px;background:#0a0f15;color:var(--text);border:
 /* Druck: nur das Laborjournal */
 #druck{display:none}
 @media print{
-  body{background:#fff;color:#000}
+  html,body{background:#fff!important;color:#000}
+  @page{margin:1.5cm}
   body>*:not(#druck){display:none!important}
   #druck{display:block;font-family:var(--sans);font-size:11pt;color:#000}
   #druck h1{font-size:18pt;color:#156e9d} #druck h2{font-size:13pt;border-bottom:1px solid #999;margin-top:14pt}
@@ -681,7 +682,7 @@ Prof. Voss (letzte Aufzeichnung): „D-Glutaminsäure – dann hatte ich recht. 
   <div class="karte"><h3>Was die KI zeigt</h3><p style="font-size:15px">AlphaFold sagt die räumliche Struktur eines Proteins aus seiner Aminosäuresequenz vorher (Nobelpreis Chemie 2024). Für MurI ist die Vorhersage sehr zuverlässig (mittlerer pLDDT 93); nur das Kettenende ist ungeordnet. Im aktiven Zentrum liegen zwei Cysteinreste: Cys92 entfernt das H-Atom am α-C-Atom von der einen Seite, Cys204 setzt ein H-Atom von der anderen Seite wieder an. So wird aus L- D-Glutamat. Ein Hemmstoff müsste genau in diese Tasche passen und selbst chiral sein.</p>
   <p style="font-size:14px;color:var(--muted)">Stand der Forschung: Hemmstoffe für die Glutamat-Racemase von <i>Helicobacter pylori</i> wurden gefunden (Lundqvist et al., Nature 2007); ein zugelassenes Antibiotikum mit diesem Ziel gibt es bisher nicht. Vorbild: D-Cycloserin hemmt die Bildung von D-Alanin.</p></div></div>
   <div class="karte" style="margin-top:12px"><h3>Laborjournal: Antibiotikaentwicklung planen</h3><p>Klicken Sie die Arbeitsschritte des Forschungsauftrags in einer sinnvollen Reihenfolge an (erneuter Klick entfernt).</p>
-   <div class="schritte">${SCHRITTE.map((s,i)=>{const pos=Z.schritte.indexOf(i);return `<button data-schritt="${i}" class="${pos>=0?"an":""}">${pos>=0?(pos+1)+". ":""}${s}</button>`}).join("")}</div><div class="meldung" id="schrittMeld"></div></div>
+   <div class="schritte">${schrittOrdnung().map(i=>{const s=SCHRITTE[i],pos=Z.schritte.indexOf(i);return `<button data-schritt="${i}" class="${pos>=0?"an":""}">${pos>=0?(pos+1)+". ":""}${s}</button>`}).join("")}</div><div class="meldung" id="schrittMeld"></div></div>
   ${hinweisBlock(6)}
   ${logbuch(6,"Wir wählen Ziel …, weil … Ein Hemmstoff müsste …")}
   ${codeBlock(6,"EC-Nummer (ohne Punkte)")}`;
@@ -696,6 +697,13 @@ Prof. Voss (letzte Aufzeichnung): „D-Glutaminsäure – dann hatte ich recht. 
     if(Z.schritte.length<5||!planOk()){falsch(6,"FORSCHUNGSPLAN UNVOLLSTÄNDIG ODER UNSCHLÜSSIG · alle fünf Schritte sinnvoll ordnen");return}
     if(fnv(norm($("#code6").value))===CODES[6]) geloest(6); else falsch(6) });
 }
+// Anzeige-Reihenfolge der Planschritte: einmal je Team zufällig gemischt (nie schon die richtige), im Spielstand gespeichert
+function schrittOrdnung(){
+  const o=Z.schrittOrdnung;
+  if(Array.isArray(o)&&o.length===SCHRITTE.length&&o.slice().sort().join()==="0,1,2,3,4")return o;
+  let p;do{p=SCHRITTE.map((_,i)=>i);for(let i=p.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[p[i],p[j]]=[p[j],p[i]]}}
+  while(p[0]===0&&p[1]===1&&p.indexOf(2)<p.indexOf(3));
+  Z.schrittOrdnung=p;sichern();return p}
 function planOk(){const s=Z.schritte;return s.length===5&&s[0]===0&&s[1]===1&&s.indexOf(2)<s.indexOf(3)}
 let mviewer=null;
 function molekuel(){
