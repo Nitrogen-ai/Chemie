@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Säuren-Trainer · Prüfungsvorbereitung</title>
+<style>
+  :root {
+    --bg: #0d0f1a;
+    --card: #151828;
+    --card2: #1a1e32;
+    --accent: #7c6af7;
+    --accent2: #e96dbd;
+    --accent3: #5dd8c8;
+    --green: #00c853;
+    --gold: #ffd700;
+    --red: #f55a5a;
+    --text: #e8eaf6;
+    --dim: #8890b8;
+    --radius: 16px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { min-height: 100%; }
+  body {
+    font-family: "Nunito", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+    padding: 1.5rem 1rem 4rem;
+    background-image:
+      radial-gradient(ellipse 60% 50% at 15% 20%, rgba(124,106,247,.1) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 60% at 85% 80%, rgba(233,109,189,.08) 0%, transparent 70%);
+    min-height: 100vh;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 1.4rem; }
+  h1 {
+    font-size: clamp(1.6rem, 4vw, 2.3rem); font-weight: 900; letter-spacing: -0.01em;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .sub { color: var(--dim); margin-top: 0.3rem; }
+  h2 { font-size: 1.15rem; font-weight: 800; color: var(--accent2); margin-bottom: 0.7rem; }
+  .panel {
+    background: var(--card); border: 1px solid rgba(124,106,247,0.18);
+    border-radius: var(--radius); padding: 1.1rem 1.2rem; margin-bottom: 1.2rem;
+  }
+  /* Auswahl */
+  .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 0.45rem;
+    background: var(--card2); color: var(--text); font: inherit; font-weight: 700;
+    border: 2px solid rgba(136,144,184,0.25); border-radius: 999px;
+    padding: 0.45rem 0.9rem; cursor: pointer; transition: all 0.15s;
+  }
+  .chip .f { color: var(--dim); font-weight: 600; font-style: italic; }
+  .chip.on { border-color: var(--accent); background: rgba(124,106,247,0.16); }
+  .chip.on .f { color: var(--accent3); }
+  .chip:not(.on) { opacity: 0.55; }
+  .row-tools { display: flex; gap: 0.5rem; margin-top: 0.7rem; flex-wrap: wrap; }
+  .mini {
+    background: transparent; color: var(--dim); border: 1px solid rgba(136,144,184,0.35);
+    border-radius: 999px; padding: 0.25rem 0.8rem; font: inherit; font-size: 0.85rem; cursor: pointer;
+  }
+  .mini:hover { color: var(--text); border-color: var(--accent); }
+  /* Modi */
+  .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+  .tab {
+    flex: 1 1 0; min-width: 9rem; background: var(--card); color: var(--text); font: inherit; font-weight: 800;
+    border: 2px solid rgba(136,144,184,0.2); border-radius: 12px; padding: 0.7rem 0.8rem; cursor: pointer;
+  }
+  .tab.on { border-color: var(--accent); color: var(--accent); background: rgba(124,106,247,0.12); }
+  /* Quiz */
+  .score { display: flex; gap: 1rem; justify-content: flex-end; color: var(--dim); font-weight: 700; margin-bottom: 0.4rem; }
+  .score b { color: var(--text); }
+  .q-type { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent3); font-weight: 800; }
+  .q-text { font-size: 1.3rem; font-weight: 800; margin: 0.3rem 0 1rem; }
+  .q-text .fm { color: var(--gold); }
+  .opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0.7rem; }
+  .opt {
+    background: var(--card2); color: var(--text); font: inherit; font-size: 1.1rem; font-weight: 700; text-align: left;
+    border: 2px solid rgba(136,144,184,0.22); border-radius: 12px; padding: 0.85rem 1rem; cursor: pointer;
+    transition: border-color 0.15s, background 0.15s; min-height: 3.4rem;
+  }
+  .opt:hover:not([disabled]) { border-color: var(--accent); }
+  .opt.img { background: #fff; display: flex; align-items: center; justify-content: center; padding: 0.6rem; position: relative; min-height: 9rem; }
+  .opt.img .lbl { position: absolute; top: 0.35rem; left: 0.6rem; color: #1a5fa8; font-weight: 900; }
+  .opt.ok { border-color: var(--green); background: rgba(0,200,83,0.14); }
+  .opt.img.ok { box-shadow: 0 0 0 4px var(--green) inset; background: #fff; }
+  .opt.bad { border-color: var(--red); background: rgba(245,90,90,0.14); }
+  .opt.img.bad { box-shadow: 0 0 0 4px var(--red) inset; background: #fff; }
+  .opt[disabled] { cursor: default; }
+  .given-img { background: #fff; border-radius: 12px; padding: 0.8rem; display: flex; justify-content: center; margin-bottom: 1rem; }
+  .lewis svg { display: block; height: auto; max-width: 100%; }
+  .feedback { margin-top: 1rem; font-weight: 800; font-size: 1.05rem; }
+  .feedback.ok { color: var(--green); }
+  .feedback.bad { color: var(--red); }
+  .steck {
+    margin-top: 0.8rem; background: var(--card2); border-radius: 12px; padding: 0.7rem 1rem;
+    display: grid; grid-template-columns: auto 1fr; gap: 0.15rem 1rem; font-size: 0.95rem;
+  }
+  .steck dt { color: var(--dim); }
+  .context-box {
+    margin-top: 1rem; background: rgba(0,200,83,0.07);
+    border: 2px solid rgba(0,200,83,0.4); border-radius: 12px; padding: 0.8rem 1rem;
+  }
+  .context-title { font-weight: 800; font-size: 0.95rem; }
+  .context-text { font-size: 0.95rem; line-height: 1.45; margin-top: 0.4rem; }
+  .next {
+    margin-top: 1.1rem; background: linear-gradient(90deg, var(--accent), var(--accent2)); color: #fff;
+    font: inherit; font-weight: 900; font-size: 1.05rem; border: 0; border-radius: 12px; padding: 0.75rem 1.6rem; cursor: pointer;
+  }
+  /* Tabelle */
+  .tbl-wrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; min-width: 720px; }
+  th { background: #3a3f5c; color: #fff; text-align: left; padding: 0.55rem 0.6rem; font-size: 0.9rem; vertical-align: bottom; }
+  td { border: 1px solid rgba(136,144,184,0.3); padding: 0.5rem 0.6rem; vertical-align: middle; }
+  td .emo { margin-right: 0.3rem; }
+  select {
+    width: 100%; min-width: 8.5rem; font: inherit; font-size: 0.95rem; background: #2a2e45; color: var(--text);
+    border: 2px solid rgba(136,144,184,0.35); border-radius: 8px; padding: 0.35rem 0.4rem;
+  }
+  td.ok select { border-color: var(--green); background: rgba(0,200,83,0.15); }
+  td.bad select { border-color: var(--red); background: rgba(245,90,90,0.15); }
+  .sol { display: block; color: var(--green); font-size: 0.85rem; margin-top: 0.25rem; }
+  .tbl-tools { display: flex; gap: 0.6rem; margin-top: 1rem; flex-wrap: wrap; align-items: center; }
+  .tbl-tools .next { margin-top: 0; }
+  .tbl-res { font-weight: 800; }
+  .hint { color: var(--dim); font-size: 0.9rem; margin-bottom: 0.8rem; }
+  /* Steckbriefe */
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+  .card { background: var(--card2); border-radius: var(--radius); padding: 1rem; border: 1px solid rgba(124,106,247,0.2); }
+  .card h3 { font-size: 1.2rem; font-weight: 900; }
+  .card .formel { color: var(--gold); font-weight: 800; font-size: 1.1rem; }
+  .card .lewis { background: #fff; border-radius: 10px; padding: 0.6rem; display: flex; justify-content: center; margin: 0.6rem 0; }
+  .card ul { margin: 0.4rem 0 0 1.1rem; font-size: 0.93rem; }
+  footer { text-align: center; color: var(--dim); font-size: 0.82rem; margin-top: 2rem; }
+  footer a { color: var(--accent3); }
+  @media (max-width: 520px) {
+    .q-text { font-size: 1.12rem; }
+    .opts { grid-template-columns: 1fr 1fr; }
+    .opt { font-size: 0.98rem; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>⚗️ Säuren-Trainer</h1>
+    <div class="sub">Prüfungsvorbereitung „Säuren und saure Lösungen“ · Chemie 9</div>
+  </header>
+
+  <section class="panel">
+    <h2>Welche Säuren willst du üben?</h2>
+    <div class="chips" id="chips"></div>
+    <div class="row-tools">
+      <button class="mini" data-act="alle">alle auswählen</button>
+      <button class="mini" data-act="keine">keine</button>
+    </div>
+  </section>
+
+  <nav class="tabs" id="tabs">
+    <button class="tab on" data-mode="quiz">🎯 Quiz</button>
+    <button class="tab" data-mode="tabelle">📋 Tabelle wie in Teil B</button>
+    <button class="tab" data-mode="steckbriefe">📇 Steckbriefe</button>
+  </nav>
+
+  <main id="main"></main>
+
+  <footer>
+    Lewis-Formeln aus dem <a href="https://nitrogen-ai.github.io/training/chemical_communication_trainer.html">Chemical Communication Trainer</a>.
+  </footer>
+</div>
+
+<script>
+/* Lewis-Formeln: aus dem Chemical Communication Trainer gerendert (Bindungslänge einheitlich 100, zugeschnitten). */
+const LEWIS = {"alkansaeure_2":{"w":352,"svg":"<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"324.0 323.0 352.0 343.0\" width=\"100%\" preserveAspectRatio=\"xMidYMid meet\"><line x1=\"472.00\" y1=\"463.40\" x2=\"528.00\" y2=\"463.40\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"450.00\" y1=\"441.40\" x2=\"450.00\" y2=\"385.40\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"450.00\" y1=\"485.40\" x2=\"450.00\" y2=\"541.40\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"428.00\" y1=\"463.40\" x2=\"372.00\" y2=\"463.40\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"549.74\" y1=\"437.84\" x2=\"577.74\" y2=\"389.35\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"572.26\" y1=\"450.84\" x2=\"600.26\" y2=\"402.35\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"561.00\" y1=\"482.45\" x2=\"589.00\" y2=\"530.95\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"611.00\" y1=\"569.05\" x2=\"639.00\" y2=\"617.55\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><circle cx=\"450.00\" cy=\"463.40\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"450.00\" y=\"463.40\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">C</text><circle cx=\"550.00\" cy=\"463.40\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"550.00\" y=\"463.40\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">C</text><circle cx=\"450.00\" cy=\"363.40\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"450.00\" y=\"363.40\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">H</text><circle cx=\"450.00\" cy=\"563.40\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"450.00\" y=\"563.40\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">H</text><circle cx=\"350.00\" cy=\"463.40\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"350.00\" y=\"463.40\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">H</text><circle cx=\"600.00\" cy=\"376.79\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"600.00\" y=\"376.79\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">O</text><circle cx=\"600.00\" cy=\"550.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"600.00\" y=\"550.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">O</text><circle cx=\"650.00\" cy=\"636.60\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"650.00\" y=\"636.60\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">H</text><line x1=\"595.12\" y1=\"340.35\" x2=\"570.88\" y2=\"354.35\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"634.00\" y1=\"390.79\" x2=\"634.00\" y2=\"362.79\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"636.44\" y1=\"545.12\" x2=\"622.44\" y2=\"520.88\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"563.56\" y1=\"554.88\" x2=\"577.56\" y2=\"579.12\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/></svg>"},"h2co3":{"w":492,"svg":"<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"254.0 404.0 492.0 197.0\" width=\"100%\" preserveAspectRatio=\"xMidYMid meet\"><line x1=\"302.00\" y1=\"550.00\" x2=\"358.00\" y2=\"550.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"402.00\" y1=\"550.00\" x2=\"478.00\" y2=\"550.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"487.00\" y1=\"528.00\" x2=\"487.00\" y2=\"472.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"513.00\" y1=\"528.00\" x2=\"513.00\" y2=\"472.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"522.00\" y1=\"550.00\" x2=\"598.00\" y2=\"550.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"642.00\" y1=\"550.00\" x2=\"698.00\" y2=\"550.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><circle cx=\"280.00\" cy=\"550.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"280.00\" y=\"550.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">H</text><circle cx=\"380.00\" cy=\"550.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"380.00\" y=\"550.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">O</text><circle cx=\"500.00\" cy=\"550.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"500.00\" y=\"550.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">C</text><circle cx=\"500.00\" cy=\"450.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"500.00\" y=\"450.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">O</text><circle cx=\"620.00\" cy=\"550.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"620.00\" y=\"550.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">O</text><circle cx=\"720.00\" cy=\"550.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"720.00\" y=\"550.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">H</text><line x1=\"394.00\" y1=\"516.00\" x2=\"366.00\" y2=\"516.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"366.00\" y1=\"584.00\" x2=\"394.00\" y2=\"584.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"477.56\" y1=\"420.88\" x2=\"463.56\" y2=\"445.12\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"536.44\" y1=\"445.12\" x2=\"522.44\" y2=\"420.88\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"634.00\" y1=\"516.00\" x2=\"606.00\" y2=\"516.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"606.00\" y1=\"584.00\" x2=\"634.00\" y2=\"584.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/></svg>"},"h2so3":{"w":452,"svg":"<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"274.0 404.0 452.0 197.0\" width=\"100%\" preserveAspectRatio=\"xMidYMid meet\"><line x1=\"487.00\" y1=\"528.00\" x2=\"487.00\" y2=\"472.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"513.00\" y1=\"528.00\" x2=\"513.00\" y2=\"472.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"478.00\" y1=\"550.00\" x2=\"422.00\" y2=\"550.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"378.00\" y1=\"550.00\" x2=\"322.00\" y2=\"550.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"522.00\" y1=\"550.00\" x2=\"578.00\" y2=\"550.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"622.00\" y1=\"550.00\" x2=\"678.00\" y2=\"550.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><circle cx=\"500.00\" cy=\"550.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"500.00\" y=\"550.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">S</text><circle cx=\"500.00\" cy=\"450.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"500.00\" y=\"450.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">O</text><circle cx=\"400.00\" cy=\"550.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"400.00\" y=\"550.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">O</text><circle cx=\"300.00\" cy=\"550.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"300.00\" y=\"550.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">H</text><circle cx=\"600.00\" cy=\"550.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"600.00\" y=\"550.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">O</text><circle cx=\"700.00\" cy=\"550.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"700.00\" y=\"550.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">H</text><line x1=\"486.00\" y1=\"584.00\" x2=\"514.00\" y2=\"584.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"477.56\" y1=\"420.88\" x2=\"463.56\" y2=\"445.12\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"536.44\" y1=\"445.12\" x2=\"522.44\" y2=\"420.88\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"386.00\" y1=\"584.00\" x2=\"414.00\" y2=\"584.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"414.00\" y1=\"516.00\" x2=\"386.00\" y2=\"516.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"614.00\" y1=\"516.00\" x2=\"586.00\" y2=\"516.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"586.00\" y1=\"584.00\" x2=\"614.00\" y2=\"584.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/></svg>"},"h2so4":{"w":452,"svg":"<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"274.0 354.0 452.0 292.0\" width=\"100%\" preserveAspectRatio=\"xMidYMid meet\"><line x1=\"487.00\" y1=\"478.00\" x2=\"487.00\" y2=\"422.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"513.00\" y1=\"478.00\" x2=\"513.00\" y2=\"422.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"513.00\" y1=\"522.00\" x2=\"513.00\" y2=\"578.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"487.00\" y1=\"522.00\" x2=\"487.00\" y2=\"578.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"478.00\" y1=\"500.00\" x2=\"422.00\" y2=\"500.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"378.00\" y1=\"500.00\" x2=\"322.00\" y2=\"500.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"522.00\" y1=\"500.00\" x2=\"578.00\" y2=\"500.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"622.00\" y1=\"500.00\" x2=\"678.00\" y2=\"500.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><circle cx=\"500.00\" cy=\"500.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"500.00\" y=\"500.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">S</text><circle cx=\"500.00\" cy=\"400.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"500.00\" y=\"400.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">O</text><circle cx=\"500.00\" cy=\"600.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"500.00\" y=\"600.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">O</text><circle cx=\"400.00\" cy=\"500.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"400.00\" y=\"500.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">O</text><circle cx=\"300.00\" cy=\"500.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"300.00\" y=\"500.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">H</text><circle cx=\"600.00\" cy=\"500.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"600.00\" y=\"500.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">O</text><circle cx=\"700.00\" cy=\"500.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"700.00\" y=\"500.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">H</text><line x1=\"477.56\" y1=\"370.88\" x2=\"463.56\" y2=\"395.12\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"536.44\" y1=\"395.12\" x2=\"522.44\" y2=\"370.88\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"522.44\" y1=\"629.12\" x2=\"536.44\" y2=\"604.88\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"463.56\" y1=\"604.88\" x2=\"477.56\" y2=\"629.12\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"386.00\" y1=\"534.00\" x2=\"414.00\" y2=\"534.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"414.00\" y1=\"466.00\" x2=\"386.00\" y2=\"466.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"614.00\" y1=\"466.00\" x2=\"586.00\" y2=\"466.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"586.00\" y1=\"534.00\" x2=\"614.00\" y2=\"534.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/></svg>"},"h3po4":{"w":452,"svg":"<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"274.0 304.0 452.0 376.0\" width=\"100%\" preserveAspectRatio=\"xMidYMid meet\"><line x1=\"487.00\" y1=\"428.00\" x2=\"487.00\" y2=\"372.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"513.00\" y1=\"428.00\" x2=\"513.00\" y2=\"372.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"522.00\" y1=\"450.00\" x2=\"578.00\" y2=\"450.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"622.00\" y1=\"450.00\" x2=\"678.00\" y2=\"450.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"500.00\" y1=\"472.00\" x2=\"500.00\" y2=\"528.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"500.00\" y1=\"572.00\" x2=\"500.00\" y2=\"628.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"478.00\" y1=\"450.00\" x2=\"422.00\" y2=\"450.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"378.00\" y1=\"450.00\" x2=\"322.00\" y2=\"450.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><circle cx=\"500.00\" cy=\"450.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"500.00\" y=\"450.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">P</text><circle cx=\"500.00\" cy=\"350.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"500.00\" y=\"350.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">O</text><circle cx=\"600.00\" cy=\"450.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"600.00\" y=\"450.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">O</text><circle cx=\"700.00\" cy=\"450.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"700.00\" y=\"450.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">H</text><circle cx=\"500.00\" cy=\"550.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"500.00\" y=\"550.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">O</text><circle cx=\"500.00\" cy=\"650.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"500.00\" y=\"650.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">H</text><circle cx=\"400.00\" cy=\"450.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"400.00\" y=\"450.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">O</text><circle cx=\"300.00\" cy=\"450.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"300.00\" y=\"450.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">H</text><line x1=\"477.56\" y1=\"320.88\" x2=\"463.56\" y2=\"345.12\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"536.44\" y1=\"345.12\" x2=\"522.44\" y2=\"320.88\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"614.00\" y1=\"416.00\" x2=\"586.00\" y2=\"416.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"586.00\" y1=\"484.00\" x2=\"614.00\" y2=\"484.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"534.00\" y1=\"564.00\" x2=\"534.00\" y2=\"536.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"466.00\" y1=\"536.00\" x2=\"466.00\" y2=\"564.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"386.00\" y1=\"484.00\" x2=\"414.00\" y2=\"484.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"414.00\" y1=\"416.00\" x2=\"386.00\" y2=\"416.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/></svg>"},"hcl":{"w":197,"svg":"<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"414.0 449.0 197.0 102.0\" width=\"100%\" preserveAspectRatio=\"xMidYMid meet\"><line x1=\"462.00\" y1=\"500.00\" x2=\"538.00\" y2=\"500.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><circle cx=\"440.00\" cy=\"500.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"440.00\" y=\"500.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">H</text><circle cx=\"560.00\" cy=\"500.00\" r=\"24.00\" fill=\"#ffffff\"/><text x=\"560.00\" y=\"500.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">Cl</text><line x1=\"574.00\" y1=\"466.00\" x2=\"546.00\" y2=\"466.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"594.00\" y1=\"514.00\" x2=\"594.00\" y2=\"486.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"546.00\" y1=\"534.00\" x2=\"574.00\" y2=\"534.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/></svg>"},"hno3":{"w":340,"svg":"<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"344.0 354.0 340.0 276.0\" width=\"100%\" preserveAspectRatio=\"xMidYMid meet\"><line x1=\"530.30\" y1=\"478.00\" x2=\"530.30\" y2=\"422.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"556.30\" y1=\"478.00\" x2=\"556.30\" y2=\"422.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"524.25\" y1=\"511.00\" x2=\"475.75\" y2=\"539.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"562.35\" y1=\"511.00\" x2=\"610.85\" y2=\"539.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"437.65\" y1=\"561.00\" x2=\"389.15\" y2=\"589.00\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><circle cx=\"543.30\" cy=\"500.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"543.30\" y=\"500.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">N</text><circle cx=\"543.30\" cy=\"400.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"543.30\" y=\"400.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">O</text><circle cx=\"456.70\" cy=\"550.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"456.70\" y=\"550.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">O</text><circle cx=\"629.90\" cy=\"550.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"629.90\" y=\"550.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">O</text><circle cx=\"370.10\" cy=\"600.00\" r=\"22.00\" fill=\"#ffffff\"/><text x=\"370.10\" y=\"600.00\" font-size=\"40.00\" font-family=\"'Helvetica Neue',Helvetica,Arial,sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">H</text><line x1=\"520.86\" y1=\"370.88\" x2=\"506.86\" y2=\"395.12\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"579.75\" y1=\"395.12\" x2=\"565.75\" y2=\"370.88\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"461.57\" y1=\"586.44\" x2=\"485.82\" y2=\"572.44\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"451.82\" y1=\"513.56\" x2=\"427.57\" y2=\"527.56\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"659.03\" y1=\"527.56\" x2=\"634.78\" y2=\"513.56\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"652.35\" y1=\"579.12\" x2=\"666.35\" y2=\"554.88\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><line x1=\"600.78\" y1=\"572.44\" x2=\"625.03\" y2=\"586.44\" stroke=\"#1c1712\" stroke-width=\"5.50\" stroke-linecap=\"round\"/><text x=\"579.67\" y=\"479.00\" font-size=\"20.00\" font-family=\"'Helvetica Neue',sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">+</text><text x=\"612.00\" y=\"483.16\" font-size=\"20.00\" font-family=\"'Helvetica Neue',sans-serif\" font-weight=\"500\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1c1712\">−</text></svg>"}};
+
+/* Die prüfungsrelevanten Säuren. Formelschreibweise: Ziffern = tiefgestellt, ^… = hochgestellt, (aq) tiefgestellt. */
+const ACIDS = [
+  { key: "hcl", emoji: "🍽️", name: "Salzsäure", formel: "HCl(aq)", p: 1,
+    ionen: [["Cl^-", "Chlorid"]],
+    falschFormel: ["HCl2(aq)", "H2Cl(aq)"],
+    falschIonen: [["Cl^+", "Chlorit"], ["HCl^-", "Hydrogenchlorid"]],
+    fakten: [
+      "Dein Magen bildet jeden Tag etwa 1,5 bis 2 Liter Magensaft mit Salzsäure (pH-Wert 1 bis 2). Sie tötet Keime im Essen ab und hilft beim Verdauen von Eiweiß. Eine Schleimschicht schützt die Magenwand vor der Säure.",
+      "Salzsäure ist eine Lösung des Gases Chlorwasserstoff in Wasser. Erst im Wasser gibt das HCl-Molekül sein Proton an ein Wassermolekül ab: Es entstehen Oxonium-Ionen und Chlorid-Ionen.",
+      "Chlorid-Ionen kennst du aus dem Alltag: Kochsalz ist Natriumchlorid und besteht aus Natrium-Ionen und Chlorid-Ionen."
+    ] },
+  { key: "hno3", emoji: "💥", name: "Salpetersäure", formel: "HNO3", p: 1,
+    ionen: [["NO3^-", "Nitrat"]],
+    falschFormel: ["HNO2", "H2NO3"],
+    falschIonen: [["NO2^-", "Nitrit"], ["N^3-", "Nitrid"]],
+    fakten: [
+      "Aus Salpetersäure stellt man Nitrat-Dünger her. Pflanzen brauchen Nitrat-Ionen, um Eiweiße aufzubauen.",
+      "Salpetersäure färbt Haut gelb: Sie reagiert mit den Eiweißen der Haut. Deshalb im Labor immer Handschuhe und Schutzbrille!",
+      "Früher trennten Goldschmiede mit Salpetersäure Silber von Gold: Silber löst sich darin, Gold nicht. Daher der alte Name „Scheidewasser“."
+    ] },
+  { key: "h2so4", emoji: "🔋", name: "Schwefelsäure", formel: "H2SO4", p: 2,
+    ionen: [["HSO4^-", "Hydrogensulfat"], ["SO4^2-", "Sulfat"]],
+    falschFormel: ["H2SO3", "HSO4", "H2S"],
+    falschIonen: [["SO3^2-", "Sulfit"], ["S^2-", "Sulfid"]],
+    fakten: [
+      "Schwefelsäure ist die Chemikalie, die weltweit in der größten Menge hergestellt wird – jedes Jahr weit über 200 Millionen Tonnen.",
+      "In jeder Autobatterie (Bleiakku) steckt verdünnte Schwefelsäure.",
+      "Konzentrierte Schwefelsäure entzieht anderen Stoffen Wasser. Beim Verdünnen wird es sehr heiß, deshalb gilt: „Erst das Wasser, dann die Säure, sonst geschieht das Ungeheure!“"
+    ] },
+  { key: "h2so3", emoji: "🌧️", name: "schweflige Säure", formel: "H2SO3", p: 2,
+    ionen: [["HSO3^-", "Hydrogensulfit"], ["SO3^2-", "Sulfit"]],
+    falschFormel: ["H2SO4", "HSO3", "H2SO2"],
+    falschIonen: [["SO4^2-", "Sulfat"], ["S^2-", "Sulfid"]],
+    fakten: [
+      "Verbrennt Schwefel (z. B. in Kohle), entsteht Schwefeldioxid. Löst es sich in Regentropfen, entsteht schweflige Säure: saurer Regen, der Wälder und Sandsteinfassaden schädigt.",
+      "Reine schweflige Säure kann man nicht in eine Flasche füllen: Sie existiert nur in Wasser gelöst.",
+      "Die Salze der schwefligen Säure heißen Sulfite. „Enthält Sulfite“ steht auf vielen Weinflaschen: Sulfite verhindern, dass der Wein verdirbt."
+    ] },
+  { key: "h2co3", emoji: "🫧", name: "Kohlensäure", formel: "H2CO3", p: 2,
+    ionen: [["HCO3^-", "Hydrogencarbonat"], ["CO3^2-", "Carbonat"]],
+    falschFormel: ["H2CO2", "HCO3", "H3CO3"],
+    falschIonen: [["C^4-", "Carbid"], ["CH3COO^-", "Acetat"]],
+    fakten: [
+      "Im Sprudel ist Kohlenstoffdioxid unter Druck gelöst, ein kleiner Teil reagiert mit Wasser zu Kohlensäure. Öffnest du die Flasche, entweicht das Gas: Es sprudelt.",
+      "Die Meere nehmen Kohlenstoffdioxid aus der Luft auf, dabei entsteht Kohlensäure. Korallen und Muscheln fällt es dann schwerer, ihre Kalkschalen aus Calciumcarbonat aufzubauen (Ozeanversauerung).",
+      "Kalk ist Calciumcarbonat. Gibst du eine saure Lösung darauf, schäumt es: Die Carbonat-Ionen reagieren mit Oxonium-Ionen zu Kohlenstoffdioxid und Wasser."
+    ] },
+  { key: "h3po4", emoji: "🥤", name: "Phosphorsäure", formel: "H3PO4", p: 3,
+    ionen: [["H2PO4^-", "Dihydrogenphosphat"], ["HPO4^2-", "Hydrogenphosphat"], ["PO4^3-", "Phosphat"]],
+    falschFormel: ["H3PO3", "H2PO4", "HPO4"],
+    falschIonen: [["P^3-", "Phosphid"], ["PO3^3-", "Phosphit"]],
+    fakten: [
+      "Phosphorsäure (Zusatzstoff E 338) gibt Cola den herb-sauren Geschmack. Cola hat einen pH-Wert von etwa 2,5.",
+      "Rostumwandler enthalten Phosphorsäure: Sie verwandelt Rost in eine feste Schicht aus Eisenphosphat, auf der man lackieren kann.",
+      "Deine Knochen und Zähne bestehen zu einem großen Teil aus Calciumphosphat. Phosphate sind außerdem wichtige Pflanzendünger."
+    ] },
+  { key: "alkansaeure_2", emoji: "🍶", name: "Essigsäure", formel: "CH3COOH", p: 1,
+    ionen: [["CH3COO^-", "Acetat"]],
+    falschFormel: ["CH3OH", "C2H5OH", "HCOOH"],
+    falschIonen: [["CH3COO^2-", "Diacetat"], ["CH3^-", "Methanid"]],
+    fakten: [
+      "Von den vier Wasserstoffatomen der Essigsäure kann nur eines als Proton abgegeben werden: das H der COOH-Gruppe. Die drei H-Atome der CH₃-Gruppe bleiben fest gebunden.",
+      "Speiseessig enthält etwa 5 % Essigsäure, Essigessenz etwa 25 %. Mit Essig kannst du Kalkflecken entfernen.",
+      "Essig entsteht, wenn Essigsäurebakterien Alkohol mit Sauerstoff umsetzen. Darum wird ein offener Wein nach einiger Zeit sauer."
+    ] },
+];
+
+/* ---------- Hilfen ---------- */
+const SUB = s => `<sub>${s}</sub>`;
+function fm(s) {
+  // HSO4^2- -> HSO<sub>4</sub><sup>2−</sup>; (aq) tiefgestellt
+  return s.replace(/\^([0-9]*[+\-])/g, (m, c) => `<sup>${c.replace("-", "−")}</sup>`)
+          .replace(/([A-Za-z)])(\d+)/g, (m, a, d) => a + SUB(d))
+          .replace(/\((aq|l|s|g)\)/g, (m, a) => SUB(`(${a})`));
+}
+// Unicode-Fassung (für Auswahllisten, die kein HTML darstellen)
+function fmU(s) {
+  const sub = "₀₁₂₃₄₅₆₇₈₉", sup = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "+": "⁺", "-": "⁻" };
+  return s.replace(/\^([0-9]*[+\-])/g, (m, c) => [...c].map(x => sup[x]).join(""))
+          .replace(/([A-Za-z)])(\d+)/g, (m, a, d) => a + [...d].map(x => sub[x]).join(""));
+}
+const liste = arr => arr.length > 1 ? arr.slice(0, -1).join(", ") + " und " + arr[arr.length - 1] : arr[0];
+const ionFormel = a => liste(a.ionen.map(i => fm(i[0])));
+const ionName = a => liste(a.ionen.map(i => i[1]));
+const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function lewisHtml(key, scale) {
+  const L = LEWIS[key]; if (!L) return "";
+  return `<div class="lewis" style="width:${Math.round(L.w * scale)}px;max-width:100%">${L.svg}</div>`;
+}
+// 3 Distraktoren: zuerst typische Fehler (max. 2), dann Werte anderer Säuren; alles eindeutig.
+function distractors(correct, nahe, andere) {
+  const out = [];
+  for (const x of shuffle(nahe).slice(0, 2)) if (x !== correct && !out.includes(x)) out.push(x);
+  for (const x of shuffle(andere)) { if (out.length >= 3) break; if (x !== correct && !out.includes(x)) out.push(x); }
+  return out.slice(0, 3);
+}
+
+/* ---------- Zustand ---------- */
+const S = { sel: new Set(ACIDS.map(a => a.key)), mode: "quiz", richtig: 0, gesamt: 0, serie: 0, last: null, q: null, faktIdx: {} };
+const aktiv = () => ACIDS.filter(a => S.sel.has(a.key));
+
+function renderChips() {
+  document.getElementById("chips").innerHTML = ACIDS.map(a =>
+    `<button class="chip ${S.sel.has(a.key) ? "on" : ""}" data-key="${a.key}">${a.emoji} ${a.name} <span class="f">${fm(a.formel)}</span></button>`).join("");
+}
+
+/* ---------- Quiz ---------- */
+const TYPEN = [
+  ["name2formel", 2], ["formel2name", 2], ["protonen", 2], ["rest_formel", 2],
+  ["rest_name", 2], ["rest2saeure", 1], ["lewis_waehlen", 2], ["lewis2name", 1],
+];
+function neueFrage() {
+  const pool = aktiv();
+  if (!pool.length) return null;
+  let a = pick(pool);
+  if (pool.length > 1) while (a.key === S.last) a = pick(pool);
+  S.last = a.key;
+  const bag = []; TYPEN.forEach(([t, w]) => { for (let i = 0; i < w; i++) bag.push(t); });
+  const typ = pick(bag);
+  const andere = ACIDS.filter(x => x.key !== a.key);
+  const q = { a, typ, img: false };
+  if (typ === "name2formel") {
+    q.titel = "Chemische Formel";
+    q.text = `Wie lautet die chemische Formel von ${a.emoji} <b>${a.name}</b>?`;
+    q.ok = fm(a.formel);
+    q.opts = distractors(a.formel, a.falschFormel, andere.map(x => x.formel)).map(fm);
+  } else if (typ === "formel2name") {
+    q.titel = "Name der Säure";
+    q.text = `Welche Säure hat die Formel <span class="fm">${fm(a.formel)}</span>?`;
+    q.ok = a.name;
+    q.opts = distractors(a.name, [], andere.map(x => x.name));
+  } else if (typ === "protonen") {
+    q.titel = "Abspaltbare Protonen";
+    q.text = `Wie viele Protonen kann ${a.emoji} <b>${a.name}</b> <span class="fm">${fm(a.formel)}</span> abgeben?`;
+    q.ok = String(a.p); q.opts = ["1", "2", "3", "4"].filter(x => x !== q.ok); q.fest = true;
+  } else if (typ === "rest_formel") {
+    q.titel = a.ionen.length > 1 ? "Formeln der Säurerest-Ionen" : "Formel des Säurerest-Ions";
+    q.text = `Welche${a.ionen.length > 1 ? "" : "s"} Säurerest-Ion${a.ionen.length > 1 ? "en entstehen" : " entsteht"} aus ${a.emoji} <b>${a.name}</b>?`;
+    q.ok = ionFormel(a);
+    const nahe = a.ionen.length > 1 ? [falscheLadung(a), liste(a.falschIonen.map(i => fm(i[0])))] : a.falschIonen.map(i => fm(i[0]));
+    q.opts = distractors(q.ok, nahe, andere.map(ionFormel));
+  } else if (typ === "rest_name") {
+    q.titel = a.ionen.length > 1 ? "Namen der Säurerest-Ionen" : "Name des Säurerest-Ions";
+    q.text = `Wie heiß${a.ionen.length > 1 ? "en die Säurerest-Ionen" : "t das Säurerest-Ion"} von ${a.emoji} <b>${a.name}</b>?`;
+    q.ok = ionName(a);
+    const nahe = a.ionen.length > 1 ? [liste(a.falschIonen.map(i => i[1]))] : a.falschIonen.map(i => i[1]);
+    q.opts = distractors(q.ok, nahe, andere.map(ionName));
+  } else if (typ === "rest2saeure") {
+    const ion = pick(a.ionen);
+    q.titel = "Säurerest-Ion → Säure";
+    q.text = `Aus welcher Säure entsteht das Säurerest-Ion <b>${ion[1]}</b> <span class="fm">${fm(ion[0])}</span>?`;
+    q.ok = a.name;
+    q.opts = distractors(a.name, [], andere.map(x => x.name));
+  } else if (typ === "lewis_waehlen") {
+    q.titel = "Lewis-Formel zuordnen";
+    q.text = `Welche Abbildung zeigt die Lewis-Formel von ${a.emoji} <b>${a.name}</b>?`;
+    q.img = true; q.ok = a.key;
+    q.opts = shuffle(andere).slice(0, 3).map(x => x.key);
+  } else {
+    q.titel = "Lewis-Formel erkennen";
+    q.text = "Welche Säure zeigt diese Lewis-Formel?";
+    q.given = lewisHtml(a.key, 0.75);
+    q.ok = a.name;
+    q.opts = distractors(a.name, [], andere.map(x => x.name));
+  }
+  q.choices = q.fest ? ["1", "2", "3", "4"] : shuffle([q.ok, ...q.opts]);
+  return q;
+}
+function falscheLadung(a) { // alle Ionen nur einfach negativ
+  return liste(a.ionen.map(i => fm(i[0].replace(/\^\d*-/, "^-"))));
+}
+
+function renderQuiz() {
+  const m = document.getElementById("main");
+  if (!S.q) S.q = neueFrage();
+  const q = S.q;
+  if (!q) { m.innerHTML = `<section class="panel"><p>Wähle oben mindestens eine Säure aus.</p></section>`; return; }
+  const btn = (c, i) => q.img
+    ? `<button class="opt img" data-i="${i}"><span class="lbl">${"ABCD"[i]}</span>${lewisHtml(c, 0.5)}</button>`
+    : `<button class="opt" data-i="${i}">${c}</button>`;
+  m.innerHTML = `<section class="panel">
+    <div class="score"><span>Richtig: <b>${S.richtig}</b> / ${S.gesamt}</span><span>Serie: <b>${S.serie}</b>${S.serie >= 3 ? " 🔥" : ""}</span></div>
+    <div class="q-type">${q.titel}</div>
+    <div class="q-text">${q.text}</div>
+    ${q.given ? `<div class="given-img">${q.given}</div>` : ""}
+    <div class="opts">${q.choices.map(btn).join("")}</div>
+    <div id="fb"></div>
+  </section>`;
+}
+function antworten(i) {
+  const q = S.q; if (q.done) return; q.done = true;
+  const ok = q.choices[i] === q.ok;
+  S.gesamt++; if (ok) { S.richtig++; S.serie++; } else S.serie = 0;
+  document.querySelectorAll(".opt").forEach((b, k) => {
+    b.disabled = true;
+    if (q.choices[k] === q.ok) b.classList.add("ok"); else if (k === i) b.classList.add("bad");
+  });
+  const a = q.a;
+  const n = S.faktIdx[a.key] = ((S.faktIdx[a.key] ?? -1) + 1) % a.fakten.length;
+  document.getElementById("fb").innerHTML = `
+    <div class="feedback ${ok ? "ok" : "bad"}">${ok ? pick(["✅ Richtig!", "✅ Genau!", "✅ Stark!"]) : "❌ Leider nicht – die richtige Antwort ist markiert."}</div>
+    <dl class="steck">
+      <dt>Säure</dt><dd>${a.emoji} <b>${a.name}</b> · ${fm(a.formel)}</dd>
+      <dt>abspaltbare Protonen</dt><dd>${a.p}</dd>
+      <dt>Säurerest-Ion${a.ionen.length > 1 ? "en" : ""}</dt><dd>${a.ionen.map(x => `${fm(x[0])} ${x[1]}`).join(" · ")}</dd>
+    </dl>
+    <div class="context-box"><div class="context-title">${a.emoji} Wusstest du schon?</div><div class="context-text">${a.fakten[n]}</div></div>
+    <button class="next" data-act="weiter">Nächste Frage →</button>`;
+  document.querySelector(".score").innerHTML = `<span>Richtig: <b>${S.richtig}</b> / ${S.gesamt}</span><span>Serie: <b>${S.serie}</b>${S.serie >= 3 ? " 🔥" : ""}</span>`;
+}
+
+/* ---------- Tabelle wie in Teil B ---------- */
+const SPALTEN = ["Name der Säure", "chemische Formel", "abspaltbare Protonen", "Formel des Säurerest-Ions / der Säurerest-Ionen", "Name des Säurerest-Ions / der Säurerest-Ionen"];
+const wert = (a, c) => [a.name, fm(a.formel), String(a.p), ionFormel(a), ionName(a)][c];
+const wertU = (a, c) => [a.name, fmU(a.formel), String(a.p), liste(a.ionen.map(i => fmU(i[0]))), ionName(a)][c];
+const wertZelle = (a, c) => c === 3 ? a.ionen.map(i => fm(i[0])).join("<br>") : c === 4 ? a.ionen.map(i => i[1]).join("<br>") : wert(a, c);
+let TAB = null;
+function neueTabelle() {
+  TAB = aktiv().map(a => {
+    // 2 oder 3 graue Felder je Zeile; Name oder Formel bleibt immer sichtbar (wie in der Prüfung)
+    const keep = Math.random() < 0.5 ? 0 : 1;
+    const frei = shuffle([0, 1, 2, 3, 4].filter(c => c !== keep));
+    return { a, grau: new Set(frei.slice(0, Math.random() < 0.5 ? 2 : 3)) };
+  });
+}
+function renderTabelle() {
+  const m = document.getElementById("main");
+  if (!TAB || TAB.length !== aktiv().length || TAB.some(r => !S.sel.has(r.a.key))) neueTabelle();
+  if (!TAB.length) { m.innerHTML = `<section class="panel"><p>Wähle oben mindestens eine Säure aus.</p></section>`; return; }
+  const optionen = c => c === 2 ? ["1", "2", "3"] : shuffle(ACIDS.map(a => wertU(a, c)));
+  const zelle = (r, c) => r.grau.has(c)
+    ? `<td data-c="${c}"><select data-c="${c}"><option value="">– wählen –</option>${optionen(c).map(v => `<option value="${encodeURIComponent(v)}">${v}</option>`).join("")}</select></td>`
+    : `<td>${c === 0 ? `<span class="emo">${r.a.emoji}</span>` : ""}${wertZelle(r.a, c)}</td>`;
+  m.innerHTML = `<section class="panel">
+    <h2>Vervollständige die Tabelle zu wichtigen Säuren.</h2>
+    <p class="hint">Wie in Teil B der Prüfung: Wähle für jedes graue Feld die passende Angabe. In der Prüfung schreibst du sie selbst auf.</p>
+    <div class="tbl-wrap"><table>
+      <thead><tr>${SPALTEN.map(s => `<th>${s}</th>`).join("")}</tr></thead>
+      <tbody>${TAB.map((r, ri) => `<tr data-r="${ri}">${[0, 1, 2, 3, 4].map(c => zelle(r, c)).join("")}</tr>`).join("")}</tbody>
+    </table></div>
+    <div class="tbl-tools">
+      <button class="next" data-act="pruefen">Prüfen</button>
+      <button class="mini" data-act="neu">🔀 neue Lücken</button>
+      <span class="tbl-res" id="tblres"></span>
+    </div>
+  </section>`;
+}
+function pruefeTabelle() {
+  let ok = 0, n = 0;
+  document.querySelectorAll("tbody tr").forEach(tr => {
+    const r = TAB[+tr.dataset.r];
+    tr.querySelectorAll("td[data-c]").forEach(td => {
+      const c = +td.dataset.c, sel = td.querySelector("select");
+      const soll = wertU(r.a, c);
+      n++;
+      td.classList.remove("ok", "bad");
+      const alt = td.querySelector(".sol"); if (alt) alt.remove();
+      if (decodeURIComponent(sel.value) === soll) { ok++; td.classList.add("ok"); }
+      else { td.classList.add("bad"); td.insertAdjacentHTML("beforeend", `<span class="sol">✓ ${wert(r.a, c)}</span>`); }
+    });
+  });
+  document.getElementById("tblres").textContent = `${ok} von ${n} Feldern richtig${ok === n ? " 🎉" : ""}`;
+}
+
+/* ---------- Steckbriefe ---------- */
+function renderSteckbriefe() {
+  const pool = aktiv();
+  document.getElementById("main").innerHTML = pool.length ? `<section class="cards">${pool.map(a => `
+    <article class="card">
+      <h3>${a.emoji} ${a.name}</h3>
+      <div class="formel">${fm(a.formel)}</div>
+      <div class="lewis">${lewisHtml(a.key, 0.55)}</div>
+      <div><b>abspaltbare Protonen:</b> ${a.p}</div>
+      <div><b>Säurerest-Ion${a.ionen.length > 1 ? "en" : ""}:</b></div>
+      <ul>${a.ionen.map(x => `<li>${fm(x[0])} · ${x[1]}</li>`).join("")}</ul>
+      <div class="context-box"><div class="context-title">${a.emoji} Wusstest du schon?</div><div class="context-text">${a.fakten[0]}</div></div>
+    </article>`).join("")}</section>`
+    : `<section class="panel"><p>Wähle oben mindestens eine Säure aus.</p></section>`;
+}
+
+/* ---------- Steuerung ---------- */
+function render() {
+  renderChips();
+  document.querySelectorAll(".tab").forEach(t => t.classList.toggle("on", t.dataset.mode === S.mode));
+  if (S.mode === "quiz") renderQuiz();
+  else if (S.mode === "tabelle") renderTabelle();
+  else renderSteckbriefe();
+}
+document.addEventListener("click", e => {
+  const chip = e.target.closest(".chip");
+  if (chip) { const k = chip.dataset.key; S.sel.has(k) ? S.sel.delete(k) : S.sel.add(k); S.q = null; TAB = null; render(); return; }
+  const tab = e.target.closest(".tab");
+  if (tab) { S.mode = tab.dataset.mode; render(); return; }
+  const opt = e.target.closest(".opt");
+  if (opt && !opt.disabled) { antworten(+opt.dataset.i); return; }
+  const act = e.target.closest("[data-act]");
+  if (!act) return;
+  const x = act.dataset.act;
+  if (x === "alle") { ACIDS.forEach(a => S.sel.add(a.key)); S.q = null; TAB = null; render(); }
+  else if (x === "keine") { S.sel.clear(); S.q = null; TAB = null; render(); }
+  else if (x === "weiter") { S.q = neueFrage(); renderQuiz(); window.scrollTo({ top: document.getElementById("tabs").offsetTop - 10, behavior: "smooth" }); }
+  else if (x === "pruefen") pruefeTabelle();
+  else if (x === "neu") { neueTabelle(); renderTabelle(); }
+});
+render();
+</script>
+</body>
+</html>
