@@ -160,6 +160,7 @@
   .ion { margin-top: 0.25rem; }
   .card .context-box { margin-top: 0.2rem; }
   .card .context-box p + p { margin-top: 0.45rem; }
+  .herkunft { margin-top: 0.6rem; padding-top: 0.5rem; border-top: 1px dashed rgba(0,200,83,0.4); font-size: 0.92rem; }
   .sb-tools { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
   footer { text-align: center; color: var(--dim); font-size: 0.82rem; margin-top: 2rem; }
   footer a { color: var(--accent3); }
@@ -207,6 +208,7 @@ const LEWIS = {"hcl":{"w":197,"svg":"<svg xmlns=\"http://www.w3.org/2000/svg\" v
 /* Die prüfungsrelevanten Säuren. Formelschreibweise: Ziffern = tiefgestellt, ^… = hochgestellt, (aq) tiefgestellt. */
 const ACIDS = [
   { key: "hcl", emoji: "🍽️", name: "Salzsäure", formel: "HCl(aq)", p: 1,
+    herkunft: "Früher stellte man Salzsäure aus Kochsalz her, daher der Name „Säure aus dem Salz“. „Chlorid“ kommt vom griechischen chlōrós (gelbgrün), der Farbe des Chlorgases.",
     summe: "HCl", zustand: "g", start: "g",
     zustandText: "Der Reinstoff Chlorwasserstoff ist bei 25 °C ein Gas. Salzsäure ist seine Lösung in Wasser: HCl(aq).",
     ionen: [["Cl^-", "Chlorid"]],
@@ -218,6 +220,7 @@ const ACIDS = [
       "Chlorid-Ionen kennst du aus dem Alltag: Kochsalz ist Natriumchlorid und besteht aus Natrium-Ionen und Chlorid-Ionen."
     ] },
   { key: "hno3", emoji: "💥", name: "Salpetersäure", formel: "HNO3", p: 1,
+    herkunft: "Salpetersäure wurde aus Salpeter gewonnen. „Salpeter“ kommt vom lateinischen sal petrae, „Salz des Steins“, weil es sich als weißer Belag an Mauern bildet. „Nitrat“ kommt von nitrum, dem alten Namen für Salpeter.",
     summe: "HNO3", zustand: "l", start: "l",
     zustandText: "Reine Salpetersäure ist eine farblose Flüssigkeit, die an der Luft raucht.",
     ionen: [["NO3^-", "Nitrat"]],
@@ -229,6 +232,7 @@ const ACIDS = [
       "Früher trennten Goldschmiede mit Salpetersäure Silber von Gold: Silber löst sich darin, Gold nicht. Daher der alte Name „Scheidewasser“."
     ] },
   { key: "h2so4", emoji: "🔋", name: "Schwefelsäure", formel: "H2SO4", p: 2,
+    herkunft: "„Sulfat“ kommt vom lateinischen sulfur (Schwefel). Der alte Name „Vitriolöl“ erinnert daran, dass man die ölige Säure früher aus glasig glänzenden Salzen herstellte, den Vitriolen (lateinisch vitrum = Glas).",
     summe: "H2SO4", zustand: "l", start: "l",
     zustandText: "Reine Schwefelsäure ist eine ölige, farblose Flüssigkeit.",
     ionen: [["HSO4^-", "Hydrogensulfat"], ["SO4^2-", "Sulfat"]],
@@ -240,6 +244,7 @@ const ACIDS = [
       "Konzentrierte Schwefelsäure entzieht anderen Stoffen Wasser. Beim Verdünnen wird es sehr heiß, deshalb gilt: „Erst das Wasser, dann die Säure, sonst geschieht das Ungeheure!“"
     ] },
   { key: "h2so3", emoji: "🌧️", name: "schweflige Säure", formel: "H2SO3", p: 2,
+    herkunft: "Die Endung „-ig“ zeigt: Schweflige Säure enthält ein Sauerstoffatom weniger als Schwefelsäure. Genauso bei den Salzen: Sulfit (-it) hat weniger Sauerstoff als Sulfat (-at).",
     summe: "H2SO3", zustand: "„g“", start: "aq",
     zustandText: "Kommt als Reinstoff nicht vor, deshalb die Anführungszeichen: Schweflige Säure ist nur in Wasser gelöst beständig, H2SO3(aq). Als einzelne Moleküle wurde sie nur in der Gasphase nachgewiesen.",
     ionen: [["HSO3^-", "Hydrogensulfit"], ["SO3^2-", "Sulfit"]],
@@ -251,6 +256,7 @@ const ACIDS = [
       "Die Salze der schwefligen Säure heißen Sulfite. „Enthält Sulfite“ steht auf vielen Weinflaschen: Sulfite verhindern, dass der Wein verdirbt."
     ] },
   { key: "h2co3", emoji: "🫧", name: "Kohlensäure", formel: "H2CO3", p: 2,
+    herkunft: "Kohlensäure entsteht aus Kohlenstoffdioxid, dem Gas, das beim Verbrennen von Kohle frei wird. „Carbonat“ kommt vom lateinischen carbo, Kohle.",
     summe: "H2CO3", zustand: "„s“", start: "aq",
     zustandText: "Kommt als Reinstoff bei 25 °C nicht vor, deshalb die Anführungszeichen: Kohlensäure zerfällt leicht in Kohlenstoffdioxid und Wasser. Nur bei sehr tiefen Temperaturen ließ sie sich als Feststoff herstellen. In Wasser: H2CO3(aq).",
     ionen: [["HCO3^-", "Hydrogencarbonat"], ["CO3^2-", "Carbonat"]],
@@ -262,6 +268,7 @@ const ACIDS = [
       "Kalk ist Calciumcarbonat. Gibst du eine saure Lösung darauf, schäumt es: Die Carbonat-Ionen reagieren mit Oxonium-Ionen zu Kohlenstoffdioxid und Wasser."
     ] },
   { key: "h3po4", emoji: "🥤", name: "Phosphorsäure", formel: "H3PO4", p: 3,
+    herkunft: "„Phosphor“ kommt vom griechischen phōsphóros, „Lichtträger“: Weißer Phosphor leuchtet im Dunkeln.",
     summe: "H3PO4", zustand: "s", start: "s",
     zustandText: "Reine Phosphorsäure bildet farblose Kristalle (Schmelztemperatur 42 °C). Im Handel gibt es sie meist als 85-prozentige Lösung.",
     ionen: [["H2PO4^-", "Dihydrogenphosphat"], ["HPO4^2-", "Hydrogenphosphat"], ["PO4^3-", "Phosphat"]],
@@ -273,6 +280,7 @@ const ACIDS = [
       "Deine Knochen und Zähne bestehen zu einem großen Teil aus Calciumphosphat. Phosphate sind außerdem wichtige Pflanzendünger."
     ] },
   { key: "alkansaeure_2", emoji: "🍶", name: "Essigsäure", formel: "CH3COOH", p: 1,
+    herkunft: "„Essig“ und „Acetat“ gehen beide auf das lateinische acetum (Essig) zurück, verwandt mit acidus, „sauer“. Davon stammt auch das englische Wort für Säure: acid.",
     summe: "CH3COOH", zustand: "l", start: "l",
     zustandText: "Reine Essigsäure ist flüssig. Unter 17 °C erstarrt sie zu eisartigen Kristallen, daher der Name Eisessig.",
     ionen: [["CH3COO^-", "Acetat"]],
@@ -315,6 +323,8 @@ function distractors(correct, nahe, andere) {
   for (const x of shuffle(andere)) { if (out.length >= 3) break; if (x !== correct && !out.includes(x)) out.push(x); }
   return out.slice(0, 3);
 }
+
+const herkunftHtml = a => `<p class="herkunft">📜 <b>Wortherkunft:</b> ${a.herkunft}</p>`;
 
 /* ---------- Zustand ---------- */
 const S = { sel: new Set(ACIDS.map(a => a.key)), mode: "quiz", richtig: 0, gesamt: 0, serie: 0, last: null, q: null, faktIdx: {} };
@@ -425,7 +435,7 @@ function antworten(i) {
       <dt>abspaltbare Protonen</dt><dd>${a.p}</dd>
       <dt>Säurerest-Ion${a.ionen.length > 1 ? "en" : ""}</dt><dd>${a.ionen.map(x => `${fm(x[0])} ${x[1]}`).join(" · ")}</dd>
     </dl>
-    <div class="context-box"><div class="context-title">${a.emoji} Wusstest du schon?</div><div class="context-text">${a.fakten[n]}</div></div>
+    <div class="context-box"><div class="context-title">${a.emoji} Wusstest du schon?</div><div class="context-text">${a.fakten[n]}${herkunftHtml(a)}</div></div>
     <button class="next" data-act="weiter">Nächste Frage →</button>`;
   document.querySelector(".score").innerHTML = `<span>Richtig: <b>${S.richtig}</b> / ${S.gesamt}</span><span>Serie: <b>${S.serie}</b>${S.serie >= 3 ? " 🔥" : ""}</span>`;
 }
@@ -516,7 +526,7 @@ function renderSteckbriefe() {
       ${sb("🔤 Summenformel", `<div class="formel">${fm(a.summe)}</div>${a.key === "alkansaeure_2" ? `<div class="zu-text">zusammengefasst: C${SUB(2)}H${SUB(4)}O${SUB(2)} · die COOH-Gruppe gibt das Proton ab</div>` : ""}`)}
       ${sb("🌡️ Aggregatzustand", `<div class="zu">${zustandHtml(a)}</div><div class="zu-text">${fm(a.zustandText)}</div>`)}
       ${sb("🔀 Dissoziationsstufen", `<div class="stufe-box" id="stufe-${a.key}">${stufeHtml(a, 1)}</div>`)}
-      ${sb(`${a.emoji} Wusstest du schon?`, `<div class="context-box"><div class="context-text">${a.fakten.map(f => `<p>${f}</p>`).join("")}</div></div>`)}
+      ${sb(`${a.emoji} Wusstest du schon?`, `<div class="context-box"><div class="context-text">${a.fakten.map(f => `<p>${f}</p>`).join("")}${herkunftHtml(a)}</div></div>`)}
     </article>`).join("")}</section>`
     : `<section class="panel"><p>Wähle oben mindestens eine Säure aus.</p></section>`;
 }
