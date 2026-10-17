@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Haar, Wolle und Seide – Vertiefung und Hilfen</title>
+<!-- Q1 10 Strukturebenen I · Chemie LK · Web-Fassung des Blatts „Vertiefung und Hilfen“ (Quelle der Druckfassung: Vorlage.typ in iCloud). Ohne Lösungen (Repo öffentlich). -->
+<style>
+:root{
+  --blau:#2a7ab8; --tblau:#156e9d; --blau-hell:#e6f0f8; --orange:#d9822b; --orange-hell:#fdf1e4;
+  --violett:#7a5aa8; --gruen:#3e9a63; --grau:#6f7a85; --linie:#d5dde5; --bg:#f6f8fa; --karte:#fff; --text:#222;
+  --sans:-apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.5}
+a{color:var(--tblau)}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header{background:linear-gradient(135deg,#156e9d 0%,#2a7ab8 60%,#3d8fc9 100%);color:#fff;padding:28px 0 22px}
+header .kurs{font-size:13px;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+header h1{margin:4px 0 6px;font-size:clamp(24px,4.5vw,34px);font-weight:600;line-height:1.2}
+header p{margin:0;opacity:.92;max-width:680px}
+nav{position:sticky;top:0;z-index:10;background:rgba(246,248,250,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--linie)}
+nav .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:8px;padding-bottom:8px}
+nav a{flex:none;text-decoration:none;color:var(--tblau);border:1px solid var(--linie);background:#fff;border-radius:16px;padding:3px 12px;font-size:14px;font-weight:600}
+nav a.v{color:var(--orange)}
+h2{font-size:20px;color:var(--tblau);margin:30px 0 4px}
+.hinweis{color:var(--grau);font-size:14px;margin:0 0 14px}
+/* Hilfekarten */
+.hilfen{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.hk{background:var(--karte);border:1.5px dashed #b9c4cf;border-radius:10px;padding:14px 16px}
+.hk h3{margin:0 0 2px;font-size:16px;color:var(--blau)}
+.hk .zu{font-size:13px;color:var(--grau);margin-bottom:8px}
+.stufe{display:none;margin:8px 0 0;padding:8px 10px;background:var(--blau-hell);border-radius:6px;font-size:15px}
+.stufe.offen{display:block;animation:auf .25s ease}
+@keyframes auf{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.hk button{margin-top:10px;border:1px solid var(--blau);background:#fff;color:var(--blau);border-radius:6px;padding:4px 12px;font-size:14px}
+.hk button:hover{background:var(--blau-hell)}
+.hk button[disabled]{opacity:.4;cursor:default}
+.hk .zaehler{font-size:12px;color:var(--grau);margin-left:8px}
+/* Vertiefungen */
+.v-karte{background:var(--karte);border:1px solid var(--linie);border-radius:12px;margin:14px 0;overflow:hidden}
+.v-kopf{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--linie);background:#fbfcfd}
+.v-nr{flex:none;width:42px;height:42px;border-radius:50%;background:var(--orange);color:#fff;font-weight:700;display:grid;place-items:center}
+.v-kopf h3{margin:0;font-size:18px}
+.sterne{color:var(--orange);font-size:14px;font-weight:700}
+.v-inhalt{padding:14px 16px 16px}
+.zwei{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+@media (max-width:720px){.zwei{grid-template-columns:1fr}}
+.aufgabe{display:grid;grid-template-columns:28px 1fr auto;gap:6px;background:var(--orange-hell);border-radius:8px;padding:8px 10px;margin-top:10px}
+.aufgabe .b{font-weight:700;color:var(--orange)}
+.aufgabe .ab{font-size:12px;color:var(--grau);white-space:nowrap;align-self:start;margin-top:2px}
+figure{margin:0}
+figcaption{font-size:13px;color:var(--grau);margin-top:4px}
+svg{max-width:100%;height:auto;display:block}
+.regler{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 2px;font-size:14px}
+.regler input[type=range]{flex:1;min-width:140px;accent-color:var(--orange)}
+.knopf{border:1px solid var(--linie);background:#fff;border-radius:6px;padding:3px 10px;font-size:14px}
+.ausgabe{font-variant-numeric:tabular-nums;font-size:14px;background:#f2f5f8;border-radius:6px;padding:6px 10px;margin-top:6px}
+.legende{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:#444;margin-top:6px}
+.legende i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.balken{display:grid;grid-template-columns:150px 1fr 76px;gap:6px 10px;align-items:center;font-size:14px}
+.balken .spur{background:#eef2f6;border-radius:4px;height:18px;position:relative;overflow:hidden}
+.balken .fuell{height:100%;border-radius:4px;width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.balken .wert{text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:520px){.balken{grid-template-columns:100px 1fr 64px;font-size:13px}}
+.kachel-reihe{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:12px}
+.kachel{background:#f2f5f8;border-radius:8px;padding:10px 12px}
+.kachel .zahl{font-size:22px;font-weight:700;color:var(--tblau);font-variant-numeric:tabular-nums}
+.kachel .was{font-size:13px;color:#555}
+.zeitstrahl{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.zeitstrahl span{font-size:13px;background:#fff;border:1px solid var(--linie);border-radius:14px;padding:2px 10px}
+.zeitstrahl b{color:var(--orange)}
+.cta{display:inline-block;background:var(--tblau);color:#fff;text-decoration:none;font-weight:600;border-radius:8px;padding:8px 16px;margin:8px 8px 0 0}
+.cta:hover{background:var(--blau)}
+.code{font-family:Menlo,Consolas,monospace;background:#f2f5f8;border:1px solid var(--linie);border-radius:6px;padding:2px 8px;font-size:14px}
+.klein{font-size:13px;color:var(--grau)}
+footer{margin:36px 0 0;border-top:1px solid var(--linie);padding:16px 0 28px;font-size:12.5px;color:var(--grau)}
+sub,sup{font-size:.72em}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="kurs">Chemie LK · Q1 · 02 Proteine · Sitzung 10</div>
+    <h1>Vertiefung und Hilfen: Haar, Wolle und Seide</h1>
+    <p>Hilfen H1–H4 nur bei Bedarf und stufenweise aufdecken. Vertiefungen V1–V4 für Schnelle, in beliebiger Reihenfolge.</p>
+  </div>
+</header>
+<nav><div class="wrap">
+  <a href="#hilfen">Hilfen H1–H4</a><a class="v" href="#v1">V1 Doppelwendel</a><a class="v" href="#v2">V2 Glycin</a><a class="v" href="#v3">V3 Spinnenseide</a><a class="v" href="#v4">V4 AlphaFold</a>
+</div></nav>
+
+<main class="wrap">
+
+<!-- ===================== HILFEN ===================== -->
+<h2 id="hilfen">Hilfekarten</h2>
+<p class="hinweis">Erst selbst probieren. Jede Karte deckt ihre Hilfe in Stufen auf, so wenig wie möglich, so viel wie nötig.</p>
+<div class="hilfen">
+  <div class="hk">
+    <h3>Hilfe H1</h3><div class="zu">zu Aufgabe 2b · Wasserstoffbrücke und Planarität</div>
+    <div class="stufe">Elektronegativitäten: O 3,5 · N 3,0 · C 2,5 · H 2,1. Welche Bindungen sind polar, wo sitzen δ+ und δ−?</div>
+    <div class="stufe">Wie viele freie Elektronenpaare hat das O-Atom? Vergleichen Sie mit Wasser (05).</div>
+    <div class="stufe">Zur Planarität: Was passiert mit Paulings Streifen, wenn die Felder zwischen den Faltlinien nicht eben sind?</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe H2</h3><div class="zu">zu Aufgabe 3a · Ganghöhe</div>
+    <div class="stufe">Ganghöhe = Reste pro Windung · Anstieg pro Rest.</div>
+    <div class="stufe">Vergleichen Sie danach: Wie viel länger ist dieselbe Kette pro Rest im β-Faltblatt als in der α-Helix?</div>
+    <div class="stufe">Welche Faser müsste sich demnach dehnen lassen?</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe H3</h3><div class="zu">zu Aufgabe 3b · Wolle in Wasserdampf</div>
+    <div class="stufe">Wassermoleküle können selbst Wasserstoffbrücken zu C=O und N–H bilden.</div>
+    <div class="stufe">Was geschieht mit den Brücken innerhalb der Helix, wenn Wassermoleküle sie „ersetzen“ und gleichzeitig gezogen wird? Welche Bindungen bleiben erhalten?</div>
+    <div class="stufe">Wo können sich danach neue Wasserstoffbrücken bilden?</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe H4</h3><div class="zu">zu Aufgabe 3c · Lage der Wasserstoffbrücken</div>
+    <div class="stufe">Zeichnen Sie die Faser als waagerechten Pfeil (Zugrichtung) und darin je eine Kette als Schraube bzw. gestreckt.</div>
+    <div class="stufe">Liegen die Wasserstoffbrücken in Zugrichtung, öffnen sie sich nacheinander wie ein Reißverschluss.</div>
+    <div class="stufe">Liegen sie quer dazu, was muss der Zug dann zuerst überwinden?
+      <svg viewBox="0 0 420 150" role="img" aria-label="Skizze: Faser als Pfeil, darin eine Schraube mit Brücken längs und gestreckte Ketten mit Brücken quer">
+        <defs><marker id="pf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#6f7a85"/></marker></defs>
+        <text x="4" y="14" font-size="12" fill="#2a7ab8" font-weight="700">Schraube</text>
+        <line x1="10" y1="48" x2="410" y2="48" stroke="#6f7a85" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#pf)"/>
+        <path id="hx" d="" fill="none" stroke="#2a7ab8" stroke-width="3"/>
+        <g id="hxb" stroke="#2a7ab8" stroke-width="1.6" stroke-dasharray="2 3"></g>
+        <text x="4" y="92" font-size="12" fill="#d9822b" font-weight="700">gestreckte Ketten</text>
+        <line x1="10" y1="122" x2="410" y2="122" stroke="#6f7a85" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#pf)"/>
+        <path d="M30,108 L60,102 L90,108 L120,102 L150,108 L180,102 L210,108 L240,102 L270,108 L300,102 L330,108 L360,102 L390,108" fill="none" stroke="#d9822b" stroke-width="3"/>
+        <path d="M30,140 L60,134 L90,140 L120,134 L150,140 L180,134 L210,140 L240,134 L270,140 L300,134 L330,140 L360,134 L390,140" fill="none" stroke="#d9822b" stroke-width="3"/>
+        <g stroke="#2a7ab8" stroke-width="1.6" stroke-dasharray="2 3"><line x1="60" y1="104" x2="60" y2="133"/><line x1="120" y1="104" x2="120" y2="133"/><line x1="180" y1="104" x2="180" y2="133"/><line x1="240" y1="104" x2="240" y2="133"/><line x1="300" y1="104" x2="300" y2="133"/><line x1="360" y1="104" x2="360" y2="133"/></g>
+        <text x="414" y="40" font-size="11" fill="#6f7a85" text-anchor="end">Zug →</text>
+      </svg>
+      <span class="klein">Gestrichelt blau: Wasserstoffbrücken. Grau: Faserachse = Zugrichtung.</span>
+    </div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+</div>
+
+<!-- ===================== V1 ===================== -->
+<h2>Vertiefungen</h2>
+<p class="hinweis">★ = vertiefend · ★★ = anspruchsvoll. Die Ergebnisse gehören in Ihre Unterlagen; die Abbildungen sind Werkzeuge, keine Lösungen.</p>
+
+<section class="v-karte" id="v1">
+  <div class="v-kopf"><div class="v-nr">V1</div><div><div class="sterne">★</div><h3>Doppelwendel im Haar (coiled coil)</h3></div></div>
+  <div class="v-inhalt zwei">
+    <div>
+      <p>Im Haarkeratin sind je zwei α-Helices umeinander gewunden. In der Primärstruktur wiederholt sich ein Muster aus sieben Resten (<b>Heptade</b>, Positionen a bis g); an den Positionen <b>a</b> und <b>d</b> stehen fast immer unpolare Reste (Leu, Ile, Val, Met), die übrigen sind meist polar oder geladen.</p>
+      <div class="aufgabe"><span class="b">a)</span><span><b>Zeigen</b> Sie mit 3,6 Resten pro Windung (100° pro Rest), dass die Positionen a und d nach zwei Windungen fast wieder auf derselben Seite der Helix liegen.</span><span class="ab">AB II</span></div>
+      <div class="aufgabe"><span class="b">b)</span><span><b>Erklären</b> Sie, warum sich zwei Helices über diesen Streifen zusammenlagern (vgl. 05, Ausblick 11), und <b>erläutern</b> Sie, warum Astbury entlang der Faser 0,51 nm statt 0,54 nm misst.</span><span class="ab">AB III</span></div>
+    </div>
+    <figure>
+      <svg id="rad" viewBox="0 0 300 300" role="img" aria-label="Helixrad: Blick entlang der Helixachse, jeder Rest um 100° weitergedreht"></svg>
+      <div class="regler"><label for="n">Reste:</label><input id="n" type="range" min="1" max="14" value="1"><button class="knopf" id="nplus" type="button">+1</button><button class="knopf" id="nreset" type="button">↺</button></div>
+      <div class="ausgabe" id="nout"></div>
+      <div class="legende"><span><i style="background:#d9822b"></i>a, d: unpolar</span><span><i style="background:#2a7ab8"></i>b, c, e, f, g: polar/geladen</span></div>
+      <figcaption>Helixrad: Blick entlang der Helixachse. Jeder weitere Rest ist um 100° gedreht. Fügen Sie Rest für Rest hinzu und beobachten Sie, wo die Positionen a und d landen.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ===================== V2 ===================== -->
+<section class="v-karte" id="v2">
+  <div class="v-kopf"><div class="v-nr">V2</div><div><div class="sterne">★</div><h3>Warum so viel Glycin in der Seide?</h3></div></div>
+  <div class="v-inhalt zwei">
+    <div>
+      <p>Im Faltblatt zeigen die Reste abwechselnd nach oben und unten. In (Gly-Ala-Gly-Ala-Gly-Ser)<sub>n</sub> stehen deshalb alle Glycin-Reste (H) auf einer Seite, alle Alanin- und Serin-Reste (CH<sub>3</sub>, CH<sub>2</sub>OH) auf der anderen. Im Röntgenbild der Seide wechseln sich die Abstände zwischen gestapelten Faltblättern ab: etwa <b>0,35 nm</b> und <b>0,57 nm</b> (Marsh, Corey, Pauling 1955).</p>
+      <div class="aufgabe"><span class="b"></span><span><b>Erklären</b> Sie die beiden Abstände und <b>begründen</b> Sie, warum dicht gestapelte Faltblätter die Seide reißfest machen.</span><span class="ab">AB II/III</span></div>
+    </div>
+    <figure>
+      <svg viewBox="0 0 360 330" role="img" aria-label="Oben: Faltblattstrang mit abwechselnd oben und unten stehenden Resten. Unten: drei gestapelte Faltblätter mit Abstand 1 und Abstand 2">
+        <text x="0" y="14" font-size="12" font-weight="700" fill="#156e9d">① Ein Strang, von der Seite</text>
+        <g id="strang"></g>
+        <text x="0" y="172" font-size="12" font-weight="700" fill="#156e9d">② Drei Faltblätter, gestapelt (Blick auf die Kettenenden)</text>
+        <g id="stapel"></g>
+      </svg>
+      <div class="legende"><span><i style="background:#9aa5b1"></i>Gly: H</span><span><i style="background:#3e9a63"></i>Ala: CH<sub>3</sub></span><span><i style="background:#7a5aa8"></i>Ser: CH<sub>2</sub>OH</span></div>
+      <figcaption>Schema, nicht maßstäblich. Ordnen Sie zu: Welcher Abstand ist 0,35 nm, welcher 0,57 nm?</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ===================== V3 ===================== -->
+<section class="v-karte" id="v3">
+  <div class="v-kopf"><div class="v-nr">V3</div><div><div class="sterne">★★</div><h3>Spinnenseide aus dem Bioreaktor <span class="klein">(zu Aufgabe 4)</span></h3></div></div>
+  <div class="v-inhalt">
+    <div class="zwei">
+      <div>
+        <p>Der Abseilfaden von Spinnen besteht aus kristallinen <b>β-Faltblatt-Bereichen</b> (Ala-reiche Abschnitte), die in eine Gly-reiche, locker gewundene und dehnbare <b>Matrix</b> eingebettet sind (teils helikal). Spinnen lassen sich nicht wie Seidenraupen halten. Start-ups bauen deshalb die Bauanleitung (Gen) für Seidenproteine in Mikroorganismen ein, die das Protein im Bioreaktor aus Zucker herstellen; das Proteinpulver wird gelöst und zu Fasern gesponnen.</p>
+        <p><b>AMSilk</b> (Ausgründung der TU München, 2008, Biosteel®-Fasern), <b>Spiber</b> (Japan, 2007, Brewed Protein™).</p>
+        <div class="zeitstrahl"><span><b>2007</b> Spiber</span><span><b>2008</b> AMSilk</span><span><b>2016</b> AMSilk × Adidas</span><span><b>2022</b> AMSilk × Mercedes-Benz</span><span>Spiber × The North Face Japan</span></div>
+      </div>
+      <figure>
+        <div class="klein" style="margin-bottom:4px"><b>Festigkeit</b> (Zugspannung beim Reißen)</div>
+        <div class="balken" data-max="1.6">
+          <span>Seidenspinner</span><div class="spur"><div class="fuell" data-w="0.5" style="background:#2a7ab8"></div></div><span class="wert">0,5 GPa</span>
+          <span>Spinne (Nephila), Abseilfaden</span><div class="spur"><div class="fuell" data-w="1.3" style="background:#d9822b"></div></div><span class="wert">1,3 GPa</span>
+          <span>hochfester Stahl*</span><div class="spur"><div class="fuell" data-w="1.5" style="background:#6f7a85"></div></div><span class="wert">ca. 1,5 GPa</span>
+        </div>
+        <div class="klein" style="margin:12px 0 4px"><b>Dehnung</b> bis zum Reißen</div>
+        <div class="balken" data-max="45">
+          <span>Seidenspinner</span><div class="spur"><div class="fuell" data-w="15" style="background:#2a7ab8"></div></div><span class="wert">15 %</span>
+          <span>Spinne (Nephila), Abseilfaden</span><div class="spur"><div class="fuell" data-w="40" style="background:#d9822b"></div></div><span class="wert">40 %</span>
+          <span>hochfester Stahl*</span><div class="spur"><div class="fuell" data-w="2" style="background:#6f7a85"></div></div><span class="wert">wenige %</span>
+        </div>
+        <figcaption>Seidenwerte nach Shao und Vollrath, <i>Nature</i> 2002. *Dichte Stahl 7,8 g/cm³, Seide ca. 1,3 g/cm³.</figcaption>
+      </figure>
+    </div>
+    <div class="kachel-reihe">
+      <div class="kachel"><div class="zahl">einige 100 t</div><div class="was">Seidenproteine aus dem Bioreaktor pro Jahr (2022, wenige bis einige hundert Tonnen)</div></div>
+      <div class="kachel"><div class="zahl">&gt; 60 000 000 t</div><div class="was">Polyesterfasern weltweit pro Jahr</div></div>
+    </div>
+    <div class="aufgabe"><span class="b">a)</span><span><b>Erklären</b> Sie, warum Spinnenseide zugleich fester und dehnbarer ist als Seidenraupenseide.</span><span class="ab">AB II</span></div>
+    <div class="aufgabe"><span class="b">b)</span><span><b>Beurteilen</b> Sie die Aussage aus Aufgabe 4 nach den Kriterien Rohstoff, Abbaubarkeit (vgl. 08), Verhalten bei Feuchtigkeit (vgl. 05), Menge und Energiebedarf. Ausblick: Nylon (Sitzung 25), biobasierte Kunststoffe (Sitzung 28).</span><span class="ab">AB III</span></div>
+  </div>
+</section>
+
+<!-- ===================== V4 ===================== -->
+<section class="v-karte" id="v4">
+  <div class="v-kopf"><div class="v-nr">V4</div><div><div class="sterne">★</div><h3>Digital: Sekundärstrukturen in echten Proteinen <span class="klein">(Ausblick 12)</span></h3></div></div>
+  <div class="v-inhalt zwei">
+    <div>
+      <p>Öffnen Sie die AlphaFold-Datenbank und suchen Sie ein Keratin des Menschen. AlphaFold wurde 2024 mit dem Nobelpreis für Chemie ausgezeichnet.</p>
+      <p>Suchbegriff: <span class="code" id="such">keratin type II cuticular</span> <button class="knopf" id="kopie" type="button">kopieren</button></p>
+      <a class="cta" href="https://alphafold.ebi.ac.uk/" target="_blank" rel="noopener">AlphaFold-Datenbank öffnen ↗</a>
+      <div class="aufgabe"><span class="b"></span><span><b>Beschreiben</b> Sie die Sekundärstruktur des Modells: Wo liegen Helices, wo Faltblätter, wo ungeordnete Bereiche, und wie sicher ist die Vorhersage dort?</span><span class="ab"></span></div>
+    </div>
+    <figure>
+      <svg viewBox="0 0 320 120" role="img" aria-label="Darstellung im Modell: Helix als Schraubenband, Faltblatt als breiter Pfeil">
+        <text x="0" y="14" font-size="12" font-weight="700" fill="#156e9d">So erscheint es im Modell</text>
+        <path id="band" d="" fill="none" stroke="#0053d6" stroke-width="7" stroke-linecap="round"/>
+        <text x="70" y="108" font-size="12" text-anchor="middle" fill="#444">Helix: Schraubenband</text>
+        <path d="M180,52 h90 v-12 l34,26 l-34,26 v-12 h-90 z" fill="#65cbf3" stroke="#3a9fca"/>
+        <text x="240" y="108" font-size="12" text-anchor="middle" fill="#444">Faltblatt: breiter Pfeil</text>
+      </svg>
+      <div class="klein" style="margin:8px 0 4px"><b>Farbe = Sicherheit der Vorhersage</b> (pLDDT)</div>
+      <div class="legende"><span><i style="background:#0053d6"></i>sehr hoch (&gt; 90)</span><span><i style="background:#65cbf3"></i>hoch (70–90)</span><span><i style="background:#ffdb13"></i>niedrig (50–70)</span><span><i style="background:#ff7d45"></i>sehr niedrig (&lt; 50)</span></div>
+    </figure>
+  </div>
+</section>
+
+<footer>
+  Chemie LK · Q1 · 02 Proteine · 10 Strukturebenen I – Haar, Wolle und Seide · Vertiefung und Hilfen<br>
+  Quellen: L. Pauling, R. B. Corey, H. R. Branson, <i>PNAS</i> 37 (1951) 205; L. Pauling, R. B. Corey, <i>PNAS</i> 37 (1951) 251; R. E. Marsh, R. B. Corey, L. Pauling, <i>Biochim. Biophys. Acta</i> 16 (1955) 1; Z. Shao, F. Vollrath, <i>Nature</i> 418 (2002) 741; AlphaFold Protein Structure Database (EMBL-EBI).
+</footer>
+</main>
+
+<script>
+(function(){
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(tag, attrs, parent, text){
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+
+  // ---------- Hilfekarten: stufenweise aufdecken ----------
+  document.querySelectorAll('.hk').forEach(function(k){
+    var stufen = k.querySelectorAll('.stufe'), btn = k.querySelector('button'), z = k.querySelector('.zaehler'), i = 0;
+    z.textContent = '0 / ' + stufen.length;
+    btn.addEventListener('click', function(){
+      if (i >= stufen.length) return;
+      stufen[i].classList.add('offen'); i++;
+      z.textContent = i + ' / ' + stufen.length;
+      if (i < stufen.length) btn.textContent = 'Stufe ' + (i + 1) + ' aufdecken';
+      else { btn.textContent = 'alle Stufen offen'; btn.disabled = true; }
+    });
+  });
+
+  // ---------- H4: kleine Schraube ----------
+  (function(){
+    var d = '', b = document.getElementById('hxb');
+    for (var x = 30; x <= 390; x += 2){
+      var y = 48 + 16 * Math.sin((x - 30) / 60 * 2 * Math.PI);
+      d += (x === 30 ? 'M' : 'L') + x + ',' + y.toFixed(1);
+    }
+    document.getElementById('hx').setAttribute('d', d);
+    for (var x2 = 45; x2 <= 330; x2 += 60) el('line', {x1: x2, y1: 33, x2: x2 + 60, y2: 33}, b);
+  })();
+
+  // ---------- V1: Helixrad ----------
+  var rad = document.getElementById('rad'), slider = document.getElementById('n'), out = document.getElementById('nout');
+  var CX = 150, CY = 150, R = 112, POS = 'abcdefg';
+  function pt(i, r){ var w = (i * 100 - 90) * Math.PI / 180; return [CX + r * Math.cos(w), CY + r * Math.sin(w)]; }
+  function zeichneRad(){
+    var n = +slider.value;
+    while (rad.firstChild) rad.removeChild(rad.firstChild);
+    el('circle', {cx: CX, cy: CY, r: R, fill: 'none', stroke: '#d5dde5', 'stroke-width': 1.5, 'stroke-dasharray': '4 4'}, rad);
+    el('circle', {cx: CX, cy: CY, r: 30, fill: '#e6f0f8', stroke: '#2a7ab8'}, rad);
+    el('text', {x: CX, y: CY + 4, 'font-size': 11, 'text-anchor': 'middle', fill: '#156e9d'}, rad, 'Achse');
+    for (var i = 0; i < n - 1; i++){
+      var r1 = i < 7 ? R : R - 34, r2 = i + 1 < 7 ? R : R - 34;
+      var p = pt(i, r1), q = pt(i + 1, r2);
+      el('line', {x1: p[0], y1: p[1], x2: q[0], y2: q[1], stroke: '#c3ccd5', 'stroke-width': 1.2}, rad);
+    }
+    for (var j = 0; j < n; j++){
+      var c = POS[j % 7], unpolar = c === 'a' || c === 'd', rr = j < 7 ? R : R - 34;
+      var s = pt(j, rr), letzte = j === n - 1;
+      el('circle', {cx: s[0], cy: s[1], r: letzte ? 15 : 13, fill: unpolar ? '#d9822b' : '#2a7ab8', stroke: letzte ? '#222' : '#fff', 'stroke-width': letzte ? 2 : 1.5}, rad);
+      el('text', {x: s[0], y: s[1] - 1, 'font-size': 11, 'font-weight': 700, 'text-anchor': 'middle', fill: '#fff'}, rad, c);
+      el('text', {x: s[0], y: s[1] + 9, 'font-size': 7.5, 'text-anchor': 'middle', fill: '#fff'}, rad, String(j + 1));
+    }
+    var w = (n - 1) * 100;
+    out.innerHTML = 'Rest ' + n + ' (Position ' + POS[(n - 1) % 7] + '): ' + (n - 1) + ' · 100° = <b>' + w + '°</b>' + (w >= 360 ? ' &nbsp;→&nbsp; ' + Math.floor(w / 360) + ' volle Umdrehung' + (w >= 720 ? 'en' : '') + ' + ' + (w % 360) + '°' : '') + (n > 7 ? '<br><span class="klein">Innerer Ring: zweite Heptade (Reste 8–14)</span>' : '');
+  }
+  slider.addEventListener('input', zeichneRad);
+  document.getElementById('nplus').addEventListener('click', function(){ slider.value = Math.min(14, +slider.value + 1); zeichneRad(); });
+  document.getElementById('nreset').addEventListener('click', function(){ slider.value = 1; zeichneRad(); });
+  zeichneRad();
+
+  // ---------- V2: Faltblatt-Strang und Stapel ----------
+  (function(){
+    var g = document.getElementById('strang');
+    var seq = [['Gly','H','#9aa5b1'],['Ala','CH₃','#3e9a63'],['Gly','H','#9aa5b1'],['Ala','CH₃','#3e9a63'],['Gly','H','#9aa5b1'],['Ser','CH₂OH','#7a5aa8']];
+    var pts = [];
+    for (var i = 0; i < seq.length; i++) pts.push([35 + i * 56, i % 2 ? 98 : 82]);
+    var d = 'M10,90 L' + pts.map(function(p){ return p.join(','); }).join(' L') + ' L350,90';
+    el('path', {d: d, fill: 'none', stroke: '#156e9d', 'stroke-width': 3, 'stroke-linejoin': 'round'}, g);
+    pts.forEach(function(p, i){
+      var oben = i % 2 === 0, ey = oben ? 44 : 136;
+      el('line', {x1: p[0], y1: p[1], x2: p[0], y2: ey + (oben ? 10 : -10), stroke: seq[i][2], 'stroke-width': 2.2}, g);
+      el('circle', {cx: p[0], cy: p[1], r: 4, fill: '#156e9d'}, g);
+      el('circle', {cx: p[0], cy: ey, r: seq[i][1] === 'H' ? 9 : 14, fill: seq[i][2]}, g);
+      el('text', {x: p[0], y: ey + 4, 'font-size': seq[i][1].length > 3 ? 8 : 10, 'font-weight': 700, 'text-anchor': 'middle', fill: '#fff'}, g, seq[i][1]);
+      el('text', {x: p[0] + (oben ? 14 : 16), y: p[1] + (oben ? -4 : 12), 'font-size': 10, fill: '#444'}, g, seq[i][0]);
+    });
+    el('text', {x: 350, y: 28, 'font-size': 10, fill: '#6f7a85', 'text-anchor': 'end'}, g, 'Seite A');
+    el('text', {x: 350, y: 160, 'font-size': 10, fill: '#6f7a85', 'text-anchor': 'end'}, g, 'Seite B');
+
+    var s = document.getElementById('stapel');
+    var ys = [196, 250, 304];
+    ys.forEach(function(y, k){
+      el('rect', {x: 40, y: y - 5, width: 230, height: 10, rx: 5, fill: '#156e9d'}, s);
+      el('text', {x: 30, y: y + 4, 'font-size': 10, 'text-anchor': 'end', fill: '#156e9d'}, s, 'Blatt ' + (k + 1));
+      var obenGly = k % 2 === 1;  // Blatt 1: Gly unten, Blatt 2: Gly oben, Ala/Ser unten, Blatt 3: Ala/Ser oben
+      for (var x = 52; x <= 260; x += 26){
+        el('circle', {cx: x, cy: y - 10, r: obenGly ? 4 : 6.5, fill: obenGly ? '#9aa5b1' : '#3e9a63'}, s);
+        el('circle', {cx: x, cy: y + 10, r: obenGly ? 6.5 : 4, fill: obenGly ? '#3e9a63' : '#9aa5b1'}, s);
+      }
+    });
+    [[ys[0], ys[1], 'Abstand ①'], [ys[1], ys[2], 'Abstand ②']].forEach(function(a){
+      el('line', {x1: 285, y1: a[0], x2: 285, y2: a[1], stroke: '#d9822b', 'stroke-width': 1.5}, s);
+      el('line', {x1: 280, y1: a[0], x2: 290, y2: a[0], stroke: '#d9822b', 'stroke-width': 1.5}, s);
+      el('line', {x1: 280, y1: a[1], x2: 290, y2: a[1], stroke: '#d9822b', 'stroke-width': 1.5}, s);
+      el('text', {x: 296, y: (a[0] + a[1]) / 2 + 4, 'font-size': 11, 'font-weight': 700, fill: '#d9822b'}, s, a[2]);
+    });
+  })();
+
+  // ---------- V3: Balken füllen ----------
+  setTimeout(function(){
+    document.querySelectorAll('.balken').forEach(function(box){
+      var max = +box.getAttribute('data-max');
+      box.querySelectorAll('.fuell').forEach(function(f){ f.style.width = (100 * +f.getAttribute('data-w') / max) + '%'; });
+    });
+  }, 150);
+
+  // ---------- V4: Band und Suchbegriff ----------
+  (function(){
+    var d = '';
+    for (var x = 10; x <= 130; x += 2){
+      var y = 60 + 20 * Math.sin((x - 10) / 30 * 2 * Math.PI);
+      d += (x === 10 ? 'M' : 'L') + x + ',' + y.toFixed(1);
+    }
+    document.getElementById('band').setAttribute('d', d);
+  })();
+  document.getElementById('kopie').addEventListener('click', function(){
+    var t = document.getElementById('such').textContent, b = this;
+    try {
+      navigator.clipboard.writeText(t).then(function(){ b.textContent = 'kopiert ✓'; setTimeout(function(){ b.textContent = 'kopieren'; }, 1500); });
+    } catch (e) { b.textContent = 'bitte markieren'; }
+  });
+})();
+</script>
+</body>
+</html>
