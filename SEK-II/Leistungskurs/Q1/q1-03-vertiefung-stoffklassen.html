@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stoffklassen – Vertiefung und Hilfen</title>
+<!-- Chemie LK Q1 · Sitzung 03 · erzeugt von Q1/_Werkzeuge/hilfenseiten/build.py (iCloud), Änderungen dort. Ohne Lösungen (Repo öffentlich). -->
+<style>
+:root{
+  --blau:#2a7ab8; --tblau:#156e9d; --blau-hell:#e6f0f8; --orange:#d9822b; --orange-hell:#fdf1e4;
+  --violett:#7a5aa8; --gruen:#3e9a63; --grau:#6f7a85; --linie:#d5dde5; --bg:#f6f8fa; --karte:#fff; --text:#222;
+  --sans:-apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.5}
+a{color:var(--tblau)}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header{background:linear-gradient(135deg,#156e9d 0%,#2a7ab8 60%,#3d8fc9 100%);color:#fff;padding:28px 0 22px}
+header .kurs{font-size:13px;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+header h1{margin:4px 0 6px;font-size:clamp(24px,4.5vw,34px);font-weight:600;line-height:1.2}
+header p{margin:0;opacity:.92;max-width:680px}
+nav{position:sticky;top:0;z-index:10;background:rgba(246,248,250,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--linie)}
+nav .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:8px;padding-bottom:8px}
+nav a{flex:none;text-decoration:none;color:var(--tblau);border:1px solid var(--linie);background:#fff;border-radius:16px;padding:3px 12px;font-size:14px;font-weight:600}
+nav a.v{color:var(--orange)}
+h2{font-size:20px;color:var(--tblau);margin:30px 0 4px}
+.hinweis{color:var(--grau);font-size:14px;margin:0 0 14px}
+/* Hilfekarten */
+.hilfen{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.hk{background:var(--karte);border:1.5px dashed #b9c4cf;border-radius:10px;padding:14px 16px}
+.hk h3{margin:0 0 2px;font-size:16px;color:var(--blau)}
+.hk .zu{font-size:13px;color:var(--grau);margin-bottom:8px}
+.stufe{display:none;margin:8px 0 0;padding:8px 10px;background:var(--blau-hell);border-radius:6px;font-size:15px}
+.stufe.offen{display:block;animation:auf .25s ease}
+@keyframes auf{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.hk button{margin-top:10px;border:1px solid var(--blau);background:#fff;color:var(--blau);border-radius:6px;padding:4px 12px;font-size:14px}
+.hk button:hover{background:var(--blau-hell)}
+.hk button[disabled]{opacity:.4;cursor:default}
+.hk .zaehler{font-size:12px;color:var(--grau);margin-left:8px}
+/* Vertiefungen */
+.v-karte{background:var(--karte);border:1px solid var(--linie);border-radius:12px;margin:14px 0;overflow:hidden}
+.v-kopf{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--linie);background:#fbfcfd}
+.v-nr{flex:none;width:42px;height:42px;border-radius:50%;background:var(--orange);color:#fff;font-weight:700;display:grid;place-items:center}
+.v-kopf h3{margin:0;font-size:18px}
+.sterne{color:var(--orange);font-size:14px;font-weight:700}
+.v-inhalt{padding:14px 16px 16px}
+.zwei{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+@media (max-width:720px){.zwei{grid-template-columns:1fr}}
+.aufgabe{display:grid;grid-template-columns:28px 1fr auto;gap:6px;background:var(--orange-hell);border-radius:8px;padding:8px 10px;margin-top:10px}
+.aufgabe .b{font-weight:700;color:var(--orange)}
+.aufgabe .ab{font-size:12px;color:var(--grau);white-space:nowrap;align-self:start;margin-top:2px}
+figure{margin:0}
+figcaption{font-size:13px;color:var(--grau);margin-top:4px}
+svg{max-width:100%;height:auto;display:block}
+.regler{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 2px;font-size:14px}
+.regler input[type=range]{flex:1;min-width:140px;accent-color:var(--orange)}
+.knopf{border:1px solid var(--linie);background:#fff;border-radius:6px;padding:3px 10px;font-size:14px}
+.ausgabe{font-variant-numeric:tabular-nums;font-size:14px;background:#f2f5f8;border-radius:6px;padding:6px 10px;margin-top:6px}
+.legende{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:#444;margin-top:6px}
+.legende i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.balken{display:grid;grid-template-columns:150px 1fr 76px;gap:6px 10px;align-items:center;font-size:14px}
+.balken .spur{background:#eef2f6;border-radius:4px;height:18px;position:relative;overflow:hidden}
+.balken .fuell{height:100%;border-radius:4px;width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.balken .wert{text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:520px){.balken{grid-template-columns:100px 1fr 64px;font-size:13px}}
+.kachel-reihe{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:12px}
+.kachel{background:#f2f5f8;border-radius:8px;padding:10px 12px}
+.kachel .zahl{font-size:22px;font-weight:700;color:var(--tblau);font-variant-numeric:tabular-nums}
+.kachel .was{font-size:13px;color:#555}
+.zeitstrahl{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.zeitstrahl span{font-size:13px;background:#fff;border:1px solid var(--linie);border-radius:14px;padding:2px 10px}
+.zeitstrahl b{color:var(--orange)}
+.cta{display:inline-block;background:var(--tblau);color:#fff;text-decoration:none;font-weight:600;border-radius:8px;padding:8px 16px;margin:8px 8px 0 0}
+.cta:hover{background:var(--blau)}
+.code{font-family:Menlo,Consolas,monospace;background:#f2f5f8;border:1px solid var(--linie);border-radius:6px;padding:2px 8px;font-size:14px}
+.klein{font-size:13px;color:var(--grau)}
+footer{margin:36px 0 0;border-top:1px solid var(--linie);padding:16px 0 28px;font-size:12.5px;color:var(--grau)}
+sub,sup{font-size:.72em}
+/* Ergänzungen Generator */
+.zurueck{display:inline-block;color:#fff;opacity:.85;text-decoration:none;font-size:13px;margin-bottom:6px}
+.zurueck:hover{opacity:1;text-decoration:underline}
+.v-text p:first-child{margin-top:0}
+.fischer{display:inline-block;vertical-align:middle;margin:4px 10px 4px 0}
+.wahl{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.wahl button{border:1px solid var(--linie);background:#fff;border-radius:14px;padding:2px 10px;font-size:13px}
+.wahl button.an{background:var(--tblau);border-color:var(--tblau);color:#fff}
+.quiz-aa{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:6px;margin-top:8px}
+.quiz-aa button{border:1px solid var(--linie);background:#fff;border-radius:8px;padding:6px 4px;font-size:14px}
+.quiz-aa button.ok{background:#e3f4ea;border-color:#3e9a63}
+.quiz-aa button.falsch{background:#fbe6e3;border-color:#d0574a}
+.uebersicht{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:14px}
+.uebersicht a{display:block;background:#fff;border:1px solid var(--linie);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--text)}
+.uebersicht a:hover{border-color:var(--blau);box-shadow:0 2px 8px rgba(21,110,157,.12)}
+.uebersicht .nr{font-size:13px;color:var(--orange);font-weight:700}
+.uebersicht .t{font-weight:600;color:var(--tblau);margin:2px 0 4px}
+.uebersicht .k{font-size:13px;color:var(--grau)}
+.einheit{font-size:14px;color:var(--grau);text-transform:uppercase;letter-spacing:.05em;margin:26px 0 0}
+
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="zurueck" href="q1-vertiefung-und-hilfen.html">← alle Sitzungen</a>
+    <div class="kurs">Chemie LK · Q1 · 01 Grundlegende Wiederholung · Sitzung 03</div>
+    <h1>Vertiefung und Hilfen: Struktur-Eigenschaftsbeziehungen</h1>
+    <p>Hilfen zu Teil I (Polyene) und Teil II (Stoffklassen) nur bei Bedarf und stufenweise aufdecken. Vertiefungen für Schnelle.</p>
+  </div>
+</header>
+<nav><div class="wrap">
+  <a href="#hilfen">Hilfen</a><a class="v" href="#v1">V1 Farbe</a><a class="v" href="#v2">V2 Polyene</a><a class="v" href="#v3">V3 Kastenmodell</a>
+</div></nav>
+
+<main class="wrap">
+<h2 id="hilfen">Hilfekarten</h2>
+<p class="hinweis">Erst selbst probieren. Jede Karte deckt ihre Hilfe in Stufen auf, so wenig wie möglich, so viel wie nötig.</p>
+<div class="hilfen">
+  <div class="hk">
+    <h3>Hilfe zu I, Aufgabe 1 und 2</h3><div class="zu">Farbstoffe vergleichen</div>
+    <div class="stufe">Ordnen Sie die vier Farbstoffe nach ihrer Farbe und lesen Sie in jedem Absorptionsspektrum die Wellenlänge des Maximums ab.</div><div class="stufe">Markieren Sie in jeder Skelettformel die Kette, in der sich Doppel- und Einfachbindungen abwechseln (konjugierte Doppelbindungen), und zählen Sie die Doppelbindungen darin.</div><div class="stufe">Notieren Sie, was alle gemeinsam haben, und dann, worin sie sich unterscheiden: Länge der Kette, Endgruppen (Ringe, C=O, OH).</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu I, Aufgabe 3</h3><div class="zu">Hypothesen zur Farbigkeit</div>
+    <div class="stufe">Formulieren Sie in der Form „Je mehr …, desto …“.</div><div class="stufe">Verknüpfen Sie drei Größen: Zahl der konjugierten Doppelbindungen → Wellenlänge des absorbierten Lichts → wahrgenommene Farbe (Komplementärfarbe).</div><div class="stufe">Nutzen Sie E = h · c / λ: Eine größere Wellenlänge bedeutet eine kleinere Anregungsenergie. Was müsste also mit dem Energieabstand passieren, wenn das π-System länger wird?</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu I, Präsentation</h3><div class="zu">Forschungsfrage beantworten</div>
+    <div class="stufe">Gliederung: Forschungsfrage → Molekülgeometrie (eben, sp²) → Energiezustände → Lichtanregung → Farbwahrnehmung.</div><div class="stufe">Verwenden Sie an allen Stationen dasselbe Beispiel, z. B. β-Carotin, damit der rote Faden sichtbar bleibt.</div><div class="stufe">Beantworten Sie am Ende die Forschungsfrage in einem einzigen Satz mit „weil“.</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu II, Aufgabe 2</h3><div class="zu">Übersicht der Stoffklassen</div>
+    <div class="stufe">Stoffklassen der SEK I: Alkane, Alkene, Alkine, Alkohole (Alkanole), Aldehyde (Alkanale), Ketone (Alkanone), Carbonsäuren, Ester; dazu Metalle und Ionenverbindungen.</div><div class="stufe">Spalten-Vorschlag: Stoffklasse · Beispiel (Name, Formel) · funktionelle Gruppe · stärkste zwischenmolekulare Wechselwirkung · typische Eigenschaften (Siedetemperatur, Löslichkeit, Leitfähigkeit).</div><div class="stufe">Faustregel bei ähnlicher Molekülgröße: Wasserstoffbrücken &gt; Dipol-Dipol &gt; Van-der-Waals; mit wachsender Kettenlänge nehmen die Van-der-Waals-Kräfte zu. Formeln korrekt darstellen mit dem <a href="https://nitrogen-ai.github.io/training/chemical_communication_trainer.html" target="_blank" rel="noopener">Chemical Communication Trainer</a>.</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+</div>
+
+<h2>Vertiefungen</h2>
+<p class="hinweis">★ = vertiefend · ★★ = anspruchsvoll. Die Ergebnisse gehören in Ihre Unterlagen; die Abbildungen und Werkzeuge helfen beim Denken, sie ersetzen keine Lösung.</p>
+<section class="v-karte" id="v1">
+  <div class="v-kopf"><div class="v-nr">V1</div><div><div class="sterne">★</div><h3>Absorbierte Farbe und Komplementärfarbe</h3></div></div>
+  <div class="v-inhalt zwei"><div class="v-text"><p>Ein Stoff erscheint farbig, wenn er einen Teil des sichtbaren Lichts absorbiert. Wahrgenommen wird die Komplementärfarbe.</p><div class="aufgabe"><span class="b"></span><span><b>Bestimmen</b> Sie mit den Absorptionsmaxima vom Aufgabenblatt die erwartete Farbe der vier Farbstoffe und <b>vergleichen</b> Sie mit den abgebildeten Objekten.</span><span class="ab">AB II</span></div></div><figure>
+<div class="klein"><b>Absorbiert und wahrgenommen</b></div>
+<div class="regler"><label for="fl">λ<sub>max</sub> =</label><input id="fl" type="range" min="400" max="750" value="570"><span id="flv" style="min-width:60px"></span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px">
+  <div class="kachel"><div class="was">absorbiert</div><div id="fa" style="height:40px;border-radius:6px;margin:4px 0"></div><b id="fan"></b></div>
+  <div class="kachel"><div class="was">wahrgenommen (Komplementärfarbe)</div><div id="fw" style="height:40px;border-radius:6px;margin:4px 0"></div><b id="fwn"></b></div>
+</div>
+<figcaption>Bereiche nach der Tabelle „Licht und Farbe“ (Sitzung 06, Lehrbuchwerte); die Farbtöne sind nur Annäherungen.</figcaption></figure></div>
+</section>
+<section class="v-karte" id="v2">
+  <div class="v-kopf"><div class="v-nr">V2</div><div><div class="sterne">★</div><h3>Wann wird ein Polyen farbig?</h3></div></div>
+  <div class="v-inhalt zwei"><div class="v-text"><p>1,3-Butadien und 1,3,5-Hexatrien sind farblose Stoffe, β-Carotin ist orange, Lycopin (Tomate) rot.</p><div class="aufgabe"><span class="b">a)</span><span><b>Beschreiben</b> Sie den Zusammenhang zwischen der Zahl der konjugierten Doppelbindungen und λ<sub>max</sub>.</span><span class="ab">AB I</span></div><div class="aufgabe"><span class="b">b)</span><span><b>Schätzen</b> Sie <b>ab</b>, ab wie vielen konjugierten Doppelbindungen ein Polyen farbig erscheinen sollte, und begründen Sie.</span><span class="ab">AB III</span></div></div><figure><svg viewBox="0 0 400 175" role="img" aria-label="Absorptionsmaxima von Polyenen">
+<rect x="262" y="20" width="228" height="140" fill="#fdf1e4"/>
+<text x="266" y="16" font-size="10" fill="#d9822b">sichtbarer Bereich ab 400 nm →</text>
+<text x="0" y="43" font-size="12" fill="#222">1,3-Butadien</text><text x="0" y="56" font-size="10" fill="#6f7a85">2 konj. C=C</text><rect x="100" y="30" width="44" height="18" rx="3" fill="#2a7ab8"/><text x="149" y="43" font-size="12" fill="#222">217 nm</text><text x="0" y="77" font-size="12" fill="#222">1,3,5-Hexatrien</text><text x="0" y="90" font-size="10" fill="#6f7a85">3 konj. C=C</text><rect x="100" y="64" width="70" height="18" rx="3" fill="#2a7ab8"/><text x="175" y="77" font-size="12" fill="#222">258 nm</text><text x="0" y="111" font-size="12" fill="#222">β-Carotin</text><text x="0" y="124" font-size="10" fill="#6f7a85">11 konj. C=C</text><rect x="100" y="98" width="196" height="18" rx="3" fill="#2a7ab8"/><text x="301" y="111" font-size="12" fill="#222">451 nm</text><text x="0" y="145" font-size="12" fill="#222">Lycopin</text><text x="0" y="158" font-size="10" fill="#6f7a85">11 konj. C=C</text><rect x="100" y="132" width="209" height="18" rx="3" fill="#2a7ab8"/><text x="314" y="145" font-size="12" fill="#222">472 nm</text>
+</svg><figcaption>Absorptionsmaxima (λ<sub>max</sub>, in Hexan, gerundete Literaturwerte).</figcaption></figure></div>
+</section>
+<section class="v-karte" id="v3">
+  <div class="v-kopf"><div class="v-nr">V3</div><div><div class="sterne">★★</div><h3>Das Elektron im Kasten</h3></div></div>
+  <div class="v-inhalt"><div class="v-text"><p>Im einfachsten Modell bewegen sich die π-Elektronen frei in einem eindimensionalen Kasten der Länge L. Erlaubt sind nur stehende Wellen mit den Energien E<sub>n</sub> = n² · h² / (8 m L²). Jedes Niveau nimmt zwei Elektronen auf.</p></div><div class="aufgabe"><span class="b"></span><span><b>Erläutern</b> Sie mit dem Modell qualitativ, warum der Energieabstand zwischen dem höchsten besetzten und dem niedrigsten unbesetzten Niveau kleiner wird, wenn das konjugierte System länger wird.</span><span class="ab">AB III</span></div></div>
+</section>
+
+<footer>
+  Chemie LK · Q1 · 01 Grundlegende Wiederholung · 03 Struktur-Eigenschaftsbeziehungen · Vertiefung und Hilfen<br>
+  λ<sub>max</sub>-Werte: gerundete Literaturwerte (Hexan). Komplementärfarben: Lehrbuchwerte.
+</footer>
+</main>
+
+<script>
+(function(){
+  document.querySelectorAll('.hk').forEach(function(k){
+    var stufen = k.querySelectorAll('.stufe'), btn = k.querySelector('button'), z = k.querySelector('.zaehler'), i = 0;
+    z.textContent = '0 / ' + stufen.length;
+    btn.addEventListener('click', function(){
+      if (i >= stufen.length) return;
+      stufen[i].classList.add('offen'); i++;
+      z.textContent = i + ' / ' + stufen.length;
+      if (i < stufen.length) btn.textContent = 'Stufe ' + (i + 1) + ' aufdecken';
+      else { btn.textContent = 'alle Stufen offen'; btn.disabled = true; }
+    });
+  });
+})();
+
+(function(){
+  var T = [[400,435,'violett','#7b2fbe','gelbgrün','#b5d334'],[435,480,'blau','#2f5fd0','gelb','#f2d12e'],[480,500,'grünblau','#1fa3a3','orange bis rot','#e8642a'],[500,560,'grün','#33a852','purpur','#a2207a'],[560,580,'gelbgrün','#b5d334','violett','#7b2fbe'],[580,605,'gelb bis orange','#f2a52e','blau','#2f5fd0'],[605,751,'rot','#d43a2f','blaugrün','#1f9a8a']];
+  var r = document.getElementById('fl');
+  function zeig(){
+    var l = +r.value, z = T.filter(function(t){ return l >= t[0] && l < t[1]; })[0];
+    document.getElementById('flv').textContent = l + ' nm';
+    document.getElementById('fa').style.background = z[3]; document.getElementById('fan').textContent = z[2];
+    document.getElementById('fw').style.background = z[5]; document.getElementById('fwn').textContent = z[4];
+  }
+  r.oninput = zeig; zeig();
+})();
+
+</script>
+</body>
+</html>

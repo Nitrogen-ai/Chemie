@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ninhydrinreaktion – Vertiefung und Hilfen</title>
+<!-- Chemie LK Q1 · Sitzung 06 · erzeugt von Q1/_Werkzeuge/hilfenseiten/build.py (iCloud), Änderungen dort. Ohne Lösungen (Repo öffentlich). -->
+<style>
+:root{
+  --blau:#2a7ab8; --tblau:#156e9d; --blau-hell:#e6f0f8; --orange:#d9822b; --orange-hell:#fdf1e4;
+  --violett:#7a5aa8; --gruen:#3e9a63; --grau:#6f7a85; --linie:#d5dde5; --bg:#f6f8fa; --karte:#fff; --text:#222;
+  --sans:-apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.5}
+a{color:var(--tblau)}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header{background:linear-gradient(135deg,#156e9d 0%,#2a7ab8 60%,#3d8fc9 100%);color:#fff;padding:28px 0 22px}
+header .kurs{font-size:13px;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+header h1{margin:4px 0 6px;font-size:clamp(24px,4.5vw,34px);font-weight:600;line-height:1.2}
+header p{margin:0;opacity:.92;max-width:680px}
+nav{position:sticky;top:0;z-index:10;background:rgba(246,248,250,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--linie)}
+nav .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:8px;padding-bottom:8px}
+nav a{flex:none;text-decoration:none;color:var(--tblau);border:1px solid var(--linie);background:#fff;border-radius:16px;padding:3px 12px;font-size:14px;font-weight:600}
+nav a.v{color:var(--orange)}
+h2{font-size:20px;color:var(--tblau);margin:30px 0 4px}
+.hinweis{color:var(--grau);font-size:14px;margin:0 0 14px}
+/* Hilfekarten */
+.hilfen{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.hk{background:var(--karte);border:1.5px dashed #b9c4cf;border-radius:10px;padding:14px 16px}
+.hk h3{margin:0 0 2px;font-size:16px;color:var(--blau)}
+.hk .zu{font-size:13px;color:var(--grau);margin-bottom:8px}
+.stufe{display:none;margin:8px 0 0;padding:8px 10px;background:var(--blau-hell);border-radius:6px;font-size:15px}
+.stufe.offen{display:block;animation:auf .25s ease}
+@keyframes auf{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.hk button{margin-top:10px;border:1px solid var(--blau);background:#fff;color:var(--blau);border-radius:6px;padding:4px 12px;font-size:14px}
+.hk button:hover{background:var(--blau-hell)}
+.hk button[disabled]{opacity:.4;cursor:default}
+.hk .zaehler{font-size:12px;color:var(--grau);margin-left:8px}
+/* Vertiefungen */
+.v-karte{background:var(--karte);border:1px solid var(--linie);border-radius:12px;margin:14px 0;overflow:hidden}
+.v-kopf{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--linie);background:#fbfcfd}
+.v-nr{flex:none;width:42px;height:42px;border-radius:50%;background:var(--orange);color:#fff;font-weight:700;display:grid;place-items:center}
+.v-kopf h3{margin:0;font-size:18px}
+.sterne{color:var(--orange);font-size:14px;font-weight:700}
+.v-inhalt{padding:14px 16px 16px}
+.zwei{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+@media (max-width:720px){.zwei{grid-template-columns:1fr}}
+.aufgabe{display:grid;grid-template-columns:28px 1fr auto;gap:6px;background:var(--orange-hell);border-radius:8px;padding:8px 10px;margin-top:10px}
+.aufgabe .b{font-weight:700;color:var(--orange)}
+.aufgabe .ab{font-size:12px;color:var(--grau);white-space:nowrap;align-self:start;margin-top:2px}
+figure{margin:0}
+figcaption{font-size:13px;color:var(--grau);margin-top:4px}
+svg{max-width:100%;height:auto;display:block}
+.regler{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 2px;font-size:14px}
+.regler input[type=range]{flex:1;min-width:140px;accent-color:var(--orange)}
+.knopf{border:1px solid var(--linie);background:#fff;border-radius:6px;padding:3px 10px;font-size:14px}
+.ausgabe{font-variant-numeric:tabular-nums;font-size:14px;background:#f2f5f8;border-radius:6px;padding:6px 10px;margin-top:6px}
+.legende{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:#444;margin-top:6px}
+.legende i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.balken{display:grid;grid-template-columns:150px 1fr 76px;gap:6px 10px;align-items:center;font-size:14px}
+.balken .spur{background:#eef2f6;border-radius:4px;height:18px;position:relative;overflow:hidden}
+.balken .fuell{height:100%;border-radius:4px;width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.balken .wert{text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:520px){.balken{grid-template-columns:100px 1fr 64px;font-size:13px}}
+.kachel-reihe{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:12px}
+.kachel{background:#f2f5f8;border-radius:8px;padding:10px 12px}
+.kachel .zahl{font-size:22px;font-weight:700;color:var(--tblau);font-variant-numeric:tabular-nums}
+.kachel .was{font-size:13px;color:#555}
+.zeitstrahl{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.zeitstrahl span{font-size:13px;background:#fff;border:1px solid var(--linie);border-radius:14px;padding:2px 10px}
+.zeitstrahl b{color:var(--orange)}
+.cta{display:inline-block;background:var(--tblau);color:#fff;text-decoration:none;font-weight:600;border-radius:8px;padding:8px 16px;margin:8px 8px 0 0}
+.cta:hover{background:var(--blau)}
+.code{font-family:Menlo,Consolas,monospace;background:#f2f5f8;border:1px solid var(--linie);border-radius:6px;padding:2px 8px;font-size:14px}
+.klein{font-size:13px;color:var(--grau)}
+footer{margin:36px 0 0;border-top:1px solid var(--linie);padding:16px 0 28px;font-size:12.5px;color:var(--grau)}
+sub,sup{font-size:.72em}
+/* Ergänzungen Generator */
+.zurueck{display:inline-block;color:#fff;opacity:.85;text-decoration:none;font-size:13px;margin-bottom:6px}
+.zurueck:hover{opacity:1;text-decoration:underline}
+.v-text p:first-child{margin-top:0}
+.fischer{display:inline-block;vertical-align:middle;margin:4px 10px 4px 0}
+.wahl{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.wahl button{border:1px solid var(--linie);background:#fff;border-radius:14px;padding:2px 10px;font-size:13px}
+.wahl button.an{background:var(--tblau);border-color:var(--tblau);color:#fff}
+.quiz-aa{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:6px;margin-top:8px}
+.quiz-aa button{border:1px solid var(--linie);background:#fff;border-radius:8px;padding:6px 4px;font-size:14px}
+.quiz-aa button.ok{background:#e3f4ea;border-color:#3e9a63}
+.quiz-aa button.falsch{background:#fbe6e3;border-color:#d0574a}
+.uebersicht{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:14px}
+.uebersicht a{display:block;background:#fff;border:1px solid var(--linie);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--text)}
+.uebersicht a:hover{border-color:var(--blau);box-shadow:0 2px 8px rgba(21,110,157,.12)}
+.uebersicht .nr{font-size:13px;color:var(--orange);font-weight:700}
+.uebersicht .t{font-weight:600;color:var(--tblau);margin:2px 0 4px}
+.uebersicht .k{font-size:13px;color:var(--grau)}
+.einheit{font-size:14px;color:var(--grau);text-transform:uppercase;letter-spacing:.05em;margin:26px 0 0}
+
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="zurueck" href="q1-vertiefung-und-hilfen.html">← alle Sitzungen</a>
+    <div class="kurs">Chemie LK · Q1 · 02 Proteine – Bausteine des Lebens · Sitzung 06</div>
+    <h1>Vertiefung und Hilfen: Die Ninhydrinreaktion</h1>
+    <p>Hilfen zu den Aufgaben 1–5 nur bei Bedarf und stufenweise aufdecken. Vertiefungen für Schnelle.</p>
+  </div>
+</header>
+<nav><div class="wrap">
+  <a href="#hilfen">Hilfen</a><a class="v" href="#v1">V1 Farbe</a><a class="v" href="#v2">V2 Chromatographie</a><a class="v" href="#v3">V3 Nobelpreis</a>
+</div></nav>
+
+<main class="wrap">
+<h2 id="hilfen">Hilfekarten</h2>
+<p class="hinweis">Erst selbst probieren. Jede Karte deckt ihre Hilfe in Stufen auf, so wenig wie möglich, so viel wie nötig.</p>
+<div class="hilfen">
+  <div class="hk">
+    <h3>Hilfe zu 1a</h3><div class="zu">Stoffklasse der Zwischenstufe II</div>
+    <div class="stufe">Suchen Sie in Zwischenstufe II eine Doppelbindung zwischen einem C-Atom und einem anderen Element als O.</div><div class="stufe">Vergleichen Sie mit der Tabelle in M1: Zu welcher Stoffklasse gehört diese Gruppe, und wodurch entsteht sie?</div><div class="stufe">Kennzeichnen Sie in Ihrer Skizze die Doppelbindung und die Reste an beiden Atomen.</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 1b</h3><div class="zu">Was bleibt von der Aminosäure übrig?</div>
+    <div class="stufe">Verfolgen Sie jedes Atom der Aminosäure (Aminogruppe, α-C mit Rest R, Carboxygruppe) Schritt für Schritt durch das Schema, am besten mit Farben.</div><div class="stufe">In Schritt ③ werden zwei Produkte abgespalten. Welche Atome der Aminosäure stecken in ihnen?</div><div class="stufe">Was bleibt im Farbstoff übrig? Welche Rolle spielt dann der Rest R für die Farbe? Und was ist beim Prolin anders?</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 2a</h3><div class="zu">π-Elektronensysteme vergleichen</div>
+    <div class="stufe">Delokalisiert sind π-Elektronen nur über eine ununterbrochene Folge von Atomen mit p-Orbitalen (sp²-Atome). Ein sp³-Atom unterbricht das System.</div><div class="stufe">Im Ninhydrin trägt das mittlere C-Atom zwei OH-Gruppen. Ist es sp²- oder sp³-hybridisiert? Was folgt daraus für die Konjugation?</div><div class="stufe">Zählen: Jede Doppelbindung im System liefert 2 π-Elektronen, ein freies Elektronenpaar zählt mit, wenn es in einem p-Orbital des Systems liegt (z. B. am O⁻).</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 2b</h3><div class="zu">Hypothese zur Farbigkeit</div>
+    <div class="stufe">Erinnern Sie sich an das Elektron im Kasten (Sitzung 03): Je länger der Kasten, desto kleiner der Energieabstand.</div><div class="stufe">Mit E = h · c / λ: Ein kleinerer Energieabstand bedeutet eine größere Wellenlänge des absorbierten Lichts.</div><div class="stufe">Lesen Sie λ<sub>max</sub> des Produkts in M2 ab und suchen Sie in der Tabelle die wahrgenommene Farbe.</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 2c</h3><div class="zu">Die Rolle von Schritt ⑤</div>
+    <div class="stufe">Vergleichen Sie Zwischenstufe II mit dem Anion: An welchem Atom fehlt im Anion ein H-Atom?</div><div class="stufe">Welche Hybridisierung hat dieses C-Atom vorher, welche nachher?</div><div class="stufe">Was bedeutet das für die Länge des π-Systems und damit für die Lage von λ<sub>max</sub>?</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 3a</h3><div class="zu">Forschungsfrage und Hypothese</div>
+    <div class="stufe">Eine gute Forschungsfrage untersucht genau eine Variable: „Wie beeinflusst X das Ergebnis Y?“</div><div class="stufe">Begründen Sie die Hypothese mit „weil“ auf Teilchenebene: Wo befinden sich freie Aminosäuren, und was passiert mit ihnen?</div><div class="stufe">Die Leitfragen in M3 sind gute Ausgangspunkte.</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 3b</h3><div class="zu">Experiment planen</div>
+    <div class="stufe">Checkliste: unabhängige, abhängige und konstante Variablen; Blindprobe (ohne Aminosäure); Positivkontrolle (sicher mit Aminosäure).</div><div class="stufe">Mengen konkret angeben (mL, g, °C, min) und vorher festlegen, woran Sie das Ergebnis ablesen (Farbintensität, Foto mit Vergleichsreihe).</div><div class="stufe">Gefährdungsbeurteilung: Ninhydrin färbt die Haut, das Sprühreagenz enthält Ethanol (keine Flamme, Abzug). Entsorgung angeben.</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 5a</h3><div class="zu">Aussagekraft und Grenzen</div>
+    <div class="stufe">Was weist Ninhydrin genau nach (vgl. 1b)? Passt das genau zu dem, was Sie in Ihrem Kontext eigentlich wissen wollen?</div><div class="stufe">Sammeln Sie Grenzen: falsch positive oder negative Ergebnisse, qualitativ statt quantitativ, Einfluss der Oberfläche bzw. der Probe.</div><div class="stufe">Verbesserung: Wie könnte man trennen oder messen statt schätzen? Denken Sie an Chromatographie und Fotometrie.</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+</div>
+
+<h2>Vertiefungen</h2>
+<p class="hinweis">★ = vertiefend · ★★ = anspruchsvoll. Die Ergebnisse gehören in Ihre Unterlagen; die Abbildungen und Werkzeuge helfen beim Denken, sie ersetzen keine Lösung.</p>
+<section class="v-karte" id="v1">
+  <div class="v-kopf"><div class="v-nr">V1</div><div><div class="sterne">★</div><h3>Violett und Gelb</h3></div></div>
+  <div class="v-inhalt zwei"><div class="v-text"><p>Ruhemanns Purpur absorbiert bei 570 nm. Mit Prolin entsteht ein anderes Produkt mit λ<sub>max</sub> ≈ 440 nm.</p><div class="aufgabe"><span class="b"></span><span><b>Bestimmen</b> Sie die Farbe des Prolin-Produkts und <b>erklären</b> Sie mit dem Reaktionsschema, warum Prolin keinen Purpur bildet.</span><span class="ab">AB II/III</span></div></div><figure>
+<div class="klein"><b>Absorbiert und wahrgenommen</b></div>
+<div class="regler"><label for="fl">λ<sub>max</sub> =</label><input id="fl" type="range" min="400" max="750" value="570"><span id="flv" style="min-width:60px"></span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px">
+  <div class="kachel"><div class="was">absorbiert</div><div id="fa" style="height:40px;border-radius:6px;margin:4px 0"></div><b id="fan"></b></div>
+  <div class="kachel"><div class="was">wahrgenommen (Komplementärfarbe)</div><div id="fw" style="height:40px;border-radius:6px;margin:4px 0"></div><b id="fwn"></b></div>
+</div>
+<figcaption>Bereiche nach der Tabelle „Licht und Farbe“ (Sitzung 06, Lehrbuchwerte); die Farbtöne sind nur Annäherungen.</figcaption></figure></div>
+</section>
+<section class="v-karte" id="v2">
+  <div class="v-kopf"><div class="v-nr">V2</div><div><div class="sterne">★</div><h3>Welche Aminosäure ist es?</h3></div></div>
+  <div class="v-inhalt"><div class="v-text"><p>Bei der Dünnschichtchromatographie wandern Aminosäuren unterschiedlich weit. Ninhydrin dient danach als Sprühreagenz, um die farblosen Flecken sichtbar zu machen.</p></div><div class="aufgabe"><span class="b"></span><span><b>Planen</b> Sie, wie man mit Dünnschichtchromatographie und Ninhydrin prüfen könnte, ob ein Hefeextrakt Glutaminsäure enthält. Nennen Sie die nötigen Vergleichsproben.</span><span class="ab">AB III</span></div></div>
+</section>
+<section class="v-karte" id="v3">
+  <div class="v-kopf"><div class="v-nr">V3</div><div><div class="sterne">★★</div><h3>Ninhydrin im Analyseautomaten</h3></div></div>
+  <div class="v-inhalt"><div class="v-text"><p>Siegfried RUHEMANN entdeckte die Farbreaktion 1910. Stanford MOORE und William STEIN entwickelten daraus einen Automaten, der Aminosäuren eines Proteins trennt und mit Ninhydrin fotometrisch bestimmt (Nobelpreis 1972).</p></div><div class="aufgabe"><span class="b"></span><span><b>Erläutern</b> Sie, warum Ninhydrin als Gruppenreagenz erst nach einer Trennung zur Bestimmung einzelner Aminosäuren taugt.</span><span class="ab">AB II</span></div></div>
+</section>
+
+<footer>
+  Chemie LK · Q1 · 02 Proteine – Bausteine des Lebens · 06 Nachweisreaktion von Aminosäuren · Vertiefung und Hilfen<br>
+  M. Friedman, <i>J. Agric. Food Chem.</i> 52 (2004) 385 (λ<sub>max</sub>-Werte). Komplementärfarben: Lehrbuchwerte.
+</footer>
+</main>
+
+<script>
+(function(){
+  document.querySelectorAll('.hk').forEach(function(k){
+    var stufen = k.querySelectorAll('.stufe'), btn = k.querySelector('button'), z = k.querySelector('.zaehler'), i = 0;
+    z.textContent = '0 / ' + stufen.length;
+    btn.addEventListener('click', function(){
+      if (i >= stufen.length) return;
+      stufen[i].classList.add('offen'); i++;
+      z.textContent = i + ' / ' + stufen.length;
+      if (i < stufen.length) btn.textContent = 'Stufe ' + (i + 1) + ' aufdecken';
+      else { btn.textContent = 'alle Stufen offen'; btn.disabled = true; }
+    });
+  });
+})();
+
+(function(){
+  var T = [[400,435,'violett','#7b2fbe','gelbgrün','#b5d334'],[435,480,'blau','#2f5fd0','gelb','#f2d12e'],[480,500,'grünblau','#1fa3a3','orange bis rot','#e8642a'],[500,560,'grün','#33a852','purpur','#a2207a'],[560,580,'gelbgrün','#b5d334','violett','#7b2fbe'],[580,605,'gelb bis orange','#f2a52e','blau','#2f5fd0'],[605,751,'rot','#d43a2f','blaugrün','#1f9a8a']];
+  var r = document.getElementById('fl');
+  function zeig(){
+    var l = +r.value, z = T.filter(function(t){ return l >= t[0] && l < t[1]; })[0];
+    document.getElementById('flv').textContent = l + ' nm';
+    document.getElementById('fa').style.background = z[3]; document.getElementById('fan').textContent = z[2];
+    document.getElementById('fw').style.background = z[5]; document.getElementById('fwn').textContent = z[4];
+  }
+  r.oninput = zeig; zeig();
+})();
+</script>
+</body>
+</html>

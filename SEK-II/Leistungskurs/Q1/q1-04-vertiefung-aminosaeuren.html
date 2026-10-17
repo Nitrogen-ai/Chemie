@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ordnungsprinzipien der Aminosäuren – Vertiefung und Hilfen</title>
+<!-- Chemie LK Q1 · Sitzung 04 · erzeugt von Q1/_Werkzeuge/hilfenseiten/build.py (iCloud), Änderungen dort. Ohne Lösungen (Repo öffentlich). -->
+<style>
+:root{
+  --blau:#2a7ab8; --tblau:#156e9d; --blau-hell:#e6f0f8; --orange:#d9822b; --orange-hell:#fdf1e4;
+  --violett:#7a5aa8; --gruen:#3e9a63; --grau:#6f7a85; --linie:#d5dde5; --bg:#f6f8fa; --karte:#fff; --text:#222;
+  --sans:-apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.5}
+a{color:var(--tblau)}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header{background:linear-gradient(135deg,#156e9d 0%,#2a7ab8 60%,#3d8fc9 100%);color:#fff;padding:28px 0 22px}
+header .kurs{font-size:13px;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+header h1{margin:4px 0 6px;font-size:clamp(24px,4.5vw,34px);font-weight:600;line-height:1.2}
+header p{margin:0;opacity:.92;max-width:680px}
+nav{position:sticky;top:0;z-index:10;background:rgba(246,248,250,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--linie)}
+nav .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:8px;padding-bottom:8px}
+nav a{flex:none;text-decoration:none;color:var(--tblau);border:1px solid var(--linie);background:#fff;border-radius:16px;padding:3px 12px;font-size:14px;font-weight:600}
+nav a.v{color:var(--orange)}
+h2{font-size:20px;color:var(--tblau);margin:30px 0 4px}
+.hinweis{color:var(--grau);font-size:14px;margin:0 0 14px}
+/* Hilfekarten */
+.hilfen{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.hk{background:var(--karte);border:1.5px dashed #b9c4cf;border-radius:10px;padding:14px 16px}
+.hk h3{margin:0 0 2px;font-size:16px;color:var(--blau)}
+.hk .zu{font-size:13px;color:var(--grau);margin-bottom:8px}
+.stufe{display:none;margin:8px 0 0;padding:8px 10px;background:var(--blau-hell);border-radius:6px;font-size:15px}
+.stufe.offen{display:block;animation:auf .25s ease}
+@keyframes auf{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.hk button{margin-top:10px;border:1px solid var(--blau);background:#fff;color:var(--blau);border-radius:6px;padding:4px 12px;font-size:14px}
+.hk button:hover{background:var(--blau-hell)}
+.hk button[disabled]{opacity:.4;cursor:default}
+.hk .zaehler{font-size:12px;color:var(--grau);margin-left:8px}
+/* Vertiefungen */
+.v-karte{background:var(--karte);border:1px solid var(--linie);border-radius:12px;margin:14px 0;overflow:hidden}
+.v-kopf{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--linie);background:#fbfcfd}
+.v-nr{flex:none;width:42px;height:42px;border-radius:50%;background:var(--orange);color:#fff;font-weight:700;display:grid;place-items:center}
+.v-kopf h3{margin:0;font-size:18px}
+.sterne{color:var(--orange);font-size:14px;font-weight:700}
+.v-inhalt{padding:14px 16px 16px}
+.zwei{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+@media (max-width:720px){.zwei{grid-template-columns:1fr}}
+.aufgabe{display:grid;grid-template-columns:28px 1fr auto;gap:6px;background:var(--orange-hell);border-radius:8px;padding:8px 10px;margin-top:10px}
+.aufgabe .b{font-weight:700;color:var(--orange)}
+.aufgabe .ab{font-size:12px;color:var(--grau);white-space:nowrap;align-self:start;margin-top:2px}
+figure{margin:0}
+figcaption{font-size:13px;color:var(--grau);margin-top:4px}
+svg{max-width:100%;height:auto;display:block}
+.regler{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 2px;font-size:14px}
+.regler input[type=range]{flex:1;min-width:140px;accent-color:var(--orange)}
+.knopf{border:1px solid var(--linie);background:#fff;border-radius:6px;padding:3px 10px;font-size:14px}
+.ausgabe{font-variant-numeric:tabular-nums;font-size:14px;background:#f2f5f8;border-radius:6px;padding:6px 10px;margin-top:6px}
+.legende{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:#444;margin-top:6px}
+.legende i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.balken{display:grid;grid-template-columns:150px 1fr 76px;gap:6px 10px;align-items:center;font-size:14px}
+.balken .spur{background:#eef2f6;border-radius:4px;height:18px;position:relative;overflow:hidden}
+.balken .fuell{height:100%;border-radius:4px;width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.balken .wert{text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:520px){.balken{grid-template-columns:100px 1fr 64px;font-size:13px}}
+.kachel-reihe{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:12px}
+.kachel{background:#f2f5f8;border-radius:8px;padding:10px 12px}
+.kachel .zahl{font-size:22px;font-weight:700;color:var(--tblau);font-variant-numeric:tabular-nums}
+.kachel .was{font-size:13px;color:#555}
+.zeitstrahl{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.zeitstrahl span{font-size:13px;background:#fff;border:1px solid var(--linie);border-radius:14px;padding:2px 10px}
+.zeitstrahl b{color:var(--orange)}
+.cta{display:inline-block;background:var(--tblau);color:#fff;text-decoration:none;font-weight:600;border-radius:8px;padding:8px 16px;margin:8px 8px 0 0}
+.cta:hover{background:var(--blau)}
+.code{font-family:Menlo,Consolas,monospace;background:#f2f5f8;border:1px solid var(--linie);border-radius:6px;padding:2px 8px;font-size:14px}
+.klein{font-size:13px;color:var(--grau)}
+footer{margin:36px 0 0;border-top:1px solid var(--linie);padding:16px 0 28px;font-size:12.5px;color:var(--grau)}
+sub,sup{font-size:.72em}
+/* Ergänzungen Generator */
+.zurueck{display:inline-block;color:#fff;opacity:.85;text-decoration:none;font-size:13px;margin-bottom:6px}
+.zurueck:hover{opacity:1;text-decoration:underline}
+.v-text p:first-child{margin-top:0}
+.fischer{display:inline-block;vertical-align:middle;margin:4px 10px 4px 0}
+.wahl{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.wahl button{border:1px solid var(--linie);background:#fff;border-radius:14px;padding:2px 10px;font-size:13px}
+.wahl button.an{background:var(--tblau);border-color:var(--tblau);color:#fff}
+.quiz-aa{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:6px;margin-top:8px}
+.quiz-aa button{border:1px solid var(--linie);background:#fff;border-radius:8px;padding:6px 4px;font-size:14px}
+.quiz-aa button.ok{background:#e3f4ea;border-color:#3e9a63}
+.quiz-aa button.falsch{background:#fbe6e3;border-color:#d0574a}
+.uebersicht{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:14px}
+.uebersicht a{display:block;background:#fff;border:1px solid var(--linie);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--text)}
+.uebersicht a:hover{border-color:var(--blau);box-shadow:0 2px 8px rgba(21,110,157,.12)}
+.uebersicht .nr{font-size:13px;color:var(--orange);font-weight:700}
+.uebersicht .t{font-weight:600;color:var(--tblau);margin:2px 0 4px}
+.uebersicht .k{font-size:13px;color:var(--grau)}
+.einheit{font-size:14px;color:var(--grau);text-transform:uppercase;letter-spacing:.05em;margin:26px 0 0}
+
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="zurueck" href="q1-vertiefung-und-hilfen.html">← alle Sitzungen</a>
+    <div class="kurs">Chemie LK · Q1 · 02 Proteine – Bausteine des Lebens · Sitzung 04</div>
+    <h1>Vertiefung und Hilfen: Ordnungsprinzipien der Aminosäuren</h1>
+    <p>Hilfen zu den Aufgaben 1 und 2 nur bei Bedarf und stufenweise aufdecken. Vertiefungen für Schnelle.</p>
+  </div>
+</header>
+<nav><div class="wrap">
+  <a href="#hilfen">Hilfen</a><a class="v" href="#v1">V1 Einteilen</a><a class="v" href="#v2">V2 Essenziell</a><a class="v" href="#v3">V3 21 und 22</a>
+</div></nav>
+
+<main class="wrap">
+<h2 id="hilfen">Hilfekarten</h2>
+<p class="hinweis">Erst selbst probieren. Jede Karte deckt ihre Hilfe in Stufen auf, so wenig wie möglich, so viel wie nötig.</p>
+<div class="hilfen">
+  <div class="hk">
+    <h3>Hilfe zu Aufgabe 1</h3><div class="zu">Gemeinsamkeiten der Aminosäuren</div>
+    <div class="stufe">Suchen Sie die Atomgruppen, die in allen 20 Formeln wiederkehren, und markieren Sie sie in derselben Farbe.</div><div class="stufe">Jedes Molekül trägt eine Aminogruppe und eine Carboxygruppe am selben C-Atom. Wie heißt dieses C-Atom?</div><div class="stufe">Was unterscheidet sich? Nur der Rest R an diesem C-Atom. Schauen Sie sich Prolin genauer an: Was ist bei ihm anders?</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu Aufgabe 2, A1</h3><div class="zu">Welche Aminosäuren reagieren basisch?</div>
+    <div class="stufe">Basisch reagiert ein Teilchen, das Protonen aufnehmen kann. Welche funktionelle Gruppe kann das?</div><div class="stufe">Suchen Sie Aminosäuren, deren Rest eine zusätzliche stickstoffhaltige Gruppe trägt, die ein Proton aufnehmen kann.</div><div class="stufe">Vorsicht bei Asparagin und Glutamin: Ihre Amidgruppe (–CO–NH₂) reagiert nicht basisch.</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu Aufgabe 2, A3</h3><div class="zu">FISCHER-Projektion</div>
+    <div class="stufe">Regeln: Kohlenstoffkette senkrecht, die am höchsten oxidierte Gruppe (COOH) oben, der Rest R unten. Senkrechte Bindungen zeigen nach hinten, waagerechte nach vorn.</div><div class="stufe">Steht die Aminogruppe links, liegt die L-Form vor, steht sie rechts, die D-Form.</div><div class="stufe">Ersetzen Sie im Gerüst unten nur noch R: bei Asparaginsäure CH₂–COOH, bei Serin CH₂OH.<br><svg class="fischer" width="150" height="116" viewBox="0 0 150 116"><text x="75" y="16" font-size="13" text-anchor="middle">COOH</text><line x1="75" y1="22" x2="75" y2="62" stroke="#222" stroke-width="1.6"/><line x1="45" y1="40" x2="105" y2="40" stroke="#222" stroke-width="1.6"/><text x="41" y="44" font-size="13" text-anchor="end">H₂N</text><text x="109" y="44" font-size="13">H</text><text x="75" y="78" font-size="13" text-anchor="middle">CH₃</text><text x="75" y="110" font-size="11" fill="#6f7a85" text-anchor="middle">L-Alanin als Vorlage</text></svg></div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+</div>
+
+<h2>Vertiefungen</h2>
+<p class="hinweis">★ = vertiefend · ★★ = anspruchsvoll. Die Ergebnisse gehören in Ihre Unterlagen; die Abbildungen und Werkzeuge helfen beim Denken, sie ersetzen keine Lösung.</p>
+<section class="v-karte" id="v1">
+  <div class="v-kopf"><div class="v-nr">V1</div><div><div class="sterne">★</div><h3>Aminosäuren nach dem Rest einteilen</h3></div></div>
+  <div class="v-inhalt zwei"><div class="v-text"><p>Der Rest R bestimmt, wie sich eine Aminosäure im Protein verhält: unpolare Reste meiden Wasser, polare und geladene Reste gehen Wechselwirkungen mit Wasser ein (vgl. 05).</p><div class="aufgabe"><span class="b"></span><span><b>Ordnen</b> Sie die 20 Aminosäuren den vier Gruppen <b>zu</b> und <b>begründen</b> Sie zwei Zuordnungen mit der Struktur des Rests.</span><span class="ab">AB II</span></div></div><figure>
+<div class="klein"><b>Tippen Sie eine Aminosäure an, bis die passende Gruppe erscheint, dann „prüfen“.</b></div>
+<div class="quiz-aa" id="aaq"></div>
+<div class="regler"><button class="knopf" id="aap" type="button">prüfen</button><button class="knopf" id="aar" type="button">neu</button><span id="aaout" class="klein"></span></div>
+<figcaption>Gruppen nach dem Rest R: unpolar · polar (ungeladen) · sauer · basisch. Je nach Lehrbuch wird z. B. Glycin, Cystein, Tyrosin oder Tryptophan anders eingeordnet.</figcaption></figure></div>
+</section>
+<section class="v-karte" id="v2">
+  <div class="v-kopf"><div class="v-nr">V2</div><div><div class="sterne">★</div><h3>Essenzielle Aminosäuren und vegane Ernährung</h3></div></div>
+  <div class="v-inhalt"><div class="v-text"><p>Neun Aminosäuren kann der Mensch nicht selbst herstellen: His, Ile, Leu, Lys, Met, Phe, Thr, Trp, Val. Getreide enthält wenig Lysin, Hülsenfrüchte enthalten wenig Methionin.</p></div><div class="aufgabe"><span class="b"></span><span><b>Erläutern</b> Sie, warum in der veganen Ernährung Getreide und Hülsenfrüchte kombiniert werden sollten (z. B. Linsen mit Reis).</span><span class="ab">AB II</span></div></div>
+</section>
+<section class="v-karte" id="v3">
+  <div class="v-kopf"><div class="v-nr">V3</div><div><div class="sterne">★★</div><h3>Die 21. und 22. Aminosäure</h3></div></div>
+  <div class="v-inhalt"><div class="v-text"><p>Selenocystein enthält statt des S-Atoms des Cysteins ein Se-Atom; es kommt in einigen Enzymen des Menschen vor. Pyrrolysin findet man nur in einigen Mikroorganismen.</p></div><div class="aufgabe"><span class="b"></span><span><b>Formulieren</b> Sie die Strukturformel von L-Selenocystein in der FISCHER-Projektion und <b>vergleichen</b> Sie sie mit L-Cystein.</span><span class="ab">AB II</span></div></div>
+</section>
+
+<footer>
+  Chemie LK · Q1 · 02 Proteine – Bausteine des Lebens · 04 Ordnungsprinzipien der Aminosäuren · Vertiefung und Hilfen<br>
+  Einteilung der Aminosäuren und essenzielle Aminosäuren: Lehrbuchwerte.
+</footer>
+</main>
+
+<script>
+(function(){
+  document.querySelectorAll('.hk').forEach(function(k){
+    var stufen = k.querySelectorAll('.stufe'), btn = k.querySelector('button'), z = k.querySelector('.zaehler'), i = 0;
+    z.textContent = '0 / ' + stufen.length;
+    btn.addEventListener('click', function(){
+      if (i >= stufen.length) return;
+      stufen[i].classList.add('offen'); i++;
+      z.textContent = i + ' / ' + stufen.length;
+      if (i < stufen.length) btn.textContent = 'Stufe ' + (i + 1) + ' aufdecken';
+      else { btn.textContent = 'alle Stufen offen'; btn.disabled = true; }
+    });
+  });
+})();
+
+(function(){
+  var G = ['?', 'unpolar', 'polar', 'sauer', 'basisch'];
+  var A = {Gly:1,Ala:1,Val:1,Leu:1,Ile:1,Pro:1,Phe:1,Met:1,Trp:1,Ser:2,Thr:2,Cys:2,Tyr:2,Asn:2,Gln:2,Asp:3,Glu:3,Lys:4,Arg:4,His:4};
+  var box = document.getElementById('aaq'), st = {};
+  Object.keys(A).forEach(function(k){
+    var b = document.createElement('button'); b.type = 'button'; st[k] = 0;
+    b.innerHTML = '<b>' + k + '</b><br><span class="klein">?</span>';
+    b.onclick = function(){ st[k] = (st[k] + 1) % 5; b.className = ''; b.querySelector('span').textContent = G[st[k]]; };
+    b.dataset.k = k; box.appendChild(b);
+  });
+  document.getElementById('aap').onclick = function(){
+    var r = 0;
+    box.querySelectorAll('button').forEach(function(b){ var k = b.dataset.k; if (!st[k]) { b.className = ''; return; } var ok = st[k] === A[k]; b.className = ok ? 'ok' : 'falsch'; if (ok) r++; });
+    document.getElementById('aaout').textContent = r + ' von 20 richtig';
+  };
+  document.getElementById('aar').onclick = function(){ box.querySelectorAll('button').forEach(function(b){ st[b.dataset.k] = 0; b.className = ''; b.querySelector('span').textContent = '?'; }); document.getElementById('aaout').textContent = ''; };
+})();
+</script>
+</body>
+</html>
