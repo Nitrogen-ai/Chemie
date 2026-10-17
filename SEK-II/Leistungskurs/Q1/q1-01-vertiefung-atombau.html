@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atombau – Vertiefung und Hilfen</title>
+<!-- Chemie LK Q1 · Sitzung 01 · erzeugt von Q1/_Werkzeuge/hilfenseiten/build.py (iCloud), Änderungen dort. Ohne Lösungen (Repo öffentlich). -->
+<style>
+:root{
+  --blau:#2a7ab8; --tblau:#156e9d; --blau-hell:#e6f0f8; --orange:#d9822b; --orange-hell:#fdf1e4;
+  --violett:#7a5aa8; --gruen:#3e9a63; --grau:#6f7a85; --linie:#d5dde5; --bg:#f6f8fa; --karte:#fff; --text:#222;
+  --sans:-apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.5}
+a{color:var(--tblau)}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header{background:linear-gradient(135deg,#156e9d 0%,#2a7ab8 60%,#3d8fc9 100%);color:#fff;padding:28px 0 22px}
+header .kurs{font-size:13px;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+header h1{margin:4px 0 6px;font-size:clamp(24px,4.5vw,34px);font-weight:600;line-height:1.2}
+header p{margin:0;opacity:.92;max-width:680px}
+nav{position:sticky;top:0;z-index:10;background:rgba(246,248,250,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--linie)}
+nav .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:8px;padding-bottom:8px}
+nav a{flex:none;text-decoration:none;color:var(--tblau);border:1px solid var(--linie);background:#fff;border-radius:16px;padding:3px 12px;font-size:14px;font-weight:600}
+nav a.v{color:var(--orange)}
+h2{font-size:20px;color:var(--tblau);margin:30px 0 4px}
+.hinweis{color:var(--grau);font-size:14px;margin:0 0 14px}
+/* Hilfekarten */
+.hilfen{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.hk{background:var(--karte);border:1.5px dashed #b9c4cf;border-radius:10px;padding:14px 16px}
+.hk h3{margin:0 0 2px;font-size:16px;color:var(--blau)}
+.hk .zu{font-size:13px;color:var(--grau);margin-bottom:8px}
+.stufe{display:none;margin:8px 0 0;padding:8px 10px;background:var(--blau-hell);border-radius:6px;font-size:15px}
+.stufe.offen{display:block;animation:auf .25s ease}
+@keyframes auf{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.hk button{margin-top:10px;border:1px solid var(--blau);background:#fff;color:var(--blau);border-radius:6px;padding:4px 12px;font-size:14px}
+.hk button:hover{background:var(--blau-hell)}
+.hk button[disabled]{opacity:.4;cursor:default}
+.hk .zaehler{font-size:12px;color:var(--grau);margin-left:8px}
+/* Vertiefungen */
+.v-karte{background:var(--karte);border:1px solid var(--linie);border-radius:12px;margin:14px 0;overflow:hidden}
+.v-kopf{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--linie);background:#fbfcfd}
+.v-nr{flex:none;width:42px;height:42px;border-radius:50%;background:var(--orange);color:#fff;font-weight:700;display:grid;place-items:center}
+.v-kopf h3{margin:0;font-size:18px}
+.sterne{color:var(--orange);font-size:14px;font-weight:700}
+.v-inhalt{padding:14px 16px 16px}
+.zwei{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+@media (max-width:720px){.zwei{grid-template-columns:1fr}}
+.aufgabe{display:grid;grid-template-columns:28px 1fr auto;gap:6px;background:var(--orange-hell);border-radius:8px;padding:8px 10px;margin-top:10px}
+.aufgabe .b{font-weight:700;color:var(--orange)}
+.aufgabe .ab{font-size:12px;color:var(--grau);white-space:nowrap;align-self:start;margin-top:2px}
+figure{margin:0}
+figcaption{font-size:13px;color:var(--grau);margin-top:4px}
+svg{max-width:100%;height:auto;display:block}
+.regler{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 2px;font-size:14px}
+.regler input[type=range]{flex:1;min-width:140px;accent-color:var(--orange)}
+.knopf{border:1px solid var(--linie);background:#fff;border-radius:6px;padding:3px 10px;font-size:14px}
+.ausgabe{font-variant-numeric:tabular-nums;font-size:14px;background:#f2f5f8;border-radius:6px;padding:6px 10px;margin-top:6px}
+.legende{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:#444;margin-top:6px}
+.legende i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.balken{display:grid;grid-template-columns:150px 1fr 76px;gap:6px 10px;align-items:center;font-size:14px}
+.balken .spur{background:#eef2f6;border-radius:4px;height:18px;position:relative;overflow:hidden}
+.balken .fuell{height:100%;border-radius:4px;width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.balken .wert{text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:520px){.balken{grid-template-columns:100px 1fr 64px;font-size:13px}}
+.kachel-reihe{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:12px}
+.kachel{background:#f2f5f8;border-radius:8px;padding:10px 12px}
+.kachel .zahl{font-size:22px;font-weight:700;color:var(--tblau);font-variant-numeric:tabular-nums}
+.kachel .was{font-size:13px;color:#555}
+.zeitstrahl{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.zeitstrahl span{font-size:13px;background:#fff;border:1px solid var(--linie);border-radius:14px;padding:2px 10px}
+.zeitstrahl b{color:var(--orange)}
+.cta{display:inline-block;background:var(--tblau);color:#fff;text-decoration:none;font-weight:600;border-radius:8px;padding:8px 16px;margin:8px 8px 0 0}
+.cta:hover{background:var(--blau)}
+.code{font-family:Menlo,Consolas,monospace;background:#f2f5f8;border:1px solid var(--linie);border-radius:6px;padding:2px 8px;font-size:14px}
+.klein{font-size:13px;color:var(--grau)}
+footer{margin:36px 0 0;border-top:1px solid var(--linie);padding:16px 0 28px;font-size:12.5px;color:var(--grau)}
+sub,sup{font-size:.72em}
+/* Ergänzungen Generator */
+.zurueck{display:inline-block;color:#fff;opacity:.85;text-decoration:none;font-size:13px;margin-bottom:6px}
+.zurueck:hover{opacity:1;text-decoration:underline}
+.v-text p:first-child{margin-top:0}
+.fischer{display:inline-block;vertical-align:middle;margin:4px 10px 4px 0}
+.wahl{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.wahl button{border:1px solid var(--linie);background:#fff;border-radius:14px;padding:2px 10px;font-size:13px}
+.wahl button.an{background:var(--tblau);border-color:var(--tblau);color:#fff}
+.quiz-aa{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:6px;margin-top:8px}
+.quiz-aa button{border:1px solid var(--linie);background:#fff;border-radius:8px;padding:6px 4px;font-size:14px}
+.quiz-aa button.ok{background:#e3f4ea;border-color:#3e9a63}
+.quiz-aa button.falsch{background:#fbe6e3;border-color:#d0574a}
+.uebersicht{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:14px}
+.uebersicht a{display:block;background:#fff;border:1px solid var(--linie);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--text)}
+.uebersicht a:hover{border-color:var(--blau);box-shadow:0 2px 8px rgba(21,110,157,.12)}
+.uebersicht .nr{font-size:13px;color:var(--orange);font-weight:700}
+.uebersicht .t{font-weight:600;color:var(--tblau);margin:2px 0 4px}
+.uebersicht .k{font-size:13px;color:var(--grau)}
+.einheit{font-size:14px;color:var(--grau);text-transform:uppercase;letter-spacing:.05em;margin:26px 0 0}
+
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="zurueck" href="q1-vertiefung-und-hilfen.html">← alle Sitzungen</a>
+    <div class="kurs">Chemie LK · Q1 · 01 Grundlegende Wiederholung · Sitzung 01</div>
+    <h1>Vertiefung und Hilfen: Atombau</h1>
+    <p>Hilfen zu den Aufgaben 1–7 nur bei Bedarf und stufenweise aufdecken. Vertiefungen für Schnelle, in beliebiger Reihenfolge.</p>
+  </div>
+</header>
+<nav><div class="wrap">
+  <a href="#hilfen">Hilfen</a><a class="v" href="#v1">V1 Wasserstoffspektrum</a><a class="v" href="#v2">V2 Wärmestrahlung</a><a class="v" href="#v3">V3 Ausnahmen</a>
+</div></nav>
+
+<main class="wrap">
+<h2 id="hilfen">Hilfekarten</h2>
+<p class="hinweis">Erst selbst probieren. Jede Karte deckt ihre Hilfe in Stufen auf, so wenig wie möglich, so viel wie nötig.</p>
+<div class="hilfen">
+  <div class="hk">
+    <h3>Hilfe zu Aufgabe 1</h3><div class="zu">Lichtquellen: diskret oder kontinuierlich?</div>
+    <div class="stufe">Fragen Sie bei jeder Quelle zuerst: <b>Glüht</b> hier etwas, also ein heißer, dichter Körper? Oder senden einzelne Atome bzw. ein Halbleiter das Licht aus?</div><div class="stufe">Im Handspektroskop: Ein lückenloses Farbband spricht für kontinuierliche Strahlung, einzelne helle Linien oder ein schmaler Farbbereich für Elektronenübergänge.</div><div class="stufe">Drei Sonderfälle genauer ansehen: Die Sonne glüht, zeigt aber feine dunkle Linien: Wer verschluckt dort Licht? Bei der weißen LED: Wie viele getrennte Farbbereiche sehen Sie? Beim brennenden Magnesium: Was genau glüht in der Flamme?</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu Aufgabe 2</h3><div class="zu">Farbstoff extrahieren: welches Lösemittel?</div>
+    <div class="stufe">Markieren Sie in der Skelettformel alle polaren Gruppen (–OH, –COOH, C=O, Ladungen) in einer Farbe und die langen Kohlenwasserstoffketten und Ringe in einer anderen.</div><div class="stufe">Überwiegen die polaren Gruppen, ist der Farbstoff hydrophil und löst sich in einem polaren Lösemittel. Überwiegt der Kohlenwasserstoffteil, ist er lipophil und braucht ein unpolares Lösemittel. Beides deutlich vorhanden: amphiphil.</div><div class="stufe">Begründen Sie in der Hypothese mit Wechselwirkungen: Zwischen Farbstoff und Lösemittel müssen ähnlich starke Wechselwirkungen möglich sein wie innerhalb der beiden Stoffe (Wasserstoffbrücken zu Wasserstoffbrücken, Van-der-Waals- zu Van-der-Waals-Wechselwirkungen).</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu Aufgabe 3</h3><div class="zu">Historische Übersicht der Atommodelle</div>
+    <div class="stufe">Mögliche Reihenfolge: DALTON (Kugel) → THOMSON (Rosinenkuchen) → RUTHERFORD (Kern und Hülle) → BOHR (Schalen mit festen Energien) → SOMMERFELD (zusätzlich Ellipsenbahnen) → Orbitalmodell.</div><div class="stufe">Notieren Sie zu jedem Modell, welcher Befund das Vorgängermodell widerlegt hat: Streuversuch, Linienspektren, Feinstruktur der Linien, Welleneigenschaften der Elektronen.</div><div class="stufe">Skizzen-Tipp: Bei RUTHERFORD ein winziger Kern in viel leerem Raum, bei BOHR konzentrische Kreise, bei SOMMERFELD zusätzlich Ellipsen, im Orbitalmodell Wolken (s kugelförmig, p hantelförmig).</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu Aufgabe 4</h3><div class="zu">Ionisierungsenergien und Ordnungszahl</div>
+    <div class="stufe">Die Ionisierungsenergie ist die Energie, um das am schwächsten gebundene Elektron abzulösen. Wovon hängt ab, wie fest es gebunden ist? Denken Sie an Kernladung, Abstand zum Kern und Abschirmung durch innere Elektronen.</div><div class="stufe">Vergleichen Sie innerhalb einer Periode (Li → Ne): Was ändert sich an der Kernladung, was an der Schale? Und dann beim Übergang Ne → Na: Was ändert sich jetzt?</div><div class="stufe">Erklären Sie zuletzt die kleinen Knicke bei Be → B und N → O: Welche Unterschale beginnt beim Bor? Was ist beim Sauerstoff im 2p-Bereich anders als beim Stickstoff? Das Schalenmodell allein reicht dafür nicht.</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu Aufgabe 5</h3><div class="zu">Kästchenschreibweise (Energieprinzip)</div>
+    <div class="stufe">Reihenfolge der Unterschalen nach steigender Energie: 1s · 2s · 2p · 3s · 3p · 4s · 3d · 4p · 5s · 4d · 5p · 6s · 4f · 5d · 6p …</div><div class="stufe">PAULI: höchstens zwei Elektronen pro Kästchen, mit entgegengesetztem Spin. HUND: gleichwertige Kästchen einer Unterschale zuerst einfach und mit gleichem Spin besetzen.</div><div class="stufe">Kontrolle: Die Zahl der Pfeile muss der Ordnungszahl entsprechen (Be 4, F 9, Zr 40, Cs 55). Sie können mit dem vorangehenden Edelgas abkürzen, z. B. [Kr] für die ersten 36 Elektronen.</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu Aufgabe 6</h3><div class="zu">Die vier Quantenzahlen des letzten Elektrons</div>
+    <div class="stufe">n ist die Zahl vor dem Orbitalbuchstaben. l ergibt sich aus dem Buchstaben: s = 0, p = 1, d = 2, f = 3.</div><div class="stufe">m: Nummerieren Sie die Kästchen einer Unterschale von links nach rechts von −l bis +l (p: −1, 0, +1). Das Kästchen, in dem das zuletzt eingefüllte Elektron sitzt, liefert m.</div><div class="stufe">s: Pfeil nach oben = +½, Pfeil nach unten = −½. Achten Sie darauf, in welcher Reihenfolge Sie die Kästchen nach HUND gefüllt haben.</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu Aufgabe 7</h3><div class="zu">Stehende Wellen und Orbitale</div>
+    <div class="stufe">Saite = eindimensional, Membran = zweidimensional, Seifenblase = dreidimensional. Orbitale sind dreidimensionale stehende Wellen des Elektrons.</div><div class="stufe">Knoten sind Stellen, an denen nichts schwingt. Im Orbital entsprechen sie Bereichen, in denen sich das Elektron nicht aufhält. Mehr Knoten bedeuten eine höhere Energie.</div><div class="stufe">Eine Membran mit einer Knotenlinie kann diese Linie in verschiedenen Richtungen haben. Welche Orbitale unterscheiden sich genau so, nur in ihrer räumlichen Ausrichtung?</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+</div>
+
+<h2>Vertiefungen</h2>
+<p class="hinweis">★ = vertiefend · ★★ = anspruchsvoll. Die Ergebnisse gehören in Ihre Unterlagen; die Abbildungen und Werkzeuge helfen beim Denken, sie ersetzen keine Lösung.</p>
+<section class="v-karte" id="v1">
+  <div class="v-kopf"><div class="v-nr">V1</div><div><div class="sterne">★</div><h3>Das Linienspektrum des Wasserstoffs berechnen</h3></div></div>
+  <div class="v-inhalt zwei"><div class="v-text"><p>Nach BOHR hat das Elektron im Wasserstoffatom nur bestimmte Energien E<sub>n</sub> = −13,6 eV / n². Beim Sprung auf ein niedrigeres Niveau wird die Differenz als Photon abgegeben: ΔE = h · c / λ.</p><div class="aufgabe"><span class="b">a)</span><span><b>Berechnen</b> Sie die Wellenlängen für die Übergänge n = 3 → 2 und n = 4 → 2 und prüfen Sie Ihr Ergebnis mit dem Werkzeug.</span><span class="ab">AB II</span></div><div class="aufgabe"><span class="b">b)</span><span><b>Erklären</b> Sie, warum man von den Übergängen auf n = 1 im Handspektroskop nichts sieht.</span><span class="ab">AB II</span></div></div><figure>
+<div class="klein"><b>Energiesprung im Wasserstoffatom</b> (Bohr: E<sub>n</sub> = −13,6 eV / n²)</div>
+<div class="regler"><label>von n =</label><select id="bo" class="knopf"></select><label>nach n =</label><select id="bu" class="knopf"></select></div>
+<div style="position:relative;height:34px;border-radius:6px;margin-top:8px;background:linear-gradient(90deg,#7a00c8 0%,#3a3aff 14%,#00a0ff 27%,#00d0a0 37%,#40d000 46%,#d0e000 57%,#ffb000 66%,#ff5000 78%,#d00000 92%,#900000 100%)"><div id="blinie" style="position:absolute;top:-4px;bottom:-4px;width:4px;background:#111;border-radius:2px;display:none"></div></div>
+<div style="display:flex;justify-content:space-between;font-size:12px;color:#6f7a85"><span>380 nm</span><span>500</span><span>600</span><span>750 nm</span></div>
+<div class="ausgabe" id="bout"></div>
+<figcaption>Wählen Sie einen Übergang. Liegt die Wellenlänge im sichtbaren Bereich, erscheint eine Linie im Spektrum.</figcaption></figure></div>
+</section>
+<section class="v-karte" id="v2">
+  <div class="v-kopf"><div class="v-nr">V2</div><div><div class="sterne">★</div><h3>Warum Glühlampen so ineffizient sind</h3></div></div>
+  <div class="v-inhalt zwei"><div class="v-text"><p>Ein glühender Körper strahlt alle Wellenlängen ab, am stärksten bei λ<sub>max</sub>. Nach dem Wienschen Verschiebungsgesetz gilt λ<sub>max</sub> · T = 2898 µm·K: Je heißer, desto kurzwelliger das Maximum (vgl. das Planck-Diagramm auf dem Aufgabenblatt).</p><div class="aufgabe"><span class="b">a)</span><span><b>Bestimmen</b> Sie λ<sub>max</sub> für die Sonnenoberfläche (5777 K) und einen Glühdraht (2700 K).</span><span class="ab">AB I</span></div><div class="aufgabe"><span class="b">b)</span><span><b>Begründen</b> Sie, warum die EU klassische Glühlampen vom Markt genommen hat, und <b>vergleichen</b> Sie mit einer LED.</span><span class="ab">AB II/III</span></div></div><figure>
+<div class="klein"><b>Wo liegt das Maximum der Wärmestrahlung?</b> λ<sub>max</sub> = 2898 µm·K / T</div>
+<div class="regler"><label for="wt">T =</label><input id="wt" type="range" min="300" max="10000" step="1" value="5777"><span id="wtv" style="min-width:70px"></span></div>
+<div class="wahl"><button type="button" data-t="5777">Sonne</button><button type="button" data-t="2700">Glühlampe</button><button type="button" data-t="1800">Kerzenflamme</button><button type="button" data-t="310">Mensch</button></div>
+<div style="position:relative;height:30px;border-radius:6px;margin-top:6px;background:#eef2f6;overflow:hidden">
+  <div style="position:absolute;top:0;bottom:0;left:20%;width:18.5%;background:linear-gradient(90deg,#7a00c8 0%,#3a3aff 14%,#00a0ff 27%,#00d0a0 37%,#40d000 46%,#d0e000 57%,#ffb000 66%,#ff5000 78%,#d00000 92%,#900000 100%)"></div>
+  <div id="wpunkt" style="position:absolute;top:-2px;bottom:-2px;width:4px;background:#111;border-radius:2px"></div>
+</div>
+<div style="display:flex;justify-content:space-between;font-size:12px;color:#6f7a85"><span>0 µm</span><span>sichtbar 0,38–0,75 µm</span><span>≥ 2 µm</span></div>
+<div class="ausgabe" id="wout"></div>
+<figcaption>Skala bis 2 µm; längere Wellenlängen werden am rechten Rand angezeigt.</figcaption></figure></div>
+</section>
+<section class="v-karte" id="v3">
+  <div class="v-kopf"><div class="v-nr">V3</div><div><div class="sterne">★★</div><h3>Ausnahmen beim Chrom und beim Kupfer</h3></div></div>
+  <div class="v-inhalt"><div class="v-text"><p>Nach dem Energieprinzip erwartet man für Chrom (Z = 24) und Kupfer (Z = 29) eine voll besetzte 4s-Unterschale. Gemessen werden aber [Ar] 3d<sup>5</sup> 4s<sup>1</sup> und [Ar] 3d<sup>10</sup> 4s<sup>1</sup>.</p></div><div class="aufgabe"><span class="b">a)</span><span><b>Stellen</b> Sie für beide Elemente die erwartete und die tatsächliche Konfiguration in Kästchenschreibweise <b>dar</b>.</span><span class="ab">AB I</span></div><div class="aufgabe"><span class="b">b)</span><span><b>Erklären</b> Sie die Abweichung mit dem Energieabstand von 3d und 4s und der besonderen Stabilität halb und voll besetzter Unterschalen.</span><span class="ab">AB III</span></div></div>
+</section>
+
+<footer>
+  Chemie LK · Q1 · 01 Grundlegende Wiederholung · 01 Atombau · Vertiefung und Hilfen<br>
+  Bohr-Energien, Wiensches Verschiebungsgesetz und Konfigurationen: Lehrbuchwerte.
+</footer>
+</main>
+
+<script>
+(function(){
+  document.querySelectorAll('.hk').forEach(function(k){
+    var stufen = k.querySelectorAll('.stufe'), btn = k.querySelector('button'), z = k.querySelector('.zaehler'), i = 0;
+    z.textContent = '0 / ' + stufen.length;
+    btn.addEventListener('click', function(){
+      if (i >= stufen.length) return;
+      stufen[i].classList.add('offen'); i++;
+      z.textContent = i + ' / ' + stufen.length;
+      if (i < stufen.length) btn.textContent = 'Stufe ' + (i + 1) + ' aufdecken';
+      else { btn.textContent = 'alle Stufen offen'; btn.disabled = true; }
+    });
+  });
+})();
+
+(function(){
+  var bo = document.getElementById('bo'), bu = document.getElementById('bu'), out = document.getElementById('bout'), li = document.getElementById('blinie');
+  for (var i = 2; i <= 7; i++) bo.add(new Option(i, i)); for (var j = 1; j <= 3; j++) bu.add(new Option(j, j));
+  bo.value = 3; bu.value = 2;
+  function rechne(){
+    var o = +bo.value, u = +bu.value;
+    if (o <= u){ out.innerHTML = 'Beim Aussenden eines Photons springt das Elektron von einem <b>höheren</b> auf ein <b>niedrigeres</b> Niveau.'; li.style.display = 'none'; return; }
+    var dE = 13.6 * (1/(u*u) - 1/(o*o)), lam = 1239.84 / dE, b = lam < 380 ? 'UV, unsichtbar' : (lam > 750 ? 'Infrarot, unsichtbar' : 'sichtbar');
+    out.innerHTML = 'ΔE = 13,6 eV · (1/' + u + '² − 1/' + o + '²) = <b>' + dE.toFixed(2).replace('.', ',') + ' eV</b> &nbsp;→&nbsp; λ = h·c/ΔE = <b>' + Math.round(lam) + ' nm</b> (' + b + ')';
+    if (lam >= 380 && lam <= 750){ li.style.display = 'block'; li.style.left = 'calc(' + ((lam - 380) / 370 * 100) + '% - 2px)'; } else li.style.display = 'none';
+  }
+  bo.onchange = bu.onchange = rechne; rechne();
+})();
+
+(function(){
+  var r = document.getElementById('wt'), v = document.getElementById('wtv'), p = document.getElementById('wpunkt'), out = document.getElementById('wout');
+  function rechne(){
+    var T = +r.value, lam = 2898 / T; v.textContent = T + ' K';
+    p.style.left = 'calc(' + Math.min(lam / 2, 1) * 100 + '% - 2px)';
+    var b = lam < 0.38 ? 'UV' : (lam <= 0.75 ? 'sichtbar' : 'Infrarot');
+    out.innerHTML = 'λ<sub>max</sub> = 2898 µm·K / ' + T + ' K = <b>' + (lam >= 10 ? lam.toFixed(1) : lam.toFixed(3)).replace('.', ',') + ' µm</b> = ' + Math.round(lam * 1000) + ' nm (' + b + ')';
+  }
+  r.oninput = rechne;
+  document.querySelectorAll('[data-t]').forEach(function(b){ b.onclick = function(){ r.value = b.getAttribute('data-t'); rechne(); }; });
+  rechne();
+})();
+</script>
+</body>
+</html>
