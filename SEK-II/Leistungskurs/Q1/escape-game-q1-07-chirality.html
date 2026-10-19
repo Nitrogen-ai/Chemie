@@ -137,7 +137,7 @@ textarea{width:100%;min-height:62px;background:#0a0f15;color:var(--text);border:
 
 <div id="hud" class="hidden">
   <span class="brand">CHIRAL-7 · BSL ROT</span>
-  <span id="timer">60:00</span>
+  <span id="timer">90:00</span>
   <div id="pills"></div>
   <div id="fragmente"></div>
   <span class="spacer"></span>
@@ -201,7 +201,7 @@ const A = {"img": {"bunker": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQABLAEsAAD
 "use strict";
 // ======================= Daten =======================
 const SPEICHER = "chirality-escape-v1";
-const DAUER = 60 * 60;            // Sekunden
+const DAUER = 90 * 60;            // Sekunden
 const STRAFE = 60;                // je Hinweis
 const FARBEN = ["var(--s1)","var(--s2)","var(--s3)","var(--s4)","var(--s5)","var(--s6)"];
 const WORT = "D-GLUTAMAT";
@@ -369,7 +369,7 @@ Seit vierzig Jahren breiten sich Bakterien aus, die man zuerst in abgelegenen tr
 
 Heute Nacht ist die Außenstation Amazonas-4 ausgefallen. Im Lüftungssystem des Bunkers wurde Tropical Isolate 07 nachgewiesen. Kein bekanntes Antibiotikum wirkt.
 
-<span class="rot">BIOLOGISCHE SICHERHEITSSTUFE ROT. VERBLEIBENDE ZEIT BIS ZUM AUSFALL DER LEBENSERHALTUNG: 60 MINUTEN.</span>
+<span class="rot">BIOLOGISCHE SICHERHEITSSTUFE ROT. VERBLEIBENDE ZEIT BIS ZUM AUSFALL DER LEBENSERHALTUNG: 90 MINUTEN.</span>
 
 Aufzeichnung Prof. Dr. Helena Voss, letzte Forschungsleiterin:
 „Wenn ihr das seht, habe ich es nicht geschafft. Ich habe ein Archiv hinterlassen, sechs Fächer, jedes mit einem Code gesichert. Die Antwort liegt in der Geschichte der Stereochemie. Reist zurück zu Pasteur und zu Fischer, versteht, warum Leben links und rechts unterscheidet, und analysiert dann die Probe. Findet heraus: Welche D-Aminosäure ist der Ansatzpunkt, um Isolat 07 aufzuhalten?“</div>
@@ -386,7 +386,7 @@ function bindeStart(){ $("#btnStart").onclick=()=>{Z.team=$("#teamname").value.t
 
 // ---------- Station 1: Pasteur ----------
 function station1(m){
-  m.innerHTML=`${kopf(1,"Paris, 1848 · Pasteurs Kristalle","STATION 1 · 5–12′")}
+  m.innerHTML=`${kopf(1,"Paris, 1848 · Pasteurs Kristalle","STATION 1 · 5–15′")}
   <img class="szene" src="${A.img.paris}" alt="Pariser Straße um 1900 mit Labor (KI-Illustration)"><div class="bildq">KI-generierte Illustration (fiktiv). Die Zeitkapsel ist erfunden; die Szene zeigt Paris um 1900, Pasteurs Entdeckung stammt von 1848.</div>
   <div class="terminal">ZEITKORRIDOR AKTIV · ZIEL: PARIS, 1848 · ABWEICHUNG +52 JAHRE
 Die Kapsel landet ungenau, in einer Pariser Straße um 1900. Im Schaufenster eines Labors erinnert ein Glas mit Kristallen an Louis Pasteur. Daneben liegen ein Notizbuch und zwölf Kristalle.
@@ -493,7 +493,7 @@ function stlDownload(minus){
 const GRUPPEN=["COOH","NH₂","H","CH₂–CH₂–COOH"];
 function station2(m){
   const w=Z.fischer.wahl||{};
-  m.innerHTML=`${kopf(2,"Berlin, 1902 · Emil Fischer","STATION 2 · 12–19′")}
+  m.innerHTML=`${kopf(2,"Berlin, 1902 · Emil Fischer","STATION 2 · 15–25′")}
   <div class="terminal">ZEITKORRIDOR AKTIV · ZIEL: BERLIN, DEZEMBER 1902
 Emil Fischer hat gerade den Nobelpreis für Chemie erhalten, für seine Arbeiten über Zucker und Purine. Auf seinem Schreibtisch im Chemischen Institut der Berliner Universität liegt sein Aufsatz von 1891 (Ber. 24, 1836). Darin steht, wie man räumliche Moleküle auf Papier bringt. Vier Strukturkarten liegen daneben, eine davon ist verdreht.</div>
   <div class="grid2"><div class="karte"><h3>So liest man eine FISCHER-Projektion</h3><div class="papier">${A.svg.legende}</div><p>Waagerecht: Keil, zum Betrachter. Senkrecht: Strichkeil, nach hinten. Erlaubt ist nur eine Drehung um 180° in der Papierebene.</p></div>
@@ -539,7 +539,7 @@ function fbauMeld(){const e=$("#fbauMeld");if(!e)return;const ok=fbauOk();e.clas
 const DOCK={17:{name:"K-17",I:1,II:1,III:1},31:{name:"K-31",I:1,II:0,III:1},45:{name:"K-45",I:0,II:1,III:1}};
 function station3(m){
   const d=Z.docking.karte||0;
-  m.innerHTML=`${kopf(3,"2189 · Pharmazeutische Forschung","STATION 3 · 19–27′")}
+  m.innerHTML=`${kopf(3,"2189 · Pharmazeutische Forschung","STATION 3 · 25–37′")}
   <img class="szene" src="${A.img.bunker}" alt="Forschungslabor 2189 (KI-Illustration)"><div class="bildq">KI-generierte Illustration (fiktiv)</div>
   <div class="terminal">RÜCKKEHR 2189 · ABTEILUNG PHARMAFORSCHUNG · PROJEKT SCHUTZSCHILD-L ◆
 Vor dem Zusammenbruch entwickelte diese Abteilung Wirkstoffe, die die Prozesse des verbliebenen L-Lebens schützen sollten. Der Zugang zur bakteriologischen Datenbank ist mit einem Docking-Test gesichert: Nur wer versteht, warum Enzyme Enantiomere unterscheiden, kommt weiter.</div>
@@ -579,7 +579,7 @@ function gelSVG(t){ // t = Laufzeitanteil 0…1
   return s+`<text x="${x0+52*mm}" y="${yb+32}" font-size="12">mm</text></svg>`;
 }
 function station4(m){
-  m.innerHTML=`${kopf(4,"Die bakterielle Probe · Trennanalyse","STATION 4 · 27–37′")}
+  m.innerHTML=`${kopf(4,"Die bakterielle Probe · Trennanalyse","STATION 4 · 37–52′")}
   <img class="szene" src="${A.img.dschungel}" alt="Von D-Organismen besiedelter tropischer Wald (KI-Illustration)"><div class="bildq">KI-generierte Illustration (fiktiv): Herkunftsregion von Isolat 07</div>
   <div class="grid2"><div class="terminal" style="border-color:var(--alarm);color:#ffb3ad">☣ BIOGEFÄHRDUNG · PROBE TI-07/3 ◆
 Organismus:  „Tropical Isolate 07“
@@ -613,7 +613,7 @@ Lagerung:    −80 °C · Sicherheitsstufe 4</div>
 // ---------- Station 5: Polarimeter ----------
 function station5(m){
   const p=Z.pol;
-  m.innerHTML=`${kopf(5,"Das vergessene Polarimeter","STATION 5 · 37–47′ · ZENTRALES RÄTSEL")}
+  m.innerHTML=`${kopf(5,"Das vergessene Polarimeter","STATION 5 · 52–67′ · ZENTRALES RÄTSEL")}
   <div class="grid2"><div class="terminal">UNTERGESCHOSS 3 · ALTGERÄTELAGER
 Hinter Kisten steht ein Polarimeter mit Messingskala, Halbschatten-Bauart. Ein Zettel von Prof. Voss:
 „Die Trennanalyse sagt WAS, das Polarimeter sagt WELCHE HAND. Erst beides zusammen ist ein Beweis.“
@@ -669,7 +669,7 @@ const ZIELE={A:{n:"GAPDH",ec:"EC 1.2.1.12",z:["Isolat 07: vorhanden, Energiestof
 const KRIT=[["lebenswichtig","für Isolat 07 lebenswichtig",1],["mensch","im Menschen nicht vorhanden (selektiv)",1],["umsatz","setzt am meisten Glutamat um",0],["ueberall","kommt in allen Lebewesen vor",0]];
 const SCHRITTE=["Strukturbasiertes Design an der KI-berechneten Struktur (Tasche um Cys92/Cys204)","Enzymtest: Hemmt der Stoff MurI messbar?","Wachstumstest mit Isolat 07 (Kontrolle: mit D-Glutamat-Zusatz)","Prüfung an menschlichen Zellen (Giftigkeit)","Beobachtung möglicher Resistenzen"];
 function station6(m){
-  m.innerHTML=`${kopf(6,"Die neue Forschungsstrategie","STATION 6 · 47–55′")}
+  m.innerHTML=`${kopf(6,"Die neue Forschungsstrategie","STATION 6 · 67–80′")}
   <div class="terminal">MELDUNG LEBENSERHALTUNG: <span class="rot">RESTZEIT KRITISCH</span>
 Prof. Voss (letzte Aufzeichnung): „D-Glutaminsäure – dann hatte ich recht. Isolat 07 braucht sie für seine Zellwand. Wählt das richtige Ziel für einen Hemmstoff. Nicht das, was am meisten umsetzt, sondern das, was nur die Bakterien brauchen.“</div>
   <div class="karte"><h3>Stoffwechselschema</h3><div class="papier">${A.svg.stoffwechsel}</div><div class="bildq">Reale Stoffwechselwege nach Vollmer, Blanot & de Pedro, FEMS Microbiol. Rev. 32 (2008) 149–167, vereinfacht; Angaben zu Isolat 07 ◆ spielintern. Der menschliche Glutamatstoffwechsel ist kein Teil dieses Angriffsmechanismus.</div></div>
@@ -727,7 +727,7 @@ function molekuel(){
 // ---------- Finale ----------
 function finale(m){
   const alle=[1,2,3,4,5,6].every(i=>Z.geloest[i]);
-  m.innerHTML=`<div class="station-kopf"><span class="chip" style="background:var(--alarm);color:#fff">FINALE</span><span class="mono" style="color:var(--muted)">55–60′</span></div><h2>Die letzten fünf Minuten</h2>
+  m.innerHTML=`<div class="station-kopf"><span class="chip" style="background:var(--alarm);color:#fff">FINALE</span><span class="mono" style="color:var(--muted)">80–90′</span></div><h2>Die letzten zehn Minuten</h2>
   <img class="szene" src="${A.img.dschungel}" alt="Von D-Organismen besiedelte Landschaft (KI-Illustration)"><div class="bildq">KI-generierte Illustration (fiktiv)</div>
   ${Z.fertig?abschluss():`
   <div class="terminal">MELDUNG LEBENSERHALTUNG: <span class="rot">RESTZEIT ${fmt(Math.max(0,rest()))}</span>
