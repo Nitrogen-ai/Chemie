@@ -28,9 +28,10 @@ Git-Historie bis zum Umzug bleibt hier in diesem Repo.
 - SEK-II/Leistungskurs/Q1/ — Lernpfade lernpfad-q1-01, 02, 04…09 (nicht mehr verlinkt).
   Lernpfad 03 Organik samt organik-build am 2026-10-03 entfernt (nicht mehr benötigt, in der Git-Historie).
 - SEK-II/Leistungskurs/Q1/q1-NN-vertiefung-*.html + q1-vertiefung-und-hilfen.html (Übersicht) — Web-Fassungen
-  „Vertiefung und Hilfen“ je Sitzung, verlinkt per QR-Code unten rechts auf den Aufgabenblättern. 01–09 werden von
+  „Vertiefung und Hilfen“ je Sitzung, verlinkt per QR-Code unten rechts auf den Aufgabenblättern. 01–09, 11 und 12 werden von
   `Q1/_Werkzeuge/hilfenseiten/build.py` (iCloud) erzeugt → dort ändern, nicht im HTML; 10 ist handgeschrieben.
   Ohne Lösungen (nur gestufte Hilfen und Vertiefungsaufgaben). URLs nicht umbenennen: sie stehen gedruckt in den QR-Codes.
+- SEK-II/Leistungskurs/Q1/escape-game-q1-12-akte-e920.html — Laborterminal zum Escape Game Sitzung 12, Codes nur als Hash; Quelle in iCloud (12 …/Version 1/Werkzeuge/build_terminal.py).
 - SEK-II/Leistungskurs/laborjournal.html — elektronisches Laborjournal (ELN):
   Speicherung in IndexedDB, Export .html/.zip (eigener ZIP-Code, Deflate-Lesen
   über DecompressionStream), Import beider Formate. Keine Schülerdaten im Repo.
