@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Akte E 920 Terminal</title>
+<!-- Chemie LK Q1 · Sitzung 12 · erzeugt von Werkzeuge/build_terminal.py (iCloud). Codes nur als Hash. -->
+<style>
+:root{--bg:#10161d;--fl:#18222c;--li:#34434f;--tx:#e6edf3;--mt:#94a6b6;--ak:#6fd3c7;--al:#ff7b72;--ok:#7ee787}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 Menlo,Consolas,monospace}
+main{max-width:640px;margin:0 auto;padding:18px 16px 40px}
+h1{font-size:24px;margin:0;color:var(--al);letter-spacing:.04em}
+.unter{color:var(--mt);font-size:13px;margin-bottom:14px}
+.uhr{font-size:44px;text-align:center;padding:10px;border:1px solid var(--li);border-radius:8px;background:var(--fl);margin:12px 0}
+.uhr.knapp{color:var(--al)}
+.liste{list-style:none;padding:0;margin:0 0 12px}
+.liste li{display:flex;justify-content:space-between;gap:10px;padding:7px 10px;border:1px solid var(--li);border-radius:6px;margin-bottom:6px;color:var(--mt);background:var(--fl)}
+.liste li.aktiv{color:var(--tx);border-color:var(--ak)}
+.liste li.fertig{color:var(--ok)}
+form{display:flex;gap:8px;margin:12px 0 6px}
+input{flex:1;min-width:0;font:inherit;font-size:20px;padding:10px;background:#0b1015;color:var(--tx);border:1px solid var(--ak);border-radius:6px;text-transform:uppercase}
+button{font:inherit;padding:10px 14px;background:var(--ak);color:#07211e;border:0;border-radius:6px;font-weight:bold;cursor:pointer}
+button.leise{background:none;color:var(--mt);border:1px solid var(--li);font-weight:normal;font-size:13px}
+.meldung{min-height:26px;font-size:14px}.meldung.gut{color:var(--ok)}.meldung.schlecht{color:var(--al)}
+.wort{display:grid;grid-template-columns:repeat(9,1fr);gap:4px;margin:14px 0}
+.wort span{aspect-ratio:1/1.15;display:flex;align-items:center;justify-content:center;border:1px solid var(--li);border-radius:4px;font-size:20px;background:var(--fl)}
+.wort span.da{color:var(--ok);border-color:var(--ok)}
+.ende{border:1px solid var(--ok);border-radius:8px;padding:14px;margin-top:10px}
+</style>
+</head>
+<body>
+<main>
+<h1>AKTE E 920</h1>
+<div class="unter">Laborterminal der Task Force · Bis zur Pressekonferenz:</div>
+<div class="uhr" id="uhr">45:00</div>
+<div id="start"><button id="los" type="button">Einsatz starten</button></div>
+<ul class="liste" id="liste"></ul>
+<form id="form" hidden><input id="code" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Code"><button>Prüfen</button></form>
+<div class="meldung" id="meld" role="status"></div>
+<div class="wort" id="wort"></div>
+<div class="ende" id="ende" hidden><b>LÖSUNGSWORT BESTÄTIGT.</b><br>Legen Sie jetzt mit den Archivkarten die Beweiskette und formulieren Sie die drei Sätze für die Presse.<br><span id="zeit"></span></div>
+<p><button class="leise" id="neu" type="button">Neu beginnen</button></p>
+</main>
+<script>
+const AKTEN = [{"t": "Sangers Streifen", "c": {"f62af38d": "73016504"}}, {"t": "Was hält, was nicht?", "c": {"d0d10ab5": "197d0a7a"}}, {"t": "Vom Haar zum Pulver", "c": {"71386188": "75017b06", "5dc82618": "74027b07"}}, {"t": "Der Teigtest", "c": {"9c4da456": "126f1660"}}, {"t": "Der Beweis", "c": {"9450bd71": "6302"}}];
+const FINAL = 'b9a9c7ea';
+const DAUER = 45 * 60;
+function fnv(s){ let h = 0x811c9dc5; for (const b of new TextEncoder().encode(s)) { h ^= b; h = Math.imul(h, 0x01000193) >>> 0; } return h.toString(16); }
+function entschluessle(hex, k){ const kb = new TextEncoder().encode(k); let t = ''; for (let i = 0; i < hex.length; i += 2) t += String.fromCharCode(parseInt(hex.substr(i, 2), 16) ^ kb[(i / 2) % kb.length]); return t; }
+function norm(s){ return s.toUpperCase().replace(/[^A-Z0-9ÄÖÜ]/g, ''); }
+let S = { stufe: 0, frag: {}, start: null, fertig: null };
+function laden(){ try { const x = JSON.parse(localStorage.getItem('e920') || 'null'); if (x) S = x; } catch (e) {} }
+function sichern(){ try { localStorage.setItem('e920', JSON.stringify(S)); } catch (e) {} }
+const $ = id => document.getElementById(id);
+function zeichne(){
+  $('start').hidden = S.start !== null; $('form').hidden = S.start === null || S.fertig !== null;
+  $('liste').innerHTML = AKTEN.map((a, i) => `<li class="${i < S.stufe ? 'fertig' : i === S.stufe ? 'aktiv' : ''}"><span>Akte ${i + 1}: ${a.t}</span><span>${i < S.stufe ? 'offen' : i === S.stufe ? 'Code?' : 'gesperrt'}</span></li>`).join('')
+    + `<li class="${S.stufe === AKTEN.length ? 'aktiv' : ''}"><span>Finale: Lösungswort</span><span>${S.fertig ? 'bestätigt' : ''}</span></li>`;
+  $('wort').innerHTML = Array.from({ length: 9 }, (_, i) => { const b = S.frag[i + 1]; return `<span class="${b ? 'da' : ''}">${b || ''}</span>`; }).join('');
+  $('code').placeholder = S.stufe < AKTEN.length ? 'Code Akte ' + (S.stufe + 1) : 'Lösungswort';
+  $('ende').hidden = S.fertig === null;
+  if (S.fertig !== null) { const r = DAUER - Math.round((S.fertig - S.start) / 1000); $('zeit').textContent = r >= 0 ? 'Restzeit: ' + fmt(r) : 'Zeit überzogen um ' + fmt(-r); }
+}
+function fmt(s){ return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
+function ticke(){
+  if (S.start === null) return; const ref = S.fertig !== null ? S.fertig : Date.now();
+  const r = Math.round(DAUER - (ref - S.start) / 1000); $('uhr').textContent = r >= 0 ? fmt(r) : '−' + fmt(-r); $('uhr').classList.toggle('knapp', r < 300);
+}
+function pruefe(wert){
+  const c = norm(wert), m = $('meld');
+  if (!c) return;
+  if (S.stufe < AKTEN.length) {
+    const h = fnv(c), z = AKTEN[S.stufe].c[h];
+    if (!z) { m.textContent = 'Code abgelehnt. Prüfen Sie die Akte oder holen Sie einen Hinweis.'; m.className = 'meldung schlecht'; return false; }
+    const f = entschluessle(z, c), neu = [];
+    for (let i = 0; i < f.length; i += 2) { S.frag[f[i + 1]] = f[i]; neu.push(f[i] + ' an Stelle ' + f[i + 1]); }
+    S.stufe++; m.textContent = 'Code korrekt. Buchstabe ' + neu.join(', ') + '. ' + (S.stufe < AKTEN.length ? 'Öffnen Sie Akte ' + (S.stufe + 1) + '.' : 'Öffnen Sie das Finale.'); m.className = 'meldung gut';
+  } else {
+    if (fnv(c) !== FINAL) { m.textContent = 'Lösungswort abgelehnt.'; m.className = 'meldung schlecht'; return false; }
+    S.fertig = Date.now(); m.textContent = ''; 
+  }
+  sichern(); zeichne(); ticke(); return true;
+}
+$('los').onclick = () => { S.start = Date.now(); sichern(); zeichne(); ticke(); $('code').focus(); };
+$('form').onsubmit = e => { e.preventDefault(); pruefe($('code').value); $('code').value = ''; };
+$('neu').onclick = () => { if ($('neu').dataset.sicher) { S = { stufe: 0, frag: {}, start: null, fertig: null }; sichern(); delete $('neu').dataset.sicher; $('neu').textContent = 'Neu beginnen'; $('meld').textContent = ''; $('uhr').textContent = '45:00'; zeichne(); } else { $('neu').dataset.sicher = 1; $('neu').textContent = 'Wirklich löschen? Erneut tippen'; } };
+laden(); zeichne(); ticke(); setInterval(ticke, 1000);
+</script>
+</body>
+</html>
