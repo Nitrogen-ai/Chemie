@@ -1,0 +1,4 @@
+3Dmol.js 2.4.0 – BSD 3-Clause License
+Copyright (c) 2014, University of Pittsburgh and contributors (Rego & Koes, Bioinformatics 31 (2015) 1322).
+https://github.com/3dmol/3Dmol.js/blob/master/LICENSE
+Verwendet auf den Vertiefungsseiten (Sitzung 11: Glycinin).
