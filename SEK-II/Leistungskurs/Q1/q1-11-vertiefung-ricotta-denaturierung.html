@@ -105,14 +105,66 @@ sub,sup{font-size:.72em}
     <a class="zurueck" href="q1-vertiefung-und-hilfen.html">← alle Sitzungen</a>
     <div class="kurs">Chemie LK · Q1 · 02 Proteine – Bausteine des Lebens · Sitzung 11</div>
     <h1>Vertiefung und Hilfen: Ricotta ohne Kuh: Hitze, Säure, Struktur</h1>
-    <p>Hilfen zu den Aufgaben 1–4 nur bei Bedarf und stufenweise aufdecken. Vertiefungen für Schnelle.</p>
+    <p>Zum Einstieg: ein Sojaprotein in 3D und die Elektrophorese aus Sitzung 07. Hilfen zu den Aufgaben 1–4 nur bei Bedarf und stufenweise aufdecken. Vertiefungen für Schnelle.</p>
   </div>
 </header>
 <nav><div class="wrap">
-  <a href="#hilfen">Hilfen</a><a class="v" href="#v1">V1 Ladung und pH</a><a class="v" href="#v2">V2 Tofu und Salz</a><a class="v" href="#v3">V3 Paneer</a><a class="v" href="#v4">V4 Kaffee</a><a class="v" href="#v5">V5 Rezept</a>
+  <a href="#einstieg">Einstieg</a><a href="#hilfen">Hilfen</a><a class="v" href="#v1">V1 Ladung und pH</a><a class="v" href="#v2">V2 Tofu und Salz</a><a class="v" href="#v3">V3 Paneer</a><a class="v" href="#v4">V4 Kaffee</a><a class="v" href="#v5">V5 Rezept</a>
 </div></nav>
 
 <main class="wrap">
+<h2>Einstieg</h2>
+
+<style>
+.ein-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:18px;align-items:start}
+@media (max-width:760px){.ein-grid{grid-template-columns:1fr}}
+#glyc{position:relative;width:100%;height:430px;border-radius:10px;overflow:hidden;background:#0b1118}
+@media (max-width:760px){#glyc{height:340px}}
+#glyc .lade{position:absolute;inset:0;display:grid;place-items:center;color:#9fb3c8;font-size:14px;text-align:center;padding:20px}
+.ebene{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:1px solid var(--linie);background:#fff;border-radius:8px;padding:8px 12px;margin-bottom:7px;font-weight:600;color:#223;font-size:15px}
+.ebene:hover{border-color:var(--blau)}
+.ebene.an{background:var(--blau-hell);border-color:var(--blau);box-shadow:inset 3px 0 0 var(--blau)}
+.ebene i{flex:none;width:14px;height:14px;border-radius:3px}
+.ebene span{font-weight:400;color:var(--grau);font-size:13px}
+#ebinfo{background:#f2f5f8;border-radius:8px;padding:10px 12px;font-size:14.5px;min-height:96px}
+.seq{font-family:ui-monospace,Menlo,monospace;font-size:12px;line-height:1.55;word-break:break-all;margin-top:6px;max-height:150px;overflow:auto;background:#fff;border-radius:6px;padding:6px 8px}
+.seq b{background:#ffd27a;color:#000}
+.seq em{color:#aab;font-style:normal}
+#elgel svg{width:100%;height:auto}
+.el-knoepfe{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.el-knoepfe .knopf.haupt{background:var(--blau);color:#fff;border-color:var(--blau)}
+</style>
+<section class="v-karte" id="einstieg">
+  <div class="v-kopf"><div class="v-nr" style="background:var(--blau)">▶</div><div><div class="sterne" style="color:var(--blau)">Einstieg</div><h3>Vier Ebenen in einem Sojaprotein: Glycinin</h3></div></div>
+  <div class="v-inhalt">
+    <p style="margin-top:0">Glycinin ist das Hauptprotein der Sojabohne und damit des Sojadrinks. Ziehen dreht das Molekül, Mausrad oder zwei Finger zoomen. Klicken Sie rechts eine Strukturebene an.</p>
+    <div class="ein-grid">
+      <figure><div id="glyc"><div class="lade">3D-Modell wird geladen …</div></div>
+        <figcaption>Röntgenstruktur PDB 1OD5, Glycinin A3B4 als Hexamer (Adachi et al., <i>PNAS</i> 100, 2003, 7395), vereinfacht; 3D-Ansicht 3Dmol.js (BSD). Die gleiche Ansicht wie beim AlphaFold-Modell in Sitzung 07, hier aber gemessen statt vorhergesagt: Die AlphaFold-Datenbank enthält nur einzelne Ketten, keine Quartärstrukturen.</figcaption></figure>
+      <div>
+        <button type="button" class="ebene" data-e="primaer"><i style="background:#f08a24"></i>Primärstruktur</button>
+        <button type="button" class="ebene" data-e="helix"><i style="background:#e8504a"></i>Sekundärstruktur <span>α-Helix</span></button>
+        <button type="button" class="ebene" data-e="faltblatt"><i style="background:#f5c400"></i>Sekundärstruktur <span>β-Faltblatt</span></button>
+        <button type="button" class="ebene" data-e="tertiaer"><i style="background:linear-gradient(90deg,#2b59c3,#3ec46d,#f5c400,#e8504a)"></i>Tertiärstruktur</button>
+        <button type="button" class="ebene" data-e="quartaer"><i style="background:linear-gradient(90deg,#4f9fe0 50%,#f0a04b 50%)"></i>Quartärstruktur</button>
+        <div id="ebinfo">Wählen Sie eine Ebene. Zu Beginn sehen Sie das ganze Molekül.</div>
+        <div class="el-knoepfe"><button type="button" class="knopf" id="glycreset">Gesamtansicht</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="v-karte" id="elektrophorese">
+  <div class="v-kopf"><div class="v-nr" style="background:var(--blau)">▶</div><div><div class="sterne" style="color:var(--blau)">Einstieg · aus Sitzung 07</div><h3>Elektrophorese: Wohin wandern geladene Teilchen?</h3></div></div>
+  <div class="v-inhalt">
+    <p style="margin-top:0">Im Escape Game (Station 4) lief die Papierelektrophorese bei pH 6,0. Hier können Sie den pH-Wert des Puffers ändern. Positiv geladene Teilchen wandern zur Kathode (−), negativ geladene zur Anode (+), ungeladene bleiben am Start.</p>
+    <div class="regler"><label for="elph"><b>pH des Puffers</b></label><input id="elph" type="range" min="1" max="12" step="0.1" value="6"><span id="elphw" class="ausgabe" style="margin:0;min-width:64px;text-align:center"></span></div>
+    <div class="el-knoepfe"><button type="button" class="knopf haupt" id="ellauf">Elektrophorese starten (400 V)</button><button type="button" class="knopf" id="elzurueck">zurück zum Start</button></div>
+    <div class="papier" id="elgel" style="margin-top:10px"></div>
+    <figcaption>Wanderungsstrecken berechnet aus den pK<sub>s</sub>-Werten der Aminosäuren und bei pH 6,0 an das Elektropherogramm aus Sitzung 07 angeglichen. Sojaprotein: Modellwert, der isoelektrische Bereich der Sojaproteine liegt bei pH 4,5–5,9.</figcaption>
+    <div class="aufgabe"><span class="b">a)</span><span><b>Stellen</b> Sie den pH-Wert so <b>ein</b>, dass Glycin am Start bleibt, und <b>vergleichen</b> Sie mit seinem isoelektrischen Punkt.</span><span class="ab">AB II</span></div>
+    <div class="aufgabe"><span class="b">b)</span><span><b>Ermitteln</b> Sie, bei welchem pH-Wert das Sojaprotein nicht wandert. <b>Stellen</b> Sie eine Vermutung <b>auf</b>, was dann zwischen den Proteinmolekülen passiert.</span><span class="ab">AB II</span></div>
+  </div>
+</section>
 <h2 id="hilfen">Hilfekarten</h2>
 <p class="hinweis">Erst selbst probieren. Jede Karte deckt ihre Hilfe in Stufen auf, so wenig wie möglich, so viel wie nötig.</p>
 <div class="hilfen">
@@ -186,6 +238,7 @@ sub,sup{font-size:.72em}
   Adachi et al., <i>PNAS</i> 100 (2003) 7395 (PDB 1OD5); Mirsky, Pauling, <i>PNAS</i> 22 (1936) 439; Linderstrøm-Lang, <i>Lane Medical Lectures</i> 6 (1952); Hsia et al., <i>Sci. Rep.</i> 6 (2016) 35718; Rao, Fuller, <i>Sci. Rep.</i> 8 (2018) 16030; Brown et al., <i>Food Hydrocolloids</i> 95 (2019) 462; Sze-Tao, Sathe, <i>J. Sci. Food Agric.</i> 80 (2000) 1393.
 </footer>
 </main>
+<script src="js/3Dmol-min.js"></script>
 
 <script>
 (function(){
@@ -201,6 +254,84 @@ sub,sup{font-size:.72em}
     });
   });
 })();
+var SEQ11="7N;8E;9C;10Q;11L;12N;13N;14L;15N;16A;17L;18E;19P;20D;21H;22R;23V;24E;25S;26E;27G;28G;29L;30I;31E;32T;33W;34N;35S;36Q;37H;38P;39E;40L;41Q;42C;43A;44G;45V;46T;47V;48S;49K;50R;51T;52L;53N;54R;55N;56G;57L;58H;59L;60P;61S;62Y;63S;64P;65Y;66P;67Q;68M;69I;70I;71V;72V;73Q;74G;75K;76G;77A;78I;79G;80F;81A;82F;83P;84G;85C;86P;87E;88T;89F;90E;91K;92P;108Q;109D;110S;111H;112Q;113K;114I;115R;116H;117F;118N;119E;120G;121D;122V;123L;124V;125I;126P;127P;128G;129V;130P;131Y;132W;133T;134Y;135N;136T;137G;138D;139E;140P;141V;142V;143A;144I;145S;146L;147L;148D;149T;150S;151N;152F;153N;154N;155Q;156L;157D;158Q;159N;160P;161R;162V;163F;164Y;165L;166A;167G;168N;169P;170D;171I;172E;173H;174P;175E;176T;177M;178Q;200E;201G;202G;203S;204V;205L;206S;207G;208F;209S;210K;211H;212F;213L;214A;215Q;216S;217F;218N;219T;220N;221E;222D;223T;224A;225E;226K;227L;228R;229S;230P;231D;232D;233E;234R;235K;236Q;237I;238V;239T;240V;241E;242G;243G;244L;245S;246V;247I;248S;249P;250K;251W;321G;322V;323E;324E;325N;326I;327C;328T;329M;330K;331L;332H;333E;334N;335I;336A;337R;338P;339S;340R;341A;342D;343F;344Y;345N;346P;347K;348A;349G;350R;351I;352S;353T;354L;355N;356S;357L;358T;359L;360P;361A;362L;363R;364Q;365F;366G;367L;368S;369A;370Q;371Y;372V;373V;374L;375Y;376R;377N;378G;379I;380Y;381S;382P;383H;384W;385N;386L;387N;388A;389N;390S;391V;392I;393Y;394V;395T;396R;397G;398K;399G;400R;401V;402R;403V;404V;405N;406C;407Q;408G;409N;410A;411V;412F;413D;414G;415E;416L;417R;418R;419G;420Q;421L;422L;423V;424V;425P;426Q;427N;428F;429V;430V;431A;432E;433Q;434G;435G;436E;437Q;438G;439L;440E;441Y;442V;443V;444F;445K;446T;447H;448H;449N;450A;451V;452S;453S;454Y;455I;456K;457D;458V;459F;460R;461A;462I;463P;464S;465E;466V;467L;468S;469N;470S;471Y;472N;473L;474G;475Q;476S;477Q;478V;479R;480Q;481L;482K;483Y;484Q;485G;486N;487S;488G;489P;490L;491V;492N;493P";
+
+(function(){
+  var box=document.getElementById('glyc'), info=document.getElementById('ebinfo'), V=null, bereit=false;
+  var KETTE={A:'#4f9fe0',C:'#86c5f2',E:'#2f6fb8',B:'#f0a04b',D:'#f7c98a',F:'#c96d1c'}, GRAU='#5b6673';
+  var seqHtml=(function(){var t='',vor=null;SEQ11.split(';').forEach(function(x){var n=+x.slice(0,-1),b=x.slice(-1);if(vor!==null&&n-vor>1)t+='<em> … </em>';t+=(n>=429&&n<=440)?'<b>'+b+'</b>':b;vor=n});return t})();
+  var TEXT={
+    gesamt:'Sechs Untereinheiten, jede rund 380 sichtbare Aminosäuren lang. Wählen Sie eine Ebene.',
+    primaer:'<b>Primärstruktur:</b> die Reihenfolge der Aminosäuren. Im Bild: die Reste 429–440 der Kette A als Stäbchenmodell, beschriftet mit dem Drei-Buchstaben-Code. Unten die ganze im Kristall sichtbare Sequenz der Kette A im Ein-Buchstaben-Code, markiert der Ausschnitt im Bild (… = Abschnitte, die im Kristall nicht sichtbar sind).<div class="seq">'+seqHtml+'</div>',
+    helix:'<b>α-Helix:</b> rot hervorgehoben in einer Untereinheit. Glycinin hat nur wenige, kurze Helices; die längsten liegen am Ende der Kette (Reste 455–484). Drehen Sie so, dass Sie in die Schraube hineinsehen.',
+    faltblatt:'<b>β-Faltblatt:</b> gelb hervorgehoben; die Pfeile zeigen die Richtung der Kette. Mehrere Stränge liegen nebeneinander. Glycinin besteht überwiegend aus Faltblättern.',
+    tertiaer:'<b>Tertiärstruktur:</b> eine ganze Untereinheit, gefärbt vom Anfang der Kette (blau, N-Terminus) bis zum Ende (rot, C-Terminus). Achten Sie darauf, wie weit im Raum Abschnitte nebeneinanderliegen, die in der Sequenz weit auseinander sind.',
+    quartaer:'<b>Quartärstruktur:</b> sechs gleiche Untereinheiten. Je drei bilden einen Ring (blau, orange), die beiden Ringe liegen aufeinander. Ob das im erhitzten Sojadrink noch so ist, klären Sie in Aufgabe 3b.'
+  };
+  function nachricht(t){box.innerHTML='<div class="lade">'+t+'</div>'}
+  var c=document.createElement('canvas'),gl=null;try{gl=c.getContext('webgl2')||c.getContext('webgl')}catch(e){}
+  if(!window.$3Dmol||!gl){nachricht('3D-Ansicht in diesem Browser nicht verfügbar (WebGL fehlt).');}
+  else{
+    fetch('bilder/q1-11-glycinin.pdb').then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(pdb){
+      box.innerHTML='';
+      V=$3Dmol.createViewer(box,{backgroundColor:'#0b1118'});
+      V.addModel(pdb,'pdb'); bereit=true; zeige('gesamt',0);
+    }).catch(function(){nachricht('3D-Modell konnte nicht geladen werden.')});
+  }
+  function lab(t,sel,farbe){V.addLabel(t,{fontSize:12,backgroundColor:farbe||'#222',backgroundOpacity:.85,fontColor:'#fff',inFront:true,showBackground:true},sel)}
+  function ssFarbe(typ,farbe){return function(a){return a.ss===typ?farbe:GRAU}}
+  function zeige(k,dauer){
+    info.innerHTML=TEXT[k];
+    document.querySelectorAll('.ebene').forEach(function(b){b.classList.toggle('an',b.dataset.e===k)});
+    if(!bereit)return;
+    var d=dauer===undefined?700:dauer;
+    V.removeAllLabels(); V.setStyle({},{});
+    if(k==='gesamt'){V.setStyle({},{cartoon:{colorfunc:function(a){return KETTE[a.chain]}}});V.zoomTo({},d);}
+    if(k==='primaer'){
+      V.setStyle({chain:'A'},{cartoon:{color:GRAU,opacity:.45}});
+      V.addStyle({chain:'A',resi:'429-440'},{stick:{colorscheme:'orangeCarbon',radius:.2}});
+      for(var r=429;r<=440;r++){var at=V.selectedAtoms({chain:'A',resi:r,atom:'CA'})[0];if(at)lab(at.resn.charAt(0)+at.resn.slice(1).toLowerCase(),{chain:'A',resi:r,atom:'CA'},'#8a4b08')}
+      V.zoomTo({chain:'A',resi:'427-442'},d);
+    }
+    if(k==='helix'){V.setStyle({chain:'A'},{cartoon:{colorfunc:ssFarbe('h','#e8504a')}});lab('α-Helix',{chain:'A',resi:479,atom:'CA'},'#a8241f');V.zoomTo({chain:'A',resi:'450-488'},d);}
+    if(k==='faltblatt'){V.setStyle({chain:'A'},{cartoon:{colorfunc:ssFarbe('s','#f5c400'),arrows:true}});lab('β-Faltblatt',{chain:'A',resi:437,atom:'CA'},'#7a6000');V.zoomTo({chain:'A',resi:'340-450'},d);}
+    if(k==='tertiaer'){V.setStyle({chain:'A'},{cartoon:{color:'spectrum'}});lab('N-Terminus',{chain:'A',resi:7,atom:'CA'},'#2b59c3');lab('C-Terminus',{chain:'A',resi:493,atom:'CA'},'#b3261e');V.zoomTo({chain:'A'},d);}
+    if(k==='quartaer'){V.setStyle({},{cartoon:{colorfunc:function(a){return KETTE[a.chain]}}});V.zoomTo({},d);}
+    V.render();
+  }
+  document.querySelectorAll('.ebene').forEach(function(b){b.addEventListener('click',function(){zeige(b.dataset.e)})});
+  document.getElementById('glycreset').onclick=function(){zeige('gesamt')};
+  window.addEventListener('resize',function(){if(V){V.resize();V.render()}});
+})();
+(function(){
+  // [Name, pI-Text, saure pKs, basische pKs, Strecke bei pH 6 in Sitzung 07 (mm) oder Faktor]
+  var AS=[["Asparaginsäure","2,8",[1.88,3.65],[9.60],{d6:42}],["Glutaminsäure","3,2",[2.19,4.25],[9.67],{d6:36}],
+          ["Glycin","6,0",[2.34],[9.60],{f:50}],["Alanin","6,0",[2.34],[9.69],{f:47}],["Lysin","9,7",[2.18],[8.95,10.53],{d6:30}]];
+  function q(a,ph){var s=0;a[2].forEach(function(k){s-=1/(1+Math.pow(10,k-ph))});a[3].forEach(function(k){s+=1/(1+Math.pow(10,ph-k))});return s}
+  AS.forEach(function(a){a.f=a[4].f||a[4].d6/Math.abs(q(a,6))});
+  function strecke(a,ph){return -a.f*q(a,ph)}   // + = Richtung Anode
+  function soja(ph){return 24*Math.tanh((ph-5)/1.3)}
+  var r=document.getElementById('elph'), w=document.getElementById('elphw'), g=document.getElementById('elgel'), t=0, anim=null;
+  function svg(){
+    var ph=+r.value, W=800, x0=443, mm=3.85, h=46, zeilen=AS.map(function(a){return [a[0]+' (pI '+a[1]+')',strecke(a,ph),7,.75,false]});
+    zeilen.push(['Sojaprotein, Modell (pI ≈ 5)',soja(ph),16,.6,true]);
+    var s='<svg viewBox="0 0 '+W+' '+(zeilen.length*h+84)+'" xmlns="http://www.w3.org/2000/svg" style="font-family:Helvetica,Arial,sans-serif;font-size:14px">';
+    s+='<text x="206" y="16" fill="#2a7ab8" font-weight="bold">− Kathode</text><text x="'+(W-8)+'" y="16" fill="#b3261e" font-weight="bold" text-anchor="end">Anode +</text>';
+    zeilen.forEach(function(z,i){var y=26+i*h;
+      s+='<rect x="200" y="'+y+'" width="'+(W-208)+'" height="'+(h-8)+'" rx="4" fill="'+(z[4]?'#f6f0fa':'#fafafa')+'" stroke="#999"/><text x="192" y="'+(y+h/2)+'" text-anchor="end" font-size="13" '+(z[4]?'font-weight="bold"':'')+'>'+z[0]+'</text>';
+      s+='<ellipse cx="'+(x0+z[1]*mm*t)+'" cy="'+(y+(h-8)/2)+'" rx="'+(z[2]*mm/2*(.4+.6*t))+'" ry="'+((h-18)/2)+'" fill="#6a2c91" fill-opacity="'+(z[3]*.85*(.3+.7*t))+'" stroke="#6a2c91" stroke-opacity=".5"/>'});
+    var yb=26+zeilen.length*h+4;
+    s+='<line x1="'+x0+'" y1="22" x2="'+x0+'" y2="'+yb+'" stroke="#000" stroke-dasharray="5 4"/><line x1="'+(x0-60*mm)+'" y1="'+(yb+10)+'" x2="'+(x0+80*mm)+'" y2="'+(yb+10)+'" stroke="#000"/>';
+    for(var k=-60;k<=80;k+=20){var x=x0+k*mm;s+='<line x1="'+x+'" y1="'+(yb+10)+'" x2="'+x+'" y2="'+(yb+16)+'" stroke="#000"/><text x="'+x+'" y="'+(yb+32)+'" text-anchor="middle" font-size="12">'+k+'</text>'}
+    g.innerHTML=s+'<text x="'+(x0+80*mm+14)+'" y="'+(yb+32)+'" font-size="12">mm</text><text x="'+x0+'" y="'+(yb+48)+'" text-anchor="middle" font-size="11" fill="#666">Start</text></svg>';
+  }
+  function anzeigen(){w.textContent='pH '+(+r.value).toFixed(1).replace('.',',');svg()}
+  r.oninput=anzeigen;
+  document.getElementById('ellauf').onclick=function(){cancelAnimationFrame(anim);var t0=performance.now();var f=function(now){t=Math.min(1,(now-t0)/3500);svg();if(t<1)anim=requestAnimationFrame(f)};anim=requestAnimationFrame(f)};
+  document.getElementById('elzurueck').onclick=function(){cancelAnimationFrame(anim);t=0;svg()};
+  anzeigen();
+})();
+
 
 (function(){
   var r = document.getElementById('phr'), w = document.getElementById('phw'), b = document.getElementById('phb'), o = document.getElementById('pho');
