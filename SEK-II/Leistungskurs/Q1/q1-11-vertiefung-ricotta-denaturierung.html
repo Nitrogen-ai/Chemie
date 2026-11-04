@@ -96,6 +96,14 @@ sub,sup{font-size:.72em}
 .uebersicht .t{font-weight:600;color:var(--tblau);margin:2px 0 4px}
 .uebersicht .k{font-size:13px;color:var(--grau)}
 .einheit{font-size:14px;color:var(--grau);text-transform:uppercase;letter-spacing:.05em;margin:26px 0 0}
+.qa{display:grid;gap:10px;margin-top:10px}
+.qa details{background:var(--karte);border:1px solid var(--linie);border-radius:10px}
+.qa summary{cursor:pointer;padding:12px 16px;font-weight:600;color:var(--tblau);list-style-position:outside;margin-left:18px}
+.qa details[open] summary{border-bottom:1px solid var(--linie)}
+.qa .antwort{padding:4px 16px 12px}
+.qa .antwort p{margin:10px 0}
+.qa .antwort ul{margin:8px 0;padding-left:1.3em}
+.qa .antwort li{margin-bottom:6px}
 
 </style>
 </head>
@@ -109,7 +117,7 @@ sub,sup{font-size:.72em}
   </div>
 </header>
 <nav><div class="wrap">
-  <a href="#einstieg">Einstieg</a><a href="#hilfen">Hilfen</a><a class="v" href="#v1">V1 Ladung und pH</a><a class="v" href="#v2">V2 Tofu und Salz</a><a class="v" href="#v3">V3 Paneer</a><a class="v" href="#v4">V4 Kaffee</a><a class="v" href="#v5">V5 Rezept</a>
+  <a href="#einstieg">Einstieg</a><a href="#hilfen">Hilfen</a><a class="v" href="#v1">V1 Ladung und pH</a><a class="v" href="#v2">V2 Tofu und Salz</a><a class="v" href="#v3">V3 Paneer</a><a class="v" href="#v4">V4 Kaffee</a><a class="v" href="#v5">V5 Rezept</a><a href="#fragen">Fragen</a>
 </div></nav>
 
 <main class="wrap">
@@ -232,6 +240,14 @@ sub,sup{font-size:.72em}
   <div class="v-kopf"><div class="v-nr">V5</div><div><div class="sterne">Zum Nachmachen</div><h3>Ricotta aus Sojadrink und Walnüssen</h3></div></div>
   <div class="v-inhalt zwei"><div class="v-text"><p><b>Zutaten:</b> 500 g Sojadrink, 125 g Walnüsse, 25 g Zitronensaft (etwa eine halbe Zitrone). Dazu Mixer, Topf, Sieb, Baumwolltuch.</p><ol style='padding-left:1.3em;margin:0'><li style='margin-bottom:8px'><b>Mixen:</b> Sojadrink und Walnüsse fein pürieren.</li><li style='margin-bottom:8px'><b>Erhitzen:</b> fast zum Kochen bringen (≈ 90–95 °C), dann die Hitze ausschalten.</li><li style='margin-bottom:8px'><b>Säuern:</b> Zitronensaft einrühren, Topf abdecken, 20 Minuten ruhen lassen. Es bilden sich Flocken.</li><li style='margin-bottom:8px'><b>Abseihen:</b> durch ein Baumwolltuch im Sieb gießen, die Molke läuft ab.</li><li><b>Pressen:</b> im Tuch beschweren und über Nacht im Kühlschrank fest werden lassen.</li></ol><p>Zum Servieren eine Prise Salz und etwas Öl, süß mit Feige oder Agavensirup. Zu Hause nachmachen, nicht im Fachraum. Allergene: Soja, Walnuss.</p></div><figure><img src="bilder/q1-11-rezept-schema.svg" alt="Schema in fünf Schritten: mixen, erhitzen, säuern, abseihen, pressen" style="width:100%;max-width:270px;display:block;margin:0 auto"></figure></div>
 </section>
+<h2 id="fragen">Fragen und Antworten</h2>
+<div class="qa">
+<details><summary>Ist das Bändermodell im Einstieg berechnet oder gemessen?</summary><div class="antwort"><p>Es zeigt die veröffentlichte Röntgenstruktur <b>PDB 1OD5</b> (Adachi et al., <i>PNAS</i> 100 (2003) 7395: Glycinin-A3B4-Homohexamer, Auflösung ≈ 2,1 Å). Simuliert ist nichts, die Atomkoordinaten stammen aus der Proteindatenbank RCSB.</p><ul><li>In der Kristalldatei stehen nur zwei Ketten. Die übrigen vier ergeben sich rechnerisch aus den Symmetrieoperationen des Kristalls, die die Autoren als „biologische Einheit“ angeben.</li><li>Helices und Faltblätter kommen aus den Angaben der Autoren. Das Programm 3Dmol.js zeichnet daraus die Bänder.</li><li>Für die Darstellung ist eine Kette vollständig enthalten, von den anderen fünf nur das Rückgrat.</li><li>Lücken im Band sind Abschnitte, die im Kristall so beweglich waren, dass sich ihre Lage nicht bestimmen ließ.</li></ul></div></details>
+<details><summary>Zeigt die Struktur natives oder denaturiertes Glycinin?</summary><div class="antwort"><p><b>Natives</b> Glycinin. Ein denaturiertes Protein hat keine einheitliche Faltung, die Ketten liegen in vielen verschiedenen Konformationen vor. Solche Moleküle lassen sich nicht regelmäßig zu einem Kristall stapeln. Für die Strukturbestimmung wurde das Protein nach den Angaben der Autoren gentechnisch in Bakterien (<i>E. coli</i>) hergestellt, nicht aus Bohnen isoliert.</p></div></details>
+<details><summary>Liegt Glycinin in der Sojabohne gelöst vor, und was passiert bei der Herstellung von Tofu?</summary><div class="antwort"><ul><li><b>In der Bohne</b> ist Glycinin ein Speicherprotein. Es liegt dicht gepackt in Proteinspeichervakuolen der Keimblätter. In der trockenen Bohne ist es eher eine konzentrierte, wasserarme Ablagerung als eine Lösung.</li><li><b>Beim Einweichen und Mahlen</b> geht es weitgehend nativ in Lösung, es entsteht Sojadrink. Als Globulin ist Glycinin in Salzlösungen gut löslich.</li><li><b>Beim Erhitzen</b> zerfällt das Hexamer. Die über eine Disulfidbrücke verbundenen A- und B-Untereinheiten trennen sich, die hydrophoberen B-Teile lagern sich zusammen. Das ist der Zustand im UHT-Sojadrink: denaturiert, aber noch nicht koaguliert.</li><li><b>Erst das Gerinnungsmittel</b> (Ca<sup>2+</sup>- oder Mg<sup>2+</sup>-Salze, Säure oder Glucono-δ-lacton) schirmt die Ladungen ab oder gleicht sie aus. Die Aggregate vernetzen sich zu einem schnittfesten Gel.</li></ul></div></details>
+<details><summary>Röntgenstrukturen stammen aus Kristallen. Wie kann das Hexamer im Kristall dieselbe Konformation haben wie in Lösung?</summary><div class="antwort"><ul><li><b>Proteinkristalle sind sehr wasserreich.</b> Etwa 30–70 % ihres Volumens ist Wasser in Kanälen zwischen den Molekülen. Jedes Molekül bleibt von seiner Hydrathülle umgeben, ähnlich wie in einer sehr konzentrierten Lösung. Mit einem Salzkristall ist das nicht vergleichbar.</li><li><b>Die Moleküle berühren sich nur an wenigen Stellen</b> (Kristallkontakte). Dort können sich bewegliche Schleifen an der Oberfläche etwas verschieben, die Faltung im Inneren bleibt erhalten.</li><li><b>Es gibt Gegenproben:</b> Viele Enzyme bleiben im Kristall katalytisch aktiv, und Strukturen aus Messungen in Lösung stimmen meist sehr gut mit den Kristallstrukturen überein.</li></ul><p>Welche Kontaktflächen im Kristall das Hexamer bilden und welche nur durch die Packung entstehen, ist eine Deutung. Beim Glycinin wird sie dadurch gestützt, dass man in Lösung über die Sedimentation in der Ultrazentrifuge (11S, rund 360 kDa) dieselbe Größe findet.</p></div></details>
+<details><summary>Lassen sich Proteinstrukturen auch ohne Kristall bestimmen?</summary><div class="antwort"><p>Ja, aber nicht mit der klassischen Röntgenstrukturanalyse. Sie braucht immer einen Kristall, denn erst die regelmäßige Anordnung vieler gleicher Moleküle verstärkt die Streuung zu messbaren Reflexen.</p><ul><li><b>NMR-Spektroskopie</b> misst direkt in Lösung, eignet sich aber vor allem für kleinere Proteine. Für ein Hexamer mit 360 kDa ist sie ungeeignet.</li><li><b>Röntgen-Kleinwinkelstreuung (SAXS)</b> misst an der Lösung, liefert aber nur die grobe Umrissform, keine Atompositionen.</li><li><b>Kryo-Elektronenmikroskopie</b> friert die Lösung so schnell ein, dass glasartiges Eis ohne Kristalle entsteht. Sie eignet sich besonders für große Komplexe und erreicht heute oft eine Auflösung nahe an der von Röntgenstrukturen.</li></ul></div></details>
+</div>
 
 <footer>
   Chemie LK · Q1 · 02 Proteine – Bausteine des Lebens · 11 Strukturebenen II: Ricotta ohne Kuh · Vertiefung und Hilfen<br>
