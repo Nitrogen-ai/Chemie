@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Akte E 920 – Vertiefung und Hilfen</title>
+<!-- Chemie LK Q1 · Sitzung 12 · erzeugt von Q1/_Werkzeuge/hilfenseiten/build.py (iCloud), Änderungen dort. Ohne Lösungen (Repo öffentlich). -->
+<style>
+:root{
+  --blau:#2a7ab8; --tblau:#156e9d; --blau-hell:#e6f0f8; --orange:#d9822b; --orange-hell:#fdf1e4;
+  --violett:#7a5aa8; --gruen:#3e9a63; --grau:#6f7a85; --linie:#d5dde5; --bg:#f6f8fa; --karte:#fff; --text:#222;
+  --sans:-apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.5}
+a{color:var(--tblau)}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header{background:linear-gradient(135deg,#156e9d 0%,#2a7ab8 60%,#3d8fc9 100%);color:#fff;padding:28px 0 22px}
+header .kurs{font-size:13px;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+header h1{margin:4px 0 6px;font-size:clamp(24px,4.5vw,34px);font-weight:600;line-height:1.2}
+header p{margin:0;opacity:.92;max-width:680px}
+nav{position:sticky;top:0;z-index:10;background:rgba(246,248,250,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--linie)}
+nav .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:8px;padding-bottom:8px}
+nav a{flex:none;text-decoration:none;color:var(--tblau);border:1px solid var(--linie);background:#fff;border-radius:16px;padding:3px 12px;font-size:14px;font-weight:600}
+nav a.v{color:var(--orange)}
+h2{font-size:20px;color:var(--tblau);margin:30px 0 4px}
+.hinweis{color:var(--grau);font-size:14px;margin:0 0 14px}
+/* Hilfekarten */
+.hilfen{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.hk{background:var(--karte);border:1.5px dashed #b9c4cf;border-radius:10px;padding:14px 16px}
+.hk h3{margin:0 0 2px;font-size:16px;color:var(--blau)}
+.hk .zu{font-size:13px;color:var(--grau);margin-bottom:8px}
+.stufe{display:none;margin:8px 0 0;padding:8px 10px;background:var(--blau-hell);border-radius:6px;font-size:15px}
+.stufe.offen{display:block;animation:auf .25s ease}
+@keyframes auf{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.hk button{margin-top:10px;border:1px solid var(--blau);background:#fff;color:var(--blau);border-radius:6px;padding:4px 12px;font-size:14px}
+.hk button:hover{background:var(--blau-hell)}
+.hk button[disabled]{opacity:.4;cursor:default}
+.hk .zaehler{font-size:12px;color:var(--grau);margin-left:8px}
+/* Vertiefungen */
+.v-karte{background:var(--karte);border:1px solid var(--linie);border-radius:12px;margin:14px 0;overflow:hidden}
+.v-kopf{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--linie);background:#fbfcfd}
+.v-nr{flex:none;width:42px;height:42px;border-radius:50%;background:var(--orange);color:#fff;font-weight:700;display:grid;place-items:center}
+.v-kopf h3{margin:0;font-size:18px}
+.sterne{color:var(--orange);font-size:14px;font-weight:700}
+.v-inhalt{padding:14px 16px 16px}
+.zwei{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+@media (max-width:720px){.zwei{grid-template-columns:1fr}}
+.aufgabe{display:grid;grid-template-columns:28px 1fr auto;gap:6px;background:var(--orange-hell);border-radius:8px;padding:8px 10px;margin-top:10px}
+.aufgabe .b{font-weight:700;color:var(--orange)}
+.aufgabe .ab{font-size:12px;color:var(--grau);white-space:nowrap;align-self:start;margin-top:2px}
+figure{margin:0}
+figcaption{font-size:13px;color:var(--grau);margin-top:4px}
+svg{max-width:100%;height:auto;display:block}
+.regler{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 2px;font-size:14px}
+.regler input[type=range]{flex:1;min-width:140px;accent-color:var(--orange)}
+.knopf{border:1px solid var(--linie);background:#fff;border-radius:6px;padding:3px 10px;font-size:14px}
+.ausgabe{font-variant-numeric:tabular-nums;font-size:14px;background:#f2f5f8;border-radius:6px;padding:6px 10px;margin-top:6px}
+.legende{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:#444;margin-top:6px}
+.legende i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.balken{display:grid;grid-template-columns:150px 1fr 76px;gap:6px 10px;align-items:center;font-size:14px}
+.balken .spur{background:#eef2f6;border-radius:4px;height:18px;position:relative;overflow:hidden}
+.balken .fuell{height:100%;border-radius:4px;width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.balken .wert{text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:520px){.balken{grid-template-columns:100px 1fr 64px;font-size:13px}}
+.kachel-reihe{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:12px}
+.kachel{background:#f2f5f8;border-radius:8px;padding:10px 12px}
+.kachel .zahl{font-size:22px;font-weight:700;color:var(--tblau);font-variant-numeric:tabular-nums}
+.kachel .was{font-size:13px;color:#555}
+.zeitstrahl{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.zeitstrahl span{font-size:13px;background:#fff;border:1px solid var(--linie);border-radius:14px;padding:2px 10px}
+.zeitstrahl b{color:var(--orange)}
+.cta{display:inline-block;background:var(--tblau);color:#fff;text-decoration:none;font-weight:600;border-radius:8px;padding:8px 16px;margin:8px 8px 0 0}
+.cta:hover{background:var(--blau)}
+.code{font-family:Menlo,Consolas,monospace;background:#f2f5f8;border:1px solid var(--linie);border-radius:6px;padding:2px 8px;font-size:14px}
+.klein{font-size:13px;color:var(--grau)}
+footer{margin:36px 0 0;border-top:1px solid var(--linie);padding:16px 0 28px;font-size:12.5px;color:var(--grau)}
+sub,sup{font-size:.72em}
+/* Ergänzungen Generator */
+.zurueck{display:inline-block;color:#fff;opacity:.85;text-decoration:none;font-size:13px;margin-bottom:6px}
+.zurueck:hover{opacity:1;text-decoration:underline}
+.v-text p:first-child{margin-top:0}
+.fischer{display:inline-block;vertical-align:middle;margin:4px 10px 4px 0}
+.wahl{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.wahl button{border:1px solid var(--linie);background:#fff;border-radius:14px;padding:2px 10px;font-size:13px}
+.wahl button.an{background:var(--tblau);border-color:var(--tblau);color:#fff}
+.quiz-aa{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:6px;margin-top:8px}
+.quiz-aa button{border:1px solid var(--linie);background:#fff;border-radius:8px;padding:6px 4px;font-size:14px}
+.quiz-aa button.ok{background:#e3f4ea;border-color:#3e9a63}
+.quiz-aa button.falsch{background:#fbe6e3;border-color:#d0574a}
+.uebersicht{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:14px}
+.uebersicht a{display:block;background:#fff;border:1px solid var(--linie);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--text)}
+.uebersicht a:hover{border-color:var(--blau);box-shadow:0 2px 8px rgba(21,110,157,.12)}
+.uebersicht .nr{font-size:13px;color:var(--orange);font-weight:700}
+.uebersicht .t{font-weight:600;color:var(--tblau);margin:2px 0 4px}
+.uebersicht .k{font-size:13px;color:var(--grau)}
+.einheit{font-size:14px;color:var(--grau);text-transform:uppercase;letter-spacing:.05em;margin:26px 0 0}
+.qa{display:grid;gap:10px;margin-top:10px}
+.qa details{background:var(--karte);border:1px solid var(--linie);border-radius:10px}
+.qa summary{cursor:pointer;padding:12px 16px;font-weight:600;color:var(--tblau);list-style-position:outside;margin-left:18px}
+.qa details[open] summary{border-bottom:1px solid var(--linie)}
+.qa .antwort{padding:4px 16px 12px}
+.qa .antwort p{margin:10px 0}
+.qa .antwort ul{margin:8px 0;padding-left:1.3em}
+.qa .antwort li{margin-bottom:6px}
+
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="zurueck" href="q1-vertiefung-und-hilfen.html">← alle Sitzungen</a>
+    <div class="kurs">Chemie LK · Q1 · 02 Proteine – Bausteine des Lebens · Sitzung 12</div>
+    <h1>Vertiefung und Hilfen: Akte E 920: Das Haar im Brötchen</h1>
+    <p>Hilfen zum Aufgabenblatt nur bei Bedarf und stufenweise aufdecken. Hinweise zu den Akten stehen im Laborterminal. Vertiefungen für Schnelle.</p>
+  </div>
+</header>
+<nav><div class="wrap">
+  <a href="#hilfen">Hilfen</a><a class="v" href="#v1">V1 Anfinsen</a><a class="v" href="#v2">V2 Insulin digital</a><a class="v" href="#v3">V3 Cystein und CIP</a><a class="v" href="#v4">V4 Mikroorganismen</a>
+</div></nav>
+
+<main class="wrap">
+
+<h2 id="hilfen">Hilfekarten</h2>
+<p class="hinweis">Erst selbst probieren. Jede Karte deckt ihre Hilfe in Stufen auf, so wenig wie möglich, so viel wie nötig.</p>
+<div class="hilfen">
+  <div class="hk">
+    <h3>Hilfe zu 2</h3><div class="zu">Reaktionsgleichung mit Teilgleichungen</div>
+    <div class="stufe">Schreiben Sie die Edukte: P–S–S–P und zweimal Cys–SH. Welche Bindung wird gespalten, welche neu gebildet?</div><div class="stufe">Reduktion: Die Brücke im Gluten wird zu zwei Thiolgruppen, wie Cystin in Akte 3. Was muss dazu links stehen (H<sup>+</sup>, Elektronen)? Gleichen Sie Atome und Ladungen aus.</div><div class="stufe">Oxidation: Die Gegenrichtung mit zwei Cys–SH. Addieren Sie beide Teilgleichungen, Elektronen und H<sup>+</sup> heben sich weg. Wer Elektronen abgibt, ist das Reduktionsmittel.</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 3</h3><div class="zu">Beweiskette legen</div>
+    <div class="stufe">Sehen Sie die Karten im Archiv des Terminals zuerst nach Akten an. Welche Karte trägt nichts zur Leitfrage bei, auch wenn sie richtig ist?</div><div class="stufe">Gehen Sie vom Teilchen zum Stoff: Was ist die Brücke? Wo kommt sie vor? Woher kommt der Stoff? Was tut er? Was gilt rechtlich?</div><div class="stufe">Lesen Sie die Kette laut vor. Passt jeder Übergang zu „deshalb“ oder „daraus folgt“?</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 4</h3><div class="zu">Dauerwelle und Teig</div>
+    <div class="stufe">Schreiben Sie je Prozess die Schritte untereinander. Wo wird reduziert, wo oxidiert?</div><div class="stufe">Was soll am Ende jeweils stabil sein?</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 5</h3><div class="zu">Andere Reduktionsmittel</div>
+    <div class="stufe">Welche Reaktion muss der Stoff im Teig leisten?</div><div class="stufe">Was bleibt nach der Reaktion im Brötchen zurück, und was müsste dafür gelten?</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 6</h3><div class="zu">Kommentare beantworten</div>
+    <div class="stufe">Unterscheiden Sie: Ist die Aussage eine Tatsachenbehauptung oder eine Bewertung?</div><div class="stufe">Bei Tatsachen: Welche Archivkarte belegt oder widerlegt sie? Bei Bewertungen: Was kann die Chemie dazu sagen und was nicht?</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+</div>
+
+<h2>Vertiefungen</h2>
+<p class="hinweis">★ = vertiefend · ★★ = anspruchsvoll. Die Ergebnisse gehören in Ihre Unterlagen; die Abbildungen und Werkzeuge helfen beim Denken, sie ersetzen keine Lösung.</p>
+<section class="v-karte" id="v1">
+  <div class="v-kopf"><div class="v-nr">V1</div><div><div class="sterne">★</div><h3>Die Sequenz kennt ihre Brücken</h3></div></div>
+  <div class="v-inhalt"><div class="v-text"><p>Ribonuklease besitzt acht Cysteinreste, die vier Brücken bilden. Anfinsen reduzierte sie, entfaltete das Enzym und ließ es wieder oxidieren. Oxidierte er in Gegenwart von Harnstoff, entstanden falsche Paare.</p><p>„… the native conformation is determined by the totality of interatomic interactions and hence by the amino acid sequence …“ (Anfinsen, <i>Science</i> 181, 1973, 223)</p></div><div class="aufgabe"><span class="b">a)</span><span><b>Berechnen</b> Sie, wie viele Paarungen acht Cysteinreste zu vier Brücken bilden können.</span><span class="ab">AB II</span></div><div class="aufgabe"><span class="b">b)</span><span><b>Erläutern</b> Sie das Zitat an diesem Versuch.</span><span class="ab">AB III</span></div></div>
+</section>
+<section class="v-karte" id="v2">
+  <div class="v-kopf"><div class="v-nr">V2</div><div><div class="sterne">★</div><h3>Disulfidbrücken im echten Molekül</h3></div></div>
+  <div class="v-inhalt"><div class="v-text"><p>Öffnen Sie in der Protein Data Bank die Struktur <a href="https://www.rcsb.org/3d-view/4INS">4INS</a> (Insulin). Blenden Sie Cysteinreste als Stäbchen ein und messen Sie den S–S-Abstand.</p></div><div class="aufgabe"><span class="b"></span><span><b>Vergleichen</b> Sie das 3D-Modell mit den Ketten aus Akte 1: Welche Frage beantwortet welches Modell besser?</span><span class="ab">AB II</span></div></div>
+</section>
+<section class="v-karte" id="v3">
+  <div class="v-kopf"><div class="v-nr">V3</div><div><div class="sterne">★★</div><h3>L und trotzdem (R)?</h3></div></div>
+  <div class="v-inhalt"><div class="v-text"><p>Fast alle L-Aminosäuren sind (S)-konfiguriert. L-Cystein ist (R)-konfiguriert, obwohl es räumlich gleich gebaut ist wie L-Serin.</p></div><div class="aufgabe"><span class="b"></span><span><b>Erklären</b> Sie den Unterschied mit den Prioritäten nach CAHN, INGOLD und PRELOG (vgl. 07).</span><span class="ab">AB III</span></div></div>
+</section>
+<section class="v-karte" id="v4">
+  <div class="v-kopf"><div class="v-nr">V4</div><div><div class="sterne">★</div><h3>Fermentation oder Salzsäure?</h3></div></div>
+  <div class="v-inhalt"><div class="v-text"><p>Klassisch braucht 1 kg Cystein etwa 27 kg Salzsäure, das Fermentationsverfahren etwa 1 kg. Es nutzt gentechnisch veränderte Bakterien, die Zelle gelangt nicht ins Produkt.</p></div><div class="aufgabe"><span class="b"></span><span><b>Beurteilen</b> Sie beide Wege aus Sicht der Umwelt und aus Sicht einer Person, die Gentechnik ablehnt.</span><span class="ab">AB III</span></div></div>
+</section>
+
+
+<footer>
+  Chemie LK · Q1 · 02 Proteine – Bausteine des Lebens · 12 Strukturebenen III: Akte E 920 · Vertiefung und Hilfen<br>
+  Ryle, Sanger, Smith, Kitai, <i>Biochem. J.</i> 60 (1955) 541; Anfinsen, Haber, Sela, White, <i>PNAS</i> 47 (1961) 1309; Anfinsen, <i>Science</i> 181 (1973) 223; Shewry, Tatham, <i>J. Cereal Sci.</i> 25 (1997) 207; VO (EU) 231/2012; transgen.de.
+</footer>
+</main>
+
+<script>
+(function(){
+  document.querySelectorAll('.hk').forEach(function(k){
+    var stufen = k.querySelectorAll('.stufe'), btn = k.querySelector('button'), z = k.querySelector('.zaehler'), i = 0;
+    z.textContent = '0 / ' + stufen.length;
+    btn.addEventListener('click', function(){
+      if (i >= stufen.length) return;
+      stufen[i].classList.add('offen'); i++;
+      z.textContent = i + ' / ' + stufen.length;
+      if (i < stufen.length) btn.textContent = 'Stufe ' + (i + 1) + ' aufdecken';
+      else { btn.textContent = 'alle Stufen offen'; btn.disabled = true; }
+    });
+  });
+})();
+
+</script>
+</body>
+</html>
