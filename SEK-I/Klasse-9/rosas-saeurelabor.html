@@ -402,7 +402,11 @@ function draw00(t, o){
     txt(tr('← sauer'), x0 + 2 * w, 734, 24, P.cloud); txt(tr('neutral'), x0 + 7.5 * w, 734, 24, P.cloud); txt(tr('alkalisch →'), x0 + 13 * w, 734, 24, P.cloud);
     // Rotkohl-Flasche
     poly([1110, 590, 1180, 590, 1176, 470, 1160, 452, 1160, 410, 1130, 410, 1130, 452, 1114, 470], '#6a3a8a', P.ink, 4);
-    poly([1118, 520, 1172, 520, 1172, 560, 1118, 560], P.cloud, P.ink, 3); txt(tr('Rotkohl'), 1145, 546, 14, P.ink);
+    poly([1116, 516, 1174, 516, 1174, 564, 1116, 564], P.cloud, P.ink, 3);
+    // Etikett: zu lange Namen (z. B. „red cabbage“) zweizeilig und auf die Etikettbreite verkleinert
+    { const w = tr('Rotkohl').split(' '); let fs = w.length > 1 ? 13 : 14; ctx.font = `bold ${fs}px "Baloo 2","Trebuchet MS",sans-serif`;
+      const mw = Math.max(...w.map(x => ctx.measureText(x).width)); if (mw > 50) fs *= 50 / mw;
+      w.forEach((x, k) => txt(x, 1145, 545 + (k - (w.length - 1) / 2) * 15, fs, P.ink)); }
   }
 }
 function wire(pts, col){
