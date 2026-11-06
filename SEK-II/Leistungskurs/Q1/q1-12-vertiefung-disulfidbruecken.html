@@ -113,21 +113,67 @@ sub,sup{font-size:.72em}
     <a class="zurueck" href="q1-vertiefung-und-hilfen.html">← alle Sitzungen</a>
     <div class="kurs">Chemie LK · Q1 · 02 Proteine – Bausteine des Lebens · Sitzung 12</div>
     <h1>Vertiefung und Hilfen: Akte E 920: Das Haar im Brötchen</h1>
-    <p>Hilfen zum Aufgabenblatt nur bei Bedarf und stufenweise aufdecken. Hinweise zu den Akten stehen im Laborterminal. Vertiefungen für Schnelle.</p>
+    <p>Zum Einstieg: Gluten in 3D, mit Disulfidbrücken in und zwischen den Ketten, und was Cystein daraus macht. Hilfen zum Aufgabenblatt nur bei Bedarf und stufenweise aufdecken. Hinweise zu den Akten stehen im Laborterminal. Vertiefungen für Schnelle.</p>
   </div>
 </header>
 <nav><div class="wrap">
-  <a href="#hilfen">Hilfen</a><a class="v" href="#v1">V1 Anfinsen</a><a class="v" href="#v2">V2 Insulin digital</a><a class="v" href="#v3">V3 Cystein und CIP</a><a class="v" href="#v4">V4 Mikroorganismen</a>
+  <a href="#einstieg">Einstieg</a><a href="#hilfen">Hilfen</a><a class="v" href="#v1">V1 Anfinsen</a><a class="v" href="#v2">V2 Insulin digital</a><a class="v" href="#v3">V3 Cystein und CIP</a><a class="v" href="#v4">V4 Mikroorganismen</a>
 </div></nav>
 
 <main class="wrap">
+<h2>Einstieg</h2>
 
+<style>
+.ein-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:18px;align-items:start}
+@media (max-width:760px){.ein-grid{grid-template-columns:1fr}}
+#glut{position:relative;width:100%;height:430px;border-radius:10px;overflow:hidden;background:#0b1118}
+@media (max-width:760px){#glut{height:340px}}
+#glut .lade{position:absolute;inset:0;display:grid;place-items:center;color:#9fb3c8;font-size:14px;text-align:center;padding:20px}
+.ebene{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:1px solid var(--linie);background:#fff;border-radius:8px;padding:8px 12px;margin-bottom:7px;font-weight:600;color:#223;font-size:15px}
+.ebene:hover{border-color:var(--blau)}
+.ebene.an{background:var(--blau-hell);border-color:var(--blau);box-shadow:inset 3px 0 0 var(--blau)}
+.ebene i{flex:none;width:14px;height:14px;border-radius:3px}
+.ebene span{font-weight:400;color:var(--grau);font-size:13px}
+#glinfo{background:#f2f5f8;border-radius:8px;padding:10px 12px;font-size:14.5px;min-height:96px}
+.seq{font-family:ui-monospace,Menlo,monospace;font-size:12px;line-height:1.55;word-break:break-all;margin-top:6px;max-height:150px;overflow:auto;background:#fff;border-radius:6px;padding:6px 8px;color:#99a}
+.seq .q{color:#c25e00;font-weight:bold}.seq .p{color:#2a7ab8;font-weight:bold}.seq .c{background:#f5c400;color:#000;font-weight:bold}
+.red-knoepfe{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0 4px}
+.red-knoepfe .knopf.haupt{background:#2e7d4f;color:#fff;border-color:#2e7d4f}
+#netz svg{width:100%;height:auto;display:block}
+.fragekasten{border-left:4px solid var(--blau);background:#f2f5f8;border-radius:6px;padding:9px 12px;margin:0 0 12px;font-size:14.5px}
+</style>
+<section class="v-karte" id="einstieg">
+  <div class="v-kopf"><div class="v-nr" style="background:var(--blau)">▶</div><div><div class="sterne" style="color:var(--blau)">Einstieg</div><h3>Gluten in 3D: Disulfidbrücken in und zwischen den Ketten</h3></div></div>
+  <div class="v-inhalt">
+    <div class="fragekasten"><b>Hat Gluten eine Tertiär- oder sogar Quartärstruktur?</b> Gluten ist kein einzelnes Protein, sondern ein Gemisch aus <b>Gliadinen</b> und <b>Gluteninen</b>. Große Teile ihrer Ketten sind ungeordnet. Gefaltet ist jeweils nur ein Abschnitt, und den halten Disulfidbrücken <i>innerhalb</i> einer Kette zusammen: Das ist Tertiärstruktur. Glutenine verknüpfen sich zusätzlich über Disulfidbrücken <i>zwischen</i> den Ketten zu riesigen Netzen von mehreren Millionen g/mol. Das ist eine Quartärstruktur im weiteren Sinn: kovalent statt nur über schwache Wechselwirkungen und ohne feste Form wie das Glycinin-Hexamer aus Sitzung 11. Gliadine bleiben einzelne Ketten.</div>
+    <p style="margin-top:0">Ziehen dreht das Molekül, Mausrad oder zwei Finger zoomen. Klicken Sie rechts eine Strukturebene an und spalten Sie danach die Brücken mit Cystein.</p>
+    <div class="ein-grid">
+      <figure><div id="glut"><div class="lade">3D-Modell wird geladen …</div></div>
+        <figcaption>LMW-Glutenin (UniProt P10385) und α/β-Gliadin (P02863) aus Weizen, AlphaFold-Modelle (AlphaFold DB, CC BY 4.0), ohne Signalpeptid; 3D-Ansicht 3Dmol.js (BSD). Vorhergesagt, nicht gemessen: Vom Gluten gibt es keine Kristallstruktur. Der Wiederholungsbereich ist im Modell unsicher und nur als Knäuel angedeutet.</figcaption></figure>
+      <div>
+        <button type="button" class="ebene" data-e="primaer"><i style="background:#f08a24"></i>Primärstruktur <span>Wiederholungsbereich</span></button>
+        <button type="button" class="ebene" data-e="helix"><i style="background:#e8504a"></i>Sekundärstruktur <span>α-Helix</span></button>
+        <button type="button" class="ebene" data-e="tertiaer"><i style="background:#f5c400"></i>Tertiärstruktur <span>S–S in der Kette</span></button>
+        <button type="button" class="ebene" data-e="quartaer"><i style="background:#3ec46d"></i>Quartärstruktur <span>S–S zu anderen Ketten</span></button>
+        <button type="button" class="ebene" data-e="gliadin"><i style="background:#c77dff"></i>Vergleich <span>Gliadin</span></button>
+        <div id="glinfo">Wählen Sie eine Ebene. Zu Beginn sehen Sie eine Glutenin-Untereinheit.</div>
+      </div>
+    </div>
+    <div class="red-knoepfe"><button type="button" class="knopf haupt" id="redknopf">Cystein zugeben: Disulfidbrücken spalten</button><button type="button" class="knopf" id="glutreset">Gesamtansicht</button><span id="redinfo" style="font-size:14px;color:var(--grau)"></span></div>
+    <h4 style="margin:14px 0 4px">Skizze: das Glutennetz im Teig</h4>
+    <div class="papier" id="netz"></div>
+    <figcaption>Skizze, nicht maßstäblich: Glutenin-Untereinheiten (blau) sind über Disulfidbrücken (gelb) zu einem Netz verknüpft, Gliadine (violett) liegen als einzelne Ketten dazwischen. Cystein spaltet Brücken über Thiol-Disulfid-Austausch: P–S–S–P + 2 Cys–SH → 2 P–SH + Cys–S–S–Cys. Die Ketten können aneinander vorbeigleiten, der Teig wird dehnbarer.</figcaption>
+    <div class="aufgabe"><span class="b">a)</span><span><b>Beschreiben</b> Sie, welche Cysteinreste im Glutenin Brücken innerhalb der Kette bilden und welche frei bleiben, und <b>ordnen</b> Sie beides einer Strukturebene <b>zu</b>.</span><span class="ab">AB II</span></div>
+    <div class="aufgabe"><span class="b">b)</span><span><b>Vergleichen</b> Sie Glutenin und Gliadin und <b>begründen</b> Sie, welches der beiden das Netz im Teig aufbauen kann.</span><span class="ab">AB II</span></div>
+    <div class="aufgabe"><span class="b">c)</span><span><b>Erklären</b> Sie mit der Skizze, warum der Teig nach der Zugabe von Cystein dehnbarer wird, und <b>nennen</b> Sie zwei Dinge, die die Skizze nicht zeigt.</span><span class="ab">AB III</span></div>
+  </div>
+</section>
 <h2 id="hilfen">Hilfekarten</h2>
 <p class="hinweis">Erst selbst probieren. Jede Karte deckt ihre Hilfe in Stufen auf, so wenig wie möglich, so viel wie nötig.</p>
 <div class="hilfen">
   <div class="hk">
-    <h3>Hilfe zu 2</h3><div class="zu">Reaktionsgleichung mit Teilgleichungen</div>
-    <div class="stufe">Schreiben Sie die Edukte: P–S–S–P und zweimal Cys–SH. Welche Bindung wird gespalten, welche neu gebildet?</div><div class="stufe">Reduktion: Die Brücke im Gluten wird zu zwei Thiolgruppen, wie Cystin in Akte 3. Was muss dazu links stehen (H<sup>+</sup>, Elektronen)? Gleichen Sie Atome und Ladungen aus.</div><div class="stufe">Oxidation: Die Gegenrichtung mit zwei Cys–SH. Addieren Sie beide Teilgleichungen, Elektronen und H<sup>+</sup> heben sich weg. Wer Elektronen abgibt, ist das Reduktionsmittel.</div>
+    <h3>Hilfe zu 2</h3><div class="zu">Teilgleichungen in Lewis-Schreibweise</div>
+    <div class="stufe">Zeichnen Sie P–S–S–P und Cys–S–H in Lewis-Schreibweise. Ein S-Atom hat 6 Außenelektronen: zwei Bindungen und zwei freie Elektronenpaare, also ein Oktett. Welche Bindung wird gespalten, welche neu gebildet?</div><div class="stufe">Reduktion: Die S–S-Bindung ist ein Elektronenpaar. Wird sie gespalten, behält jedes S-Atom ein Elektron. Wie viele Elektronen muss jedes S-Atom zusätzlich aufnehmen, damit es mit einem H<sup>+</sup> eine S–H-Bindung bilden kann? Gleichen Sie Atome und Ladungen aus, wie bei Cystin in Akte 3.</div><div class="stufe">Oxidation: Die Gegenrichtung mit zwei Cys–S–H. Das H geht als H<sup>+</sup>, also ohne Elektronen. Wohin gehen die übrigen Elektronen der beiden S-Atome? Addieren Sie beide Teilgleichungen, Elektronen und H<sup>+</sup> heben sich weg. Wer Elektronen abgibt, ist das Reduktionsmittel.</div>
     <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
   </div>
   <div class="hk">
@@ -174,9 +220,10 @@ sub,sup{font-size:.72em}
 
 <footer>
   Chemie LK · Q1 · 02 Proteine – Bausteine des Lebens · 12 Strukturebenen III: Akte E 920 · Vertiefung und Hilfen<br>
-  Ryle, Sanger, Smith, Kitai, <i>Biochem. J.</i> 60 (1955) 541; Anfinsen, Haber, Sela, White, <i>PNAS</i> 47 (1961) 1309; Anfinsen, <i>Science</i> 181 (1973) 223; Shewry, Tatham, <i>J. Cereal Sci.</i> 25 (1997) 207; VO (EU) 231/2012; transgen.de.
+  Ryle, Sanger, Smith, Kitai, <i>Biochem. J.</i> 60 (1955) 541; Anfinsen, Haber, Sela, White, <i>PNAS</i> 47 (1961) 1309; Anfinsen, <i>Science</i> 181 (1973) 223; Shewry, Tatham, <i>J. Cereal Sci.</i> 25 (1997) 207; Shewry, Halford, <i>J. Exp. Bot.</i> 53 (2002) 947; Wieser, <i>Food Microbiol.</i> 24 (2007) 115; AlphaFold-Modelle P10385, P02863: Jumper et al., <i>Nature</i> 596 (2021) 583, AlphaFold DB (CC BY 4.0); VO (EU) 231/2012; transgen.de.
 </footer>
 </main>
+<script src="js/3Dmol-min.js"></script>
 
 <script>
 (function(){
@@ -191,6 +238,105 @@ sub,sup{font-size:.72em}
       else { btn.textContent = 'alle Stufen offen'; btn.disabled = true; }
     });
   });
+})();
+var SEQ12="MKTFLVFALLALAAASAVAQISQQQQAPPFSQQQQPPFSQQQQPPFSQQQQSPFSQQQQQPPFAQQQQPPFSQQPPISQQQQPPFSQQQQPQFSQQQQPPYSQQQQPPYSQQQQPPFSQQQQPPFSQQQQQPPFTQQQQQQQQQQPFTQQQQPPFSQQPPISQQQQPPFLQQQRPPFSRQQQIPVIHPSVLQQLNPCKVFLQQQCIPVAMQRCLARSQMLQQSICHVMQQQCCQQLRQIPEQSRHESIRAIIYSIILQQQQQQQQQQQQQQGQSIIQYQQQQPQQLGQCVSQPLQQLQQQLGQQPQQQQLAHQIAQLEVMTSIALRTLPTMCNVNVPLYETTTSVPLGVGIGVGVY";
+
+(function(){
+  var box=document.getElementById('glut'), info=document.getElementById('glinfo'), V=null, G=null, L=null, bereit=false, akt='gesamt', red=false;
+  var GRAU='#5b6673', BLAU='#4f9fe0', GELB='#f5c400', GRUEN='#3ec46d', VIOL='#c77dff';
+  var SSG=[[197,232],[205,225],[233,332]], FREI=[213,289], SSL=[[146,176],[177,267],[189,275]];
+  var seqHtml=(function(){var t='';for(var i=19;i<SEQ12.length;i++){var b=SEQ12[i];t+=b==='Q'?'<span class="q">Q</span>':b==='P'?'<span class="p">P</span>':b==='C'?'<span class="c">C</span>':b;}return t})();
+  var TEXT={
+    gesamt:'Eine Glutenin-Untereinheit (LMW-Glutenin, 337 Aminosäuren ohne Signalpeptid). Orange: der Wiederholungsbereich, blau: der gefaltete Abschnitt. Wählen Sie eine Ebene.',
+    primaer:'<b>Primärstruktur:</b> Die Kette beginnt mit einem langen Wiederholungsbereich: immer wieder Q (Glutamin, orange) und P (Prolin, blau), etwa „QQQQPPF“. Rund die Hälfte der Reste dort ist Glutamin. Die Amidgruppen der Glutaminreste bilden viele Wasserstoffbrücken zu anderen Ketten, Prolin verhindert lange Helices. Gelb: die acht Cysteinreste, alle im hinteren Abschnitt.<div class="seq">'+seqHtml+'</div>',
+    helix:'<b>α-Helix:</b> rot. Nur der hintere Abschnitt bildet Helices. β-Faltblätter kommen im Modell praktisch nicht vor, der Wiederholungsbereich bleibt ungeordnet (in der Literatur: viele β-Schleifen).',
+    tertiaer:'<b>Tertiärstruktur:</b> Sechs der acht Cysteinreste bilden drei Disulfidbrücken <i>innerhalb</i> der Kette (gelb: 197–232, 205–225, 233–332). Sie halten Abschnitte zusammen, die in der Sequenz weit auseinanderliegen, z. B. Rest 233 und 332.',
+    quartaer:'<b>Quartärstruktur:</b> Zwei Cysteinreste bleiben im Modell frei (grün: 213 und 289). LMW-Glutenine besitzen zwei Cysteinreste für Brücken <i>zu anderen Ketten</i> (Wieser 2007). Über solche Brücken hängen sich Glutenine kettenweise aneinander und vernetzen sich: siehe Skizze unten. Eine feste Form wie beim Glycinin entsteht dabei nicht.',
+    gliadin:'<b>Vergleich α-Gliadin:</b> Sechs Cysteinreste, alle in drei Brücken <i>innerhalb</i> der Kette (gelb). Kein Cysteinrest bleibt frei, daher bindet Gliadin nicht kovalent an andere Ketten. Gliadine wirken im Teig wie ein Weichmacher zwischen den Glutenin-Netzen.'
+  };
+  function nachricht(t){box.innerHTML='<div class="lade">'+t+'</div>'}
+  var c=document.createElement('canvas'),gl=null;try{gl=c.getContext('webgl2')||c.getContext('webgl')}catch(e){}
+  if(!window.$3Dmol||!gl){nachricht('3D-Ansicht in diesem Browser nicht verfügbar (WebGL fehlt).');}
+  else{
+    Promise.all(['bilder/q1-12-glutenin.pdb','bilder/q1-12-gliadin.pdb'].map(function(u){return fetch(u).then(function(r){if(!r.ok)throw 0;return r.text()})})).then(function(d){
+      box.innerHTML='';
+      V=$3Dmol.createViewer(box,{backgroundColor:'#0b1118'});
+      G=V.addModel(d[0],'pdb'); L=V.addModel(d[1],'pdb'); bereit=true; zeige('gesamt',0);
+    }).catch(function(){nachricht('3D-Modell konnte nicht geladen werden.')});
+  }
+  function lab(t,sel,farbe,off){var o={fontSize:12,backgroundColor:farbe||'#222',backgroundOpacity:.85,fontColor:'#fff',inFront:true,showBackground:true};if(off)o.screenOffset={x:off[0],y:off[1]};V.addLabel(t,o,sel)}
+  var VERSATZ=[[-70,-34],[70,-34],[0,40]];
+  function sg(m,r){return V.selectedAtoms({model:m,resi:r,atom:'SG'})[0]}
+  function bruecken(m,paare,deutlich){
+    paare.forEach(function(p,i){var a=sg(m,p[0]),b=sg(m,p[1]);if(!a||!b)return;
+      if(!red){V.addCylinder({start:{x:a.x,y:a.y,z:a.z},end:{x:b.x,y:b.y,z:b.z},radius:deutlich?.32:.2,color:GELB,fromCap:1,toCap:1});
+        if(deutlich)lab('S–S '+p[0]+'–'+p[1],{model:m,resi:p[0],atom:'SG'},'#7a6000',VERSATZ[i]);}
+      else{[a,b].forEach(function(x){V.addSphere({center:{x:x.x,y:x.y,z:x.z},radius:deutlich?.75:.5,color:GRUEN})});
+        if(deutlich)lab('–SH  HS– ('+p[0]+', '+p[1]+')',{model:m,resi:p[0],atom:'SG'},'#1f6b3d',VERSATZ[i]);}
+    });
+  }
+  function grund(m){V.setStyle({model:m,resi:'1-19'},{});}
+  function zeige(k,dauer){
+    akt=k; info.innerHTML=TEXT[k];
+    document.querySelectorAll('.ebene').forEach(function(b){b.classList.toggle('an',b.dataset.e===k)});
+    if(!bereit)return;
+    var d=dauer===undefined?700:dauer, cys={resn:'CYS'};
+    V.removeAllLabels(); V.removeAllShapes(); V.setStyle({},{});
+    if(k!=='gliadin'){
+      if(k==='gesamt'||k==='quartaer'){V.setStyle({model:G},{cartoon:{colorfunc:function(a){return a.resi<186?'#f08a24':BLAU}}});}
+      if(k==='primaer'){V.setStyle({model:G},{cartoon:{colorfunc:function(a){return a.resi<186?(a.resn==='GLN'?'#f08a24':a.resn==='PRO'?'#4f9fe0':'#8a929c'):GRAU},opacity:.9}});
+        V.addStyle({model:G,resn:'CYS'},{stick:{color:GELB,radius:.25}});V.addStyle({model:G,resi:'20-60'},{stick:{colorscheme:'orangeCarbon',radius:.15}});lab('…QQQQPPF…',{model:G,resi:38,atom:'CA'},'#8a4b08');}
+      if(k==='helix'){V.setStyle({model:G},{cartoon:{colorfunc:function(a){return a.ss==='h'?'#e8504a':GRAU}}});lab('α-Helix',{model:G,resi:318,atom:'CA'},'#a8241f');}
+      if(k==='tertiaer'){V.setStyle({model:G},{cartoon:{colorfunc:function(a){return a.resi<186?'#3a414a':BLAU},opacity:.85}});V.addStyle({model:G,resn:'CYS'},{stick:{color:GELB,radius:.22}});bruecken(G,SSG,true);}
+      if(k==='quartaer'){V.addStyle({model:G,resn:'CYS'},{stick:{color:GELB,radius:.2}});bruecken(G,SSG,false);
+        FREI.forEach(function(r){var a=sg(G,r);V.addSphere({center:{x:a.x,y:a.y,z:a.z},radius:1.1,color:GRUEN});lab(red?'Cys '+r+': –SH':'Cys '+r+' → andere Kette',{model:G,resi:r,atom:'SG'},'#1f6b3d',r===213?[-60,40]:[-60,-36])});}
+      if(k==='gesamt'){bruecken(G,SSG,false);}
+      grund(G);
+      if(k==='primaer'||k==='gesamt'||k==='quartaer')V.zoomTo({model:G},d);else V.zoomTo({model:G,resi:'186-356'},d);
+    } else {
+      V.setStyle({model:L},{cartoon:{colorfunc:function(a){return a.resi<115?'#7a5a8c':VIOL},opacity:.9}});V.addStyle({model:L,resn:'CYS'},{stick:{color:GELB,radius:.22}});grund(L);bruecken(L,SSL,true);V.zoomTo({model:L},d);
+    }
+    V.render();
+  }
+  document.querySelectorAll('.ebene').forEach(function(b){b.addEventListener('click',function(){zeige(b.dataset.e)})});
+  document.getElementById('glutreset').onclick=function(){zeige('gesamt')};
+  window.addEventListener('resize',function(){if(V){V.resize();V.render()}});
+
+  // ---------- Skizze: Glutennetz, Spaltung durch Cystein ----------
+  var netz=document.getElementById('netz'), t=0, anim=null, knopf=document.getElementById('redknopf'), rinfo=document.getElementById('redinfo');
+  var K=[ // Glutenin-Untereinheiten: Start, Ende, Verschiebung nach der Spaltung
+    [[30,70],[250,82],[-22,-16]],[[264,84],[500,64],[4,-22]],[[514,62],[735,80],[24,-14]],
+    [[30,150],[330,140],[-30,2]],[[344,138],[735,156],[28,4]],
+    [[30,232],[220,222],[-24,18]],[[234,220],[520,242],[0,24]],[[534,244],[735,226],[26,16]]];
+  var B=[[0,1,1,0],[1,2,1,0],[3,4,1,0],[5,6,1,0],[6,7,1,0], // Kette an Kette (Ende an Anfang)
+         [0,3,.5,.4],[1,4,.62,.22],[2,4,.4,.74],[3,6,.72,.38],[4,7,.58,.3],[3,5,.16,.5]];
+  var GL=[[140,112],[420,106],[640,112],[120,190],[460,192],[650,196]];
+  function lerp(a,b,u){return a+(b-a)*u}
+  function pos(i,u,s){var k=K[i],x0=k[0][0]+k[2][0]*s,y0=k[0][1]+k[2][1]*s,x1=k[1][0]+k[2][0]*s,y1=k[1][1]+k[2][1]*s,dx=x1-x0,dy=y1-y0,l=Math.hypot(dx,dy),w=7*Math.sin(u*Math.PI*9+i);return [lerp(x0,x1,u)-dy/l*w,lerp(y0,y1,u)+dx/l*w]}
+  function male(){
+    var s=Math.max(0,(t-.35)/.65), sp=s*s*(3-2*s), h='<svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" style="font-family:Helvetica,Arial,sans-serif">';
+    h+='<rect width="760" height="300" fill="#fffdf6"/>';
+    GL.forEach(function(g,i){var x=g[0]+(i%2?8:-8)*sp,y=g[1];h+='<path d="M'+(x-16)+','+y+' q8,-14 16,0 t16,0 q-6,12 -14,4" fill="none" stroke="#9b5de5" stroke-width="4" stroke-linecap="round"/>'});
+    K.forEach(function(k,i){var p=[];for(var j=0;j<=40;j++)p.push(pos(i,j/40,sp).map(function(v){return v.toFixed(1)}).join(','));h+='<polyline points="'+p.join(' ')+'" fill="none" stroke="#3f7fd0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>'});
+    B.forEach(function(b,i){var A=pos(b[0],b[2],sp),C=pos(b[1],b[3],sp),m=[(A[0]+C[0])/2,(A[1]+C[1])/2];
+      if(t<.35){var f=Math.min(1,t/.3);h+='<line x1="'+A[0]+'" y1="'+A[1]+'" x2="'+C[0]+'" y2="'+C[1]+'" stroke="#e0b000" stroke-width="4"/><circle cx="'+A[0]+'" cy="'+A[1]+'" r="5" fill="#f5c400" stroke="#8a6d00"/><circle cx="'+C[0]+'" cy="'+C[1]+'" r="5" fill="#f5c400" stroke="#8a6d00"/>';
+        if(t>0){var sx=m[0]+(i%2?40:-40)*(1-f),sy=m[1]-60*(1-f);h+='<circle cx="'+sx+'" cy="'+sy+'" r="9" fill="#2e7d4f"/><text x="'+sx+'" y="'+(sy+3.5)+'" font-size="8" fill="#fff" text-anchor="middle">Cys</text>'}}
+      else{[A,C].forEach(function(P){h+='<circle cx="'+P[0]+'" cy="'+P[1]+'" r="8" fill="#e9f4ee" stroke="#2e7d4f" stroke-width="1.5"/><text x="'+P[0]+'" y="'+(P[1]+3.5)+'" font-size="9" font-weight="bold" fill="#2e7d4f" text-anchor="middle">SH</text>'});
+        if(i%3===0){var o=Math.min(1,s*2);h+='<text x="'+m[0]+'" y="'+(m[1]-4-18*sp)+'" font-size="11" fill="#2e7d4f" font-weight="bold" text-anchor="middle" opacity="'+o+'">Cys–S–S–Cys</text>'}}
+    });
+    if(t===0)h+='<text x="380" y="292" font-size="12" fill="#555" text-anchor="middle">Disulfidbrücken (gelb) verknüpfen die Glutenin-Untereinheiten zu einem festen, elastischen Netz.</text>';
+    if(t>=1)h+='<text x="380" y="292" font-size="12" fill="#2e7d4f" text-anchor="middle" font-weight="bold">Brücken gespalten: Die Ketten gleiten aneinander vorbei, das Netz ist lockerer, der Teig dehnbarer.</text>';
+    netz.innerHTML=h+'</svg>';
+  }
+  function lauf(ziel){cancelAnimationFrame(anim);var von=t,t0=performance.now();var f=function(now){var u=Math.min(1,(now-t0)/3200);t=von+(ziel-von)*u;male();if(u<1)anim=requestAnimationFrame(f)};anim=requestAnimationFrame(f)}
+  knopf.onclick=function(){
+    red=!red;
+    knopf.textContent=red?'Zurücksetzen: Brücken wieder geschlossen':'Cystein zugeben: Disulfidbrücken spalten';
+    rinfo.textContent=red?'Gespalten: Aus jeder S–S-Brücke werden zwei Thiolgruppen (–SH), Cystein wird zu Cystin oxidiert.':'';
+    if(bereit&&(akt==='gesamt'||akt==='primaer'||akt==='helix'))zeige('tertiaer');else if(bereit)zeige(akt);
+    lauf(red?1:0);
+  };
+  male();
 })();
 
 </script>
