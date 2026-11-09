@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Miniforschung Weihnachtsmarkt</title>
+<!-- Chemie LK Q1 · Miniforschungsbericht zum Weihnachtsmarktbeitrag. Drei-Folien-Aufbau wie die Übersicht im Exkurs Masterarbeit (Sitzung 07).
+     Verknüpft mit dem Laborjournal: ../laborjournal.html?vorlage=weihnachtsmarkt legt den Bericht aus der Vorlage an. Repo öffentlich: keine Namen. -->
+<style>
+:root{
+  --flaeche:#fcfcfb; --karte:#fff; --tinte:#0b0b0b; --tinte2:#52514e; --blass:#898781; --gitter:#e1e0d9;
+  --akzent:#5b3a8c; --hell:#efecf6; --gut:#e3f4ec; --gut-t:#1b7a4a; --schlecht:#fbe9e1; --schlecht-t:#b4441a;
+  --blau:#2a78d6; --orange:#eb6834; --gold:#b7861b; --gold-hell:#fbf3df;
+  --sans:-apple-system,BlinkMacSystemFont,"Open Sans","Segoe UI","Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--flaeche);color:var(--tinte);font-family:var(--sans);font-size:16px;line-height:1.5}
+a{color:var(--akzent)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+header.kopf{border-top:6px solid var(--akzent);padding:26px 0 18px;background:linear-gradient(180deg,#f4f1fa 0%,var(--flaeche) 100%)}
+.kicker{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--akzent)}
+header h1{margin:4px 0 8px;font-size:clamp(26px,4.6vw,38px);line-height:1.15}
+header p.lead{margin:0;max-width:760px;color:var(--tinte2);font-size:17px}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.knopf{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:700;border-radius:8px;padding:10px 16px;border:1.5px solid var(--akzent);color:var(--akzent);background:#fff}
+.knopf.primaer{background:var(--akzent);color:#fff}
+.knopf:hover{filter:brightness(1.08)}
+nav.reiter{position:sticky;top:0;z-index:10;background:rgba(252,252,251,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--gitter)}
+nav.reiter .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:8px;padding-bottom:8px}
+nav.reiter a{flex:none;text-decoration:none;color:var(--akzent);border:1px solid var(--gitter);background:#fff;border-radius:16px;padding:3px 12px;font-size:14px;font-weight:600}
+h2{font-size:23px;margin:38px 0 6px}
+h2 .k{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--akzent)}
+p.hinweis{color:var(--tinte2);margin:0 0 14px;max-width:820px}
+.karte{background:var(--karte);border:1px solid var(--gitter);border-radius:10px;padding:14px 16px}
+.raster{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+/* Ablauf */
+.schritte{counter-reset:s;display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.schritt{background:#fff;border:1px solid var(--gitter);border-radius:10px;padding:12px 14px;position:relative}
+.schritt::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--akzent);color:#fff;font-weight:700;margin-bottom:6px}
+.schritt b{display:block}
+.schritt small{color:var(--tinte2);font-size:14px;display:block;margin-top:2px}
+.schritt .wo{display:inline-block;margin-top:6px;font-size:12px;font-weight:700;color:var(--akzent);background:var(--hell);border-radius:10px;padding:1px 8px}
+/* Folien-Mockups 16:9 */
+.folie-rahmen{margin:18px 0 8px}
+.folie-meta{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;margin-bottom:6px}
+.folie-meta h3{margin:0;font-size:18px}
+.folie-meta .zeit{font-size:14px;font-weight:700;color:#fff;background:var(--akzent);border-radius:12px;padding:1px 10px}
+.folie{container-type:inline-size;position:relative;width:100%;aspect-ratio:16/9;background:var(--flaeche);border:1px solid var(--gitter);border-radius:8px;overflow:hidden;box-shadow:0 2px 10px rgba(40,30,70,.08)}
+.folie .balken{position:absolute;left:0;top:0;right:0;height:.8%;background:var(--akzent)}
+.folie .ober{position:absolute;left:3.9%;top:4.6%;font-size:1.35cqw;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--akzent)}
+.folie .titel{position:absolute;left:3.9%;top:8%;right:3.9%;font-size:2.75cqw;font-weight:800;line-height:1.15}
+.folie .titel i{font-weight:600;color:var(--blass)}
+.folie .fuss{position:absolute;left:3.9%;bottom:2.4%;right:3.9%;display:flex;justify-content:space-between;font-size:1.05cqw;color:var(--blass)}
+.folie .box{position:absolute;border-radius:.8cqw;padding:1cqw 1.1cqw;font-size:1.15cqw;line-height:1.3;color:var(--tinte2);overflow:hidden}
+.folie .box.weiss{background:#fff;border:1px solid var(--gitter)}
+.folie .box.lila{background:var(--hell)}
+.folie .box.gruen{background:var(--gut);color:var(--tinte)}
+.folie .box.rot{background:var(--schlecht)}
+.folie .box.ohne{padding:0}
+.folie .box h4{margin:0 0 .4cqw;font-size:1.25cqw;letter-spacing:.05em;text-transform:uppercase;color:var(--akzent)}
+.folie .box .ph{border:1px dashed #c9c4d8;border-radius:.6cqw;display:grid;place-items:center;text-align:center;color:var(--blass);font-size:1.1cqw;padding:.6cqw}
+.folie .zahl{display:grid;grid-template-columns:auto 1fr;gap:.5cqw 1cqw;align-items:center;font-size:1.35cqw;color:var(--tinte)}
+.folie .zahl b{font-size:2.4cqw;color:var(--akzent);text-align:right}
+.folie .pfeil{color:var(--akzent);font-weight:700}
+.folie .chips{display:flex;flex-direction:column;gap:.5cqw}
+.folie .chips span{background:var(--hell);border-radius:.5cqw;padding:.45cqw .7cqw}
+.folie .bars{display:flex;flex-direction:column;gap:.7cqw;margin-top:.6cqw}
+.folie .bar{display:grid;grid-template-columns:18% 1fr 12%;gap:.7cqw;align-items:center;font-size:1.05cqw}
+.folie .bar i{display:block;height:2.1cqw;border-radius:.3cqw;background:var(--blau)}
+.folie .mini{width:100%;border-collapse:collapse;font-size:1.05cqw}
+.folie .mini td,.folie .mini th{padding:.25cqw .4cqw;text-align:left}
+.folie .mini tr:nth-child(odd) td{background:#f3f2ee}
+.folie .nr{position:absolute;width:2.2cqw;height:2.2cqw;border-radius:50%;background:var(--orange);color:#fff;font-weight:800;font-size:1.2cqw;display:grid;place-items:center;box-shadow:0 0 0 .25cqw #fff;z-index:2}
+.legende{display:grid;gap:6px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:10px}
+.legende div{display:grid;grid-template-columns:26px 1fr;gap:8px;font-size:15px;align-items:start}
+.legende .n{width:24px;height:24px;border-radius:50%;background:var(--orange);color:#fff;font-weight:800;font-size:13px;display:grid;place-items:center}
+.legende small{display:block;color:var(--akzent);font-weight:600;font-size:13px}
+.tipp{border-left:4px solid var(--akzent);background:var(--hell);border-radius:0 8px 8px 0;padding:10px 14px;margin:14px 0;max-width:860px}
+/* Produkte */
+.produkte{display:grid;gap:12px}
+details.produkt{background:#fff;border:1px solid var(--gitter);border-radius:12px;overflow:hidden}
+details.produkt summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:48px 1fr auto;gap:12px;align-items:center;padding:12px 16px}
+details.produkt summary::-webkit-details-marker{display:none}
+details.produkt summary .ico{font-size:30px;text-align:center}
+details.produkt summary b{font-size:18px;display:block}
+details.produkt summary small{color:var(--tinte2);font-size:14px}
+details.produkt summary .auf{color:var(--akzent);font-weight:700;font-size:20px;transition:transform .2s}
+details.produkt[open] summary .auf{transform:rotate(45deg)}
+details.produkt[open] summary{border-bottom:1px solid var(--gitter);background:#faf9fc}
+.p-inhalt{padding:14px 16px 16px;display:grid;gap:14px;grid-template-columns:1fr 1fr}
+@media (max-width:760px){.p-inhalt{grid-template-columns:1fr}}
+.p-inhalt h4{margin:0 0 4px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--akzent)}
+.p-inhalt ul{margin:0;padding-left:18px}
+.p-inhalt li{margin:3px 0}
+.p-voll{grid-column:1/-1}
+.fragen{display:grid;gap:8px}
+.frage{background:var(--hell);border-radius:8px;padding:8px 10px}
+.frage q{font-weight:600;quotes:"„" "“"}
+.frage .v{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:13px;color:var(--tinte2);margin-top:4px}
+.frage .v span::before{font-weight:700;color:var(--akzent)}
+.frage .v .uv::before{content:"UV: "}
+.frage .v .av::before{content:"AV: "}
+.frage .v .m::before{content:"Messung: "}
+.warn{background:var(--schlecht);border-radius:8px;padding:8px 10px;font-size:14px}
+.warn b{color:var(--schlecht-t)}
+.bezug{font-size:14px;color:var(--tinte2)}
+.bezug b{color:var(--akzent)}
+/* Gut / schlecht */
+.vergleich{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.vergleich .karte p{margin:6px 0 0;font-size:15px}
+.gut-t{color:var(--gut-t);font-weight:700}
+.schlecht-t{color:var(--schlecht-t);font-weight:700}
+table.krit{border-collapse:collapse;width:100%;background:#fff;border:1px solid var(--gitter);border-radius:10px;overflow:hidden;font-size:15px}
+table.krit th,table.krit td{padding:8px 10px;border-bottom:1px solid var(--gitter);text-align:left;vertical-align:top}
+table.krit th{background:#faf9fc;color:var(--akzent);font-size:13px;letter-spacing:.05em;text-transform:uppercase}
+.tab-scroll{overflow-x:auto}
+/* Checkliste */
+.check{display:grid;gap:6px}
+.check label{display:grid;grid-template-columns:24px 1fr;gap:8px;align-items:start;background:#fff;border:1px solid var(--gitter);border-radius:8px;padding:8px 10px;cursor:pointer}
+.check input{width:18px;height:18px;margin-top:3px;accent-color:var(--akzent)}
+.check label:has(input:checked){background:var(--gut);border-color:#b8e0c9}
+.fortschritt{height:8px;background:var(--gitter);border-radius:4px;overflow:hidden;margin:6px 0 10px;max-width:420px}
+.fortschritt i{display:block;height:100%;width:0;background:var(--gut-t);transition:width .3s}
+footer{margin:46px 0 30px;padding-top:14px;border-top:1px solid var(--gitter);color:var(--blass);font-size:13px}
+@media print{nav.reiter,.cta{display:none}details.produkt{break-inside:avoid}details.produkt:not([open]) .p-inhalt{display:grid}.folie{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<header class="kopf">
+  <div class="wrap">
+    <div class="kicker">Chemie LK Q1 · Miniforschungsbericht</div>
+    <h1>Forschen am eigenen Weihnachtsmarktstand</h1>
+    <p class="lead">Aus dem Produkt für unseren Stand wird eine eigene naturwissenschaftliche Fragestellung. Geplant, gemessen und ausgewertet wird im Laborjournal; nach dem Weihnachtsmarkt stellt jede Person ihre Ergebnisse in <b>5 Minuten auf drei Folien</b> vor.</p>
+    <div class="cta">
+      <a class="knopf primaer" href="../laborjournal.html?vorlage=weihnachtsmarkt">🧪 Bericht im Laborjournal anlegen</a>
+      <a class="knopf" href="#folien">Die drei Folien ansehen</a>
+      <a class="knopf" href="#produkte">Ideen je Produkt</a>
+    </div>
+  </div>
+</header>
+
+<nav class="reiter" aria-label="Abschnitte">
+  <div class="wrap">
+    <a href="#ablauf">Ablauf</a>
+    <a href="#folien">Drei Folien</a>
+    <a href="#produkte">Produkte</a>
+    <a href="#frage">Gute Forschungsfrage</a>
+    <a href="#messen">Messen</a>
+    <a href="#sicherheit">Sicherheit</a>
+    <a href="#praesentation">Präsentation</a>
+    <a href="#check">Checkliste</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<section id="ablauf">
+  <h2><span class="k">Überblick</span>Vom Marktprodukt zum Forschungsbericht</h2>
+  <p class="hinweis">Jede Person bearbeitet eine eigene Fragestellung, auch wenn mehrere dasselbe Produkt herstellen. Teams teilen sich Zutaten und Geräte, nicht die Forschungsfrage.</p>
+  <div class="schritte">
+    <div class="schritt"><b>Frage finden</b><small>Produkt wählen, beim Probekochen ein Phänomen beobachten, daraus eine messbare Frage machen.</small><span class="wo">Journal · Folie 1</span></div>
+    <div class="schritt"><b>Planen und freigeben lassen</b><small>Hypothese auf Teilchenebene, Variablenplan, Gefahren. Freigabe der Forschungsfrage durch die Lehrkraft.</small><span class="wo">Journal · Folie 1</span></div>
+    <div class="schritt"><b>Messen</b><small>Mindestens drei Stufen, je dreimal. Rohdaten und Fotos sofort ins Journal, auch am Stand.</small><span class="wo">Journal · Folie 2</span></div>
+    <div class="schritt"><b>Auswerten</b><small>Mittelwerte, Diagramm, Deutung auf Teilchenebene, Fehlerbetrachtung. Endfassung, ZIP und PDF abgeben.</small><span class="wo">Journal · Folie 3</span></div>
+    <div class="schritt"><b>Präsentieren</b><small>5 Minuten, drei Folien, einzeln. Danach Rückfragen aus dem Kurs.</small><span class="wo">nach dem Markt</span></div>
+  </div>
+  <div class="tipp"><b>Laborjournal und Folien hängen zusammen.</b> Die Vorlage „Miniforschungsbericht Weihnachtsmarkt“ ist in drei Teile gegliedert, die genau den drei Folien entsprechen. Wer das Journal sauber führt, hat die Folien schon zu 80 % fertig. Der Knopf oben öffnet das Laborjournal und legt den Bericht an; ein vorhandener Entwurf wird wieder geöffnet statt überschrieben.</div>
+</section>
+
+<section id="folien">
+  <h2><span class="k">Template</span>Die drei Folien</h2>
+  <p class="hinweis">Aufbau wie die Drei-Folien-Übersicht zur Masterarbeit aus dem Exkurs in Sitzung 07: oben eine kleine Zeile mit dem Teil des Berichts, darunter ein Titel, der etwas aussagt, dann Kästen statt Fließtext. Die orangen Nummern verweisen auf die Abschnitte im Laborjournal.</p>
+
+  <!-- Folie 1 -->
+  <div class="folie-rahmen">
+    <div class="folie-meta"><h3>Folie 1 · Forschungsfrage und Versuchsplanung</h3><span class="zeit">ca. 1:30 min</span></div>
+    <div class="folie" role="img" aria-label="Musterfolie 1: Forschungsfrage und Versuchsplanung">
+      <div class="balken"></div>
+      <div class="ober">Forschungsfrage &amp; Versuchsplanung</div>
+      <div class="titel">Wie hängt … von … ab? <i>(Forschungsfrage als Titel)</i></div>
+      <div class="box weiss" style="left:3.9%;top:17.5%;width:27%;height:50%">
+        <h4>Produkt &amp; Phänomen</h4>
+        <div class="ph" style="height:62%">Foto vom Probekochen: Was ist aufgefallen?</div>
+        <div style="margin-top:.6cqw">Ein bis zwei Sätze Kontext: Warum ist die Frage für den Stand wichtig?</div>
+      </div>
+      <div class="box ohne" style="left:3.9%;top:70%;width:27%;height:22%">
+        <div class="zahl"><b>3</b><span>Stufen der unabhängigen Variable</span><b>×3</b><span>Wiederholungen je Stufe</span><b>1</b><span>Messgröße mit Einheit</span></div>
+      </div>
+      <div class="box lila" style="left:32.9%;top:17.5%;width:37.8%;height:31%">
+        <h4>Chemischer Hintergrund</h4>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8cqw;height:72%">
+          <div class="ph">Strukturformel oder Teilchenmodell</div>
+          <div>Welche Stoffe, welche Wechselwirkungen oder Reaktion? Fachbegriffe aus dem Unterricht.</div>
+        </div>
+      </div>
+      <div class="box weiss" style="left:72.3%;top:17.5%;width:23.8%;height:31%">
+        <h4>Variablenplan</h4>
+        <table class="mini"><tr><td>UV</td><td>…</td></tr><tr><td>AV</td><td>…</td></tr><tr><td>konstant</td><td>…</td></tr><tr><td>Referenz</td><td>…</td></tr></table>
+      </div>
+      <div class="box weiss" style="left:32.9%;top:51%;width:63.2%;height:41%">
+        <h4>Hypothese</h4>
+        <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:1.2cqw;height:82%">
+          <div style="font-size:1.45cqw;color:var(--tinte)">Je <b>…</b>, desto <b>…</b>, da auf Teilchenebene … (Begründung mit Fachbegriffen). Die erwartete Richtung farbig hervorheben.</div>
+          <div class="ph">Schema: Ausgangszustand <span class="pfeil">→</span> erwartete Veränderung</div>
+        </div>
+      </div>
+      <span class="nr" style="left:2.6%;top:16%">1</span>
+      <span class="nr" style="left:31.6%;top:16%">2</span>
+      <span class="nr" style="left:71%;top:16%">4</span>
+      <span class="nr" style="left:31.6%;top:49.5%">3</span>
+      <div class="fuss"><span>Chemie LK Q1 · Miniforschung Weihnachtsmarkt · Produkt: …</span><span>1 / 3</span></div>
+    </div>
+    <div class="legende">
+      <div><span class="n">1</span><span>Produkt und Phänomen<small>Journal: „Produkt und Kontext“</small></span></div>
+      <div><span class="n">2</span><span>Chemischer Hintergrund<small>Journal: „Chemischer Hintergrund“</small></span></div>
+      <div><span class="n">3</span><span>Hypothese in Je-desto-Form mit Begründung<small>Journal: „Hypothese“</small></span></div>
+      <div><span class="n">4</span><span>Variablen, Referenzprobe, Wiederholungen<small>Journal: „Planung: Variablen, Kontrollen, Wiederholungen“</small></span></div>
+    </div>
+  </div>
+
+  <!-- Folie 2 -->
+  <div class="folie-rahmen">
+    <div class="folie-meta"><h3>Folie 2 · Durchführung und Datenerhebung</h3><span class="zeit">ca. 1:15 min</span></div>
+    <div class="folie" role="img" aria-label="Musterfolie 2: Durchführung und Datenerhebung">
+      <div class="balken"></div>
+      <div class="ober">Durchführung &amp; Datenerhebung</div>
+      <div class="titel">In … Schritten von … zu … <i>(Ablauf in einem Satz)</i></div>
+      <div class="box weiss" style="left:3.9%;top:17.5%;width:61.5%;height:75%">
+        <h4>Ablauf als Fotoreihe oder Schema</h4>
+        <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:.6cqw;align-items:center;height:38%">
+          <div class="ph" style="height:100%">Foto 1<br>Ansetzen</div><span class="pfeil">→</span>
+          <div class="ph" style="height:100%">Foto 2<br>Variieren</div><span class="pfeil">→</span>
+          <div class="ph" style="height:100%">Foto 3<br>Messen</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6cqw;margin-top:.5cqw;text-align:center;font-size:1.05cqw">
+          <span>Mengen, Temperatur, Zeit</span><span>Stufen der UV</span><span>Messgerät</span>
+        </div>
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:1.2cqw;margin-top:1.4cqw;align-items:start">
+          <div class="box lila" style="position:static;width:15cqw">
+            <div style="font-size:2.6cqw;font-weight:800;color:var(--akzent);line-height:1">… g</div>
+            Kennzahl, z. B. Gesamtmenge, Anzahl Proben, längste Messzeit
+          </div>
+          <div style="font-size:1.05cqw;color:var(--blass)">Gefahren und Schutzmaßnahmen klein unter dem Schema (heißer Zucker, Wachs, Bräter). Abkürzungen erklären.</div>
+        </div>
+      </div>
+      <div style="position:absolute;left:67.4%;top:17.5%;font-size:1.25cqw;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--akzent)">Datenerhebung</div>
+      <div class="box ohne" style="left:67.4%;top:22.5%;width:28.7%;height:36%">
+        <div class="chips">
+          <span><b>Thermometer</b> Temperatur in °C, Genauigkeit …</span>
+          <span><b>Waage</b> Masse in g, auf 0,1 g</span>
+          <span><b>Foto + Farbwert</b> RGB unter gleichem Licht</span>
+          <span><b>Stoppuhr</b> Zeit bis …</span>
+        </div>
+      </div>
+      <div style="position:absolute;left:67.4%;top:61%;font-size:1.25cqw;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--akzent)">Messwerte (Auszug)</div>
+      <div class="box ohne" style="left:67.4%;top:66%;width:28.7%;height:26%">
+        <table class="mini"><tr><th>Stufe</th><th>Mittelwert</th><th>Spannweite</th></tr><tr><td>…</td><td>…</td><td>…</td></tr><tr><td>…</td><td>…</td><td>…</td></tr><tr><td>…</td><td>…</td><td>…</td></tr></table>
+      </div>
+      <span class="nr" style="left:2.6%;top:16%">5</span>
+      <span class="nr" style="left:64.9%;top:16.6%">6</span>
+      <span class="nr" style="left:64.9%;top:60.1%">7</span>
+      <div class="fuss"><span>Chemie LK Q1 · Miniforschung Weihnachtsmarkt · Produkt: …</span><span>2 / 3</span></div>
+    </div>
+    <div class="legende">
+      <div><span class="n">5</span><span>Ablauf mit Mengen, Material und Gefahren<small>Journal: „Material, Zutaten und Gefahren“, „Durchführung“</small></span></div>
+      <div><span class="n">6</span><span>Messmethoden und ihre Genauigkeit<small>Journal: „Datenerhebung“</small></span></div>
+      <div><span class="n">7</span><span>Mittelwerte statt aller Rohdaten<small>Journal: „Messwerte“</small></span></div>
+    </div>
+  </div>
+
+  <!-- Folie 3 -->
+  <div class="folie-rahmen">
+    <div class="folie-meta"><h3>Folie 3 · Beobachtungen und Auswertung</h3><span class="zeit">ca. 2:15 min</span></div>
+    <div class="folie" role="img" aria-label="Musterfolie 3: Beobachtungen, Auswertung, Fehlerbetrachtung, Ausblick">
+      <div class="balken"></div>
+      <div class="ober">Beobachtungen &amp; Auswertung · Fehlerbetrachtung · Ausblick</div>
+      <div class="titel">… bestätigt: … <i>(Antwort auf die Forschungsfrage als Titel)</i></div>
+      <div class="box gruen" style="left:3.9%;top:17.5%;width:92.2%;height:12%;font-size:1.45cqw">
+        <b>Die Hypothese wurde bestätigt / widerlegt / teilweise bestätigt, da</b> … (Messergebnis mit Zahl) … und auf Teilchenebene … gilt.
+      </div>
+      <div style="position:absolute;left:3.9%;top:32.5%;font-size:1.25cqw;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--akzent)">Diagramm: AV in Abhängigkeit von der UV</div>
+      <div class="box ohne" style="left:3.9%;top:37%;width:42%;height:34%">
+        <div class="bars">
+          <div class="bar"><span>Stufe 1</span><i style="width:38%"></i><span>… ± …</span></div>
+          <div class="bar"><span>Stufe 2</span><i style="width:62%"></i><span>… ± …</span></div>
+          <div class="bar"><span>Stufe 3</span><i style="width:86%"></i><span>… ± …</span></div>
+        </div>
+        <div style="margin-top:.8cqw;font-size:1cqw;color:var(--blass)">Achsen beschriften, Einheit angeben, Spannweite als Fehlerbalken.</div>
+      </div>
+      <div style="position:absolute;left:47.6%;top:32.5%;font-size:1.25cqw;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--akzent)">Weitere Beobachtungen</div>
+      <div class="box ohne" style="left:47.6%;top:37%;width:24%;height:34%">
+        <div class="chips">
+          <span><b>Deutung</b> Teilchenebene in 2 Sätzen</span>
+          <span><b>Auffällig</b> Ausreißer, Geschmack, Konsistenz</span>
+          <span style="background:var(--schlecht)"><b>Hat nicht geklappt</b> … und warum</span>
+        </div>
+      </div>
+      <div class="box weiss" style="left:73.3%;top:32.5%;width:22.8%;height:38.5%">
+        <div class="ph" style="height:100%">Bestes Foto: Proben nebeneinander, beschriftet</div>
+      </div>
+      <div class="box ohne" style="left:47.6%;top:74%;width:48.5%;height:18%">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.4cqw">
+          <div><h4 style="margin:0 0 .3cqw;font-size:1.25cqw;letter-spacing:.05em;text-transform:uppercase;color:var(--akzent)">Fehlerbetrachtung</h4>• Fehlerquelle → Wert zu hoch / zu niedrig<br>• zweite Fehlerquelle</div>
+          <div><h4 style="margin:0 0 .3cqw;font-size:1.25cqw;letter-spacing:.05em;text-transform:uppercase;color:var(--akzent)">Ausblick</h4>• Was heißt das für den Stand?<br>• Folgeexperiment</div>
+        </div>
+      </div>
+      <div class="box ohne" style="left:3.9%;top:74%;width:42%;height:16%;font-size:1.05cqw">Messbedingungen und Zahl der Wiederholungen in einer Zeile unter dem Diagramm, z. B. „n = 3 je Stufe, 20 °C, gleiche Lichtquelle“.</div>
+      <span class="nr" style="left:2.6%;top:16%">8</span>
+      <span class="nr" style="left:1.4%;top:31.6%">9</span>
+      <span class="nr" style="left:45.1%;top:73.4%">10</span>
+      <div class="fuss"><span>Chemie LK Q1 · Miniforschung Weihnachtsmarkt · Produkt: …</span><span>3 / 3</span></div>
+    </div>
+    <div class="legende">
+      <div><span class="n">8</span><span>Kernsatz zur Hypothese<small>Journal: „Auswertung und Hypothesenüberprüfung“</small></span></div>
+      <div><span class="n">9</span><span>Diagramm und Beobachtungen<small>Journal: „Beobachtungen“, „Messwerte“</small></span></div>
+      <div><span class="n">10</span><span>Grenzen und Konsequenz für den Stand<small>Journal: „Fehlerbetrachtung“, „Ausblick und Bedeutung für den Stand“</small></span></div>
+    </div>
+  </div>
+
+  <div class="tipp"><b>Titel, die etwas aussagen.</b> Folie 1 trägt die Frage, Folie 3 die Antwort. Vorbild aus der Masterarbeit: „Wie wird aus L-Threonin ein Baustein für Pseudaminsäure?“ wird auf Folie 3 zu „Felkin-Anh bestätigt, an der Imin-Stufe stoppt die Synthese“. Auch ein unerwartetes Ergebnis ist ein Ergebnis.</div>
+</section>
+
+<section id="produkte">
+  <h2><span class="k">Ideenbörse</span>Forschungsfragen je Produkt</h2>
+  <p class="hinweis">Die Fragen sind Startpunkte, keine Pflicht. Abwandeln ist erwünscht, entscheidend ist eine einzige veränderte Größe und eine Messung mit Zahl. UV = unabhängige Variable (wird verändert), AV = abhängige Variable (wird gemessen).</p>
+  <div class="produkte">
+
+    <details class="produkt">
+      <summary><span class="ico">🧋</span><span><b>Glühpunsch-Bubble-Tea</b><small>Tapiokaperlen, Popping Boba, Anthocyane im Punsch</small></span><span class="auf">+</span></summary>
+      <div class="p-inhalt">
+        <div>
+          <h4>Chemie dahinter</h4>
+          <ul>
+            <li><b>Tapiokaperlen:</b> Maniokstärke verkleistert beim Kochen (Amylose und Amylopektin binden Wasser). Beim Stehen ordnen sich Amyloseketten wieder über Wasserstoffbrücken (<b>Retrogradation</b>): die Perlen werden hart, im Kühlschrank schneller.</li>
+            <li><b>Popping Boba:</b> Natriumalginat tropft in eine Calciumsalzlösung; Ca²⁺-Ionen verbrücken die Alginatketten (Eierkarton-Modell) zu einer Gelhaut. In saurer Lösung entsteht unlösliche Alginsäure statt eines Gels.</li>
+            <li><b>Punschfarbe:</b> Anthocyane aus roten Trauben, Holunder oder Hibiskus ändern Farbe mit dem pH-Wert und bauen sich bei langem Warmhalten ab.</li>
+          </ul>
+        </div>
+        <div class="fragen">
+          <h4>Mögliche Forschungsfragen</h4>
+          <div class="frage"><q>Wie hängt die Härte gekochter Tapiokaperlen von der Lagerdauer und -temperatur ab?</q><div class="v"><span class="uv">Lagerdauer 0/1/2/4 h, warm vs. kalt</span><span class="av">Masse bis zum Zerdrücken</span><span class="m">Glas auf Perle, Küchenwaage darunter</span></div></div>
+          <div class="frage"><q>Welchen Einfluss hat der Zuckergehalt des Sirups auf das Hartwerden der Perlen?</q><div class="v"><span class="uv">0/10/20/40 % Zucker</span><span class="av">Härte nach 3 h</span><span class="m">wie oben</span></div></div>
+          <div class="frage"><q>Wie hängt die Hautdicke von Popping Boba von der Verweilzeit im Calciumbad ab?</q><div class="v"><span class="uv">30/60/120/240 s</span><span class="av">Masse bis zum Platzen bzw. Hautdicke</span><span class="m">Waage, Lineal/Lupe</span></div></div>
+          <div class="frage"><q>Bis zu welchem pH-Wert des Punschs bilden sich noch stabile Alginatkugeln?</q><div class="v"><span class="uv">pH 2,5 bis 5 (Zitronensaft/Natron)</span><span class="av">Kugelform, Platzmasse</span><span class="m">pH-Streifen, Waage</span></div></div>
+          <div class="frage"><q>Wie verändert langes Warmhalten die Farbe des Punschs?</q><div class="v"><span class="uv">Warmhaltezeit 0 bis 4 h</span><span class="av">Farbwert (RGB)</span><span class="m">Foto vor Weiß, gleiche Lampe</span></div></div>
+        </div>
+        <div class="p-voll">
+          <div class="warn"><b>Sicherheit:</b> Calciumchlorid reizt die Augen (Schutzbrille). Heißer Punsch: Verbrühungsgefahr beim Umfüllen. Für den Verkauf nur Lebensmittelqualität verwenden und Versuchsproben nicht verkaufen.</div>
+          <p class="bezug"><b>Kursbezug:</b> Wasserstoffbrücken und Ionenbindung (Q1 01/02), Biopolymere und Vernetzung (Kunststoffe, Sitzung 23). Hintergrund und Rezepte: <a href="../../../icho2027-bubble-tea.html">Bubble-Tea-Aufgabenwerkstatt</a>.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="produkt">
+      <summary><span class="ico">🥜</span><span><b>Gebrannte Mandeln und Nüsse</b><small>Kristallisation, Karamellisierung, Maillard-Reaktion</small></span><span class="auf">+</span></summary>
+      <div class="p-inhalt">
+        <div>
+          <h4>Chemie dahinter</h4>
+          <ul>
+            <li><b>Kristallisation:</b> Wenn das Wasser verdampft, wird die Saccharoselösung übersättigt und der Zucker kristallisiert als sandige Schicht auf den Mandeln aus.</li>
+            <li><b>Karamellisierung:</b> Bei weiterem Erhitzen schmilzt und zersetzt sich ein Teil der Saccharose (ab etwa 160 °C) zu braunen, aromatischen Stoffen; der Überzug wird glänzend.</li>
+            <li><b>Maillard-Reaktion:</b> Aminogruppen der Mandelproteine reagieren mit reduzierenden Zuckern (Glucose, Fructose aus der Spaltung der Saccharose) zu Bräunungs- und Röstaromastoffen.</li>
+            <li><b>Lagerung:</b> Zucker ist hygroskopisch; feuchte Luft macht die Kruste klebrig.</li>
+          </ul>
+        </div>
+        <div class="fragen">
+          <h4>Mögliche Forschungsfragen</h4>
+          <div class="frage"><q>Wie hängt die Masse des Zuckerüberzugs vom Verhältnis Zucker zu Mandeln ab?</q><div class="v"><span class="uv">0,5 : 1 / 0,75 : 1 / 1 : 1</span><span class="av">Massezunahme in %</span><span class="m">Waage vor und nach</span></div></div>
+          <div class="frage"><q>Welchen Einfluss hat die Endtemperatur auf die Bräunung des Überzugs?</q><div class="v"><span class="uv">140/155/170 °C</span><span class="av">Farbwert (Helligkeit)</span><span class="m">Einstechthermometer, Foto</span></div></div>
+          <div class="frage"><q>Wie verändert ein Honiganteil die Kristallisation und die Klebrigkeit?</q><div class="v"><span class="uv">0/10/25 % Honig statt Zucker</span><span class="av">Zeit bis zum Auskristallisieren, Kleben</span><span class="m">Stoppuhr, Kipptest</span></div></div>
+          <div class="frage"><q>Wie viel Wasser nehmen gebrannte Mandeln bei offener Lagerung auf?</q><div class="v"><span class="uv">offen / Tüte / Dose, 0 bis 5 Tage</span><span class="av">Massezunahme</span><span class="m">Waage auf 0,1 g</span></div></div>
+        </div>
+        <div class="p-voll">
+          <div class="warn"><b>Sicherheit:</b> Geschmolzener Zucker hat über 150 °C und klebt auf der Haut: lange Ärmel, Holzlöffel, kaltes Wasser bereithalten, nicht naschen aus der Pfanne. Allergene (Nüsse) am Stand kennzeichnen.</div>
+          <p class="bezug"><b>Kursbezug:</b> Aminosäuren und Proteine (Q1 04 bis 06, Aminogruppe wie bei Ninhydrin), zwischenmolekulare Kräfte und Löslichkeit (Q1 02).</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="produkt">
+      <summary><span class="ico">🕯️</span><span><b>Selbst gemachte Kerzen</b><small>Wachssorten, Docht, Verbrennung, Ruß</small></span><span class="auf">+</span></summary>
+      <div class="p-inhalt">
+        <div>
+          <h4>Chemie dahinter</h4>
+          <ul>
+            <li><b>Wachse:</b> Paraffin (langkettige Alkane), Stearin (Stearin- und Palmitinsäure), Sojawachs (gehärtetes Pflanzenfett), Bienenwachs (langkettige Ester). Kettenlänge und Wechselwirkungen bestimmen Schmelzbereich und Härte.</li>
+            <li><b>Docht:</b> Flüssiges Wachs steigt durch Kapillarkräfte auf, verdampft und verbrennt in der Flamme, nicht das feste Wachs.</li>
+            <li><b>Verbrennung:</b> Bei Sauerstoffmangel unvollständige Verbrennung: Ruß (Kohlenstoff) und Kohlenstoffmonooxid statt CO₂ und H₂O.</li>
+          </ul>
+        </div>
+        <div class="fragen">
+          <h4>Mögliche Forschungsfragen</h4>
+          <div class="frage"><q>Wie hängt die Abbrandrate von der Wachssorte ab?</q><div class="v"><span class="uv">Paraffin, Stearin, Soja, Bienenwachs</span><span class="av">Massenverlust in g/h</span><span class="m">Waage, 1 h Brenndauer</span></div></div>
+          <div class="frage"><q>Welchen Einfluss hat die Dochtdicke auf Flammenhöhe und Rußbildung?</q><div class="v"><span class="uv">3 Dochtstärken</span><span class="av">Flammenhöhe, Rußfleck</span><span class="m">Lineal, Glasplatte 30 s, Foto</span></div></div>
+          <div class="frage"><q>Wie verändert der Anteil an Duftöl die Abbrandrate und den Schmelzbereich?</q><div class="v"><span class="uv">0/3/6/10 % Duftöl</span><span class="av">g/h, Erstarrungstemperatur</span><span class="m">Waage, Thermometer</span></div></div>
+          <div class="frage"><q>Wie hängt das Schrumpfen beim Erstarren von der Gießtemperatur ab?</q><div class="v"><span class="uv">Gießtemperatur 65/75/85 °C</span><span class="av">Tiefe der Mulde</span><span class="m">Messschieber</span></div></div>
+        </div>
+        <div class="p-voll">
+          <div class="warn"><b>Sicherheit:</b> Wachs nur im Wasserbad schmelzen, nie direkt auf der Platte. Brennendes Wachs nie mit Wasser löschen (Fettexplosion), sondern mit Deckel ersticken. Brennversuche auf nicht brennbarer Unterlage, nie unbeaufsichtigt.</div>
+          <p class="bezug"><b>Kursbezug:</b> Alkane und zwischenmolekulare Kräfte (Q1 02/03), Paraffin und Polyethylen als Thermoplaste (Kunststoffe, Sitzung 19), Redoxreaktion Verbrennung.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="produkt">
+      <summary><span class="ico">🍞</span><span><b>Topfbrot aus dem gusseisernen Bräter</b><small>Gluten, Gärung, Dampf, Krustenbräunung</small></span><span class="auf">+</span></summary>
+      <div class="p-inhalt">
+        <div>
+          <h4>Chemie dahinter</h4>
+          <ul>
+            <li><b>Gluten:</b> Gliadin und Glutenin bilden beim langen Gehen ein Netzwerk über Disulfidbrücken und Wasserstoffbrücken, das Gas festhält.</li>
+            <li><b>Gärung:</b> Hefe setzt Glucose zu Ethanol und CO₂ um; das Gas lässt den Teig aufgehen.</li>
+            <li><b>Bräter mit Deckel:</b> Der Wasserdampf aus dem Teig bleibt im Topf, die Oberfläche bleibt länger feucht und dehnbar (Ofentrieb), Stärke verkleistert zu glänzender Kruste.</li>
+            <li><b>Kruste:</b> Nach dem Abnehmen des Deckels trocknet die Oberfläche, Maillard-Reaktion und Karamellisierung bräunen sie.</li>
+          </ul>
+        </div>
+        <div class="fragen">
+          <h4>Mögliche Forschungsfragen</h4>
+          <div class="frage"><q>Wie hängt das Brotvolumen davon ab, wie lange der Deckel aufliegt?</q><div class="v"><span class="uv">0/15/30 min mit Deckel</span><span class="av">Volumen in mL</span><span class="m">Verdrängung mit Raps- oder Senfsaat</span></div></div>
+          <div class="frage"><q>Welchen Einfluss hat die Gehzeit bzw. -temperatur auf Volumen und Porenbild?</q><div class="v"><span class="uv">4 h warm / 12 h kalt / 18 h kalt</span><span class="av">Volumen, Porenzahl je cm²</span><span class="m">Saatverdrängung, Schnittfoto</span></div></div>
+          <div class="frage"><q>Wie beeinflusst die Salzmenge die CO₂-Bildung der Hefe?</q><div class="v"><span class="uv">0/1/2/3 % Salz</span><span class="av">Gasvolumen nach 60 min</span><span class="m">Teigprobe in Flasche mit Luftballon, Umfang</span></div></div>
+          <div class="frage"><q>Wie hängt das Volumen von der Mehltype ab?</q><div class="v"><span class="uv">Type 405/550/1050/Vollkorn</span><span class="av">Volumen, Masseverlust beim Backen</span><span class="m">Saatverdrängung, Waage</span></div></div>
+        </div>
+        <div class="p-voll">
+          <div class="warn"><b>Sicherheit:</b> Der Bräter wird mit vorgeheizt (bis 250 °C): Ofenhandschuhe an beiden Händen, Teig mit Backpapier einlegen, Deckel vom Körper weg öffnen (heißer Dampf). Abkühlen lassen vor dem Anschneiden.</div>
+          <p class="bezug"><b>Kursbezug:</b> Disulfidbrücken und Gluten (Akte E 920, Sitzung 12; glutenfreie Ernährung, Sitzung 13), Denaturierung durch Hitze (Sitzung 11/15).</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="produkt">
+      <summary><span class="ico">✨</span><span><b>Eigenes Produkt</b><small>Alles, was sich herstellen und messen lässt</small></span><span class="auf">+</span></summary>
+      <div class="p-inhalt">
+        <div>
+          <h4>So entsteht eine eigene Frage</h4>
+          <ul>
+            <li>Beim Probekochen notieren: Was misslingt, was verändert sich, was überrascht?</li>
+            <li>Welche Größe lässt sich in der Küche gezielt verändern (Temperatur, Zeit, Menge, Zutat)?</li>
+            <li>Woran lässt sich das Ergebnis mit einer Zahl erkennen (Masse, Volumen, Farbwert, Zeit)?</li>
+            <li>Welche Stoffe sind beteiligt und was passiert auf Teilchenebene?</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Freigabe</h4>
+          <p style="margin:0">Eigene Produkte bitte früh mit der Lehrkraft absprechen, vor allem wegen Gefahrstoffen und Lebensmittelhygiene am Stand.</p>
+        </div>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="frage">
+  <h2><span class="k">Qualität</span>Eine gute Forschungsfrage</h2>
+  <div class="vergleich">
+    <div class="karte"><span class="schlecht-t">Zu offen</span><p>„Was passiert beim Brennen von Mandeln?“</p><span class="gut-t">Besser</span><p>„Wie hängt die Bräunung des Zuckerüberzugs von der Endtemperatur ab?“</p></div>
+    <div class="karte"><span class="schlecht-t">Nicht messbar</span><p>„Welche Kerze ist schöner?“</p><span class="gut-t">Besser</span><p>„Wie hängt die Abbrandrate in g/h von der Wachssorte ab?“</p></div>
+    <div class="karte"><span class="schlecht-t">Zu viele Variablen</span><p>„Wie wirken Mehl, Salz und Gehzeit auf das Brot?“</p><span class="gut-t">Besser</span><p>„Wie hängt das Brotvolumen von der Salzmenge ab?“ (Mehl und Gehzeit konstant)</p></div>
+  </div>
+  <div class="raster" style="margin-top:12px">
+    <div class="karte"><b>Messbar</b><br>Die Antwort ist eine Zahl mit Einheit oder ein klarer Vergleich.</div>
+    <div class="karte"><b>Eine Variable</b><br>Genau eine Größe wird verändert, alles andere bleibt gleich.</div>
+    <div class="karte"><b>Teilchenebene</b><br>Die Hypothese lässt sich mit Stoffen, Bindungen oder Reaktionen begründen.</div>
+    <div class="karte"><b>Machbar</b><br>Mit Küchengeräten und in zwei Versuchstagen durchführbar, ungefährlich.</div>
+    <div class="karte"><b>Nützlich</b><br>Das Ergebnis verbessert etwas am Stand: Qualität, Haltbarkeit, Sicherheit.</div>
+  </div>
+</section>
+
+<section id="messen">
+  <h2><span class="k">Methoden</span>Messen mit Küchenmitteln</h2>
+  <div class="raster">
+    <div class="karte"><b>⚖️ Masse</b><br>Feinwaage auf 0,1 g. Immer Leermasse (Tara) notieren. Massenänderung in % angeben.</div>
+    <div class="karte"><b>🌡️ Temperatur</b><br>Einstechthermometer bis 250 °C. Fühler nicht den Topfboden berühren lassen.</div>
+    <div class="karte"><b>📏 Volumen</b><br>Unregelmäßige Körper: Verdrängung mit Raps- oder Senfsaat im Messbecher, Flüssigkeiten im Messzylinder.</div>
+    <div class="karte"><b>🎨 Farbe</b><br>Foto vor weißem Papier, gleiche Lampe, ohne Blitz, gleicher Abstand. Farbwert (RGB oder Helligkeit) mit einer Farbpipetten-App an drei Stellen messen.</div>
+    <div class="karte"><b>⏱️ Zeit</b><br>Stoppuhr oder Zeitraffer-Video mit sichtbarer Uhr.</div>
+    <div class="karte"><b>🧪 pH-Wert</b><br>Universalindikatorpapier; bei stark gefärbten Proben vorher verdünnen.</div>
+    <div class="karte"><b>🔁 Wiederholung</b><br>Jede Stufe mindestens dreimal. Mittelwert und Spannweite (größter minus kleinster Wert) angeben.</div>
+    <div class="karte"><b>📊 Diagramm</b><br>UV auf die x-Achse, AV auf die y-Achse, Einheiten in die Achsenbeschriftung, Spannweite als Fehlerbalken. Als Bild ins Journal einfügen.</div>
+  </div>
+</section>
+
+<section id="sicherheit">
+  <h2><span class="k">Sicherheit und Hygiene</span>Bevor es heiß wird</h2>
+  <div class="raster">
+    <div class="karte"><b>Gefährdungen im Journal</b><br>Im Abschnitt „Material, Zutaten und Gefahren“ zu jedem heißen oder reizenden Stoff eine Schutzmaßnahme notieren.</div>
+    <div class="karte"><b>Heißer Zucker, Wachs, Öl</b><br>Nie Wasser auf brennendes Fett oder Wachs. Deckel bereitlegen. Schutzbrille bei spritzenden Massen.</div>
+    <div class="karte"><b>Versuch und Verkauf trennen</b><br>Proben mit Chemikalien aus dem Fachraum werden nicht gegessen und nicht verkauft. Im Fachraum keine Lebensmittel verzehren.</div>
+    <div class="karte"><b>Allergene</b><br>Nüsse, Gluten, Milch am Stand kennzeichnen.</div>
+  </div>
+</section>
+
+<section id="praesentation">
+  <h2><span class="k">Nach dem Weihnachtsmarkt</span>Präsentation in 5 Minuten</h2>
+  <p class="hinweis">Einzeln, drei Folien nach dem Template oben, freier Vortrag. Danach kurze Rückfragen aus dem Kurs. Eine Probe des Produkts zum Zeigen ist willkommen.</p>
+  <div class="tab-scroll">
+  <table class="krit">
+    <tr><th>Kriterium</th><th>Daran wird es sichtbar</th></tr>
+    <tr><td><b>Fragestellung und Hypothese</b></td><td>Messbare Forschungsfrage, Hypothese in Je-desto-Form mit Begründung auf Teilchenebene.</td></tr>
+    <tr><td><b>Planung</b></td><td>Eine UV, klare AV mit Einheit, konstante Größen, Referenzprobe, Wiederholungen.</td></tr>
+    <tr><td><b>Durchführung und Datenerhebung</b></td><td>Nachvollziehbarer Ablauf, geeignete Messmethode, Messgenauigkeit benannt, sicheres Arbeiten.</td></tr>
+    <tr><td><b>Auswertung</b></td><td>Mittelwerte, korrektes Diagramm, Deutung mit Fachbegriffen und Formeln, klare Aussage zur Hypothese.</td></tr>
+    <tr><td><b>Fehlerbetrachtung und Ausblick</b></td><td>Konkrete Fehlerquellen mit Auswirkung, Konsequenz für den Stand, sinnvolles Folgeexperiment.</td></tr>
+    <tr><td><b>Präsentation</b></td><td>Zeit eingehalten (5 min), Folien nach Template, aussagekräftige Titel, freier und fachsprachlich korrekter Vortrag.</td></tr>
+    <tr><td><b>Laborjournal</b></td><td>Vollständig, sachlich formuliert, Rohdaten und Fotos enthalten, Endfassung mit Prüfsumme abgegeben.</td></tr>
+  </table>
+  </div>
+  <div class="tipp"><b>Zeit einhalten:</b> Folie 1 etwa 1:30 min, Folie 2 etwa 1:15 min, Folie 3 etwa 2:15 min. Die meiste Zeit gehört der Auswertung. Einmal laut mit Stoppuhr üben.</div>
+</section>
+
+<section id="check">
+  <h2><span class="k">Selbstcheck</span>Checkliste</h2>
+  <p class="hinweis">Die Haken werden nur in diesem Browser gespeichert.</p>
+  <div class="fortschritt"><i id="balken"></i></div>
+  <div class="check" id="checkliste">
+    <label><input type="checkbox" data-k="1"><span>Bericht im Laborjournal angelegt, Name und Titel eingetragen.</span></label>
+    <label><input type="checkbox" data-k="2"><span>Forschungsfrage mit genau einer UV und einer messbaren AV formuliert.</span></label>
+    <label><input type="checkbox" data-k="3"><span>Forschungsfrage von der Lehrkraft freigegeben.</span></label>
+    <label><input type="checkbox" data-k="4"><span>Hypothese mit Begründung auf Teilchenebene, Strukturformel als Bild eingefügt.</span></label>
+    <label><input type="checkbox" data-k="5"><span>Gefahren und Schutzmaßnahmen notiert.</span></label>
+    <label><input type="checkbox" data-k="6"><span>Mindestens drei Stufen, je drei Wiederholungen gemessen, Rohdaten im Journal.</span></label>
+    <label><input type="checkbox" data-k="7"><span>Fotos beschriftet, Diagramm mit Achsen, Einheiten und Fehlerbalken eingefügt.</span></label>
+    <label><input type="checkbox" data-k="8"><span>Kernsatz „Die Hypothese wurde … da …“ und zwei Fehlerquellen formuliert.</span></label>
+    <label><input type="checkbox" data-k="9"><span>Endfassung, ZIP und PDF aus dem Laborjournal abgegeben.</span></label>
+    <label><input type="checkbox" data-k="10"><span>Drei Folien nach Template gebaut und den Vortrag einmal mit Stoppuhr geübt.</span></label>
+  </div>
+  <div class="cta" style="margin-top:16px">
+    <a class="knopf primaer" href="../laborjournal.html?vorlage=weihnachtsmarkt">🧪 Zum Bericht im Laborjournal</a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">Chemie LK Q1 · Miniforschungsbericht Weihnachtsmarkt · Laborjournal: <a href="../laborjournal.html">laborjournal.html</a> · Die Daten im Laborjournal bleiben im eigenen Browser, bis sie exportiert werden.</div>
+</footer>
+
+<script>
+(function () {
+  var KEY = "miniforschung-weihnachtsmarkt-check";
+  var boxes = Array.prototype.slice.call(document.querySelectorAll("#checkliste input"));
+  var stand = {};
+  try { stand = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { stand = {}; }
+  function zeige() {
+    var n = boxes.filter(function (b) { return b.checked; }).length;
+    document.getElementById("balken").style.width = (100 * n / boxes.length) + "%";
+  }
+  boxes.forEach(function (b) {
+    b.checked = !!stand[b.dataset.k];
+    b.addEventListener("change", function () {
+      stand[b.dataset.k] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(stand)); } catch (e) {}
+      zeige();
+    });
+  });
+  zeige();
+})();
+</script>
+</body>
+</html>

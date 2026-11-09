@@ -47,6 +47,7 @@
   .tools button { border: 0; background: none; cursor: pointer; padding: 1px 6px; font-size: 14px; color: var(--muted); }
   .tools button:hover { color: var(--ink); }
   .h { font-size: 19px; font-weight: 700; color: var(--accent); border-bottom: 1px solid var(--accent-soft); padding: 4px 0 2px; margin-top: 10px; outline: none; }
+  .h.folie { background: var(--accent); color: #fff; border-radius: 6px; padding: 6px 12px; margin-top: 22px; font-size: 17px; letter-spacing: .02em; }
   .hint { font-size: 13px; color: var(--muted); background: #fafbfc; border-left: 3px solid var(--accent-soft); padding: 4px 10px; margin: 4px 0 6px; }
   .hint summary { cursor: pointer; }
   .rt { min-height: 1.6em; outline: none; padding: 2px 0; }
@@ -278,7 +279,7 @@ function newDoc(tpl) {
     format: FORMAT, version: VERSION, id: uid(),
     meta: { titel: tpl.titel || "", name: "", team: "", datum: today(), kurs: "Chemie LK Q1" },
     status: "entwurf", created: new Date().toISOString(), modified: new Date().toISOString(),
-    final: null,
+    final: null, tpl: tpl.key || "",
     blocks: tpl.blocks.map(b => ({ id: uid(), ...structuredClone(b) })),
   };
 }
@@ -331,9 +332,46 @@ const NINHYDRIN = [
   H("Ergebnisbewertung, Fehlerbetrachtung und Ausblick", "Mindestens zwei Grenzen und ein konkreter Verbesserungsvorschlag (z. B. Dünnschichtchromatographie, Fotometrie bei 570 nm). " + SACHLICH),
   T("Das Ergebnis ist … verlässlich, da … Eine Grenze des Nachweises ist … Zur Absicherung könnte …"),
 ];
+// Miniforschungsbericht Weihnachtsmarkt: gleiche Gliederung wie die drei Präsentationsfolien
+// (1 Forschungsfrage & Versuchsplanung · 2 Durchführung & Datenerhebung · 3 Beobachtungen & Auswertung)
+const WEIHNACHTSMARKT = [
+  H("Folie 1 · Forschungsfrage und Versuchsplanung", "Inhalt der ersten Präsentationsfolie (ca. 1,5 min). Erst die Fragestellung festlegen, dann planen."),
+  H("Produkt und Kontext", "Glühpunsch-Bubble-Tea, gebrannte Mandeln/Nüsse, Kerzen, Topfbrot oder eigenes Produkt. Welches Problem oder Phänomen ist beim Herstellen aufgefallen?"),
+  T("Produkt: … · Auffälliges Phänomen: …"),
+  H("Forschungsfrage", "Eine messbare Frage mit genau einer veränderten Größe: „Wie hängt … von … ab?“ oder „Welchen Einfluss hat … auf …?“. Sachlich, ohne Personalpronomen."),
+  T("Wie hängt … von … ab?"),
+  H("Chemischer Hintergrund", "Stoffe und Teilchenebene: Strukturformeln, Wechselwirkungen, Reaktionen (z. B. Maillard-Reaktion, Karamellisierung, Verkleisterung von Stärke, Vernetzung von Alginat mit Ca²⁺, Gluten-Netzwerk, Verbrennung von Paraffin/Stearin). Formel als Bild (Foto oder SVG) einfügen."),
+  T("Beteiligte Stoffe: … · Vorgang auf Teilchenebene: …"),
+  H("Hypothese", "Begründet auf Teilchenebene und überprüfbar (Je-desto-Form). " + SACHLICH),
+  T("Je …, desto …, da …"),
+  H("Planung: Variablen, Kontrollen, Wiederholungen", "Nur eine unabhängige Variable. Mindestens drei Stufen, jede Stufe mindestens dreimal (Mittelwert). Referenzprobe festlegen."),
+  TAB([["Element der Planung", "Im Experiment"], ["unabhängige Variable (Stufen)", ""], ["abhängige Variable (Messgröße, Einheit)", ""], ["konstante Variablen", ""], ["Referenz- bzw. Blindprobe", ""], ["Wiederholungen je Stufe", ""], ["Messgerät / Messmethode", ""]]),
+  H("Folie 2 · Durchführung und Datenerhebung", "Inhalt der zweiten Präsentationsfolie (ca. 1,5 min): Ablauf als Schema oder Fotoreihe, Messmethoden."),
+  H("Material, Zutaten und Gefahren", "Mengen mit Einheit. Gefahren beim Arbeiten mit heißem Zucker (bis 170 °C), heißem Wachs, Brennspiritus, Bräter bei 250 °C: Schutzmaßnahmen nennen. Gefahrstoffe mit GHS, H- und P-Sätzen."),
+  TAB([["Stoff / Gerät", "Menge bzw. Kenngröße", "Gefahr und Schutzmaßnahme"], ["", "", ""], ["", "", ""], ["", "", ""]]),
+  H("Durchführung", "Reproduzierbar im Passiv: Mengen, Reihenfolge, Temperatur, Zeit. Fotoreihe des Ablaufs einfügen (wird zum Schema auf Folie 2)."),
+  T("1. … wird … gegeben und bei … °C … min …"),
+  H("Datenerhebung", "Wie wird gemessen? z. B. Thermometer/Einstechthermometer, Küchenwaage (0,1 g), Stoppuhr, pH-Teststreifen, Fotos unter gleichem Licht mit Farbkarte, Farbwert (RGB) per App, Schmelz- bzw. Brenndauer, Volumen über Wasserverdrängung."),
+  T("Messgröße … wird mit … gemessen, Messgenauigkeit: …"),
+  H("Messwerte", "Rohdaten aller Wiederholungen, Mittelwert, Einheiten in der Kopfzeile. Fotos jeder Probe beschriftet."),
+  TAB([["Stufe der unabhängigen Variable", "Messung 1", "Messung 2", "Messung 3", "Mittelwert"], ["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", "", ""]]),
+  H("Folie 3 · Beobachtungen und Auswertung", "Inhalt der dritten Präsentationsfolie (ca. 2 min): Kernaussage oben, Diagramm, Fehlerbetrachtung, Ausblick."),
+  H("Beobachtungen", "Nur was gesehen, gemessen, geschmeckt wurde, ohne Deutung. Diagramm (Mittelwerte mit Spannweite) als Bild einfügen."),
+  T("Mit steigender … nimmt … von … auf … zu."),
+  H("Auswertung und Hypothesenüberprüfung", "Erklärung auf Teilchenebene mit Fachbegriffen und Formeln. Kernsatz für Folie 3: „Die Hypothese wurde bestätigt/widerlegt/teilweise bestätigt, da …“. " + SACHLICH),
+  T("Die Beobachtung lässt sich auf Teilchenebene dadurch erklären, dass …"),
+  T("Kernsatz für Folie 3", "Die Hypothese wurde bestätigt/widerlegt/teilweise bestätigt, da …"),
+  H("Fehlerbetrachtung", "Mindestens zwei konkrete Fehlerquellen mit Richtung der Auswirkung (zu hoch / zu niedrig) und Größenordnung. " + SACHLICH),
+  T("Fehlerquelle 1: … → Messwert vermutlich zu … · Fehlerquelle 2: …"),
+  H("Ausblick und Bedeutung für den Stand", "Folgeexperiment und praktische Konsequenz für die Herstellung auf dem Weihnachtsmarkt."),
+  T("Für den Stand folgt daraus: … · Folgeexperiment: …"),
+  H("Quellen", "Rezepte, Fachliteratur, Internetseiten mit Abrufdatum."),
+  T("[1] …"),
+];
 const TEMPLATES = [
   { key: "protokoll", name: "Versuchsprotokoll (SEK II)", desc: "Alle Abschnitte nach den Protokollkriterien", titel: "", blocks: PROTOKOLL },
   { key: "ninhydrin", name: "Projekt Ninhydrinreaktion", desc: "Mit Planungstabelle (Variablen, Kontrollen) und Gefahrstoffen", titel: "Nachweis von Aminosäuren mit Ninhydrin", blocks: NINHYDRIN },
+  { key: "weihnachtsmarkt", name: "Miniforschungsbericht Weihnachtsmarkt", desc: "Eigene Fragestellung zum Marktprodukt, gegliedert wie die drei Präsentationsfolien", titel: "Miniforschung Weihnachtsmarkt: …", blocks: WEIHNACHTSMARKT },
   { key: "leer", name: "Leeres Protokoll", desc: "Nur ein Textfeld", titel: "", blocks: [T("Hier schreiben …")] },
 ];
 
@@ -455,7 +493,7 @@ function render() {
     if (!locked) w.appendChild(blockTools(i));
     if (b.type === "h") {
       const h = document.createElement("div");
-      h.className = "h"; h.contentEditable = !locked; h.textContent = b.text;
+      h.className = /^Folie \d/.test(b.text) ? "h folie" : "h"; h.contentEditable = !locked; h.textContent = b.text;
       h.oninput = () => { b.text = h.textContent; scheduleSave(); };
       h.onkeydown = e => { if (e.key === "Enter") e.preventDefault(); };
       w.appendChild(h);
@@ -719,7 +757,7 @@ function cleanDoc(d) {
   });
   const m = d.meta || {};
   return {
-    format: FORMAT, version: VERSION, id: uid(),
+    format: FORMAT, version: VERSION, id: uid(), tpl: String(d.tpl || ""),
     meta: { titel: String(m.titel || ""), name: String(m.name || ""), team: String(m.team || ""), datum: String(m.datum || today()), kurs: String(m.kurs || "") },
     status: d.status === "final" ? "final" : "entwurf", final: d.final && d.final.at ? { at: String(d.final.at), hash: String(d.final.hash || "") } : null,
     created: String(d.created || new Date().toISOString()), modified: new Date().toISOString(), blocks,
@@ -913,8 +951,22 @@ $("#xUnlock").onclick = () => { if (!window.confirm("Endfassung entsperren? Die 
   try { last = localStorage.getItem("eln-last"); } catch (e) {}
   if (!useMem && last) doc = await DB.getDoc(last);
   if (!doc && !useMem) { const all = await DB.allDocs(); if (all.length) doc = all.sort((a, b) => b.modified.localeCompare(a.modified))[0]; }
+  // Direktlink ?vorlage=<key>: vorhandenen Entwurf dieser Vorlage öffnen, sonst neu anlegen
+  let wunsch = null;
+  try { wunsch = new URLSearchParams(location.search).get("vorlage"); } catch (e) {}
+  const wtpl = wunsch && TEMPLATES.find(t => t.key === wunsch);
+  if (wtpl) {
+    if (!(doc && doc.tpl === wtpl.key && doc.status !== "final")) {
+      const alle = useMem ? [] : await DB.allDocs();
+      const vorh = alle.filter(d => d.tpl === wtpl.key && d.status !== "final").sort((a, b) => b.modified.localeCompare(a.modified))[0];
+      if (vorh) doc = vorh;
+      else { doc = newDoc(wtpl); setTimeout(() => toast("Neuer Bericht aus der Vorlage „" + wtpl.name + "“ angelegt"), 300); }
+    }
+    try { history.replaceState(null, "", location.pathname); } catch (e) {}
+  }
   if (!doc) doc = newDoc(TEMPLATES[0]);
   render();
+  if (wtpl) { await saveNow(); try { localStorage.setItem("eln-last", doc.id); } catch (e) {} }
   $("#status").textContent = useMem ? "nur im Speicher" : "bereit";
   const pinFmt = () => { $("#fmt").style.top = $("header.app").offsetHeight + "px"; };
   pinFmt(); window.addEventListener("resize", pinFmt);

@@ -32,6 +32,10 @@ Git-Historie bis zum Umzug bleibt hier in diesem Repo.
   `Q1/_Werkzeuge/hilfenseiten/build.py` (iCloud) erzeugt → dort ändern, nicht im HTML; 10 ist handgeschrieben.
   Ohne Lösungen (nur gestufte Hilfen und Vertiefungsaufgaben). URLs nicht umbenennen: sie stehen gedruckt in den QR-Codes.
 - SEK-II/Leistungskurs/Q1/escape-game-q1-12-akte-e920.html — Laborterminal zum Escape Game Sitzung 12, Codes nur als Hash; Quelle in iCloud (12 …/Version 1/Werkzeuge/build_terminal.py).
+- SEK-II/Leistungskurs/Q1/miniforschung-weihnachtsmarkt.html — Miniforschungsbericht zum Weihnachtsmarktbeitrag
+  (Drei-Folien-Template wie Exkurs Masterarbeit Sitzung 07, Forschungsideen je Produkt). Handgeschrieben.
+  Verlinkt auf laborjournal.html?vorlage=weihnachtsmarkt (Vorlage WEIHNACHTSMARKT; im LK öffnet der Direktlink
+  einen vorhandenen Entwurf dieser Vorlage, statt wie in SEK-I nachzufragen).
 - SEK-II/Leistungskurs/laborjournal.html — elektronisches Laborjournal (ELN):
   Speicherung in IndexedDB, Export .html/.zip (eigener ZIP-Code, Deflate-Lesen
   über DecompressionStream), Import beider Formate. Keine Schülerdaten im Repo.
