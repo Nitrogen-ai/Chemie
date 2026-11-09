@@ -47,6 +47,10 @@
   .tools button { border: 0; background: none; cursor: pointer; padding: 1px 6px; font-size: 14px; color: var(--muted); }
   .tools button:hover { color: var(--ink); }
   .h { font-size: 19px; font-weight: 700; color: var(--accent); border-bottom: 1px solid var(--accent-soft); padding: 4px 0 2px; margin-top: 10px; outline: none; }
+  .tplinfo { display: flex; align-items: center; gap: 10px; text-decoration: none; background: #efecf6; color: #5b3a8c; border: 1px solid #d9d2ea; border-radius: 8px; padding: 10px 14px; margin: 0 0 12px; font-weight: 600; }
+  .tplinfo:hover { background: #e6e0f3; }
+  .tplinfo small { display: block; font-weight: 400; color: #52514e; }
+  .tplinfo[hidden] { display: none; }
   .h.folie { background: var(--accent); color: #fff; border-radius: 6px; padding: 6px 12px; margin-top: 22px; font-size: 17px; letter-spacing: .02em; }
   .hint { font-size: 13px; color: var(--muted); background: #fafbfc; border-left: 3px solid var(--accent-soft); padding: 4px 10px; margin: 4px 0 6px; }
   .hint summary { cursor: pointer; }
@@ -91,7 +95,7 @@
   #printHead { display: none; }
   @page { margin: 15mm 14mm 16mm; }
   @media print {
-    header.app, .fmt, .ins, .tools, .hint, .tablebtns, #toast, .meta, main > .note { display: none !important; }
+    header.app, .fmt, .ins, .tools, .hint, .tplinfo, .tablebtns, #toast, .meta, main > .note { display: none !important; }
     #printHead { display: block; border-bottom: 2px solid var(--accent); padding-bottom: 6px; margin-bottom: 10px; }
     #printHead h1 { font-size: 22px; margin: 0 0 2px; color: var(--accent); }
     #printHead div { font-size: 13px; color: #444; }
@@ -156,6 +160,7 @@
       <label>Kurs<input id="mKurs" placeholder="Chemie LK Q1"></label>
       <label>Status<span><span class="badge" id="mStatus">Entwurf</span></span></label>
     </div>
+    <a id="tplInfo" class="tplinfo" hidden target="_blank" rel="noopener"></a>
     <div id="blocks"></div>
   </div>
   <p class="note">Alles wird automatisch in diesem Browser gespeichert. Das ist kein Backup: Sichern Sie regelmäßig über „Sichern / Exportieren“ (Zwischenstand als .html oder alles als .zip). Fotos: Kamera über „+ Einfügen“ → „Foto aufnehmen“, oder Bilder per Ziehen und Ablegen bzw. Einfügen (⌘V / Strg+V) an die markierte Stelle.</p>
@@ -371,7 +376,8 @@ const WEIHNACHTSMARKT = [
 const TEMPLATES = [
   { key: "protokoll", name: "Versuchsprotokoll (SEK II)", desc: "Alle Abschnitte nach den Protokollkriterien", titel: "", blocks: PROTOKOLL },
   { key: "ninhydrin", name: "Projekt Ninhydrinreaktion", desc: "Mit Planungstabelle (Variablen, Kontrollen) und Gefahrstoffen", titel: "Nachweis von Aminosäuren mit Ninhydrin", blocks: NINHYDRIN },
-  { key: "weihnachtsmarkt", name: "Miniforschungsbericht Weihnachtsmarkt", desc: "Eigene Fragestellung zum Marktprodukt, gegliedert wie die drei Präsentationsfolien", titel: "Miniforschung Weihnachtsmarkt: …", blocks: WEIHNACHTSMARKT },
+  { key: "weihnachtsmarkt", name: "Miniforschungsbericht Weihnachtsmarkt", desc: "Eigene Fragestellung zum Marktprodukt, gegliedert wie die drei Präsentationsfolien", titel: "Miniforschung Weihnachtsmarkt: …", blocks: WEIHNACHTSMARKT,
+    info: { href: "Q1/miniforschung-weihnachtsmarkt.html#folien", text: "Strukturvorlage: drei Folien, Ideen je Produkt, Checkliste", sub: "Öffnet in neuem Tab. Jeder blaue Folien-Abschnitt hier entspricht einer Präsentationsfolie." } },
   { key: "leer", name: "Leeres Protokoll", desc: "Nur ein Textfeld", titel: "", blocks: [T("Hier schreiben …")] },
 ];
 
@@ -545,6 +551,9 @@ function render() {
   $("#mTitel").value = doc.meta.titel; $("#mName").value = doc.meta.name; $("#mTeam").value = doc.meta.team;
   $("#mDatum").value = doc.meta.datum; $("#mKurs").value = doc.meta.kurs;
   for (const id of ["mTitel", "mName", "mTeam", "mDatum", "mKurs"]) $("#" + id).disabled = locked;
+  const ti = $("#tplInfo"), tinf = (TEMPLATES.find(t => t.key === doc.tpl) || {}).info;
+  ti.hidden = !tinf;
+  if (tinf) { ti.href = tinf.href; ti.innerHTML = `<span style="font-size:22px">📑</span><span>${esc(tinf.text)}<small>${esc(tinf.sub || "")}</small></span>`; }
   const st = $("#mStatus");
   st.textContent = locked ? "Endfassung · " + new Date(doc.final.at).toLocaleString("de-DE") : "Entwurf";
   st.className = "badge" + (locked ? " final" : "");
