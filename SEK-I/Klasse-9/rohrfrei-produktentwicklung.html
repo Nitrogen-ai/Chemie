@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rohrfrei – aber grün? · Produktentwicklung — Chemie Klasse 9</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<!--
+  04–05 Ökologische Produktentwicklung (Chemie 9, Säuren und Laugen – echt ätzend)
+  Master: iCloud …/04 -05 ökologische Produktentwicklung/Digital/rohrfrei-produktentwicklung.html (+ rohrfrei-img/)
+  Kopie im Repo: Chemie/SEK-I/Klasse-9/rohrfrei-produktentwicklung.html (+ rohrfrei-img/)
+  Sitzung 1: Die Konkurrenz im Labor (Rohrreiniger, NaOH, Basen) · Lösungswort HYDROXID öffnet Sitzung 2   [intern run 0]
+  Sitzung 2: Hydroxide herstellen (Laugenbrezel, Lauge, Metall/Metalloxid + Wasser, Produktentscheidung) · Lösungswort LAUGE   [run 1]
+  Spielleitung: ?spielleitung, PIN ROHRFREI · Vorlesestimmen: vertonen.py
+-->
+<style>
+:root {
+  --bg: #f7f1e6;
+  --paper: #fffbf3;
+  --paper-2: #f2e6d0;
+  --ink: #2f2219;
+  --ink-soft: #6a5444;
+  --line: rgba(47, 34, 25, 0.16);
+  --red: #b3262e;
+  --red-edge: #7f1a20;
+  --red-soft: #f9dcdc;
+  --pine: #2e7d4f;
+  --pine-edge: #1e5a37;
+  --pine-soft: #dff1e5;
+  --orange: #ec8a24;
+  --orange-edge: #b35f0e;
+  --orange-soft: #fde6c9;
+  --clove: #8a4b2a;
+  --clove-edge: #5e2f17;
+  --clove-soft: #f0dccd;
+  --gold: #d9a441;
+  --gold-edge: #a3771f;
+  --sky: #2f8fe0;
+  --water: #bfe3fa;
+  --violet: #8a5cf0;
+  --shadow: rgba(70, 40, 20, 0.15);
+  --acc: var(--orange);
+  --acc-edge: var(--orange-edge);
+  --acc-soft: var(--orange-soft);
+}
+body.run0 { --acc: var(--pine); --acc-edge: var(--pine-edge); --acc-soft: var(--pine-soft); }
+body.run2 { --acc: var(--clove); --acc-edge: var(--clove-edge); --acc-soft: var(--clove-soft); }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  font-family: 'Nunito', system-ui, sans-serif; color: var(--ink); line-height: 1.55; font-size: 17px;
+  background: var(--bg);
+  background-image:
+    radial-gradient(circle at 8% 4%, rgba(236, 138, 36, 0.16) 0%, transparent 30%),
+    radial-gradient(circle at 94% 26%, rgba(46, 125, 79, 0.10) 0%, transparent 28%),
+    radial-gradient(circle at 50% 100%, rgba(179, 38, 46, 0.07) 0%, transparent 40%);
+  min-height: 100vh;
+}
+h1, h2, h3, .fred { font-family: 'Fredoka', 'Nunito', sans-serif; }
+a { color: var(--pine-edge); }
+button, select { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--sky); outline-offset: 3px; border-radius: 8px; }
+.wrap { max-width: 900px; margin: 0 auto; padding: 1.2rem 16px 5rem; }
+
+/* ---------- Kopfleiste ---------- */
+.topbar { position: sticky; top: 0; z-index: 20; background: rgba(247, 241, 230, 0.94); backdrop-filter: blur(6px); border-bottom: 1.5px solid var(--line); }
+.topbar-in { max-width: 900px; margin: 0 auto; padding: 0.5rem 16px; display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
+.tb-title { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 1rem; display: flex; align-items: center; gap: 0.4rem; }
+.run-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 700; padding: 0.15rem 0.55rem; border-radius: 999px; background: var(--acc-soft); color: var(--acc-edge); }
+.seals { display: flex; gap: 0.35rem; margin-left: auto; }
+.seal { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 0.95rem;
+  background: #e9dfcc; color: #a08b70; border: 2px solid #d9c9ad; cursor: default; }
+.seal.open { background: var(--acc); color: #fff; border-color: var(--acc-edge); box-shadow: 0 3px 0 var(--acc-edge); cursor: pointer; }
+.seal.now { background: #fff; color: var(--acc-edge); border-color: var(--acc); box-shadow: 0 0 0 3px var(--acc-soft); cursor: pointer; }
+.stat { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; font-weight: 700; color: var(--ink-soft); display: flex; gap: 0.7rem; }
+.stat span { white-space: nowrap; }
+
+/* ---------- Karten ---------- */
+.card { background: var(--paper); border: 1.5px solid var(--line); border-radius: 20px; padding: 1.2rem 1.25rem; margin: 1rem 0; box-shadow: 0 6px 0 var(--shadow); }
+.story-card { background: linear-gradient(180deg, #fffaf0 0%, #fbeedd 100%); border: 2px solid #e8d2b0; }
+.chap-head { display: flex; align-items: center; gap: 0.9rem; margin: 1.6rem 0 0.4rem; }
+.chap-no { width: 64px; height: 64px; flex-shrink: 0; border-radius: 50%; display: grid; place-items: center; font-family: 'Fredoka', sans-serif;
+  font-weight: 700; font-size: 1.9rem; color: #fff; background: var(--acc); box-shadow: 0 5px 0 var(--acc-edge); }
+.chap-head h2 { font-size: clamp(1.35rem, 3.6vw, 1.85rem); line-height: 1.15; }
+.chap-head small { display: block; font-family: 'JetBrains Mono', monospace; font-size: 0.74rem; color: var(--ink-soft); letter-spacing: 0.04em; }
+.story p { margin: 0 0 0.7rem; }
+.story p:last-child { margin-bottom: 0; }
+/* Vorlese-Knöpfe im Einstieg */
+.story p.voiced { display: flex; align-items: flex-start; gap: 0.8rem; }
+.story p.voiced > span.vtext { flex: 1; }
+.say { flex: none; width: 2.9rem; height: 2.9rem; border-radius: 50%; border: 2px solid #e8d2b0; background: var(--paper);
+  font-size: 1.3rem; line-height: 1; cursor: pointer; display: grid; place-items: center; box-shadow: 0 2px 6px var(--shadow);
+  -webkit-tap-highlight-color: transparent; }
+.say.rosalie { border-color: var(--red); }
+.say:active { transform: scale(0.95); }
+.say.playing { background: var(--red); border-color: var(--red); color: #fff; }
+.who { font-family: 'Fredoka', sans-serif; font-weight: 600; color: var(--red); }
+.task { border-left: 6px solid var(--sky); }
+.task h3 { font-size: 1.15rem; margin-bottom: 0.4rem; display: flex; gap: 0.5rem; align-items: center; }
+.task ol, .task ul, .card ul.l, .card ol.l { padding-left: 1.3rem; }
+.task li, .card li { margin: 0.25rem 0; }
+.journal { display: flex; gap: 0.6rem; align-items: flex-start; background: #eef6ff; border: 1.5px dashed #8dbbe8; border-radius: 14px; padding: 0.7rem 0.9rem; margin-top: 0.8rem; font-size: 0.95rem; }
+.journal b { color: #1f6fb8; }
+.front { display: flex; gap: 0.6rem; align-items: flex-start; background: #fff3e0; border: 1.5px dashed var(--orange); border-radius: 14px; padding: 0.7rem 0.9rem; margin-top: 0.8rem; font-size: 0.95rem; }
+.safety { display: flex; gap: 0.6rem; align-items: flex-start; background: var(--red-soft); border: 1.5px solid #e8a4a4; border-radius: 14px; padding: 0.7rem 0.9rem; margin-top: 0.8rem; font-size: 0.95rem; }
+
+/* ---------- Auswahlfragen ---------- */
+.q { margin: 0.9rem 0 1.1rem; }
+.q > p { font-weight: 700; margin-bottom: 0.45rem; }
+.opts { display: grid; gap: 0.5rem; }
+.opt { display: flex; align-items: center; gap: 0.7rem; text-align: left; width: 100%; padding: 0.7rem 0.9rem; border-radius: 14px; border: 2px solid var(--line);
+  background: #fff; cursor: pointer; min-height: 52px; transition: transform 0.08s ease; }
+.opt:active { transform: scale(0.99); }
+.opt .lt { flex-shrink: 0; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; font-family: 'JetBrains Mono', monospace; font-weight: 700; background: var(--paper-2); color: var(--ink-soft); }
+.opt.sel { border-color: var(--acc); background: #fff6ea; }
+.opt.sel .lt { background: var(--acc); color: #fff; }
+.opt.ok { border-color: var(--pine); background: var(--pine-soft); }
+.opt.ok .lt { background: var(--pine); color: #fff; }
+.opt.bad { border-color: var(--red); background: var(--red-soft); }
+.fb { font-size: 0.92rem; margin-top: 0.35rem; min-height: 1.2em; }
+.fb.ok { color: var(--pine-edge); font-weight: 700; }
+.fb.bad { color: var(--red); font-weight: 700; }
+
+/* ---------- Schloss ---------- */
+.lock { background: #2b1d14; color: #f6dfc0; border-radius: 20px; padding: 1.1rem 1.2rem; margin: 1rem 0; box-shadow: 0 6px 0 #170e08; }
+.lock h3 { display: flex; align-items: center; gap: 0.6rem; font-size: 1.15rem; color: #fff; margin-bottom: 0.3rem; }
+.lock p { font-size: 0.95rem; color: #ead2b0; }
+.lock-row { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin-top: 0.7rem; }
+.lock input { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1.35rem; text-transform: uppercase; letter-spacing: 0.22em;
+  width: 11ch; padding: 0.55rem 0.7rem; border-radius: 12px; border: 3px solid var(--gold); background: #fffaf0; color: var(--ink); text-align: center; }
+.btn { display: inline-flex; align-items: center; gap: 0.45rem; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 1.05rem;
+  padding: 0.65rem 1.15rem; border-radius: 14px; border: none; cursor: pointer; background: var(--gold); color: #2f2219; box-shadow: 0 4px 0 var(--gold-edge); min-height: 48px; }
+.btn:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--gold-edge); }
+.btn.green { background: var(--pine); color: #fff; box-shadow: 0 4px 0 var(--pine-edge); }
+.btn.blue { background: var(--sky); color: #fff; box-shadow: 0 4px 0 #1f6fb8; }
+.btn.red { background: var(--red); color: #fff; box-shadow: 0 4px 0 var(--red-edge); }
+.btn.acc { background: var(--acc); color: #fff; box-shadow: 0 4px 0 var(--acc-edge); }
+.btn.ghost { background: #fff; color: var(--ink); box-shadow: 0 4px 0 var(--line); border: 1.5px solid var(--line); }
+.btn[disabled] { opacity: 0.45; cursor: not-allowed; }
+.lock .q > p { color: #fff; margin-top: 0.7rem; }
+.lock .opt { color: var(--ink); }
+.lock-msg { margin-top: 0.6rem; font-weight: 700; min-height: 1.3em; }
+.lock-msg.bad { color: #ffb3a6; }
+.lock-msg.ok { color: #a6f0c2; }
+.sealword { display: inline-block; font-family: 'JetBrains Mono', monospace; font-weight: 700; letter-spacing: 0.2em; background: #fffaf0; color: var(--ink); border: 3px solid var(--gold); border-radius: 12px; padding: 0.3rem 0.8rem; margin-top: 0.4rem; }
+.shake { animation: shake 0.4s; }
+@keyframes shake { 0%,100% { transform: translateX(0); } 20%,60% { transform: translateX(-8px); } 40%,80% { transform: translateX(8px); } }
+
+/* ---------- Hilfen ---------- */
+details.hint { margin-top: 0.7rem; border: 1.5px solid var(--line); border-radius: 14px; background: #fff; }
+details.hint > summary { cursor: pointer; list-style: none; padding: 0.65rem 0.9rem; font-family: 'Fredoka', sans-serif; font-weight: 600; color: var(--gold-edge);
+  display: flex; align-items: center; gap: 0.5rem; min-height: 46px; }
+details.hint > summary::-webkit-details-marker { display: none; }
+details.hint > summary::before { content: "▸"; transition: transform 0.15s ease; }
+details.hint[open] > summary::before { transform: rotate(90deg); }
+.hint-body { padding: 0 0.9rem 0.75rem; }
+.hint-body > details.hint { margin: 0.6rem -0.9rem -0.75rem; border-left: none; border-right: none; border-bottom: none; border-radius: 0 0 14px 14px; }
+.hints-title { font-family: 'Fredoka', sans-serif; font-weight: 600; margin-top: 1rem; color: var(--ink-soft); font-size: 0.95rem; }
+
+/* ---------- Lorbeer ---------- */
+.laurel { border: 2px solid #b9d8a6; background: linear-gradient(180deg, #f4fbef 0%, #e6f4dc 100%); }
+.laurel h3 { color: #3f7a24; display: flex; align-items: center; gap: 0.5rem; font-size: 1.12rem; }
+.laurel.done { border-color: var(--pine); }
+.laurel.done h3::after { content: "✓ gelöst"; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; background: var(--pine); color: #fff; border-radius: 999px; padding: 0.1rem 0.5rem; margin-left: auto; }
+.stars { color: var(--gold-edge); letter-spacing: 0.1em; }
+.small { font-size: 0.88rem; color: var(--ink-soft); }
+.mono { font-family: 'JetBrains Mono', monospace; }
+.inl { font-family: 'JetBrains Mono', monospace; font-size: 1.05rem; font-weight: 700; padding: 0.45rem 0.6rem; border-radius: 12px; border: 2px solid var(--line); width: 9ch; background: #fff; color: var(--ink); }
+
+/* ---------- Grafiken ---------- */
+.fig { background: #fff; border: 1.5px solid var(--line); border-radius: 16px; padding: 0.6rem; margin: 0.8rem 0; }
+.fig svg, .fig img { display: block; width: 100%; height: auto; border-radius: 10px; }
+.figcap { font-size: 0.85rem; color: var(--ink-soft); text-align: center; margin-top: 0.3rem; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; align-items: start; }
+@media (max-width: 640px) { .two { grid-template-columns: 1fr; } }
+.lab-ctrl { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; margin: 0.6rem 0 0.2rem; }
+
+/* ---------- Auswahlzeilen ---------- */
+.labels { display: grid; gap: 0.5rem; }
+.lab { display: grid; grid-template-columns: 44px 1fr; gap: 0.5rem; align-items: center; }
+.lab .nr { width: 40px; height: 40px; border-radius: 10px; background: #fbf3c8; border: 2px solid #e2cf73; display: grid; place-items: center; font-family: 'Fredoka', sans-serif; font-weight: 700; }
+.lab select { width: 100%; padding: 0.6rem 0.7rem; border-radius: 12px; border: 2px solid var(--line); background: #fff; min-height: 48px; font-weight: 700; }
+.lab.ok select { border-color: var(--pine); background: var(--pine-soft); }
+.lab.bad select { border-color: var(--red); background: var(--red-soft); }
+.lab .why { grid-column: 2; font-size: 0.86rem; color: var(--pine-edge); }
+
+/* ---------- Kacheln / Reihenfolge ---------- */
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.55rem; }
+.tile { border: 2px solid var(--line); background: #fff; border-radius: 14px; padding: 0.7rem 0.5rem; text-align: center; cursor: pointer; font-weight: 700; min-height: 84px; }
+.tile .em { font-size: 1.6rem; display: block; line-height: 1.2; }
+.tile.sel { border-color: var(--acc); background: #fff6ea; }
+.tile.ok { border-color: var(--pine); background: var(--pine-soft); }
+.tile.bad { border-color: var(--red); background: var(--red-soft); }
+.tile.body img { display: block; margin-bottom: 0.3rem; }
+.tile .ord { display: block; font-family: 'JetBrains Mono', monospace; color: var(--acc-edge); min-height: 1.2em; }
+
+/* ---------- Messen ---------- */
+.mgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; }
+@media (max-width: 640px) { .mgrid { grid-template-columns: 1fr 1fr; } }
+.mfield { display: flex; flex-direction: column; gap: 0.2rem; font-weight: 700; font-size: 0.92rem; }
+.mfield input { font-family: 'JetBrains Mono', monospace; font-size: 1.15rem; font-weight: 700; padding: 0.5rem 0.6rem; border-radius: 12px; border: 2px solid var(--line); background: #fff; width: 100%; color: var(--ink); }
+.mfield input:focus { border-color: var(--acc); outline: none; }
+.mfield .unit { font-weight: 600; color: var(--ink-soft); font-size: 0.8rem; }
+.check { margin-top: 0.8rem; border-radius: 14px; padding: 0.7rem 0.9rem; font-weight: 700; display: none; }
+.check.show { display: block; }
+.check.ok { background: var(--pine-soft); color: var(--pine-edge); }
+.check.bad { background: var(--red-soft); color: #8f1f1f; }
+.check.warn { background: #fff3cf; color: #8a5a00; }
+
+/* ---------- Abschnitte ---------- */
+.chapter { display: none; }
+.chapter.show { display: block; animation: rise 0.35s ease; }
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.hidden { display: none !important; }
+
+/* ---------- Start ---------- */
+.hero { text-align: center; padding: 1.4rem 0 0.4rem; }
+.hero h1 { font-size: clamp(1.9rem, 6vw, 3rem); line-height: 1.05; }
+.hero h1 .r { color: var(--red); }
+.hero .sub { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--ink-soft); margin-top: 0.5rem; }
+.team { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin: 0.8rem 0; }
+@media (max-width: 520px) { .team { grid-template-columns: 1fr; } }
+.team input { font: inherit; font-weight: 700; padding: 0.7rem 0.8rem; border: 2px solid var(--line); border-radius: 12px; background: #fff; width: 100%; }
+.sessions { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-top: 0.4rem; }
+@media (max-width: 640px) { .sessions { grid-template-columns: 1fr; } }
+.sess { border-radius: 18px; padding: 1rem; border: 2px solid var(--line); background: #fff; }
+.sess h3 { display: flex; align-items: center; gap: 0.5rem; font-size: 1.15rem; margin-bottom: 0.3rem; }
+.sessions.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 760px) { .sessions.three { grid-template-columns: 1fr; } }
+.sess.s0 { border-color: #9cc58c; background: linear-gradient(180deg, #f7fcf4, #e6f4dc); }
+.sess.s1 { border-color: #f5c46b; background: linear-gradient(180deg, #fffaf0, #fff0d8); }
+.sess.s2 { border-color: #c99a78; background: linear-gradient(180deg, #fffaf5, #f5e6da); }
+.sess .state { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700; color: var(--pine-edge); min-height: 1.1em; }
+.sess .lock-row input { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.15em; width: 10ch;
+  padding: 0.5rem 0.6rem; border-radius: 12px; border: 3px solid var(--gold); background: #fffaf0; text-align: center; }
+
+/* ---------- Finale ---------- */
+.solword { text-align: center; margin: 0.6rem 0; }
+.solword span { display: inline-block; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: clamp(1.6rem, 6vw, 2.4rem); letter-spacing: 0.3em; padding: 0.4rem 0.9rem 0.4rem 1.2rem;
+  border: 4px double var(--acc-edge); border-radius: 16px; background: #fff; color: var(--acc-edge); }
+.cert { text-align: center; background: radial-gradient(circle at 50% 0%, #fffaf0 0%, #fbeedd 70%); border: 3px double var(--red); position: relative; overflow: hidden; }
+.cert h2 { font-size: clamp(1.45rem, 5vw, 2.1rem); color: var(--red); }
+.cert .names { font-family: 'Fredoka', sans-serif; font-size: 1.5rem; font-weight: 600; margin: 0.5rem 0; }
+.cert table { margin: 0.8rem auto 0; border-collapse: collapse; font-size: 0.95rem; }
+.cert td { padding: 0.25rem 0.7rem; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+.cert .gift { margin-top: 0.9rem; padding: 0.6rem 0.8rem; border-radius: 14px; background: #fff3e0; border: 2px dashed var(--orange); font-weight: 700; }
+.cert-glass { width: 150px; height: auto; display: block; margin: 0.4rem auto 0; }
+.snow { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+.cert > *:not(.snow) { position: relative; z-index: 1; }
+.snow i { position: absolute; top: -12px; width: 7px; height: 7px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 1px rgba(179,38,46,0.15); animation: fall linear infinite; opacity: 0.9; }
+@keyframes fall { to { transform: translateY(560px) translateX(20px); } }
+@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+@keyframes rest { 0%,100% { transform: translateY(0); } 50% { transform: translateY(1px); } }
+.bob { animation: bob 2.4s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .snow, .bob { animation: none !important; display: none; } .bob { display: inline; } }
+.fast { border: 2px solid #c9b6f5; background: linear-gradient(180deg, #f6f1ff 0%, #ece3ff 100%); }
+.fast h3 { color: #5b3bb5; display: flex; align-items: center; gap: 0.5rem; font-size: 1.12rem; }
+
+/* ---------- Spielleitung ---------- */
+.sl { border: 2px dashed var(--violet); background: #f3eefe; }
+.sl h3 { color: var(--violet); }
+.sl table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-top: 0.5rem; }
+.sl td, .sl th { border-bottom: 1px solid rgba(138,92,240,0.25); padding: 0.3rem 0.4rem; text-align: left; vertical-align: top; }
+
+@media print {
+  .topbar, .lock, details.hint, .btn, .laurel, .sl { display: none !important; }
+  .chapter { display: block !important; }
+  body { background: #fff; }
+}
+
+/* =============== Rohrfrei – aber grün? (Chemie 9): Palette und neue Bausteine =============== */
+:root { --bg: #f2f5f7; --paper: #fbfdff; --paper-2: #e3ebf2; --ink: #1f2a33; --ink-soft: #546575; --line: rgba(31, 42, 51, 0.15);
+  --violet: #7b4bd6; --violet-edge: #5b3bb5; --violet-soft: #ece3ff; --sky-edge: #1f6fb8; --sky-soft: #dcecfb; --shadow: rgba(20, 40, 60, 0.13);
+  --acc: var(--sky); --acc-edge: var(--sky-edge); --acc-soft: var(--sky-soft); }
+body.run1 { --acc: var(--violet); --acc-edge: var(--violet-edge); --acc-soft: var(--violet-soft); }
+body { background-image:
+    radial-gradient(circle at 8% 4%, rgba(47, 143, 224, 0.14) 0%, transparent 30%),
+    radial-gradient(circle at 94% 26%, rgba(46, 125, 79, 0.10) 0%, transparent 28%),
+    radial-gradient(circle at 50% 100%, rgba(123, 75, 214, 0.08) 0%, transparent 40%); }
+.topbar { background: rgba(242, 245, 247, 0.94); }
+.seal { background: #e2e9ef; color: #8a9aa8; border-color: #cbd6df; }
+.story-card { background: linear-gradient(180deg, #fbfdff 0%, #e9f1f8 100%); border-color: #c7d9ea; }
+.say { border-color: #c7d9ea; }
+.say.figur { border-color: var(--violet); }
+.say.playing { background: var(--violet); border-color: var(--violet); }
+.who { color: var(--violet-edge); }
+.who.n { color: var(--sky-edge); }
+.hero h1 .r { color: var(--pine); }
+.opt.sel { background: #f1f6fc; }
+.tile.sel { background: #f1f6fc; }
+.lock { background: #1d2a36; color: #d9e6f2; box-shadow: 0 6px 0 #0e161d; }
+.lock p { color: #c4d4e3; }
+.sess.s0 { border-color: #9cc6ec; background: linear-gradient(180deg, #f7fbff, #e3f0fc); }
+.sess.s1 { border-color: #c9b6f5; background: linear-gradient(180deg, #faf7ff, #ece3ff); }
+.team { grid-template-columns: 1fr 1fr; }
+.info { border-left: 6px solid var(--pine); background: #f6fbf7; }
+.info h3 { font-size: 1.08rem; margin-bottom: 0.3rem; color: var(--pine-edge); }
+.steps { padding-left: 1.3rem; margin-top: 0.6rem; }
+.ht { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-top: 0.4rem; }
+.ht td { border-bottom: 1px solid var(--line); padding: 0.25rem 0.35rem; vertical-align: top; }
+.ht td:first-child { white-space: nowrap; font-weight: 700; color: var(--red); }
+/* Lückentext und Zuordnung */
+.gaptext { line-height: 2.5; font-size: 1.02rem; }
+select.gsel { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.98rem; padding: 0.3rem 0.4rem; border-radius: 10px; border: 2px solid var(--line); background: #fff; min-height: 40px; max-width: 100%; }
+select.gsel.ok, select.csel.ok { border-color: var(--pine); background: var(--pine-soft); }
+select.gsel.bad, select.csel.bad { border-color: var(--red); background: var(--red-soft); }
+.plan { display: grid; gap: 0.6rem; }
+.prow { display: grid; grid-template-columns: 1.1fr 1fr 1.3fr; gap: 0.5rem; align-items: center; padding: 0.6rem; border: 1.5px solid var(--line); border-radius: 14px; background: #fff; }
+.prow.two-col { grid-template-columns: 1fr 1.6fr; }
+.prow select.gsel { width: 100%; }
+@media (max-width: 640px) { .prow, .prow.two-col { grid-template-columns: 1fr; } }
+/* Gleichungen */
+.eq { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.5rem; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1.05rem;
+  background: #fff; border: 1.5px solid var(--line); border-radius: 14px; padding: 0.7rem 0.8rem; margin-top: 0.4rem; }
+.eq .term { display: inline-flex; align-items: center; gap: 0.25rem; white-space: nowrap; }
+.eq .op { color: var(--ink-soft); }
+.eq select { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1rem; padding: 0.3rem; border-radius: 10px; border: 2px solid var(--line); background: #fff; min-height: 40px; }
+select.csel { width: 3.2em; text-align: center; }
+/* Reihenfolge */
+.order { display: grid; gap: 0.5rem; }
+.tile.ordt { display: flex; align-items: center; gap: 0.7rem; text-align: left; min-height: 60px; font-weight: 600; }
+.tile.ordt .ord { flex: none; width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--acc); display: grid; place-items: center; font-weight: 700; }
+.tile.ordt.sel .ord { background: var(--acc); color: #fff; }
+/* Produktideen und Bewertung */
+.opts3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.7rem; }
+@media (max-width: 760px) { .opts3 { grid-template-columns: 1fr; } }
+.idea { border: 2px solid var(--line); border-radius: 16px; padding: 0.8rem; background: #fff; font-size: 0.94rem; }
+.idea h3 { font-size: 1.05rem; margin-bottom: 0.3rem; }
+.rate { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 0.4rem; align-items: center; padding: 0.35rem 0; border-bottom: 1px solid var(--line); }
+.rh { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 0.9rem; color: var(--ink-soft); text-align: center; }
+.rn { font-weight: 700; }
+.stars3 { display: flex; justify-content: center; gap: 0.1rem; }
+.stars3 .st { border: none; background: none; font-size: 1.55rem; line-height: 1; cursor: pointer; color: #cfd8e0; min-width: 34px; min-height: 40px; }
+.stars3 .st.on { color: var(--gold); }
+@media (max-width: 520px) { .rate { grid-template-columns: 1fr 1fr 1fr; } .rate .rn { grid-column: 1 / -1; } .rate .rh:first-child { display: none; } .stars3 .st { min-width: 26px; font-size: 1.3rem; } }
+/* Vertiefung statt Lorbeer */
+.laurel { border-color: #c9b6f5; background: linear-gradient(180deg, #faf7ff 0%, #efe7ff 100%); }
+.laurel h3 { color: var(--violet-edge); }
+.laurel.done { border-color: var(--violet); }
+.laurel.done h3::after { background: var(--violet); }
+/* Zertifikat */
+.cert { background: radial-gradient(circle at 50% 0%, #fbfdff 0%, #e9f1f8 70%); border-color: var(--violet); }
+.cert h2 { color: var(--violet-edge); }
+.cert .cap { font-size: 3.2rem; line-height: 1.1; margin: 0.3rem 0; }
+.s1end { border-color: var(--sky); }
+</style>
+</head>
+<body>
+
+<header class="topbar" id="topbar" hidden>
+  <div class="topbar-in">
+    <span class="tb-title">🧪 Rohrfrei – aber grün? <span class="run-badge" id="runBadge">Sitzung 1</span></span>
+    <span class="stat"><span id="st-time">⏱ 00:00</span><span id="st-hints">💡 0</span><span id="st-laurel">🎓 0</span></span>
+    <nav class="seals" id="seals" aria-label="Meilensteine"></nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- =============================================================== START -->
+<section class="chapter show" id="c0">
+  <div class="hero">
+    <svg width="190" height="120" viewBox="0 0 190 120" aria-hidden="true">
+      <!-- Abfluss mit Tropfen und Blatt -->
+      <path d="M40,18 L40,70 Q40,98 68,98 L92,98 Q120,98 120,70 L120,46 L162,46" fill="none" stroke="#5b6573" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M40,18 L40,70 Q40,98 68,98 L92,98 Q120,98 120,70 L120,46 L162,46" fill="none" stroke="#bfe3fa" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M26,12 L54,12" stroke="#5b6573" stroke-width="6" stroke-linecap="round"/>
+      <path d="M80,20 C80,20 70,34 70,40 A10,10 0 0 0 90,40 C90,34 80,20 80,20 Z" fill="#7b4bd6" stroke="#4b2a8f" stroke-width="2.5"/>
+      <path d="M150,8 C172,10 180,30 168,44 C150,44 140,26 150,8 Z" fill="#7ccf8f" stroke="#2e7d4f" stroke-width="2.5"/>
+      <path d="M152,12 L166,40" stroke="#2e7d4f" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <h1>Rohrfrei –<br><span class="r">aber grün?</span></h1>
+    <p class="sub">LERNPFAD · 04–05 ÖKOLOGISCHE PRODUKTENTWICKLUNG · CHEMIE 9</p>
+  </div>
+
+  <div class="card story-card story">
+    <p class="voiced"><span class="vtext"><span class="who n">Berlin-Neukölln, ein Montagmorgen.</span> In einer alten Fabrikhalle arbeitet das junge Start-up <b>Klarfluss</b>. Es entwickelt Haushaltsreiniger, die wirken und trotzdem Umwelt und Gesundheit schonen. Das erste Projekt ist ein ökologischer Rohrreiniger.</span><button class="say" type="button" data-audio="rohrfrei-img/stimme-98b294ecd6.mp3" aria-label="Erzählung anhören" title="Erzählung anhören">🔊</button></p>
+    <p class="voiced"><span class="vtext"><span class="who">Lina Klar:</span> „Willkommen im Entwicklungsteam! Bevor wir etwas Besseres erfinden, müssen wir verstehen, wie die Konkurrenz funktioniert. In der ersten Sitzung untersucht ihr einen gewöhnlichen Rohrreiniger im Labor. In der zweiten Sitzung findet ihr heraus, wie man seinen Wirkstoff überhaupt herstellt, und trefft eine erste Produktentscheidung. Schutzbrille auf, wir fangen an!“</span><button class="say figur" type="button" data-audio="rohrfrei-img/stimme-f9c185bb5c.mp3" aria-label="Lina Klar anhören" title="Lina Klar anhören">🔊</button></p>
+    <p>Lina Klar leitet bei Klarfluss die Produktentwicklung. Ihr seid ihr neues Team von <b>Produktentwicklerinnen und Produktentwicklern</b>.</p>
+  </div>
+
+  <div class="card">
+    <h3 class="fred" style="margin-bottom:0.3rem">So arbeitet ihr</h3>
+    <ul class="l">
+      <li>Ihr arbeitet im Team (2 bis 4 Personen) an <b>einem iPad</b>. Verteilt die Rollen: <b>Medien und Protokoll</b> (Fotos, Video, Laborjournal) und <b>fachliche Qualität</b> (Fachsprache, Gleichungen, Sicherheit).</li>
+      <li>Jede Sitzung hat <b>fünf Meilensteine</b>. Jeden Meilenstein schließt ihr mit dem richtigen Code oder der richtigen Lösung ab.</li>
+      <li>Wenn ihr nicht weiterkommt: Öffnet die <b>Tipps</b> 💡 von oben nach unten. Nehmt nur so viele, wie ihr braucht, und kreuzt sie im Journal an.</li>
+      <li>Ihr seid schnell? Die <b>Vertiefungen</b> 🎓 sind freiwillig. Jede gelöste Vertiefung bringt einen Vertiefungspunkt.</li>
+      <li>Euer <b>Entwicklerjournal</b> auf Papier füllt ihr nebenbei aus. Das blaue Zeichen 📝 sagt euch, wann.</li>
+      <li>Das orange Zeichen 🧪 heißt: Jetzt geht ihr <b>an den Experimentierplatz</b> oder an die Teststation.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3 class="fred">Wer entwickelt heute?</h3>
+    <div class="team">
+      <input id="name1" placeholder="Vorname 1" autocomplete="off" maxlength="24">
+      <input id="name2" placeholder="Vorname 2" autocomplete="off" maxlength="24">
+      <input id="name3" placeholder="Vorname 3 (optional)" autocomplete="off" maxlength="24">
+      <input id="name4" placeholder="Vorname 4 (optional)" autocomplete="off" maxlength="24">
+    </div>
+    <div class="sessions">
+      <div class="sess s0">
+        <h3>🔬 Sitzung 1: Die Konkurrenz im Labor</h3>
+        <p class="small">Wie funktioniert ein gewöhnlicher Rohrreiniger? Hier startet ihr!</p>
+        <p class="state" id="s0state"></p>
+        <div class="lock-row"><button class="btn acc" id="start0" style="--acc:var(--sky);--acc-edge:#1f6fb8">🔬 Sitzung 1 starten</button></div>
+      </div>
+      <div class="sess s1">
+        <h3>🥨 Sitzung 2: Hydroxide herstellen</h3>
+        <p class="small">Nur mit dem <b>Lösungswort aus Sitzung 1</b>.</p>
+        <p class="state" id="s1state"></p>
+        <div class="lock-row" id="s1lock"><input id="pass1" maxlength="12" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Wort" aria-label="Lösungswort aus Sitzung 1"><button class="btn" id="pass1btn">🔓</button></div>
+        <div class="lock-msg" id="pass1msg" style="color:var(--red)"></div>
+        <div class="lock-row hidden" id="s1go"><button class="btn acc" id="start1" style="--acc:var(--violet);--acc-edge:#5b3bb5">🥨 Sitzung 2 starten</button></div>
+      </div>
+    </div>
+    <p class="small" style="margin-top:0.6rem">📝 Das Lösungswort steht in eurem Entwicklerjournal. Ihr könnt Sitzung 2 auch auf einem anderen iPad spielen.</p>
+  </div>
+</section>
+
+<!-- =================================================================================================== -->
+<!-- ========================================================== SITZUNG 1 · DIE KONKURRENZ IM LABOR ===== -->
+<!-- =================================================================================================== -->
+
+<!-- ------------------------------------------------ 0.1 Der Auftrag -->
+<section class="chapter" id="r0c1">
+  <div class="chap-head"><div class="chap-no">1</div><div><small>SITZUNG 1 · MEILENSTEIN 1</small><h2>Das Etikett der Konkurrenz</h2></div></div>
+  <div class="card story-card story">
+    <p class="voiced"><span class="vtext"><span class="who">Lina Klar:</span> „Hier ist das meistverkaufte Rohrreiniger-Granulat. Auf der Packung prangt ein rotes Warnzeichen. Wer im Labor arbeitet, muss wissen, womit er es zu tun hat. Lest deshalb zuerst das Etikett, bevor ihr irgendetwas anfasst.“</span><button class="say figur" type="button" data-audio="rohrfrei-img/stimme-1aa1e489d6.mp3" aria-label="Lina Klar anhören" title="Lina Klar anhören">🔊</button></p>
+  </div>
+  <div class="card">
+    <div class="two">
+      <div class="fig" style="margin:0"><img src="rohrfrei-img/fig1.svg" alt="Rohrreiniger-Granulat im verstopften Abfluss: Siphon mit Haar-Fett-Pfropf, Lupe mit Natrium- und Hydroxid-Ionen, Wärme"><p class="figcap">Abb. 1 · Rohrreiniger im verstopften Abfluss</p></div>
+      <div>
+        <div style="display:flex;gap:0.7rem;align-items:center"><img src="rohrfrei-img/ghs05.svg" alt="Gefahrenpiktogramm GHS05 Ätzwirkung" style="width:72px;height:72px"><b class="fred" style="color:var(--red);font-size:1.2rem">Gefahr</b></div>
+        <p class="small" style="margin-top:0.4rem"><b>Inhaltsstoffe laut Etikett:</b> Natriumhydroxid, Aluminium</p>
+        <table class="ht">
+          <tr><td class="mono">H314</td><td>Verursacht schwere Verätzungen der Haut und schwere Augenschäden.</td></tr>
+          <tr><td class="mono">H290</td><td>Kann gegenüber Metallen korrosiv sein.</td></tr>
+          <tr><td class="mono">P280</td><td>Schutzhandschuhe und Schutzbrille tragen.</td></tr>
+          <tr><td class="mono">P305+P351+P338</td><td>Bei Kontakt mit den Augen: einige Minuten behutsam mit Wasser spülen.</td></tr>
+          <tr><td class="mono">P310</td><td>Sofort Giftinformationszentrum oder Arzt anrufen.</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="card task">
+    <h3>🏷️ Auftrag</h3>
+    <ol>
+      <li>Verteilt die Rollen und tragt eure Namen ins Entwicklerjournal ein.</li>
+      <li>Beantwortet die vier Fragen zum Etikett. Jede Antwort hat einen <b>Buchstaben</b>. Die vier Buchstaben der richtigen Antworten ergeben der Reihe nach den Code.</li>
+    </ol>
+    <div class="journal">📝 <span><b>Entwicklerjournal, Aufgabe 1:</b> Formuliert eine Forschungsfrage zum Rohrreiniger und notiert drei Sicherheitsregeln für euren Versuch.</span></div>
+  </div>
+  <div class="card" id="quiz01"></div>
+  <div class="lock" id="lock01">
+    <h3>🔒 Meilenstein 1</h3>
+    <p>Tippt die vier Buchstaben eurer Antworten ein (Frage 1 bis 4).</p>
+    <div class="lock-row"><input id="code01" maxlength="4" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Code Meilenstein 1"><button class="btn" data-lock="0-1">Abschließen</button></div>
+    <div class="lock-msg" id="msg01"></div>
+  </div>
+  <p class="hints-title">💡 Tipps · Entwicklerjournal Aufgabe 1 <span class="small">(Tipp für Tipp öffnen, im Journal ankreuzen)</span></p>
+  <details class="hint" data-h="r0c1a"><summary>Tipp 1 · Denkanstoß · Was will Klarfluss wissen?</summary><div class="hint-body">
+    <p>Eine Forschungsfrage ist eine Frage, die ihr mit einem Versuch beantworten könnt. Lina will wissen, <b>wie</b> der Rohrreiniger den Abfluss frei macht und <b>warum</b> er so gefährlich ist.</p>
+    <details class="hint" data-h="r0c1b"><summary>Tipp 2 · Werkzeug · Satzanfänge</summary><div class="hint-body">
+      <p>Forschungsfrage: „Welche Eigenschaften hat die Lösung des Rohrreinigers, und …?“ Sicherheitsregeln findet ihr in den P-Sätzen (P280) und im Kasten „Im Unterricht“ eures Journals.</p>
+      <details class="hint" data-h="r0c1c"><summary>Tipp 3 · Lösungsweg</summary><div class="hint-body">
+        <p>Forschungsfrage: „Wie macht Rohrreiniger den Abfluss frei, und warum ist er ätzend?“ Regeln: Schutzbrille und Handschuhe tragen · Perlen nur mit Pinzette oder Spatel anfassen · höchstens 3 bis 5 Perlen · Reste in den Sammelbehälter. Code: <b>B A S E</b>.</p>
+      </div></details>
+    </div></details>
+  </div></details>
+  <div class="card laurel" id="lc0-1">
+    <h3>🎓 Vertiefung <span class="stars">★★</span></h3>
+    <p>Der Satz <b>H290</b> warnt: „Kann gegenüber Metallen korrosiv sein.“ Welche Regel passt dazu im Haushalt?</p>
+    <div id="l0-1"></div>
+  </div>
+</section>
+
+<!-- ------------------------------------------------ 0.2 Hypothese und Plan -->
+<section class="chapter" id="r0c2">
+  <div class="chap-head"><div class="chap-no">2</div><div><small>SITZUNG 1 · MEILENSTEIN 2</small><h2>Hypothese und Versuchsplan</h2></div></div>
+  <div class="card story-card story">
+    <p class="voiced"><span class="vtext"><span class="who">Lina Klar:</span> „Gute Entwicklerinnen und Entwickler raten nicht, sie stellen Hypothesen auf und prüfen sie. Was vermutet ihr: Warum löst dieses Granulat einen Pfropf aus Haaren und Fett? Plant für jede Vermutung einen Test. Erst wenn eure Lehrperson den Plan freigibt, dürft ihr ins Labor.“</span><button class="say figur" type="button" data-audio="rohrfrei-img/stimme-d1a0eb24ce.mp3" aria-label="Lina Klar anhören" title="Lina Klar anhören">🔊</button></p>
+  </div>
+  <div class="card info">
+    <h3>ℹ️ Flammenfärbung und pH-Indikatorpapier</h3>
+    <p>Manche Metall-Ionen färben die nichtleuchtende Brennerflamme: <b>Natrium gelb-orange</b>, Kalium violett, Lithium rot, Kupfer grün. pH-Indikatorpapier färbt sich in <b>alkalischen Lösungen (pH &gt; 7) blau bis violett</b>.</p>
+  </div>
+  <div class="card task">
+    <h3>🧠 Auftrag</h3>
+    <ol>
+      <li>Ergänzt die Hypothese. Wählt in jeder Lücke das passende Wort.</li>
+      <li>Ordnet jeder Frage den passenden Test und die erwartete Beobachtung zu.</li>
+      <li>Zeigt eure Planung im Journal der Lehrperson. Sie nennt euch das <b>Freigabewort</b>.</li>
+    </ol>
+    <div class="journal">📝 <span><b>Entwicklerjournal, Aufgabe 2:</b> Übertragt die Hypothese und den Testplan. Lasst euch die Planung mit Kürzel freigeben.</span></div>
+  </div>
+  <div class="card">
+    <h3 class="fred">Hypothese</h3>
+    <div id="gap02" class="gaptext"></div>
+    <div class="lock-row"><button class="btn blue" id="gap02check">🔎 Hypothese prüfen</button></div>
+    <div class="check" id="gap02fb"></div>
+  </div>
+  <div class="card">
+    <h3 class="fred">Testplan</h3>
+    <div id="plan02"></div>
+    <div class="lock-row"><button class="btn blue" id="plan02check">🔎 Plan prüfen</button></div>
+    <div class="check" id="plan02fb"></div>
+  </div>
+  <div class="lock" id="lock02">
+    <h3>🔒 Meilenstein 2 · Freigabe</h3>
+    <p>Wenn Hypothese und Plan stimmen: Zeigt der Lehrperson euer Journal. Tippt dann ihr Freigabewort ein.</p>
+    <div class="lock-row"><input id="code02" maxlength="8" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Freigabewort Meilenstein 2"><button class="btn" data-lock="0-2">Abschließen</button></div>
+    <div class="lock-msg" id="msg02"></div>
+  </div>
+  <p class="hints-title">💡 Tipps · Entwicklerjournal Aufgabe 2 <span class="small">(Tipp für Tipp öffnen, im Journal ankreuzen)</span></p>
+  <details class="hint" data-h="r0c2a"><summary>Tipp 1 · Denkanstoß · Was steht im Abfluss?</summary><div class="hint-body">
+    <p>Im Siphon steht Wasser. Ein Mittel, das den Pfropf erreichen soll, muss also durch das Wasser nach unten sinken. Und was enthält der Pfropf? Schaut auf Abb. 1 in Meilenstein 1.</p>
+    <details class="hint" data-h="r0c2b"><summary>Tipp 2 · Werkzeug · Welcher Test passt?</summary><div class="hint-body">
+      <p>Ob eine Lösung alkalisch ist, zeigt ein <b>Indikator</b>. Ob Wärme frei wird, zeigt ein <b>Thermometer</b>. Ob Natrium enthalten ist, zeigt die <b>Flammenfärbung</b> (Infokasten oben).</p>
+      <details class="hint" data-h="r0c2c"><summary>Tipp 3 · Lösungsweg</summary><div class="hint-body">
+        <p>Hypothese: stark <b>alkalisch</b> · <b>ätzend</b> · <b>Haare</b> und <b>Fett</b> · <b>wasserlöslicher</b> <b>Feststoff</b> · Abgabe von <b>Wärme</b>. Plan: pH-Indikatorpapier → blau bis violett · Thermometer → Temperatur steigt · Magnesiastäbchen in der Flamme → gelb-orange.</p>
+      </div></details>
+    </div></details>
+  </div></details>
+  <div class="card laurel" id="lc0-2">
+    <h3>🎓 Vertiefung <span class="stars">★★</span></h3>
+    <p>Warum verkauft man Rohrreiniger als <b>Granulat</b> und nicht als fertige Lösung in der Flasche?</p>
+    <div id="l0-2"></div>
+  </div>
+</section>
+
+<!-- ------------------------------------------------ 0.3 Experimentierplatz -->
+<section class="chapter" id="r0c3">
+  <div class="chap-head"><div class="chap-no">3</div><div><small>SITZUNG 1 · MEILENSTEIN 3</small><h2>Ab ins Labor</h2></div></div>
+  <div class="card story-card story">
+    <p class="voiced"><span class="vtext"><span class="who">Lina Klar:</span> „Freigabe erteilt! Am Experimentierplatz liegt die Sicherheitskarte. Lest sie, setzt die Schutzbrille auf und nehmt den Rohrreiniger Schritt für Schritt auseinander. Wer für Medien zuständig ist, fotografiert jeden Schritt.“</span><button class="say figur" type="button" data-audio="rohrfrei-img/stimme-7d7106a071.mp3" aria-label="Lina Klar anhören" title="Lina Klar anhören">🔊</button></p>
+  </div>
+  <div class="card">
+    <div class="fig"><img src="rohrfrei-img/fig3.svg" alt="Versuch in vier Schritten: 1 Perlen trennen, 2 lösen und Temperatur messen, 3 pH-Indikatorpapier, 4 Flammenfärbung"><p class="figcap">Abb. 2 · Der Versuch in vier Schritten</p></div>
+    <ol class="steps">
+      <li><b>Trennen:</b> Eine Spatelspitze Rohrreiniger auf das Uhrglas geben. Mit der Pinzette die weißen Perlen von den grauen Kügelchen trennen.</li>
+      <li><b>Lösen:</b> Ein Reagenzglas etwa 2 cm hoch mit Wasser füllen, Temperatur messen. 3 bis 5 weiße Perlen hinzugeben, vorsichtig schwenken, erneut messen.</li>
+      <li><b>pH-Wert:</b> Einen Streifen pH-Indikatorpapier kurz in die Lösung tauchen und mit der Farbskala vergleichen.</li>
+      <li><b>Flamme:</b> Das Magnesiastäbchen in der nichtleuchtenden Flamme ausglühen, in die Lösung tauchen und wieder in die Flamme halten.</li>
+    </ol>
+    <div class="front">🧪 <span>Geht jetzt an den <b>Experimentierplatz</b>. Schutzbrille und Handschuhe! Perlen nie mit den Fingern anfassen. Für die Fotos könnt ihr das <a href="laborjournal.html?vorlage=rohr" target="_blank" rel="noopener">Laborjournal (Vorlage Rohrreiniger)</a> nutzen.</span></div>
+    <div class="journal">📝 <span><b>Entwicklerjournal, Aufgabe 3:</b> Tragt eure Beobachtungen in die Tabelle ein.</span></div>
+  </div>
+  <div class="card">
+    <h3 class="fred">Eure Messwerte und Beobachtungen</h3>
+    <div class="mgrid">
+      <label class="mfield">Temperatur vorher <span class="unit">in °C</span><input id="t0" inputmode="decimal" autocomplete="off"></label>
+      <label class="mfield">Temperatur nachher <span class="unit">in °C</span><input id="t1" inputmode="decimal" autocomplete="off"></label>
+      <label class="mfield">pH-Wert <span class="unit">laut Farbskala</span><input id="ph03" inputmode="decimal" autocomplete="off"></label>
+    </div>
+    <div class="labels" style="margin-top:0.7rem">
+      <div class="lab"><span class="nr">1</span><select id="obs1" aria-label="Beobachtung Granulat"><option value="">Granulat: Was seht ihr?</option><option value="a">weiße Perlen und graue Kügelchen</option><option value="b">nur weiße Perlen</option><option value="c">ein gelbes Pulver</option></select></div>
+      <div class="lab"><span class="nr">3</span><select id="obs3" aria-label="Farbe des Indikatorpapiers"><option value="">pH-Papier: Welche Farbe?</option><option value="rot">rot</option><option value="gelb">gelb bis grün</option><option value="blau">blau bis violett</option></select></div>
+      <div class="lab"><span class="nr">4</span><select id="obs4" aria-label="Flammenfarbe"><option value="">Flamme: Welche Farbe?</option><option value="gelb">gelb-orange</option><option value="violett">violett</option><option value="rot">rot</option><option value="gruen">grün</option></select></div>
+    </div>
+    <div class="lock-row"><button class="btn blue" id="check03">🔎 Beobachtungen prüfen</button></div>
+    <div class="check" id="fb03"></div>
+  </div>
+  <div class="lock hidden" id="lock03">
+    <h3>🔓 Meilenstein 3 geschafft</h3>
+    <p>Notiert das Meilensteinwort in eurem Entwicklerjournal:</p>
+    <div class="sealword">MESSUNG</div>
+    <p style="margin-top:0.6rem">Entsorgung: Lösungen in den Sammelbehälter für Säuren und Laugen, graue Kügelchen in das bereitgestellte Gefäß, Glas mit viel Wasser spülen.</p>
+    <div class="lock-row"><button class="btn" data-next="0-3">Weiter zu Meilenstein 4 →</button></div>
+  </div>
+  <p class="hints-title">💡 Tipps · Entwicklerjournal Aufgabe 3 <span class="small">(Tipp für Tipp öffnen, im Journal ankreuzen)</span></p>
+  <details class="hint" data-h="r0c3a"><summary>Tipp 1 · Denkanstoß · Genau hinsehen</summary><div class="hint-body">
+    <p>Schreibt nur auf, was ihr <b>seht, fühlt oder messt</b>, noch keine Erklärung. „Das Reagenzglas wird warm“ ist eine Beobachtung, „es entsteht Natronlauge“ ist schon eine Deutung.</p>
+    <details class="hint" data-h="r0c3b"><summary>Tipp 2 · Werkzeug · Messen</summary><div class="hint-body">
+      <p>Wartet nach dem Zugeben der Perlen etwa eine halbe Minute und schwenkt dabei. Haltet das Indikatorpapier nur kurz hinein und vergleicht sofort mit der Farbskala.</p>
+      <details class="hint" data-h="r0c3c"><summary>Tipp 3 · Lösungsweg</summary><div class="hint-body">
+        <p>Typische Werte: weiße Perlen und graue Kügelchen · die Temperatur steigt um einige Grad (z. B. von 20 °C auf 30 °C) · pH-Papier blau bis violett, pH 12 bis 14 · Flamme gelb-orange.</p>
+      </div></details>
+    </div></details>
+  </div></details>
+  <div class="card laurel" id="lc0-3">
+    <h3>🎓 Vertiefung <span class="stars">★★★</span></h3>
+    <p>Gibt man das <b>ganze</b> Granulat samt grauen Aluminiumkügelchen in Wasser, sprudelt es. Das Gas verbrennt bei der Knallgasprobe mit einem Ploppen. Welches Gas ist es, und wie hilft es beim Reinigen?</p>
+    <div id="l0-3"></div>
+  </div>
+</section>
+
+<!-- ------------------------------------------------ 0.4 Auswertung -->
+<section class="chapter" id="r0c4">
+  <div class="chap-head"><div class="chap-no">4</div><div><small>SITZUNG 1 · MEILENSTEIN 4</small><h2>Was passiert in der Lösung?</h2></div></div>
+  <div class="card story-card story">
+    <p class="voiced"><span class="vtext"><span class="who">Lina Klar:</span> „Beobachtungen allein verkaufen kein Produkt. Jetzt kommt die Teilchenebene: Was passiert mit den weißen Perlen, wenn sie sich im Wasser lösen? Wenn ihr das versteht, kennt ihr den Wirkstoff der Konkurrenz.“</span><button class="say figur" type="button" data-audio="rohrfrei-img/stimme-da5bab39b8.mp3" aria-label="Lina Klar anhören" title="Lina Klar anhören">🔊</button></p>
+  </div>
+  <div class="card task">
+    <h3>⚛️ Auftrag</h3>
+    <ol>
+      <li>Ordnet jeder Beobachtung die passende Deutung zu.</li>
+      <li>Entwickelt die Dissoziationsgleichung für das Lösen von Natriumhydroxid in Wasser (Abb. 3).</li>
+    </ol>
+    <div class="journal">📝 <span><b>Entwicklerjournal, Aufgabe 4:</b> Deutet eure Beobachtungen, überprüft die Hypothese und entwickelt die Dissoziationsgleichung. Ergänzt den Merkekasten.</span></div>
+  </div>
+  <div class="card">
+    <h3 class="fred">Deutung</h3>
+    <div id="deut04"></div>
+    <div class="lock-row"><button class="btn blue" id="deut04check">🔎 Deutung prüfen</button></div>
+    <div class="check" id="deut04fb"></div>
+  </div>
+  <div class="card">
+    <div class="fig"><img src="rohrfrei-img/fig4.svg" alt="Natriumhydroxid-Ionengitter zerfällt in Wasser in gelöste Natrium- und Hydroxid-Ionen, dabei wird es warm"><p class="figcap">Abb. 3 · Eine Perle Natriumhydroxid löst sich</p></div>
+    <h3 class="fred">Dissoziationsgleichung</h3>
+    <p class="small">Wählt die beiden Teilchen, die beim Lösen entstehen.</p>
+    <div class="eq" id="eq04"></div>
+    <div class="lock-row"><button class="btn blue" id="eq04check">🔎 Gleichung prüfen</button></div>
+    <div class="check" id="eq04fb"></div>
+  </div>
+  <div class="lock hidden" id="lock04">
+    <h3>🔓 Meilenstein 4 geschafft</h3>
+    <p>Notiert das Meilensteinwort in eurem Entwicklerjournal:</p>
+    <div class="sealword">IONEN</div>
+    <div class="lock-row"><button class="btn" data-next="0-4">Weiter zu Meilenstein 5 →</button></div>
+  </div>
+  <p class="hints-title">💡 Tipps · Entwicklerjournal Aufgabe 4 <span class="small">(Tipp für Tipp öffnen, im Journal ankreuzen)</span></p>
+  <details class="hint" data-h="r0c4a"><summary>Tipp 1 · Denkanstoß · Aus welchen Teilchen besteht die Perle?</summary><div class="hint-body">
+    <p>Natriumhydroxid ist eine Ionenverbindung. Im Feststoff sitzen positiv geladene Metall-Ionen und negativ geladene Ionen im Gitter. Schaut auf die Lupe in Abb. 3.</p>
+    <details class="hint" data-h="r0c4b"><summary>Tipp 2 · Werkzeug · So sieht eine Dissoziationsgleichung aus</summary><div class="hint-body">
+      <p>Links steht der Feststoff mit (s), rechts stehen die gelösten Ionen mit (aq). Die Ladungen müssen sich rechts zu null ergänzen, genau wie im Feststoff. Beispiel: NaCl(s) → Na⁺(aq) + Cl⁻(aq).</p>
+      <details class="hint" data-h="r0c4c"><summary>Tipp 3 · Lösungsweg</summary><div class="hint-body">
+        <p>pH-Papier blau bis violett → <b>alkalische Lösung</b>, viele Hydroxid-Ionen · Temperatur steigt → das Lösen ist <b>exotherm</b> · Flamme gelb-orange → <b>Natrium-Ionen</b>. Gleichung: <b>NaOH(s) → Na⁺(aq) + OH⁻(aq)</b>. Die Hypothese ist bestätigt.</p>
+      </div></details>
+    </div></details>
+  </div></details>
+  <div class="card laurel" id="lc0-4">
+    <h3>🎓 Vertiefung <span class="stars">★★★</span></h3>
+    <p>Kalkwasser ist eine Lösung von Calciumhydroxid Ca(OH)₂. Calcium bildet Ca²⁺-Ionen. Welche Dissoziationsgleichung stimmt?</p>
+    <div id="l0-4"></div>
+  </div>
+</section>
+
+<!-- ------------------------------------------------ 0.5 Funktionsweise -->
+<section class="chapter" id="r0c5">
+  <div class="chap-head"><div class="chap-no">5</div><div><small>SITZUNG 1 · MEILENSTEIN 5</small><h2>So wirkt die Konkurrenz</h2></div></div>
+  <div class="card story-card story">
+    <p class="voiced"><span class="vtext"><span class="who">Lina Klar:</span> „Fast geschafft! Jetzt fehlt nur noch das große Bild: Was macht der Rohrreiniger im Abfluss Schritt für Schritt? Und warum nennen Chemikerinnen und Chemiker das Hydroxid-Ion eine Base? Wer das erklären kann, versteht die Konkurrenz besser als sie sich selbst.“</span><button class="say figur" type="button" data-audio="rohrfrei-img/stimme-803731740d.mp3" aria-label="Lina Klar anhören" title="Lina Klar anhören">🔊</button></p>
+  </div>
+  <div class="card info">
+    <h3>ℹ️ Merke · Basen</h3>
+    <p>Basen sind <b>Protonenakzeptoren</b>: Sie nehmen ein Proton H⁺ auf. Das Hydroxid-Ion ist eine Base. Auch Ammoniak ist eine Base: Es nimmt von einem Wassermolekül ein Proton auf, dabei entstehen ein Ammonium-Ion und ein Hydroxid-Ion (Abb. 4).</p>
+    <div class="fig"><img src="rohrfrei-img/fig5.svg" alt="Protonenübergang: Ammoniak nimmt von einem Wassermolekül ein Proton auf, es entstehen ein Ammonium-Ion und ein Hydroxid-Ion"><p class="figcap">Abb. 4 · Protonenübergang von Wasser auf Ammoniak</p></div>
+  </div>
+  <div class="card task">
+    <h3>🔁 Auftrag</h3>
+    <ol>
+      <li>Bringt die vier Schritte im Abfluss in die richtige Reihenfolge. Tippt sie nacheinander an.</li>
+      <li>Beantwortet die fünf Fragen. Die Buchstaben ergeben den Code.</li>
+    </ol>
+    <div class="journal">📝 <span><b>Entwicklerjournal, Aufgabe 5:</b> Entwickelt die Gleichung für Ammoniak und Wasser, erklärt die Wirkung des Rohrreinigers und schreibt eure ersten Anforderungen an ein ökologisches Produkt auf.</span></div>
+  </div>
+  <div class="card">
+    <h3 class="fred">Im Abfluss</h3>
+    <div class="order" id="ord05"></div>
+    <div class="lock-row"><button class="btn ghost" id="ord05reset">↺ Neu ordnen</button><button class="btn blue" id="ord05check">🔎 Reihenfolge prüfen</button></div>
+    <div class="check" id="ord05fb"></div>
+  </div>
+  <div class="card" id="quiz05"></div>
+  <div class="lock" id="lock05">
+    <h3>🔒 Meilenstein 5</h3>
+    <p>Tippt die fünf Buchstaben eurer Antworten ein (Frage 1 bis 5).</p>
+    <div class="lock-row"><input id="code05" maxlength="5" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Code Meilenstein 5"><button class="btn" data-lock="0-5">Abschließen</button></div>
+    <div class="lock-msg" id="msg05"></div>
+  </div>
+  <p class="hints-title">💡 Tipps · Entwicklerjournal Aufgabe 5 <span class="small">(Tipp für Tipp öffnen, im Journal ankreuzen)</span></p>
+  <details class="hint" data-h="r0c5a"><summary>Tipp 1 · Denkanstoß · Wer gibt, wer nimmt?</summary><div class="hint-body">
+    <p>Zählt in Abb. 4 die Wasserstoff-Atome am Stickstoff vorher und nachher. Wer hat eines dazubekommen, wer hat eines verloren?</p>
+    <details class="hint" data-h="r0c5b"><summary>Tipp 2 · Werkzeug · Wirkung im Abfluss</summary><div class="hint-body">
+      <p>Denkt an eure drei Beobachtungen: Die Lösung ist stark alkalisch, sie wird warm, und mit Aluminium sprudelt Gas. Haare und Fett sind organische Stoffe, die stark alkalische Lösungen zersetzen. Auch Haut und Augen bestehen aus solchen Stoffen.</p>
+      <details class="hint" data-h="r0c5c"><summary>Tipp 3 · Lösungsweg</summary><div class="hint-body">
+        <p>NH₃(g) + H₂O(l) → NH₄⁺(aq) + OH⁻(aq): Ammoniak nimmt ein Proton auf (Base), Wasser gibt eines ab. Reihenfolge: Granulat sinkt zum Pfropf → löst sich, wird heiß → Hydroxid-Ionen zersetzen Haare und Fett → Wasserstoff sprudelt und lockert den Pfropf. Code: <b>P R O F I</b>.</p>
+      </div></details>
+    </div></details>
+  </div></details>
+  <div class="card laurel" id="lc0-5">
+    <h3>🎓 Vertiefung <span class="stars">★★★</span></h3>
+    <p>Auf jedem Rohrreiniger steht: „Nicht mit anderen Reinigern mischen.“ Trifft Rohrreiniger auf einen sauren Reiniger, reagieren Hydroxid-Ionen und Oxonium-Ionen heftig miteinander. Welche Gleichung beschreibt das?</p>
+    <div id="l0-5"></div>
+  </div>
+</section>
+
+<!-- ------------------------------------------------ Ende Sitzung 1 -->
+<section class="chapter" id="r0end">
+  <div class="card story-card story" style="margin-top:1.4rem">
+    <p class="fred" style="font-size:1.6rem;color:var(--sky);text-align:center;font-weight:700">Die Konkurrenz ist entschlüsselt! 🔬</p>
+    <p class="voiced"><span class="vtext"><span class="who">Lina Klar:</span> „Stark! Jetzt wissen wir, was in dem Granulat steckt: Natriumhydroxid zerfällt im Wasser, die Lösung wird heiß und stark alkalisch und zersetzt Haare und Fett. Aber genau das macht es auch so gefährlich. Woher kommen diese Stoffe eigentlich, und geht das umweltfreundlicher? Das klären wir in der nächsten Sitzung. Euer Lösungswort ist der Name der Ionen, die die ganze Arbeit machen.“</span><button class="say figur" type="button" data-audio="rohrfrei-img/stimme-ad3acf4052.mp3" aria-label="Lina Klar anhören" title="Lina Klar anhören">🔊</button></p>
+  </div>
+  <div class="card cert s1end">
+    <p class="small mono">LÖSUNGSWORT SITZUNG 1</p>
+    <div class="solword"><span style="color:#1f6fb8;border-color:#1f6fb8">HYDROXID</span></div>
+    <p>📝 Schreibt das Lösungswort <b>jetzt</b> in euer Entwicklerjournal. Mit ihm öffnet ihr in der nächsten Sitzung das <b>Herstellungslabor</b>.</p>
+    <p class="names" id="r0Names" style="margin-top:0.6rem">…</p>
+    <table>
+      <tr><td>Zeit</td><td class="mono" id="r0Time">–</td></tr>
+      <tr><td>Temperatur</td><td class="mono" id="r0Temp">–</td></tr>
+      <tr><td>pH-Wert</td><td class="mono" id="r0pH">–</td></tr>
+      <tr><td>Tipps</td><td class="mono" id="r0Hints">–</td></tr>
+      <tr><td>Vertiefung 🎓</td><td class="mono" id="r0Laurel">–</td></tr>
+    </table>
+  </div>
+  <div class="card task">
+    <h3>📝 Zum Schluss: Euer Lastenheft</h3>
+    <p>Ein Lastenheft sammelt, was ein neues Produkt können soll. Schreibt ins Journal (Aufgabe 5c) <b>zwei Anforderungen</b> an den ökologischen Rohrreiniger von Klarfluss. Denkt an die Wirkung, die Sicherheit und die Umwelt.</p>
+    <details class="hint"><summary>Beispiele</summary><div class="hint-body"><p>Er soll Haare und Fett lösen · er soll Haut und Augen weniger gefährden · er soll ohne Aluminium auskommen · sein Wirkstoff soll mit wenig Energie herstellbar sein · die Verpackung soll sich recyceln lassen.</p></div></details>
+  </div>
+  <div class="card fast">
+    <h3>⚡ Schnellläufer:innen</h3>
+    <p>Löst die Vertiefungen, die ihr ausgelassen habt. Über die Meilensteine oben springt ihr zurück. Oder: Glasreiniger enthält oft Ammoniaklösung (Salmiakgeist). Erklärt mit Abb. 4, warum auch diese Lösung alkalisch ist.</p>
+  </div>
+</section>
+
+<!-- =================================================================================================== -->
+<!-- ============================================================ SITZUNG 2 · HYDROXIDE HERSTELLEN ===== -->
+<!-- =================================================================================================== -->
+
+<!-- ------------------------------------------------ 1.1 Laugenbrezel -->
+<section class="chapter" id="r1c1">
+  <div class="chap-head"><div class="chap-no">1</div><div><small>SITZUNG 2 · MEILENSTEIN 1</small><h2>Die Laugenbrezel-Probe</h2></div></div>
+  <div class="card story-card story">
+    <p class="voiced"><span class="vtext"><span class="who">Lina Klar:</span> „Willkommen zurück! Ich habe Laugenbrezeln vom Bäcker mitgebracht. Wusstet ihr, dass der Teig vor dem Backen in Natronlauge getaucht wird? Genau die Stoffe, die wir letzte Woche im Rohrreiniger gefunden haben, landen also auch in der Bäckerei. Prüft die braune Oberfläche, bevor ihr hineinbeißt.“</span><button class="say figur" type="button" data-audio="rohrfrei-img/stimme-6b0bd604fe.mp3" aria-label="Lina Klar anhören" title="Lina Klar anhören">🔊</button></p>
+  </div>
+  <div class="card task">
+    <h3>🥨 Auftrag</h3>
+    <ol>
+      <li>Prüft die Oberfläche einer Laugenbrezel: erst den <b>Geschmack</b>, dann den <b>pH-Wert</b> mit angefeuchtetem Indikatorpapier, dann die <b>Haptik</b> mit den Fingern.</li>
+      <li>Wählt danach alle Eigenschaften, die <b>alkalische Lösungen</b> gemeinsam haben (Buch S. 224, Aufgabe 1 auf S. 225).</li>
+    </ol>
+    <div class="front">🧪 <span>Die Brezel-Probe findet am <b>Schreibtisch</b> statt, nicht am Experimentierplatz. Probiert nur das ausgeteilte Stück und nur, wenn eure Lehrperson es erlaubt.</span></div>
+    <div class="journal">📝 <span><b>Entwicklerjournal, Aufgabe 1:</b> Tragt die Brezel-Probe ein. Listet die Eigenschaften alkalischer Lösungen auf und erklärt, wodurch sie zustande kommen.</span></div>
+  </div>
+  <div class="card">
+    <h3 class="fred">Eure Brezel-Probe</h3>
+    <div class="mgrid">
+      <label class="mfield">pH-Wert der Oberfläche <span class="unit">laut Farbskala</span><input id="ph11" inputmode="decimal" autocomplete="off"></label>
+      <label class="mfield">Geschmack <span class="unit">in einem Wort</span><input id="ta11" autocomplete="off" maxlength="30" style="font-family:inherit"></label>
+      <label class="mfield">Haptik <span class="unit">in einem Wort</span><input id="ha11" autocomplete="off" maxlength="30" style="font-family:inherit"></label>
+    </div>
+    <div class="check" id="fb11a"></div>
+    <h3 class="fred" style="margin-top:1rem">Eigenschaften alkalischer Lösungen</h3>
+    <p class="small">Tippt <b>alle richtigen</b> an und dann auf Prüfen.</p>
+    <div class="tiles" id="prop11"></div>
+    <div class="lock-row"><button class="btn blue" id="prop11check">🔎 Prüfen</button></div>
+    <div class="check" id="prop11fb"></div>
+  </div>
+  <div class="lock hidden" id="lock11">
+    <h3>🔓 Meilenstein 1 geschafft</h3>
+    <p>Notiert das Meilensteinwort in eurem Entwicklerjournal:</p>
+    <div class="sealword">BREZEL</div>
+    <div class="lock-row"><button class="btn" data-next="1-1">Weiter zu Meilenstein 2 →</button></div>
+  </div>
+  <p class="hints-title">💡 Tipps · Entwicklerjournal Aufgabe 1 <span class="small">(Tipp für Tipp öffnen, im Journal ankreuzen)</span></p>
+  <details class="hint" data-h="r1c1a"><summary>Tipp 1 · Denkanstoß · Was haben alle gemeinsam?</summary><div class="hint-body">
+    <p>Lest im Buch auf S. 224 die Liste „Alkalische Lösungen haben eine Reihe weiterer gemeinsamer Eigenschaften“. Fragt euch bei jeder Eigenschaft: Welches Teilchen steckt in allen diesen Lösungen?</p>
+    <details class="hint" data-h="r1c1b"><summary>Tipp 2 · Werkzeug · Indikatoren und Strom</summary><div class="hint-body">
+      <p>Universalindikator wird in alkalischen Lösungen blauviolett, Phenolphthalein rotviolett. Eine Lösung, die den Strom leitet, enthält frei bewegliche Ionen.</p>
+      <details class="hint" data-h="r1c1c"><summary>Tipp 3 · Lösungsweg</summary><div class="hint-body">
+        <p>Eigenschaften: Universalindikator blauviolett · Phenolphthalein rotviolett · fühlen sich glitschig an, in höherer Konzentration ätzend · leiten den Strom (Ionen). Ursache: Alle enthalten <b>Hydroxid-Ionen OH⁻(aq)</b>. Die Brezel-Oberfläche ist meist nur leicht alkalisch.</p>
+      </div></details>
+    </div></details>
+  </div></details>
+  <div class="card laurel" id="lc1-1">
+    <h3>🎓 Vertiefung <span class="stars">★★★</span></h3>
+    <p>Buch S. 225, Aufgabe 9: Warum kann man Laugenbrezeln gefahrlos essen, obwohl sie in Natronlauge getaucht wurden?</p>
+    <div id="l1-1"></div>
+  </div>
+</section>
+
+<!-- ------------------------------------------------ 1.2 Lauge oder alkalische Lösung -->
+<section class="chapter" id="r1c2">
+  <div class="chap-head"><div class="chap-no">2</div><div><small>SITZUNG 2 · MEILENSTEIN 2</small><h2>Lauge oder alkalische Lösung?</h2></div></div>
+  <div class="card story-card story">
+    <p class="voiced"><span class="vtext"><span class="who">Lina Klar:</span> „In der Werbung schreiben alle Lauge, Lauge, Lauge. Aber auf ein Etikett gehören genaue Begriffe. Ist jede alkalische Lösung eine Lauge? Klärt das, bevor wir über Herstellung reden.“</span><button class="say figur" type="button" data-audio="rohrfrei-img/stimme-afafbfc05a.mp3" aria-label="Lina Klar anhören" title="Lina Klar anhören">🔊</button></p>
+  </div>
+  <div class="card info">
+    <h3>ℹ️ Merke</h3>
+    <p>Alkalische Lösungen enthalten hydratisierte Hydroxid-Ionen OH⁻(aq). <b>Laugen</b> sind Lösungen von <b>Alkalimetallhydroxiden</b> in Wasser, zum Beispiel Natronlauge (Natriumhydroxid) und Kalilauge (Kaliumhydroxid).</p>
+  </div>
+  <div class="card task">
+    <h3>📖 Auftrag</h3>
+    <p>Beantwortet die vier Fragen (Buch S. 225, Aufgabe 2). Die Buchstaben ergeben den Code.</p>
+    <div class="journal">📝 <span><b>Entwicklerjournal, Aufgabe 2:</b> Erklärt den Begriff Lauge und begründet, warum nicht jede alkalische Lösung eine Lauge ist.</span></div>
+  </div>
+  <div class="card" id="quiz12"></div>
+  <div class="lock" id="lock12">
+    <h3>🔒 Meilenstein 2</h3>
+    <p>Tippt die vier Buchstaben eurer Antworten ein (Frage 1 bis 4).</p>
+    <div class="lock-row"><input id="code12" maxlength="4" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Code Meilenstein 2"><button class="btn" data-lock="1-2">Abschließen</button></div>
+    <div class="lock-msg" id="msg12"></div>
+  </div>
+  <p class="hints-title">💡 Tipps · Entwicklerjournal Aufgabe 2 <span class="small">(Tipp für Tipp öffnen, im Journal ankreuzen)</span></p>
+  <details class="hint" data-h="r1c2a"><summary>Tipp 1 · Denkanstoß · Woher kommt das OH⁻?</summary><div class="hint-body">
+    <p>In Natronlauge stammen die Hydroxid-Ionen aus einem Metallhydroxid. In Ammoniaklösung gibt es kein Metall. Woher kommen dort die Hydroxid-Ionen? Schaut auf Abb. 4 aus Sitzung 1.</p>
+    <details class="hint" data-h="r1c2b"><summary>Tipp 2 · Werkzeug · Reinstoff oder Gemisch?</summary><div class="hint-body">
+      <p>Eine Lösung besteht immer aus mindestens zwei Stoffen: dem gelösten Stoff und dem Lösungsmittel Wasser.</p>
+      <details class="hint" data-h="r1c2c"><summary>Tipp 3 · Lösungsweg</summary><div class="hint-body">
+        <p>Lauge = Lösung eines Alkalimetallhydroxids in Wasser. Ammoniaklösung ist alkalisch, enthält aber kein Metallhydroxid, also keine Lauge. Eine Lauge ist ein Gemisch, kein Reinstoff. Schutzbrille, weil Laugen Augen schwer verätzen. Code: <b>K A L K</b>.</p>
+      </div></details>
+    </div></details>
+  </div></details>
+  <div class="card laurel" id="lc1-2">
+    <h3>🎓 Vertiefung <span class="stars">★★★</span></h3>
+    <p>Sortiert: Welche dieser alkalischen Lösungen sind <b>Laugen</b>? Tippt nur die Laugen an.</p>
+    <div class="tiles" id="l12tiles"></div>
+    <div class="lock-row"><button class="btn green" id="l12check">Prüfen</button></div>
+    <div class="fb" id="lmsg1-2"></div>
+  </div>
+</section>
+
+<!-- ------------------------------------------------ 1.3 Metall + Wasser -->
+<section class="chapter" id="r1c3">
+  <div class="chap-head"><div class="chap-no">3</div><div><small>SITZUNG 2 · MEILENSTEIN 3</small><h2>Weg 1: Metall und Wasser</h2></div></div>
+  <div class="card story-card story">
+    <p class="voiced"><span class="vtext"><span class="who">Lina Klar:</span> „Jetzt wird es spannend: Wie stellt man Hydroxide her? Im Buch findet ihr zwei Wege. Der erste ist spektakulär: Ein Alkalimetall oder Erdalkalimetall reagiert mit Wasser. Dabei entsteht eine alkalische Lösung, und es sprudelt Wasserstoff.“</span><button class="say figur" type="button" data-audio="rohrfrei-img/stimme-c9c22a9431.mp3" aria-label="Lina Klar anhören" title="Lina Klar anhören">🔊</button></p>
+  </div>
+  <div class="card">
+    <div class="fig"><svg viewBox="0 0 664 170" role="img" aria-label="Schema Weg 1: Metall reagiert mit Wasser zu Metall-Ionen, Hydroxid-Ionen und Wasserstoff">
+      <rect x="10" y="60" width="120" height="50" rx="10" fill="#dff1e5" stroke="#2e7d4f" stroke-width="2.5"/><text x="70" y="91" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="20" fill="#1e5a37">Metall</text>
+      <text x="165" y="92" text-anchor="middle" font-size="26" fill="#6a5444">+</text>
+      <rect x="195" y="60" width="120" height="50" rx="10" fill="#eaf6fe" stroke="#2f8fe0" stroke-width="2.5"/><text x="255" y="91" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="20" fill="#1f6fb8">Wasser</text>
+      <path d="M330,85 L392,85" stroke="#2f2219" stroke-width="3"/><path d="M392,85 l-10,-6 v12 z" fill="#2f2219"/>
+      <rect x="402" y="40" width="150" height="90" rx="10" fill="#ece3ff" stroke="#7b4bd6" stroke-width="2.5"/>
+      <text x="477" y="76" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="17" fill="#4b2a8f">Metall-Ionen</text>
+      <text x="477" y="100" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="17" fill="#4b2a8f">+ OH⁻(aq)</text>
+      <text x="477" y="122" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" fill="#6a5444">alkalische Lösung</text>
+      <text x="572" y="92" text-anchor="middle" font-size="26" fill="#6a5444">+</text>
+      <text x="610" y="92" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="20" fill="#2f2219">H₂</text>
+      <text x="610" y="116" text-anchor="middle" font-family="Nunito, sans-serif" font-size="12" fill="#6a5444">Wasserstoff</text>
+    </svg><p class="figcap">Abb. 5 · Weg 1 (vereinfacht nach Buch S. 225, Abb. 2 ①)</p></div>
+    <p>Beispiel aus dem Buch: <span class="mono">2 Na(s) + 2 H₂O(l) → 2 Na⁺(aq) + 2 OH⁻(aq) + H₂(g)</span></p>
+    <div class="front">🧪 <span>Falls eure Lehrperson es vorführt: Schaut am Pult zu, wie ein Metall mit Wasser reagiert. Achtet auf Gasbläschen und die Farbe des Indikators.</span></div>
+  </div>
+  <div class="card task">
+    <h3>⚖️ Auftrag</h3>
+    <p>Entwickelt die Reaktionsgleichung für die Reaktion von <b>Kalium</b> mit Wasser (Buch S. 225, Aufgabe 5a). Wählt die Koeffizienten so, dass links und rechts gleich viele Atome stehen.</p>
+    <div class="journal">📝 <span><b>Entwicklerjournal, Aufgabe 3:</b> Entwickelt die Reaktionsgleichung für Kalium und Wasser.</span></div>
+  </div>
+  <div class="card">
+    <div class="eq" id="co13"></div>
+    <div class="lock-row"><button class="btn blue" id="co13check">🔎 Gleichung prüfen</button></div>
+    <div class="check" id="co13fb"></div>
+  </div>
+  <div class="lock hidden" id="lock13">
+    <h3>🔓 Meilenstein 3 geschafft</h3>
+    <p>Notiert das Meilensteinwort in eurem Entwicklerjournal:</p>
+    <div class="sealword">METALL</div>
+    <div class="lock-row"><button class="btn" data-next="1-3">Weiter zu Meilenstein 4 →</button></div>
+  </div>
+  <p class="hints-title">💡 Tipps · Entwicklerjournal Aufgabe 3 <span class="small">(Tipp für Tipp öffnen, im Journal ankreuzen)</span></p>
+  <details class="hint" data-h="r1c3a"><summary>Tipp 1 · Denkanstoß · Kalium ist wie Natrium</summary><div class="hint-body">
+    <p>Kalium steht im Periodensystem direkt unter Natrium. Beide sind Alkalimetalle und bilden einfach positiv geladene Ionen. Die Gleichung sieht also fast genauso aus wie beim Natrium.</p>
+    <details class="hint" data-h="r1c3b"><summary>Tipp 2 · Werkzeug · Atome zählen</summary><div class="hint-body">
+      <p>Ein Wasserstoff-Molekül H₂ enthält zwei H-Atome. Damit H₂ entstehen kann, braucht ihr auf der linken Seite eine gerade Zahl an Wassermolekülen, deren übrige H-Atome in den OH⁻-Ionen stecken.</p>
+      <details class="hint" data-h="r1c3c"><summary>Tipp 3 · Lösungsweg</summary><div class="hint-body">
+        <p><b>2 K(s) + 2 H₂O(l) → 2 K⁺(aq) + 2 OH⁻(aq) + H₂(g)</b>. Links: 2 K, 4 H, 2 O. Rechts: 2 K, 2 H in OH⁻ + 2 H in H₂ = 4 H, 2 O.</p>
+      </div></details>
+    </div></details>
+  </div></details>
+  <div class="card laurel" id="lc1-3">
+    <h3>🎓 Vertiefung <span class="stars">★★★</span></h3>
+    <p>Das Erdalkalimetall <b>Calcium</b> bildet Ca²⁺-Ionen (Buch S. 225, Abb. 2 ①). Entwickelt die Gleichung für Calcium und Wasser.</p>
+    <div class="eq" id="co13l"></div>
+    <div class="lock-row"><button class="btn green" id="l13check">Prüfen</button></div>
+    <div class="fb" id="lmsg1-3"></div>
+  </div>
+</section>
+
+<!-- ------------------------------------------------ 1.4 Metalloxid + Wasser -->
+<section class="chapter" id="r1c4">
+  <div class="chap-head"><div class="chap-no">4</div><div><small>SITZUNG 2 · MEILENSTEIN 4</small><h2>Weg 2: Metalloxid und Wasser</h2></div></div>
+  <div class="card story-card story">
+    <p class="voiced"><span class="vtext"><span class="who">Lina Klar:</span> „Der zweite Weg ist ruhiger: Ein Metalloxid reagiert mit Wasser, und es entsteht eine alkalische Lösung, ganz ohne Wasserstoff. Übrigens: Das Wort alkalisch kommt aus dem Arabischen und bedeutet Pflanzenasche. Schon vor Jahrhunderten hat man aus Holzasche und Wasser Lauge für Seife gewonnen.“</span><button class="say figur" type="button" data-audio="rohrfrei-img/stimme-7415abd971.mp3" aria-label="Lina Klar anhören" title="Lina Klar anhören">🔊</button></p>
+  </div>
+  <div class="card">
+    <div class="fig"><svg viewBox="0 0 640 150" role="img" aria-label="Schema Weg 2: Metalloxid reagiert mit Wasser zu Metall-Ionen und Hydroxid-Ionen">
+      <rect x="10" y="50" width="150" height="50" rx="10" fill="#f0dccd" stroke="#8a4b2a" stroke-width="2.5"/><text x="85" y="81" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="20" fill="#5e2f17">Metalloxid</text>
+      <text x="190" y="82" text-anchor="middle" font-size="26" fill="#6a5444">+</text>
+      <rect x="220" y="50" width="120" height="50" rx="10" fill="#eaf6fe" stroke="#2f8fe0" stroke-width="2.5"/><text x="280" y="81" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="20" fill="#1f6fb8">Wasser</text>
+      <path d="M356,75 L418,75" stroke="#2f2219" stroke-width="3"/><path d="M418,75 l-10,-6 v12 z" fill="#2f2219"/>
+      <rect x="430" y="30" width="190" height="90" rx="10" fill="#ece3ff" stroke="#7b4bd6" stroke-width="2.5"/>
+      <text x="525" y="66" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="17" fill="#4b2a8f">Metall-Ionen</text>
+      <text x="525" y="90" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="17" fill="#4b2a8f">+ OH⁻(aq)</text>
+      <text x="525" y="112" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" fill="#6a5444">alkalische Lösung, kein Gas</text>
+    </svg><p class="figcap">Abb. 6 · Weg 2 (vereinfacht nach Buch S. 225, Abb. 2 ②)</p></div>
+    <p>Beispiel aus dem Buch: <span class="mono">CaO(s) + H₂O(l) → Ca²⁺(aq) + 2 OH⁻(aq)</span> (Branntkalk wird zu Kalkwasser)</p>
+  </div>
+  <div class="card task">
+    <h3>⚖️ Auftrag</h3>
+    <ol>
+      <li>Entwickelt die Gleichung für die Reaktion von <b>Lithiumoxid</b> Li₂O mit Wasser.</li>
+      <li>Entwickelt die Dissoziationsgleichung für das Lösen von <b>Lithiumhydroxid</b> LiOH in Wasser (Buch S. 225, Aufgabe 5b).</li>
+    </ol>
+    <div class="journal">📝 <span><b>Entwicklerjournal, Aufgabe 4:</b> Entwickelt beide Gleichungen und vergleicht Weg 1 mit Weg 2.</span></div>
+  </div>
+  <div class="card">
+    <h3 class="fred">a) Lithiumoxid und Wasser</h3>
+    <div class="eq" id="co14a"></div>
+    <h3 class="fred" style="margin-top:1rem">b) Lithiumhydroxid löst sich</h3>
+    <div class="eq" id="co14b"></div>
+    <div class="lock-row"><button class="btn blue" id="co14check">🔎 Gleichungen prüfen</button></div>
+    <div class="check" id="co14fb"></div>
+  </div>
+  <div class="lock hidden" id="lock14">
+    <h3>🔓 Meilenstein 4 geschafft</h3>
+    <p>Notiert das Meilensteinwort in eurem Entwicklerjournal:</p>
+    <div class="sealword">OXID</div>
+    <div class="lock-row"><button class="btn" data-next="1-4">Weiter zu Meilenstein 5 →</button></div>
+  </div>
+  <p class="hints-title">💡 Tipps · Entwicklerjournal Aufgabe 4 <span class="small">(Tipp für Tipp öffnen, im Journal ankreuzen)</span></p>
+  <details class="hint" data-h="r1c4a"><summary>Tipp 1 · Denkanstoß · Was steckt im Oxid?</summary><div class="hint-body">
+    <p>Lithiumoxid Li₂O besteht aus Lithium-Ionen Li⁺ und Oxid-Ionen O²⁻. Das Oxid-Ion nimmt von einem Wassermolekül ein Proton auf. Dabei entstehen zwei Hydroxid-Ionen.</p>
+    <details class="hint" data-h="r1c4b"><summary>Tipp 2 · Werkzeug · Zählen</summary><div class="hint-body">
+      <p>Links stehen 2 Li, 2 O und 2 H. Rechts müssen also ebenfalls 2 Li⁺ und genug OH⁻ stehen, damit 2 O und 2 H herauskommen.</p>
+      <details class="hint" data-h="r1c4c"><summary>Tipp 3 · Lösungsweg</summary><div class="hint-body">
+        <p>a) <b>Li₂O(s) + H₂O(l) → 2 Li⁺(aq) + 2 OH⁻(aq)</b> · b) <b>LiOH(s) → Li⁺(aq) + OH⁻(aq)</b>. Vergleich: Bei Weg 1 entsteht zusätzlich Wasserstoff, bei Weg 2 nicht.</p>
+      </div></details>
+    </div></details>
+  </div></details>
+  <div class="card laurel" id="lc1-4">
+    <h3>🎓 Vertiefung <span class="stars">★★★</span></h3>
+    <p>Holzasche enthält unter anderem Kaliumverbindungen. Vereinfacht kann man mit Kaliumoxid K₂O rechnen. Entwickelt die Gleichung für die Aschelauge.</p>
+    <div class="eq" id="co14l"></div>
+    <div class="lock-row"><button class="btn green" id="l14check">Prüfen</button></div>
+    <div class="fb" id="lmsg1-4"></div>
+  </div>
+</section>
+
+<!-- ------------------------------------------------ 1.5 Produktentscheidung -->
+<section class="chapter" id="r1c5">
+  <div class="chap-head"><div class="chap-no">5</div><div><small>SITZUNG 2 · MEILENSTEIN 5</small><h2>Die Produktentscheidung</h2></div></div>
+  <div class="card story-card story">
+    <p class="voiced"><span class="vtext"><span class="who">Lina Klar:</span> „Jetzt seid ihr dran. Klarfluss braucht einen Wirkstoff für den ökologischen Rohrreiniger. Drei Ideen liegen auf dem Tisch. Bewertet jede nach Wirkung, Sicherheit und Umwelt. Es gibt nicht die eine richtige Lösung, aber ihr müsst eure Entscheidung begründen können.“</span><button class="say figur" type="button" data-audio="rohrfrei-img/stimme-1babab7d68.mp3" aria-label="Lina Klar anhören" title="Lina Klar anhören">🔊</button></p>
+  </div>
+  <div class="card">
+    <div class="opts3">
+      <div class="idea"><h3>🏭 A · Natronlauge</h3><p>Wie bei der Konkurrenz. Industriell entsteht sie heute fast nur durch <b>Elektrolyse von Kochsalzlösung</b>, das braucht sehr viel Strom. Sehr stark alkalisch, löst Fett und Haare schnell, aber stark ätzend.</p></div>
+      <div class="idea"><h3>🪨 B · Kalkwasser</h3><p>Aus <b>Branntkalk und Wasser</b> (Weg 2). Branntkalk entsteht, wenn Kalkstein bei etwa 900 °C gebrannt wird, dabei wird Kohlenstoffdioxid frei. Calciumhydroxid löst sich nur wenig: weniger ätzend, aber auch schwächer.</p></div>
+      <div class="idea"><h3>🌳 C · Aschelauge</h3><p>Aus <b>Holzasche und Wasser</b> (Weg 2, vereinfacht). Die Asche ist ein Abfallprodukt aus nachwachsendem Holz. Die Lösung ist alkalisch, ihre Stärke schwankt aber von Asche zu Asche.</p></div>
+    </div>
+  </div>
+  <div class="card task">
+    <h3>⭐ Auftrag</h3>
+    <ol>
+      <li>Vergebt für jede Idee 1 bis 3 Sterne in jeder Kategorie (3 = sehr gut).</li>
+      <li>Prüft danach die drei Fachaussagen.</li>
+    </ol>
+    <div class="journal">📝 <span><b>Entwicklerjournal, Aufgabe 5:</b> Übertragt eure Bewertung, trefft eine Entscheidung und begründet sie im Produktsteckbrief.</span></div>
+  </div>
+  <div class="card">
+    <h3 class="fred">Bewertung</h3>
+    <div id="rate15"></div>
+    <div class="check" id="rate15fb"></div>
+  </div>
+  <div class="card" id="quiz15"></div>
+  <div class="lock" id="lock15">
+    <h3>🔒 Meilenstein 5</h3>
+    <p>Habt ihr alles bewertet? Tippt die drei Buchstaben eurer Antworten ein (Frage 1 bis 3).</p>
+    <div class="lock-row"><input id="code15" maxlength="3" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Code Meilenstein 5"><button class="btn" data-lock="1-5">Abschließen</button></div>
+    <div class="lock-msg" id="msg15"></div>
+  </div>
+  <p class="hints-title">💡 Tipps · Entwicklerjournal Aufgabe 5 <span class="small">(Tipp für Tipp öffnen, im Journal ankreuzen)</span></p>
+  <details class="hint" data-h="r1c5a"><summary>Tipp 1 · Denkanstoß · Das Lastenheft</summary><div class="hint-body">
+    <p>Schaut in euer Lastenheft aus Sitzung 1 (Journal I, Aufgabe 5c). Welche Anforderung ist euch am wichtigsten? Die Idee, die diese Anforderung am besten erfüllt, ist ein guter Kandidat.</p>
+    <details class="hint" data-h="r1c5b"><summary>Tipp 2 · Werkzeug · Abwägen</summary><div class="hint-body">
+      <p>Ein Satz für den Steckbrief: „Wir wählen …, weil … . Ein Nachteil ist …, deshalb …“ Nennt immer einen Vorteil <b>und</b> einen Nachteil.</p>
+      <details class="hint" data-h="r1c5c"><summary>Tipp 3 · Lösungsweg</summary><div class="hint-body">
+        <p>Fachaussagen: Code <b>E C O</b>. Beispiel-Entscheidung: „Wir wählen Kalkwasser, weil es weniger ätzend ist und ohne Strom für eine Elektrolyse auskommt. Es wirkt schwächer, deshalb empfehlen wir, zuerst eine Saugglocke zu benutzen und den Abfluss mit einem Sieb zu schützen.“ Auch andere Entscheidungen sind richtig, wenn sie begründet sind.</p>
+      </div></details>
+    </div></details>
+  </div></details>
+  <div class="card laurel" id="lc1-5">
+    <h3>🎓 Vertiefung <span class="stars">★★</span></h3>
+    <p>Lina sagt: „Der umweltfreundlichste Rohrreiniger ist oft gar keiner.“ Was meint sie?</p>
+    <div id="l1-5"></div>
+  </div>
+</section>
+
+<!-- ------------------------------------------------ Finale -->
+<section class="chapter" id="r1end">
+  <div class="card story-card story" style="margin-top:1.4rem">
+    <p class="fred" style="font-size:1.6rem;color:var(--violet);text-align:center;font-weight:700">Das Produktkonzept steht! 🌱</p>
+    <p class="voiced"><span class="vtext"><span class="who">Lina Klar:</span> „Ihr habt die Konkurrenz entschlüsselt, zwei Wege zu Hydroxiden gefunden und eine begründete Produktentscheidung getroffen. Alle Stoffe, die wir untersucht haben, lösen sich in Wasser zu einer alkalischen Lösung. Wenn es eine Lösung eines Alkalimetallhydroxids ist, nennt man sie so wie euer letztes Lösungswort.“</span><button class="say figur" type="button" data-audio="rohrfrei-img/stimme-6450218b49.mp3" aria-label="Lina Klar anhören" title="Lina Klar anhören">🔊</button></p>
+  </div>
+  <div class="solword"><span style="color:#5b3bb5;border-color:#5b3bb5">LAUGE</span></div>
+  <div class="card cert" id="cert">
+    <p class="small mono">ZERTIFIKAT · KLARFLUSS</p>
+    <h2>Produktentwicklerinnen und Produktentwickler</h2>
+    <p class="names" id="certNames">…</p>
+    <p>haben einen Rohrreiniger im Labor untersucht, die Dissoziation von Natriumhydroxid erklärt, zwei Wege zur Herstellung von Hydroxiden beschrieben und einen ökologischen Wirkstoff begründet ausgewählt.</p>
+    <div class="cap" aria-hidden="true">🎓</div>
+    <table>
+      <tr><td>Messung Sitzung 1</td><td class="mono" id="certM">–</td></tr>
+      <tr><td>Brezel-Probe</td><td class="mono" id="certB">–</td></tr>
+      <tr><td>Bewertung (Sterne)</td><td class="mono" id="certR">–</td></tr>
+      <tr><td>Tipps</td><td class="mono" id="certHints">–</td></tr>
+      <tr><td>Vertiefung 🎓</td><td class="mono" id="certLaurel">–</td></tr>
+    </table>
+    <p class="small" style="margin-top:0.8rem">Macht ein Foto von diesem Zertifikat und zeigt es eurer Lehrperson.</p>
+  </div>
+  <div class="card task">
+    <h3>📝 Zum Schluss: Euer Produktsteckbrief</h3>
+    <ul>
+      <li>Vervollständigt den Steckbrief im Journal: Name des Produkts, Wirkstoff, Herstellungsweg mit Gleichung, ein Sicherheitshinweis.</li>
+      <li>Noch Zeit? Löst die Vertiefungen, die ihr ausgelassen habt. Über die Meilensteine oben springt ihr zurück.</li>
+    </ul>
+  </div>
+  <div class="card fast">
+    <h3>⚡ Schnellläufer:innen</h3>
+    <p>Buch S. 225, Aufgabe 8: „Fliesen nicht mit sauren Reinigern putzen, ein Schuss Ammoniaklösung macht sie blitzblank.“ Erklärt den Tipp und entwickelt die Reaktionsgleichung für Ammoniak und Wasser.</p>
+    <details class="hint"><summary>Lösung</summary><div class="hint-body"><p>Saure Reiniger greifen kalkhaltige Fugen an. Ammoniaklösung ist alkalisch und löst Fett: NH₃(g) + H₂O(l) → NH₄⁺(aq) + OH⁻(aq). Ammoniak nimmt ein Proton auf und ist eine Base.</p></div></details>
+  </div>
+</section>
+
+<!-- =============================================================== SPIELLEITUNG -->
+<section class="card sl hidden" id="slPanel">
+  <h3 class="fred">🎓 Spielleitung</h3>
+  <p class="small">Nur für die Lehrperson. Geöffnet über <span class="mono">?spielleitung</span> und PIN.</p>
+  <table>
+    <tr><th>Meilenstein</th><th>S1 · Konkurrenz im Labor</th><th>S2 · Hydroxide herstellen</th></tr>
+    <tr><td>1</td><td>Etikett-Quiz → <span class="mono">BASE</span></td><td>Brezel-Probe + Eigenschaften → <span class="mono">BREZEL</span></td></tr>
+    <tr><td>2</td><td>Hypothese + Plan, Freigabewort der Lehrperson <span class="mono">LABOR</span></td><td>Lauge-Quiz → <span class="mono">KALK</span></td></tr>
+    <tr><td>3</td><td>Messwerte (ΔT &gt; 0, pH ≥ 10, gelb-orange) → <span class="mono">MESSUNG</span></td><td>2 K + 2 H₂O → 2 K⁺ + 2 OH⁻ + H₂ → <span class="mono">METALL</span></td></tr>
+    <tr><td>4</td><td>Deutung + NaOH-Dissoziation → <span class="mono">IONEN</span></td><td>Li₂O + H₂O, LiOH → <span class="mono">OXID</span></td></tr>
+    <tr><td>5</td><td>Reihenfolge + Quiz → <span class="mono">PROFI</span></td><td>Bewertung + Fachaussagen → <span class="mono">ECO</span></td></tr>
+    <tr><td>Wort</td><td class="mono">HYDROXID</td><td class="mono">LAUGE</td></tr>
+  </table>
+  <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.7rem">
+    <button class="btn ghost" id="slSkip">⏭ Aktuellen Meilenstein abschließen</button>
+    <button class="btn ghost" id="slUnlock2">🔓 Sitzung 2 freischalten</button>
+    <button class="btn ghost" id="slReset">↺ Neues Spiel (alles löschen)</button>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function () {
+  "use strict";
+  var KEY = "chemie9-rohrfrei-v1";
+  function blank() { return { open: 0, end: false, t0: 0, t1: 0, hints: {}, laurel: {}, vals: {} }; }
+  var S = { names: ["", "", "", ""], unlocked1: false, run: 0, cur: 0, r: { 0: blank(), 1: blank() } };
+  function load() { try { var raw = localStorage.getItem(KEY); if (raw) { var o = JSON.parse(raw); if (o && o.r && o.r[0] && o.r[1]) { S = o; return true; } } } catch (e) {} return false; }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+  function $(id) { return document.getElementById(id); }
+  function R() { return S.r[S.run]; }
+  function num(s) {
+    s = String(s == null ? "" : s).replace(/\s/g, "").replace(",", ".").replace(/[^0-9.\-]/g, "");
+    if (s === "" || s === "." || s === "-") return NaN;
+    return parseFloat(s);
+  }
+  function deAuto(x) { return x.toFixed(x < 10 ? 2 : 1).replace(/\.?0+$/, "").replace(".", ","); }
+  function norm(s) { return String(s || "").toUpperCase().replace(/[^A-ZÄÖÜ]/g, ""); }
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
+  var CH = 5, RUNS = ["🔬 Sitzung 1", "🥨 Sitzung 2"];
+
+  /* ---------------------------------------------------- Navigation */
+  function chapterId(run, n) { return n === 0 ? "c0" : (n > CH ? "r" + run + "end" : "r" + run + "c" + n); }
+  function show(n) {
+    document.querySelectorAll(".chapter").forEach(function (c) { c.classList.remove("show"); });
+    $(chapterId(S.run, n)).classList.add("show");
+    S.cur = n; save();
+    $("topbar").hidden = (n === 0);
+    document.body.classList.toggle("run1", S.run === 1);
+    $("runBadge").textContent = RUNS[S.run];
+    renderSeals(); tick();
+    if (n > CH) fillEnd();
+    restore(n);
+    window.scrollTo(0, 0);
+  }
+  var REVEAL = { "0-3": "lock03", "0-4": "lock04", "1-1": "lock11", "1-3": "lock13", "1-4": "lock14" };
+  function restore(n) {
+    var id = REVEAL[S.run + "-" + n];
+    if (id && R().open >= n) $(id).classList.remove("hidden");
+  }
+  function renderSeals() {
+    var h = "";
+    for (var i = 1; i <= CH; i++) {
+      var cls = i <= R().open ? "open" : (i === R().open + 1 ? "now" : "");
+      if (i === S.cur) cls = "now";
+      h += '<button class="seal ' + cls + '" data-seal="' + i + '" aria-label="Meilenstein ' + i + '">' + i + "</button>";
+    }
+    $("seals").innerHTML = h;
+  }
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-seal]");
+    if (!b) return;
+    var n = Number(b.getAttribute("data-seal"));
+    if (n <= R().open + 1) show(n);
+  });
+  function unlock(n) {
+    if (R().open < n) R().open = n;
+    if (n === CH) { R().end = true; if (!R().t1) R().t1 = Date.now(); if (S.run === 0) S.unlocked1 = true; }
+    save(); renderSeals();
+  }
+  function goNext(n) { show(n < CH ? n + 1 : CH + 1); }
+  function reveal(run, n) { unlock(n); $(REVEAL[run + "-" + n]).classList.remove("hidden"); }
+  function lockMsg(id, ok, text) {
+    var m = $(id); m.className = "lock-msg " + (ok ? "ok" : "bad"); m.textContent = text;
+    if (!ok) { var l = m.closest(".lock"); l.classList.remove("shake"); void l.offsetWidth; l.classList.add("shake"); }
+  }
+  function out(id, cls, html) { var c = $(id); c.className = "check show " + cls; c.innerHTML = html; }
+
+  /* ---------------------------------------------------- Zeit, Tipps, Vertiefung */
+  function fmt(ms) { var s = Math.max(0, Math.floor(ms / 1000)); return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); }
+  function nHints(run) { return Object.keys(S.r[run].hints).length; }
+  function nLaurel(run) { return Object.keys(S.r[run].laurel).length; }
+  function tick() {
+    var r = R(); if (!r.t0) return;
+    $("st-time").textContent = "⏱ " + fmt((r.t1 || Date.now()) - r.t0);
+    $("st-hints").textContent = "💡 " + nHints(S.run);
+    $("st-laurel").textContent = "🎓 " + nLaurel(S.run);
+  }
+  setInterval(tick, 1000);
+  document.querySelectorAll("details.hint[data-h]").forEach(function (d) {
+    d.addEventListener("toggle", function () {
+      if (!d.open) return;
+      var run = d.closest(".chapter").id.charAt(1);
+      S.r[run].hints[d.getAttribute("data-h")] = 1; save(); tick();
+    });
+  });
+  function laurelDone(id) {
+    var run = id.charAt(0); S.r[run].laurel[id] = 1; save(); tick();
+    var c = $("lc" + id); if (c) c.classList.add("done");
+  }
+  function laurelMsg(id, ok, text) { var m = $("lmsg" + id); m.className = "fb " + (ok ? "ok" : "bad"); m.textContent = text; if (ok) laurelDone(id); }
+
+  /* ---------------------------------------------------- Bausteine */
+  function mc(container, q, opts, onPick, letters) {
+    var el = typeof container === "string" ? $(container) : container;
+    var h = (q ? "<p>" + q + "</p>" : "") + '<div class="opts">';
+    opts.forEach(function (o, i) {
+      h += '<button class="opt" data-i="' + i + '"><span class="lt">' + (letters ? o.l : String.fromCharCode(65 + i)) + "</span><span>" + o.t + "</span></button>";
+    });
+    h += '</div><div class="fb"></div>';
+    el.innerHTML = h;
+    el.querySelectorAll(".opt").forEach(function (b) {
+      b.addEventListener("click", function () { onPick(Number(b.getAttribute("data-i")), b, el); });
+    });
+  }
+  function markOnly(el, b) { el.querySelectorAll(".opt").forEach(function (x) { x.classList.remove("sel", "ok", "bad"); }); b.classList.add("sel"); }
+  function judge(el, b, ok, text) {
+    el.querySelectorAll(".opt").forEach(function (x) { x.classList.remove("sel", "ok", "bad"); });
+    b.classList.add(ok ? "ok" : "bad");
+    var fb = el.querySelector(".fb"); fb.className = "fb " + (ok ? "ok" : "bad"); fb.textContent = text || (ok ? "Richtig!" : "Noch nicht.");
+  }
+  function laurelMC(id, opts) {
+    mc("l" + id, "", opts, function (k, b, el) { judge(el, b, !!opts[k].ok, opts[k].fb); if (opts[k].ok) laurelDone(id); });
+  }
+  function quiz(container, prefix, Q) {
+    var h = "";
+    Q.forEach(function (_, i) { h += '<div class="q" id="' + prefix + i + '"></div>'; });
+    $(container).innerHTML = h;
+    Q.forEach(function (item, i) { mc(prefix + i, (i + 1) + ". " + item.q, item.o, function (k, b, el) { markOnly(el, b); }, true); });
+  }
+  /* Auswahl-Lücken: parts = Text oder {k: Schlüssel}; choices = Wortspeicher; accept[k] = erlaubte Wörter */
+  function selectHTML(id, choices, cur) {
+    var h = '<select class="gsel" id="' + id + '"><option value="">…</option>';
+    choices.forEach(function (c) { h += '<option' + (c === cur ? " selected" : "") + ">" + c + "</option>"; });
+    return h + "</select>";
+  }
+  /* Mehrfachauswahl-Kacheln */
+  function pickAll(container, list, store) {
+    var sel = R().vals[store] || {};
+    var h = ""; list.forEach(function (x, i) { h += '<button class="tile' + (sel[i] ? " sel" : "") + '" data-i="' + i + '">' + (x.em ? '<span class="em">' + x.em + "</span>" : "") + x.t + "</button>"; });
+    $(container).innerHTML = h;
+    $(container).querySelectorAll(".tile").forEach(function (b) {
+      b.addEventListener("click", function () { var i = b.getAttribute("data-i"); sel[i] = !sel[i]; b.classList.toggle("sel", !!sel[i]); b.classList.remove("ok", "bad"); R().vals[store] = sel; save(); });
+    });
+    return function () {
+      var wrong = 0, miss = 0;
+      list.forEach(function (x, i) {
+        var b = $(container).querySelector('[data-i="' + i + '"]'), s = !!sel[i];
+        b.classList.remove("ok", "bad");
+        if (s && x.ok) b.classList.add("ok"); else if (s && !x.ok) { b.classList.add("bad"); wrong++; } else if (!s && x.ok) miss++;
+      });
+      return { wrong: wrong, miss: miss };
+    };
+  }
+  /* Gleichung mit Koeffizienten: terms = [{c: richtiger Koeffizient, f: Formel} | "+" | "→"] */
+  function coefEq(container, terms, key) {
+    var saved = (R().vals[key] || {}), h = "";
+    terms.forEach(function (t, i) {
+      if (typeof t === "string") { h += '<span class="op">' + t + "</span>"; return; }
+      if (t.fix) { h += '<span class="term">' + t.f + "</span>"; return; }
+      h += '<span class="term"><select class="csel" data-i="' + i + '" aria-label="Koeffizient vor ' + t.f.replace(/<[^>]+>/g, "") + '">';
+      ["", "2", "3", "4"].forEach(function (c) { h += '<option value="' + c + '"' + (saved[i] === c ? " selected" : "") + ">" + (c || "1") + "</option>"; });
+      h += "</select>" + t.f + "</span>";
+    });
+    $(container).innerHTML = h;
+    $(container).querySelectorAll(".csel").forEach(function (s) {
+      s.addEventListener("change", function () { var v = R().vals[key] || {}; v[s.getAttribute("data-i")] = s.value; R().vals[key] = v; save(); s.classList.remove("ok", "bad"); });
+    });
+    return function () {
+      var ok = true;
+      $(container).querySelectorAll(".csel").forEach(function (s) {
+        var t = terms[Number(s.getAttribute("data-i"))], want = t.c === 1 ? "" : String(t.c), good = s.value === want;
+        s.classList.toggle("ok", good); s.classList.toggle("bad", !good); if (!good) ok = false;
+      });
+      return ok;
+    };
+  }
+  function softStop(key, sig, outId, html) {
+    var v = R().vals; if (v[key] === sig) return false;
+    v[key] = sig; save(); out(outId, "warn", html); return true;
+  }
+
+  /* ==================================================== SITZUNG 1 */
+  quiz("quiz01", "q01_", [
+    { q: "Was bedeutet das Gefahrenpiktogramm GHS05?", o: [
+      { l: "F", t: "Der Stoff ist leicht entzündbar." },
+      { l: "B", t: "Ätzwirkung: Der Stoff zerstört Haut, Augen und manche Metalle." },
+      { l: "T", t: "Der Stoff ist giftig für Wasserlebewesen." }] },
+    { q: "Was bedeutet H314?", o: [
+      { l: "O", t: "Kann allergische Hautreaktionen verursachen." },
+      { l: "U", t: "Flüssigkeit und Dampf leicht entzündbar." },
+      { l: "A", t: "Verursacht schwere Verätzungen der Haut und schwere Augenschäden." }] },
+    { q: "Wie fasst ihr die Perlen im Versuch an?", o: [
+      { l: "S", t: "nur mit Pinzette oder Spatel, nie mit den Fingern" },
+      { l: "K", t: "mit trockenen Fingern, das ist ungefährlich" },
+      { l: "N", t: "mit nassen Fingern, dann lösen sie sich schneller" }] },
+    { q: "Was steht laut Etikett im Granulat?", o: [
+      { l: "I", t: "Natriumchlorid und Zucker" },
+      { l: "R", t: "Essigsäure und Kalk" },
+      { l: "E", t: "Natriumhydroxid und Aluminium" }] }
+  ]);
+  laurelMC("0-1", [
+    { t: "Rohrreiniger nicht in Gefäßen oder Rohren aus Aluminium oder anderen unedlen Metallen aufbewahren oder anwenden.", ok: 1, fb: "Genau! „Korrosiv gegenüber Metallen“ heißt: Der Stoff greift manche Metalle an." },
+    { t: "Rohrreiniger nur im Kühlschrank lagern.", fb: "Die Temperatur hat mit H290 nichts zu tun." },
+    { t: "Rohrreiniger vor dem Gebrauch mit Metallpulver mischen.", fb: "Bloß nicht! Das Granulat greift Metalle an." }
+  ]);
+
+  /* ---- 0.2 Hypothese */
+  var GAP = { w: ["Wärme", "Fett", "alkalisch", "Feststoff", "ätzend", "wasserlöslicher", "Haare"],
+    parts: ["Vermutlich ist die Lösung des Rohrreinigers stark ", 0, ", da Lösungen mit sehr hohem pH-Wert ", 1, " sind und ", 2, " und ", 3,
+            " zersetzen. Damit das Mittel bis zum Pfropf gelangt, ist es ein ", 4, " ", 5, ", der sich unter Abgabe von ", 6, " löst."],
+    ok: [["alkalisch"], ["ätzend"], ["Haare", "Fett"], ["Haare", "Fett"], ["wasserlöslicher"], ["Feststoff"], ["Wärme"]] };
+  function renderGap() {
+    var v = R().vals.gap || [], h = "";
+    GAP.parts.forEach(function (p) { h += typeof p === "number" ? selectHTML("g02_" + p, GAP.w, v[p]) : esc(p); });
+    $("gap02").innerHTML = h;
+    GAP.ok.forEach(function (_, i) { $("g02_" + i).addEventListener("change", function () { var a = R().vals.gap || []; a[i] = this.value; R().vals.gap = a; save(); this.classList.remove("ok", "bad"); }); });
+  }
+  $("gap02check").addEventListener("click", function () {
+    var bad = 0, a = [];
+    GAP.ok.forEach(function (acc, i) {
+      var s = $("g02_" + i), good = acc.indexOf(s.value) >= 0;
+      if (i === 3 && s.value === $("g02_2").value) good = false;
+      s.classList.toggle("ok", good); s.classList.toggle("bad", !good); if (!good) bad++; a.push(s.value);
+    });
+    if (!bad) { R().vals.gapOk = 1; save(); out("gap02fb", "ok", "Eure Hypothese ist fachlich sauber formuliert. Jetzt muss sie sich im Labor bewähren!"); }
+    else out("gap02fb", "bad", bad + " Lücke(n) passen noch nicht (rot). Tipp 1 und 2 helfen.");
+  });
+  var PLAN = [
+    { q: "Ist die Lösung alkalisch?", with: ["pH-Indikatorpapier", "Thermometer", "Magnesiastäbchen und Brennerflamme"], w: 0,
+      exp: ["Das Papier färbt sich blau bis violett.", "Die Temperatur steigt.", "Die Flamme färbt sich gelb-orange."], e: 0 },
+    { q: "Wird beim Lösen Wärme frei?", with: ["pH-Indikatorpapier", "Thermometer", "Magnesiastäbchen und Brennerflamme"], w: 1,
+      exp: ["Das Papier färbt sich blau bis violett.", "Die Temperatur steigt.", "Die Flamme färbt sich gelb-orange."], e: 1 },
+    { q: "Enthalten die weißen Perlen Natrium?", with: ["pH-Indikatorpapier", "Thermometer", "Magnesiastäbchen und Brennerflamme"], w: 2,
+      exp: ["Das Papier färbt sich blau bis violett.", "Die Temperatur steigt.", "Die Flamme färbt sich gelb-orange."], e: 2 }
+  ];
+  function renderPlan() {
+    var v = R().vals.plan || {}, h = '<div class="plan">';
+    PLAN.forEach(function (p, i) {
+      h += '<div class="prow"><b>' + p.q + "</b>" + selectHTML("pw" + i, p.with, v["w" + i]) + selectHTML("pe" + i, p.exp, v["e" + i]) + "</div>";
+    });
+    $("plan02").innerHTML = h + "</div>";
+    PLAN.forEach(function (_, i) { ["w", "e"].forEach(function (k) { $("p" + k + i).addEventListener("change", function () { var o = R().vals.plan || {}; o[k + i] = this.value; R().vals.plan = o; save(); this.classList.remove("ok", "bad"); }); }); });
+  }
+  $("plan02check").addEventListener("click", function () {
+    var bad = 0;
+    PLAN.forEach(function (p, i) {
+      var a = $("pw" + i), b = $("pe" + i), ga = a.value === p.with[p.w], gb = b.value === p.exp[p.e];
+      a.classList.toggle("ok", ga); a.classList.toggle("bad", !ga); b.classList.toggle("ok", gb); b.classList.toggle("bad", !gb);
+      if (!ga) bad++; if (!gb) bad++;
+    });
+    if (!bad) { R().vals.planOk = 1; save(); out("plan02fb", "ok", "Der Plan steht. Zeigt ihn jetzt im Journal eurer Lehrperson und holt euch das Freigabewort."); }
+    else out("plan02fb", "bad", bad + " Feld(er) passen noch nicht (rot).");
+  });
+  laurelMC("0-2", [
+    { t: "Ein Feststoff sinkt durch das stehende Wasser im Siphon bis zum Pfropf und löst sich erst dort. So wirkt er konzentriert, heiß und genau an der richtigen Stelle.", ok: 1, fb: "Genau! Eine fertige Lösung würde sich im Wasser des Siphons sofort verdünnen." },
+    { t: "Granulat ist billiger zu transportieren, sonst gibt es keinen Grund.", fb: "Der Transport spielt eine Rolle, aber chemisch ist etwas anderes entscheidend." },
+    { t: "In Flaschen würde sich Natriumhydroxid zersetzen.", fb: "Natronlauge lässt sich in Kunststoffflaschen lagern. Es geht um die Wirkung im Abfluss." }
+  ]);
+
+  /* ---- 0.3 Labor */
+  $("check03").addEventListener("click", function () {
+    var t0 = num($("t0").value), t1 = num($("t1").value), ph = num($("ph03").value), o1 = $("obs1").value, o3 = $("obs3").value, o4 = $("obs4").value;
+    if (isNaN(t0) || isNaN(t1) || isNaN(ph) || !o1 || !o3 || !o4) { out("fb03", "bad", "Bitte alle drei Zahlen eintippen und alle drei Beobachtungen wählen."); return; }
+    var v = R().vals; v.t0 = t0; v.t1 = t1; v.ph = ph; save();
+    var probs = [];
+    if (t1 <= t0) probs.push("Die Temperatur ist nicht gestiegen. Habt ihr nach dem Zugeben der Perlen etwas gewartet und geschwenkt?");
+    if (ph < 10) probs.push("Ein pH-Wert unter 10 ist für Rohrreiniger ungewöhnlich niedrig. Habt ihr genug Perlen gelöst und direkt nach dem Eintauchen abgelesen?");
+    if (o3 && o3 !== "blau") probs.push("Passt eure Papierfarbe zum pH-Wert? Ein hoher pH-Wert färbt das Papier blau bis violett.");
+    if (o4 !== "gelb") probs.push("Natrium-Ionen färben die Flamme gelb-orange. Habt ihr das Stäbchen vorher ausgeglüht?");
+    if (o1 !== "a") probs.push("Schaut noch einmal genau auf das Uhrglas: Gibt es nur eine Sorte Körnchen?");
+    var sig = [t0, t1, ph, o1, o3, o4].join("|");
+    if (probs.length && softStop("soft03", sig, "fb03", probs.join(" ") + " <br>Wenn eure Werte wirklich so waren, tippt noch einmal auf Prüfen und sprecht danach mit der Lehrperson.")) return;
+    out("fb03", "ok", "Sauber dokumentiert! Temperatur " + deAuto(t0) + " °C → " + deAuto(t1) + " °C, pH " + deAuto(ph) + ". Jetzt geht es an die Deutung.");
+    reveal(0, 3);
+  });
+  laurelMC("0-3", [
+    { t: "Sauerstoff. Er lässt den Pfropf verbrennen.", fb: "Sauerstoff zeigt sich bei der Glimmspanprobe, nicht bei der Knallgasprobe." },
+    { t: "Wasserstoff. Die Bläschen wirbeln die Lösung durch und lockern den Pfropf.", ok: 1, fb: "Richtig! Wasserstoff entsteht, wenn Aluminium mit der stark alkalischen Lösung reagiert. Deshalb gehört keine offene Flamme in die Nähe." },
+    { t: "Kohlenstoffdioxid. Es löscht die Wärme.", fb: "Kohlenstoffdioxid trübt Kalkwasser. Hier ploppt es bei der Knallgasprobe." }
+  ]);
+
+  /* ---- 0.4 Deutung und Gleichung */
+  var DEUT = [
+    { q: "pH-Indikatorpapier blau bis violett", a: "Die Lösung ist alkalisch, sie enthält viele Hydroxid-Ionen." },
+    { q: "Die Temperatur steigt", a: "Das Lösen von Natriumhydroxid ist exotherm." },
+    { q: "Die Flamme leuchtet gelb-orange", a: "Die Perlen enthalten Natrium-Ionen." }
+  ];
+  var DEUT_W = DEUT.map(function (d) { return d.a; }).concat(["Die Lösung ist neutral."]);
+  function renderDeut() {
+    var v = R().vals.deut || {}, h = '<div class="plan">';
+    DEUT.forEach(function (d, i) { h += '<div class="prow two-col"><b>' + d.q + "</b>" + selectHTML("d04_" + i, DEUT_W, v[i]) + "</div>"; });
+    $("deut04").innerHTML = h + "</div>";
+    DEUT.forEach(function (_, i) { $("d04_" + i).addEventListener("change", function () { var o = R().vals.deut || {}; o[i] = this.value; R().vals.deut = o; save(); this.classList.remove("ok", "bad"); }); });
+  }
+  $("deut04check").addEventListener("click", function () {
+    var bad = 0;
+    DEUT.forEach(function (d, i) { var s = $("d04_" + i), g = s.value === d.a; s.classList.toggle("ok", g); s.classList.toggle("bad", !g); if (!g) bad++; });
+    if (!bad) { R().vals.deutOk = 1; save(); out("deut04fb", "ok", "Alle drei Deutungen stimmen. Eure Hypothese ist bestätigt!"); check04(); }
+    else out("deut04fb", "bad", bad + " Deutung(en) passen noch nicht (rot).");
+  });
+  var ION = ["Na⁺(aq)", "OH⁻(aq)", "Na(s)", "O²⁻(aq)", "H⁺(aq)", "H₂(g)"];
+  function renderEq04() {
+    var v = R().vals.eq04 || [];
+    $("eq04").innerHTML = '<span class="term">NaOH(s)</span><span class="op">→</span>' + selectHTML("e04_0", ION, v[0]) + '<span class="op">+</span>' + selectHTML("e04_1", ION, v[1]);
+    [0, 1].forEach(function (i) { $("e04_" + i).addEventListener("change", function () { var a = R().vals.eq04 || []; a[i] = this.value; R().vals.eq04 = a; save(); this.classList.remove("ok", "bad"); }); });
+  }
+  $("eq04check").addEventListener("click", function () {
+    var a = $("e04_0"), b = $("e04_1"), pair = [a.value, b.value].sort().join("+"), ok = pair === ["Na⁺(aq)", "OH⁻(aq)"].sort().join("+");
+    [a, b].forEach(function (s) { var g = s.value === "Na⁺(aq)" || s.value === "OH⁻(aq)"; s.classList.toggle("ok", ok || (g && a.value !== b.value)); s.classList.toggle("bad", !(ok || (g && a.value !== b.value))); });
+    if (ok) { R().vals.eqOk = 1; save(); out("eq04fb", "ok", "NaOH(s) → Na⁺(aq) + OH⁻(aq). Das Ionengitter zerfällt, die Ionen werden von Wassermolekülen umhüllt. Das nennt man Dissoziation."); check04(); }
+    else out("eq04fb", "bad", "Noch nicht. Im Gitter sitzen schon Ionen. Beim Lösen entsteht nichts Neues, die Ionen werden nur frei beweglich.");
+  });
+  function check04() { var v = R().vals; if (v.deutOk && v.eqOk) reveal(0, 4); }
+  laurelMC("0-4", [
+    { t: "Ca(OH)₂(s) → Ca²⁺(aq) + 2 OH⁻(aq)", ok: 1, fb: "Richtig! Ein Ca²⁺-Ion braucht zwei Hydroxid-Ionen zum Ladungsausgleich." },
+    { t: "Ca(OH)₂(s) → Ca⁺(aq) + OH⁻(aq)", fb: "Calcium bildet Ca²⁺-Ionen, und die Formel enthält zwei OH-Gruppen." },
+    { t: "Ca(OH)₂(s) → Ca²⁺(aq) + OH₂⁻(aq)", fb: "Ein Teilchen OH₂⁻ gibt es nicht. Es entstehen zwei einzelne Hydroxid-Ionen." }
+  ]);
+
+  /* ---- 0.5 Reihenfolge und Quiz */
+  var ORD = ["Das Wasser im Siphon wird alkalisch, Hydroxid-Ionen zersetzen Haare und Fett.", "Das Granulat sinkt durch das Wasser bis zum Pfropf.",
+             "Aluminium reagiert, Wasserstoff sprudelt und lockert den Pfropf.", "Natriumhydroxid löst sich, das Wasser wird heiß."];
+  var ORD_OK = [1, 3, 0, 2];
+  function renderOrd() {
+    var picked = R().vals.ord || [], h = "";
+    ORD.forEach(function (t, i) { var p = picked.indexOf(i); h += '<button class="tile ordt' + (p >= 0 ? " sel" : "") + '" data-i="' + i + '"><span class="ord">' + (p >= 0 ? p + 1 : "") + "</span>" + t + "</button>"; });
+    $("ord05").innerHTML = h;
+    $("ord05").querySelectorAll(".tile").forEach(function (b) {
+      b.addEventListener("click", function () { var i = Number(b.getAttribute("data-i")), a = R().vals.ord || []; if (a.indexOf(i) < 0) { a.push(i); R().vals.ord = a; save(); renderOrd(); } });
+    });
+  }
+  $("ord05reset").addEventListener("click", function () { R().vals.ord = []; R().vals.ordOk = 0; save(); renderOrd(); $("ord05fb").className = "check"; });
+  $("ord05check").addEventListener("click", function () {
+    var a = R().vals.ord || [];
+    if (a.length < 4) { out("ord05fb", "bad", "Tippt alle vier Schritte nacheinander an."); return; }
+    if (a.join() === ORD_OK.join()) { R().vals.ordOk = 1; save(); out("ord05fb", "ok", "Genau so arbeitet der Rohrreiniger im Abfluss."); }
+    else out("ord05fb", "bad", "Die Reihenfolge stimmt noch nicht. Was muss zuerst passieren, damit überhaupt etwas am Pfropf ankommt?");
+  });
+  quiz("quiz05", "q05_", [
+    { q: "Eine Base ist ein Teilchen, das …", o: [
+      { l: "M", t: "… ein Proton abgibt." }, { l: "P", t: "… ein Proton aufnimmt." }, { l: "W", t: "… ein Elektron aufnimmt." }] },
+    { q: "Bei der Reaktion von Ammoniak mit Wasser nimmt ein Proton auf:", o: [
+      { l: "R", t: "das Ammoniak-Molekül" }, { l: "G", t: "das Wassermolekül" }, { l: "Z", t: "keines der beiden" }] },
+    { q: "Warum ist Rohrreiniger für die Augen so gefährlich?", o: [
+      { l: "D", t: "Weil er die Augen nur austrocknet." },
+      { l: "O", t: "Die stark alkalische Lösung zersetzt organische Stoffe, aus denen auch Haut und Augen bestehen." },
+      { l: "H", t: "Weil er kalt ist und die Augen unterkühlt." }] },
+    { q: "Wozu enthält das Granulat Aluminium?", o: [
+      { l: "F", t: "Es reagiert und bildet Wasserstoffbläschen, die den Pfropf lockern." },
+      { l: "L", t: "Es färbt die Lösung grau, damit man sie sieht." }, { l: "C", t: "Es macht das Granulat schwerer." }] },
+    { q: "Was darf man mit Rohrreiniger nie tun?", o: [
+      { l: "Y", t: "ihn mit kaltem Wasser nachspülen" }, { l: "I", t: "ihn mit sauren Reinigern mischen" }, { l: "V", t: "ihn im Originalbehälter lagern" }] }
+  ]);
+  laurelMC("0-5", [
+    { t: "OH⁻(aq) + H₃O⁺(aq) → 2 H₂O(l). Die Reaktion ist stark exotherm, die Lösung kann aufkochen und spritzen.", ok: 1, fb: "Richtig! Hydroxid-Ion und Oxonium-Ion bilden Wasser. Dabei wird so viel Wärme frei, dass ätzende Spritzer entstehen können." },
+    { t: "OH⁻(aq) + H₃O⁺(aq) → H₂(g) + O₂(g). Es entsteht Knallgas.", fb: "Die Ionen bilden Wasser, kein Gasgemisch." },
+    { t: "OH⁻(aq) + H₃O⁺(aq) → H₂O(l). Die Reaktion ist ungefährlich.", fb: "Zählt die Atome: Es entstehen zwei Wassermoleküle. Und ungefährlich ist es nicht." }
+  ]);
+
+  /* ==================================================== SITZUNG 2 */
+  var PROP = [
+    { em: "🟣", t: "Universalindikator färbt sich blauviolett.", ok: 1 },
+    { em: "🩷", t: "Phenolphthalein färbt sich rotviolett.", ok: 1 },
+    { em: "🖐️", t: "Sie fühlen sich glitschig an, konzentriert sind sie ätzend.", ok: 1 },
+    { em: "⚡", t: "Sie leiten den elektrischen Strom, enthalten also Ionen.", ok: 1 },
+    { em: "🍋", t: "Sie schmecken sauer." },
+    { em: "🔴", t: "Universalindikator färbt sich rot." },
+    { em: "⚛️", t: "Ursache der Wirkung sind Hydroxid-Ionen OH⁻.", ok: 1 },
+    { em: "🚫", t: "Sie enthalten keine Ionen." }
+  ];
+  var check11;
+  $("prop11check").addEventListener("click", function () {
+    var ph = num($("ph11").value);
+    if (isNaN(ph) || !$("ta11").value.trim() || !$("ha11").value.trim()) { out("fb11a", "bad", "Tragt zuerst die Brezel-Probe ein: pH-Wert, Geschmack und Haptik."); return; }
+    var v = R().vals; v.ph = ph; v.taste = $("ta11").value.trim(); v.feel = $("ha11").value.trim(); save();
+    if (ph < 6 || ph > 12) { if (softStop("soft11", String(ph), "fb11a", "Ein pH-Wert von " + deAuto(ph) + " ist für eine Brezel-Oberfläche ungewöhnlich. Prüft noch einmal mit frischem, angefeuchtetem Papier. Wenn der Wert stimmt, tippt erneut auf Prüfen.")) return; }
+    out("fb11a", "ok", "Brezel-Probe notiert: pH " + deAuto(ph) + ", " + esc(v.taste) + ", " + esc(v.feel) + ".");
+    var r = check11();
+    if (!r.wrong && !r.miss) { out("prop11fb", "ok", "Alles richtig! Gemeinsame Ursache aller Eigenschaften sind die Hydroxid-Ionen."); reveal(1, 1); }
+    else out("prop11fb", "bad", (r.wrong ? r.wrong + " Aussage(n) sind falsch (rot). " : "") + (r.miss ? "Es fehlen noch " + r.miss + " richtige Aussage(n)." : ""));
+  });
+  laurelMC("1-1", [
+    { t: "Die Natronlauge ist sehr dünn, und beim Backen reagiert das Natriumhydroxid weiter, vor allem mit Kohlenstoffdioxid. Auf der fertigen Brezel ist kaum noch Hydroxid übrig.", ok: 1, fb: "Genau! Aus dem Hydroxid wird beim Backen größtenteils Natriumcarbonat. Die braune Farbe entsteht, weil die alkalische Oberfläche die Bräunungsreaktion beschleunigt." },
+    { t: "Natronlauge ist eigentlich ungefährlich, man darf sie trinken.", fb: "Auf keinen Fall! Natronlauge verätzt Mund und Speiseröhre." },
+    { t: "Das Salz auf der Brezel neutralisiert die Lauge.", fb: "Kochsalz ist neutral und kann keine Lauge neutralisieren." }
+  ]);
+
+  quiz("quiz12", "q12_", [
+    { q: "Was ist eine Lauge?", o: [
+      { l: "K", t: "eine Lösung eines Alkalimetallhydroxids in Wasser" },
+      { l: "N", t: "jede Flüssigkeit, die schäumt" },
+      { l: "B", t: "eine saure Lösung" }] },
+    { q: "Ammoniaklösung ist alkalisch. Ist sie eine Lauge?", o: [
+      { l: "E", t: "Ja, jede alkalische Lösung ist eine Lauge." },
+      { l: "A", t: "Nein, sie enthält kein Metallhydroxid. Die Hydroxid-Ionen entstehen durch Protonenübergang." },
+      { l: "U", t: "Nein, weil sie nicht ätzend ist." }] },
+    { q: "Warum ist „Lauge“ keine Bezeichnung für einen Reinstoff?", o: [
+      { l: "S", t: "Weil Laugen immer rot gefärbt sind." },
+      { l: "M", t: "Weil eine Lauge aus nur einem Element besteht." },
+      { l: "L", t: "Weil eine Lauge eine Lösung ist, also ein Gemisch aus Hydroxid und Wasser." }] },
+    { q: "Warum muss man beim Experimentieren mit Laugen unbedingt eine Schutzbrille tragen?", o: [
+      { l: "K", t: "Laugen zersetzen organische Stoffe. Schon ein Spritzer kann das Auge schwer und dauerhaft schädigen." },
+      { l: "T", t: "Weil Laugen stark nach Ammoniak riechen." },
+      { l: "P", t: "Damit man die Farbe des Indikators besser sieht." }] }
+  ]);
+  var L12 = [
+    { t: "Natronlauge", ok: 1 }, { t: "Kalilauge", ok: 1 }, { t: "Lithiumhydroxid-Lösung", ok: 1 },
+    { t: "Ammoniaklösung (Salmiakgeist)" }, { t: "Kalkwasser (Calciumhydroxid-Lösung)" }
+  ];
+  var check12l;
+
+  var EQ13 = [{ c: 2, f: "K(s)" }, "+", { c: 2, f: "H₂O(l)" }, "→", { c: 2, f: "K⁺(aq)" }, "+", { c: 2, f: "OH⁻(aq)" }, "+", { c: 1, f: "H₂(g)" }];
+  var EQ13L = [{ c: 1, f: "Ca(s)" }, "+", { c: 2, f: "H₂O(l)" }, "→", { c: 1, f: "Ca²⁺(aq)" }, "+", { c: 2, f: "OH⁻(aq)" }, "+", { c: 1, f: "H₂(g)" }];
+  var EQ14A = [{ c: 1, f: "Li₂O(s)" }, "+", { c: 1, f: "H₂O(l)" }, "→", { c: 2, f: "Li⁺(aq)" }, "+", { c: 2, f: "OH⁻(aq)" }];
+  var EQ14B = [{ c: 1, f: "LiOH(s)" }, "→", { c: 1, f: "Li⁺(aq)" }, "+", { c: 1, f: "OH⁻(aq)" }];
+  var EQ14L = [{ c: 1, f: "K₂O(s)" }, "+", { c: 1, f: "H₂O(l)" }, "→", { c: 2, f: "K⁺(aq)" }, "+", { c: 2, f: "OH⁻(aq)" }];
+  var chk13, chk13l, chk14a, chk14b, chk14l;
+  $("co13check").addEventListener("click", function () {
+    if (chk13()) { out("co13fb", "ok", "2 K(s) + 2 H₂O(l) → 2 K⁺(aq) + 2 OH⁻(aq) + H₂(g). Links und rechts: 2 K, 4 H, 2 O."); reveal(1, 3); }
+    else out("co13fb", "bad", "Noch nicht ausgeglichen (rot). Zählt K-, H- und O-Atome auf beiden Seiten.");
+  });
+  $("l13check").addEventListener("click", function () {
+    var ok = chk13l();
+    laurelMsg("1-3", ok, ok ? "Richtig: Ca(s) + 2 H₂O(l) → Ca²⁺(aq) + 2 OH⁻(aq) + H₂(g). Das zweifach geladene Ion braucht zwei Hydroxid-Ionen." : "Noch nicht. Ca²⁺ ist zweifach positiv geladen. Wie viele OH⁻ gleichen das aus?");
+  });
+  $("co14check").addEventListener("click", function () {
+    var a = chk14a(), b = chk14b();
+    if (a && b) { out("co14fb", "ok", "Beide Gleichungen stimmen. Bei Weg 2 entsteht kein Wasserstoff, die Reaktion verläuft ruhiger."); reveal(1, 4); }
+    else out("co14fb", "bad", (a ? "a) stimmt. " : "a) ist noch nicht ausgeglichen. ") + (b ? "b) stimmt." : "b) stimmt noch nicht."));
+  });
+  $("l14check").addEventListener("click", function () {
+    var ok = chk14l();
+    laurelMsg("1-4", ok, ok ? "Richtig: K₂O(s) + H₂O(l) → 2 K⁺(aq) + 2 OH⁻(aq). Aus Asche und Wasser entsteht Kalilauge, vereinfacht betrachtet." : "Noch nicht. Ein K₂O enthält zwei Kalium-Ionen.");
+  });
+
+  /* ---- 1.5 Bewertung */
+  var IDEAS = [["A", "🏭 Natronlauge"], ["B", "🪨 Kalkwasser"], ["C", "🌳 Aschelauge"]], CRIT = ["Wirkung", "Sicherheit", "Umwelt"];
+  function renderRate() {
+    var v = R().vals.rate || {}, h = '<div class="rate"><div class="rh"></div>' + CRIT.map(function (c) { return '<div class="rh">' + c + "</div>"; }).join("") + "</div>";
+    IDEAS.forEach(function (idea) {
+      h += '<div class="rate"><div class="rn">' + idea[1] + "</div>";
+      CRIT.forEach(function (c) {
+        var k = idea[0] + c, cur = v[k] || 0;
+        h += '<div class="stars3" data-k="' + k + '">' + [1, 2, 3].map(function (n) { return '<button class="st' + (n <= cur ? " on" : "") + '" data-n="' + n + '" aria-label="' + idea[1] + " " + c + " " + n + ' Sterne">★</button>'; }).join("") + "</div>";
+      });
+      h += "</div>";
+    });
+    $("rate15").innerHTML = h;
+    $("rate15").querySelectorAll(".stars3 .st").forEach(function (b) {
+      b.addEventListener("click", function () { var k = b.parentNode.getAttribute("data-k"), o = R().vals.rate || {}; o[k] = Number(b.getAttribute("data-n")); R().vals.rate = o; save(); renderRate(); });
+    });
+  }
+  function rateDone() { var v = R().vals.rate || {}; return IDEAS.every(function (i) { return CRIT.every(function (c) { return v[i[0] + c]; }); }); }
+  function rateText() {
+    var v = R().vals.rate || {};
+    return IDEAS.map(function (i) { var s = CRIT.reduce(function (a, c) { return a + (v[i[0] + c] || 0); }, 0); return i[0] + " " + s; }).join(" · ");
+  }
+  quiz("quiz15", "q15_", [
+    { q: "Welche Aussage über die Herstellung von Natronlauge stimmt?", o: [
+      { l: "E", t: "Industriell entsteht sie durch Elektrolyse von Kochsalzlösung, das braucht viel elektrische Energie." },
+      { l: "G", t: "Man gewinnt sie direkt aus Meerwasser, ganz ohne Energie." },
+      { l: "Q", t: "Man stellt sie aus Natrium und Wasser her, weil das ungefährlich ist." }] },
+    { q: "Warum ist Kalkwasser weniger ätzend als Natronlauge gleicher Menge Feststoff?", o: [
+      { l: "J", t: "Weil Calcium kein Metall ist." },
+      { l: "C", t: "Weil sich Calciumhydroxid nur wenig in Wasser löst. Es entstehen weniger Hydroxid-Ionen." },
+      { l: "X", t: "Weil Kalkwasser sauer ist." }] },
+    { q: "Was ist an Aschelauge ökologisch besonders?", o: [
+      { l: "O", t: "Sie nutzt ein Abfallprodukt aus nachwachsendem Holz." },
+      { l: "U", t: "Sie ist völlig ungefährlich und darf getrunken werden." },
+      { l: "Ä", t: "Sie enthält gar keine Hydroxid-Ionen." }] }
+  ]);
+  laurelMC("1-5", [
+    { t: "Viele Verstopfungen lassen sich mechanisch lösen, mit Saugglocke oder Spirale. Ein Sieb im Abfluss verhindert, dass sich Haare überhaupt sammeln. Chemie erst, wenn das nicht hilft.", ok: 1, fb: "Genau! Vorbeugen und mechanisch reinigen spart Chemikalien, Energie und Verletzungen." },
+    { t: "Man soll den Abfluss einfach verstopft lassen.", fb: "Das ist sicher nicht gemeint." },
+    { t: "Man soll statt Rohrreiniger Säure in den Abfluss gießen.", fb: "Säuren sind ebenfalls ätzend und lösen Fett schlecht. Und mischen darf man sie mit Rohrreiniger nie." }
+  ]);
+
+  /* ---- Schlösser (Codes) */
+  var LOCKS = {
+    "0-1": { code: "code01", ok: ["BASE"], msg: "msg01" },
+    "0-2": { code: "code02", ok: ["LABOR"], msg: "msg02", gate: function () { var v = R().vals; if (!v.gapOk || !v.planOk) { lockMsg("msg02", false, "Prüft zuerst oben Hypothese und Testplan."); return false; } return true; } },
+    "0-5": { code: "code05", ok: ["PROFI"], msg: "msg05", gate: function () { if (!R().vals.ordOk) { lockMsg("msg05", false, "Bringt zuerst oben die Schritte im Abfluss in die richtige Reihenfolge."); return false; } return true; } },
+    "1-2": { code: "code12", ok: ["KALK"], msg: "msg12" },
+    "1-5": { code: "code15", ok: ["ECO"], msg: "msg15", gate: function () { if (!rateDone()) { lockMsg("msg15", false, "Vergebt zuerst oben für alle drei Ideen in jeder Kategorie Sterne."); return false; } return true; } }
+  };
+  function checkLock(id, code, accept, msgId, extraOk) {
+    var v = norm($(code).value);
+    if (extraOk && !extraOk()) return;
+    if (accept.indexOf(v) >= 0) { lockMsg(msgId, true, "Meilenstein erreicht! Die nächste Aufgabe öffnet sich …"); var n = Number(id.split("-")[1]); unlock(n); setTimeout(function () { goNext(n); }, 900); }
+    else lockMsg(msgId, false, v.length ? "Falscher Code. Prüft eure Antworten noch einmal." : "Bitte zuerst einen Code eintippen.");
+  }
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-lock]"); if (b) { var id = b.getAttribute("data-lock"), L = LOCKS[id]; checkLock(id, L.code, L.ok, L.msg, L.gate); return; }
+    var nx = e.target.closest("[data-next]"); if (nx) { goNext(Number(nx.getAttribute("data-next").split("-")[1])); }
+  });
+  Object.keys(LOCKS).forEach(function (id) {
+    var L = LOCKS[id];
+    $(L.code).addEventListener("keydown", function (e) { if (e.key === "Enter") checkLock(id, L.code, L.ok, L.msg, L.gate); });
+  });
+
+  /* ---- Abschluss */
+  function namesText() { var n = S.names.filter(function (x) { return x; }); return n.length ? n.join(" · ") : "Unser Team"; }
+  function measText() { var v = S.r[0].vals; return v.t0 != null && v.t1 != null ? deAuto(v.t0) + " → " + deAuto(v.t1) + " °C · pH " + deAuto(v.ph) : "–"; }
+  function fillEnd() {
+    if (S.run === 0) {
+      var z = S.r[0], v = z.vals;
+      $("r0Names").textContent = namesText();
+      $("r0Time").textContent = fmt((z.t1 || Date.now()) - z.t0) + " min";
+      $("r0Temp").textContent = v.t0 != null ? deAuto(v.t0) + " °C → " + deAuto(v.t1) + " °C" : "–";
+      $("r0pH").textContent = v.ph != null ? deAuto(v.ph) : "–";
+      $("r0Hints").textContent = String(nHints(0));
+      $("r0Laurel").textContent = nLaurel(0) + " von 5";
+    } else {
+      var b = S.r[1].vals;
+      $("certNames").textContent = namesText();
+      $("certM").textContent = S.r[0].t0 ? measText() : "anderes iPad";
+      $("certB").textContent = b.ph != null ? "pH " + deAuto(b.ph) + " · " + b.taste + " · " + b.feel : "–";
+      $("certR").textContent = rateText();
+      var parts = [], lsum = 0, lmax = 0;
+      [0, 1].forEach(function (k) { var r = S.r[k]; if (r.t0) { parts.push("S" + (k + 1) + ": " + nHints(k)); lsum += nLaurel(k); lmax += 5; } else parts.push("S" + (k + 1) + ": anderes iPad"); });
+      $("certHints").textContent = parts.join(" · ");
+      $("certLaurel").textContent = lsum + " von " + lmax + (lmax < 10 ? " (nur Sitzungen auf diesem iPad)" : "");
+    }
+  }
+
+  /* ---- Start */
+  function readNames() { S.names = [1, 2, 3, 4].map(function (i) { return $("name" + i).value.trim(); }); }
+  function startRun(run) {
+    readNames(); S.run = run;
+    var r = S.r[run]; if (!r.t0) r.t0 = Date.now();
+    save(); renderRun();
+    show(r.end ? CH + 1 : Math.max(1, Math.min(CH, r.open + 1)));
+  }
+  function stateText(r, wort) { return r.end ? "✓ geschafft · Lösungswort " + wort : (r.open ? "Meilenstein " + r.open + " von 5 erreicht" : ""); }
+  function renderStart() {
+    [1, 2, 3, 4].forEach(function (i) { $("name" + i).value = S.names[i - 1] || ""; });
+    var z = S.r[0], a = S.r[1];
+    $("s0state").textContent = stateText(z, "HYDROXID");
+    $("start0").textContent = z.t0 ? (z.end ? "🔬 Sitzung 1 ansehen" : "🔬 Sitzung 1 weiterspielen") : "🔬 Sitzung 1 starten";
+    $("s1lock").classList.toggle("hidden", S.unlocked1); $("s1go").classList.toggle("hidden", !S.unlocked1);
+    $("s1state").textContent = a.end ? "✓ geschafft · Zertifikat erhalten" : (a.open ? "Meilenstein " + a.open + " von 5 erreicht" : (S.unlocked1 ? "freigeschaltet" : ""));
+    $("start1").textContent = a.t0 ? (a.end ? "🥨 Zertifikat ansehen" : "🥨 Sitzung 2 weiterspielen") : "🥨 Sitzung 2 starten";
+  }
+  /* Bausteine, die vom Spielstand abhängen, je Sitzung neu aufbauen */
+  function renderRun() {
+    if (S.run === 0) { renderGap(); renderPlan(); renderDeut(); renderEq04(); renderOrd(); }
+    else {
+      check11 = pickAll("prop11", PROP, "prop");
+      check12l = pickAll("l12tiles", L12, "l12");
+      chk13 = coefEq("co13", EQ13, "co13"); chk13l = coefEq("co13l", EQ13L, "co13l");
+      chk14a = coefEq("co14a", EQ14A, "co14a"); chk14b = coefEq("co14b", EQ14B, "co14b"); chk14l = coefEq("co14l", EQ14L, "co14l");
+      renderRate();
+      var v = S.r[1].vals; if (v.ph != null) { $("ph11").value = deAuto(v.ph); $("ta11").value = v.taste || ""; $("ha11").value = v.feel || ""; }
+    }
+    if (S.run === 0) { var w = S.r[0].vals; if (w.t0 != null) { $("t0").value = deAuto(w.t0); $("t1").value = deAuto(w.t1); $("ph03").value = deAuto(w.ph); } }
+  }
+  $("l12check").addEventListener("click", function () {
+    var r = check12l();
+    laurelMsg("1-2", !r.wrong && !r.miss, !r.wrong && !r.miss ? "Richtig! Ammoniaklösung enthält kein Metallhydroxid, und Calcium ist ein Erdalkalimetall. Beide sind alkalisch, aber nach der Definition im Buch keine Laugen." : "Noch nicht. Laugen sind Lösungen von Alkalimetallhydroxiden. Welche Metalle stehen in der ersten Hauptgruppe?");
+  });
+  $("start0").addEventListener("click", function () { startRun(0); });
+  $("start1").addEventListener("click", function () { startRun(1); });
+  function tryPass() {
+    var v = norm($("pass1").value);
+    if (["HYDROXID", "HYDROXIDE", "HYDROXIDION", "HYDROXIDIONEN"].indexOf(v) >= 0) { S.unlocked1 = true; save(); $("pass1msg").textContent = ""; renderStart(); }
+    else $("pass1msg").textContent = v ? "Das ist nicht das Lösungswort aus Sitzung 1." : "Bitte das Lösungswort eintippen.";
+  }
+  $("pass1btn").addEventListener("click", tryPass);
+  $("pass1").addEventListener("keydown", function (e) { if (e.key === "Enter") tryPass(); });
+
+  /* ---- Spielleitung */
+  if (/[?&]spielleitung\b/.test(location.search)) {
+    var p = $("slPanel"); p.classList.remove("hidden");
+    var pin = document.createElement("div");
+    pin.innerHTML = '<div class="lock-row" id="slPin"><input id="slPinIn" type="password" placeholder="PIN" style="font-family:JetBrains Mono,monospace;padding:0.5rem;border-radius:10px;border:2px solid #8a5cf0"><button class="btn ghost" id="slPinBtn">Öffnen</button></div>';
+    Array.prototype.forEach.call(p.children, function (c) { if (c.tagName !== "H3") c.classList.add("hidden"); });
+    p.appendChild(pin);
+    var openSL = function () { if (norm($("slPinIn").value) === "ROHRFREI") { Array.prototype.forEach.call(p.children, function (c) { c.classList.remove("hidden"); }); pin.remove(); } };
+    $("slPinBtn").addEventListener("click", openSL);
+    $("slPinIn").addEventListener("keydown", function (e) { if (e.key === "Enter") openSL(); });
+    $("slSkip").addEventListener("click", function () {
+      if (S.cur < 1 || S.cur > CH) return;
+      var v = R().vals; v.gapOk = v.planOk = v.deutOk = v.eqOk = v.ordOk = 1;
+      if (S.run === 0 && S.cur === 3 && v.t0 == null) { v.t0 = 20; v.t1 = 31; v.ph = 13; }
+      if (S.run === 1 && S.cur === 1 && v.ph == null) { v.ph = 8; v.taste = "salzig"; v.feel = "glatt"; }
+      if (S.run === 1 && S.cur === 5 && !rateDone()) { var o = {}; IDEAS.forEach(function (i) { CRIT.forEach(function (c) { o[i[0] + c] = 2; }); }); v.rate = o; }
+      unlock(S.cur); goNext(S.cur);
+    });
+    $("slUnlock2").addEventListener("click", function () { S.unlocked1 = true; save(); renderStart(); });
+    $("slReset").addEventListener("click", function () { try { localStorage.removeItem(KEY); } catch (e) {} location.href = location.pathname + "?spielleitung"; });
+  }
+
+  /* ---- Laden */
+  if (load()) {
+    Object.keys(S.r).forEach(function (run) { Object.keys(S.r[run].laurel).forEach(function (id) { var c = $("lc" + id); if (c) c.classList.add("done"); }); });
+  }
+  renderRun();
+  renderStart();
+})();
+
+// Vorlese-Knöpfe: ein Klick spielt, zweiter Klick stoppt; nur eine Stimme gleichzeitig
+(() => {
+  const player = new Audio(); let active = null;
+  const reset = () => { if (active) { active.classList.remove('playing'); active.textContent = '🔊'; } active = null; };
+  player.addEventListener('ended', reset);
+  document.querySelectorAll('.say').forEach(btn => btn.addEventListener('click', () => {
+    if (active === btn) { player.pause(); reset(); return; }
+    reset(); player.src = btn.dataset.audio; player.currentTime = 0;
+    player.play().then(() => { active = btn; btn.classList.add('playing'); btn.textContent = '⏸'; }).catch(reset);
+  }));
+})();
+</script>
+</body>
+</html>
