@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Faser oder Knäuel – Vertiefung und Hilfen</title>
+<!-- Chemie LK Q1 · Sitzung 13 · erzeugt von Q1/_Werkzeuge/hilfenseiten/build.py (iCloud), Änderungen dort. Ohne Lösungen (Repo öffentlich). -->
+<style>
+:root{
+  --blau:#2a7ab8; --tblau:#156e9d; --blau-hell:#e6f0f8; --orange:#d9822b; --orange-hell:#fdf1e4;
+  --violett:#7a5aa8; --gruen:#3e9a63; --grau:#6f7a85; --linie:#d5dde5; --bg:#f6f8fa; --karte:#fff; --text:#222;
+  --sans:-apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.5}
+a{color:var(--tblau)}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header{background:linear-gradient(135deg,#156e9d 0%,#2a7ab8 60%,#3d8fc9 100%);color:#fff;padding:28px 0 22px}
+header .kurs{font-size:13px;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+header h1{margin:4px 0 6px;font-size:clamp(24px,4.5vw,34px);font-weight:600;line-height:1.2}
+header p{margin:0;opacity:.92;max-width:680px}
+nav{position:sticky;top:0;z-index:10;background:rgba(246,248,250,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--linie)}
+nav .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:8px;padding-bottom:8px}
+nav a{flex:none;text-decoration:none;color:var(--tblau);border:1px solid var(--linie);background:#fff;border-radius:16px;padding:3px 12px;font-size:14px;font-weight:600}
+nav a.v{color:var(--orange)}
+h2{font-size:20px;color:var(--tblau);margin:30px 0 4px}
+.hinweis{color:var(--grau);font-size:14px;margin:0 0 14px}
+/* Hilfekarten */
+.hilfen{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.hk{background:var(--karte);border:1.5px dashed #b9c4cf;border-radius:10px;padding:14px 16px}
+.hk h3{margin:0 0 2px;font-size:16px;color:var(--blau)}
+.hk .zu{font-size:13px;color:var(--grau);margin-bottom:8px}
+.stufe{display:none;margin:8px 0 0;padding:8px 10px;background:var(--blau-hell);border-radius:6px;font-size:15px}
+.stufe.offen{display:block;animation:auf .25s ease}
+@keyframes auf{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.hk button{margin-top:10px;border:1px solid var(--blau);background:#fff;color:var(--blau);border-radius:6px;padding:4px 12px;font-size:14px}
+.hk button:hover{background:var(--blau-hell)}
+.hk button[disabled]{opacity:.4;cursor:default}
+.hk .zaehler{font-size:12px;color:var(--grau);margin-left:8px}
+/* Vertiefungen */
+.v-karte{background:var(--karte);border:1px solid var(--linie);border-radius:12px;margin:14px 0;overflow:hidden}
+.v-kopf{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--linie);background:#fbfcfd}
+.v-nr{flex:none;width:42px;height:42px;border-radius:50%;background:var(--orange);color:#fff;font-weight:700;display:grid;place-items:center}
+.v-kopf h3{margin:0;font-size:18px}
+.sterne{color:var(--orange);font-size:14px;font-weight:700}
+.v-inhalt{padding:14px 16px 16px}
+.zwei{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+@media (max-width:720px){.zwei{grid-template-columns:1fr}}
+.aufgabe{display:grid;grid-template-columns:28px 1fr auto;gap:6px;background:var(--orange-hell);border-radius:8px;padding:8px 10px;margin-top:10px}
+.aufgabe .b{font-weight:700;color:var(--orange)}
+.aufgabe .ab{font-size:12px;color:var(--grau);white-space:nowrap;align-self:start;margin-top:2px}
+figure{margin:0}
+figcaption{font-size:13px;color:var(--grau);margin-top:4px}
+svg{max-width:100%;height:auto;display:block}
+.regler{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 2px;font-size:14px}
+.regler input[type=range]{flex:1;min-width:140px;accent-color:var(--orange)}
+.knopf{border:1px solid var(--linie);background:#fff;border-radius:6px;padding:3px 10px;font-size:14px}
+.ausgabe{font-variant-numeric:tabular-nums;font-size:14px;background:#f2f5f8;border-radius:6px;padding:6px 10px;margin-top:6px}
+.legende{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:#444;margin-top:6px}
+.legende i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.balken{display:grid;grid-template-columns:150px 1fr 76px;gap:6px 10px;align-items:center;font-size:14px}
+.balken .spur{background:#eef2f6;border-radius:4px;height:18px;position:relative;overflow:hidden}
+.balken .fuell{height:100%;border-radius:4px;width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.balken .wert{text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:520px){.balken{grid-template-columns:100px 1fr 64px;font-size:13px}}
+.kachel-reihe{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:12px}
+.kachel{background:#f2f5f8;border-radius:8px;padding:10px 12px}
+.kachel .zahl{font-size:22px;font-weight:700;color:var(--tblau);font-variant-numeric:tabular-nums}
+.kachel .was{font-size:13px;color:#555}
+.zeitstrahl{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.zeitstrahl span{font-size:13px;background:#fff;border:1px solid var(--linie);border-radius:14px;padding:2px 10px}
+.zeitstrahl b{color:var(--orange)}
+.cta{display:inline-block;background:var(--tblau);color:#fff;text-decoration:none;font-weight:600;border-radius:8px;padding:8px 16px;margin:8px 8px 0 0}
+.cta:hover{background:var(--blau)}
+.code{font-family:Menlo,Consolas,monospace;background:#f2f5f8;border:1px solid var(--linie);border-radius:6px;padding:2px 8px;font-size:14px}
+.klein{font-size:13px;color:var(--grau)}
+footer{margin:36px 0 0;border-top:1px solid var(--linie);padding:16px 0 28px;font-size:12.5px;color:var(--grau)}
+sub,sup{font-size:.72em}
+/* Ergänzungen Generator */
+.zurueck{display:inline-block;color:#fff;opacity:.85;text-decoration:none;font-size:13px;margin-bottom:6px}
+.zurueck:hover{opacity:1;text-decoration:underline}
+.v-text p:first-child{margin-top:0}
+.fischer{display:inline-block;vertical-align:middle;margin:4px 10px 4px 0}
+.wahl{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.wahl button{border:1px solid var(--linie);background:#fff;border-radius:14px;padding:2px 10px;font-size:13px}
+.wahl button.an{background:var(--tblau);border-color:var(--tblau);color:#fff}
+.quiz-aa{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:6px;margin-top:8px}
+.quiz-aa button{border:1px solid var(--linie);background:#fff;border-radius:8px;padding:6px 4px;font-size:14px}
+.quiz-aa button.ok{background:#e3f4ea;border-color:#3e9a63}
+.quiz-aa button.falsch{background:#fbe6e3;border-color:#d0574a}
+.uebersicht{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:14px}
+.uebersicht a{display:block;background:#fff;border:1px solid var(--linie);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--text)}
+.uebersicht a:hover{border-color:var(--blau);box-shadow:0 2px 8px rgba(21,110,157,.12)}
+.uebersicht .nr{font-size:13px;color:var(--orange);font-weight:700}
+.uebersicht .t{font-weight:600;color:var(--tblau);margin:2px 0 4px}
+.uebersicht .k{font-size:13px;color:var(--grau)}
+.einheit{font-size:14px;color:var(--grau);text-transform:uppercase;letter-spacing:.05em;margin:26px 0 0}
+.qa{display:grid;gap:10px;margin-top:10px}
+.qa details{background:var(--karte);border:1px solid var(--linie);border-radius:10px}
+.qa summary{cursor:pointer;padding:12px 16px;font-weight:600;color:var(--tblau);list-style-position:outside;margin-left:18px}
+.qa details[open] summary{border-bottom:1px solid var(--linie)}
+.qa .antwort{padding:4px 16px 12px}
+.qa .antwort p{margin:10px 0}
+.qa .antwort ul{margin:8px 0;padding-left:1.3em}
+.qa .antwort li{margin-bottom:6px}
+
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="zurueck" href="q1-vertiefung-und-hilfen.html">← alle Sitzungen</a>
+    <div class="kurs">Chemie LK · Q1 · 02 Proteine – Bausteine des Lebens · Sitzung 13</div>
+    <h1>Vertiefung und Hilfen: Faser oder Knäuel? Proteine im glutenfreien Brot</h1>
+    <p>Zum Einstieg: alle sechs Proteine aus Abb. 1 als digitale Modelle in 3D, geordnet nach Gruppe A und B. Hilfen zu den Aufgaben nur bei Bedarf und stufenweise aufdecken. Vertiefungen für Schnelle.</p>
+  </div>
+</header>
+<nav><div class="wrap">
+  <a href="#einstieg">Einstieg</a><a href="#hilfen">Hilfen</a><a class="v" href="#v1">V1 Skorbut</a><a class="v" href="#v2">V2 Sichelzellen</a><a class="v" href="#v3">V3 Schmorbraten</a><a class="v" href="#v4">V4 Enzymtablette</a><a class="v" href="#v5">V5 Protease-Schere</a><a class="v" href="#v6">V6 Gliadin im Immunprotein</a><a href="#fragen">Fragen</a>
+</div></nav>
+
+<main class="wrap">
+<h2>Einstieg</h2>
+
+<style>
+.ein-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:18px;align-items:start}
+@media (max-width:760px){.ein-grid{grid-template-columns:1fr}}
+#fk3d{position:relative;width:100%;height:470px;border-radius:10px;overflow:hidden;background:#0b1118}
+@media (max-width:760px){#fk3d{height:340px}}
+#fk3d .lade{position:absolute;inset:0;display:grid;place-items:center;color:#9fb3c8;font-size:14px;text-align:center;padding:20px}
+.gruppe{border:1px solid var(--linie);border-radius:10px;padding:8px 8px 2px;margin-bottom:9px;background:#fafcfe}
+.gruppe h4{margin:0 0 6px 4px;font-size:15px;color:var(--blau)}
+.ansicht{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:1px solid var(--linie);background:#fff;border-radius:8px;padding:7px 11px;margin-bottom:6px;font-weight:600;color:#223;font-size:15px}
+.ansicht:hover{border-color:var(--blau)}
+.ansicht.an{background:var(--blau-hell);border-color:var(--blau);box-shadow:inset 3px 0 0 var(--blau)}
+.ansicht i{flex:none;width:14px;height:14px;border-radius:3px}
+.ansicht span{font-weight:400;color:var(--grau);font-size:13px}
+.ansicht.alle{justify-content:center;background:#f2f5f8}
+#fkinfo{background:#f2f5f8;border-radius:8px;padding:10px 12px;font-size:14.5px;min-height:110px}
+.leg{display:inline-flex;align-items:center;gap:5px;margin-right:10px;font-size:13px}
+.leg i{width:11px;height:11px;border-radius:50%;display:inline-block}
+</style>
+<section class="v-karte" id="einstieg">
+  <div class="v-kopf"><div class="v-nr" style="background:var(--blau)">▶</div><div><div class="sterne" style="color:var(--blau)">Einstieg · digitale Modelle</div><h3>Faser oder Knäuel in 3D: die sechs Proteine aus Abb. 1</h3></div></div>
+  <div class="v-inhalt">
+    <p style="margin-top:0">Dieselben sechs Proteine wie in Abb. 1 des Aufgabenblatts, in denselben Gruppen A und B. Ziehen dreht, Mausrad oder zwei Finger zoomen. Wählen Sie rechts eine Ansicht. Farben in den Bänderansichten: <span class="leg"><i style="background:#e8504a"></i>α-Helix</span><span class="leg"><i style="background:#e8b400"></i>β-Faltblatt</span><span class="leg"><i style="background:#9aa5b1"></i>übrige Abschnitte</span></p>
+    <div class="ein-grid">
+      <figure><div id="fk3d"><div class="lade">3D-Modelle werden geladen …</div></div>
+        <figcaption>Kollagenmodell PDB 1K6F, (Pro-Pro-Gly)<sub>10</sub> (Berisio et al., <i>Protein Sci.</i> 11, 2002, 262); Keratin K5/K14, Abschnitt 2B, PDB 3TNU (Lee et al., <i>Nat. Struct. Mol. Biol.</i> 19, 2012, 707); Fibroin: selbst berechnetes Modell, siehe Info; Hämoglobin PDB 4HHB (Fermi et al., <i>J. Mol. Biol.</i> 175, 1984, 159); Ovalbumin PDB 1OVA (Stein et al., <i>J. Mol. Biol.</i> 221, 1991, 941); Glycinin PDB 1OD5 (Adachi et al., <i>PNAS</i> 100, 2003, 7395). Ohne Wasser und H-Atome; 3D-Ansicht 3Dmol.js (BSD).</figcaption></figure>
+      <div>
+        <div class="gruppe"><h4>Gruppe A</h4>
+          <button type="button" class="ansicht" data-a="kollagen"><i style="background:#d9822b"></i>Kollagen <span>drei Ketten</span></button>
+          <button type="button" class="ansicht" data-a="glycin"><i style="background:#f5c400"></i>Kollagen <span>Glycin hervorheben</span></button>
+          <button type="button" class="ansicht" data-a="keratin"><i style="background:#e8504a"></i>Keratin <span>zwei Ketten</span></button>
+          <button type="button" class="ansicht" data-a="fibroin"><i style="background:#e8b400"></i>Fibroin <span>Modell</span></button>
+        </div>
+        <div class="gruppe"><h4>Gruppe B</h4>
+          <button type="button" class="ansicht" data-a="haemo"><i style="background:#c0392b"></i>Hämoglobin <span>vier Ketten</span></button>
+          <button type="button" class="ansicht" data-a="oberflaeche"><i style="background:linear-gradient(90deg,#f5c400 50%,#2a7ab8 50%)"></i>Hämoglobin <span>unpolar und geladen</span></button>
+          <button type="button" class="ansicht" data-a="schnitt"><i style="background:linear-gradient(90deg,#f5c400 50%,#ddd 50%)"></i>Hämoglobin <span>aufgeschnitten</span></button>
+          <button type="button" class="ansicht" data-a="ovalbumin"><i style="background:linear-gradient(90deg,#e8504a 50%,#e8b400 50%)"></i>Ovalbumin <span>eine Kette</span></button>
+          <button type="button" class="ansicht" data-a="glycinin"><i style="background:linear-gradient(90deg,#e8504a 50%,#e8b400 50%)"></i>Glycinin <span>sechs Einheiten</span></button>
+        </div>
+        <button type="button" class="ansicht alle" data-a="alle"><i style="background:linear-gradient(90deg,#d9822b 50%,#c0392b 50%)"></i>Alle sechs <span>im selben Maßstab</span></button>
+        <div id="fkinfo">Wählen Sie eine Ansicht.</div>
+      </div>
+    </div>
+    <div class="aufgabe"><span class="b">a)</span><span><b>Beschreiben</b> Sie in der Ansicht „Alle sechs“, worin sich die Proteine der Gruppe A von denen der Gruppe B unterscheiden (Form, Größe, vorherrschende Sekundärstruktur). <b>Vergleichen</b> Sie mit Ihrer Tabelle aus Aufgabe 1a.</span><span class="ab">AB II</span></div>
+    <div class="aufgabe"><span class="b">b)</span><span><b>Beschreiben</b> Sie, wo im Kollagen die Glycinreste liegen, und <b>erklären</b> Sie damit die Lage in der Sequenz (jede dritte Position).</span><span class="ab">AB II</span></div>
+    <div class="aufgabe"><span class="b">c)</span><span><b>Vergleichen</b> Sie die Lage unpolarer und geladener Reste im Hämoglobin (außen, aufgeschnitten) und <b>erklären</b> Sie die Löslichkeit.</span><span class="ab">AB II</span></div>
+    <div class="aufgabe"><span class="b">d)</span><span><b>Vergleichen</b> Sie die digitalen Modelle mit dem Papierstreifen aus Sitzung 09 und den Gummibändern aus Sitzung 12: Was zeigt welches Modell besser, was zeigt keines?</span><span class="ab">AB III</span></div>
+  </div>
+</section>
+<h2 id="hilfen">Hilfekarten</h2>
+<p class="hinweis">Erst selbst probieren. Jede Karte deckt ihre Hilfe in Stufen auf, so wenig wie möglich, so viel wie nötig.</p>
+<div class="hilfen">
+  <div class="hk">
+    <h3>Hilfe zu 1a</h3><div class="zu">Gruppen gegenüberstellen</div>
+    <div class="stufe">Lesen Sie in Abb. 1 je Gruppe nur die zweite Zeile (Bau, Löslichkeit). Was haben die drei Proteine gemeinsam?</div><div class="stufe">Vergleichen Sie die Symbole und die Maßstabsleiste oder im Einstieg die Ansicht „Alle sechs“: lang gestreckt oder kompakt? Eine Struktur oder gemischt?</div><div class="stufe">Die Namen stehen im Text unter Abb. 1: <i>sklērós</i> = hart, <i>sphaĩra</i> = Kugel.</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 2a</h3><div class="zu">Eine Grafik beschreiben und auswerten</div>
+    <div class="stufe">Schritt 1: Was ist auf der x-Achse, was auf der y-Achse aufgetragen? Woher stammen die Zahlen?</div><div class="stufe">Schritt 2: Suchen Sie je Protein den höchsten Balken. Welche zwei Proteine haben ein ähnliches Balkenmuster?</div><div class="stufe">Schritt 3: Formulieren Sie Vergleiche: „Im Gegensatz zu Hämoglobin enthält Kollagen …“. Noch nicht erklären, warum.</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 2b</h3><div class="zu">Warum eine Tripelhelix?</div>
+    <div class="stufe">Welche Seitenkette hat Glycin? Wie viel Platz ist im Inneren eines Seils aus drei dicht verdrillten Ketten?</div><div class="stufe">Prolin: Der Ring ist mit dem N-Atom des Rückgrats verbunden. Was bedeutet das für die Drehbarkeit (Papierstreifen aus 09)?</div><div class="stufe">Welche Wasserstoffbrücke braucht eine α-Helix (Sitzung 10)? Kann das N-Atom im Prolin daran teilnehmen?</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 2c</h3><div class="zu">Löslich trotz vieler unpolarer Reste</div>
+    <div class="stufe">Schauen Sie im Einstieg die Ansichten „unpolar und geladen“ und „aufgeschnitten“ an.</div><div class="stufe">Welche Wechselwirkung gehen unpolare Reste untereinander ein, welche geladene Reste mit Wasser (Sitzung 05)?</div><div class="stufe">Was „sieht“ das Wasser von einem gefalteten Hämoglobin?</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 3a</h3><div class="zu">Zwei Teilgrafiken vergleichen</div>
+    <div class="stufe">Lesen Sie die Bildunterschrift: Was bedeutet ein Peak in Abb. 3a?</div><div class="stufe">Was passiert in Abb. 3a beim zweiten Erhitzen, was in Abb. 3b beim zweiten Abkühlen?</div><div class="stufe">Lesen Sie beide Grafiken an den senkrechten Linien ab: Wie ist der Zustand bei Raumtemperatur, im Mund, in der Krume?</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 3b</h3><div class="zu">Fest für immer oder schmelzbar?</div>
+    <div class="stufe">Eiklar: Was wird beim Entfalten frei, das vorher innen lag? Was tun benachbarte Ketten dann?</div><div class="stufe">Gelatine: Die Ketten stammen aus Kollagen. Welche Struktur bilden sie gern wieder, wenn es kühl wird?</div><div class="stufe">Welche Wechselwirkung hält diese Gelatine-Knotenpunkte zusammen, und wie viel Energie braucht man, um sie zu lösen?</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 3c</h3><div class="zu">Kleberersatz beurteilen</div>
+    <div class="stufe">Wann muss ein Netz im Brot halten: im Teig, beim Backen oder danach?</div><div class="stufe">Vergleichen Sie für jede Phase, ob Eiklar und Gelatine fest oder flüssig sind.</div><div class="stufe">Ein Urteil nennt Kriterien, gewichtet sie und endet mit einer Position. Nennen Sie auch, was keiner der beiden Zusätze kann.</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 4a</h3><div class="zu">Schnittstellen suchen</div>
+    <div class="stufe">Gehen Sie das 33-mer Buchstabe für Buchstabe durch. Markieren Sie K und R (Trypsin) sowie F, Y und W (Chymotrypsin).</div><div class="stufe">Welcher Buchstabe folgt jeweils auf eine markierte Stelle?</div><div class="stufe">Sie können Ihr Ergebnis mit der Protease-Schere (Vertiefung V5) prüfen. Vergleichen Sie danach mit dem Hämoglobin.</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 4b</h3><div class="zu">Desamidierung</div>
+    <div class="stufe">Zeichnen Sie die Seitenkette von Glutamin und die von Glutamat. Welche Gruppe unterscheidet sie?</div><div class="stufe">Eine Amidgruppe wird hydrolysiert, wie eine Peptidbindung in Sitzung 08. Welche Produkte entstehen, und wie liegen sie bei pH 7 vor?</div><div class="stufe">Lys β71 in der Tasche von HLA-DQ2: Welche Ladung trägt seine Seitenkette (M4), und welche Wechselwirkung entsteht mit Glutamat? Was folgt daraus laut Abb. 4, Schritt 4?</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+</div>
+
+<h2>Vertiefungen</h2>
+<p class="hinweis">★ = vertiefend · ★★ = anspruchsvoll. Die Ergebnisse gehören in Ihre Unterlagen; die Abbildungen und Werkzeuge helfen beim Denken, sie ersetzen keine Lösung.</p>
+<section class="v-karte" id="v1">
+  <div class="v-kopf"><div class="v-nr">V1</div><div><div class="sterne">★</div><h3>Skorbut: Vitamin C und Kollagen</h3></div></div>
+  <div class="v-inhalt"><div class="v-text"><p>Seefahrer erkrankten früher auf langen Reisen an Skorbut: Das Zahnfleisch blutete, alte Wunden brachen wieder auf. James Lind zeigte 1747 in einem der ersten kontrollierten Versuche, dass Zitrusfrüchte heilen.</p><p>Im fertigen Kollagen sind viele Prolinreste zu Hydroxyprolin umgewandelt. Das Enzym dafür braucht Vitamin C. Ohne Hydroxyprolin schmilzt die Tripelhelix schon bei deutlich niedrigerer Temperatur (Berg, Prockop, <i>Biochem. Biophys. Res. Commun.</i> 52, 1973, 115).</p></div><div class="aufgabe"><span class="b"></span><span><b>Erklären</b> Sie die Symptome mit Abb. 1 und Abb. 3b des Aufgabenblatts. Welche Temperatur ist im Körper entscheidend?</span><span class="ab">AB II</span></div></div>
+</section>
+<section class="v-karte" id="v2">
+  <div class="v-kopf"><div class="v-nr">V2</div><div><div class="sterne">★★</div><h3>Sichelzellen: Wenn ein Knäuel zur Faser wird</h3></div></div>
+  <div class="v-inhalt"><div class="v-text"><p>Bei der Sichelzellanämie ist im Hämoglobin β an Position 6 Glutamat gegen Valin ausgetauscht (Ingram, <i>Nature</i> 180, 1957, 326). Im Sequenzstreifen von Abb. 2 ist es das zweite rote E. Ohne Sauerstoff lagern sich die Moleküle zu langen Fasern zusammen, die roten Blutkörperchen werden sichelförmig.</p><p>Linus Pauling hatte schon 1949 gezeigt, dass das veränderte Hämoglobin in der Elektrophorese anders wandert (<i>Science</i> 110, 1949, 543). Stellen Sie sich die Elektrophorese aus Sitzung 07 vor.</p></div><div class="aufgabe"><span class="b">a)</span><span><b>Erklären</b> Sie, warum ein einziger Austausch an der Oberfläche aus einem Sphäroprotein Fasern macht. Nutzen Sie die Ansicht „unpolar und geladen“ im Einstieg.</span><span class="ab">AB II</span></div><div class="aufgabe"><span class="b">b)</span><span><b>Begründen</b> Sie den Unterschied in der Elektrophorese.</span><span class="ab">AB II</span></div></div>
+</section>
+<section class="v-karte" id="v3">
+  <div class="v-kopf"><div class="v-nr">V3</div><div><div class="sterne">★</div><h3>Steak oder Schmorbraten?</h3></div></div>
+  <div class="v-inhalt"><div class="v-text"><p>In Fleisch entfalten sich die Muskelproteine ab etwa 30–32 °C und vernetzen sich bei 45–50 °C zu einem Gel. Das Kollagen des Bindegewebes denaturiert bei 53–63 °C, danach schrumpfen die Fasern und pressen Saft aus (Tornberg, <i>Meat Sci.</i> 70, 2005, 493). Beinscheibe enthält viel Bindegewebe, Filet wenig.</p></div><div class="aufgabe"><span class="b"></span><span><b>Begründen</b> Sie, warum man Beinscheibe stundenlang schmort, Filet aber kurz brät. Was entsteht beim Schmoren aus dem Kollagen?</span><span class="ab">AB III</span></div></div>
+</section>
+<section class="v-karte" id="v4">
+  <div class="v-kopf"><div class="v-nr">V4</div><div><div class="sterne">★★</div><h3>Eine Tablette gegen Zöliakie?</h3></div></div>
+  <div class="v-inhalt"><div class="v-text"><p>Shan und Kolleg:innen entgifteten das 33-mer mit einer bakteriellen Prolyl-Endopeptidase, einem Enzym, das Peptidbindungen am Prolin spaltet. Sie schlugen eine Enzymtablette zum Essen vor (<i>Science</i> 297, 2002, 2275). Solche Präparate werden seither in klinischen Studien getestet.</p></div><div class="aufgabe"><span class="b"></span><span><b>Beurteilen</b> Sie, ob eine solche Tablette die glutenfreie Ernährung ersetzen könnte. Beachten Sie, wo und wie schnell das Enzym arbeiten müsste und wie viel Gluten eine Scheibe Brot enthält.</span><span class="ab">AB III</span></div></div>
+</section>
+<section class="v-karte" id="v5">
+  <div class="v-kopf"><div class="v-nr">V5</div><div><div class="sterne">★</div><h3>Protease-Schere: Wo schneiden Verdauungsenzyme?</h3></div></div>
+  <div class="v-inhalt zwei"><div class="v-text"><p>Trypsin und Chymotrypsin erkennen bestimmte Aminosäuren und spalten die Peptidbindung dahinter, aber nicht, wenn ein Prolin folgt. Wählen Sie eine Sequenz oder tippen Sie eine eigene ein, etwa das 33-mer aus Abb. 4.</p><div class="aufgabe"><span class="b">a)</span><span><b>Ermitteln</b> Sie, in wie viele Bruchstücke Hämoglobin β zerfällt, und <b>vergleichen</b> Sie mit dem 33-mer.</span><span class="ab">AB II</span></div><div class="aufgabe"><span class="b">b)</span><span>Schalten Sie die Prolin-Regel aus. <b>Erläutern</b> Sie, was sich beim 33-mer ändert und was nicht.</span><span class="ab">AB II</span></div></div><figure>
+<style>
+.ps-seq{display:flex;flex-wrap:wrap;gap:3px;margin-top:10px;font-family:ui-monospace,Menlo,monospace}
+.ps-seq span{display:inline-grid;place-items:center;width:24px;height:28px;border:1px solid #b9c3cd;border-radius:4px;font-weight:700;font-size:14px;background:#fff}
+.ps-seq span.p{background:#fde2c4;color:#8a4b08}
+.ps-seq span.z{background:#e6f0f8}
+.ps-seq b.cut{display:inline-grid;place-items:center;width:10px;color:#c0392b;font-size:20px;font-weight:900}
+#psin{width:100%;font-family:ui-monospace,Menlo,monospace;font-size:14px;padding:6px 8px;border:1px solid var(--linie);border-radius:6px;box-sizing:border-box;text-transform:uppercase}
+</style>
+<div class="regler"><label for="psvor"><b>Sequenz</b></label>
+  <select id="psvor" style="font-size:14px;padding:3px 6px;border-radius:6px;border:1px solid var(--linie)">
+    <option value="VHLTPEEKSAVTALWGKVNVDEVGGEALGRLLVVYPWTQRFFESFGDLSTPDAVMGNPKVKAHGKKVLGAFSDGLAHLDNLKGTFATLSELHCDKLHVDPENFRLLGNVLVCVLAHHFGKEFTPPVQAAYQKVVAGVANALAHKYH">Hämoglobin β (ganz)</option>
+    <option value="GPMGPSGPRGLPGPPGAPGPQGFQGPPGEP">Kollagen, Beginn der Tripelhelix</option>
+    <option value="">eigene Sequenz eingeben …</option>
+  </select></div>
+<input id="psin" type="text" spellcheck="false" autocomplete="off" placeholder="Ein-Buchstaben-Code, z. B. aus Abb. 4">
+<div class="regler"><span><b>Enzym</b></span>
+  <label><input type="checkbox" id="pstry" checked> Trypsin (nach K, R)</label>
+  <label><input type="checkbox" id="pschy" checked> Chymotrypsin (nach F, Y, W)</label>
+  <label><input type="checkbox" id="pspro" checked> Regel „nicht vor Prolin“</label></div>
+<div class="ps-seq" id="psseq"></div>
+<div class="ausgabe" id="psaus"></div>
+<figcaption>Rote Striche = Schnittstellen. Vereinfachte Regeln nach der Spezifität der Enzyme; echte Enzyme schneiden auch an weiteren Stellen langsamer.</figcaption></figure></div>
+</section>
+<section class="v-karte" id="v6">
+  <div class="v-kopf"><div class="v-nr">V6</div><div><div class="sterne">★</div><h3>Gliadin im Immunprotein: ein digitales Modell</h3></div></div>
+  <div class="v-inhalt"><div class="v-text"><p>Öffnen Sie in der Protein Data Bank die Struktur <a href="https://www.rcsb.org/3d-view/1S9V">1S9V</a>: das Immunprotein HLA-DQ2 mit einem gebundenen Gliadin-Abschnitt (QLQPFPQPELPY, Kim et al., <i>PNAS</i> 101, 2004, 4175). Das E ist ein durch Desamidierung entstandenes Glutamat.</p></div><div class="aufgabe"><span class="b"></span><span><b>Suchen</b> Sie das Glutamat und den Lysinrest Lys β71 in seiner Nähe. <b>Erklären</b> Sie, warum die Desamidierung die Bindung verstärkt.</span><span class="ab">AB II</span></div></div>
+</section>
+<h2 id="fragen">Fragen und Antworten</h2>
+<div class="qa">
+<details><summary>Ist Zöliakie eine Allergie?</summary><div class="antwort"><p>Nein. Zöliakie ist eine durch Gluten ausgelöste Autoimmunerkrankung: Das Immunsystem richtet sich auch gegen ein körpereigenes Enzym, die Gewebstransglutaminase. Davon zu unterscheiden sind die <b>Weizenallergie</b>, bei der Antikörper vom Typ IgE gegen Weizenproteine gebildet werden, und die <b>Weizensensitivität</b> ohne diese beiden Mechanismen. Die Diagnose stellt eine Ärztin oder ein Arzt.</p></div></details>
+<details><summary>Woher stammen die Prozentwerte in Abb. 2?</summary><div class="antwort"><p>Sie sind aus den Aminosäuresequenzen der Datenbank UniProt berechnet (P02452, P68871, P01012, P02863): Anzahl der Reste einer Sorte geteilt durch die Länge der Kette. Beim Kollagen ist nur der Bereich der Tripelhelix gezählt (1014 Reste), ohne die Enden, die vor dem Einbau in die Faser abgespalten werden. Hydroxyprolin entsteht erst nach der Synthese und steht deshalb nicht in der Sequenz.</p></div></details>
+<details><summary>Warum zeigt das 3D-Modell nur Pro-Pro-Gly statt echtem Kollagen?</summary><div class="antwort"><p>Ein Kollagenmolekül ist rund 300 nm lang und lagert sich zu Fasern zusammen. So lange, biegsame Moleküle bilden keine regelmäßigen Kristalle. Forschende kristallisieren deshalb kurze Modellpeptide wie (Pro-Pro-Gly)<sub>10</sub>. Sie bilden dieselbe Tripelhelix wie das echte Kollagen.</p></div></details>
+<details><summary>Gelatine ist tierisch. Was nehmen pflanzlich basierte Rezepte?</summary><div class="antwort"><p>Oft Agar-Agar aus Rotalgen oder Pektin aus Früchten. Beide sind Polysaccharide, also keine Proteine, bilden aber ebenfalls Gele über Wasserstoffbrücken. Ein Agargel schmilzt erst bei deutlich höherer Temperatur als Gelatine. Im glutenfreien Brot übernehmen Quellstoffe wie Flohsamenschalen einen Teil der Aufgabe des Klebers.</p></div></details>
+</div>
+
+<footer>
+  Chemie LK · Q1 · 02 Proteine – Bausteine des Lebens · 13 Faser oder Knäuel? · Vertiefung und Hilfen<br>
+  Singh et al., <i>Clin. Gastroenterol. Hepatol.</i> 16 (2018) 823; Shan et al., <i>Science</i> 297 (2002) 2275; Kim et al., <i>PNAS</i> 101 (2004) 4175 (PDB 1S9V); Berisio et al., <i>Protein Sci.</i> 11 (2002) 262 (PDB 1K6F); Lee et al., <i>Nat. Struct. Mol. Biol.</i> 19 (2012) 707 (PDB 3TNU); Stein et al., <i>J. Mol. Biol.</i> 221 (1991) 941 (PDB 1OVA); Adachi et al., <i>PNAS</i> 100 (2003) 7395 (PDB 1OD5); Marsh, Corey, Pauling, <i>Biochim. Biophys. Acta</i> 16 (1955) 1 (Fibroin); Fermi et al., <i>J. Mol. Biol.</i> 175 (1984) 159 (PDB 4HHB); Donovan et al., <i>J. Sci. Food Agric.</i> 26 (1975) 73; Tornberg, <i>Meat Sci.</i> 70 (2005) 493; Ingram, <i>Nature</i> 180 (1957) 326; Pauling et al., <i>Science</i> 110 (1949) 543; Berg, Prockop, <i>Biochem. Biophys. Res. Commun.</i> 52 (1973) 115; UniProt.
+</footer>
+</main>
+<script src="js/3Dmol-min.js"></script>
+
+<script>
+(function(){
+  document.querySelectorAll('.hk').forEach(function(k){
+    var stufen = k.querySelectorAll('.stufe'), btn = k.querySelector('button'), z = k.querySelector('.zaehler'), i = 0;
+    z.textContent = '0 / ' + stufen.length;
+    btn.addEventListener('click', function(){
+      if (i >= stufen.length) return;
+      stufen[i].classList.add('offen'); i++;
+      z.textContent = i + ' / ' + stufen.length;
+      if (i < stufen.length) btn.textContent = 'Stufe ' + (i + 1) + ' aufdecken';
+      else { btn.textContent = 'alle Stufen offen'; btn.disabled = true; }
+    });
+  });
+})();
+
+(function(){
+  var box=document.getElementById('fk3d'), info=document.getElementById('fkinfo'), V=null, M={}, bereit=false;
+  var DATEIEN={kollagen:'bilder/q1-13-kollagen.pdb',keratin:'bilder/q1-13-keratin.pdb',fibroin:'bilder/q1-13-fibroin.pdb',
+               haemo:'bilder/q1-13-haemoglobin.pdb',ovalbumin:'bilder/q1-13-ovalbumin.pdb',glycinin:'bilder/q1-11-glycinin.pdb'};
+  var NAMEN={kollagen:'Kollagen',keratin:'Keratin',fibroin:'Fibroin',haemo:'Hämoglobin',ovalbumin:'Ovalbumin',glycinin:'Glycinin'};
+  var A_REIHE=['kollagen','keratin','fibroin'], B_REIHE=['haemo','ovalbumin','glycinin'];
+  var UNPOLAR={ALA:1,VAL:1,LEU:1,ILE:1,PHE:1,MET:1,TRP:1,PRO:1}, NEG={ASP:1,GLU:1}, POSITIV={LYS:1,ARG:1};
+  var KF={A:'#d9822b',B:'#f0b27a',C:'#a85a12'}, HF={A:'#c0392b',B:'#e8857a',C:'#8e2a1f',D:'#f2b3aa'};
+  var TEXT={
+    kollagen:'<b>Kollagen (Modell):</b> drei Ketten, jede für sich eine gestreckte, linksgängige Schraube, gemeinsam zu einem Seil verdrillt (Tripelhelix). Das ist weder eine α-Helix noch ein Faltblatt. Ein echtes Kollagenmolekül ist ≈ 300 nm lang, das Modellstück nur ≈ 9 nm.',
+    glycin:'<b>Glycin</b> (gelb, als Kugeln): Jede dritte Aminosäure ist Gly. Drehen Sie so, dass Sie längs der Achse blicken. Wo liegen die gelben Kugeln, wo die Prolinringe (Stäbchen)?',
+    keratin:'<b>Keratin:</b> zwei lange α-Helices, umeinander gewunden (Sitzung 10). Gezeigt ist ein gemessenes Stück von ≈ 15 nm aus Hautkeratin; Haarkeratin ist gleich gebaut. Viele solcher Paare lagern sich zu Fasern zusammen.',
+    fibroin:'<b>Fibroin (Modell):</b> gestapelte β-Faltblätter aus der Seiden-Wiederholung Gly-Ala-Gly-Ala-Gly-Ser. Von Seide gibt es keine Kristallstruktur; dieses Modell ist aus idealen Bindungslängen und -winkeln berechnet. Der Abstand der Stränge (4,75 Å) ist gemessen, die Schichten liegen in echter Seide enger (3,5 und 5,7 Å), weil sich die Seitenketten verzahnen.',
+    haemo:'<b>Hämoglobin:</b> vier Ketten (α rot, β rosa) mit je einer Häm-Gruppe (Stäbchen). Viele kurze α-Helices, zu einem kompakten Knäuel gefaltet: ≈ 6,6 × 5,6 × 5,4 nm.',
+    oberflaeche:'<b>Außenansicht als Kalottenmodell:</b> <span class="leg"><i style="background:#f5c400"></i>unpolar</span><span class="leg"><i style="background:#c0392b"></i>negativ (Asp, Glu)</span><span class="leg"><i style="background:#2a7ab8"></i>positiv (Lys, Arg)</span><span class="leg"><i style="background:#e6e6e6"></i>übrige</span> Was sieht ein Wassermolekül von außen?',
+    schnitt:'<b>Aufgeschnitten:</b> Nur eine dünne Scheibe durch die Mitte ist sichtbar. Vergleichen Sie Farben innen und am Rand. Die Lücke in der Mitte ist ein mit Wasser gefüllter Hohlraum zwischen den vier Ketten.',
+    ovalbumin:'<b>Ovalbumin:</b> das Hauptprotein des Eiklars, eine einzige Kette. α-Helices (rot) und ein großes β-Faltblatt (gelb) sind gemischt und zu einem kompakten Knäuel gefaltet.',
+    glycinin:'<b>Glycinin</b> (Sitzung 11): sechs Untereinheiten in zwei Ringen. Eine Einheit ist mit allen Bändern gezeigt, die übrigen nur als Rückgrat. Helices und Faltblätter gemischt, insgesamt kompakt.',
+    alle:'<b>Alle sechs im selben Maßstab</b>, oben Gruppe A, unten Gruppe B. Achtung: Kollagen und Keratin sind nur kurze Stücke. Ein ganzes Kollagenmolekül wäre über 30-mal so lang wie das gezeigte Stück, das Fibroin-Modell zeigt nur einen kleinen Ausschnitt einer Seidenfaser.'
+  };
+  function nachricht(t){box.innerHTML='<div class="lade">'+t+'</div>'}
+  function ssFarbe(a){return a.ss==='h'?'#e8504a':(a.ss==='s'?'#e8b400':'#9aa5b1')}
+  // Hauptachsen: längste Ausdehnung waagerecht legen, Mitte in den Ursprung
+  function ausrichten(m){
+    var at=m.selectedAtoms({}), n=at.length, c=[0,0,0];
+    at.forEach(function(a){c[0]+=a.x;c[1]+=a.y;c[2]+=a.z}); c=c.map(function(v){return v/n});
+    var C=[[0,0,0],[0,0,0],[0,0,0]];
+    at.forEach(function(a){var d=[a.x-c[0],a.y-c[1],a.z-c[2]];for(var i=0;i<3;i++)for(var j=0;j<3;j++)C[i][j]+=d[i]*d[j]});
+    function eig(C,v){for(var k=0;k<60;k++){var w=[0,1,2].map(function(i){return C[i][0]*v[0]+C[i][1]*v[1]+C[i][2]*v[2]});var l=Math.hypot(w[0],w[1],w[2]);v=w.map(function(x){return x/l})}return v}
+    var e1=eig(C,[1,0.3,0.2]);
+    var Ce1=[0,1,2].map(function(i){return C[i][0]*e1[0]+C[i][1]*e1[1]+C[i][2]*e1[2]}), l1=Ce1[0]*e1[0]+Ce1[1]*e1[1]+Ce1[2]*e1[2];
+    var C2=C.map(function(r,i){return r.map(function(x,j){return x-l1*e1[i]*e1[j]})});
+    var e2=eig(C2,[0.2,1,0.3]), e3=[e1[1]*e2[2]-e1[2]*e2[1],e1[2]*e2[0]-e1[0]*e2[2],e1[0]*e2[1]-e1[1]*e2[0]];
+    var ext=[[1e9,-1e9],[1e9,-1e9],[1e9,-1e9]];
+    at.forEach(function(a){var d=[a.x-c[0],a.y-c[1],a.z-c[2]];
+      var p=[e1,e2,e3].map(function(e){return d[0]*e[0]+d[1]*e[1]+d[2]*e[2]});
+      a.x=p[0];a.y=p[1];a.z=p[2];
+      for(var i=0;i<3;i++){ext[i][0]=Math.min(ext[i][0],p[i]);ext[i][1]=Math.max(ext[i][1],p[i])}});
+    return {b:ext[0][1]-ext[0][0], h:ext[1][1]-ext[1][0]};
+  }
+  function verschieben(m,dx,dy){m.selectedAtoms({}).forEach(function(a){a.x+=dx;a.y+=dy})}
+  var POS={};
+  var c=document.createElement('canvas'),gl=null;try{gl=c.getContext('webgl2')||c.getContext('webgl')}catch(e){}
+  if(!window.$3Dmol||!gl){nachricht('3D-Ansicht in diesem Browser nicht verfügbar (WebGL fehlt).');}
+  else{
+    var k=Object.keys(DATEIEN);
+    Promise.all(k.map(function(n){return fetch(DATEIEN[n]).then(function(r){if(!r.ok)throw 0;return r.text()})})).then(function(d){
+      box.innerHTML='';
+      V=$3Dmol.createViewer(box,{backgroundColor:'#0b1118'});
+      var G={};
+      k.forEach(function(n,i){M[n]=V.addModel(d[i],'pdb');G[n]=ausrichten(M[n])});
+      M.fibroin.selectedAtoms({}).forEach(function(x){x.ss='s';x.ssbegin=x.resi===1;x.ssend=x.resi===12});  // jeder Strang ganz als Faltblatt
+      // Reihen nebeneinander: oben A, unten B, Lücke 25 Å
+      function reihe(liste,y){var gesamt=liste.reduce(function(s,n){return s+G[n].b},0)+25*(liste.length-1), x=-gesamt/2;
+        liste.forEach(function(n){var mx=x+G[n].b/2;verschieben(M[n],mx,y);POS[n]={x:mx,y:y,h:G[n].h};x+=G[n].b+25})}
+      var hA=Math.max.apply(null,A_REIHE.map(function(n){return G[n].h})), hB=Math.max.apply(null,B_REIHE.map(function(n){return G[n].h}));
+      reihe(A_REIHE,hA/2+22); reihe(B_REIHE,-(hB/2+22));
+      POS.yA=hA/2+22; POS.yB=-(hB/2+22); POS.hA=hA; POS.hB=hB;
+      bereit=true; zeige('alle',0);
+    }).catch(function(){nachricht('3D-Modelle konnten nicht geladen werden.')});
+  }
+  function farbeRest(a){if(UNPOLAR[a.resn])return '#f5c400';if(NEG[a.resn])return '#c0392b';if(POSITIV[a.resn])return '#2a7ab8';return '#e6e6e6'}
+  function band(n){
+    if(n==='kollagen')V.setStyle({model:M.kollagen},{cartoon:{colorfunc:function(a){return KF[a.chain]},thickness:.6},stick:{radius:.12,colorfunc:function(a){return KF[a.chain]}}});
+    else if(n==='haemo'){V.setStyle({model:M.haemo},{cartoon:{colorfunc:function(a){return HF[a.chain]||'#999'}}});V.addStyle({model:M.haemo,resn:'HEM'},{stick:{radius:.25,colorscheme:'greenCarbon'}});}
+    else if(n==='glycinin'){V.setStyle({model:M.glycinin},{cartoon:{colorfunc:function(a){return a.chain==='A'?ssFarbe(a):'#8795a5'},opacity:1}});}
+    else V.setStyle({model:M[n]},{cartoon:{colorfunc:ssFarbe}});
+  }
+  function zeige(k,dauer){
+    info.innerHTML=TEXT[k];
+    document.querySelectorAll('.ansicht').forEach(function(b){b.classList.toggle('an',b.dataset.a===k)});
+    if(!bereit)return;
+    var d=dauer===undefined?700:dauer;
+    V.removeAllLabels(); V.setStyle({},{}); try{V.setSlab(-9999,9999)}catch(e){}
+    if(k==='alle'){
+      Object.keys(M).forEach(band);
+      Object.keys(M).forEach(function(n){var p=POS[n],oben=A_REIHE.indexOf(n)>=0;
+        V.addLabel(NAMEN[n],{position:{x:p.x,y:oben?POS.yA+POS.hA/2+6:POS.yB-POS.hB/2-6,z:0},fontSize:13,fontColor:'#ffffff',backgroundColor:'#1d2a38',backgroundOpacity:.85,inFront:true,alignment:'center'})});
+      var links=Math.min.apply(null,Object.keys(M).map(function(n){return POS[n].x}))-60;
+      V.addLabel('A',{position:{x:links,y:POS.yA,z:0},fontSize:18,fontColor:'#ffffff',backgroundColor:'#2a7ab8',inFront:true,alignment:'center'});
+      V.addLabel('B',{position:{x:links,y:POS.yB,z:0},fontSize:18,fontColor:'#ffffff',backgroundColor:'#2a7ab8',inFront:true,alignment:'center'});
+      V.setView([0,0,0,0,0,0,0,1]); V.zoomTo({},d);
+    }
+    else if(k==='glycin'){V.setStyle({model:M.kollagen},{stick:{radius:.14,colorscheme:'grayCarbon'}});V.addStyle({model:M.kollagen,resn:'GLY'},{sphere:{radius:1.1,color:'#f5c400'}});V.zoomTo({model:M.kollagen},d);}
+    else if(k==='oberflaeche'||k==='schnitt'){V.setStyle({model:M.haemo,hetflag:false},{sphere:{colorfunc:farbeRest}});V.setStyle({model:M.haemo,resn:'HEM'},{sphere:{color:'#2e7d4f'}});V.zoomTo({model:M.haemo},d);
+      if(k==='schnitt'){setTimeout(function(){try{V.setSlab(-4,4);V.render()}catch(e){}},d+30)}}
+    else{band(k);if(k==='fibroin')V.addStyle({model:M.fibroin},{stick:{radius:.15,colorscheme:'grayCarbon'}});V.zoomTo({model:M[k]},d);}
+    V.render();
+  }
+  document.querySelectorAll('.ansicht').forEach(function(b){b.addEventListener('click',function(){zeige(b.dataset.a)})});
+  window.addEventListener('resize',function(){if(V){V.resize();V.render()}});
+})();
+
+
+(function(){
+  var vor=document.getElementById('psvor'), ein=document.getElementById('psin'), seq=document.getElementById('psseq'), aus=document.getElementById('psaus');
+  var tr=document.getElementById('pstry'), ch=document.getElementById('pschy'), pr=document.getElementById('pspro');
+  function rechne(){
+    var s=(ein.value||'').toUpperCase().replace(/[^ACDEFGHIKLMNPQRSTVWY]/g,''), h='', n=0, frag=[], st=0;
+    for(var i=0;i<s.length;i++){
+      var a=s[i], z=(tr.checked&&'KR'.indexOf(a)>=0)||(ch.checked&&'FYW'.indexOf(a)>=0);
+      h+='<span class="'+(a==='P'?'p':(z?'z':''))+'">'+a+'</span>';
+      if(z&&i<s.length-1&&!(pr.checked&&s[i+1]==='P')){h+='<b class="cut">|</b>';n++;frag.push(i+1-st);st=i+1}
+    }
+    if(s.length)frag.push(s.length-st);
+    seq.innerHTML=h;
+    aus.innerHTML=s.length?('Länge: <b>'+s.length+'</b> · Schnittstellen: <b>'+n+'</b> · Bruchstücke: <b>'+frag.length+'</b> (längstes: '+Math.max.apply(null,frag)+' Reste)'):'Bitte eine Sequenz wählen oder eingeben.';
+  }
+  vor.onchange=function(){ein.value=vor.value;rechne();if(!vor.value)ein.focus()};
+  [ein,tr,ch,pr].forEach(function(x){x.addEventListener('input',rechne);x.addEventListener('change',rechne)});
+  ein.value=vor.value; rechne();
+})();
+</script>
+</body>
+</html>
