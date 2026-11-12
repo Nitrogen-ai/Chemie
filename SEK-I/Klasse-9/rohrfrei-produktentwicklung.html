@@ -1231,9 +1231,10 @@ select.csel { width: 3.2em; text-align: center; }
       { l: "E", t: "Natriumhydroxid und Aluminium" }] }
   ]);
   laurelMC("0-1", [
-    { t: "Rohrreiniger nicht in Gefäßen oder Rohren aus Aluminium oder anderen unedlen Metallen aufbewahren oder anwenden.", ok: 1, fb: "Genau! „Korrosiv gegenüber Metallen“ heißt: Der Stoff greift manche Metalle an." },
-    { t: "Rohrreiniger nur im Kühlschrank lagern.", fb: "Die Temperatur hat mit H290 nichts zu tun." },
-    { t: "Rohrreiniger vor dem Gebrauch mit Metallpulver mischen.", fb: "Bloß nicht! Das Granulat greift Metalle an." }
+    { t: "Rohrreiniger nach dem Öffnen kühl lagern, weil er sich durch die Wärme im Badezimmer sonst zersetzt.", fb: "Die Temperatur hat mit H290 nichts zu tun. H290 sagt etwas über Metalle." },
+    { t: "Rohrreiniger nur mit einem Metalllöffel dosieren, weil Kunststofflöffel von der Lauge aufgelöst werden.", fb: "Genau umgekehrt: Kunststoff ist beständig, unedle Metalle wie Aluminium werden angegriffen." },
+    { t: "Rohrreiniger nicht in Gefäße oder Rohre aus Aluminium geben, weil er solche Metalle angreift.", ok: 1, fb: "Genau! „Korrosiv gegenüber Metallen“ heißt: Der Stoff greift manche Metalle an." },
+    { t: "Rohrreiniger nie mit Wasser in Kontakt bringen, weil das Wasser sonst die Metallrohre rosten lässt.", fb: "Das Granulat soll ja ins Wasser. H290 heißt: Der Stoff selbst greift Metalle an." }
   ]);
 
   /* ---- 0.2 Hypothese */
@@ -1284,9 +1285,10 @@ select.csel { width: 3.2em; text-align: center; }
     else out("plan02fb", "bad", bad + " Feld(er) passen noch nicht (rot).");
   });
   laurelMC("0-2", [
-    { t: "Ein Feststoff sinkt durch das stehende Wasser im Siphon bis zum Pfropf und löst sich erst dort. So wirkt er konzentriert, heiß und genau an der richtigen Stelle.", ok: 1, fb: "Genau! Eine fertige Lösung würde sich im Wasser des Siphons sofort verdünnen." },
-    { t: "Granulat ist billiger zu transportieren, sonst gibt es keinen Grund.", fb: "Der Transport spielt eine Rolle, aber chemisch ist etwas anderes entscheidend." },
-    { t: "In Flaschen würde sich Natriumhydroxid zersetzen.", fb: "Natronlauge lässt sich in Kunststoffflaschen lagern. Es geht um die Wirkung im Abfluss." }
+    { t: "Granulat ist leichter und billiger zu transportieren, für die Wirkung im Abfluss macht es keinen Unterschied.", fb: "Der Transport spielt eine Rolle, aber für die Wirkung ist etwas anderes entscheidend." },
+    { t: "Ein Feststoff sinkt durch das Wasser im Siphon bis zum Pfropf und löst sich erst dort, konzentriert und heiß.", ok: 1, fb: "Genau! Eine fertige Lösung würde sich im Wasser des Siphons sofort verdünnen." },
+    { t: "Natriumhydroxid zersetzt sich in Wasser nach wenigen Tagen, deshalb kann man keine fertige Lösung verkaufen.", fb: "Natronlauge ist lange haltbar und wird auch in Flaschen verkauft. Es geht um die Wirkung im Abfluss." },
+    { t: "Eine fertige Lösung wäre so stark, dass sie die Kunststoffrohre im Abfluss sofort auflösen würde.", fb: "Kunststoffrohre halten alkalischen Lösungen stand. Entscheidend ist, wo sich der Wirkstoff löst." }
   ]);
 
   /* ---- 0.3 Labor */
@@ -1306,9 +1308,10 @@ select.csel { width: 3.2em; text-align: center; }
     reveal(0, 3);
   });
   laurelMC("0-3", [
-    { t: "Sauerstoff. Er lässt den Pfropf verbrennen.", fb: "Sauerstoff zeigt sich bei der Glimmspanprobe, nicht bei der Knallgasprobe." },
-    { t: "Wasserstoff. Die Bläschen wirbeln die Lösung durch und lockern den Pfropf.", ok: 1, fb: "Richtig! Wasserstoff entsteht, wenn Aluminium mit der stark alkalischen Lösung reagiert. Deshalb gehört keine offene Flamme in die Nähe." },
-    { t: "Kohlenstoffdioxid. Es löscht die Wärme.", fb: "Kohlenstoffdioxid trübt Kalkwasser. Hier ploppt es bei der Knallgasprobe." }
+    { t: "Sauerstoff: Die Bläschen liefern Sauerstoff, mit dem Haare und Fett im Pfropf langsam verbrennen.", fb: "Sauerstoff zeigt sich bei der Glimmspanprobe, nicht bei der Knallgasprobe." },
+    { t: "Kohlenstoffdioxid: Die Bläschen entstehen aus dem Fett und drücken den Pfropf nach oben heraus.", fb: "Kohlenstoffdioxid trübt Kalkwasser. Hier ploppt es bei der Knallgasprobe." },
+    { t: "Wasserdampf: Die Lösung wird so heiß, dass sie siedet, und der Dampf lockert den Pfropf.", fb: "Die Lösung wird warm, siedet aber nicht. Und Wasserdampf ploppt nicht in der Flamme." },
+    { t: "Wasserstoff: Aluminium reagiert mit der alkalischen Lösung, die Bläschen wirbeln alles durch.", ok: 1, fb: "Richtig! Wasserstoff entsteht, wenn Aluminium mit der stark alkalischen Lösung reagiert. Deshalb gehört keine offene Flamme in die Nähe." }
   ]);
 
   /* ---- 0.4 Deutung und Gleichung */
@@ -1344,9 +1347,10 @@ select.csel { width: 3.2em; text-align: center; }
   });
   function check04() { var v = R().vals; if (v.deutOk && v.eqOk) reveal(0, 4); }
   laurelMC("0-4", [
-    { t: "Ca(OH)₂(s) → Ca²⁺(aq) + 2 OH⁻(aq)", ok: 1, fb: "Richtig! Ein Ca²⁺-Ion braucht zwei Hydroxid-Ionen zum Ladungsausgleich." },
     { t: "Ca(OH)₂(s) → Ca⁺(aq) + OH⁻(aq)", fb: "Calcium bildet Ca²⁺-Ionen, und die Formel enthält zwei OH-Gruppen." },
-    { t: "Ca(OH)₂(s) → Ca²⁺(aq) + OH₂⁻(aq)", fb: "Ein Teilchen OH₂⁻ gibt es nicht. Es entstehen zwei einzelne Hydroxid-Ionen." }
+    { t: "Ca(OH)₂(s) → Ca²⁺(aq) + OH₂⁻(aq)", fb: "Ein Teilchen OH₂⁻ gibt es nicht. Es entstehen zwei einzelne Hydroxid-Ionen." },
+    { t: "Ca(OH)₂(s) → Ca²⁺(aq) + 2 OH⁻(aq)", ok: 1, fb: "Richtig! Ein Ca²⁺-Ion braucht zwei Hydroxid-Ionen zum Ladungsausgleich." },
+    { t: "2 Ca(OH)₂(s) → 2 Ca²⁺(aq) + 2 OH⁻(aq)", fb: "Zählt nach: Rechts fehlen zwei Hydroxid-Ionen, und die Ladungen gleichen sich nicht aus." }
   ]);
 
   /* ---- 0.5 Reihenfolge und Quiz */
@@ -1384,9 +1388,10 @@ select.csel { width: 3.2em; text-align: center; }
       { l: "Y", t: "ihn mit kaltem Wasser nachspülen" }, { l: "I", t: "ihn mit sauren Reinigern mischen" }, { l: "V", t: "ihn im Originalbehälter lagern" }] }
   ]);
   laurelMC("0-5", [
-    { t: "OH⁻(aq) + H₃O⁺(aq) → 2 H₂O(l). Die Reaktion ist stark exotherm, die Lösung kann aufkochen und spritzen.", ok: 1, fb: "Richtig! Hydroxid-Ion und Oxonium-Ion bilden Wasser. Dabei wird so viel Wärme frei, dass ätzende Spritzer entstehen können." },
-    { t: "OH⁻(aq) + H₃O⁺(aq) → H₂(g) + O₂(g). Es entsteht Knallgas.", fb: "Die Ionen bilden Wasser, kein Gasgemisch." },
-    { t: "OH⁻(aq) + H₃O⁺(aq) → H₂O(l). Die Reaktion ist ungefährlich.", fb: "Zählt die Atome: Es entstehen zwei Wassermoleküle. Und ungefährlich ist es nicht." }
+    { t: "OH⁻(aq) + H₃O⁺(aq) → 2 H₂O(l). Es wird viel Wärme frei, die Lösung kann aufkochen und spritzen.", ok: 1, fb: "Richtig! Hydroxid-Ion und Oxonium-Ion bilden Wasser. Dabei wird so viel Wärme frei, dass ätzende Spritzer entstehen können." },
+    { t: "OH⁻(aq) + H₃O⁺(aq) → H₂(g) + O₂(g). Es entsteht Knallgas, das sich am Abfluss entzünden kann.", fb: "Die Ionen bilden Wasser, kein Gasgemisch. Zählt außerdem die Atome." },
+    { t: "OH⁻(aq) + H₃O⁺(aq) → H₂O(l). Die Ionen heben sich gegenseitig auf, es passiert nichts Gefährliches.", fb: "Zählt die Atome: Es entstehen zwei Wassermoleküle. Und ungefährlich ist es nicht." },
+    { t: "OH⁻(aq) + H₃O⁺(aq) → 2 H₂O(l). Die Reaktion nimmt Wärme auf, das Gemisch kühlt deshalb stark ab.", fb: "Die Gleichung stimmt, aber die Reaktion ist exotherm: Es wird Wärme frei, nicht aufgenommen." }
   ]);
 
   /* ==================================================== SITZUNG 2 */
@@ -1412,9 +1417,10 @@ select.csel { width: 3.2em; text-align: center; }
     else out("prop11fb", "bad", (r.wrong ? r.wrong + " Aussage(n) sind falsch (rot). " : "") + (r.miss ? "Es fehlen noch " + r.miss + " richtige Aussage(n)." : ""));
   });
   laurelMC("1-1", [
-    { t: "Die Natronlauge ist sehr dünn, und beim Backen reagiert das Natriumhydroxid weiter, vor allem mit Kohlenstoffdioxid. Auf der fertigen Brezel ist kaum noch Hydroxid übrig.", ok: 1, fb: "Genau! Aus dem Hydroxid wird beim Backen größtenteils Natriumcarbonat. Die braune Farbe entsteht, weil die alkalische Oberfläche die Bräunungsreaktion beschleunigt." },
-    { t: "Natronlauge ist eigentlich ungefährlich, man darf sie trinken.", fb: "Auf keinen Fall! Natronlauge verätzt Mund und Speiseröhre." },
-    { t: "Das Salz auf der Brezel neutralisiert die Lauge.", fb: "Kochsalz ist neutral und kann keine Lauge neutralisieren." }
+    { t: "Beim Backen verdampft die Natronlauge vollständig, weil sie wie Wasser schon bei 100 °C siedet.", fb: "Das Wasser verdampft, das Natriumhydroxid aber nicht. Es reagiert mit einem Gas aus der Luft weiter." },
+    { t: "Das Kochsalz auf der Brezel neutralisiert die Lauge, deshalb ist die Oberfläche danach neutral.", fb: "Kochsalz ist neutral und kann keine Lauge neutralisieren." },
+    { t: "Natronlauge ist in kleinen Mengen ungefährlich, man könnte sie sogar unverdünnt probieren.", fb: "Auf keinen Fall! Natronlauge verätzt Mund und Speiseröhre." },
+    { t: "Die Lauge ist sehr verdünnt, und beim Backen reagiert das Hydroxid mit Kohlenstoffdioxid weiter.", ok: 1, fb: "Genau! Aus dem Hydroxid wird beim Backen größtenteils Natriumcarbonat. Die braune Farbe entsteht, weil die alkalische Oberfläche die Bräunungsreaktion beschleunigt." }
   ]);
 
   quiz("quiz12", "q12_", [
@@ -1502,9 +1508,10 @@ select.csel { width: 3.2em; text-align: center; }
       { l: "Ä", t: "Sie enthält gar keine Hydroxid-Ionen." }] }
   ]);
   laurelMC("1-5", [
-    { t: "Viele Verstopfungen lassen sich mechanisch lösen, mit Saugglocke oder Spirale. Ein Sieb im Abfluss verhindert, dass sich Haare überhaupt sammeln. Chemie erst, wenn das nicht hilft.", ok: 1, fb: "Genau! Vorbeugen und mechanisch reinigen spart Chemikalien, Energie und Verletzungen." },
-    { t: "Man soll den Abfluss einfach verstopft lassen.", fb: "Das ist sicher nicht gemeint." },
-    { t: "Man soll statt Rohrreiniger Säure in den Abfluss gießen.", fb: "Säuren sind ebenfalls ätzend und lösen Fett schlecht. Und mischen darf man sie mit Rohrreiniger nie." }
+    { t: "Statt Rohrreiniger sollte man einen sauren Reiniger in den Abfluss gießen, der ist umweltfreundlicher.", fb: "Säuren sind ebenfalls ätzend und lösen Fett schlecht. Und mischen darf man sie mit Rohrreiniger nie." },
+    { t: "Oft hilft schon eine Saugglocke oder Spirale, und ein Sieb verhindert, dass sich Haare überhaupt sammeln.", ok: 1, fb: "Genau! Vorbeugen und mechanisch reinigen spart Chemikalien, Energie und Verletzungen." },
+    { t: "Ein verstopfter Abfluss löst sich nach ein paar Tagen von selbst, wenn man heißes Wasser nachgießt.", fb: "Heißes Wasser löst etwas Fett, aber keine Haare. Der Pfropf bleibt." },
+    { t: "Am umweltfreundlichsten ist es, den Abfluss jede Woche vorbeugend mit wenig Rohrreiniger zu spülen.", fb: "Vorbeugend Chemie einzusetzen bedeutet insgesamt mehr Chemikalien im Abwasser." }
   ]);
 
   /* ---- Schlösser (Codes) */
