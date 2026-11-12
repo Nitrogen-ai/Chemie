@@ -171,6 +171,11 @@ details.hint[open] > summary::before { transform: rotate(90deg); }
 .fig { background: #fff; border: 1.5px solid var(--line); border-radius: 16px; padding: 0.6rem; margin: 0.8rem 0; }
 .fig svg, .fig img { display: block; width: 100%; height: auto; border-radius: 10px; }
 .figcap { font-size: 0.85rem; color: var(--ink-soft); text-align: center; margin-top: 0.3rem; }
+.szene canvas { display: block; width: 100%; aspect-ratio: 1200 / 620; border-radius: 10px; background: #f6efe0; }
+.sz-tabs { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.5rem; }
+.sz-tab { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.95rem; padding: 0.4rem 0.8rem; min-height: 40px; border-radius: 999px; border: 2px solid var(--line); background: #fff; color: var(--ink); cursor: pointer; }
+.sz-tab.on { background: var(--acc-soft); border-color: var(--acc); color: var(--acc-edge); }
+.sz-again { margin-left: auto; }
 .two { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; align-items: start; }
 @media (max-width: 640px) { .two { grid-template-columns: 1fr; } }
 .lab-ctrl { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; margin: 0.6rem 0 0.2rem; }
@@ -731,10 +736,13 @@ select.csel { width: 3.2em; text-align: center; }
     <h3>🥨 Auftrag</h3>
     <ol>
       <li>Prüft die Oberfläche einer Laugenbrezel: erst den <b>Geschmack</b>, dann den <b>pH-Wert</b> mit angefeuchtetem Indikatorpapier, dann die <b>Haptik</b> mit den Fingern.</li>
-      <li>Wählt danach alle Eigenschaften, die <b>alkalische Lösungen</b> gemeinsam haben (Buch S. 224, Aufgabe 1 auf S. 225).</li>
+      <li>Schaut euch danach die <b>Testreihe</b> in Abb. 5 an (alle vier Tests antippen) und wählt alle Eigenschaften, die <b>alkalische Lösungen</b> gemeinsam haben.</li>
     </ol>
     <div class="front">🧪 <span>Die Brezel-Probe findet am <b>Schreibtisch</b> statt, nicht am Experimentierplatz. Probiert nur das ausgeteilte Stück und nur, wenn eure Lehrperson es erlaubt.</span></div>
     <div class="journal">📝 <span><b>Entwicklerjournal, Aufgabe 1:</b> Tragt die Brezel-Probe ein. Listet die Eigenschaften alkalischer Lösungen auf und erklärt, wodurch sie zustande kommen.</span></div>
+  </div>
+  <div class="card">
+    <div class="fig szene" data-szene="test"><div class="sz-tabs"></div><canvas role="img" aria-label="Testreihe mit Natronlauge, Kalilauge, Kalkwasser und Ammoniaklösung: Universalindikator färbt alle blauviolett, Phenolphthalein rotviolett, alle leiten den Strom (Ammoniaklösung schwach). Konzentrierte Natronlauge löst ein Haar auf, verdünnte Lösungen fühlen sich glitschig an wie Seifenwasser."></canvas><p class="figcap">Abb. 5 · Testreihe mit vier alkalischen Lösungen</p></div>
   </div>
   <div class="card">
     <h3 class="fred">Eure Brezel-Probe</h3>
@@ -758,7 +766,7 @@ select.csel { width: 3.2em; text-align: center; }
   </div>
   <p class="hints-title">💡 Tipps · Entwicklerjournal Aufgabe 1 <span class="small">(Tipp für Tipp öffnen, im Journal ankreuzen)</span></p>
   <details class="hint" data-h="r1c1a"><summary>Tipp 1 · Denkanstoß · Was haben alle gemeinsam?</summary><div class="hint-body">
-    <p>Lest im Buch auf S. 224 die Liste „Alkalische Lösungen haben eine Reihe weiterer gemeinsamer Eigenschaften“. Fragt euch bei jeder Eigenschaft: Welches Teilchen steckt in allen diesen Lösungen?</p>
+    <p>Tippt in Abb. 5 nacheinander alle vier Tests an. Fragt euch bei jeder Beobachtung: Welches Teilchen steckt in allen diesen Lösungen?</p>
     <details class="hint" data-h="r1c1b"><summary>Tipp 2 · Werkzeug · Indikatoren und Strom</summary><div class="hint-body">
       <p>Universalindikator wird in alkalischen Lösungen blauviolett, Phenolphthalein rotviolett. Eine Lösung, die den Strom leitet, enthält frei bewegliche Ionen.</p>
       <details class="hint" data-h="r1c1c"><summary>Tipp 3 · Lösungsweg</summary><div class="hint-body">
@@ -768,7 +776,7 @@ select.csel { width: 3.2em; text-align: center; }
   </div></details>
   <div class="card laurel" id="lc1-1">
     <h3>🎓 Vertiefung <span class="stars">★★★</span></h3>
-    <p>Buch S. 225, Aufgabe 9: Warum kann man Laugenbrezeln gefahrlos essen, obwohl sie in Natronlauge getaucht wurden?</p>
+    <p>Warum kann man Laugenbrezeln gefahrlos essen, obwohl sie in Natronlauge getaucht wurden?</p>
     <div id="l1-1"></div>
   </div>
 </section>
@@ -785,7 +793,7 @@ select.csel { width: 3.2em; text-align: center; }
   </div>
   <div class="card task">
     <h3>📖 Auftrag</h3>
-    <p>Beantwortet die vier Fragen (Buch S. 225, Aufgabe 2). Die Buchstaben ergeben den Code.</p>
+    <p>Beantwortet die vier Fragen. Die Buchstaben ergeben den Code.</p>
     <div class="journal">📝 <span><b>Entwicklerjournal, Aufgabe 2:</b> Erklärt den Begriff Lauge und begründet, warum nicht jede alkalische Lösung eine Lauge ist.</span></div>
   </div>
   <div class="card" id="quiz12"></div>
@@ -818,9 +826,10 @@ select.csel { width: 3.2em; text-align: center; }
 <section class="chapter" id="r1c3">
   <div class="chap-head"><div class="chap-no">3</div><div><small>SITZUNG 2 · MEILENSTEIN 3</small><h2>Weg 1: Metall und Wasser</h2></div></div>
   <div class="card story-card story">
-    <p class="voiced"><span class="vtext"><span class="who">Lina Klar:</span> „Jetzt wird es spannend: Wie stellt man Hydroxide her? Im Buch findet ihr zwei Wege. Der erste ist spektakulär: Ein Alkalimetall oder Erdalkalimetall reagiert mit Wasser. Dabei entsteht eine alkalische Lösung, und es sprudelt Wasserstoff.“</span><button class="say figur" type="button" data-audio="rohrfrei-img/stimme-c9c22a9431.mp3" aria-label="Lina Klar anhören" title="Lina Klar anhören">🔊</button></p>
+    <p class="voiced"><span class="vtext"><span class="who">Lina Klar:</span> „Jetzt wird es spannend: Wie stellt man Hydroxide her? Es gibt zwei Wege. Der erste ist spektakulär: Ein Alkalimetall oder Erdalkalimetall reagiert mit Wasser. Dabei entsteht eine alkalische Lösung, und es sprudelt Wasserstoff.“</span><button class="say figur" type="button" data-audio="rohrfrei-img/stimme-586c13d7a6.mp3" aria-label="Lina Klar anhören" title="Lina Klar anhören">🔊</button></p>
   </div>
   <div class="card">
+    <div class="fig szene" data-szene="metall"><div class="sz-tabs"></div><canvas role="img" aria-label="Natrium in Wasser mit Phenolphthalein schmilzt zur Kugel, flitzt zischend über die Oberfläche und verschwindet, das Wasser färbt sich rotviolett. Calcium sinkt in Wasser mit Phenolphthalein, Gasbläschen steigen auf und werden in einem Reagenzglas aufgefangen, die Lösung wird rotviolett und leicht trüb. Die Knallgasprobe mit dem aufgefangenen Gas ploppt: Wasserstoff."></canvas><p class="figcap">Abb. 6 · Metall und Wasser im Labor (Natrium und Calcium antippen)</p></div>
     <div class="fig"><svg viewBox="0 0 664 170" role="img" aria-label="Schema Weg 1: Metall reagiert mit Wasser zu Metall-Ionen, Hydroxid-Ionen und Wasserstoff">
       <rect x="10" y="60" width="120" height="50" rx="10" fill="#dff1e5" stroke="#2e7d4f" stroke-width="2.5"/><text x="70" y="91" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="20" fill="#1e5a37">Metall</text>
       <text x="165" y="92" text-anchor="middle" font-size="26" fill="#6a5444">+</text>
@@ -833,13 +842,12 @@ select.csel { width: 3.2em; text-align: center; }
       <text x="572" y="92" text-anchor="middle" font-size="26" fill="#6a5444">+</text>
       <text x="610" y="92" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="20" fill="#2f2219">H₂</text>
       <text x="610" y="116" text-anchor="middle" font-family="Nunito, sans-serif" font-size="12" fill="#6a5444">Wasserstoff</text>
-    </svg><p class="figcap">Abb. 5 · Weg 1 (vereinfacht nach Buch S. 225, Abb. 2 ①)</p></div>
-    <p>Beispiel aus dem Buch: <span class="mono">2 Na(s) + 2 H₂O(l) → 2 Na⁺(aq) + 2 OH⁻(aq) + H₂(g)</span></p>
-    <div class="front">🧪 <span>Falls eure Lehrperson es vorführt: Schaut am Pult zu, wie ein Metall mit Wasser reagiert. Achtet auf Gasbläschen und die Farbe des Indikators.</span></div>
+    </svg><p class="figcap">Abb. 7 · Weg 1 im Überblick</p></div>
+    <p>Beispiel Natrium: <span class="mono">2 Na(s) + 2 H₂O(l) → 2 Na⁺(aq) + 2 OH⁻(aq) + H₂(g)</span></p>
   </div>
   <div class="card task">
     <h3>⚖️ Auftrag</h3>
-    <p>Entwickelt die Reaktionsgleichung für die Reaktion von <b>Kalium</b> mit Wasser (Buch S. 225, Aufgabe 5a). Wählt die Koeffizienten so, dass links und rechts gleich viele Atome stehen.</p>
+    <p>Entwickelt die Reaktionsgleichung für die Reaktion von <b>Kalium</b> mit Wasser. Wählt die Koeffizienten so, dass links und rechts gleich viele Atome stehen.</p>
     <div class="journal">📝 <span><b>Entwicklerjournal, Aufgabe 3:</b> Entwickelt die Reaktionsgleichung für Kalium und Wasser.</span></div>
   </div>
   <div class="card">
@@ -865,7 +873,7 @@ select.csel { width: 3.2em; text-align: center; }
   </div></details>
   <div class="card laurel" id="lc1-3">
     <h3>🎓 Vertiefung <span class="stars">★★★</span></h3>
-    <p>Das Erdalkalimetall <b>Calcium</b> bildet Ca²⁺-Ionen (Buch S. 225, Abb. 2 ①). Entwickelt die Gleichung für Calcium und Wasser.</p>
+    <p>Das Erdalkalimetall <b>Calcium</b> bildet Ca²⁺-Ionen (Abb. 6, Calcium). Entwickelt die Gleichung für Calcium und Wasser.</p>
     <div class="eq" id="co13l"></div>
     <div class="lock-row"><button class="btn green" id="l13check">Prüfen</button></div>
     <div class="fb" id="lmsg1-3"></div>
@@ -888,14 +896,14 @@ select.csel { width: 3.2em; text-align: center; }
       <text x="525" y="66" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="17" fill="#4b2a8f">Metall-Ionen</text>
       <text x="525" y="90" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="17" fill="#4b2a8f">+ OH⁻(aq)</text>
       <text x="525" y="112" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" fill="#6a5444">alkalische Lösung, kein Gas</text>
-    </svg><p class="figcap">Abb. 6 · Weg 2 (vereinfacht nach Buch S. 225, Abb. 2 ②)</p></div>
-    <p>Beispiel aus dem Buch: <span class="mono">CaO(s) + H₂O(l) → Ca²⁺(aq) + 2 OH⁻(aq)</span> (Branntkalk wird zu Kalkwasser)</p>
+    </svg><p class="figcap">Abb. 8 · Weg 2 im Überblick</p></div>
+    <p>Beispiel Branntkalk: <span class="mono">CaO(s) + H₂O(l) → Ca²⁺(aq) + 2 OH⁻(aq)</span> (Branntkalk wird zu Kalkwasser)</p>
   </div>
   <div class="card task">
     <h3>⚖️ Auftrag</h3>
     <ol>
       <li>Entwickelt die Gleichung für die Reaktion von <b>Lithiumoxid</b> Li₂O mit Wasser.</li>
-      <li>Entwickelt die Dissoziationsgleichung für das Lösen von <b>Lithiumhydroxid</b> LiOH in Wasser (Buch S. 225, Aufgabe 5b).</li>
+      <li>Entwickelt die Dissoziationsgleichung für das Lösen von <b>Lithiumhydroxid</b> LiOH in Wasser.</li>
     </ol>
     <div class="journal">📝 <span><b>Entwicklerjournal, Aufgabe 4:</b> Entwickelt beide Gleichungen und vergleicht Weg 1 mit Weg 2.</span></div>
   </div>
@@ -1002,7 +1010,7 @@ select.csel { width: 3.2em; text-align: center; }
       <tr><td>Tipps</td><td class="mono" id="certHints">–</td></tr>
       <tr><td>Vertiefung 🎓</td><td class="mono" id="certLaurel">–</td></tr>
     </table>
-    <p class="small" style="margin-top:0.8rem">Macht ein Foto von diesem Zertifikat und zeigt es eurer Lehrperson.</p>
+    <p class="small" style="margin-top:0.8rem">Macht einen Screenshot von diesem Zertifikat und gebt ihn im Classroom in der Aufgabe zusammen mit euren Experimentalergebnissen ab.</p>
   </div>
   <div class="card task">
     <h3>📝 Zum Schluss: Euer Produktsteckbrief</h3>
@@ -1013,7 +1021,7 @@ select.csel { width: 3.2em; text-align: center; }
   </div>
   <div class="card fast">
     <h3>⚡ Schnellläufer:innen</h3>
-    <p>Buch S. 225, Aufgabe 8: „Fliesen nicht mit sauren Reinigern putzen, ein Schuss Ammoniaklösung macht sie blitzblank.“ Erklärt den Tipp und entwickelt die Reaktionsgleichung für Ammoniak und Wasser.</p>
+    <p>Ein alter Haushaltstipp: „Fliesen nicht mit sauren Reinigern putzen, ein Schuss Ammoniaklösung macht sie blitzblank.“ Info: Die Fugen zwischen den Fliesen bestehen aus Mörtel, der Kalk (Calciumcarbonat) enthält. Auf Fliesen sammelt sich vor allem fettiger Schmutz. Erklärt den Tipp und entwickelt die Reaktionsgleichung für Ammoniak und Wasser.</p>
     <details class="hint"><summary>Lösung</summary><div class="hint-body"><p>Saure Reiniger greifen kalkhaltige Fugen an. Ammoniaklösung ist alkalisch und löst Fett: NH₃(g) + H₂O(l) → NH₄⁺(aq) + OH⁻(aq). Ammoniak nimmt ein Proton auf und ist eine Base.</p></div></details>
   </div>
 </section>
@@ -1595,7 +1603,7 @@ select.csel { width: 3.2em; text-align: center; }
   }
   $("l12check").addEventListener("click", function () {
     var r = check12l();
-    laurelMsg("1-2", !r.wrong && !r.miss, !r.wrong && !r.miss ? "Richtig! Ammoniaklösung enthält kein Metallhydroxid, und Calcium ist ein Erdalkalimetall. Beide sind alkalisch, aber nach der Definition im Buch keine Laugen." : "Noch nicht. Laugen sind Lösungen von Alkalimetallhydroxiden. Welche Metalle stehen in der ersten Hauptgruppe?");
+    laurelMsg("1-2", !r.wrong && !r.miss, !r.wrong && !r.miss ? "Richtig! Ammoniaklösung enthält kein Metallhydroxid, und Calcium ist ein Erdalkalimetall. Beide sind alkalisch, aber nach unserer Definition keine Laugen." : "Noch nicht. Laugen sind Lösungen von Alkalimetallhydroxiden. Welche Metalle stehen in der ersten Hauptgruppe?");
   });
   $("start0").addEventListener("click", function () { startRun(0); });
   $("start1").addEventListener("click", function () { startRun(1); });
@@ -1649,5 +1657,221 @@ select.csel { width: 3.2em; text-align: center; }
   }));
 })();
 </script>
+<!-- LABORSZENEN -->
+<script>
+/* Laborszenen im Comic-Stil (nach Rosas Säurelabor): Testreihe alkalischer Lösungen (S2 M1) und Metall + Wasser (S2 M3).
+   Wird von einbauen_laborszenen.py in rohrfrei-produktentwicklung.html eingesetzt (zwischen den Markern LABORSZENEN). */
+(function () {
+  var P = { ink: '#2b1d2e', wall: '#f6efe0', wallD: '#efe3c8', tile: '#7fa7ad', tileD: '#5d878e', cloud: '#fffaf0',
+    glass: 'rgba(214,236,246,.45)', glassHi: 'rgba(255,255,255,.8)', water: '#d9eef6', metal: '#c3c8ce', metalD: '#868d96',
+    brass: '#d9a441', wood: '#b9773f', flameO: '#f2a33a', flameI: '#fff1a8', pink: '#d0418a', uv: '#55358f', blue: '#344fa3', bulb: '#ffe066' };
+  var W = 1200, H = 620, ctx;
+  var clamp01 = function (v) { return Math.max(0, Math.min(1, v)); };
+  function hex(h) { var n = parseInt(h.slice(1), 16); return [n >> 16, (n >> 8) & 255, n & 255]; }
+  function mix(a, b, k) { var A = hex(a), B = hex(b); return 'rgb(' + A.map(function (v, i) { return Math.round(v + (B[i] - v) * k); }).join(',') + ')'; }
+  function rnd(seed) { var s = seed; return function () { s = (s * 16807) % 2147483647; return s / 2147483647; }; }
+  function poly(p, fill, stroke, lw) {
+    ctx.beginPath(); ctx.moveTo(p[0], p[1]); for (var i = 2; i < p.length; i += 2) ctx.lineTo(p[i], p[i + 1]); ctx.closePath();
+    if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+    if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = lw || 4; ctx.lineJoin = 'round'; ctx.stroke(); }
+  }
+  function line(x1, y1, x2, y2, col, lw) { ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.strokeStyle = col; ctx.lineWidth = lw; ctx.lineCap = 'round'; ctx.stroke(); }
+  function circ(x, y, r, fill, stroke, lw) { ctx.beginPath(); ctx.arc(x, y, Math.max(0.1, r), 0, Math.PI * 2); if (fill) { ctx.fillStyle = fill; ctx.fill(); } if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = lw || 4; ctx.stroke(); } }
+  function txt(s, x, y, size, col, align) { ctx.font = '600 ' + size + 'px "Fredoka","Trebuchet MS",sans-serif'; ctx.textAlign = align || 'center'; ctx.fillStyle = col || P.ink; ctx.fillText(s, x, y); ctx.textAlign = 'left'; }
+  function tag(s, x, y, rot, size, alpha) {
+    if (alpha <= 0) return;
+    size = size || 26; ctx.save(); ctx.globalAlpha = clamp01(alpha); ctx.translate(x, y); ctx.rotate(rot || 0);
+    ctx.font = '600 ' + size + 'px "Fredoka","Trebuchet MS",sans-serif'; var w = ctx.measureText(s).width + 26;
+    poly([-w / 2, -size * 0.85, w / 2, -size * 0.95, w / 2 + 4, size * 0.45, -w / 2 + 2, size * 0.5], P.cloud, P.ink, 3.5);
+    txt(s, 0, size * 0.18, size, P.ink); ctx.restore();
+  }
+  function sparkle(x, y, r, col) { var p = []; for (var i = 0; i < 16; i++) { var a = i * Math.PI / 8, rr = i % 2 ? r * 0.45 : r; p.push(x + Math.cos(a) * rr, y + Math.sin(a) * rr); } poly(p, col, P.ink, 4); }
+  function bg() {
+    ctx.fillStyle = P.wall; ctx.fillRect(0, 0, W, H);
+    poly([0, 0, W, 0, W, 90, 0, 105], P.wallD);
+    for (var y = 200; y < 500; y += 46) line(0, y, W, y - 6, 'rgba(43,29,46,.06)', 2);
+    poly([0, 520, W, 512, W, H, 0, H], P.tile);
+    for (var i = 0; i < 4; i++) line(0, 538 + i * 26, W, 528 + i * 26, 'rgba(240,230,210,.45)', 3);
+    for (var x = -200; x < W + 200; x += 90) line(x, 520, x + (x - 600) * 0.3, H, 'rgba(240,230,210,.45)', 3);
+    poly([0, 512, W, 504, W, 524, 0, 532], P.tileD, P.ink, 4);
+  }
+  // Becherglas mit Flüssigkeit (Füllstand lvl 0–1)
+  function beaker(x, base, w, h, liq, lvl, haze) {
+    var l = x - w / 2, r = x + w / 2, top = base - h;
+    if (lvl > 0) { poly([l + 5, base - 5, r - 5, base - 5, r - 5, base - h * lvl, l + 5, base - h * lvl], liq); if (haze) poly([l + 5, base - 5, r - 5, base - 5, r - 5, base - h * lvl, l + 5, base - h * lvl], 'rgba(255,255,255,' + haze + ')'); }
+    poly([l - 6, top - 6, l, top, l, base, r, base, r, top, r + 4, top - 8], P.glass, P.ink, 5);
+    line(l + 14, top + 20, l + 14, base - 20, P.glassHi, 6);
+    for (var i = 1; i <= 3; i++) line(r - 22, base - h * i / 4, r - 8, base - h * i / 4, 'rgba(43,29,46,.35)', 2);
+  }
+  function bubbles(x0, y0, w, h, n, speed, t, seed, r, alpha) {
+    var R = rnd(seed || 7);
+    for (var i = 0; i < n; i++) {
+      var ox = R() * w, ph = (t * speed * (0.7 + R() * 0.6) + R()) % 1, rr = (r || 6) * (0.6 + R() * 0.8), wob = Math.sin((t * 6 + i) * 1.3) * 3;
+      ctx.globalAlpha = alpha == null ? 1 : alpha;
+      circ(x0 + ox + wob, y0 - ph * h, rr * (0.7 + ph * 0.5), 'rgba(255,255,255,.8)', 'rgba(43,29,46,.55)', 2);
+      ctx.globalAlpha = 1;
+    }
+  }
+  function flame(x, y, s, t) {
+    var f = 1 + Math.sin(t * 23) * 0.08 + Math.sin(t * 37) * 0.06;
+    poly([x - 16 * s, y, x - 9 * s, y - 34 * s * f, x, y - 58 * s * f, x + 9 * s, y - 32 * s * f, x + 16 * s, y], P.flameO, P.ink, 3);
+    poly([x - 7 * s, y, x - 3 * s, y - 22 * s * f, x + 2 * s, y - 32 * s * f, x + 6 * s, y - 18 * s * f, x + 7 * s, y], P.flameI);
+  }
+  function dropper(x, y) {
+    poly([x - 9, y - 70, x + 9, y - 70, x + 9, y - 14, x + 3, y, x - 3, y, x - 9, y - 14], 'rgba(214,236,246,.8)', P.ink, 3.5);
+    poly([x - 13, y - 104, x + 13, y - 104, x + 13, y - 70, x - 13, y - 70], '#c8364f', P.ink, 3.5);
+  }
+
+  // ------------------------------------------------------------ Szene 1: Testreihe alkalischer Lösungen
+  var LOES = [['Natronlauge', P.uv, P.pink, 1], ['Kalilauge', P.uv, P.pink, 1], ['Kalkwasser', '#4f3590', P.pink, 0.9], ['Ammoniaklösung', P.blue, '#e48cb8', 0.55]];
+  function testreihe(T, tab) {
+    bg();
+    if (tab < 3) {
+      LOES.forEach(function (L, i) {
+        var x = 180 + i * 280, k = clamp01((T - 1.1 - i * 0.25) / 1.4);
+        var col = tab === 0 ? mix(P.water, L[1], k) : tab === 1 ? mix(P.water, L[2], k) : P.water;
+        beaker(x, 505, 170, 210, col, 0.62);
+        if (tab < 2) {
+          var dy = clamp01((T - i * 0.25) / 0.6);
+          if (T < 2.8) { ctx.globalAlpha = clamp01((2.8 - T) / 0.5); dropper(x + 30, 200 + dy * 40); ctx.globalAlpha = 1; }
+          var fall = clamp01((T - 0.6 - i * 0.25) / 0.5);
+          if (fall > 0 && fall < 1) circ(x + 30, 245 + fall * 135, 7, tab === 0 ? L[1] : L[2], P.ink, 2);
+        } else {
+          // Leitfähigkeit: zwei Elektroden, Lämpchen darüber
+          var on = clamp01((T - 0.8 - i * 0.25) / 0.6) * L[3];
+          line(x - 30, 180, x - 30, 470, '#7d848c', 10); line(x + 30, 180, x + 30, 470, '#7d848c', 10);
+          line(x - 30, 180, x - 30, 150, P.ink, 4); line(x + 30, 180, x + 30, 150, P.ink, 4);
+          line(x - 30, 150, x - 14, 140, P.ink, 4); line(x + 30, 150, x + 14, 140, P.ink, 4);
+          if (on > 0) { ctx.globalAlpha = on * 0.55; circ(x, 112, 58, '#fff3a0'); ctx.globalAlpha = 1; }
+          circ(x, 112, 26, on > 0.05 ? mix('#f2efe6', P.bulb, on) : '#f2efe6', P.ink, 4);
+          poly([x - 14, 136, x + 14, 136, x + 12, 150, x - 12, 150], P.metalD, P.ink, 3);
+        }
+        tag(L[0], x, 572, i % 2 ? 0.02 : -0.03, 22, 1);
+        var lab = tab === 0 ? 'blauviolett' : tab === 1 ? 'rotviolett' : (L[3] > 0.8 ? 'leuchtet hell' : 'leuchtet schwach');
+        tag(lab, x, tab === 2 ? 220 : 240, i % 2 ? -0.03 : 0.03, 22, (T - 2.8 - i * 0.2) * 2);
+      });
+      var head = ['Ein Tropfen Universalindikator', 'Ein Tropfen Phenolphthalein', 'Leitet die Lösung den Strom?'][tab];
+      txt(head, 600, 52, 30, P.ink);
+    } else {
+      // konzentrierte Natronlauge zersetzt ein Haar · verdünnte Lösungen fühlen sich glitschig an
+      txt('Was macht eine stark alkalische Lösung mit organischen Stoffen?', 600, 52, 28, P.ink);
+      beaker(330, 505, 260, 280, mix(P.water, '#e9e2c9', 0.4), 0.62);
+      tag('konzentrierte Natronlauge', 330, 572, -0.02, 22, 1);
+      var g = clamp01((T - 0.8) / 4);
+      ctx.save(); ctx.beginPath();
+      for (var j = 0; j <= 60; j++) { var u = j / 60; if (u > 1 - g * 0.95) break; var hx = 250 + u * 160, hy = 400 + Math.sin(u * 14) * 18 - u * 30; if (j === 0) ctx.moveTo(hx, hy); else ctx.lineTo(hx, hy); }
+      ctx.strokeStyle = 'rgba(70,42,24,' + (1 - g * 0.7) + ')'; ctx.lineWidth = 5; ctx.lineCap = 'round'; ctx.stroke(); ctx.restore();
+      bubbles(260, 470, 150, 120, 8, 0.6, T, 5, 4, 0.6);
+      tag('Das Haar löst sich auf', 330, 250, 0.03, 24, (T - 4) * 2);
+      // Seife: glitschig
+      poly([760, 470, 940, 462, 952, 500, 772, 508], '#f6d9e6', P.ink, 4);
+      poly([760, 470, 780, 440, 958, 432, 940, 462], '#fbe9f1', P.ink, 4);
+      bubbles(780, 440, 160, 140, 10, 0.4, T, 11, 9, 0.9);
+      tag('verdünnt: glitschig wie Seifenwasser', 860, 330, -0.03, 22, (T - 1.5) * 2);
+      sparkle(1080, 210, 40, '#f2c94a'); txt('!', 1080, 224, 38, P.ink);
+      tag('nie mit der Haut testen', 1010, 150, 0.02, 20, (T - 2.5) * 2);
+    }
+  }
+
+  // ------------------------------------------------------------ Szene 2: Metall + Wasser (Natrium / Calcium)
+  function natrium(T) {
+    bg();
+    txt('Natrium in Wasser mit Phenolphthalein', 600, 52, 30, P.ink);
+    var cx = 600, base = 505, w = 640, h = 190, surf = base - h * 0.72;
+    var k = clamp01((T - 2.2) / 5);
+    // Glaswanne
+    poly([cx - w / 2 + 6, base - 6, cx + w / 2 - 6, base - 6, cx + w / 2 - 6, surf, cx - w / 2 + 6, surf], mix(P.water, P.pink, k * 0.85));
+    poly([cx - w / 2, base - h, cx - w / 2, base, cx + w / 2, base, cx + w / 2, base - h], P.glass, P.ink, 5);
+    line(cx - w / 2 + 16, base - h + 18, cx - w / 2 + 16, base - 18, P.glassHi, 6);
+    var life = 1 - clamp01((T - 1.6) / 7.4);
+    var drop = clamp01(T / 1.4);
+    if (T < 1.6) {
+      var y = 140 + drop * (surf - 160);
+      poly([cx - 14, y - 12, cx + 14, y - 14, cx + 16, y + 12, cx - 12, y + 14], P.metal, P.ink, 3.5);
+      line(cx - 10, y - 14, cx - 40, 90, '#9aa1a8', 7); line(cx + 10, y - 14, cx + 40, 90, '#9aa1a8', 7);
+    } else if (life > 0) {
+      var tt = T - 1.6, bx = cx + Math.sin(tt * 1.7) * 220 + Math.sin(tt * 3.3) * 40, r = 6 + 12 * Math.sqrt(life);
+      // Schlieren unter der Kugel
+      ctx.globalAlpha = 0.35; for (var s = 1; s < 7; s++) { var px = cx + Math.sin((tt - s * 0.12) * 1.7) * 220 + Math.sin((tt - s * 0.12) * 3.3) * 40; circ(px, surf + 14 + s * 6, 18 - s * 2, P.pink); } ctx.globalAlpha = 1;
+      bubbles(bx - r, surf - 2, r * 2, 40, 6, 1.6, T, 3, 4, 0.9);
+      circ(bx, surf - r * 0.6, r, P.metal, P.ink, 3.5); circ(bx - r * 0.35, surf - r * 0.95, r * 0.3, 'rgba(255,255,255,.9)');
+      if (Math.sin(T * 9) > 0.2) { ctx.globalAlpha = 0.7; circ(bx + 18, surf - 40, 10, '#ffffff'); circ(bx + 30, surf - 58, 7, '#ffffff'); ctx.globalAlpha = 1; txt('zisch!', bx + 52, surf - 64, 24, P.ink, 'left'); }
+    }
+    tag('Die Natriumstückchen schmelzen zur Kugel, die zischend umherflitzt', 600, 118, -0.01, 22, (T - 2.6) * 2);
+    tag('rotviolett: alkalische Lösung', 300, 560, -0.03, 22, (T - 4.5) * 2);
+    tag('Natrium verschwindet, Gas entweicht', 860, 560, 0.03, 22, (T - 8.6) * 2);
+  }
+  function calcium(T) {
+    bg();
+    txt('Calcium in Wasser mit Phenolphthalein', 600, 52, 30, P.ink);
+    var x = 380, base = 505, bw = 300, bh = 320, surf = base - bh * 0.78;
+    var k = clamp01((T - 2.4) / 4.5);
+    beaker(x, base, bw, bh, mix(P.water, P.pink, k * 0.75), 0.78, 0.28 * k);
+    // Stativ mit Klemme und umgedrehtem Reagenzglas (Gas auffangen)
+    line(600, 505, 600, 110, '#7d848c', 10); line(600, 140, x + 20, 140, '#7d848c', 8); poly([x + 4, 128, x + 36, 128, x + 36, 152, x + 4, 152], P.brass, P.ink, 3);
+    var tl = x - 22, tr = x + 22, ttop = 120, tmouth = 400, gas = clamp01((T - 2.2) / 5.2) * 200;
+    ctx.save(); ctx.beginPath(); ctx.rect(tl, ttop, tr - tl, tmouth - ttop); ctx.clip();
+    ctx.fillStyle = mix(P.water, P.pink, k * 0.75); ctx.fillRect(tl, ttop + gas, tr - tl, tmouth - ttop - gas);
+    if (gas > 4) { ctx.fillStyle = 'rgba(255,255,255,.35)'; ctx.fillRect(tl, ttop, tr - tl, gas); }
+    ctx.restore();
+    ctx.beginPath(); ctx.moveTo(tl, tmouth); ctx.lineTo(tl, ttop + 22); ctx.arc(x, ttop + 22, 22, Math.PI, 0); ctx.lineTo(tr, tmouth); ctx.strokeStyle = P.ink; ctx.lineWidth = 4.5; ctx.stroke();
+    line(tl + 8, ttop + 30, tl + 8, tmouth - 10, P.glassHi, 4);
+    // Calciumkörner fallen und sinken
+    var R = rnd(4), life = 1 - clamp01((T - 2) / 7);
+    for (var i = 0; i < 6; i++) {
+      var gx = x - 26 + R() * 52, delay = R() * 0.5, fall = clamp01((T - 0.3 - delay) / 1.3), gy = 90 + fall * (base - 22 - 90);
+      if (life > 0) poly([gx - 8 * life - 2, gy - 6, gx + 7 * life + 2, gy - 8, gx + 9 * life + 2, gy + 6, gx - 6 * life - 2, gy + 8], P.metalD, P.ink, 2.5);
+    }
+    if (T > 1.8 && life > 0) bubbles(x - 22, base - 20, 44, base - 20 - ttop - gas - 10, 14, 1.2, T, 9, 5);
+    tag('Calcium sinkt, Gasbläschen steigen auf', x, 560, -0.02, 22, (T - 2.6) * 2);
+    tag('Lösung wird rotviolett und leicht trüb', x - 10, 80 + 10, 0.02, 22, (T - 5) * 2);
+    // Knallgasprobe rechts
+    var q = T - 8.2;
+    if (q > 0) {
+      var hx = 900, hy = 220 - Math.min(q, 0.8) * 10;
+      ctx.beginPath(); ctx.moveTo(hx - 22, hy + 160); ctx.lineTo(hx - 22, hy + 22); ctx.arc(hx, hy + 22, 22, Math.PI, 0); ctx.lineTo(hx + 22, hy + 160);
+      ctx.fillStyle = 'rgba(255,255,255,.55)'; ctx.fill(); ctx.strokeStyle = P.ink; ctx.lineWidth = 4.5; ctx.stroke();
+      var sx = hx + 40 - clamp01(q / 1.2) * 40, sy = hy + 330 - clamp01(q / 1.2) * 150;
+      line(sx, sy, sx + 70, sy + 130, P.wood, 9); if (q < 1.6) flame(sx, sy, 0.7, T);
+      if (q > 1.3) { var pop = clamp01((q - 1.3) / 0.35); sparkle(hx, hy + 170, 40 + 40 * pop, '#f2c94a'); txt('PLOPP!', hx, hy + 182, 34, P.ink); }
+      tag('Knallgasprobe: Wasserstoff', hx, 120, 0.03, 22, (q - 1.6) * 2);
+    }
+  }
+
+  // ------------------------------------------------------------ Steuerung
+  var SZENEN = {
+    test: { end: 5.5, tabs: ['Universalindikator', 'Phenolphthalein', 'Strom', 'Haar und Haut'], draw: testreihe },
+    metall: { end: 11, tabs: ['Natrium', 'Calcium'], draw: function (T, tab) { if (tab === 0) natrium(Math.min(T, 10)); else calcium(T); } }
+  };
+  var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('[data-szene]').forEach(function (box) {
+    var S = SZENEN[box.getAttribute('data-szene')], cv = box.querySelector('canvas'), tab = 0, t0 = performance.now(), visible = false, raf = 0;
+    var bar = box.querySelector('.sz-tabs');
+    S.tabs.forEach(function (name, i) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'sz-tab' + (i === 0 ? ' on' : ''); b.textContent = name;
+      b.addEventListener('click', function () { tab = i; t0 = performance.now(); bar.querySelectorAll('.sz-tab').forEach(function (x, j) { x.classList.toggle('on', j === i); }); kick(); });
+      bar.appendChild(b);
+    });
+    var again = document.createElement('button'); again.type = 'button'; again.className = 'sz-tab sz-again'; again.textContent = '↺ nochmal';
+    again.addEventListener('click', function () { t0 = performance.now(); kick(); }); bar.appendChild(again);
+    function size() { var d = Math.min(window.devicePixelRatio || 1, 2), w = cv.clientWidth || 600; cv.width = Math.round(w * d); cv.height = Math.round(w * d * H / W); }
+    function frame(now) {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2); if (cv.clientWidth && Math.abs(cv.width - cv.clientWidth * dpr) > 2) size();
+      raf = 0; var T = still ? S.end : (now - t0) / 1000;
+      if (window.__SZ_T != null) T = window.__SZ_T; // nur für Tests
+      ctx = cv.getContext('2d'); ctx.setTransform(cv.width / W, 0, 0, cv.height / H, 0, 0);
+      S.draw(Math.min(T, S.end), tab);
+      if (visible && T < S.end && !still) raf = requestAnimationFrame(frame);
+    }
+    function kick() { if (!raf) raf = requestAnimationFrame(frame); }
+    size(); window.addEventListener('resize', function () { size(); kick(); });
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { var was = visible; visible = e[0].isIntersecting; if (visible && !was) { t0 = performance.now(); kick(); } }).observe(cv);
+    else { visible = true; kick(); }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(kick);
+    kick();
+  });
+})();
+</script>
+<!-- /LABORSZENEN -->
 </body>
 </html>
