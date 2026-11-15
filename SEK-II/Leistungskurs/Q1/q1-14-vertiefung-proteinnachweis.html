@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Violett heißt Peptid – Vertiefung und Hilfen</title>
+<!-- Chemie LK Q1 · Sitzung 14 · erzeugt von Q1/_Werkzeuge/hilfenseiten/build.py (iCloud), Änderungen dort. Ohne Lösungen (Repo öffentlich). -->
+<style>
+:root{
+  --blau:#2a7ab8; --tblau:#156e9d; --blau-hell:#e6f0f8; --orange:#d9822b; --orange-hell:#fdf1e4;
+  --violett:#7a5aa8; --gruen:#3e9a63; --grau:#6f7a85; --linie:#d5dde5; --bg:#f6f8fa; --karte:#fff; --text:#222;
+  --sans:-apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.5}
+a{color:var(--tblau)}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header{background:linear-gradient(135deg,#156e9d 0%,#2a7ab8 60%,#3d8fc9 100%);color:#fff;padding:28px 0 22px}
+header .kurs{font-size:13px;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+header h1{margin:4px 0 6px;font-size:clamp(24px,4.5vw,34px);font-weight:600;line-height:1.2}
+header p{margin:0;opacity:.92;max-width:680px}
+nav{position:sticky;top:0;z-index:10;background:rgba(246,248,250,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--linie)}
+nav .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:8px;padding-bottom:8px}
+nav a{flex:none;text-decoration:none;color:var(--tblau);border:1px solid var(--linie);background:#fff;border-radius:16px;padding:3px 12px;font-size:14px;font-weight:600}
+nav a.v{color:var(--orange)}
+h2{font-size:20px;color:var(--tblau);margin:30px 0 4px}
+.hinweis{color:var(--grau);font-size:14px;margin:0 0 14px}
+/* Hilfekarten */
+.hilfen{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.hk{background:var(--karte);border:1.5px dashed #b9c4cf;border-radius:10px;padding:14px 16px}
+.hk h3{margin:0 0 2px;font-size:16px;color:var(--blau)}
+.hk .zu{font-size:13px;color:var(--grau);margin-bottom:8px}
+.stufe{display:none;margin:8px 0 0;padding:8px 10px;background:var(--blau-hell);border-radius:6px;font-size:15px}
+.stufe.offen{display:block;animation:auf .25s ease}
+@keyframes auf{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.hk button{margin-top:10px;border:1px solid var(--blau);background:#fff;color:var(--blau);border-radius:6px;padding:4px 12px;font-size:14px}
+.hk button:hover{background:var(--blau-hell)}
+.hk button[disabled]{opacity:.4;cursor:default}
+.hk .zaehler{font-size:12px;color:var(--grau);margin-left:8px}
+/* Vertiefungen */
+.v-karte{background:var(--karte);border:1px solid var(--linie);border-radius:12px;margin:14px 0;overflow:hidden}
+.v-kopf{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--linie);background:#fbfcfd}
+.v-nr{flex:none;width:42px;height:42px;border-radius:50%;background:var(--orange);color:#fff;font-weight:700;display:grid;place-items:center}
+.v-kopf h3{margin:0;font-size:18px}
+.sterne{color:var(--orange);font-size:14px;font-weight:700}
+.v-inhalt{padding:14px 16px 16px}
+.zwei{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+@media (max-width:720px){.zwei{grid-template-columns:1fr}}
+.aufgabe{display:grid;grid-template-columns:28px 1fr auto;gap:6px;background:var(--orange-hell);border-radius:8px;padding:8px 10px;margin-top:10px}
+.aufgabe .b{font-weight:700;color:var(--orange)}
+.aufgabe .ab{font-size:12px;color:var(--grau);white-space:nowrap;align-self:start;margin-top:2px}
+figure{margin:0}
+figcaption{font-size:13px;color:var(--grau);margin-top:4px}
+svg{max-width:100%;height:auto;display:block}
+.regler{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 2px;font-size:14px}
+.regler input[type=range]{flex:1;min-width:140px;accent-color:var(--orange)}
+.knopf{border:1px solid var(--linie);background:#fff;border-radius:6px;padding:3px 10px;font-size:14px}
+.ausgabe{font-variant-numeric:tabular-nums;font-size:14px;background:#f2f5f8;border-radius:6px;padding:6px 10px;margin-top:6px}
+.legende{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:#444;margin-top:6px}
+.legende i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.balken{display:grid;grid-template-columns:150px 1fr 76px;gap:6px 10px;align-items:center;font-size:14px}
+.balken .spur{background:#eef2f6;border-radius:4px;height:18px;position:relative;overflow:hidden}
+.balken .fuell{height:100%;border-radius:4px;width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.balken .wert{text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:520px){.balken{grid-template-columns:100px 1fr 64px;font-size:13px}}
+.kachel-reihe{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:12px}
+.kachel{background:#f2f5f8;border-radius:8px;padding:10px 12px}
+.kachel .zahl{font-size:22px;font-weight:700;color:var(--tblau);font-variant-numeric:tabular-nums}
+.kachel .was{font-size:13px;color:#555}
+.zeitstrahl{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.zeitstrahl span{font-size:13px;background:#fff;border:1px solid var(--linie);border-radius:14px;padding:2px 10px}
+.zeitstrahl b{color:var(--orange)}
+.cta{display:inline-block;background:var(--tblau);color:#fff;text-decoration:none;font-weight:600;border-radius:8px;padding:8px 16px;margin:8px 8px 0 0}
+.cta:hover{background:var(--blau)}
+.code{font-family:Menlo,Consolas,monospace;background:#f2f5f8;border:1px solid var(--linie);border-radius:6px;padding:2px 8px;font-size:14px}
+.klein{font-size:13px;color:var(--grau)}
+footer{margin:36px 0 0;border-top:1px solid var(--linie);padding:16px 0 28px;font-size:12.5px;color:var(--grau)}
+sub,sup{font-size:.72em}
+/* Ergänzungen Generator */
+.zurueck{display:inline-block;color:#fff;opacity:.85;text-decoration:none;font-size:13px;margin-bottom:6px}
+.zurueck:hover{opacity:1;text-decoration:underline}
+.v-text p:first-child{margin-top:0}
+.fischer{display:inline-block;vertical-align:middle;margin:4px 10px 4px 0}
+.wahl{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.wahl button{border:1px solid var(--linie);background:#fff;border-radius:14px;padding:2px 10px;font-size:13px}
+.wahl button.an{background:var(--tblau);border-color:var(--tblau);color:#fff}
+.quiz-aa{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:6px;margin-top:8px}
+.quiz-aa button{border:1px solid var(--linie);background:#fff;border-radius:8px;padding:6px 4px;font-size:14px}
+.quiz-aa button.ok{background:#e3f4ea;border-color:#3e9a63}
+.quiz-aa button.falsch{background:#fbe6e3;border-color:#d0574a}
+.uebersicht{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:14px}
+.uebersicht a{display:block;background:#fff;border:1px solid var(--linie);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--text)}
+.uebersicht a:hover{border-color:var(--blau);box-shadow:0 2px 8px rgba(21,110,157,.12)}
+.uebersicht .nr{font-size:13px;color:var(--orange);font-weight:700}
+.uebersicht .t{font-weight:600;color:var(--tblau);margin:2px 0 4px}
+.uebersicht .k{font-size:13px;color:var(--grau)}
+.einheit{font-size:14px;color:var(--grau);text-transform:uppercase;letter-spacing:.05em;margin:26px 0 0}
+.qa{display:grid;gap:10px;margin-top:10px}
+.qa details{background:var(--karte);border:1px solid var(--linie);border-radius:10px}
+.qa summary{cursor:pointer;padding:12px 16px;font-weight:600;color:var(--tblau);list-style-position:outside;margin-left:18px}
+.qa details[open] summary{border-bottom:1px solid var(--linie)}
+.qa .antwort{padding:4px 16px 12px}
+.qa .antwort p{margin:10px 0}
+.qa .antwort ul{margin:8px 0;padding-left:1.3em}
+.qa .antwort li{margin-bottom:6px}
+
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="zurueck" href="q1-vertiefung-und-hilfen.html">← alle Sitzungen</a>
+    <div class="kurs">Chemie LK · Q1 · 02 Proteine – Bausteine des Lebens · Sitzung 14</div>
+    <h1>Vertiefung und Hilfen: Violett heißt Peptid? Proteine nachweisen</h1>
+    <p>Hilfen zu den Aufgaben nur bei Bedarf und stufenweise aufdecken. Vertiefungen für Schnelle: Melamin-Skandal, Fotometrie, gelbe Finger, Gluten nachweisen, Proteine als Kette mit N- und C-Terminus.</p>
+  </div>
+</header>
+<nav><div class="wrap">
+  <a href="#hilfen">Hilfen</a><a class="v" href="#v1">V1 Melamin</a><a class="v" href="#v2">V2 Fotometrie</a><a class="v" href="#v3">V3 Gelbe Finger</a><a class="v" href="#v4">V4 Glutenfrei</a><a class="v" href="#v5">V5 Termini</a><a href="#fragen">Fragen</a>
+</div></nav>
+
+<main class="wrap">
+
+<h2 id="hilfen">Hilfekarten</h2>
+<p class="hinweis">Erst selbst probieren. Jede Karte deckt ihre Hilfe in Stufen auf, so wenig wie möglich, so viel wie nötig.</p>
+<div class="hilfen">
+  <div class="hk">
+    <h3>Hilfe zu 1a</h3><div class="zu">Glycin, Dipeptid, Tripeptid</div>
+    <div class="stufe">Zählen Sie die Peptidbindungen in Gly, Gly-Gly und Gly-Gly-Gly.</div><div class="stufe">Wie viele N-Atome aus Peptidgruppen binden das Cu<sup>2+</sup>-Ion in Abb. 1b? Je zwei stammen aus aufeinanderfolgenden Peptidgruppen.</div><div class="stufe">Vergleichen Sie mit Biuret selbst: Wie viele –CO–NH–Gruppen stehen dort hintereinander?</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 1b</h3><div class="zu">Blind- und Positivprobe</div>
+    <div class="stufe">Lesen Sie den Methodenkasten: Was enthält eine Blindprobe, was eine Positivprobe?</div><div class="stufe">Welche Probe aus der Tabelle in M2 enthält sicher kein Protein, welche sicher Protein?</div><div class="stufe">Wenn die Positivprobe hellblau bleibt: Liegt es an der Probe oder am Versuch? Was bedeutet das für alle anderen Ergebnisse?</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 2b</h3><div class="zu">Auswerten</div>
+    <div class="stufe">Vergleichen Sie jede Probe zuerst mit der Blindprobe, dann mit der Positivprobe.</div><div class="stufe">Probe 3 (Glycin): Ist das Blau dasselbe wie in der Blindprobe? Klar oder trüb?</div><div class="stufe">M1: Welche Stoffe binden außer Peptiden Cu<sup>2+</sup>-Ionen, und welche Farbe entsteht dann?</div><div class="stufe">Hypothesen prüfen: Legen Sie Ihre Spalte „Hypothese“ neben die Beobachtungen. Wo lagen Sie falsch, und warum? Probe 8: Was hatten Sie in Sitzung 13 (Aufgabe 5) vorhergesagt?</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 2c</h3><div class="zu">Hirschhornsalz</div>
+    <div class="stufe">Hirschhornsalz enthält Ammonium-Ionen NH<sub>4</sub><sup>+</sup>. Was passiert mit ihnen in Natronlauge?</div><div class="stufe">Welches Teilchen bildet mit Cu<sup>2+</sup>-Ionen einen tiefblauen Komplex (M1)?</div><div class="stufe">Kann man in einer tiefblauen Lösung ein schwaches Violett noch erkennen? Was folgt daraus für die Aussage „kein Protein“?</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 3b</h3><div class="zu">Gelb und Orange</div>
+    <div class="stufe">Schreiben Sie nur den Ring mit der OH-Gruppe ab. Welches Atom am Ring wird durch –NO<sub>2</sub> ersetzt? Was entsteht noch?</div><div class="stufe">Ammoniaklösung ist eine Base. Welche Gruppe am Ring kann ein Proton abgeben?</div><div class="stufe">Denken Sie an Indikatoren (Rotkohl, Phenolphthalein): Warum ändert sich die Farbe, wenn ein Teilchen ein Proton abgibt?</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 3c</h3><div class="zu">Kollagen und Flocken</div>
+    <div class="stufe">Lesen Sie in Abb. 3b die Balken für Kollagen ab. Welche Seitenketten können gelb werden?</div><div class="stufe">Die Biuret-Reaktion erfasst etwas anderes. Hat Kollagen weniger Peptidgruppen als andere Proteine?</div><div class="stufe">Flocken: Was geschah in Sitzung 11 mit Sojaproteinen, als Säure dazukam?</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 4a</h3><div class="zu">Welcher Nachweis erfasst was?</div>
+    <div class="stufe">Ordnen Sie zuerst zu: freie Aminogruppe, Peptidgruppe, aromatischer Ring. Welche Nummern in Abb. 4 gehören dazu?</div><div class="stufe">Ninhydrin: Sitzung 06. Biuret: M1. Xanthoprotein: M3.</div><div class="stufe">Für die Tabelle: Hat Glycin eine Peptidgruppe? Hat Gly-Gly-Gly einen aromatischen Ring? Wie viel Tyrosin hat Gelatine (Abb. 3b)?</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 4b</h3><div class="zu">Pulver B beurteilen</div>
+    <div class="stufe">Trennen Sie zwei Aussagen: „90 % Protein“ (Menge) und „hochwertig“ (Qualität).</div><div class="stufe">Welche Ihrer Beobachtungen stützt die Menge, welche spricht gegen die Qualität?</div><div class="stufe">M4: Was bedeutet es für den DIAAS, wenn eine unentbehrliche Aminosäure ganz fehlt? Ein Urteil nennt Kriterien, gewichtet sie und endet mit einer Position.</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+</div>
+
+<h2>Vertiefungen</h2>
+<p class="hinweis">★ = vertiefend · ★★ = anspruchsvoll. Die Ergebnisse gehören in Ihre Unterlagen; die Abbildungen und Werkzeuge helfen beim Denken, sie ersetzen keine Lösung.</p>
+<section class="v-karte" id="v1">
+  <div class="v-kopf"><div class="v-nr">V1</div><div><div class="sterne">★</div><h3>Der Melamin-Skandal: Stickstoff ist nicht gleich Protein</h3></div></div>
+  <div class="v-inhalt"><div class="v-text"><p>2008 mischten Händler in China Melamin (C<sub>3</sub>H<sub>6</sub>N<sub>6</sub>) in Milch und Säuglingsnahrung. Bei der üblichen Kontrolle wird der Stickstoffgehalt bestimmt und mit 6,25 multipliziert (Kjeldahl-Verfahren). So wird auch der Eiweißgehalt auf jedem Etikett berechnet (Verordnung (EU) Nr. 1169/2011, Anhang I). Rund 300 000 Kinder erkrankten an Nierensteinen, mindestens sechs starben (WHO 2008).</p></div><div class="aufgabe"><span class="b">a)</span><span><b>Berechnen</b> Sie den Massenanteil Stickstoff in Melamin und wie viel „Eiweiß“ 1 g Melamin vortäuscht.</span><span class="ab">AB II</span></div><div class="aufgabe"><span class="b">b)</span><span><b>Beurteilen</b> Sie, ob die Biuret-Reaktion den Betrug aufgedeckt hätte.</span><span class="ab">AB III</span></div></div>
+</section>
+<section class="v-karte" id="v2">
+  <div class="v-kopf"><div class="v-nr">V2</div><div><div class="sterne">★★</div><h3>Wie viel Protein steckt in der Milch?</h3></div></div>
+  <div class="v-inhalt"><div class="v-text"><p>Ein Labor misst die Absorbanz A violetter Biuret-Lösungen bei 540 nm (Gornall et al., <i>J. Biol. Chem.</i> 177, 1949, 751). Kalibrierlösungen aus reinem Protein (Beispieldaten):</p><p>c in mg/mL: 0 · 2 · 4 · 6 · 8 · 10<br>A: 0,000 · 0,104 · 0,209 · 0,311 · 0,417 · 0,520</p><p>Milch, 1 : 10 verdünnt, ergibt A = 0,177.</p></div><div class="aufgabe"><span class="b"></span><span><b>Zeichnen</b> Sie die Kalibriergerade, <b>ermitteln</b> Sie den Proteingehalt der Milch in g/100 mL und <b>vergleichen</b> Sie mit der Angabe auf einer Milchpackung. <b>Nennen</b> Sie zwei Fehlerquellen.</span><span class="ab">AB II</span></div></div>
+</section>
+<section class="v-karte" id="v3">
+  <div class="v-kopf"><div class="v-nr">V3</div><div><div class="sterne">★</div><h3>Gelbe Finger</h3></div></div>
+  <div class="v-inhalt"><div class="v-text"><p>Laborpersonal, das mit konzentrierter Salpetersäure unvorsichtig ist, hat gelbe Fingerkuppen. Die Farbe lässt sich nicht abwaschen und verschwindet erst nach Tagen.</p></div><div class="aufgabe"><span class="b"></span><span><b>Erklären</b> Sie die Beobachtung mit Abb. 3a und Sitzung 10 (Keratin).</span><span class="ab">AB II</span></div></div>
+</section>
+<section class="v-karte" id="v4">
+  <div class="v-kopf"><div class="v-nr">V4</div><div><div class="sterne">★★</div><h3>Glutenfrei: Wie weist man ein bestimmtes Protein nach?</h3></div></div>
+  <div class="v-inhalt"><div class="v-text"><p>Ein Lebensmittel darf in der EU „glutenfrei“ heißen, wenn es höchstens 20 mg Gluten je kg enthält (Durchführungsverordnung (EU) Nr. 828/2014). Labore nutzen dafür Antikörper, die nur an das Sequenzmotiv QQPFP binden, das in Gliadin häufig vorkommt (vgl. das 33-mer in Sitzung 13).</p></div><div class="aufgabe"><span class="b"></span><span><b>Vergleichen</b> Sie diesen Nachweis mit der Biuret-Reaktion: Welche Strukturebene erfasst jeder? <b>Begründen</b> Sie, warum Ihre Probe 8 die Frage „glutenfrei?“ nicht beantworten kann.</span><span class="ab">AB III</span></div></div>
+</section>
+<section class="v-karte" id="v5">
+  <div class="v-kopf"><div class="v-nr">V5</div><div><div class="sterne">★</div><h3>Anfang, Ende und Mitte: die Proteine aus M2 als Kette</h3></div></div>
+  <div class="v-inhalt"><div class="v-text"><img src="bilder/q1-14-termini.svg" alt="Kettenausschnitte von β-Lactoglobulin, β-Casein und einem Kollagen-Peptid. Blau markiert: N-Terminus, violett: Peptidgruppen, rot: C-Terminus." style="width:100%;display:block;margin:0 0 10px"><p>Anfang und Ende der reifen Ketten von a) β-Lactoglobulin, dem Hauptprotein der Molke (Pulver A), und b) β-Casein aus der Milch, dazu c) ein Bruchstück aus Kollagen (α1-Kette, Rest 481–486), wie es in Kollagen-Peptiden (Pulver B) vorkommt (UniProt P02754, P02666, P02453). Seitenketten stehen als Kürzel im Kasten; Prolin (Pro) und Hydroxyprolin (Hyp) sind ausgeschrieben, weil ihr Ring das N-Atom der Kette einschließt.</p><p>Jede Kette hat genau einen <b style='color:#2a7ab8'>N-Terminus</b> mit freier Aminogruppe und einen <b style='color:#c0392b'>C-Terminus</b> mit freier Carboxygruppe, dazwischen liegen die <b style='color:#7b3fa0'>Peptidgruppen</b> –CO–NH–. Sequenzen schreibt man immer vom N- zum C-Terminus. Kollagen-Peptide entstehen, wenn Kollagen enzymatisch in viele kurze Stücke gespalten wird (Hydrolyse, Sitzung 08).</p></div><div class="aufgabe"><span class="b">a)</span><span><b>Geben</b> Sie für β-Lactoglobulin und für das Bruchstück c) <b>an</b>, wie viele Peptidgruppen und wie viele Termini eine Kette hat.</span><span class="ab">AB I</span></div><div class="aufgabe"><span class="b">b)</span><span><b>Erklären</b> Sie, warum 1 g Kollagen-Peptide mit Ninhydrin eine kräftigere Farbe gibt als 1 g Molkenprotein, in der Biuret-Reaktion aber ähnlich stark violett wird.</span><span class="ab">AB II</span></div><div class="aufgabe"><span class="b">c)</span><span>★★ Am N-Atom von Pro und Hyp fehlt das H-Atom. <b>Beurteilen</b> Sie mit M1, ob das die Biuret-Reaktion von Kollagen-Peptiden abschwächen kann (Prolinanteil in Kollagen: 23 %).</span><span class="ab">AB III</span></div></div>
+</section>
+<h2 id="fragen">Fragen und Antworten</h2>
+<div class="qa">
+<details><summary>Warum heißt die Reaktion Biuret-Reaktion?</summary><div class="antwort"><p>Biuret entsteht, wenn man Harnstoff erhitzt: Zwei Harnstoffmoleküle verbinden sich unter Abspaltung von Ammoniak. Biuret enthält zwei –CO–NH–Gruppen hintereinander, genau wie eine Peptidkette, und gibt deshalb mit Kupfer-Ionen in Natronlauge dieselbe violette Farbe. Biuret selbst ist kein Protein, der Nachweis ist nur nach ihm benannt.</p></div></details>
+<details><summary>Warum wird Glycin blau, aber nicht violett?</summary><div class="antwort"><p>Auch Aminosäuren binden Kupfer-Ionen, und zwar über die Aminogruppe und die Carboxylatgruppe. Dieser Komplex ist blau. Für das Violett braucht es vier N-Atome aus Peptidgruppen, also mindestens zwei Peptidbindungen hintereinander.</p></div></details>
+<details><summary>Ist Kollagenpulver dann nutzlos?</summary><div class="antwort"><p>Nein. Kollagen liefert viele Aminosäuren, vor allem Glycin und Prolin. Als <b>einzige</b> Proteinquelle reicht es nicht, weil Tryptophan fehlt, eine Aminosäure, die der Körper nicht selbst herstellen kann. In einer gemischten Ernährung kommt Tryptophan aus anderen Lebensmitteln. Ob Kollagenpulver darüber hinaus Haut oder Gelenke stärkt, ist eine andere Frage; dazu mehr in Sitzung 16.</p></div></details>
+<details><summary>Was wird bei der Xanthoprotein-Reaktion gelb?</summary><div class="antwort"><p>Nur die Seitenketten mit einem aromatischen Ring, vor allem Tyrosin und Tryptophan. Salpetersäure ersetzt dort ein H-Atom durch eine Nitrogruppe –NO<sub>2</sub>. Die Peptidkette bleibt farblos. Deshalb hängt die Farbstärke davon ab, wie viele solche Seitenketten ein Protein hat.</p></div></details>
+</div>
+
+<footer>
+  Chemie LK · Q1 · 02 Proteine – Bausteine des Lebens · 14 Violett heißt Peptid? · Vertiefung und Hilfen<br>
+  Gornall, Bardawill, David, <i>J. Biol. Chem.</i> 177 (1949) 751; UniProt P02754, P02666, P01012, P02863, P02453, P02465; Verordnung (EU) Nr. 1169/2011, Anhang I; Durchführungsverordnung (EU) Nr. 828/2014; FAO, <i>Dietary protein quality evaluation in human nutrition</i>, FAO Food and Nutrition Paper 92 (2013); WHO, Melamine and cyanuric acid: toxicity, preliminary risk assessment (2008).
+</footer>
+</main>
+
+<script>
+(function(){
+  document.querySelectorAll('.hk').forEach(function(k){
+    var stufen = k.querySelectorAll('.stufe'), btn = k.querySelector('button'), z = k.querySelector('.zaehler'), i = 0;
+    z.textContent = '0 / ' + stufen.length;
+    btn.addEventListener('click', function(){
+      if (i >= stufen.length) return;
+      stufen[i].classList.add('offen'); i++;
+      z.textContent = i + ' / ' + stufen.length;
+      if (i < stufen.length) btn.textContent = 'Stufe ' + (i + 1) + ' aufdecken';
+      else { btn.textContent = 'alle Stufen offen'; btn.disabled = true; }
+    });
+  });
+})();
+
+</script>
+</body>
+</html>
