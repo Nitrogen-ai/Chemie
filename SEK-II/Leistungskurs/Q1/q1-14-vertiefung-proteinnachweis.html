@@ -113,15 +113,79 @@ sub,sup{font-size:.72em}
     <a class="zurueck" href="q1-vertiefung-und-hilfen.html">← alle Sitzungen</a>
     <div class="kurs">Chemie LK · Q1 · 02 Proteine – Bausteine des Lebens · Sitzung 14</div>
     <h1>Vertiefung und Hilfen: Violett heißt Peptid? Proteine nachweisen</h1>
-    <p>Hilfen zu den Aufgaben nur bei Bedarf und stufenweise aufdecken. Vertiefungen für Schnelle: Melamin-Skandal, Fotometrie, gelbe Finger, Gluten nachweisen, Proteine als Kette mit N- und C-Terminus.</p>
+    <p>Zum Einstieg: die Proteine Ihrer Proben (Molke, Milch, Kollagen-Peptide, Eiklar) in 3D, mit anklickbaren N-Termini, Peptidgruppen und aromatischen Seitenketten. Hilfen zu den Aufgaben nur bei Bedarf und stufenweise aufdecken. Vertiefungen für Schnelle: Melamin-Skandal, Fotometrie, gelbe Finger, Gluten nachweisen, Proteine als Kette mit N- und C-Terminus.</p>
   </div>
 </header>
 <nav><div class="wrap">
-  <a href="#hilfen">Hilfen</a><a class="v" href="#v1">V1 Melamin</a><a class="v" href="#v2">V2 Fotometrie</a><a class="v" href="#v3">V3 Gelbe Finger</a><a class="v" href="#v4">V4 Glutenfrei</a><a class="v" href="#v5">V5 Termini</a><a href="#fragen">Fragen</a>
+  <a href="#einstieg">Einstieg</a><a href="#hilfen">Hilfen</a><a class="v" href="#v1">V1 Melamin</a><a class="v" href="#v2">V2 Fotometrie</a><a class="v" href="#v3">V3 Gelbe Finger</a><a class="v" href="#v4">V4 Glutenfrei</a><a class="v" href="#v5">V5 Termini</a><a href="#fragen">Fragen</a>
 </div></nav>
 
 <main class="wrap">
+<h2>Einstieg</h2>
 
+<style>
+.pn-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:18px;align-items:start}
+@media (max-width:760px){.pn-grid{grid-template-columns:1fr}}
+#pn3d{position:relative;width:100%;height:480px;border-radius:10px;overflow:hidden;background:#0b1118}
+@media (max-width:760px){#pn3d{height:360px}}
+#pn3d .lade{position:absolute;inset:0;display:grid;place-items:center;color:#9fb3c8;font-size:14px;text-align:center;padding:20px}
+.pn-probe{border:1px solid var(--linie);border-radius:10px;padding:7px 8px 1px;margin-bottom:8px;background:#fafcfe}
+.pn-probe h4{margin:0 0 5px 4px;font-size:14px;color:var(--blau)}
+.pn-probe h4 span{font-weight:400;color:var(--grau)}
+.pn-btn{display:flex;align-items:center;gap:9px;width:100%;text-align:left;border:1px solid var(--linie);background:#fff;border-radius:8px;padding:6px 10px;margin-bottom:6px;font-weight:600;color:#223;font-size:15px}
+.pn-btn:hover{border-color:var(--blau)}
+.pn-btn.an{background:var(--blau-hell);border-color:var(--blau);box-shadow:inset 3px 0 0 var(--blau)}
+.pn-btn span{font-weight:400;color:var(--grau);font-size:13px}
+.pn-schalter{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 8px}
+.pn-s{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--linie);background:#fff;border-radius:16px;padding:3px 11px;font-size:13.5px;font-weight:600;color:#445}
+.pn-s i{width:11px;height:11px;border-radius:50%;display:inline-block}
+.pn-s[aria-pressed="false"]{opacity:.45}
+.pn-s[aria-pressed="false"] i{background:#ccc!important}
+#pninfo{background:#f2f5f8;border-radius:8px;padding:10px 12px;font-size:14.5px;min-height:120px}
+#pninfo .klick{border-top:1px solid var(--linie);margin-top:8px;padding-top:8px}
+.pn-tab{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0 4px}
+.pn-tab th,.pn-tab td{border-bottom:1px solid var(--linie);padding:4px 6px;text-align:right}
+.pn-tab th:first-child,.pn-tab td:first-child,.pn-tab th:nth-child(2),.pn-tab td:nth-child(2){text-align:left}
+.pn-tab th{font-size:12.5px;color:var(--grau);font-weight:600;vertical-align:bottom}
+.pn-tabwrap{overflow-x:auto}
+.leg{display:inline-flex;align-items:center;gap:5px;margin-right:10px;font-size:13px}
+.leg i{width:11px;height:11px;border-radius:50%;display:inline-block}
+</style>
+<section class="v-karte" id="einstieg">
+  <div class="v-kopf"><div class="v-nr" style="background:var(--blau)">▶</div><div><div class="sterne" style="color:var(--blau)">Einstieg · digitale Modelle</div><h3>Was die Nachweise „sehen“: die Proteine Ihrer Proben in 3D</h3></div></div>
+  <div class="v-inhalt">
+    <p style="margin-top:0">Die Proteine aus den Proben in M2 und M3. Ziehen dreht, Mausrad oder zwei Finger zoomen. <b>Tippen Sie auf eine markierte Stelle</b>: einen N-Terminus, ein Atom einer Peptidgruppe oder eine aromatische Seitenkette. Rechts steht dann, was sie ist und welcher Nachweis sie erfasst. H-Atome sind nicht gezeigt.</p>
+    <div class="pn-grid">
+      <figure><div id="pn3d"><div class="lade">3D-Modelle werden geladen …</div></div>
+        <div class="pn-schalter">
+          <button type="button" class="pn-s" data-s="nterm" aria-pressed="true"><i style="background:#4aa3ff"></i>N-Terminus · Ninhydrin</button>
+          <button type="button" class="pn-s" data-s="peptid" aria-pressed="true"><i style="background:#b07ce8"></i>Peptidgruppen · Biuret</button>
+          <button type="button" class="pn-s" data-s="aromat" aria-pressed="true"><i style="background:#f5c400"></i>Aromaten · Xanthoprotein</button>
+          <button type="button" class="pn-s" data-s="lys" aria-pressed="false"><i style="background:#7fd1ff"></i>Lysin-Seitenketten</button>
+        </div>
+        <p style="margin:0 0 6px;font-size:13px;color:var(--grau)">Aromaten: <span class="leg"><i style="background:#f5c400"></i>Tyr</span><span class="leg"><i style="background:#ff8a3d"></i>Trp</span><span class="leg"><i style="background:#e6dca0"></i>Phe</span> O-Atome rot. Grün: Acetylgruppe (nur Ovalbumin). Weiß umrandet: die angetippte Gruppe.</p>
+        <figcaption>β-Lactoglobulin PDB 3NPO (Loch et al., <i>J. Mol. Recognit.</i> 24, 2011, 341); αs1- und β-Casein: AlphaFold-Modelle P02662, P02666, reife Kette (Jumper et al., <i>Nature</i> 596, 2021, 583; CC BY 4.0); Kollagen-Peptide: drei Bruchstücke aus dem AlphaFold-Modell P02453 (α1(I)-Kette, Rind); Ovalbumin PDB 1OVA (Stein et al., <i>J. Mol. Biol.</i> 221, 1991, 941). Ohne Wasser und H-Atome; 3D-Ansicht 3Dmol.js (BSD).</figcaption></figure>
+      <div>
+        <div class="pn-probe"><h4>Pulver A <span>Molkenprotein</span></h4>
+          <button type="button" class="pn-btn" data-p="lakto">β-Lactoglobulin <span>Hauptprotein der Molke</span></button></div>
+        <div class="pn-probe"><h4>Milch <span>≈ 80 % Casein, ≈ 20 % Molkenprotein</span></h4>
+          <button type="button" class="pn-btn" data-p="acas">αs1-Casein <span>häufigstes Casein</span></button>
+          <button type="button" class="pn-btn" data-p="bcas">β-Casein <span>zweithäufigstes Casein</span></button></div>
+        <div class="pn-probe"><h4>Pulver B <span>Kollagen-Peptide</span></h4>
+          <button type="button" class="pn-btn" data-p="kollagen">Kollagen-Peptide <span>drei Bruchstücke</span></button></div>
+        <div class="pn-probe"><h4>Eiklar <span>Positivprobe</span></h4>
+          <button type="button" class="pn-btn" data-p="ova">Ovalbumin <span>Hauptprotein des Eiklars</span></button></div>
+        <div id="pninfo">Wählen Sie ein Protein.</div>
+      </div>
+    </div>
+    <div class="pn-tabwrap"><table class="pn-tab" id="pntab"><tr><td>Zählung wird nach dem Laden erstellt …</td></tr></table></div>
+    <p class="klein" style="margin:0 0 10px;color:var(--grau);font-size:13px">Gezählt im Modell. Lys = Lysin mit zweiter Aminogruppe in der Seitenkette. Beim Ovalbumin fehlen im Kristall zwei kurze Abschnitte; die Nummern sind im Modell fortlaufend.</p>
+    <div class="aufgabe"><span class="b">a)</span><span>Tippen Sie im β-Lactoglobulin auf den N-Terminus, auf ein Atom einer Peptidgruppe und auf ein Tyrosin. <b>Ordnen</b> Sie jeder Stelle den Nachweis <b>zu</b>, der sie erfasst, und <b>vergleichen</b> Sie mit Abb. 4.</span><span class="ab">AB I</span></div>
+    <div class="aufgabe"><span class="b">b)</span><span><b>Vergleichen</b> Sie β-Lactoglobulin und die Kollagen-Peptide mithilfe der Tabelle (Peptidgruppen und freie N-Termini je 100 Reste). <b>Erklären</b> Sie damit, warum beide in der Biuret-Reaktion ähnlich violett werden, Pulver B mit Ninhydrin aber kräftiger reagiert.</span><span class="ab">AB II</span></div>
+    <div class="aufgabe"><span class="b">c)</span><span>Schalten Sie nur „Aromaten“ ein und <b>vergleichen</b> Sie Milch-, Molken- und Kollagenproteine. <b>Erklären</b> Sie Ihre Beobachtungen in M3 und Abb. 3b.</span><span class="ab">AB II</span></div>
+    <div class="aufgabe"><span class="b">d)</span><span>★ Tippen Sie beim Ovalbumin auf den N-Terminus. <b>Begründen</b> Sie, welche Gruppen des Ovalbumins trotzdem mit Ninhydrin reagieren können.</span><span class="ab">AB III</span></div>
+  </div>
+</section>
 <h2 id="hilfen">Hilfekarten</h2>
 <p class="hinweis">Erst selbst probieren. Jede Karte deckt ihre Hilfe in Stufen auf, so wenig wie möglich, so viel wie nötig.</p>
 <div class="hilfen">
@@ -199,9 +263,10 @@ sub,sup{font-size:.72em}
 
 <footer>
   Chemie LK · Q1 · 02 Proteine – Bausteine des Lebens · 14 Violett heißt Peptid? · Vertiefung und Hilfen<br>
-  Gornall, Bardawill, David, <i>J. Biol. Chem.</i> 177 (1949) 751; UniProt P02754, P02666, P01012, P02863, P02453, P02465; Verordnung (EU) Nr. 1169/2011, Anhang I; Durchführungsverordnung (EU) Nr. 828/2014; FAO, <i>Dietary protein quality evaluation in human nutrition</i>, FAO Food and Nutrition Paper 92 (2013); WHO, Melamine and cyanuric acid: toxicity, preliminary risk assessment (2008).
+  Gornall, Bardawill, David, <i>J. Biol. Chem.</i> 177 (1949) 751; UniProt P02754, P02662, P02666, P01012, P02863, P02453, P02465; PDB 3NPO, 1OVA; AlphaFold DB (CC BY 4.0); Verordnung (EU) Nr. 1169/2011, Anhang I; Durchführungsverordnung (EU) Nr. 828/2014; FAO, <i>Dietary protein quality evaluation in human nutrition</i>, FAO Food and Nutrition Paper 92 (2013); WHO, Melamine and cyanuric acid: toxicity, preliminary risk assessment (2008).
 </footer>
 </main>
+<script src="js/3Dmol-min.js"></script>
 
 <script>
 (function(){
@@ -216,6 +281,141 @@ sub,sup{font-size:.72em}
       else { btn.textContent = 'alle Stufen offen'; btn.disabled = true; }
     });
   });
+})();
+
+(function(){
+  var box=document.getElementById('pn3d'), info=document.getElementById('pninfo'), tab=document.getElementById('pntab');
+  var V=null, M={}, ST={}, aktiv=null, bereit=false, AN={nterm:true,peptid:true,aromat:true,lys:false};
+  var DATEIEN={lakto:'bilder/q1-14-laktoglobulin.pdb',acas:'bilder/q1-14-alpha-casein.pdb',bcas:'bilder/q1-14-beta-casein.pdb',
+               kollagen:'bilder/q1-14-kollagenpeptide.pdb',ova:'bilder/q1-14-ovalbumin.pdb'};
+  var REIHE=['lakto','acas','bcas','kollagen','ova'];
+  var NAME={lakto:'β-Lactoglobulin',acas:'αs1-Casein',bcas:'β-Casein',kollagen:'Kollagen-Peptide',ova:'Ovalbumin'};
+  var PROBE={lakto:'Pulver A',acas:'Milch',bcas:'Milch',kollagen:'Pulver B',ova:'Eiklar'};
+  var TEXT={
+    lakto:'<b>β-Lactoglobulin</b> (Pulver A): Hauptprotein der Molke (≈ 50 % der Molkenproteine), eine Kette aus 162 Aminosäuren, kompakt gefaltet. Molke ist die Flüssigkeit, die beim Käsemachen übrig bleibt, wenn das Casein ausgeflockt ist. Molkenprotein enthält also kaum Casein. Messstruktur aus einem Kristall.',
+    acas:'<b>αs1-Casein</b> (Milch): Kuhmilch enthält ≈ 3,4 % Protein, davon ≈ 80 % Caseine (αs1, αs2, β, κ) und ≈ 20 % Molkenproteine wie β-Lactoglobulin. αs1-Casein ist das häufigste Casein. Caseine haben keine feste Faltung, sie lagern sich mit Calciumphosphat zu Micellen zusammen. Darum gibt es keine Kristallstruktur: Das Modell ist berechnet (AlphaFold), die Form ist unsicher. Für die Nachweise zählt die Faltung nicht, die Gruppen sind trotzdem da.',
+    bcas:'<b>β-Casein</b> (Milch): zweithäufigstes Casein, 209 Aminosäuren. Wie alle Caseine ohne feste Faltung; das Modell ist berechnet (AlphaFold), die lockeren Abschnitte sind unsicher. Viele Prolinreste verhindern Helices und Faltblätter.',
+    kollagen:'<b>Kollagen-Peptide</b> (Pulver B): Kollagen aus Haut und Knochen wird mit Enzymen in viele kurze Stücke gespalten (Hydrolyse, Sitzung 08), typisch sind einige 10 Aminosäuren. Gezeigt sind drei Bruchstücke aus der α1(I)-Kette des Rinds (15, 24 und 33 Reste). Jedes Bruchstück hat einen eigenen N-Terminus. Jede dritte Aminosäure ist Gly; im echten Kollagen ist ein Teil der Pro-Reste Hydroxyprolin (Hyp), das Modell zeigt nur Pro. In Wasser sind die Stücke ungeordnet und beweglich.',
+    ova:'<b>Ovalbumin</b> (Eiklar, Positivprobe): Hauptprotein des Eiklars (≈ 55 %), eine Kette aus 385 Aminosäuren (Sitzung 13). Besonderheit: Beim Huhn trägt die Aminogruppe am Anfang der Kette eine Acetylgruppe CH<sub>3</sub>–CO– (grün). Messstruktur aus einem Kristall.'
+  };
+  var AS={ALA:'Ala',ARG:'Arg',ASN:'Asn',ASP:'Asp',CYS:'Cys',GLN:'Gln',GLU:'Glu',GLY:'Gly',HIS:'His',ILE:'Ile',LEU:'Leu',LYS:'Lys',MET:'Met',PHE:'Phe',PRO:'Pro',SER:'Ser',THR:'Thr',TRP:'Trp',TYR:'Tyr',VAL:'Val'};
+  var HAUPT=['N','CA','C','O','OXT'];
+  var F={nterm:'#4aa3ff',peptid:'#b07ce8',ca:'#8a96a3',TYR:'#f5c400',TRP:'#ff8a3d',PHE:'#e6dca0',lys:'#7fd1ff',ace:'#3ec98a'};
+  function nachricht(t){box.innerHTML='<div class="lade">'+t+'</div>'}
+  function d(a,b){return Math.hypot(a.x-b.x,a.y-b.y,a.z-b.z)}
+  function rn(r){return (AS[r.resn]||r.resn)+' '+r.resi}
+
+  // Struktur auswerten: Reste je Kette, Peptidgruppen, N-Termini, Seitenketten zählen
+  function auswerten(m){
+    var K={}, s={reste:0,peptid:0,nfrei:0,nacet:0,LYS:0,TYR:0,TRP:0,PHE:0,ketten:[],grp:{}};
+    m.selectedAtoms({}).forEach(function(a){
+      var k=K[a.chain]||(K[a.chain]={}), r=k[a.resi]||(k[a.resi]={resi:a.resi,resn:a.resn,chain:a.chain,at:{}});
+      r.at[a.atom]=a;});
+    Object.keys(K).sort().forEach(function(c){
+      var liste=Object.keys(K[c]).map(function(x){return K[c][x]}).sort(function(a,b){return a.resi-b.resi});
+      var ace=liste.filter(function(r){return r.resn==='ACE'})[0], aa=liste.filter(function(r){return AS[r.resn]});
+      var erste=aa[0], acetyl=!!(ace&&ace.at.C&&erste.at.N&&d(ace.at.C,erste.at.N)<2);
+      s.ketten.push({chain:c,erste:erste,letzte:aa[aa.length-1],ace:acetyl?ace:null});
+      if(acetyl)s.nacet++;else s.nfrei++;
+      aa.forEach(function(r,i){s.reste++; if(s[r.resn]!==undefined)s[r.resn]++;
+        var n=aa[i+1]; if(n&&r.at.C&&n.at.N&&d(r.at.C,n.at.N)<2){s.peptid++;s.grp[c+':'+r.resi]={a:r,b:n};}});
+      s.K=K;});
+    return s;
+  }
+
+  function stil(){
+    if(!bereit||!aktiv)return;
+    var m=M[aktiv], s=ST[aktiv];
+    V.removeAllLabels(); V.removeAllShapes();
+    REIHE.forEach(function(n){V.setStyle({model:M[n]},{})});
+    V.setStyle({model:m,hetflag:false},{cartoon:{color:'#5d6b7a',opacity:AN.peptid?0.35:0.8}});
+    if(AN.peptid){
+      V.addStyle({model:m,atom:['C','O','N','OXT'],hetflag:false},{stick:{radius:.22,color:F.peptid}});
+      V.addStyle({model:m,atom:'CA'},{stick:{radius:.13,color:F.ca}});
+    }
+    if(AN.aromat)['TYR','TRP','PHE'].forEach(function(t){
+      V.addStyle({model:m,resn:t,not:{atom:HAUPT}},{stick:{radius:.32,colorfunc:function(a){return a.elem==='O'?'#ff5a5a':(a.elem==='N'?'#7fb0ff':F[t])}}});
+      V.addStyle({model:m,resn:t,atom:'CA'},{stick:{radius:.32,color:F[t]}});});
+    if(AN.lys){V.addStyle({model:m,resn:'LYS',not:{atom:HAUPT}},{stick:{radius:.2,color:F.lys}});V.addStyle({model:m,resn:'LYS',atom:'NZ'},{sphere:{radius:.65,color:F.lys}});}
+    s.ketten.forEach(function(k){
+      if(k.ace){V.addStyle({model:m,resn:'ACE'},{stick:{radius:.3,color:F.ace}});V.addStyle({model:m,chain:k.chain,resi:k.erste.resi,atom:'N'},{sphere:{radius:.55,color:'#9aa5b1'}});}
+      if(AN.nterm){var N=k.erste.at.N;
+        if(!k.ace)V.addStyle({model:m,chain:k.chain,resi:k.erste.resi,atom:'N'},{sphere:{radius:1.0,color:F.nterm}});
+        V.addLabel(k.ace?'N-Terminus (acetyliert)':(aktiv==='kollagen'?'N-Terminus '+k.chain:'N-Terminus'),{position:{x:N.x,y:N.y,z:N.z},fontSize:12,fontColor:'#fff',backgroundColor:k.ace?'#1f6b48':'#1d4f80',backgroundOpacity:.9,inFront:true,alignment:'bottomCenter'});}
+    });
+    V.render();
+  }
+
+  function markieren(atome){
+    V.removeAllShapes();
+    atome.forEach(function(a){if(a)V.addSphere({center:{x:a.x,y:a.y,z:a.z},radius:1.05,color:'#ffffff',opacity:.6})});
+    V.render();
+  }
+
+  function geklickt(a){
+    var s=ST[aktiv], k=s&&s.K[a.chain], r=k&&k[a.resi], t='', mark=[];
+    if(!r||r.at[a.atom]!==a)return;  // nur das gerade gezeigte Modell
+    var kette=s.ketten.filter(function(x){return x.chain===a.chain})[0];
+    var bruch=aktiv==='kollagen'?' (Bruchstück '+a.chain+')':'';
+    if(r.resn==='ACE'){
+      t='<b>Acetylgruppe am N-Terminus</b> (Gly 1): CH<sub>3</sub>–CO– ist an die Aminogruppe gebunden, aus –NH<sub>2</sub> ist eine Amidgruppe –NH–CO– geworden. Ovalbumin hat also <b>keine freie α-Aminogruppe</b> am Kettenanfang.';
+      mark=[r.at.C,r.at.O,r.at.CH3,kette.erste.at.N];}
+    else if(['TYR','TRP','PHE'].indexOf(r.resn)>=0&&HAUPT.indexOf(a.atom)<0){
+      mark=Object.keys(r.at).filter(function(x){return HAUPT.indexOf(x)<0}).map(function(x){return r.at[x]});
+      if(r.resn==='TYR')t='<b>Tyrosin '+r.resi+'</b>'+bruch+': Benzolring mit OH-Gruppe (Phenol). Salpetersäure setzt eine Nitrogruppe an den Ring → <b>gelb</b>; mit Ammoniak gibt die OH-Gruppe ein Proton ab → orange (M3, Xanthoprotein). Tyrosin ist entbehrlich, der Körper bildet es aus Phenylalanin.';
+      else if(r.resn==='TRP')t='<b>Tryptophan '+r.resi+'</b>'+bruch+': Indolring aus zwei verbundenen Ringen. Wird ebenfalls nitriert → <b>gelb</b> (Xanthoprotein). Tryptophan ist <b>unentbehrlich</b>: Fehlt es in einem Protein, ist dessen DIAAS 0.';
+      else t='<b>Phenylalanin '+r.resi+'</b>'+bruch+': Benzolring ohne OH-Gruppe. Wird unter den Bedingungen des Versuchs kaum nitriert und trägt wenig zur Gelbfärbung bei. Unentbehrlich.';}
+    else if(r.resn==='LYS'&&HAUPT.indexOf(a.atom)<0){
+      mark=[r.at.NZ];
+      t='<b>Lysin '+r.resi+'</b>'+bruch+': Am Ende der Seitenkette sitzt eine zweite Aminogruppe (in Wasser –NH<sub>3</sub><sup>+</sup>). Auch sie reagiert mit Ninhydrin, darum geben auch Proteine eine schwache Ninhydrin-Färbung.';}
+    else if(a.atom==='N'&&r===kette.erste){
+      mark=[a];
+      t=kette.ace?'<b>N-Atom von Gly 1</b>: Hier beginnt die Kette, aber die Aminogruppe ist acetyliert (grün). Keine freie Aminogruppe → keine Ninhydrin-Reaktion an dieser Stelle.'
+        :'<b>N-Terminus, '+rn(r)+'</b>'+bruch+': freie α-Aminogruppe –NH<sub>2</sub> (in Wasser meist –NH<sub>3</sub><sup>+</sup>) am Anfang der Kette. Sie reagiert mit <b>Ninhydrin</b> (Sitzung 06). Jede Kette und jedes Bruchstück hat genau einen N-Terminus.';}
+    else if((a.atom==='C'||a.atom==='O'||a.atom==='OXT')&&r===kette.letzte){
+      mark=[r.at.C,r.at.O,r.at.OXT];
+      t='<b>C-Terminus, '+rn(r)+'</b>'+bruch+': freie Carboxygruppe –COOH (in Wasser –COO<sup>−</sup>) am Ende der Kette. Keiner der drei Nachweise erfasst sie.';}
+    else if(a.atom==='C'||a.atom==='O'||a.atom==='N'){
+      var g=a.atom==='N'?s.grp[a.chain+':'+(function(){var v=Object.keys(k).map(Number).filter(function(x){return x<a.resi&&AS[k[x].resn]});return Math.max.apply(null,v)})()]:s.grp[a.chain+':'+a.resi];
+      if(!g){t='<b>'+rn(r)+'</b>: Hier fehlt im Kristall ein kurzes Stück der Kette; die Peptidgruppe ist im Modell nicht zu sehen.';mark=[a];}
+      else{mark=[g.a.at.C,g.a.at.O,g.b.at.N];
+        t='<b>Peptidgruppe zwischen '+rn(g.a)+' und '+rn(g.b)+'</b>'+bruch+': –CO–NH– (markiert: C, O und N; das H-Atom am N ist nicht gezeigt'+(g.b.resn==='PRO'?'. Bei Prolin fehlt es tatsächlich, weil der Ring das N-Atom einschließt':'')+'). In alkalischer Lösung binden N-Atome benachbarter Peptidgruppen an Cu<sup>2+</sup> → <b>violett</b> (Biuret-Reaktion, M1). Dieses Protein hat '+s.peptid+' Peptidgruppen.';}}
+    else if(a.atom==='CA'){mark=[a];t='<b>α-C-Atom von '+rn(r)+'</b>'+bruch+': gehört zu keiner Peptidgruppe. Es verbindet zwei Peptidgruppen und trägt die Seitenkette.';}
+    else return;
+    info.innerHTML=TEXT[aktiv]+'<div class="klick">'+t+'</div>';
+    markieren(mark);
+  }
+
+  function zeige(n){
+    aktiv=n;
+    document.querySelectorAll('.pn-btn').forEach(function(b){b.classList.toggle('an',b.dataset.p===n)});
+    info.innerHTML=TEXT[n]+'<div class="klick" style="color:var(--grau)">Tippen Sie auf eine markierte Stelle im Modell.</div>';
+    if(!bereit)return;
+    stil(); V.zoomTo({model:M[n]}); V.zoom(0.8); V.render();
+  }
+
+  function tabelle(){
+    var h='<tr><th>Probe</th><th>Protein</th><th>Amino&shy;säurereste</th><th>Peptid&shy;gruppen</th><th>freie N-Termini</th><th>freie N-Termini je 100 Reste</th><th>Lys</th><th>Tyr</th><th>Trp</th><th>Phe</th></tr>';
+    REIHE.forEach(function(n){var s=ST[n];
+      h+='<tr><td>'+PROBE[n]+'</td><td>'+NAME[n]+'</td><td>'+s.reste+'</td><td>'+s.peptid+(n==='ova'?'*':'')+'</td><td>'+s.nfrei+(s.nacet?' (+ '+s.nacet+' acetyliert)':'')+'</td><td>'+(100*s.nfrei/s.reste).toFixed(1).replace('.',',')+'</td><td>'+s.LYS+'</td><td>'+s.TYR+'</td><td>'+s.TRP+'</td><td>'+s.PHE+'</td></tr>';});
+    tab.innerHTML=h+'<tr><td colspan="10" style="text-align:left;color:var(--grau);font-size:12.5px">* zwei kurze Abschnitte fehlen im Kristall, im ganzen Protein sind es etwas mehr.</td></tr>';
+  }
+
+  var c=document.createElement('canvas'),gl=null;try{gl=c.getContext('webgl2')||c.getContext('webgl')}catch(e){}
+  if(!window.$3Dmol||!gl){nachricht('3D-Ansicht in diesem Browser nicht verfügbar (WebGL fehlt).');}
+  else{
+    Promise.all(REIHE.map(function(n){return fetch(DATEIEN[n]).then(function(r){if(!r.ok)throw 0;return r.text()})})).then(function(dat){
+      box.innerHTML='';
+      V=$3Dmol.createViewer(box,{backgroundColor:'#0b1118'});
+      REIHE.forEach(function(n,i){M[n]=V.addModel(dat[i],'pdb');ST[n]=auswerten(M[n]);
+        V.setClickable({model:M[n]},true,function(a){geklickt(a)});});
+      tabelle(); bereit=true; zeige(aktiv||'lakto');
+    }).catch(function(){nachricht('3D-Modelle konnten nicht geladen werden.')});
+  }
+  document.querySelectorAll('.pn-btn').forEach(function(b){b.addEventListener('click',function(){zeige(b.dataset.p)})});
+  document.querySelectorAll('.pn-s').forEach(function(b){b.addEventListener('click',function(){
+    AN[b.dataset.s]=!AN[b.dataset.s]; b.setAttribute('aria-pressed',AN[b.dataset.s]?'true':'false'); stil();})});
+  window.addEventListener('resize',function(){if(V){V.resize();V.render()}});
 })();
 
 </script>
