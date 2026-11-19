@@ -883,7 +883,7 @@ const BLOECKE = /*BLOECKE*/[
   ] }
     ] },
   { sitzung: '15', thema: 'Denaturierung (Schnee ohne Ei)', anzahl: 10,
-    frei: '2026-11-22T20:00',
+    frei: '2026-11-23T20:00',
     ziel: 'Stundenziel: Ich entwickle aus Alltagssituationen überprüfbare Fragestellungen zur Denaturierung und untersuche sie mit Kontrollansätzen. Ich erkläre, welche Wechselwirkungen ein Auslöser aufhebt und welche Bindungen erhalten bleiben.',
     bedarf: 'Denaturierung mit dem Erklärschema erklären, Fragestellungen mit Kontrollansatz planen, Denaturierung von Hydrolyse abgrenzen.',
     korrektiv: 'Aufgabenblatt 15 mit dem Erwartungshorizont abgleichen, die Hilfeseite 15 (QR-Code) nutzen und die Plickers-Übung 15 wiederholen.',
@@ -950,7 +950,7 @@ const BLOECKE = /*BLOECKE*/[
   ] }
     ] },
   { sitzung: '16', thema: 'Quellen prüfen, Garmethoden', anzahl: 10,
-    frei: '2026-11-24T20:00',
+    frei: '2026-11-25T20:00',
     ziel: 'Stundenziel: Ich beurteile Werbe- und Fachquellen zu Proteinshakes nach Urheber, Absicht, Belegen und fachlicher Richtigkeit. Ich entscheide mit den Denaturierungstemperaturen der Fleischproteine begründet über Garmethoden.',
     bedarf: 'Quellen und Werbeaussagen beurteilen, mit Fachwissen begründet entscheiden.',
     korrektiv: 'Aufgabenblatt 16 mit dem Erwartungshorizont abgleichen, die Hilfeseite 16 (QR-Code) nutzen und die Plickers-Übung 16 wiederholen.',
@@ -2427,9 +2427,186 @@ $('#endCert').onclick = () => { $('#end').hidden = true; openCert(); };
 // ---------- Akkreditierung (Urkunde) als PDF ----------
 function namesList(src){ return (src != null ? src : (G.names || '')).split(/\s*(?:,|;|\bund\b|&)\s*/).map(x => x.trim()).filter(Boolean); }
 const aufz = l => l.length < 2 ? (l[0] || '') : l.slice(0, -1).join(', ') + tr(' und ') + l[l.length - 1];
-const FLASK = new Path2D('M24 6h16M27 6v17L11 52c-2 4 0 7 5 7h32c5 0 7-3 5-7L37 23V6');
-const FLASK_LIQ = new Path2D('M17 42h30l6 11c1 3 0 4-3 4H14c-3 0-4-1-3-4z');
-const ROSE = new Path2D('M44 10c3-3 8-2 9 1-3 0-5 2-6 5-2-2-3-4-3-6z');
+// ---------- Vektor-PDF aus Canvas-Zeichenbefehlen (gemeinsamer Baustein, identisch in Rosas Säurelabor und Rosas Proteine) ----------
+// vecPdf(draw, w, h, titel): ruft draw(canvas) mit einem aufzeichnenden Kontext auf und schreibt die Befehle als
+// PDF-Vektorgrafik (Pfade, Linien, Text in den eingebauten Schriften Helvetica, Courier, Times; nichts eingebettet).
+// Griechisch (α, β, Δ …) und ≤ ≥ − → über die Schrift Symbol, Zeichen wie ✓ ✗ ▸ ★ ☐ als Vektorpfade; nur Zeichen ohne Entsprechung (z. B. ł, ı in Namen)
+// kommen als hochaufgelöstes Bild in die Datei. Die Vorschau auf dem Canvas nutzt dieselben Schriften, damit beides gleich aussieht.
+const PDF_SANS = 'Helvetica, Arial, sans-serif', PDF_MONO = 'Courier, "Courier New", monospace', PDF_SERIF = 'Times, "Times New Roman", serif';
+function P2D(d){ const p = new Path2D(d); p.d = d; return p; }
+function vecPdf(draw, wPx, hPx, title){
+  const PW = 841.89, PH = PW * hPx / wPx, k = PW / wPx;
+  const n = v => (Math.round(v * 1000) / 1000).toString();
+  const mc = document.createElement('canvas').getContext('2d');
+  const out = [], imgs = [], fontsUsed = [];
+  let S = { m:[1, 0, 0, 1, 0, 0], fill:'#000', stroke:'#000', lw:1, font:'10px sans-serif', align:'left', ls:0, dash:[], cap:0, join:0, alpha:1 };
+  const stack = []; let path = [], cur = null, start = null;
+  const T = (x, y) => [S.m[0] * x + S.m[2] * y + S.m[4], S.m[1] * x + S.m[3] * y + S.m[5]];
+  const sc = () => Math.sqrt(Math.abs(S.m[0] * S.m[3] - S.m[1] * S.m[2]));
+  const D = (x, y) => { const [u, v] = T(x, y); return n(u * k) + ' ' + n((hPx - v) * k); };
+  const mul = (a, b) => [a[0] * b[0] + a[2] * b[1], a[1] * b[0] + a[3] * b[1], a[0] * b[2] + a[2] * b[3], a[1] * b[2] + a[3] * b[3], a[0] * b[4] + a[2] * b[5] + a[4], a[1] * b[4] + a[3] * b[5] + a[5]];
+  function col(c){
+    let r = 0, g = 0, b = 0, a = 1; c = String(c).trim();
+    if (c[0] === '#'){ if (c.length === 4) c = '#' + [...c.slice(1)].map(x => x + x).join(''); r = parseInt(c.slice(1, 3), 16); g = parseInt(c.slice(3, 5), 16); b = parseInt(c.slice(5, 7), 16); }
+    else { const m = c.match(/rgba?\(([^)]+)\)/); if (m){ const p = m[1].split(',').map(parseFloat); [r, g, b] = p; if (p.length > 3) a = p[3]; } else if (c === '#fff' || c === 'white') r = g = b = 255; }
+    a *= S.alpha;   // Transparenz auf weißem Grund vorab mischen
+    return [r, g, b].map(v => n(1 - a * (1 - v / 255))).join(' ');
+  }
+  function fontInfo(css){
+    const m = css.match(/^(.*?)(\d*\.?\d+)px\s+(.+)$/) || ['', '', '10', 'sans-serif'];
+    const pre = m[1], size = parseFloat(m[2]), fam = m[3];
+    const bold = /bold|[6-9]00/.test(pre), ital = /italic|oblique/.test(pre);
+    const base = /courier|menlo|mono/i.test(fam) ? 'mono' : /times|serif|cursive|script|snell|chancery/i.test(fam) && !/sans-serif/i.test(fam) ? 'serif' : 'sans';
+    const name = base === 'mono' ? 'Courier' + (bold || ital ? '-' + (bold ? 'Bold' : '') + (ital ? 'Oblique' : '') : '')
+      : base === 'serif' ? 'Times-' + (bold && ital ? 'BoldItalic' : bold ? 'Bold' : ital ? 'Italic' : 'Roman')
+      : 'Helvetica' + (bold || ital ? '-' + (bold ? 'Bold' : '') + (ital ? 'Oblique' : '') : '');
+    const cssStd = `${ital ? 'italic ' : ''}${bold ? 'bold ' : ''}${size}px ${base === 'mono' ? PDF_MONO : base === 'serif' ? PDF_SERIF : PDF_SANS}`;
+    return { size, name, cssStd };
+  }
+  const width = (s, f) => { mc.font = f.cssStd; return mc.measureText(s).width + S.ls * [...s].length; };
+  const WA = { '€':0x80, '‚':0x82, '„':0x84, '…':0x85, '‘':0x91, '’':0x92, '“':0x93, '”':0x94, '•':0x95, '–':0x96, '—':0x97 };
+  // Griechisch und Mathezeichen über die eingebaute Schrift Symbol
+  const GR = {}; [...'αβγδεζηθικλμνξοπρςστυφχψω'].forEach((c, i) => { GR[c] = 'abgdezhqiklmnxoprVstufcyw'.charCodeAt(i); });
+  [...'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'].forEach((c, i) => { GR[c] = 'ABGDEZHQIKLMNXOPRSTUFCYW'.charCodeAt(i); });
+  Object.assign(GR, { '−':0x2D, '≤':0xA3, '≥':0xB3, '≈':0xBB, '≠':0xB9, '∞':0xA5, '→':0xAE, '←':0xAC, '↔':0xAB, '⇒':0xDE, '∙':0xD7, '√':0xD6, '∑':0xE5 });
+  const waCode = ch => { const c = ch.codePointAt(0); return c < 0x80 || (c >= 0xA0 && c <= 0xFF) ? c : WA[ch] || null; };
+  // Symbole als Vektorpfade im Em-Quadrat (x nach rechts, y nach oben, Grundlinie 0)
+  const SYM = {
+    '✓':{ s:[[.1, .38, .36, .1, .9, .72]] }, '✔':{ s:[[.1, .38, .36, .1, .9, .72]] },
+    '✗':{ s:[[.15, .1, .8, .7], [.15, .7, .8, .1]] }, '✘':{ s:[[.15, .1, .8, .7], [.15, .7, .8, .1]] },
+    '▸':{ f:[[.18, .1, .18, .62, .72, .36]] }, '▶':{ f:[[.12, 0, .12, .72, .85, .36]] },
+    '☐':{ s:[[.1, -.02, .78, -.02, .78, .66, .1, .66, .1, -.02]] },
+    '★':{ f:[[.5, .78, .61, .47, .94, .46, .68, .26, .77, -.06, .5, .13, .23, -.06, .32, .26, .06, .46, .39, .47]] },
+    '→':{ s:[[.08, .3, .86, .3], [.6, .52, .86, .3, .6, .08]] }
+  };
+  function addFont(name){ if (!fontsUsed.includes(name)) fontsUsed.push(name); return 'F' + (fontsUsed.indexOf(name) + 1); }
+  function fillText(s, x, y){
+    const f = fontInfo(S.font), total = width(s, f);
+    let x0 = S.align === 'center' ? x - total / 2 : S.align === 'right' || S.align === 'end' ? x - total : x;
+    const runs = []; for (const ch of s){ const t = waCode(ch) != null ? 'w' : GR[ch] ? 'g' : SYM[ch] ? 's' : 'r'; const last = runs[runs.length - 1]; if (last && last.t === t && t !== 's') last.s += ch; else runs.push({ t, s:ch }); }
+    const em = f.size * sc() * k, c = col(S.fill);
+    for (const r of runs){
+      const w = width(r.s, f), [u, v] = T(x0, y), X = u * k, Y = (hPx - v) * k;
+      if (r.t === 'w' || r.t === 'g'){
+        const g = r.t === 'g', hex = [...r.s].map(ch => (g ? GR[ch] : waCode(ch)).toString(16).padStart(2, '0')).join('');
+        out.push(`BT /${addFont(g ? 'Symbol' : f.name)} ${n(em)} Tf ${n(S.ls * sc() * k)} Tc ${c} rg 1 0 0 1 ${n(X)} ${n(Y)} Tm <${hex}> Tj ET`);
+      } else if (r.t === 's'){
+        const g = SYM[r.s], ox = X + (w * sc() * k - .9 * em) / 2, P = (a, b) => n(ox + a * em) + ' ' + n(Y + b * em);
+        for (const pl of g.s || []){ let d = `${P(pl[0], pl[1])} m`; for (let i = 2; i < pl.length; i += 2) d += ` ${P(pl[i], pl[i + 1])} l`; out.push(`${c} RG ${n(em * .1)} w 1 J 1 j [] 0 d ${d} S`); }
+        for (const pl of g.f || []){ let d = `${P(pl[0], pl[1])} m`; for (let i = 2; i < pl.length; i += 2) d += ` ${P(pl[i], pl[i + 1])} l`; out.push(`${c} rg ${d} h f`); }
+      } else {
+        // Rückfall: dieser Abschnitt als Bild (etwa 24 Pixel pro Millimeter)
+        const cvx = document.createElement('canvas'), pxMm = wPx / (PW / 72 * 25.4);
+        const res = 24 * sc() / pxMm, wpx = Math.ceil((w + f.size * .2) * res), hpx = Math.ceil(f.size * 1.45 * res);
+        cvx.width = wpx; cvx.height = hpx; const cc = cvx.getContext('2d'); cc.fillStyle = '#fff'; cc.fillRect(0, 0, wpx, hpx);
+        cc.scale(res, res); cc.font = f.cssStd; cc.fillStyle = S.fill; cc.fillText(r.s, f.size * .1, f.size * 1.1);
+        const bin = atob(cvx.toDataURL('image/jpeg', .95).split(',')[1]), jpg = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) jpg[i] = bin.charCodeAt(i);
+        imgs.push({ jpg, w:wpx, h:hpx });
+        const [ul, vt] = T(x0 - f.size * .1, y - f.size * 1.1), bw = wpx / res * sc() * k, bh = hpx / res * sc() * k;
+        out.push(`q ${n(bw)} 0 0 ${n(bh)} ${n(ul * k)} ${n((hPx - vt) * k - bh)} cm /Im${imgs.length} Do Q`);
+      }
+      x0 += w;
+    }
+  }
+  // SVG-Pfaddaten (für Path2D-Formen) in Pfadbefehle übersetzen
+  function svgPath(d){
+    const tok = d.match(/[a-zA-Z]|-?\d*\.?\d+(?:e[-+]?\d+)?/g) || [], res = [];
+    let i = 0, cmd = '', x = 0, y = 0, sx = 0, sy = 0, cx = 0, cy = 0;
+    const num = () => parseFloat(tok[i++]);
+    while (i < tok.length){
+      if (/[a-zA-Z]/.test(tok[i])) cmd = tok[i++];
+      const rel = cmd === cmd.toLowerCase(), C = cmd.toUpperCase(), ox = rel ? x : 0, oy = rel ? y : 0;
+      if (C === 'M'){ x = ox + num(); y = oy + num(); sx = x; sy = y; res.push(`${D(x, y)} m`); cmd = rel ? 'l' : 'L'; }
+      else if (C === 'L'){ x = ox + num(); y = oy + num(); res.push(`${D(x, y)} l`); }
+      else if (C === 'H'){ x = (rel ? x : 0) + num(); res.push(`${D(x, y)} l`); }
+      else if (C === 'V'){ y = (rel ? y : 0) + num(); res.push(`${D(x, y)} l`); }
+      else if (C === 'C'){ const a = [ox + num(), oy + num(), ox + num(), oy + num(), ox + num(), oy + num()]; res.push(`${D(a[0], a[1])} ${D(a[2], a[3])} ${D(a[4], a[5])} c`); cx = a[2]; cy = a[3]; x = a[4]; y = a[5]; continue; }
+      else if (C === 'S'){ const a = [2 * x - cx, 2 * y - cy, ox + num(), oy + num(), ox + num(), oy + num()]; res.push(`${D(a[0], a[1])} ${D(a[2], a[3])} ${D(a[4], a[5])} c`); cx = a[2]; cy = a[3]; x = a[4]; y = a[5]; continue; }
+      else if (C === 'Q'){ const qx = ox + num(), qy = oy + num(), ex = ox + num(), ey = oy + num(); res.push(`${D(x + 2 / 3 * (qx - x), y + 2 / 3 * (qy - y))} ${D(ex + 2 / 3 * (qx - ex), ey + 2 / 3 * (qy - ey))} ${D(ex, ey)} c`); x = ex; y = ey; }
+      else if (C === 'Z'){ res.push('h'); x = sx; y = sy; }
+      else i++;
+      cx = x; cy = y;
+    }
+    return res.join(' ');
+  }
+  const strokeState = () => `${col(S.stroke)} RG ${n(S.lw * sc() * k)} w ${S.cap} J ${S.join} j [${S.dash.map(d => n(d * sc() * k)).join(' ')}] 0 d`;
+  function arcTo(x, y, r, a0, a1, ccw){
+    let sweep = a1 - a0;
+    if (!ccw && sweep < 0) sweep = sweep % (2 * Math.PI) + 2 * Math.PI; if (ccw && sweep > 0) sweep = sweep % (2 * Math.PI) - 2 * Math.PI;
+    if (Math.abs(sweep) > 2 * Math.PI) sweep = Math.sign(sweep) * 2 * Math.PI;
+    const segs = Math.max(1, Math.ceil(Math.abs(sweep) / (Math.PI / 2))), da = sweep / segs, h = 4 / 3 * Math.tan(da / 4);
+    const p0 = [x + r * Math.cos(a0), y + r * Math.sin(a0)];
+    path.push(`${D(p0[0], p0[1])} ${cur ? 'l' : 'm'}`); if (!cur) start = p0;
+    let a = a0;
+    for (let s = 0; s < segs; s++){
+      const b = a + da, c1 = [x + r * (Math.cos(a) - h * Math.sin(a)), y + r * (Math.sin(a) + h * Math.cos(a))], c2 = [x + r * (Math.cos(b) + h * Math.sin(b)), y + r * (Math.sin(b) - h * Math.cos(b))], e = [x + r * Math.cos(b), y + r * Math.sin(b)];
+      path.push(`${D(c1[0], c1[1])} ${D(c2[0], c2[1])} ${D(e[0], e[1])} c`); a = b; cur = e;
+    }
+  }
+  const ctx = {
+    get fillStyle(){ return S.fill; }, set fillStyle(v){ S.fill = v; },
+    get strokeStyle(){ return S.stroke; }, set strokeStyle(v){ S.stroke = v; },
+    get lineWidth(){ return S.lw; }, set lineWidth(v){ S.lw = v; },
+    get font(){ return S.font; }, set font(v){ S.font = v; },
+    get textAlign(){ return S.align; }, set textAlign(v){ S.align = v; },
+    get letterSpacing(){ return S.ls + 'px'; }, set letterSpacing(v){ S.ls = parseFloat(v) || 0; },
+    get lineCap(){ return S.cap; }, set lineCap(v){ S.cap = { butt:0, round:1, square:2 }[v] || 0; },
+    get lineJoin(){ return S.join; }, set lineJoin(v){ S.join = { miter:0, round:1, bevel:2 }[v] || 0; },
+    get globalAlpha(){ return S.alpha; }, set globalAlpha(v){ S.alpha = v; },
+    textBaseline:'alphabetic',
+    save(){ stack.push({ ...S, m:S.m.slice(), dash:S.dash.slice() }); },
+    restore(){ if (stack.length) S = stack.pop(); },
+    setTransform(a, b, c, d, e, f){ S.m = [a, b, c, d, e, f]; },
+    transform(a, b, c, d, e, f){ S.m = mul(S.m, [a, b, c, d, e, f]); },
+    translate(x, y){ S.m = mul(S.m, [1, 0, 0, 1, x, y]); },
+    scale(x, y){ S.m = mul(S.m, [x, 0, 0, y, 0, 0]); },
+    rotate(a){ const c = Math.cos(a), s = Math.sin(a); S.m = mul(S.m, [c, s, -s, c, 0, 0]); },
+    setLineDash(a){ S.dash = (a || []).slice(); }, getLineDash(){ return S.dash.slice(); },
+    beginPath(){ path = []; cur = null; },
+    moveTo(x, y){ path.push(`${D(x, y)} m`); cur = start = [x, y]; },
+    lineTo(x, y){ path.push(`${D(x, y)} ${cur ? 'l' : 'm'}`); if (!cur) start = [x, y]; cur = [x, y]; },
+    bezierCurveTo(a, b, c, d, e, f){ path.push(`${D(a, b)} ${D(c, d)} ${D(e, f)} c`); cur = [e, f]; },
+    quadraticCurveTo(qx, qy, x, y){ const [px, py] = cur || [qx, qy]; path.push(`${D(px + 2 / 3 * (qx - px), py + 2 / 3 * (qy - py))} ${D(x + 2 / 3 * (qx - x), y + 2 / 3 * (qy - y))} ${D(x, y)} c`); cur = [x, y]; },
+    closePath(){ path.push('h'); cur = start; },
+    rect(x, y, w, h){ path.push(`${D(x, y)} m ${D(x + w, y)} l ${D(x + w, y + h)} l ${D(x, y + h)} l h`); cur = start = [x, y]; },
+    roundRect(x, y, w, h, r){
+      r = Math.min(Array.isArray(r) ? r[0] : (r || 0), Math.abs(w) / 2, Math.abs(h) / 2); const q = r * (1 - .5523);
+      path.push(`${D(x + r, y)} m ${D(x + w - r, y)} l ${D(x + w - q, y)} ${D(x + w, y + q)} ${D(x + w, y + r)} c ${D(x + w, y + h - r)} l ${D(x + w, y + h - q)} ${D(x + w - q, y + h)} ${D(x + w - r, y + h)} c ${D(x + r, y + h)} l ${D(x + q, y + h)} ${D(x, y + h - q)} ${D(x, y + h - r)} c ${D(x, y + r)} l ${D(x, y + q)} ${D(x + q, y)} ${D(x + r, y)} c h`);
+      cur = start = [x, y];
+    },
+    arc(x, y, r, a0, a1, ccw){ arcTo(x, y, Math.max(r, 0), a0, a1, ccw); },
+    ellipse(x, y, rx, ry, rot, a0, a1, ccw){ ctx.save(); ctx.translate(x, y); ctx.rotate(rot || 0); ctx.scale(rx, ry); arcTo(0, 0, 1, a0, a1, ccw); ctx.restore(); },
+    fill(p){ const d = p && p.d ? svgPath(p.d) : path.join(' '); if (d) out.push(`${col(S.fill)} rg ${d} f`); },
+    stroke(p){ const d = p && p.d ? svgPath(p.d) : path.join(' '); if (d) out.push(`${strokeState()} ${d} S`); },
+    fillRect(x, y, w, h){ out.push(`${col(S.fill)} rg ${D(x, y)} m ${D(x + w, y)} l ${D(x + w, y + h)} l ${D(x, y + h)} l h f`); },
+    strokeRect(x, y, w, h){ out.push(`${strokeState()} ${D(x, y)} m ${D(x + w, y)} l ${D(x + w, y + h)} l ${D(x, y + h)} l h S`); },
+    clearRect(){},
+    fillText(s, x, y){ fillText(String(s), x, y); },
+    measureText(s){ return { width:width(String(s), fontInfo(S.font)) }; }
+  };
+  draw({ width:wPx, height:hPx, getContext:() => ctx });
+  // Datei zusammensetzen
+  const enc = new TextEncoder(), parts = [], offs = []; let len = 0;
+  const add = x => { const b = typeof x === 'string' ? enc.encode(x) : x; parts.push(b); len += b.length; };
+  const obj = (i, body) => { offs[i] = len; add(`${i} 0 obj\n${body}\nendobj\n`); };
+  const content = out.join('\n'), nF = fontsUsed.length, img0 = 5 + nF;
+  add('%PDF-1.4\n'); add(new Uint8Array([37, 199, 236, 143, 162, 10]));
+  obj(1, '<< /Type /Catalog /Pages 2 0 R >>');
+  obj(2, '<< /Type /Pages /Kids [3 0 R] /Count 1 >>');
+  obj(3, `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${n(PW)} ${n(PH)}] /Resources << /Font << ${fontsUsed.map((f, i) => `/F${i + 1} ${5 + i} 0 R`).join(' ')} >>${imgs.length ? ' /XObject << ' + imgs.map((m, i) => `/Im${i + 1} ${img0 + i} 0 R`).join(' ') + ' >>' : ''} >> /Contents 4 0 R >>`);
+  obj(4, `<< /Length ${enc.encode(content).length} >>\nstream\n${content}\nendstream`);
+  fontsUsed.forEach((f, i) => obj(5 + i, `<< /Type /Font /Subtype /Type1 /BaseFont /${f}${f === 'Symbol' ? '' : ' /Encoding /WinAnsiEncoding'} >>`));
+  imgs.forEach((m, i) => { offs[img0 + i] = len; add(`${img0 + i} 0 obj\n<< /Type /XObject /Subtype /Image /Width ${m.w} /Height ${m.h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${m.jpg.length} >>\nstream\n`); add(m.jpg); add('\nendstream\nendobj\n'); });
+  const info = img0 + imgs.length;
+  obj(info, `<< /Title (${String(title || '').replace(/[^\x20-\x7e]/g, '_').replace(/[()\\]/g, '')}) /Creator (Rosas Labor) >>`);
+  const xref = len;
+  add(`xref\n0 ${info + 1}\n0000000000 65535 f \n` + Array.from({ length:info }, (_, i) => String(offs[i + 1]).padStart(10, '0') + ' 00000 n \n').join(''));
+  add(`trailer\n<< /Size ${info + 1} /Root 1 0 R /Info ${info} 0 R >>\nstartxref\n${xref}\n%%EOF\n`);
+  return new Blob(parts, { type:'application/pdf' });
+}
+const FLASK = P2D('M24 6h16M27 6v17L11 52c-2 4 0 7 5 7h32c5 0 7-3 5-7L37 23V6');
+const FLASK_LIQ = P2D('M17 42h30l6 11c1 3 0 4-3 4H14c-3 0-4-1-3-4z');
+const ROSE = P2D('M44 10c3-3 8-2 9 1-3 0-5 2-6 5-2-2-3-4-3-6z');
 function wrapLines(c, text, maxW){
   const out = []; let ln = '';
   for (const w of text.split(' ')){ const t = ln ? ln + ' ' + w : w; if (c.measureText(t).width > maxW && ln){ out.push(ln); ln = w; } else ln = t; }
@@ -2439,7 +2616,7 @@ function wrapLines(c, text, maxW){
 function drawCert(cv){
   const c = cv.getContext('2d'), u = cv.width / 297, nm = namesList(), ok = okCount(), alle = ok === STATIONS.length;
   const GOLD = '#b07d12', GOLDL = '#e0a92b', GOLDZ = '#f1dfae', TINTE = '#3a2a14', TW = '#6b5638', OK = '#2e9e5b', OFFEN = '#b8641a';
-  const DISP = '"Baloo 2","Trebuchet MS",sans-serif', BODY = '"Trebuchet MS","Gill Sans",sans-serif', MONO = 'Menlo,"Courier New",monospace';
+  const DISP = PDF_SANS, BODY = PDF_SANS, MONO = PDF_MONO;   // PDF-Standardschriften: Vorschau und Vektor-PDF sehen gleich aus
   c.setTransform(1, 0, 0, 1, 0, 0); c.fillStyle = '#fff'; c.fillRect(0, 0, cv.width, cv.height); c.setTransform(u, 0, 0, u, 0, 0);
   const rr = (x, y, w, h, r) => { c.beginPath(); c.roundRect(x, y, w, h, r); };
   const T = (s, x, y, size, col, font, align, weight) => { c.font = `${weight || ''} ${size}px ${font}`; c.fillStyle = col; c.textAlign = align || 'center'; c.fillText(s, x, y); };
@@ -2490,7 +2667,7 @@ function drawCert(cv){
   });
   const datum = new Date().toLocaleDateString(lang === 'en' ? 'en-GB' : 'de-DE', { day:'numeric', month:'long', year:'numeric' });
   T('Berlin, ' + datum, 22, 187, 3.6, TW, BODY, 'left'); T(tr('Rosas Proteine · Gesamtvorbereitung · Chemie LK Q1 · Sitzungen 04 bis 16'), 22, 192.5, 3.6, TW, BODY, 'left');
-  T('Rosa', 245, 186, 11, '#2b3a6b', '"Snell Roundhand","Segoe Script","Brush Script MT","Apple Chancery",cursive', 'center', 'bold');
+  T('Rosa', 245, 186, 11, '#2b3a6b', PDF_SERIF, 'center', 'italic bold');
   c.beginPath(); c.moveTo(212, 188.5); c.lineTo(278, 188.5); c.strokeStyle = TW; c.lineWidth = .2; c.stroke();
   T(tr('Rosa, Labormeisterin'), 245, 193.5, 3.6, TW, BODY, 'center');
   c.textAlign = 'left';
@@ -2520,9 +2697,7 @@ $('#certNames').addEventListener('input', () => { G.names = $('#certNames').valu
 $('#certClose').onclick = () => { $('#cert').hidden = true; };
 $('#certPdf').onclick = async () => {
   await renderCert();
-  const c = $('#certCv'), b64 = c.toDataURL('image/jpeg', .9).split(',')[1], bin = atob(b64), jpg = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; i++) jpg[i] = bin.charCodeAt(i);
-  const blob = pdfFromJpeg(jpg, c.width, c.height), url = URL.createObjectURL(blob), name = pdfName();
+  const c = $('#certCv'), name = pdfName(), blob = vecPdf(drawCert, c.width, c.height, name), url = URL.createObjectURL(blob);
   const a = document.createElement('a'); a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 60000);
   $('#certMsg').textContent = tr('Gespeichert als „%1“ (im Download-Ordner bzw. unter „Dateien“).', name); sRight();
