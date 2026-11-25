@@ -113,36 +113,118 @@ sub,sup{font-size:.72em}
     <a class="zurueck" href="q1-vertiefung-und-hilfen.html">← alle Sitzungen</a>
     <div class="kurs">Chemie LK · Q1 · 02 Proteine – Bausteine des Lebens · Sitzung 15</div>
     <h1>Vertiefung und Hilfen: Schnee ohne Ei – Proteine im Bohnenwasser</h1>
-    <p>Hilfen zu den Aufgaben nur bei Bedarf und stufenweise aufdecken. Vertiefungen für Schnelle: Onsen-Ei, Eischnee in der Kupferschüssel, Natron statt Zitronensaft, Proteine oder Saponine?</p>
+    <p>Zum Einstieg: die Proteine im Kichererbsenwasser und im Eiklar in 3D mit ihrer Funktion und das Rezept auf Teilchenebene, Schritt für Schritt. Hilfen zu den Aufgaben nur bei Bedarf und stufenweise aufdecken. Vertiefungen für Schnelle: Onsen-Ei, Kupferschüssel, Baiser im Magen, Proteine oder Saponine?</p>
   </div>
 </header>
 <nav><div class="wrap">
-  <a href="#hilfen">Hilfen</a><a class="v" href="#v1">V1 Onsen-Ei</a><a class="v" href="#v2">V2 Kupferschüssel</a><a class="v" href="#v3">V3 Natron</a><a class="v" href="#v4">V4 Saponine</a><a class="v" href="#v5">V5 Rezept</a><a href="#fragen">Fragen</a>
+  <a href="#einstieg">Einstieg</a><a href="#hilfen">Hilfen</a><a class="v" href="#v1">V1 Onsen-Ei</a><a class="v" href="#v2">V2 Kupferschüssel</a><a class="v" href="#v3">V3 Verdauung</a><a class="v" href="#v4">V4 Saponine</a><a class="v" href="#v5">V5 Rezept</a><a href="#fragen">Fragen</a>
 </div></nav>
 
 <main class="wrap">
+<h2>Einstieg</h2>
 
+<style>
+.bw-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:18px;align-items:start}
+@media (max-width:760px){.bw-grid{grid-template-columns:1fr}}
+#bw3d{position:relative;width:100%;height:440px;border-radius:10px;overflow:hidden;background:#0b1118}
+@media (max-width:760px){#bw3d{height:340px}}
+#bw3d .lade{position:absolute;inset:0;display:grid;place-items:center;color:#9fb3c8;font-size:14px;text-align:center;padding:20px}
+.bw-btn{display:flex;align-items:center;gap:9px;width:100%;text-align:left;border:1px solid var(--linie);background:#fff;border-radius:8px;padding:6px 10px;margin-bottom:6px;font-weight:600;color:#223;font-size:15px}
+.bw-btn:hover{border-color:var(--blau)}
+.bw-btn.an{background:var(--blau-hell);border-color:var(--blau);box-shadow:inset 3px 0 0 var(--blau)}
+.bw-btn span{font-weight:400;color:var(--grau);font-size:13px}
+.bw-schalter{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 8px}
+.bw-s{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--linie);background:#fff;border-radius:16px;padding:3px 11px;font-size:13.5px;font-weight:600;color:#445}
+.bw-s i{width:11px;height:11px;border-radius:50%;display:inline-block}
+.bw-s[aria-pressed="false"]{opacity:.45}
+#bwinfo{background:#f2f5f8;border-radius:8px;padding:10px 12px;font-size:14.5px;min-height:120px}
+#bwinfo p{margin:6px 0}
+#bwinfo .fkt{margin-top:6px;padding:7px 10px;border-left:4px solid var(--blau);background:var(--blau-hell);border-radius:0 6px 6px 0}
+#bwinfo .klein{color:var(--grau);font-size:13px}
+.bw-gruppe{border:1px solid var(--linie);border-radius:10px;padding:8px 8px 2px;margin-bottom:9px;background:#fafcfe}
+.bw-gruppe h4{margin:0 0 6px 4px;font-size:15px;color:var(--blau)}
+.bw-btn.alle{justify-content:center;background:#f2f5f8}
+.bw-tab tr.grp td{background:#f2f5f8;font-weight:700;color:var(--blau);text-align:left}
+#bwinfo .klick{border-top:1px solid var(--linie);margin-top:8px;padding-top:8px}
+.bw-tab{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0 4px}
+.bw-tab th,.bw-tab td{border-bottom:1px solid var(--linie);padding:4px 6px;text-align:right}
+.bw-tab th:first-child,.bw-tab td:first-child{text-align:left}
+.bw-tab th{font-size:12.5px;color:var(--grau);font-weight:600;vertical-align:bottom}
+.bw-tabwrap{overflow-x:auto}
+#bwsvg{width:100%;height:auto;display:block;border-radius:10px;border:1px solid var(--linie);background:#fff}
+#bwsvg .st{transition:opacity .5s ease}
+.bw-schritte{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 6px}
+.bw-schritte button{border:1px solid var(--linie);background:#fff;border-radius:16px;padding:4px 12px;font-size:14px;font-weight:600;color:var(--tblau)}
+.bw-schritte button.frage{color:var(--orange)}
+.bw-schritte button.an{background:var(--tblau);border-color:var(--tblau);color:#fff}
+.bw-schritte button.frage.an{background:var(--orange);border-color:var(--orange)}
+#bwtext{background:#f2f5f8;border-radius:8px;padding:10px 12px;font-size:15px;min-height:52px}
+</style>
+<section class="v-karte" id="einstieg">
+  <div class="v-kopf"><div class="v-nr" style="background:var(--blau)">▶</div><div><div class="sterne" style="color:var(--blau)">Einstieg · digitale Modelle</div><h3>Was im Bohnenwasser schwimmt und was im Eiklar: Proteine in 3D</h3></div></div>
+  <div class="v-inhalt">
+    <p style="margin-top:0">Die wichtigsten gelösten Proteine im Kichererbsenwasser, zwei Globuline (Legumin, Vicilin) und ein Albumin, und zum Vergleich die vier häufigsten Proteine im Eiklar, das Bohnenwasser im Rezept ersetzt. Rechts steht die Funktion des Proteins. Ziehen dreht, Mausrad oder zwei Finger zoomen. <b>Tippen Sie auf eine farbige Seitenkette</b>: Rechts steht, was sie ist und welche Wechselwirkungen sie eingehen kann.</p>
+    <div class="bw-grid">
+      <figure><div id="bw3d"><div class="lade">3D-Modelle werden geladen …</div></div>
+        <div class="bw-schalter">
+          <button type="button" class="bw-s" data-s="u" aria-pressed="true"><i style="background:#ff9f43"></i>unpolar (Val, Leu, Ile, Phe, Met, Trp)</button>
+          <button type="button" class="bw-s" data-s="neg" aria-pressed="false"><i style="background:#ff5a5a"></i>sauer (Asp, Glu)</button>
+          <button type="button" class="bw-s" data-s="pos" aria-pressed="false"><i style="background:#4aa3ff"></i>basisch (Lys, Arg)</button>
+          <button type="button" class="bw-s" data-s="cys" aria-pressed="true"><i style="background:#f5d000"></i>Cystein (–SH, S–S)</button>
+        </div>
+        <figcaption>AlphaFold-Modelle (Jumper et al., <i>Nature</i> 596, 2021, 583; AlphaFold DB, CC BY 4.0) aus der Kichererbse <i>Cicer arietinum</i>: Legumin UniProt Q9SMJ4 (α- und β-Kette, ohne den ungeordneten sauren Abschnitt), Vicilin-artiges Globulin A0A1S2XQR4, Albumin-2-artiges Protein A0A1S2XHS6. Berechnete Einzelketten: In der Bohne lagern sich Legumin-Ketten zu Hexameren, Vicilin-Ketten zu Trimeren zusammen. Eiklar (Huhn): Ovalbumin PDB 1OVA (Stein et al., <i>J. Mol. Biol.</i> 221, 1991, 941), Ovotransferrin PDB 1OVT mit zwei Eisen-Ionen (Kurokawa et al., <i>J. Mol. Biol.</i> 254, 1995, 196), Ovomucoid AlphaFold-Modell P01005 ohne Zuckerketten, Lysozym PDB 2VB1 (Wang et al., <i>Acta Cryst.</i> D63, 2007, 1254); Anteile am Eiklarprotein nach Abeyrathne et al., <i>Poultry Sci.</i> 92, 2013, 3292. Ohne Wasser und H-Atome; 3D-Ansicht 3Dmol.js (BSD).</figcaption></figure>
+      <div>
+        <div class="bw-gruppe"><h4>Bohnenwasser · Kichererbse</h4>
+        <button type="button" class="bw-btn" data-p="legumin">Legumin <span>11S-Globulin</span></button>
+        <button type="button" class="bw-btn" data-p="vicilin">Vicilin <span>7S-Globulin</span></button>
+        <button type="button" class="bw-btn" data-p="albumin">Albumin <span>kleiner, wasserlöslich</span></button>
+        </div>
+        <div class="bw-gruppe"><h4>Eiklar · Huhn</h4>
+        <button type="button" class="bw-btn" data-p="ovalbumin">Ovalbumin <span>≈ 54 % des Eiklarproteins</span></button>
+        <button type="button" class="bw-btn" data-p="ovotransferrin">Ovotransferrin <span>≈ 12 %</span></button>
+        <button type="button" class="bw-btn" data-p="ovomucoid">Ovomucoid <span>≈ 11 %</span></button>
+        <button type="button" class="bw-btn" data-p="lysozym">Lysozym <span>≈ 3,5 %</span></button>
+        </div>
+        <button type="button" class="bw-btn alle" data-p="alle">Alle sieben <span>im selben Maßstab</span></button>
+        <div id="bwinfo">Wählen Sie ein Protein.</div>
+      </div>
+    </div>
+    <div class="bw-tabwrap"><table class="bw-tab" id="bwtab"><tr><td>Zählung wird nach dem Laden erstellt …</td></tr></table></div>
+    <p style="margin:0 0 10px;color:var(--grau);font-size:13px">Gezählt im Modell. „Innen“: Rest mit mindestens 20 anderen Resten im Umkreis von 1 nm (Cα-Atome), „außen“: weniger.</p>
+    <div class="aufgabe"><span class="b">a)</span><span>Schalten Sie nur „unpolar“ ein und drehen Sie das Vicilin. <b>Beschreiben</b> Sie, wo die unpolaren Seitenketten liegen, und <b>vergleichen</b> Sie mit der Tabelle.</span><span class="ab">AB I</span></div>
+    <div class="aufgabe"><span class="b">b)</span><span>Schalten Sie „sauer“ und „basisch“ ein. <b>Begründen</b> Sie mit der Tabelle, ob die Proteine bei pH 6 (Bohnenwasser) eher positiv oder negativ geladen sind, und <b>erklären</b> Sie, warum Zitronensaft (pH ≈ 4) die Ladung verkleinert.</span><span class="ab">AB II</span></div>
+    <div class="aufgabe"><span class="b">c)</span><span>Vicilin hat kein einziges Cystein. <b>Leiten</b> Sie daraus eine Vorhersage für die Alltagsfrage „Kupferschüssel“ <b>ab</b>.</span><span class="ab">AB III</span></div>
+    <div class="aufgabe"><span class="b">d)</span><span>Wählen Sie „Alle sieben“. <b>Vergleichen</b> Sie die Proteine aus Bohnenwasser und Eiklar (Größe, Anteil unpolarer Reste, Cystein laut Tabelle) und <b>beurteilen</b> Sie, ob Bohnenwasser das Eiklar auf Teilchenebene gleichwertig ersetzt.</span><span class="ab">AB III</span></div>
+
+    <h3 style="margin:26px 0 4px;font-size:17px;color:var(--tblau)">Das Rezept auf Teilchenebene, Schritt für Schritt</h3>
+    <p style="margin-top:0">Ein stark vereinfachtes Schema. Wählen Sie einen Schritt; die orangen Knöpfe zeigen die drei Alltagsfragen aus M3 nur mit den Teilchen, die Auswirkung ist Ihre Hypothese.</p>
+    <div class="bw-schritte" id="bwschritte"><button type="button" data-s="0">Bohnenwasser</button><button type="button" data-s="1">1 Schlagen</button><button type="button" data-s="2">2 Zitronensaft</button><button type="button" data-s="3">3 Prise Salz</button><button type="button" data-s="4">4 Zucker</button><button type="button" data-s="5">5 Backen</button><button type="button" data-s="6" class="frage">Frage: Soda</button><button type="button" data-s="7" class="frage">Frage: Cu²⁺</button><button type="button" data-s="8" class="frage">Frage: Ethanol</button></div>
+    <svg id="bwsvg" viewBox="0 0 760 400" role="img" aria-label="Proteine im Bohnenwasser auf Teilchenebene" font-family="-apple-system,Helvetica,Arial,sans-serif"><defs><g id="bw-w"><circle r="3.4" fill="#d9534f"/><circle cx="-4" cy="3" r="2.1" fill="#fff" stroke="#9aa5b1" stroke-width=".8"/><circle cx="4" cy="3" r="2.1" fill="#fff" stroke="#9aa5b1" stroke-width=".8"/></g><g id="bw-zucker"><polygon points="-14,-6 -8,-12 0,-10 2,-2 -4,4 -12,2" fill="#fff7dd" stroke="#a07d1c" stroke-width="1.6"/><polygon points="6,-2 14,-6 20,0 16,7 8,6" fill="#fff7dd" stroke="#a07d1c" stroke-width="1.6"/><line x1="2" y1="-2" x2="6" y2="-2" stroke="#a07d1c" stroke-width="1.6"/></g></defs><g class="st" data-s="0"><rect x="0" y="0" width="760" height="400" fill="#e3eef8"/><path d="M 432 210 L 441 221 L 454 237 L 452 252 L 433 254 L 414 250 L 407 256 L 404 275 L 394 290 L 380 284 L 370 266 L 363 256 L 351 261 L 332 267 L 321 259 L 326 241 L 335 227 L 330 219 L 314 210 L 306 197 L 317 187 L 336 184 L 345 181 L 344 167 L 345 149 L 356 144 L 370 155 L 380 166 L 388 163 L 401 152 L 415 150 L 419 163 L 415 180 L 416 189 L 430 192 L 444 199 L 444 210 L 430 219 L 418 224 L 419 232 L 424 247 L 421 259 L 407 257 L 394 249 L 387 248 L 380 260 L 370 269 L 360 264 L 358 249 L 357 238 L 348 237 L 334 237 L 326 230 L 332 218 L 343 210 L 345 204 L 337 194 L 333 183 L 341 177 L 355 180 L 364 182 L 367 174 L 371 162 L 380 159 L 387 168 L 391 180 L 396 182 L 407 178 L 418 179 L 419 188 L 412 198 L 409 205 L 415 210" fill="none" stroke="#7d8ea6" stroke-width="7" stroke-linejoin="round" opacity=".85"/><line x1="408" y1="220" x2="385" y2="240" stroke="#8a6d1e" stroke-width="2" stroke-dasharray="4 3"/><line x1="385" y1="240" x2="357" y2="229" stroke="#8a6d1e" stroke-width="2" stroke-dasharray="4 3"/><line x1="357" y1="229" x2="352" y2="200" stroke="#8a6d1e" stroke-width="2" stroke-dasharray="4 3"/><line x1="352" y1="200" x2="375" y2="180" stroke="#8a6d1e" stroke-width="2" stroke-dasharray="4 3"/><line x1="375" y1="180" x2="403" y2="191" stroke="#8a6d1e" stroke-width="2" stroke-dasharray="4 3"/><line x1="403" y1="191" x2="408" y2="220" stroke="#8a6d1e" stroke-width="2" stroke-dasharray="4 3"/><circle cx="408" cy="220" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="385" cy="240" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="357" cy="229" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="352" cy="200" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="375" cy="180" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="403" cy="191" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="380" cy="310" r="8" fill="#2a7ab8" stroke="#fff" stroke-width="1.5"/><use href="#bw-w" x="407" y="332" transform="rotate(30 407 332)"/><use href="#bw-w" x="353" y="332" transform="rotate(30 353 332)"/><circle cx="316" cy="286" r="8" fill="#2a7ab8" stroke="#fff" stroke-width="1.5"/><use href="#bw-w" x="322" y="321" transform="rotate(30 322 321)"/><use href="#bw-w" x="280" y="286" transform="rotate(30 280 286)"/><circle cx="282" cy="227" r="8" fill="#2a7ab8" stroke="#fff" stroke-width="1.5"/><use href="#bw-w" x="264" y="258" transform="rotate(30 264 258)"/><use href="#bw-w" x="255" y="204" transform="rotate(30 255 204)"/><circle cx="294" cy="160" r="8" fill="#2a7ab8" stroke="#fff" stroke-width="1.5"/><use href="#bw-w" x="260" y="173" transform="rotate(30 260 173)"/><use href="#bw-w" x="288" y="125" transform="rotate(30 288 125)"/><circle cx="346" cy="116" r="8" fill="#2a7ab8" stroke="#fff" stroke-width="1.5"/><use href="#bw-w" x="312" y="104" transform="rotate(30 312 104)"/><use href="#bw-w" x="364" y="86" transform="rotate(30 364 86)"/><circle cx="414" cy="116" r="8" fill="#2a7ab8" stroke="#fff" stroke-width="1.5"/><use href="#bw-w" x="396" y="86" transform="rotate(30 396 86)"/><use href="#bw-w" x="448" y="104" transform="rotate(30 448 104)"/><circle cx="466" cy="160" r="8" fill="#2a7ab8" stroke="#fff" stroke-width="1.5"/><use href="#bw-w" x="472" y="125" transform="rotate(30 472 125)"/><use href="#bw-w" x="500" y="173" transform="rotate(30 500 173)"/><line x1="478" y1="227" x2="444" y2="286" stroke="#2a7ab8" stroke-width="3" stroke-dasharray="1 5" stroke-linecap="round"/><circle cx="478" cy="227" r="8" fill="#2a7ab8" stroke="#fff" stroke-width="1.5"/><text x="478" y="231" font-size="11" fill="#fff" text-anchor="middle" font-weight="700" >+</text><circle cx="444" cy="286" r="8" fill="#c0392b" stroke="#fff" stroke-width="1.5"/><text x="444" y="290" font-size="11" fill="#fff" text-anchor="middle" font-weight="700" >−</text><line x1="318" y1="180" x2="330" y2="154" stroke="#222" stroke-width="2.4"/><circle cx="318" cy="180" r="8" fill="#d4b106" stroke="#fff" stroke-width="1.5"/><text x="318" y="184" font-size="11" fill="#fff" text-anchor="middle" font-weight="700" >S</text><circle cx="330" cy="154" r="8" fill="#d4b106" stroke="#fff" stroke-width="1.5"/><text x="330" y="158" font-size="11" fill="#fff" text-anchor="middle" font-weight="700" >S</text><line x1="600" y1="68" x2="454" y2="280" stroke="#5b6b84" stroke-width="1"/><rect x="482" y="44" width="236" height="40" rx="6" fill="#fff" stroke="#c9d3e0"/><text x="600" y="60" font-size="13" fill="#223" text-anchor="middle" font-weight="700" >Ion-Ion-Wechselwirkung</text><text x="600" y="76" font-size="11.5" fill="#5b6b84" text-anchor="middle" >(Salzbrücke: Lys⁺ … Glu⁻)</text><line x1="600" y1="338" x2="500" y2="268" stroke="#5b6b84" stroke-width="1"/><rect x="482" y="314" width="236" height="40" rx="6" fill="#fff" stroke="#c9d3e0"/><text x="600" y="330" font-size="13" fill="#223" text-anchor="middle" font-weight="700" >Hydrathülle</text><text x="600" y="346" font-size="11.5" fill="#5b6b84" text-anchor="middle" >(Wassermoleküle an polaren Gruppen)</text><line x1="120" y1="78" x2="322" y2="150" stroke="#5b6b84" stroke-width="1"/><rect x="2" y="54" width="236" height="40" rx="6" fill="#fff" stroke="#c9d3e0"/><text x="120" y="70" font-size="13" fill="#223" text-anchor="middle" font-weight="700" >Disulfidbrücke</text><text x="120" y="86" font-size="11.5" fill="#5b6b84" text-anchor="middle" >(Atombindung, Cys–S–S–Cys)</text><line x1="110" y1="338" x2="350" y2="232" stroke="#5b6b84" stroke-width="1"/><rect x="-8" y="314" width="236" height="40" rx="6" fill="#fff" stroke="#c9d3e0"/><text x="110" y="330" font-size="13" fill="#223" text-anchor="middle" font-weight="700" >unpolarer Kern</text><text x="110" y="346" font-size="11.5" fill="#5b6b84" text-anchor="middle" >(Van-der-Waals-Wechselwirkungen)</text><text x="380" y="26" font-size="15" fill="#156e9d" text-anchor="middle" font-weight="700" >Bohnenwasser: ein gelöstes, gefaltetes Protein (schematisch)</text></g><g class="st" data-s="1,2,3,4,5,6,7,8"><rect x="0" y="0" width="760" height="400" fill="#ffffff"/><g class="st" data-s="1,2,3,4,6,7,8"><rect x="0" y="122" width="760" height="156" fill="#e3eef8"/></g><g class="st" data-s="5"><rect x="0" y="122" width="760" height="156" fill="#f3ead2"/></g><text x="70" y="60" font-size="15" fill="#6b7280" text-anchor="middle" font-weight="700" >Luft</text><text x="70" y="78" font-size="12" fill="#6b7280" text-anchor="middle" >(Blase 1)</text><text x="70" y="345" font-size="15" fill="#6b7280" text-anchor="middle" font-weight="700" >Luft</text><text x="70" y="363" font-size="12" fill="#6b7280" text-anchor="middle" >(Blase 2)</text><g class="st" data-s="1,2,3,4,6,7,8"><text x="690" y="205" font-size="13" fill="#2a7ab8" text-anchor="middle" font-weight="700" >Lamelle</text><text x="690" y="221" font-size="12" fill="#2a7ab8" text-anchor="middle" >(Wasser)</text></g><path d="M 20 128 L 40 133 L 70 123 L 100 133 L 130 123 L 160 133 L 190 123 L 220 133 L 250 123 L 280 133 L 310 123 L 340 133 L 370 123 L 400 133 L 430 123 L 460 133 L 490 123 L 520 133 L 550 123 L 580 133 L 610 123 L 640 133 L 670 123 L 700 133 L 730 123" fill="none" stroke="#7d8ea6" stroke-width="6" stroke-linejoin="round" opacity=".85"/><circle cx="40" cy="108" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="70" cy="148" r="8" fill="#2a7ab8" stroke="#fff" stroke-width="1.5"/><circle cx="100" cy="108" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="130" cy="148" r="8" fill="#2a7ab8" stroke="#fff" stroke-width="1.5"/><circle cx="160" cy="108" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="190" cy="148" r="8" fill="#2a7ab8" stroke="#fff" stroke-width="1.5"/><circle cx="220" cy="108" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="280" cy="108" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="310" cy="148" r="8" fill="#2a7ab8" stroke="#fff" stroke-width="1.5"/><circle cx="340" cy="108" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="370" cy="148" r="8" fill="#2a7ab8" stroke="#fff" stroke-width="1.5"/><circle cx="400" cy="108" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="460" cy="108" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="490" cy="148" r="8" fill="#2a7ab8" stroke="#fff" stroke-width="1.5"/><circle cx="520" cy="108" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="580" cy="108" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="640" cy="108" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="670" cy="148" r="8" fill="#2a7ab8" stroke="#fff" stroke-width="1.5"/><circle cx="700" cy="108" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="730" cy="148" r="8" fill="#2a7ab8" stroke="#fff" stroke-width="1.5"/><path d="M 20 272 L 40 277 L 70 267 L 100 277 L 130 267 L 160 277 L 190 267 L 220 277 L 250 267 L 280 277 L 310 267 L 340 277 L 370 267 L 400 277 L 430 267 L 460 277 L 490 267 L 520 277 L 550 267 L 580 277 L 610 267 L 640 277 L 670 267 L 700 277 L 730 267" fill="none" stroke="#7d8ea6" stroke-width="6" stroke-linejoin="round" opacity=".85"/><circle cx="40" cy="292" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="70" cy="252" r="8" fill="#2a7ab8" stroke="#fff" stroke-width="1.5"/><circle cx="100" cy="292" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="130" cy="252" r="8" fill="#2a7ab8" stroke="#fff" stroke-width="1.5"/><circle cx="160" cy="292" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="190" cy="252" r="8" fill="#2a7ab8" stroke="#fff" stroke-width="1.5"/><circle cx="220" cy="292" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="280" cy="292" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="310" cy="252" r="8" fill="#2a7ab8" stroke="#fff" stroke-width="1.5"/><circle cx="340" cy="292" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="370" cy="252" r="8" fill="#2a7ab8" stroke="#fff" stroke-width="1.5"/><circle cx="400" cy="292" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="460" cy="292" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="490" cy="252" r="8" fill="#2a7ab8" stroke="#fff" stroke-width="1.5"/><circle cx="520" cy="292" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="580" cy="292" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="640" cy="292" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="670" cy="252" r="8" fill="#2a7ab8" stroke="#fff" stroke-width="1.5"/><circle cx="700" cy="292" r="8" fill="#d9822b" stroke="#fff" stroke-width="1.5"/><circle cx="730" cy="252" r="8" fill="#2a7ab8" stroke="#fff" stroke-width="1.5"/><path d="M 400 132 Q 395 205 445 205 Q 495 205 490 132" fill="none" stroke="#7d8ea6" stroke-width="6" opacity=".85"/><g class="st" data-s="1,6,7,8"><line x1="424" y1="196" x2="466" y2="196" stroke="#2a7ab8" stroke-width="3" stroke-dasharray="1 5" stroke-linecap="round"/></g><g class="st glu" data-s="1,6,7,8"><circle cx="420" cy="196" r="8" fill="#c0392b" stroke="#fff" stroke-width="1.5"/><text x="420" y="200" font-size="11" fill="#fff" text-anchor="middle" font-weight="700" >−</text></g><g class="st" data-s="2,3,4,5"><circle cx="420" cy="196" r="8" fill="#8a96a3" stroke="#fff" stroke-width="1.5"/><text x="420" y="200" font-size="11" fill="#fff" text-anchor="middle" font-weight="700" >H</text><text x="420" y="222" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700" >–COOH</text></g><circle cx="470" cy="196" r="8" fill="#2a7ab8" stroke="#fff" stroke-width="1.5"/><text x="470" y="200" font-size="11" fill="#fff" text-anchor="middle" font-weight="700" >+</text><path d="M 200 268 Q 200 205 235 205 Q 270 205 270 268" fill="none" stroke="#7d8ea6" stroke-width="6" opacity=".85"/><line x1="222" y1="222" x2="250" y2="222" stroke="#222" stroke-width="2.4"/><circle cx="220" cy="222" r="8" fill="#d4b106" stroke="#fff" stroke-width="1.5"/><text x="220" y="226" font-size="11" fill="#fff" text-anchor="middle" font-weight="700" >S</text><circle cx="252" cy="222" r="8" fill="#d4b106" stroke="#fff" stroke-width="1.5"/><text x="252" y="226" font-size="11" fill="#fff" text-anchor="middle" font-weight="700" >S</text><circle cx="610" cy="148" r="8" fill="#c0392b" stroke="#fff" stroke-width="1.5"/><text x="610" y="152" font-size="11" fill="#fff" text-anchor="middle" font-weight="700" >−</text><circle cx="160" cy="252" r="8" fill="#2a7ab8" stroke="#fff" stroke-width="1.5"/><text x="160" y="256" font-size="11" fill="#fff" text-anchor="middle" font-weight="700" >+</text><circle cx="550" cy="252" r="8" fill="#d4b106" stroke="#fff" stroke-width="1.5"/><text x="550" y="256" font-size="11" fill="#fff" text-anchor="middle" font-weight="700" >SH</text><g class="st" data-s="1,2,3,4,6,7,8"><use href="#bw-w" x="60" y="180" transform="rotate(-30 60 180)"/><use href="#bw-w" x="110" y="215" transform="rotate(20 110 215)"/><use href="#bw-w" x="300" y="165" transform="rotate(-30 300 165)"/><use href="#bw-w" x="330" y="235" transform="rotate(0 330 235)"/><use href="#bw-w" x="360" y="190" transform="rotate(-30 360 190)"/><use href="#bw-w" x="540" y="175" transform="rotate(-30 540 175)"/><use href="#bw-w" x="590" y="220" transform="rotate(20 590 220)"/><use href="#bw-w" x="650" y="180" transform="rotate(20 650 180)"/><use href="#bw-w" x="690" y="250" transform="rotate(0 690 250)"/><use href="#bw-w" x="120" y="160" transform="rotate(-30 120 160)"/><use href="#bw-w" x="520" y="230" transform="rotate(10 520 230)"/><use href="#bw-w" x="300" y="255" transform="rotate(-30 300 255)"/><use href="#bw-w" x="640" y="240" transform="rotate(10 640 240)"/><use href="#bw-w" x="80" y="245" transform="rotate(-10 80 245)"/></g><g class="st" data-s="2"><text x="340" y="210" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700" >H₃O⁺</text><text x="560" y="205" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700" >H₃O⁺</text><text x="120" y="195" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700" >H₃O⁺</text></g><g class="st" data-s="3,4,5"><circle cx="636" cy="168" r="9" fill="#fff" stroke="#5b6b84" stroke-width="1.6"/><text x="636" y="172" font-size="9.5" fill="#334" text-anchor="middle" font-weight="700" >Na⁺</text><circle cx="182" cy="232" r="9" fill="#fff" stroke="#5b6b84" stroke-width="1.6"/><text x="182" y="236" font-size="9.5" fill="#334" text-anchor="middle" font-weight="700" >Cl⁻</text></g><g class="st" data-s="4,5"><use href="#bw-zucker" x="320" y="200"/><use href="#bw-zucker" x="365" y="215"/><use href="#bw-zucker" x="560" y="200"/><use href="#bw-zucker" x="610" y="195"/><use href="#bw-zucker" x="110" y="200"/><use href="#bw-zucker" x="655" y="250"/></g><g class="st" data-s="4"><rect x="230" y="320" width="300" height="44" rx="7" fill="#fffaf0" stroke="#e6cfa8"/><text x="380" y="338" font-size="12" fill="#6b5a2e" text-anchor="middle" >Saccharose bleibt in der Mitte der Lamelle;</text><text x="380" y="354" font-size="12" fill="#6b5a2e" text-anchor="middle" >an der Proteinoberfläche bleibt Wasser</text></g><g class="st" data-s="5"><path d="M 300 398 q 6 -10 0 -20 q -6 -10 0 -20" fill="none" stroke="#d9822b" stroke-width="2.4"/><path d="M 340 398 q 6 -10 0 -20 q -6 -10 0 -20" fill="none" stroke="#d9822b" stroke-width="2.4"/><path d="M 380 398 q 6 -10 0 -20 q -6 -10 0 -20" fill="none" stroke="#d9822b" stroke-width="2.4"/><path d="M 420 398 q 6 -10 0 -20 q -6 -10 0 -20" fill="none" stroke="#d9822b" stroke-width="2.4"/><path d="M 460 398 q 6 -10 0 -20 q -6 -10 0 -20" fill="none" stroke="#d9822b" stroke-width="2.4"/><line x1="90" y1="150" x2="105" y2="250" stroke="#5d6b7a" stroke-width="3" stroke-dasharray="6 4"/><line x1="330" y1="150" x2="345" y2="250" stroke="#5d6b7a" stroke-width="3" stroke-dasharray="6 4"/><line x1="580" y1="150" x2="595" y2="250" stroke="#5d6b7a" stroke-width="3" stroke-dasharray="6 4"/><line x1="650" y1="150" x2="665" y2="250" stroke="#5d6b7a" stroke-width="3" stroke-dasharray="6 4"/><use href="#bw-w" x="250" y="70" transform="rotate(0 250 70)"/><path d="M 250 62 l 0 -14" stroke="#9aa5b1" stroke-width="1.4"/><path d="M 246 52 l 4 -6 l 4 6" fill="none" stroke="#9aa5b1" stroke-width="1.4"/><use href="#bw-w" x="520" y="60" transform="rotate(0 520 60)"/><path d="M 520 52 l 0 -14" stroke="#9aa5b1" stroke-width="1.4"/><path d="M 516 42 l 4 -6 l 4 6" fill="none" stroke="#9aa5b1" stroke-width="1.4"/><use href="#bw-w" x="640" y="90" transform="rotate(0 640 90)"/><path d="M 640 82 l 0 -14" stroke="#9aa5b1" stroke-width="1.4"/><path d="M 636 72 l 4 -6 l 4 6" fill="none" stroke="#9aa5b1" stroke-width="1.4"/><text x="380" y="336" font-size="12.5" fill="#5d4a1f" text-anchor="middle" font-weight="700" >Ketten vernetzen sich, Wasser verdampft, Zucker erstarrt glasartig</text></g><g class="st" data-s="6"><text x="330" y="210" font-size="13" fill="#1d4f80" text-anchor="middle" font-weight="700" >OH⁻</text><text x="560" y="200" font-size="13" fill="#1d4f80" text-anchor="middle" font-weight="700" >OH⁻</text><text x="110" y="205" font-size="13" fill="#1d4f80" text-anchor="middle" font-weight="700" >OH⁻</text><text x="660" y="235" font-size="13" fill="#1d4f80" text-anchor="middle" font-weight="700" >OH⁻</text><circle cx="486" cy="178" r="10" fill="#fff" stroke="#d9822b" stroke-width="2"/><text x="486" y="183" font-size="14" fill="#d9822b" text-anchor="middle" font-weight="700" >?</text><circle cx="176" cy="272" r="10" fill="#fff" stroke="#d9822b" stroke-width="2"/><text x="176" y="277" font-size="14" fill="#d9822b" text-anchor="middle" font-weight="700" >?</text></g><g class="st" data-s="7"><circle cx="330" cy="200" r="13" fill="#d8f0f3" stroke="#1f7a8c" stroke-width="1.8"/><text x="330" y="204" font-size="10" fill="#135461" text-anchor="middle" font-weight="700" >Cu²⁺</text><circle cx="600" cy="205" r="13" fill="#d8f0f3" stroke="#1f7a8c" stroke-width="1.8"/><text x="600" y="209" font-size="10" fill="#135461" text-anchor="middle" font-weight="700" >Cu²⁺</text><circle cx="110" cy="200" r="13" fill="#d8f0f3" stroke="#1f7a8c" stroke-width="1.8"/><text x="110" y="204" font-size="10" fill="#135461" text-anchor="middle" font-weight="700" >Cu²⁺</text><circle cx="566" cy="272" r="10" fill="#fff" stroke="#d9822b" stroke-width="2"/><text x="566" y="277" font-size="14" fill="#d9822b" text-anchor="middle" font-weight="700" >?</text><circle cx="436" cy="178" r="10" fill="#fff" stroke="#d9822b" stroke-width="2"/><text x="436" y="183" font-size="14" fill="#d9822b" text-anchor="middle" font-weight="700" >?</text><circle cx="626" cy="128" r="10" fill="#fff" stroke="#d9822b" stroke-width="2"/><text x="626" y="133" font-size="14" fill="#d9822b" text-anchor="middle" font-weight="700" >?</text></g><g class="st" data-s="8"><g transform="translate(320 205)"><path d="M -14 4 l 8 -8 l 8 8" fill="none" stroke="#6c2a8c" stroke-width="2.6"/><text x="14" y="9" font-size="11" fill="#6c2a8c" text-anchor="middle" font-weight="700" >OH</text></g><g transform="translate(560 195)"><path d="M -14 4 l 8 -8 l 8 8" fill="none" stroke="#6c2a8c" stroke-width="2.6"/><text x="14" y="9" font-size="11" fill="#6c2a8c" text-anchor="middle" font-weight="700" >OH</text></g><g transform="translate(110 210)"><path d="M -14 4 l 8 -8 l 8 8" fill="none" stroke="#6c2a8c" stroke-width="2.6"/><text x="14" y="9" font-size="11" fill="#6c2a8c" text-anchor="middle" font-weight="700" >OH</text></g><g transform="translate(650 220)"><path d="M -14 4 l 8 -8 l 8 8" fill="none" stroke="#6c2a8c" stroke-width="2.6"/><text x="14" y="9" font-size="11" fill="#6c2a8c" text-anchor="middle" font-weight="700" >OH</text></g><g transform="translate(345 240)"><path d="M -14 4 l 8 -8 l 8 8" fill="none" stroke="#6c2a8c" stroke-width="2.6"/><text x="14" y="9" font-size="11" fill="#6c2a8c" text-anchor="middle" font-weight="700" >OH</text></g><circle cx="85" cy="92" r="10" fill="#fff" stroke="#d9822b" stroke-width="2"/><text x="85" y="97" font-size="14" fill="#d9822b" text-anchor="middle" font-weight="700" >?</text><circle cx="445" cy="225" r="10" fill="#fff" stroke="#d9822b" stroke-width="2"/><text x="445" y="230" font-size="14" fill="#d9822b" text-anchor="middle" font-weight="700" >?</text></g></g></svg>
+    <div id="bwtext"></div>
+    <p class="legende"><span><i style="background:#d9822b"></i>unpolare Seitenkette</span><span><i style="background:#2a7ab8"></i>polare oder positiv geladene</span><span><i style="background:#c0392b"></i>negativ geladene</span><span><i style="background:#d4b106"></i>Cystein</span><span><i style="background:#7d8ea6;border-radius:2px"></i>Peptidkette</span><span><i style="background:#d9534f"></i>Wassermolekül</span></p>
+  </div>
+</section>
 <h2 id="hilfen">Hilfekarten</h2>
 <p class="hinweis">Erst selbst probieren. Jede Karte deckt ihre Hilfe in Stufen auf, so wenig wie möglich, so viel wie nötig.</p>
 <div class="hilfen">
   <div class="hk">
-    <h3>Hilfe zu 1a</h3><div class="zu">Einwirkungen im Rezept</div>
-    <div class="stufe">Energieformen: elektrische, thermische, chemische, mechanische Energie. Was kommt beim Schlagen im Bohnenwasser an, was im Ofen?</div><div class="stufe">Bei Zitronensaft, Salz und Zucker wirken Teilchen. Welche Teilchen bringt jeder Stoff mit?</div><div class="stufe">Ein Schritt denaturiert nicht: Sehen Sie in M3 nach, was Salz und Zucker mit den Proteinen machen.</div>
-    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
-  </div>
-  <div class="hk">
-    <h3>Hilfe zu 1b</h3><div class="zu">Vom Bohnenwasser zum Baiser</div>
-    <div class="stufe">Am Anfang sind die Proteine gelöst und gefaltet. Wie sind sie im festen Baiser?</div><div class="stufe">Sitzung 11: Denaturierung ist der Verlust der … Struktur, Koagulation ist die … vieler Ketten.</div>
-    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
-  </div>
-  <div class="hk">
-    <h3>Hilfe zu 2b</h3><div class="zu">Kontrollansatz</div>
+    <h3>Hilfe zu 1b</h3><div class="zu">Kontrollansatz</div>
     <div class="stufe">Was ist in RG 1 und RG 2 gleich, was ist verschieden?</div><div class="stufe">Was könnte man ohne RG 1 nicht ausschließen? Schäumt vielleicht schon Wasser allein?</div><div class="stufe">Positivkontrolle: Welches Lebensmittel ergibt sicher einen guten Proteinschaum?</div>
     <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
   </div>
   <div class="hk">
+    <h3>Hilfe zu 2a</h3><div class="zu">Folgerung zum Brett-Foto</div>
+    <div class="stufe">Gehen Sie die fünf Schritte des Methodenkastens durch: Was ist beim Brett-Versuch die unabhängige Variable?</div><div class="stufe">Was wurde nicht gleich gehalten? Womit wurde verglichen? Wie oft wurde gemessen?</div><div class="stufe">Legen Sie die Beispielspalte des Planungsbogens daneben: Welche Mängel behebt sie?</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
+    <h3>Hilfe zu 2b</h3><div class="zu">Eigene Fragestellung planen</div>
+    <div class="stufe">Eine überprüfbare Frage hat eine Ja/Nein-Antwort oder einen Messwert: „Wird … niedriger, wenn …?“ oder „Ab welcher Menge … flockt …?“</div><div class="stufe">Base: Was verändern Sie (Natron, Soda, ohne Zusatz)? Cu<sup>2+</sup>: Wie viele Tropfen? Ethanol: Welche Anteile? Messen: Schaumhöhe mit dem Geodreieck, Trübung, Flocken.</div><div class="stufe">Kontrollansätze: Was setzen Sie ohne den untersuchten Stoff an? Was zeigt sicher Flocken (Positivkontrolle)? Kann die Trübung auch von etwas anderem als Protein kommen (Sitzung 14)?</div><div class="stufe">Satzanfänge: „Wir verändern nur … Wir messen … Gleich bleiben … Zum Vergleich setzen wir … an. Wir erwarten …, weil …“</div>
+    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
+  </div>
+  <div class="hk">
     <h3>Hilfe zu 3a</h3><div class="zu">Teilchenskizze</div>
-    <div class="stufe">Wo ist es für eine unpolare Seitenkette günstiger: im Wasser oder in der Luft?</div><div class="stufe">Zeichnen Sie die Kette als Linie entlang des Blasenrands, unpolare Seitenketten (orange) nach innen, polare (blau) nach außen.</div><div class="stufe">Zwei Blasen nebeneinander: Was liegt zwischen ihnen? Beschriften Sie Luft, Wasser, Lamelle, entfaltete Kette.</div>
+    <div class="stufe">Wo ist es für eine unpolare Seitenkette günstiger: im Wasser oder in der Luft?</div><div class="stufe">Zeichnen Sie die Kette als Linie entlang des Blasenrands, unpolare Seitenketten (orange) nach innen, polare (blau) nach außen.</div><div class="stufe">Zwei Blasen nebeneinander: Was liegt zwischen ihnen? Beschriften Sie Luft, Wasser, Lamelle, entfaltete Kette. Vergleichen Sie mit dem Einstieg oben, Schritt „1 Schlagen“.</div>
     <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
   </div>
   <div class="hk">
@@ -151,18 +233,13 @@ sub,sup{font-size:.72em}
     <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
   </div>
   <div class="hk">
-    <h3>Hilfe zu 3c</h3><div class="zu">Salz und Zucker</div>
-    <div class="stufe">Lesen Sie in M3 nach: Hebt Salz oder Zucker eine Wechselwirkung im Inneren des Proteins auf?</div><div class="stufe">Wie viel Salz bräuchte man zum Aussalzen (Sitzung 15, Version 1: gesättigte Ammoniumsulfat-Lösung)? Wie viel ist eine Prise?</div>
+    <h3>Hilfe zu 3c</h3><div class="zu">Eigene Hypothese begründen</div>
+    <div class="stufe">Lesen Sie in M4 den Abschnitt zu Ihrem Auslöser. Welche Teilchen bringt er mit (Erklärschema, Schritt 1)?</div><div class="stufe">Base: Welche Gruppe gibt erst ab pH ≈ 10 ihr Proton ab? Welche Wechselwirkung fehlt dann? Cu<sup>2+</sup>: An welche Gruppen bindet es, wie viele Ketten kann ein Ion verbinden? Ethanol: Was kann die OH-Gruppe, was der Ethylrest?</div><div class="stufe">Was bleibt in jedem Fall erhalten? Und ist es umkehrbar?</div>
     <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
   </div>
   <div class="hk">
-    <h3>Hilfe zu 3d</h3><div class="zu">Verdauung</div>
-    <div class="stufe">Sitzung 08: Bei der Hydrolyse wird ein Wassermolekül aufgenommen. Wo wird die Kette gespalten?</div><div class="stufe">…–NH–CH<sub>2</sub>–CO–NH–CH<sub>2</sub>–CO–… + H<sub>2</sub>O → … Welche Gruppen entstehen an der Spaltstelle?</div>
-    <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
-  </div>
-  <div class="hk">
-    <h3>Hilfe zu 4a/4b</h3><div class="zu">Fragestellung und Planung</div>
-    <div class="stufe">Gehen Sie die fünf Schritte des Methodenkastens durch: Was ist beim Brett-Versuch die unabhängige Variable? Was wurde nicht gleich gehalten? Womit wurde verglichen?</div><div class="stufe">Ideen für 4b: Sorte des Bohnenwassers, Natron statt Zitronensaft, Kupferschüssel, Temperatur, Zeitpunkt der Zuckerzugabe.</div><div class="stufe">Satzanfänge: „Wir verändern nur … Wir messen … Gleich bleiben … Zum Vergleich setzen wir … an. Wir erwarten …, weil …“</div>
+    <h3>Hilfe zu 3d</h3><div class="zu">Salz und Zucker</div>
+    <div class="stufe">Lesen Sie in M4 nach: Hebt Salz oder Zucker eine Wechselwirkung im Inneren des Proteins auf?</div><div class="stufe">Lesen Sie die Definition am Anfang von M4: Reicht es, wenn eine Wechselwirkung nur geschwächt wird? Wie viel ist eine Prise, wie viel bräuchte man zum Aussalzen?</div><div class="stufe">Zucker: Wo befinden sich die Saccharosemoleküle in der Lamelle, und wo bleibt Wasser (Einstieg, Schritt „4 Zucker“)? Was bedeutet „zähflüssiger“ für das Ablaufen der Flüssigkeit?</div>
     <button type="button">Stufe 1 aufdecken</button><span class="zaehler"></span>
   </div>
 </div>
@@ -175,11 +252,11 @@ sub,sup{font-size:.72em}
 </section>
 <section class="v-karte" id="v2">
   <div class="v-kopf"><div class="v-nr">V2</div><div><div class="sterne">★★</div><h3>Eischnee in der Kupferschüssel</h3></div></div>
-  <div class="v-inhalt"><div class="v-text"><p>Französische Köche schlagen Eischnee traditionell in Kupferschüsseln. Der Schaum wird feiner und fällt seltener zusammen. Untersuchungen zeigen, dass Cu<sup>2+</sup>-Ionen von der Schüsselwand an das Eiklarprotein Ovotransferrin binden, das dann schwerer entfaltet.</p></div><div class="aufgabe"><span class="b"></span><span><b>Entwickeln</b> Sie eine Fragestellung, ob das auch für Bohnenwasser gilt, und <b>planen</b> Sie einen Versuch mit Kontrollansatz.</span><span class="ab">AB III</span></div></div>
+  <div class="v-inhalt"><div class="v-text"><p>Französische Köche schlagen Eischnee traditionell in Kupferschüsseln. Der Schaum wird feiner und fällt seltener zusammen. Untersuchungen zeigen, dass Spuren von Cu<sup>2+</sup>-Ionen von der Schüsselwand an das Eiklarprotein Ovotransferrin binden, das dann schwerer entfaltet.</p></div><div class="aufgabe"><span class="b"></span><span>In Aufgabe 2b/3c flocken Cu<sup>2+</sup>-Ionen Proteine aus. <b>Erklären</b> Sie, wie beides zusammenpasst, und <b>nennen</b> Sie die Variable, auf die es ankommt.</span><span class="ab">AB III</span></div></div>
 </section>
 <section class="v-karte" id="v3">
-  <div class="v-kopf"><div class="v-nr">V3</div><div><div class="sterne">★</div><h3>Natron statt Zitronensaft?</h3></div></div>
-  <div class="v-inhalt"><div class="v-text"><p>Ein Rezept im Internet empfiehlt, statt Zitronensaft eine Messerspitze Natron (Natriumhydrogencarbonat) ins Bohnenwasser zu geben. Eine Lösung von Natron hat einen pH-Wert von etwa 8.</p></div><div class="aufgabe"><span class="b"></span><span><b>Stellen</b> Sie eine begründete Hypothese <b>auf</b>, wie sich Natron auf den Schaum auswirkt, und <b>planen</b> Sie einen Versuch, der Ihre Hypothese prüft.</span><span class="ab">AB III</span></div></div>
+  <div class="v-kopf"><div class="v-nr">V3</div><div><div class="sterne">★</div><h3>Baiser im Magen</h3></div></div>
+  <div class="v-inhalt"><div class="v-text"><p>Im Magen und Dünndarm spalten Enzyme (Pepsin, Trypsin) Peptidbindungen unter Aufnahme von Wasser (Sitzung 08).</p></div><div class="aufgabe"><span class="b"></span><span><b>Entwickeln</b> Sie mit Strukturformeln die Reaktionsgleichung für die Verdauung eines Kettenausschnitts mit zwei benachbarten Glycinbausteinen und <b>grenzen</b> Sie die Verdauung von der Denaturierung <b>ab</b>.</span><span class="ab">AB II</span></div></div>
 </section>
 <section class="v-karte" id="v4">
   <div class="v-kopf"><div class="v-nr">V4</div><div><div class="sterne">★★</div><h3>Schäumt Bohnenwasser nur wegen der Proteine?</h3></div></div>
@@ -192,15 +269,18 @@ sub,sup{font-size:.72em}
 <h2 id="fragen">Fragen und Antworten</h2>
 <div class="qa">
 <details><summary>Warum schäumt Bohnenwasser, Wasser aber nicht?</summary><div class="antwort"><p>In reinem Wasser zerplatzen die Blasen sofort. Im Bohnenwasser wandern Proteine an die Oberfläche jeder Blase, entfalten sich dort und bilden einen dünnen, zähen Film. Der hält die Blasen zusammen. Saponine aus den Hülsenfrüchten helfen dabei mit.</p></div></details>
-<details><summary>Warum soll der Zucker erst am Ende hinein?</summary><div class="antwort"><p>Zucker macht die Flüssigkeit zäh. Das stabilisiert einen fertigen Schaum, erschwert aber, dass sich die Proteine überhaupt erst an der Grenzfläche entfalten. Deshalb erst steif schlagen, dann den Zucker löffelweise zugeben.</p></div></details>
+<details><summary>Warum soll der Zucker erst am Ende hinein?</summary><div class="antwort"><p>Zucker macht die Flüssigkeit zähflüssiger. Das stabilisiert einen fertigen Schaum, weil die Flüssigkeit langsamer aus den Lamellen abläuft. Zugleich stabilisiert Zucker die gefaltete Struktur der Proteine: Sie entfalten sich an der Grenzfläche schwerer, der Schaum entsteht langsamer. Deshalb erst steif schlagen, dann den Zucker löffelweise zugeben.</p></div></details>
+<details><summary>Denaturiert Zucker die Proteine, weil er so viele OH-Gruppen hat?</summary><div class="antwort"><p>Nein. In Lösung bilden Saccharosemoleküle ihre Wasserstoffbrücken vor allem zu Wassermolekülen und werden von der Proteinoberfläche eher verdrängt. Dort bleibt eine Wasserschicht, und der gefaltete Zustand wird stabiler: Proteine entfalten sich in Zuckerlösung erst bei höherer Temperatur (Lee und Timasheff, 1981). Erst wenn beim Trocknen das Wasser fehlt, binden Zuckermoleküle direkt an polare Gruppen der Proteine und ersetzen das Wasser; auch das schützt eher die Struktur.</p></div></details>
+<details><summary>Ist Schlagen nur Luft einschlagen oder wirklich Denaturierung?</summary><div class="antwort"><p>Wirklich Denaturierung, allerdings nur teilweise und nur an der Grenzfläche. Die Proteine wandern an die Oberfläche der Blasen; dort drehen sich unpolare Seitenketten zur Luft. Dafür muss sich die Kette teilweise entfalten. Fachlich heißt das Grenzflächendenaturierung. Ohne Grenzfläche entfalten die Scherkräfte des Rührgeräts globuläre Proteine kaum.</p></div></details>
 <details><summary>Ist das Baiser schwerer verdaulich, weil die Proteine denaturiert sind?</summary><div class="antwort"><p>Nein, eher leichter. Die Verdauungsenzyme spalten Peptidbindungen. An einer entfalteten Kette kommen sie besser an diese Bindungen heran als an ein dicht gefaltetes Protein.</p></div></details>
 </div>
 
 <footer>
   Chemie LK · Q1 · 02 Proteine – Bausteine des Lebens · 15 Schnee ohne Ei · Vertiefung und Hilfen<br>
-  Shim, Mustafa, Shen, Ratanapariyanuch, Reaney, <i>J. Vis. Exp.</i> 132 (2018) e56305; Mustafa, He, Shim, Reaney, <i>Int. J. Food Sci. Technol.</i> 53 (2018) 2247; Poore, Nemecek, <i>Science</i> 360 (2018) 987 (Our World in Data); Belitz, Grosch, Schieberle, <i>Lehrbuch der Lebensmittelchemie</i>.
+  Shim, Mustafa, Shen, Ratanapariyanuch, Reaney, <i>J. Vis. Exp.</i> 132 (2018) e56305; Mustafa, He, Shim, Reaney, <i>Int. J. Food Sci. Technol.</i> 53 (2018) 2247; Poore, Nemecek, <i>Science</i> 360 (2018) 987 (Our World in Data); Belitz, Grosch, Schieberle, <i>Lehrbuch der Lebensmittelchemie</i>; Damodaran, <i>J. Food Sci.</i> 70 (2005) R54; Raikos, Campbell, Euston, <i>Food Res. Int.</i> 40 (2007) 347; Lee, Timasheff, <i>J. Biol. Chem.</i> 256 (1981) 7193; Jumper et al., <i>Nature</i> 596 (2021) 583 (AlphaFold); UniProt Q9SMJ4, A0A1S2XQR4, A0A1S2XHS6.
 </footer>
 </main>
+<script src="js/3Dmol-min.js"></script>
 
 <script>
 (function(){
@@ -215,6 +295,148 @@ sub,sup{font-size:.72em}
       else { btn.textContent = 'alle Stufen offen'; btn.disabled = true; }
     });
   });
+})();
+
+(function(){
+  // ---------- Teil B: Schritte ----------
+  var TXT={"0":'Gelöste, gefaltete Proteine: unpolare Seitenketten (orange) innen, polare und geladene außen, umgeben von Wassermolekülen. Welche Wechselwirkungen halten die Raumstruktur?',"1":'Ausschnitt aus dem Schaum: die Lamelle zwischen zwei Luftblasen. Die Ketten liegen teilweise entfaltet an den Grenzflächen; unpolare Seitenketten ragen in die Luft. Was ist gegenüber „Bohnenwasser“ anders?',"2":'Oxonium-Ionen kommen hinzu. Achten Sie auf die Salzbrücke in der Schleife oben.',"3":'Wenige Na⁺- und Cl⁻-Ionen sammeln sich bei geladenen Gruppen an der Oberfläche und schirmen sie ab. Die Ladungen bleiben, die Salzbrücken werden nur etwas schwächer. Entfaltet sich dabei etwas?',"4":'Saccharose löst sich in der Lamelle. Sie macht das Wasser zähflüssiger, bleibt aber der Proteinoberfläche fern.',"5":'90–100 °C: Wasser verdampft, die Lamelle wird dünn und fest.',"6":'Alltagsfrage Base (M3): Hydroxid-Ionen bei pH ≈ 11. Wo greifen sie an (?)? Ihre Hypothese: Aufgabe 2b/3c.',"7":'Alltagsfrage Schwermetall-Ionen (M3): Kupfer(II)-Ionen. Welche Gruppen (?) binden sie? Ihre Hypothese: Aufgabe 2b/3c.',"8":'Alltagsfrage Lösemittel (M3): Ethanolmoleküle mit OH-Gruppe und Ethylrest. Womit treten sie in Konkurrenz (?)? Ihre Hypothese: Aufgabe 2b/3c.'};
+  function schritt(s){
+    document.querySelectorAll('#bwsvg .st').forEach(function(g){
+      var an=g.getAttribute('data-s').split(',').indexOf(s)>=0; g.style.opacity=an?1:0; g.style.pointerEvents=an?'':'none';});
+    document.querySelectorAll('#bwschritte button').forEach(function(b){b.classList.toggle('an',b.dataset.s===s)});
+    document.getElementById('bwtext').textContent=TXT[s];
+  }
+  document.querySelectorAll('#bwschritte button').forEach(function(b){b.addEventListener('click',function(){schritt(b.dataset.s)})});
+  schritt('0');
+
+  // ---------- Teil A: 3D ----------
+  var box=document.getElementById('bw3d'), info=document.getElementById('bwinfo'), tab=document.getElementById('bwtab');
+  var V=null, M={}, ST={}, aktiv=null, bereit=false, AN={u:true,neg:false,pos:false,cys:true};
+  var BOHNE=['legumin','vicilin','albumin'], EI=['ovalbumin','ovotransferrin','ovomucoid','lysozym'], REIHE=BOHNE.concat(EI);
+  var NAME={legumin:'Legumin',vicilin:'Vicilin',albumin:'Albumin',ovalbumin:'Ovalbumin',ovotransferrin:'Ovotransferrin',ovomucoid:'Ovomucoid',lysozym:'Lysozym'};
+  var DATEI={legumin:'q1-15b-legumin',vicilin:'q1-15b-vicilin',albumin:'q1-15b-albumin',ovalbumin:'q1-14-ovalbumin',ovotransferrin:'q1-15b-ovotransferrin',ovomucoid:'q1-15b-ovomucoid',lysozym:'q1-15b-lysozym'};
+  var POSL={};
+  var TEXT={
+    legumin:'<b>Legumin</b> (11S-Globulin) · Bohnenwasser<div class="fkt"><b>Funktion:</b> Speicherprotein im Samen, ein Vorrat an Aminosäuren für den Keimling. Bei der Keimung bauen Enzyme es zu Aminosäuren ab.</div><p>Entsteht als eine Kette, die in eine α- und eine β-Kette gespalten wird; beide bleiben über eine Disulfidbrücke verbunden. Sechs solcher Paare bilden in der Bohne ein Hexamer. Ein langer, saurer Abschnitt der α-Kette ist ungeordnet und hier weggelassen.</p>',
+    vicilin:'<b>Vicilin</b> (7S-Globulin) · Bohnenwasser<div class="fkt"><b>Funktion:</b> Speicherprotein im Samen wie Legumin, Aminosäurevorrat für den Keimling.</div><p>In der Bohne als Trimer. Zwei ähnliche, kompakt gefaltete Hälften (Cupin-Domänen). Auffällig: Diese Kette enthält <b>kein Cystein</b>, also weder Thiolgruppen noch Disulfidbrücken.</p>',
+    albumin:'<b>Albumin</b> (PA2-Typ) · Bohnenwasser<div class="fkt"><b>Funktion:</b> gehört zum wasserlöslichen Teil der Samenproteine und dient ebenfalls als Vorrat; welche Aufgaben es im Samen sonst noch hat, ist nicht vollständig geklärt.</div><p>Kleiner und gut wasserlöslich. Albumine bleiben beim Kochen der Hülsenfrüchte eher gelöst und gelangen ins Bohnenwasser.</p>',
+    ovalbumin:'<b>Ovalbumin</b> · Eiklar, ≈ 54 % des Eiklarproteins<div class="fkt"><b>Funktion:</b> Speicherprotein, ein Vorrat an Aminosäuren für den wachsenden Embryo. Es ist mit Enzymhemmstoffen (Serpinen) verwandt, hemmt selbst aber keine Enzyme.</div><p>Eine Kette aus 385 Aminosäuren, Helices und ein großes Faltblatt gemischt. Eine Disulfidbrücke und vier freie Thiolgruppen (–SH). Im Eiklar denaturiert es beim Erhitzen bei ≈ 84 °C als letztes der großen Proteine (Donovan et al., <i>J. Sci. Food Agric.</i> 26, 1975, 73).</p>',
+    ovotransferrin:'<b>Ovotransferrin</b> · Eiklar, ≈ 12 %<div class="fkt"><b>Funktion:</b> bindet zwei Eisen-Ionen (Fe<sup>3+</sup>, pinke Kugeln) sehr fest und entzieht sie so Bakterien, die Eisen zum Wachsen brauchen: ein Schutz für den Embryo.</div><p>Zwei gleich gebaute Hälften mit je einer Bindungsstelle, 15 Disulfidbrücken. Im Eiklar denaturiert es beim Erhitzen zuerst, schon bei ≈ 61–65 °C (Donovan et al. 1975).</p>',
+    ovomucoid:'<b>Ovomucoid</b> · Eiklar, ≈ 11 %<div class="fkt"><b>Funktion:</b> hemmt das Verdauungsenzym Trypsin und schützt so die Eiklarproteine vor dem Abbau durch fremde Enzyme.</div><p>Drei kleine Domänen mit je drei Disulfidbrücken. Ein Viertel der Masse sind Zuckerketten, die im Modell fehlen. Sehr hitzestabil: Es bleibt auch in gekochtem Ei teilweise gefaltet und ist darum das wichtigste Allergen im Hühnerei.</p><p class="klein">Berechnetes Modell (AlphaFold), keine Kristallstruktur.</p>',
+    lysozym:'<b>Lysozym</b> · Eiklar, ≈ 3,5 %<div class="fkt"><b>Funktion:</b> ein Enzym, das die Zellwand von Bakterien spaltet und sie so abtötet. Lysozym kommt auch in Tränen und Speichel vor.</div><p>Klein (129 Aminosäuren) und durch vier Disulfidbrücken sehr stabil. Schalten Sie „basisch“ ein: Bei pH 7 bis 9 (Eiklar) ist Lysozym deutlich positiv geladen, die anderen Eiklarproteine negativ.</p>',
+    alle:'<b>Alle sieben im selben Maßstab</b><p>Oben das Bohnenwasser (Kichererbse), unten das Eiklar (Huhn). Die Schalter für die Seitenketten gelten auch hier; Tippen auf eine Seitenkette zeigt, zu welchem Protein sie gehört.</p><p class="klein">Nicht gezeigt: Ovomucin (≈ 3,5 % des Eiklarproteins), ein riesiges, fadenförmiges Protein mit vielen Zuckerketten, das Eiklar zähflüssig macht und Schaum stabilisiert. Für Ovomucin gibt es kein Strukturmodell.</p>'
+  };
+  var AS={ALA:'Ala',ARG:'Arg',ASN:'Asn',ASP:'Asp',CYS:'Cys',GLN:'Gln',GLU:'Glu',GLY:'Gly',HIS:'His',ILE:'Ile',LEU:'Leu',LYS:'Lys',MET:'Met',PHE:'Phe',PRO:'Pro',SER:'Ser',THR:'Thr',TRP:'Trp',TYR:'Tyr',VAL:'Val'};
+  var U=['VAL','LEU','ILE','PHE','MET','TRP'], NEG=['ASP','GLU'], POS=['LYS','ARG'];
+  var HAUPT=['N','CA','C','O','OXT'];
+  var F={u:'#ff9f43',neg:'#ff5a5a',pos:'#4aa3ff',cys:'#f5d000'};
+  function nachricht(t){box.innerHTML='<div class="lade">'+t+'</div>'}
+  function d(a,b){return Math.hypot(a.x-b.x,a.y-b.y,a.z-b.z)}
+
+  function auswerten(m){
+    var ca=m.selectedAtoms({atom:'CA'}), s={reste:ca.length,u:0,neg:0,pos:0,cys:0,ss:0,ui:0,ua:0,ni:0,na:0,innen:{}};
+    ca.forEach(function(a){
+      var n=0; for(var i=0;i<ca.length;i++){if(ca[i]!==a&&d(a,ca[i])<10)n++}
+      var innen=n>=20; s.innen[a.chain+':'+a.resi]=innen;
+      if(innen)s.ni++;else s.na++;
+      if(U.indexOf(a.resn)>=0){s.u++; if(innen)s.ui++;else s.ua++;}
+      if(NEG.indexOf(a.resn)>=0)s.neg++; if(POS.indexOf(a.resn)>=0)s.pos++; if(a.resn==='CYS')s.cys++;});
+    var sg=m.selectedAtoms({resn:'CYS',atom:'SG'});
+    for(var i=0;i<sg.length;i++)for(var j=i+1;j<sg.length;j++)if(d(sg[i],sg[j])<2.5)s.ss++;
+    return s;
+  }
+  function stil(){
+    if(!bereit||!aktiv)return;
+    REIHE.forEach(function(n){V.setStyle({model:M[n]},{})});
+    (alleAn?REIHE:[aktiv]).forEach(function(n){var m=M[n];
+      V.setStyle({model:m,hetflag:false},{cartoon:{color:'#5d6b7a',opacity:0.85}});
+      V.setStyle({model:m,elem:'Fe'},{sphere:{radius:1.8,color:'#e84393'}});
+      if(AN.u)V.addStyle({model:m,resn:U,not:{atom:HAUPT}},{sphere:{radius:1.0,color:F.u}});
+      if(AN.neg)V.addStyle({model:m,resn:NEG,not:{atom:HAUPT}},{stick:{radius:.3,color:F.neg}});
+      if(AN.pos)V.addStyle({model:m,resn:POS,not:{atom:HAUPT}},{stick:{radius:.3,color:F.pos}});
+      if(AN.cys){V.addStyle({model:m,resn:'CYS',not:{atom:HAUPT}},{stick:{radius:.35,color:F.cys}});V.addStyle({model:m,resn:'CYS',atom:'SG'},{sphere:{radius:.8,color:F.cys}});}
+    });
+    V.removeAllShapes(); V.render();
+  }
+  var alleAn=false;
+  function geklickt(a){
+    if(alleAn){REIHE.forEach(function(n){if(M[n].getID()===a.model)aktiv=n})}
+    if(!aktiv||a.model!==M[aktiv].getID())return;
+    var r=a.resn, n=(AS[r]||r)+' '+a.resi+(aktiv==='legumin'?(a.chain==='A'?' (α-Kette)':' (β-Kette)'):'')+(alleAn?' in '+NAME[aktiv]:''), lage=ST[aktiv].innen[a.chain+':'+a.resi]?'liegt eher <b>innen</b>':'liegt eher <b>außen</b>', t;
+    if(U.indexOf(r)>=0)t='<b>'+n+'</b>: unpolare Seitenkette, '+lage+'. Sie bildet Van-der-Waals-Wechselwirkungen mit anderen unpolaren Seitenketten (unpolarer Kern). An einer Luftblase ragt sie bevorzugt in die Luft.';
+    else if(NEG.indexOf(r)>=0)t='<b>'+n+'</b>: saure Seitenkette, bei pH 6 als –COO<sup>−</sup>, '+lage+'. Ion-Ion-Wechselwirkung (Salzbrücke) mit –NH<sub>3</sub><sup>+</sup>, Ion-Dipol-Wechselwirkung mit Wasser. Was macht Zitronensaft daraus?';
+    else if(POS.indexOf(r)>=0)t='<b>'+n+'</b>: basische Seitenkette, bei pH 6 positiv geladen ('+(r==='LYS'?'–NH<sub>3</sub><sup>+</sup>':'Guanidinium-Gruppe')+'), '+lage+'. Salzbrücken mit –COO<sup>−</sup>, Hydrathülle.';
+    else if(r==='CYS')t='<b>'+n+'</b>: Cystein mit Thiolgruppe –SH, '+lage+'. Zwei Cysteine können eine Disulfidbrücke (Atombindung) bilden. Dieses Protein hat '+ST[aktiv].cys+' Cysteinreste und '+ST[aktiv].ss+' Disulfidbrücke(n) im Modell.';
+    else return;
+    info.innerHTML=(alleAn?TEXT.alle:TEXT[aktiv])+'<div class="klick">'+t+'</div>';
+    V.removeAllShapes(); V.addSphere({center:{x:a.x,y:a.y,z:a.z},radius:1.6,color:'#ffffff',opacity:.55}); V.render();
+  }
+  function zeige(n){
+    alleAn=n==='alle'; aktiv=alleAn?(aktiv||'vicilin'):n;
+    document.querySelectorAll('.bw-btn').forEach(function(b){b.classList.toggle('an',b.dataset.p===n)});
+    info.innerHTML=TEXT[n]+'<div class="klick" style="color:var(--grau)">Tippen Sie auf eine farbige Seitenkette.</div>';
+    if(!bereit)return; stil(); V.removeAllLabels();
+    if(alleAn){
+      REIHE.forEach(function(k){var p=POSL[k];V.addLabel(NAME[k],{position:{x:p.x,y:p.y,z:0},fontSize:13,fontColor:'#ffffff',backgroundColor:'#1d2a38',backgroundOpacity:.85,inFront:true,alignment:'center'})});
+      V.addLabel('Bohnenwasser',{position:{x:POSL.links,y:POSL.gB,z:0},fontSize:15,fontColor:'#ffffff',backgroundColor:'#2a7ab8',inFront:true,alignment:'centerLeft'});
+      V.addLabel('Eiklar',{position:{x:POSL.links,y:POSL.gE,z:0},fontSize:15,fontColor:'#ffffff',backgroundColor:'#2a7ab8',inFront:true,alignment:'centerLeft'});
+      V.setView([0,0,0,0,0,0,0,1]);
+      // auf die Quadermitte zentrieren (3Dmol nimmt sonst den Schwerpunkt)
+      var lo=[1e9,1e9,1e9], hi=[-1e9,-1e9,-1e9];
+      V.selectedAtoms({}).forEach(function(a){[a.x,a.y,a.z].forEach(function(v,i){lo[i]=Math.min(lo[i],v);hi[i]=Math.max(hi[i],v)})});
+      V.zoomTo({},0); var w=V.getView(); w[0]=-(lo[0]+hi[0])/2; w[1]=-(lo[1]+hi[1])/2; w[2]=-(lo[2]+hi[2])/2; V.setView(w);
+    } else V.zoomTo({model:M[n]});
+    V.render();
+  }
+  // Hauptachsen: längste Ausdehnung waagerecht, Mitte in den Ursprung (wie Sitzung 13), dann zwei Reihen nebeneinander
+  function ausrichten(m){
+    var at=m.selectedAtoms({}), n=at.length, c=[0,0,0];
+    at.forEach(function(a){c[0]+=a.x;c[1]+=a.y;c[2]+=a.z}); c=c.map(function(v){return v/n});
+    var C=[[0,0,0],[0,0,0],[0,0,0]];
+    at.forEach(function(a){var e=[a.x-c[0],a.y-c[1],a.z-c[2]];for(var i=0;i<3;i++)for(var j=0;j<3;j++)C[i][j]+=e[i]*e[j]});
+    function eig(C,v){for(var k=0;k<60;k++){var w=[0,1,2].map(function(i){return C[i][0]*v[0]+C[i][1]*v[1]+C[i][2]*v[2]});var l=Math.hypot(w[0],w[1],w[2]);v=w.map(function(x){return x/l})}return v}
+    var e1=eig(C,[1,0.3,0.2]);
+    var Ce1=[0,1,2].map(function(i){return C[i][0]*e1[0]+C[i][1]*e1[1]+C[i][2]*e1[2]}), l1=Ce1[0]*e1[0]+Ce1[1]*e1[1]+Ce1[2]*e1[2];
+    var C2=C.map(function(r,i){return r.map(function(x,j){return x-l1*e1[i]*e1[j]})});
+    var e2=eig(C2,[0.2,1,0.3]), e3=[e1[1]*e2[2]-e1[2]*e2[1],e1[2]*e2[0]-e1[0]*e2[2],e1[0]*e2[1]-e1[1]*e2[0]];
+    var ext=[[1e9,-1e9],[1e9,-1e9]];
+    at.forEach(function(a){var e=[a.x-c[0],a.y-c[1],a.z-c[2]];
+      var p=[e1,e2,e3].map(function(v){return e[0]*v[0]+e[1]*v[1]+e[2]*v[2]});
+      a.x=p[0];a.y=p[1];a.z=p[2];
+      for(var i=0;i<2;i++){ext[i][0]=Math.min(ext[i][0],p[i]);ext[i][1]=Math.max(ext[i][1],p[i])}});
+    return {b:ext[0][1]-ext[0][0], h:ext[1][1]-ext[1][0]};
+  }
+  function anordnen(){
+    var G={}; REIHE.forEach(function(n){G[n]=ausrichten(M[n])});
+    function reihe(liste,y){var x=-(liste.reduce(function(s,n){return s+G[n].b},0)+15*(liste.length-1))/2; POSL.links=Math.min(POSL.links||0,x);
+      liste.forEach(function(n){var mx=x+G[n].b/2;M[n].selectedAtoms({}).forEach(function(a){a.x+=mx;a.y+=y});POSL[n]={x:mx,y:y+(y>0?G[n].h/2+8:-G[n].h/2-8)};x+=G[n].b+15})}
+    var hB=Math.max.apply(null,BOHNE.map(function(n){return G[n].h})), hE=Math.max.apply(null,EI.map(function(n){return G[n].h}));
+    POSL.yB=hB/2+22; POSL.yE=-(hE/2+22); reihe(BOHNE,POSL.yB); reihe(EI,POSL.yE);
+    POSL.gB=POSL.yB+hB/2+26; POSL.gE=POSL.yE-hE/2-26;
+  }
+  function pz(a,b){return b?Math.round(100*a/b)+' %':'–'}
+  function tabelle(){
+    var h='<tr><th>Protein</th><th>Reste im Modell</th><th>unpolare Reste</th><th>Anteil unpolar innen</th><th>Anteil unpolar außen</th><th>sauer (Asp, Glu)</th><th>basisch (Lys, Arg)</th><th>Cys</th></tr>';
+    REIHE.forEach(function(n){var s=ST[n];
+      if(n===BOHNE[0])h+='<tr class="grp"><td colspan="8">Bohnenwasser (Kichererbse)</td></tr>';
+      if(n===EI[0])h+='<tr class="grp"><td colspan="8">Eiklar (Huhn)</td></tr>';
+      h+='<tr><td>'+NAME[n]+'</td><td>'+s.reste+'</td><td>'+s.u+'</td><td>'+pz(s.ui,s.ni)+'</td><td>'+pz(s.ua,s.na)+'</td><td>'+s.neg+'</td><td>'+s.pos+'</td><td>'+s.cys+'</td></tr>';});
+    tab.innerHTML=h+'<tr><td colspan="8" style="text-align:left;color:var(--grau);font-size:12.5px">Lesebeispiel: „Anteil unpolar innen“ = unpolare Reste unter allen innen liegenden Resten.</td></tr>';
+  }
+  var c=document.createElement('canvas'),gl=null;try{gl=c.getContext('webgl2')||c.getContext('webgl')}catch(e){}
+  if(!window.$3Dmol||!gl){nachricht('3D-Ansicht in diesem Browser nicht verfügbar (WebGL fehlt).');}
+  else{
+    Promise.all(REIHE.map(function(n){return fetch('bilder/'+DATEI[n]+'.pdb').then(function(r){if(!r.ok)throw 0;return r.text()})})).then(function(dat){
+      box.innerHTML='';
+      V=$3Dmol.createViewer(box,{backgroundColor:'#0b1118'});
+      REIHE.forEach(function(n,i){M[n]=V.addModel(dat[i],'pdb');ST[n]=auswerten(M[n]);V.setClickable({model:M[n]},true,function(a){geklickt(a)});});
+      tabelle(); anordnen(); bereit=true; zeige(aktiv||'vicilin');
+    }).catch(function(){nachricht('3D-Modelle konnten nicht geladen werden.')});
+  }
+  document.querySelectorAll('.bw-btn').forEach(function(b){b.addEventListener('click',function(){zeige(b.dataset.p)})});
+  document.querySelectorAll('.bw-s').forEach(function(b){b.addEventListener('click',function(){
+    AN[b.dataset.s]=!AN[b.dataset.s]; b.setAttribute('aria-pressed',AN[b.dataset.s]?'true':'false'); stil();})});
+  window.addEventListener('resize',function(){if(V){V.resize();V.render()}});
 })();
 
 </script>
